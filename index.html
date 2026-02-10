@@ -64,11 +64,111 @@
             color: var(--charcoal);
             min-height: 100vh;
             padding: 0;
+            padding-top: 80px;
             position: relative;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark-blue);
+            border-bottom: 4px solid var(--charcoal);
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 25px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border-right: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links li:last-child a {
+            border-right: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--red);
+            color: white;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--dark-blue);
+                flex-direction: column;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s;
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+            }
+
+            .nav-links a {
+                border-right: none;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            }
         }
 
         .page-wrapper {
@@ -83,7 +183,7 @@
         .ad-sidebar {
             flex: 0 0 160px;
             position: sticky;
-            top: 20px;
+            top: 90px;
             height: fit-content;
         }
 
@@ -161,67 +261,6 @@
             text-align: center;
             margin-bottom: 50px;
             animation: slideDown 0.6s ease-out;
-        }
-
-        .header-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 0;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .header-tabs button {
-            background: var(--paper);
-            border: 3px solid var(--charcoal);
-            border-right: none;
-            padding: 15px 35px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--charcoal);
-            text-transform: uppercase;
-            position: relative;
-        }
-
-        .header-tabs button:first-child {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        .header-tabs button:last-child {
-            border-right: 3px solid var(--charcoal);
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .header-tabs button:hover {
-            background: var(--cream);
-            transform: translateY(-3px);
-            z-index: 10;
-        }
-
-        .header-tabs button.active {
-            background: var(--red);
-            color: white;
-            border-color: var(--dark-blue);
-            transform: translateY(-3px);
-            z-index: 10;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .header-tabs button.active + button {
-            border-left-color: var(--dark-blue);
-        }
-
-        @media (max-width: 600px) {
-            .header-tabs button {
-                padding: 12px 20px;
-                font-size: 0.85rem;
-            }
         }
 
         @keyframes slideDown {
@@ -331,6 +370,46 @@
         .content-text a:hover {
             color: var(--dark-blue);
             border-bottom-color: var(--dark-blue);
+        }
+
+        /* Character Reference Guide */
+        .char-reference {
+            margin-bottom: 40px;
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .char-ref-item {
+            background: var(--cream);
+            border: 2px solid var(--charcoal);
+            padding: 10px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .char-ref-item:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .char-ref-cyrillic {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--dark-blue);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .char-ref-roman {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            font-weight: 600;
         }
 
         .character-groups {
@@ -495,6 +574,13 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
+        .cyrillic-char-lowercase {
+            font-size: 8rem;
+            color: var(--red);
+            opacity: 0.8;
+            margin-left: 20px;
+        }
+
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
@@ -615,6 +701,74 @@
             letter-spacing: 1px;
         }
 
+        /* Settings Styles */
+        .setting-item {
+            background: var(--cream);
+            border: 3px solid var(--charcoal);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .setting-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.3rem;
+        }
+
+        .setting-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--charcoal);
+            transition: 0.3s;
+            border: 3px solid var(--charcoal);
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--dark-blue);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+
         /* Footer */
         footer {
             width: 100%;
@@ -657,6 +811,10 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+
             h1 {
                 font-size: 3rem;
                 letter-spacing: 4px;
@@ -666,13 +824,35 @@
                 font-size: 8rem;
             }
 
+            .cyrillic-char-lowercase {
+                font-size: 5rem;
+            }
+
             input[type="text"] {
                 font-size: 1.5rem;
+            }
+
+            .reference-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo" onclick="showPage('home'); return false;">КИРИЛЛИЦА</a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#" class="active" onclick="showPage('home'); return false;">Home</a></li>
+                <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
+                <li><a href="#" onclick="showPage('settings'); return false;">Settings</a></li>
+                <li><a href="#" onclick="showPage('privacy'); return false;">Privacy</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="page-wrapper">
         <!-- Left Ad Sidebar -->
         <aside class="ad-sidebar left">
@@ -685,20 +865,18 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="container">
-                <!-- Main Header (visible on all pages) -->
-                <header>
-                    <h1>Кириллица</h1>
-                    <div class="subtitle">Master the Cyrillic Alphabet</div>
-                    <div class="header-tabs">
-                        <button class="active" onclick="showPage('home')">Home</button>
-                        <button onclick="showPage('about')">About</button>
-                        <button onclick="showPage('privacy')">Privacy</button>
-                        <button onclick="showPage('settings')">Settings</button>
-                    </div>
-                </header>
-
                 <!-- HOME PAGE -->
                 <div id="home-page" class="page-content active">
+                    <header>
+                        <h1>Кириллица</h1>
+                        <div class="subtitle">Master the Cyrillic Alphabet</div>
+                    </header>
+
+                    <!-- Character Reference Guide -->
+                    <div class="card char-reference">
+                        <h2>Character Reference</h2>
+                        <div id="reference-container"></div>
+                    </div>
 
                     <div id="setup-container" class="card">
                         <h2>Select Character Groups</h2>
@@ -714,7 +892,8 @@
                             </div>
 
                             <div class="character-display">
-                                <div class="cyrillic-char" id="current-char">А</div>
+                                <span class="cyrillic-char" id="current-char">А</span>
+                                <span class="cyrillic-char cyrillic-char-lowercase" id="current-char-lower" style="display: none;">а</span>
                             </div>
 
                             <div class="input-section">
@@ -796,6 +975,28 @@
                     </div>
                 </div>
 
+                <!-- SETTINGS PAGE -->
+                <div id="settings-page" class="page-content">
+                    <div class="card">
+                        <h2>Settings</h2>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Include Lowercase</h3>
+                                <p>Show lowercase letters alongside uppercase during quizzes</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="lowercase-toggle" onchange="toggleLowercase()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="content-text">
+                            <p><strong>Tip:</strong> Enable lowercase mode to familiarize yourself with both forms of each Cyrillic character. This is especially helpful when reading handwritten text or different fonts.</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- PRIVACY PAGE -->
                 <div id="privacy-page" class="page-content">
                     <div class="card">
@@ -860,19 +1061,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- SETTINGS PAGE -->
-                <div id="settings-page" class="page-content">
-                    <div class="card">
-                        <h2>Settings</h2>
-                        
-                        <div class="content-text" style="text-align: center; padding: 60px 20px;">
-                            <p style="font-size: 2rem; color: var(--dark-blue); margin-bottom: 20px;">⚙️</p>
-                            <p style="font-size: 1.5rem; font-weight: 600; color: var(--charcoal); margin-bottom: 10px;">Coming Soon</p>
-                            <p>We're working on adding customization options and settings to enhance your learning experience. Check back soon!</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         
@@ -892,11 +1080,38 @@
             <div class="footer-links">
                 <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a>
                 <a href="#" onclick="showPage('about'); return false;">About</a>
+                <a href="#" onclick="showPage('settings'); return false;">Settings</a>
             </div>
         </div>
     </footer>
 
     <script>
+        // Settings
+        let includeLowercase = false;
+
+        // Load settings from localStorage
+        function loadSettings() {
+            const saved = localStorage.getItem('includeLowercase');
+            if (saved !== null) {
+                includeLowercase = saved === 'true';
+                document.getElementById('lowercase-toggle').checked = includeLowercase;
+                updateLowercaseDisplay();
+            }
+        }
+
+        function toggleLowercase() {
+            includeLowercase = document.getElementById('lowercase-toggle').checked;
+            localStorage.setItem('includeLowercase', includeLowercase);
+            updateLowercaseDisplay();
+        }
+
+        function updateLowercaseDisplay() {
+            const lowerElement = document.getElementById('current-char-lower');
+            if (lowerElement) {
+                lowerElement.style.display = includeLowercase ? 'inline-block' : 'none';
+            }
+        }
+
         // Page navigation
         function showPage(pageName) {
             // Hide all pages
@@ -907,11 +1122,14 @@
             // Show selected page
             document.getElementById(pageName + '-page').classList.add('active');
             
-            // Update tab active state
-            document.querySelectorAll('.header-tabs button').forEach(btn => {
-                btn.classList.remove('active');
+            // Update nav active state
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
             });
             event.target.classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('nav-links').classList.remove('active');
             
             // Scroll to top
             window.scrollTo(0, 0);
@@ -923,63 +1141,67 @@
             }
         }
 
+        function toggleMenu() {
+            document.getElementById('nav-links').classList.toggle('active');
+        }
+
         // Cyrillic character data with romanizations
         const CYRILLIC_DATA = {
             vowels: {
                 title: 'Vowels',
                 chars: {
-                    'А': 'a',
-                    'Е': 'ye',
-                    'Ё': 'yo',
-                    'И': 'i',
-                    'О': 'o',
-                    'У': 'u',
-                    'Ы': 'y',
-                    'Э': 'e',
-                    'Ю': 'yu',
-                    'Я': 'ya'
+                    'А': { upper: 'А', lower: 'а', roman: 'a' },
+                    'Е': { upper: 'Е', lower: 'е', roman: 'ye' },
+                    'Ё': { upper: 'Ё', lower: 'ё', roman: 'yo' },
+                    'И': { upper: 'И', lower: 'и', roman: 'i' },
+                    'О': { upper: 'О', lower: 'о', roman: 'o' },
+                    'У': { upper: 'У', lower: 'у', roman: 'u' },
+                    'Ы': { upper: 'Ы', lower: 'ы', roman: 'y' },
+                    'Э': { upper: 'Э', lower: 'э', roman: 'e' },
+                    'Ю': { upper: 'Ю', lower: 'ю', roman: 'yu' },
+                    'Я': { upper: 'Я', lower: 'я', roman: 'ya' }
                 }
             },
             consonants_1: {
                 title: 'Consonants 1',
                 chars: {
-                    'Б': 'b',
-                    'В': 'v',
-                    'Г': 'g',
-                    'Д': 'd',
-                    'Ж': 'zh',
-                    'З': 'z'
+                    'Б': { upper: 'Б', lower: 'б', roman: 'b' },
+                    'В': { upper: 'В', lower: 'в', roman: 'v' },
+                    'Г': { upper: 'Г', lower: 'г', roman: 'g' },
+                    'Д': { upper: 'Д', lower: 'д', roman: 'd' },
+                    'Ж': { upper: 'Ж', lower: 'ж', roman: 'zh' },
+                    'З': { upper: 'З', lower: 'з', roman: 'z' }
                 }
             },
             consonants_2: {
                 title: 'Consonants 2',
                 chars: {
-                    'К': 'k',
-                    'Л': 'l',
-                    'М': 'm',
-                    'Н': 'n',
-                    'П': 'p',
-                    'Р': 'r'
+                    'К': { upper: 'К', lower: 'к', roman: 'k' },
+                    'Л': { upper: 'Л', lower: 'л', roman: 'l' },
+                    'М': { upper: 'М', lower: 'м', roman: 'm' },
+                    'Н': { upper: 'Н', lower: 'н', roman: 'n' },
+                    'П': { upper: 'П', lower: 'п', roman: 'p' },
+                    'Р': { upper: 'Р', lower: 'р', roman: 'r' }
                 }
             },
             consonants_3: {
                 title: 'Consonants 3',
                 chars: {
-                    'С': 's',
-                    'Т': 't',
-                    'Ф': 'f',
-                    'Х': 'kh',
-                    'Ц': 'ts',
-                    'Ч': 'ch'
+                    'С': { upper: 'С', lower: 'с', roman: 's' },
+                    'Т': { upper: 'Т', lower: 'т', roman: 't' },
+                    'Ф': { upper: 'Ф', lower: 'ф', roman: 'f' },
+                    'Х': { upper: 'Х', lower: 'х', roman: 'kh' },
+                    'Ц': { upper: 'Ц', lower: 'ц', roman: 'ts' },
+                    'Ч': { upper: 'Ч', lower: 'ч', roman: 'ch' }
                 }
             },
             consonants_4: {
                 title: 'Consonants 4',
                 chars: {
-                    'Ш': 'sh',
-                    'Щ': 'shch',
-                    'Ъ': '"',
-                    'Ь': "'",
+                    'Ш': { upper: 'Ш', lower: 'ш', roman: 'sh' },
+                    'Щ': { upper: 'Щ', lower: 'щ', roman: 'shch' },
+                    'Ъ': { upper: 'Ъ', lower: 'ъ', roman: '"' },
+                    'Ь': { upper: 'Ь', lower: 'ь', roman: "'" }
                 }
             }
         };
@@ -993,6 +1215,36 @@
         let incorrectCount = 0;
         let currentStreak = 0;
         let answered = false;
+
+        // Initialize character reference guide
+        function initReference() {
+            const container = document.getElementById('reference-container');
+            
+            Object.entries(CYRILLIC_DATA).forEach(([key, group]) => {
+                const section = document.createElement('div');
+                section.style.marginBottom = '30px';
+                
+                const title = document.createElement('h3');
+                title.textContent = group.title;
+                section.appendChild(title);
+                
+                const grid = document.createElement('div');
+                grid.className = 'reference-grid';
+                
+                Object.entries(group.chars).forEach(([letter, data]) => {
+                    const item = document.createElement('div');
+                    item.className = 'char-ref-item';
+                    item.innerHTML = `
+                        <span class="char-ref-cyrillic">${data.upper}</span>
+                        <span class="char-ref-roman">${data.roman}</span>
+                    `;
+                    grid.appendChild(item);
+                });
+                
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        }
 
         // Initialize character group selection
         function initGroups() {
@@ -1063,12 +1315,14 @@
             // Update display
             questionCount++;
             answered = false;
-            document.getElementById('current-char').textContent = currentChar;
+            document.getElementById('current-char').textContent = studyChars[currentChar].upper;
+            document.getElementById('current-char-lower').textContent = studyChars[currentChar].lower;
             document.getElementById('progress').textContent = `Question ${questionCount}`;
             document.getElementById('answer-input').value = '';
             document.getElementById('feedback').textContent = '';
             document.getElementById('answer-input').focus();
             
+            updateLowercaseDisplay();
             updateStats();
         }
 
@@ -1076,7 +1330,7 @@
             if (answered) return;
             
             const input = document.getElementById('answer-input').value.trim().toLowerCase();
-            const correct = studyChars[currentChar].toLowerCase();
+            const correct = studyChars[currentChar].roman.toLowerCase();
             const feedback = document.getElementById('feedback');
             
             answered = true;
@@ -1087,7 +1341,7 @@
                 correctCount++;
                 currentStreak++;
             } else {
-                feedback.textContent = `✗ Wrong. Correct: ${studyChars[currentChar]}`;
+                feedback.textContent = `✗ Wrong. Correct: ${studyChars[currentChar].roman}`;
                 feedback.className = 'feedback incorrect';
                 incorrectCount++;
                 currentStreak = 0;
@@ -1111,7 +1365,7 @@
 
         function skipQuestion() {
             const feedback = document.getElementById('feedback');
-            feedback.textContent = `Answer: ${studyChars[currentChar]}`;
+            feedback.textContent = `Answer: ${studyChars[currentChar].roman}`;
             feedback.className = 'feedback';
             answered = true;
             
@@ -1136,6 +1390,8 @@
         document.getElementById('new-session-btn').addEventListener('click', newSession);
 
         // Initialize app
+        loadSettings();
+        initReference();
         initGroups();
     </script>
 </body>
