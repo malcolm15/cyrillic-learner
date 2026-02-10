@@ -377,59 +377,18 @@
             margin-bottom: 40px;
         }
 
-        .reference-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .char-ref-item {
+        .reference-section {
+            margin-bottom: 30px;
             background: var(--cream);
-            border: 2px solid var(--charcoal);
-            padding: 10px;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .char-ref-item:hover {
-            background: var(--gold);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .char-ref-cyrillic {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--dark-blue);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .char-ref-roman {
-            font-size: 0.9rem;
-            color: var(--charcoal);
-            font-weight: 600;
-        }
-
-        .character-groups {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .group-option {
-            background: var(--cream);
-            border: 3px solid var(--charcoal);
-            padding: 15px;
+            border: 4px solid var(--charcoal);
+            padding: 20px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        .group-option::after {
+        .reference-section::after {
             content: '';
             position: absolute;
             top: 0;
@@ -441,45 +400,89 @@
             z-index: 0;
         }
 
-        .group-option:hover::after {
+        .reference-section:hover::after {
             left: 0;
         }
 
-        .group-option:hover {
+        .reference-section:hover {
             transform: translateX(4px) translateY(-4px);
             box-shadow: -4px 4px 0 var(--dark-blue);
         }
 
-        .group-option.selected {
-            background: var(--red);
+        .reference-section:hover .section-title,
+        .reference-section:hover .char-ref-item {
             color: white;
+        }
+
+        .reference-section.selected {
+            background: var(--red);
             border-color: var(--dark-blue);
         }
 
-        .group-option.selected::after {
+        .reference-section.selected::after {
             left: 0;
         }
 
-        .group-content {
+        .reference-section.selected .section-title {
+            color: white;
+        }
+
+        .reference-section.selected .char-ref-item {
+            color: white;
+            border-color: white;
+        }
+
+        .reference-section.selected .char-ref-cyrillic {
+            color: white;
+        }
+
+        .reference-section.selected .char-ref-roman {
+            color: white;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s;
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
             position: relative;
             z-index: 1;
         }
 
-        .group-option:hover .group-content {
-            color: white;
+        .char-ref-item {
+            background: transparent;
+            border: 2px solid var(--charcoal);
+            padding: 10px;
+            text-align: center;
+            transition: all 0.2s;
+            pointer-events: none;
         }
 
-        .group-title {
+        .char-ref-cyrillic {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--dark-blue);
+            display: block;
+            margin-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        .char-ref-roman {
+            font-size: 0.9rem;
+            color: var(--charcoal);
             font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .group-chars {
-            font-size: 1.3rem;
-            letter-spacing: 4px;
-            opacity: 0.8;
+            transition: color 0.3s;
         }
 
         .start-btn {
@@ -872,15 +875,11 @@
                         <div class="subtitle">Master the Cyrillic Alphabet</div>
                     </header>
 
-                    <!-- Character Reference Guide -->
+                    <!-- Combined Character Reference & Selection -->
                     <div class="card char-reference">
-                        <h2>Character Reference</h2>
+                        <h2>Select Characters to Study</h2>
+                        <p class="content-text" style="margin-bottom: 20px;">Click on a group below to select it for practice. Selected groups will be highlighted in red.</p>
                         <div id="reference-container"></div>
-                    </div>
-
-                    <div id="setup-container" class="card">
-                        <h2>Select Character Groups</h2>
-                        <div class="character-groups" id="character-groups"></div>
                         <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
                     </div>
 
@@ -908,7 +907,8 @@
 
                             <div class="action-buttons">
                                 <button class="btn" id="skip-btn">Skip</button>
-                                <button class="btn" id="new-session-btn">New Session</button>
+                                <button class="btn" id="reset-btn">Reset</button>
+                                <button class="btn" id="home-btn">Home</button>
                             </div>
 
                             <div class="stats">
@@ -1136,8 +1136,10 @@
             
             // Reset quiz if navigating away from home
             if (pageName !== 'home') {
-                document.getElementById('setup-container').style.display = 'block';
-                document.getElementById('quiz-container').classList.remove('active');
+                const refCard = document.querySelector('.char-reference');
+                if (refCard) refCard.style.display = 'block';
+                const quizContainer = document.getElementById('quiz-container');
+                if (quizContainer) quizContainer.classList.remove('active');
             }
         }
 
@@ -1147,15 +1149,20 @@
 
         // Cyrillic character data with romanizations
         const CYRILLIC_DATA = {
-            vowels: {
-                title: 'Vowels',
+            vowels_1: {
+                title: 'Vowels 1',
                 chars: {
                     'А': { upper: 'А', lower: 'а', roman: 'a' },
                     'Е': { upper: 'Е', lower: 'е', roman: 'ye' },
-                    'Ё': { upper: 'Ё', lower: 'ё', roman: 'yo' },
                     'И': { upper: 'И', lower: 'и', roman: 'i' },
                     'О': { upper: 'О', lower: 'о', roman: 'o' },
-                    'У': { upper: 'У', lower: 'у', roman: 'u' },
+                    'У': { upper: 'У', lower: 'у', roman: 'u' }
+                }
+            },
+            vowels_2: {
+                title: 'Vowels 2',
+                chars: {
+                    'Ё': { upper: 'Ё', lower: 'ё', roman: 'yo' },
                     'Ы': { upper: 'Ы', lower: 'ы', roman: 'y' },
                     'Э': { upper: 'Э', lower: 'э', roman: 'e' },
                     'Ю': { upper: 'Ю', lower: 'ю', roman: 'yu' },
@@ -1216,15 +1223,17 @@
         let currentStreak = 0;
         let answered = false;
 
-        // Initialize character reference guide
+        // Initialize character reference guide (now also handles selection)
         function initReference() {
             const container = document.getElementById('reference-container');
             
             Object.entries(CYRILLIC_DATA).forEach(([key, group]) => {
                 const section = document.createElement('div');
-                section.style.marginBottom = '30px';
+                section.className = 'reference-section';
+                section.dataset.group = key;
                 
-                const title = document.createElement('h3');
+                const title = document.createElement('div');
+                title.className = 'section-title';
                 title.textContent = group.title;
                 section.appendChild(title);
                 
@@ -1242,29 +1251,11 @@
                 });
                 
                 section.appendChild(grid);
+                
+                // Add click handler for group selection
+                section.addEventListener('click', () => toggleGroup(key, section));
+                
                 container.appendChild(section);
-            });
-        }
-
-        // Initialize character group selection
-        function initGroups() {
-            const container = document.getElementById('character-groups');
-            
-            Object.entries(CYRILLIC_DATA).forEach(([key, group]) => {
-                const groupDiv = document.createElement('div');
-                groupDiv.className = 'group-option';
-                groupDiv.dataset.group = key;
-                
-                const chars = Object.keys(group.chars).join(' ');
-                groupDiv.innerHTML = `
-                    <div class="group-content">
-                        <div class="group-title">${group.title}</div>
-                        <div class="group-chars">${chars}</div>
-                    </div>
-                `;
-                
-                groupDiv.addEventListener('click', () => toggleGroup(key, groupDiv));
-                container.appendChild(groupDiv);
             });
         }
 
@@ -1298,8 +1289,8 @@
             incorrectCount = 0;
             currentStreak = 0;
             
-            // Show quiz interface
-            document.getElementById('setup-container').style.display = 'none';
+            // Hide reference and show quiz
+            document.querySelector('.char-reference').style.display = 'none';
             document.getElementById('quiz-container').classList.add('active');
             
             // Load first question
@@ -1369,13 +1360,25 @@
             feedback.className = 'feedback';
             answered = true;
             
+            // Count skip as incorrect and reset streak
+            incorrectCount++;
+            currentStreak = 0;
+            updateStats();
+            
             setTimeout(() => {
                 nextQuestion();
             }, 1500);
         }
 
+        function resetStats() {
+            correctCount = 0;
+            incorrectCount = 0;
+            currentStreak = 0;
+            updateStats();
+        }
+
         function newSession() {
-            document.getElementById('setup-container').style.display = 'block';
+            document.querySelector('.char-reference').style.display = 'block';
             document.getElementById('quiz-container').classList.remove('active');
         }
 
@@ -1387,12 +1390,12 @@
             }
         });
         document.getElementById('skip-btn').addEventListener('click', skipQuestion);
-        document.getElementById('new-session-btn').addEventListener('click', newSession);
+        document.getElementById('reset-btn').addEventListener('click', resetStats);
+        document.getElementById('home-btn').addEventListener('click', newSession);
 
         // Initialize app
         loadSettings();
         initReference();
-        initGroups();
     </script>
 </body>
 </html>
