@@ -1,9 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+    GOOGLE ADSENSE INTEGRATION INSTRUCTIONS:
+    
+    Once you're approved for Google AdSense:
+    1. Log into your AdSense account
+    2. Create a new ad unit (Display ads → Vertical)
+    3. Choose size: 160x600 (Wide Skyscraper)
+    4. Copy the ad code Google provides
+    5. Replace the .ad-placeholder divs (lines ~520 and ~580) with your ad code
+    
+    The ad placeholders are located in two places:
+    - Left sidebar: Search for "Left Ad Sidebar"
+    - Right sidebar: Search for "Right Ad Sidebar"
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyrillic Learner</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZ9MYG6HGE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WZ9MYG6HGE');
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Merriweather:wght@300&display=swap" rel="stylesheet">
@@ -28,9 +52,66 @@
             background: linear-gradient(135deg, var(--cream) 0%, #E8E4D9 100%);
             color: var(--charcoal);
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
             position: relative;
             overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .page-wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .ad-sidebar {
+            flex: 0 0 160px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .ad-sidebar.left {
+            order: 1;
+        }
+
+        .main-content {
+            flex: 1;
+            order: 2;
+            min-width: 0;
+        }
+
+        .ad-sidebar.right {
+            order: 3;
+        }
+
+        .ad-placeholder {
+            background: rgba(255, 255, 255, 0.5);
+            border: 3px dashed var(--charcoal);
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            opacity: 0.6;
+        }
+
+        /* Hide ads on mobile */
+        @media (max-width: 1100px) {
+            .ad-sidebar {
+                display: none;
+            }
+            
+            .page-wrapper {
+                justify-content: center;
+            }
         }
 
         /* Decorative background pattern */
@@ -50,8 +131,7 @@
         }
 
         .container {
-            max-width: 900px;
-            margin: 0 auto;
+            width: 100%;
             position: relative;
             z-index: 1;
         }
@@ -443,60 +523,81 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Кириллица</h1>
-            <div class="subtitle">Master the Cyrillic Alphabet</div>
-        </header>
+    <div class="page-wrapper">
+        <!-- Left Ad Sidebar -->
+        <aside class="ad-sidebar left">
+            <div class="ad-placeholder">
+                <!-- Replace this div with AdSense code when approved -->
+                <div>Ad Space<br>160x600</div>
+            </div>
+        </aside>
 
-        <div id="setup-container" class="card">
-            <h2>Select Character Groups</h2>
-            <div class="character-groups" id="character-groups"></div>
-            <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
-        </div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="container">
+                <header>
+                    <h1>Кириллица</h1>
+                    <div class="subtitle">Master the Cyrillic Alphabet</div>
+                </header>
 
-        <div id="quiz-container">
-            <div class="card">
-                <div class="quiz-header">
-                    <div class="score" id="score">Score: 0/0</div>
-                    <div class="progress" id="progress">Question 1</div>
+                <div id="setup-container" class="card">
+                    <h2>Select Character Groups</h2>
+                    <div class="character-groups" id="character-groups"></div>
+                    <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
                 </div>
 
-                <div class="character-display">
-                    <div class="cyrillic-char" id="current-char">А</div>
-                </div>
+                <div id="quiz-container">
+                    <div class="card">
+                        <div class="quiz-header">
+                            <div class="score" id="score">Score: 0/0</div>
+                            <div class="progress" id="progress">Question 1</div>
+                        </div>
 
-                <div class="input-section">
-                    <input 
-                        type="text" 
-                        id="answer-input" 
-                        placeholder="Type romanization..."
-                        autocomplete="off"
-                    />
-                    <div class="feedback" id="feedback"></div>
-                </div>
+                        <div class="character-display">
+                            <div class="cyrillic-char" id="current-char">А</div>
+                        </div>
 
-                <div class="action-buttons">
-                    <button class="btn" id="skip-btn">Skip</button>
-                    <button class="btn" id="new-session-btn">New Session</button>
-                </div>
+                        <div class="input-section">
+                            <input 
+                                type="text" 
+                                id="answer-input" 
+                                placeholder="Type romanization..."
+                                autocomplete="off"
+                            />
+                            <div class="feedback" id="feedback"></div>
+                        </div>
 
-                <div class="stats">
-                    <div class="stat-item">
-                        <span class="stat-value" id="correct-count">0</span>
-                        <span class="stat-label">Correct</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="incorrect-count">0</span>
-                        <span class="stat-label">Incorrect</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="streak-count">0</span>
-                        <span class="stat-label">Streak</span>
+                        <div class="action-buttons">
+                            <button class="btn" id="skip-btn">Skip</button>
+                            <button class="btn" id="new-session-btn">New Session</button>
+                        </div>
+
+                        <div class="stats">
+                            <div class="stat-item">
+                                <span class="stat-value" id="correct-count">0</span>
+                                <span class="stat-label">Correct</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="incorrect-count">0</span>
+                                <span class="stat-label">Incorrect</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="streak-count">0</span>
+                                <span class="stat-label">Streak</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Right Ad Sidebar -->
+        <aside class="ad-sidebar right">
+            <div class="ad-placeholder">
+                <!-- Replace this div with AdSense code when approved -->
+                <div>Ad Space<br>160x600</div>
+            </div>
+        </aside>
     </div>
 
     <script>
