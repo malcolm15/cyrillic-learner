@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyrillic Learner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Merriweather:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #F5F1E8;
+            --red: #D32F2F;
+            --dark-blue: #1A237E;
+            --gold: #FFC107;
+            --charcoal: #2C2C2C;
+            --paper: #FDFBF7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: linear-gradient(135deg, var(--cream) 0%, #E8E4D9 100%);
+            color: var(--charcoal);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Decorative background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, var(--charcoal) 35px, var(--charcoal) 36px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, var(--charcoal) 35px, var(--charcoal) 36px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            letter-spacing: 8px;
+            color: var(--dark-blue);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 var(--gold);
+            line-height: 0.9;
+        }
+
+        .subtitle {
+            font-family: 'Merriweather', serif;
+            font-size: 1.1rem;
+            color: var(--red);
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        .card {
+            background: var(--paper);
+            border: 4px solid var(--charcoal);
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            animation: fadeIn 0.6s ease-out;
+            animation-delay: 0.2s;
+            animation-fill-mode: backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, var(--red), var(--gold), var(--dark-blue));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 0.1;
+        }
+
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: var(--dark-blue);
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--red);
+            padding-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .character-groups {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .group-option {
+            background: var(--cream);
+            border: 3px solid var(--charcoal);
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .group-option::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--red);
+            transition: left 0.3s;
+            z-index: 0;
+        }
+
+        .group-option:hover::after {
+            left: 0;
+        }
+
+        .group-option:hover {
+            transform: translateX(4px) translateY(-4px);
+            box-shadow: -4px 4px 0 var(--dark-blue);
+        }
+
+        .group-option.selected {
+            background: var(--red);
+            color: white;
+            border-color: var(--dark-blue);
+        }
+
+        .group-option.selected::after {
+            left: 0;
+        }
+
+        .group-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .group-option:hover .group-content {
+            color: white;
+        }
+
+        .group-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .group-chars {
+            font-size: 1.3rem;
+            letter-spacing: 4px;
+            opacity: 0.8;
+        }
+
+        .start-btn {
+            background: var(--dark-blue);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            box-shadow: 5px 5px 0 var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .start-btn:not(:disabled):hover {
+            background: var(--red);
+            transform: translateX(2px) translateY(-2px);
+            box-shadow: 3px 7px 0 var(--charcoal);
+        }
+
+        .start-btn:not(:disabled):active {
+            transform: translateX(5px) translateY(5px);
+            box-shadow: 0 0 0 var(--charcoal);
+        }
+
+        #quiz-container {
+            display: none;
+        }
+
+        #quiz-container.active {
+            display: block;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .score {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: var(--gold);
+            border: 3px solid var(--charcoal);
+            letter-spacing: 1px;
+        }
+
+        .progress {
+            font-size: 1rem;
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        .character-display {
+            text-align: center;
+            margin: 60px 0;
+            animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .cyrillic-char {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12rem;
+            color: var(--dark-blue);
+            text-shadow: 6px 6px 0 var(--gold);
+            line-height: 1;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .input-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        input[type="text"] {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2rem;
+            padding: 20px;
+            border: 4px solid var(--charcoal);
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--dark-blue);
+            box-shadow: 0 0 0 4px rgba(26, 35, 126, 0.1);
+            transform: scale(1.02);
+        }
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            min-height: 40px;
+            letter-spacing: 1px;
+            animation: bounceIn 0.4s;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .feedback.correct {
+            color: #2E7D32;
+        }
+
+        .feedback.incorrect {
+            color: var(--red);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            padding: 15px 35px;
+            border: 3px solid var(--charcoal);
+            background: var(--paper);
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: var(--charcoal);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            background: var(--cream);
+            border: 3px solid var(--charcoal);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--red);
+            display: block;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+                letter-spacing: 4px;
+            }
+
+            .cyrillic-char {
+                font-size: 8rem;
+            }
+
+            input[type="text"] {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Кириллица</h1>
+            <div class="subtitle">Master the Cyrillic Alphabet</div>
+        </header>
+
+        <div id="setup-container" class="card">
+            <h2>Select Character Groups</h2>
+            <div class="character-groups" id="character-groups"></div>
+            <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
+        </div>
+
+        <div id="quiz-container">
+            <div class="card">
+                <div class="quiz-header">
+                    <div class="score" id="score">Score: 0/0</div>
+                    <div class="progress" id="progress">Question 1</div>
+                </div>
+
+                <div class="character-display">
+                    <div class="cyrillic-char" id="current-char">А</div>
+                </div>
+
+                <div class="input-section">
+                    <input 
+                        type="text" 
+                        id="answer-input" 
+                        placeholder="Type romanization..."
+                        autocomplete="off"
+                    />
+                    <div class="feedback" id="feedback"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn" id="skip-btn">Skip</button>
+                    <button class="btn" id="new-session-btn">New Session</button>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="correct-count">0</span>
+                        <span class="stat-label">Correct</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="incorrect-count">0</span>
+                        <span class="stat-label">Incorrect</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="streak-count">0</span>
+                        <span class="stat-label">Streak</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cyrillic character data with romanizations
+        const CYRILLIC_DATA = {
+            vowels: {
+                title: 'Vowels',
+                chars: {
+                    'А': 'a',
+                    'Е': 'ye',
+                    'Ё': 'yo',
+                    'И': 'i',
+                    'О': 'o',
+                    'У': 'u',
+                    'Ы': 'y',
+                    'Э': 'e',
+                    'Ю': 'yu',
+                    'Я': 'ya'
+                }
+            },
+            consonants_1: {
+                title: 'Consonants 1',
+                chars: {
+                    'Б': 'b',
+                    'В': 'v',
+                    'Г': 'g',
+                    'Д': 'd',
+                    'Ж': 'zh',
+                    'З': 'z'
+                }
+            },
+            consonants_2: {
+                title: 'Consonants 2',
+                chars: {
+                    'К': 'k',
+                    'Л': 'l',
+                    'М': 'm',
+                    'Н': 'n',
+                    'П': 'p',
+                    'Р': 'r'
+                }
+            },
+            consonants_3: {
+                title: 'Consonants 3',
+                chars: {
+                    'С': 's',
+                    'Т': 't',
+                    'Ф': 'f',
+                    'Х': 'kh',
+                    'Ц': 'ts',
+                    'Ч': 'ch'
+                }
+            },
+            consonants_4: {
+                title: 'Consonants 4',
+                chars: {
+                    'Ш': 'sh',
+                    'Щ': 'shch',
+                    'Ъ': '"',
+                    'Ь': "'",
+                }
+            }
+        };
+
+        // App state
+        let selectedGroups = new Set();
+        let studyChars = {};
+        let currentChar = null;
+        let questionCount = 0;
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let currentStreak = 0;
+        let answered = false;
+
+        // Initialize character group selection
+        function initGroups() {
+            const container = document.getElementById('character-groups');
+            
+            Object.entries(CYRILLIC_DATA).forEach(([key, group]) => {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'group-option';
+                groupDiv.dataset.group = key;
+                
+                const chars = Object.keys(group.chars).join(' ');
+                groupDiv.innerHTML = `
+                    <div class="group-content">
+                        <div class="group-title">${group.title}</div>
+                        <div class="group-chars">${chars}</div>
+                    </div>
+                `;
+                
+                groupDiv.addEventListener('click', () => toggleGroup(key, groupDiv));
+                container.appendChild(groupDiv);
+            });
+        }
+
+        function toggleGroup(groupKey, element) {
+            if (selectedGroups.has(groupKey)) {
+                selectedGroups.delete(groupKey);
+                element.classList.remove('selected');
+            } else {
+                selectedGroups.add(groupKey);
+                element.classList.add('selected');
+            }
+            
+            updateStartButton();
+        }
+
+        function updateStartButton() {
+            const btn = document.getElementById('start-btn');
+            btn.disabled = selectedGroups.size === 0;
+        }
+
+        function startQuiz() {
+            // Build study character set
+            studyChars = {};
+            selectedGroups.forEach(groupKey => {
+                Object.assign(studyChars, CYRILLIC_DATA[groupKey].chars);
+            });
+            
+            // Reset stats
+            questionCount = 0;
+            correctCount = 0;
+            incorrectCount = 0;
+            currentStreak = 0;
+            
+            // Show quiz interface
+            document.getElementById('setup-container').style.display = 'none';
+            document.getElementById('quiz-container').classList.add('active');
+            
+            // Load first question
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            // Pick random character
+            const chars = Object.keys(studyChars);
+            const randomChar = chars[Math.floor(Math.random() * chars.length)];
+            currentChar = randomChar;
+            
+            // Update display
+            questionCount++;
+            answered = false;
+            document.getElementById('current-char').textContent = currentChar;
+            document.getElementById('progress').textContent = `Question ${questionCount}`;
+            document.getElementById('answer-input').value = '';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('answer-input').focus();
+            
+            updateStats();
+        }
+
+        function checkAnswer() {
+            if (answered) return;
+            
+            const input = document.getElementById('answer-input').value.trim().toLowerCase();
+            const correct = studyChars[currentChar].toLowerCase();
+            const feedback = document.getElementById('feedback');
+            
+            answered = true;
+            
+            if (input === correct) {
+                feedback.textContent = '✓ Correct!';
+                feedback.className = 'feedback correct';
+                correctCount++;
+                currentStreak++;
+            } else {
+                feedback.textContent = `✗ Wrong. Correct: ${studyChars[currentChar]}`;
+                feedback.className = 'feedback incorrect';
+                incorrectCount++;
+                currentStreak = 0;
+            }
+            
+            updateStats();
+            
+            // Auto-advance after delay
+            setTimeout(() => {
+                nextQuestion();
+            }, 1500);
+        }
+
+        function updateStats() {
+            const total = correctCount + incorrectCount;
+            document.getElementById('score').textContent = `Score: ${correctCount}/${total}`;
+            document.getElementById('correct-count').textContent = correctCount;
+            document.getElementById('incorrect-count').textContent = incorrectCount;
+            document.getElementById('streak-count').textContent = currentStreak;
+        }
+
+        function skipQuestion() {
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = `Answer: ${studyChars[currentChar]}`;
+            feedback.className = 'feedback';
+            answered = true;
+            
+            setTimeout(() => {
+                nextQuestion();
+            }, 1500);
+        }
+
+        function newSession() {
+            document.getElementById('setup-container').style.display = 'block';
+            document.getElementById('quiz-container').classList.remove('active');
+        }
+
+        // Event listeners
+        document.getElementById('start-btn').addEventListener('click', startQuiz);
+        document.getElementById('answer-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+        document.getElementById('skip-btn').addEventListener('click', skipQuestion);
+        document.getElementById('new-session-btn').addEventListener('click', newSession);
+
+        // Initialize app
+        initGroups();
+    </script>
+</body>
+</html>
