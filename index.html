@@ -8,7 +8,7 @@
     2. Create a new ad unit (Display ads → Vertical)
     3. Choose size: 160x600 (Wide Skyscraper)
     4. Copy the ad code Google provides
-    5. Replace the .ad-placeholder divs (lines ~520 and ~580) with your ad code
+    5. Replace the .ad-placeholder divs with your ad code
     
     The ad placeholders are located in two places:
     - Left sidebar: Search for "Left Ad Sidebar"
@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyrillic Learner</title>
+    <title>Cyrilica - Learn the Cyrillic Alphabet</title>
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZ9MYG6HGE"></script>
@@ -60,8 +60,8 @@
             position: relative;
             overflow-x: hidden;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
         }
 
         .page-wrapper {
@@ -70,6 +70,7 @@
             max-width: 1400px;
             gap: 20px;
             padding: 20px;
+            flex: 1;
         }
 
         .ad-sidebar {
@@ -140,10 +141,80 @@
             z-index: 1;
         }
 
+        /* Page content styles */
+        .page-content {
+            display: none;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
         header {
             text-align: center;
             margin-bottom: 50px;
             animation: slideDown 0.6s ease-out;
+        }
+
+        .header-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-tabs button {
+            background: var(--paper);
+            border: 3px solid var(--charcoal);
+            border-right: none;
+            padding: 15px 35px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--charcoal);
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .header-tabs button:first-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .header-tabs button:last-child {
+            border-right: 3px solid var(--charcoal);
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .header-tabs button:hover {
+            background: var(--cream);
+            transform: translateY(-3px);
+            z-index: 10;
+        }
+
+        .header-tabs button.active {
+            background: var(--red);
+            color: white;
+            border-color: var(--dark-blue);
+            transform: translateY(-3px);
+            z-index: 10;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-tabs button.active + button {
+            border-left-color: var(--dark-blue);
+        }
+
+        @media (max-width: 600px) {
+            .header-tabs button {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
         }
 
         @keyframes slideDown {
@@ -226,6 +297,33 @@
             border-bottom: 3px solid var(--red);
             padding-bottom: 10px;
             text-transform: uppercase;
+        }
+
+        h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--dark-blue);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .content-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .content-text a {
+            color: var(--red);
+            text-decoration: none;
+            border-bottom: 2px solid var(--red);
+            transition: all 0.2s;
+        }
+
+        .content-text a:hover {
+            color: var(--dark-blue);
+            border-bottom-color: var(--dark-blue);
         }
 
         .character-groups {
@@ -510,6 +608,47 @@
             letter-spacing: 1px;
         }
 
+        /* Footer */
+        footer {
+            width: 100%;
+            background: var(--charcoal);
+            color: white;
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 4px solid var(--dark-blue);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 3rem;
@@ -539,56 +678,191 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="container">
+                <!-- Main Header (visible on all pages) -->
                 <header>
                     <h1>Кириллица</h1>
                     <div class="subtitle">Master the Cyrillic Alphabet</div>
+                    <div class="header-tabs">
+                        <button class="active" onclick="showPage('home')">Home</button>
+                        <button onclick="showPage('about')">About</button>
+                        <button onclick="showPage('privacy')">Privacy</button>
+                        <button onclick="showPage('settings')">Settings</button>
+                    </div>
                 </header>
 
-                <div id="setup-container" class="card">
-                    <h2>Select Character Groups</h2>
-                    <div class="character-groups" id="character-groups"></div>
-                    <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
+                <!-- HOME PAGE -->
+                <div id="home-page" class="page-content active">
+
+                    <div id="setup-container" class="card">
+                        <h2>Select Character Groups</h2>
+                        <div class="character-groups" id="character-groups"></div>
+                        <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
+                    </div>
+
+                    <div id="quiz-container">
+                        <div class="card">
+                            <div class="quiz-header">
+                                <div class="score" id="score">Score: 0/0</div>
+                                <div class="progress" id="progress">Question 1</div>
+                            </div>
+
+                            <div class="character-display">
+                                <div class="cyrillic-char" id="current-char">А</div>
+                            </div>
+
+                            <div class="input-section">
+                                <input 
+                                    type="text" 
+                                    id="answer-input" 
+                                    placeholder="Type romanization..."
+                                    autocomplete="off"
+                                />
+                                <div class="feedback" id="feedback"></div>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button class="btn" id="skip-btn">Skip</button>
+                                <button class="btn" id="new-session-btn">New Session</button>
+                            </div>
+
+                            <div class="stats">
+                                <div class="stat-item">
+                                    <span class="stat-value" id="correct-count">0</span>
+                                    <span class="stat-label">Correct</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="incorrect-count">0</span>
+                                    <span class="stat-label">Incorrect</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="streak-count">0</span>
+                                    <span class="stat-label">Streak</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="quiz-container">
+                <!-- ABOUT PAGE -->
+                <div id="about-page" class="page-content">
                     <div class="card">
-                        <div class="quiz-header">
-                            <div class="score" id="score">Score: 0/0</div>
-                            <div class="progress" id="progress">Question 1</div>
+                        <h2>About Cyrilica</h2>
+                        
+                        <div class="content-text">
+                            <p>Hey there! I'm a language learner who got frustrated trying to find a simple, no-nonsense tool to learn the Cyrillic alphabet. Everything I found was either overcomplicated, buried in language learning apps I didn't want to pay for, or just didn't work the way I needed it to.</p>
                         </div>
 
-                        <div class="character-display">
-                            <div class="cyrillic-char" id="current-char">А</div>
+                        <div class="content-text">
+                            <p>So I decided to build the tool I wished existed. Something straightforward: you pick which letters you want to practice, the app shows you a character, you type what it sounds like, and you get instant feedback. That's it. No fluff, no subscriptions, no annoying popups asking you to upgrade.</p>
                         </div>
 
-                        <div class="input-section">
-                            <input 
-                                type="text" 
-                                id="answer-input" 
-                                placeholder="Type romanization..."
-                                autocomplete="off"
-                            />
-                            <div class="feedback" id="feedback"></div>
+                        <div class="content-text">
+                            <p>I built this mostly for myself while learning Russian, but honestly? If it helps even one other person out there trying to wrap their head around Cyrillic, that's awesome. Learning a new alphabet can feel overwhelming at first, but breaking it down into small groups and just drilling the basics makes it so much more manageable.</p>
                         </div>
 
-                        <div class="action-buttons">
-                            <button class="btn" id="skip-btn">Skip</button>
-                            <button class="btn" id="new-session-btn">New Session</button>
+                        <h3>Why Cyrillic?</h3>
+                        <div class="content-text">
+                            <p>The Cyrillic script is used by over 250 million people worldwide. It's the writing system for Russian, Ukrainian, Bulgarian, Serbian, and many other languages. Once you get past the initial "these letters look weird" phase, it's actually pretty logical and consistent.</p>
                         </div>
 
-                        <div class="stats">
-                            <div class="stat-item">
-                                <span class="stat-value" id="correct-count">0</span>
-                                <span class="stat-label">Correct</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value" id="incorrect-count">0</span>
-                                <span class="stat-label">Incorrect</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value" id="streak-count">0</span>
-                                <span class="stat-label">Streak</span>
-                            </div>
+                        <div class="content-text">
+                            <p>Plus, there's something really satisfying about being able to read signs and menus in a whole new script. It feels like unlocking a secret code.</p>
+                        </div>
+
+                        <h3>How It Works</h3>
+                        <div class="content-text">
+                            <p>The concept is dead simple: choose which character groups you want to study (vowels, consonants, whatever), click "Begin Learning," and start typing. The app will randomly quiz you on those characters. Get it right, your streak goes up. Get it wrong, you see the correct answer and keep going.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>There's no complicated spaced repetition algorithm or points system—just you, the letters, and honest practice. Sometimes the simplest approach is the best one.</p>
+                        </div>
+
+                        <h3>Keep Practicing</h3>
+                        <div class="content-text">
+                            <p>Learning an alphabet takes repetition. Don't get discouraged if some letters don't stick right away (looking at you, Ы and Щ). Just keep at it, practice a little bit every day, and before you know it, you'll be reading Cyrillic like it's second nature.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>Good luck with your learning, and thanks for using Cyrilica!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRIVACY PAGE -->
+                <div id="privacy-page" class="page-content">
+                    <div class="card">
+                        <h2>Privacy Policy</h2>
+                        
+                        <div class="content-text">
+                            <p><strong>Last updated: February 10, 2026</strong></p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>Cyrilica is a simple learning tool, and we want to be completely transparent about what data is collected when you use this site.</p>
+                        </div>
+
+                        <h3>What We Collect</h3>
+                        <div class="content-text">
+                            <p>Cyrilica itself doesn't directly collect, store, or process any personal information. However, this site uses third-party services that may collect data:</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p><strong>Google Analytics:</strong> We use Google Analytics to understand how people use the site (like which pages are visited, how long people stay, and general location data). This helps us improve the tool. Google Analytics uses cookies to track this information. You can learn more about how Google uses data at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p><strong>Google AdSense:</strong> We display ads through Google AdSense to help cover the costs of running this site. Google AdSense uses cookies to show ads based on your browsing activity. You can control ad personalization through <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google's Ad Settings</a>.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p><strong>Consent Management:</strong> If you're visiting from the European Economic Area (EEA), the UK, or Switzerland, you'll see a consent banner asking for your permission to use cookies for personalized ads. Your choice is stored locally in your browser.</p>
+                        </div>
+
+                        <h3>What We Don't Do</h3>
+                        <div class="content-text">
+                            <p>We don't collect your name, email address, or any personal information. We don't track your quiz scores or study progress outside of your own browser session. We don't sell or share data with anyone except the third-party services mentioned above (Google Analytics and AdSense), which are industry-standard tools.</p>
+                        </div>
+
+                        <h3>Cookies</h3>
+                        <div class="content-text">
+                            <p>This site uses cookies from Google Analytics and Google AdSense. Cookies are small files stored on your device that help these services function. You can disable cookies in your browser settings, but some features of the site may not work properly if you do.</p>
+                        </div>
+
+                        <h3>Your Choices</h3>
+                        <div class="content-text">
+                            <p>You can opt out of personalized ads by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google's Ad Settings</a>. You can also use browser extensions or privacy tools to block tracking cookies.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>If you're in the EEA, UK, or Switzerland, you can update your consent preferences at any time through the consent banner that appears when you visit the site.</p>
+                        </div>
+
+                        <h3>Changes to This Policy</h3>
+                        <div class="content-text">
+                            <p>If we make changes to this privacy policy, we'll update the "Last updated" date at the top of this page. Since this site is pretty simple, we don't expect major changes, but we'll keep you informed if anything does change.</p>
+                        </div>
+
+                        <h3>Questions?</h3>
+                        <div class="content-text">
+                            <p>This is a small, personal project, so if you have questions or concerns about privacy, feel free to reach out. We're committed to being transparent and straightforward about how this site works.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>Thanks for using Cyrilica, and happy learning!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SETTINGS PAGE -->
+                <div id="settings-page" class="page-content">
+                    <div class="card">
+                        <h2>Settings</h2>
+                        
+                        <div class="content-text" style="text-align: center; padding: 60px 20px;">
+                            <p style="font-size: 2rem; color: var(--dark-blue); margin-bottom: 20px;">⚙️</p>
+                            <p style="font-size: 1.5rem; font-weight: 600; color: var(--charcoal); margin-bottom: 10px;">Coming Soon</p>
+                            <p>We're working on adding customization options and settings to enhance your learning experience. Check back soon!</p>
                         </div>
                     </div>
                 </div>
@@ -604,7 +878,44 @@
         </aside>
     </div>
 
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Cyrilica. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a>
+                <a href="#" onclick="showPage('about'); return false;">About</a>
+            </div>
+        </div>
+    </footer>
+
     <script>
+        // Page navigation
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageName + '-page').classList.add('active');
+            
+            // Update tab active state
+            document.querySelectorAll('.header-tabs button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Reset quiz if navigating away from home
+            if (pageName !== 'home') {
+                document.getElementById('setup-container').style.display = 'block';
+                document.getElementById('quiz-container').classList.remove('active');
+            }
+        }
+
         // Cyrillic character data with romanizations
         const CYRILLIC_DATA = {
             vowels: {
