@@ -1351,6 +1351,7 @@
         let selectedGroups = new Set();
         let studyChars = {};
         let currentChar = null;
+        let lastChar = null; // Track previous character to avoid repeats
         let questionCount = 0;
         let correctCount = 0;
         let incorrectCount = 0;
@@ -1439,15 +1440,24 @@
             let randomChar;
             const chars = Object.keys(studyChars);
             
-            if (repeatProblems && Object.keys(problemChars).length > 0 && Math.random() < 0.4) {
-                // 40% chance to pick from problem characters
-                const problemKeys = Object.keys(problemChars);
-                randomChar = problemKeys[Math.floor(Math.random() * problemKeys.length)];
+            // If only one character is being studied, we can't avoid repeats
+            if (chars.length === 1) {
+                randomChar = chars[0];
             } else {
-                // Pick any character
-                randomChar = chars[Math.floor(Math.random() * chars.length)];
+                // Keep picking until we get a different character than last time
+                do {
+                    if (repeatProblems && Object.keys(problemChars).length > 0 && Math.random() < 0.4) {
+                        // 40% chance to pick from problem characters
+                        const problemKeys = Object.keys(problemChars);
+                        randomChar = problemKeys[Math.floor(Math.random() * problemKeys.length)];
+                    } else {
+                        // Pick any character
+                        randomChar = chars[Math.floor(Math.random() * chars.length)];
+                    }
+                } while (randomChar === lastChar && chars.length > 1);
             }
             
+            lastChar = currentChar; // Store current as last before updating
             currentChar = randomChar;
             
             // Update display
@@ -1482,6 +1492,18 @@
                 if (problemChars[currentChar]) {
                     delete problemChars[currentChar];
                 }
+                
+                updateStats();
+                
+                // If auto-submit is enabled, advance immediately without delay
+                if (autoSubmit) {
+                    nextQuestion();
+                } else {
+                    // Otherwise, show feedback and auto-advance after delay
+                    setTimeout(() => {
+                        nextQuestion();
+                    }, 1500);
+                }
             } else {
                 feedback.textContent = `✗ Wrong. Correct: ${studyChars[currentChar].roman}`;
                 feedback.className = 'feedback incorrect';
@@ -1491,14 +1513,14 @@
                 if (repeatProblems) {
                     problemChars[currentChar] = true;
                 }
+                
+                updateStats();
+                
+                // Always show wrong answer feedback for a moment
+                setTimeout(() => {
+                    nextQuestion();
+                }, 1500);
             }
-            
-            updateStats();
-            
-            // Auto-advance after delay
-            setTimeout(() => {
-                nextQuestion();
-            }, 1500);
         }
 
         function updateStats() {
