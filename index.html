@@ -1351,7 +1351,6 @@
         let selectedGroups = new Set();
         let studyChars = {};
         let currentChar = null;
-        let lastChar = null; // Track previous character to avoid repeats
         let questionCount = 0;
         let correctCount = 0;
         let incorrectCount = 0;
@@ -1444,7 +1443,7 @@
             if (chars.length === 1) {
                 randomChar = chars[0];
             } else {
-                // Keep picking until we get a different character than last time
+                // Keep picking until we get a different character than current one
                 do {
                     if (repeatProblems && Object.keys(problemChars).length > 0 && Math.random() < 0.4) {
                         // 40% chance to pick from problem characters
@@ -1454,10 +1453,10 @@
                         // Pick any character
                         randomChar = chars[Math.floor(Math.random() * chars.length)];
                     }
-                } while (randomChar === lastChar && chars.length > 1);
+                } while (randomChar === currentChar && chars.length > 1);
             }
             
-            lastChar = currentChar; // Store current as last before updating
+            // Update currentChar (this becomes the "last" char for next time)
             currentChar = randomChar;
             
             // Update display
