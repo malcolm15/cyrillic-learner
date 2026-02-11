@@ -1013,8 +1013,41 @@
                             </label>
                         </div>
 
-                        <div class="content-text">
-                            <p><strong>Tip:</strong> Enable lowercase mode to familiarize yourself with both forms of each Cyrillic character. This is especially helpful when reading handwritten text or different fonts.</p>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Auto-Submit</h3>
+                                <p>Answer is submitted automatically when correct (no need to press Enter)</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="autosubmit-toggle" onchange="toggleAutoSubmit()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Continuous Play</h3>
+                                <p>Your score persists when starting a new session with the same characters</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="continuous-toggle" onchange="toggleContinuous()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Repeat Problem Questions</h3>
+                                <p>Characters you get wrong will appear more frequently</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="repeat-toggle" onchange="toggleRepeat()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="content-text" style="margin-top: 30px;">
+                            <p><strong>Tip:</strong> Enable Auto-Submit for faster practice, or keep it off if you prefer to review your answer before submitting.</p>
                         </div>
                     </div>
                 </div>
@@ -1030,7 +1063,7 @@
 
                         <h3>Get in Touch</h3>
                         <div class="content-text">
-                            <p>Email me at: <a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a></p>
+                            <p>Email me at: <a href="/cdn-cgi/l/email-protection#a8c0cdc4c4c7e8cbd1dac1c4c1cbc986cbc7c5"><span class="__cf_email__" data-cfemail="640c0108080b24071d160d080d07054a070b09">[email&#160;protected]</span></a></p>
                         </div>
 
                         <div class="content-text">
@@ -1150,24 +1183,60 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Settings
         let includeLowercase = false;
+        let autoSubmit = false;
+        let continuousPlay = false;
+        let repeatProblems = false;
+        let problemChars = {}; // Track characters user got wrong
 
         // Load settings from localStorage
         function loadSettings() {
-            const saved = localStorage.getItem('includeLowercase');
-            if (saved !== null) {
-                includeLowercase = saved === 'true';
+            const savedLowercase = localStorage.getItem('includeLowercase');
+            const savedAutoSubmit = localStorage.getItem('autoSubmit');
+            const savedContinuous = localStorage.getItem('continuousPlay');
+            const savedRepeat = localStorage.getItem('repeatProblems');
+            
+            if (savedLowercase !== null) {
+                includeLowercase = savedLowercase === 'true';
                 document.getElementById('lowercase-toggle').checked = includeLowercase;
-                updateLowercaseDisplay();
             }
+            if (savedAutoSubmit !== null) {
+                autoSubmit = savedAutoSubmit === 'true';
+                document.getElementById('autosubmit-toggle').checked = autoSubmit;
+            }
+            if (savedContinuous !== null) {
+                continuousPlay = savedContinuous === 'true';
+                document.getElementById('continuous-toggle').checked = continuousPlay;
+            }
+            if (savedRepeat !== null) {
+                repeatProblems = savedRepeat === 'true';
+                document.getElementById('repeat-toggle').checked = repeatProblems;
+            }
+            
+            updateLowercaseDisplay();
         }
 
         function toggleLowercase() {
             includeLowercase = document.getElementById('lowercase-toggle').checked;
             localStorage.setItem('includeLowercase', includeLowercase);
             updateLowercaseDisplay();
+        }
+
+        function toggleAutoSubmit() {
+            autoSubmit = document.getElementById('autosubmit-toggle').checked;
+            localStorage.setItem('autoSubmit', autoSubmit);
+        }
+
+        function toggleContinuous() {
+            continuousPlay = document.getElementById('continuous-toggle').checked;
+            localStorage.setItem('continuousPlay', continuousPlay);
+        }
+
+        function toggleRepeat() {
+            repeatProblems = document.getElementById('repeat-toggle').checked;
+            localStorage.setItem('repeatProblems', repeatProblems);
         }
 
         function updateLowercaseDisplay() {
@@ -1348,11 +1417,14 @@
                 Object.assign(studyChars, CYRILLIC_DATA[groupKey].chars);
             });
             
-            // Reset stats
-            questionCount = 0;
-            correctCount = 0;
-            incorrectCount = 0;
-            currentStreak = 0;
+            // Reset stats only if continuous play is off
+            if (!continuousPlay) {
+                questionCount = 0;
+                correctCount = 0;
+                incorrectCount = 0;
+                currentStreak = 0;
+                problemChars = {};
+            }
             
             // Hide reference and show quiz
             document.querySelector('.char-reference').style.display = 'none';
@@ -1363,9 +1435,19 @@
         }
 
         function nextQuestion() {
-            // Pick random character
+            // Pick random character, weighted towards problem characters if enabled
+            let randomChar;
             const chars = Object.keys(studyChars);
-            const randomChar = chars[Math.floor(Math.random() * chars.length)];
+            
+            if (repeatProblems && Object.keys(problemChars).length > 0 && Math.random() < 0.4) {
+                // 40% chance to pick from problem characters
+                const problemKeys = Object.keys(problemChars);
+                randomChar = problemKeys[Math.floor(Math.random() * problemKeys.length)];
+            } else {
+                // Pick any character
+                randomChar = chars[Math.floor(Math.random() * chars.length)];
+            }
+            
             currentChar = randomChar;
             
             // Update display
@@ -1396,11 +1478,19 @@
                 feedback.className = 'feedback correct';
                 correctCount++;
                 currentStreak++;
+                // Remove from problem characters if they got it right
+                if (problemChars[currentChar]) {
+                    delete problemChars[currentChar];
+                }
             } else {
                 feedback.textContent = `✗ Wrong. Correct: ${studyChars[currentChar].roman}`;
                 feedback.className = 'feedback incorrect';
                 incorrectCount++;
                 currentStreak = 0;
+                // Add to problem characters if repeat is enabled
+                if (repeatProblems) {
+                    problemChars[currentChar] = true;
+                }
             }
             
             updateStats();
@@ -1428,6 +1518,12 @@
             // Count skip as incorrect and reset streak
             incorrectCount++;
             currentStreak = 0;
+            
+            // Add to problem characters if repeat is enabled
+            if (repeatProblems) {
+                problemChars[currentChar] = true;
+            }
+            
             updateStats();
             
             setTimeout(() => {
@@ -1457,6 +1553,18 @@
         document.getElementById('skip-btn').addEventListener('click', skipQuestion);
         document.getElementById('reset-btn').addEventListener('click', resetStats);
         document.getElementById('home-btn').addEventListener('click', newSession);
+
+        // Add input listener for auto-submit
+        document.getElementById('answer-input').addEventListener('input', (e) => {
+            // Auto-submit if enabled and answer is correct
+            if (autoSubmit && !answered) {
+                const input = e.target.value.trim().toLowerCase();
+                const correct = studyChars[currentChar].roman.toLowerCase();
+                if (input === correct) {
+                    checkAnswer();
+                }
+            }
+        });
 
         // Initialize app
         loadSettings();
