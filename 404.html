@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        // GitHub Pages SPA redirect trick
+        // When someone visits /about directly, GitHub returns 404
+        // This script captures the path and redirects to index.html
+        // The index.html will then read the path and show the correct page
+        
+        sessionStorage.setItem('redirect', location.pathname);
+        location.replace('/');
+    </script>
+</head>
+<body>
+    <!-- This page redirects immediately, so users never see this -->
+    <p>Redirecting...</p>
+</body>
+</html>

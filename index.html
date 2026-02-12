@@ -1756,7 +1756,18 @@
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
             });
-            event.target.classList.add('active');
+            
+            // Find and activate the correct nav link
+            const activeLink = document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Update URL without page reload
+            const urlPath = pageName === 'home' ? '/' : `/${pageName}`;
+            if (window.location.pathname !== urlPath) {
+                window.history.pushState({ page: pageName }, '', urlPath);
+            }
             
             // Close mobile menu if open
             document.getElementById('nav-links').classList.remove('active');
@@ -2145,6 +2156,83 @@
         // Initialize app
         loadSettings();
         initReference();
+        
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', (event) => {
+            const path = window.location.pathname;
+            let pageName = 'home';
+            
+            if (path === '/' || path === '/home' || path === '') {
+                pageName = 'home';
+            } else if (path.startsWith('/')) {
+                pageName = path.substring(1); // Remove leading slash
+            }
+            
+            // Check if page exists
+            const pageElement = document.getElementById(pageName + '-page');
+            if (pageElement) {
+                // Temporarily show without updating URL (to avoid loop)
+                document.querySelectorAll('.page-content').forEach(page => {
+                    page.classList.remove('active');
+                });
+                pageElement.classList.add('active');
+                
+                // Update nav active state
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeLink = document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+                
+                window.scrollTo(0, 0);
+            } else {
+                // Invalid page, go to home
+                showPage('home');
+            }
+        });
+        
+        // Load correct page on initial page load based on URL
+        (function() {
+            // Check if redirected from 404.html (direct URL visit)
+            const redirect = sessionStorage.getItem('redirect');
+            if (redirect) {
+                sessionStorage.removeItem('redirect');
+                // Use the redirect path
+                window.history.replaceState({}, '', redirect);
+            }
+            
+            const path = window.location.pathname;
+            let pageName = 'home';
+            
+            if (path === '/' || path === '/home' || path === '') {
+                pageName = 'home';
+            } else if (path.startsWith('/')) {
+                const pathName = path.substring(1);
+                // Check if page exists
+                if (document.getElementById(pathName + '-page')) {
+                    pageName = pathName;
+                }
+            }
+            
+            // Show the correct page on load
+            if (pageName !== 'home') {
+                document.querySelectorAll('.page-content').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById(pageName + '-page').classList.add('active');
+                
+                // Update nav
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeLink = document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        })();
     </script>
 </body>
 </html>
