@@ -1046,9 +1046,11 @@
                             </label>
                         </div>
 
-                        <div class="content-text" style="margin-top: 30px;">
+                        <div class="content-text" style="margin-top: 30px; margin-bottom: 30px;">
                             <p><strong>Tip:</strong> Enable Auto-Submit for faster practice, or keep it off if you prefer to review your answer before submitting.</p>
                         </div>
+
+                        <button class="start-btn" id="resume-btn" onclick="resumeLearning()">Resume Learning</button>
                     </div>
                 </div>
 
@@ -1063,7 +1065,7 @@
 
                         <h3>Get in Touch</h3>
                         <div class="content-text">
-                            <p>Email me at: <!--email_off--><a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a><!--/email_off--></p>
+                            <p>Email me at: <a href="/cdn-cgi/l/email-protection#5b333e3737341b382229323732383a75383436"><span class="__cf_email__" data-cfemail="9cf4f9f0f0f3dcffe5eef5f0f5fffdb2fff3f1">[email&#160;protected]</span></a></p>
                         </div>
 
                         <div class="content-text">
@@ -1113,7 +1115,7 @@
                         </div>
 
                         <div class="content-text">
-                            <p><strong>Google Analytics:</strong> We use Google Analytics to understand how people use the site (like which pages are visited, how long people stay, and general location data). This helps us improve the tool. Google Analytics uses cookies to track this information. You can learn more about how Google uses data at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
+                            <p><strong>Google Analytics:</strong> We use Google Analytics to understand how people use the site (like which pages are visited, how long people stay, and general location data). We also track quiz activity to improve the learning experience, such as which characters are studied and how the quiz features are used. This helps us identify which areas are most challenging and which features are most helpful. All tracking is anonymous and aggregated. You can learn more about how Google uses data at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
                         </div>
 
                         <div class="content-text">
@@ -1183,7 +1185,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Settings
         let includeLowercase = false;
         let autoSubmit = false;
@@ -1221,22 +1223,55 @@
         function toggleLowercase() {
             includeLowercase = document.getElementById('lowercase-toggle').checked;
             localStorage.setItem('includeLowercase', includeLowercase);
+            
+            // Track setting change in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'setting_changed', {
+                    'setting_name': 'lowercase',
+                    'setting_value': includeLowercase
+                });
+            }
+            
             updateLowercaseDisplay();
         }
 
         function toggleAutoSubmit() {
             autoSubmit = document.getElementById('autosubmit-toggle').checked;
             localStorage.setItem('autoSubmit', autoSubmit);
+            
+            // Track setting change in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'setting_changed', {
+                    'setting_name': 'auto_submit',
+                    'setting_value': autoSubmit
+                });
+            }
         }
 
         function toggleContinuous() {
             continuousPlay = document.getElementById('continuous-toggle').checked;
             localStorage.setItem('continuousPlay', continuousPlay);
+            
+            // Track setting change in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'setting_changed', {
+                    'setting_name': 'continuous_play',
+                    'setting_value': continuousPlay
+                });
+            }
         }
 
         function toggleRepeat() {
             repeatProblems = document.getElementById('repeat-toggle').checked;
             localStorage.setItem('repeatProblems', repeatProblems);
+            
+            // Track setting change in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'setting_changed', {
+                    'setting_name': 'repeat_problems',
+                    'setting_value': repeatProblems
+                });
+            }
         }
 
         function updateLowercaseDisplay() {
@@ -1426,6 +1461,14 @@
                 problemChars = {};
             }
             
+            // Track quiz start in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'quiz_started', {
+                    'character_groups': Array.from(selectedGroups).join(', '),
+                    'num_characters': Object.keys(studyChars).length
+                });
+            }
+            
             // Hide reference and show quiz
             document.querySelector('.char-reference').style.display = 'none';
             document.getElementById('quiz-container').classList.add('active');
@@ -1492,6 +1535,15 @@
                     delete problemChars[currentChar];
                 }
                 
+                // Track correct answer in Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'question_answered', {
+                        'result': 'correct',
+                        'character': currentChar,
+                        'streak': currentStreak
+                    });
+                }
+                
                 updateStats();
                 
                 // If auto-submit is enabled, advance immediately without delay
@@ -1511,6 +1563,15 @@
                 // Add to problem characters if repeat is enabled
                 if (repeatProblems) {
                     problemChars[currentChar] = true;
+                }
+                
+                // Track incorrect answer in Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'question_answered', {
+                        'result': 'incorrect',
+                        'character': currentChar,
+                        'user_answer': input
+                    });
                 }
                 
                 updateStats();
@@ -1545,6 +1606,13 @@
                 problemChars[currentChar] = true;
             }
             
+            // Track skip in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'question_skipped', {
+                    'character': currentChar
+                });
+            }
+            
             updateStats();
             
             setTimeout(() => {
@@ -1556,12 +1624,35 @@
             correctCount = 0;
             incorrectCount = 0;
             currentStreak = 0;
+            
+            // Track reset in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'quiz_reset');
+            }
+            
             updateStats();
         }
 
         function newSession() {
             document.querySelector('.char-reference').style.display = 'block';
             document.getElementById('quiz-container').classList.remove('active');
+        }
+
+        function resumeLearning() {
+            // Check if there's an active quiz session
+            const quizActive = document.getElementById('quiz-container').classList.contains('active');
+            
+            if (quizActive) {
+                // If quiz is already running, just go back to it
+                showPage('home');
+            } else if (selectedGroups.size > 0) {
+                // If groups are selected but quiz isn't running, start it
+                showPage('home');
+                startQuiz();
+            } else {
+                // No groups selected, go to home to select them
+                showPage('home');
+            }
         }
 
         // Event listeners
@@ -1581,15 +1672,4 @@
             if (autoSubmit && !answered) {
                 const input = e.target.value.trim().toLowerCase();
                 const correct = studyChars[currentChar].roman.toLowerCase();
-                if (input === correct) {
-                    checkAnswer();
-                }
-            }
-        });
-
-        // Initialize app
-        loadSettings();
-        initReference();
-    </script>
-</body>
-</html>
+                if
