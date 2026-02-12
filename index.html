@@ -223,7 +223,7 @@
 
         body.dark-mode .nav-logo {
             color: var(--matrix-green);
-            text-shadow: 0 0 10px var(--matrix-green), 2px 2px 0 rgba(0, 0, 0, 0.5);
+            text-shadow: 0 0 4px rgba(0, 255, 65, 0.5), 2px 2px 0 rgba(0, 0, 0, 0.5);
         }
 
         .nav-links {
@@ -292,7 +292,12 @@
                 gap: 0;
                 max-height: 0;
                 overflow: hidden;
-                transition: max-height 0.3s;
+                transition: max-height 0.3s, background 0.3s;
+            }
+
+            body.dark-mode .nav-links {
+                background: var(--matrix-card);
+                border-top: 2px solid var(--matrix-green);
             }
 
             .nav-links.active {
@@ -2233,6 +2238,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
