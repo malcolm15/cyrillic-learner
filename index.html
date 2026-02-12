@@ -1065,7 +1065,7 @@
 
                         <h3>Get in Touch</h3>
                         <div class="content-text">
-                            <p>Email me at: <a href="/cdn-cgi/l/email-protection#5b333e3737341b382229323732383a75383436"><span class="__cf_email__" data-cfemail="9cf4f9f0f0f3dcffe5eef5f0f5fffdb2fff3f1">[email&#160;protected]</span></a></p>
+                            <p>Email me at: <!--email_off--><a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a><!--/email_off--></p>
                         </div>
 
                         <div class="content-text">
@@ -1185,7 +1185,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Settings
         let includeLowercase = false;
         let autoSubmit = false;
@@ -1672,4 +1672,15 @@
             if (autoSubmit && !answered) {
                 const input = e.target.value.trim().toLowerCase();
                 const correct = studyChars[currentChar].roman.toLowerCase();
-                if
+                if (input === correct) {
+                    checkAnswer();
+                }
+            }
+        });
+
+        // Initialize app
+        loadSettings();
+        initReference();
+    </script>
+</body>
+</html>
