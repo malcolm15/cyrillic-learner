@@ -1197,6 +1197,106 @@
             }
         }
     </style>
+
+    <!-- Structured Data (Schema.org) for Rich Results -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "CyriЛica - Learn the Cyrillic Alphabet",
+        "description": "Free interactive tool to learn the Cyrillic alphabet through practice and repetition. Master all 33 letters with instant feedback and progress tracking.",
+        "url": "https://cyrilica.com",
+        "image": "https://cyrilica.com/favicon.svg",
+        "educationalLevel": "Beginner",
+        "teaches": "Cyrillic alphabet",
+        "learningResourceType": "Interactive Exercise",
+        "interactivityType": "active",
+        "educationalUse": "self-assessment",
+        "timeRequired": "PT2H",
+        "inLanguage": "en",
+        "about": {
+            "@type": "Thing",
+            "name": "Cyrillic script",
+            "description": "The Cyrillic alphabet used in Russian, Ukrainian, Bulgarian, Serbian, and other Slavic languages"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "CyriЛica",
+            "url": "https://cyrilica.com"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "CyriЛica",
+            "url": "https://cyrilica.com"
+        },
+        "isAccessibleForFree": true,
+        "usageInfo": "https://cyrilica.com/privacy",
+        "audience": {
+            "@type": "EducationalAudience",
+            "educationalRole": "student"
+        }
+    }
+    </script>
+
+    <!-- WebSite Schema for Sitelinks Search Box -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "CyriЛica",
+        "alternateName": "Cyrilica",
+        "url": "https://cyrilica.com",
+        "description": "Learn the Cyrillic alphabet interactively",
+        "inLanguage": "en"
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "CyriЛica",
+        "url": "https://cyrilica.com",
+        "logo": "https://cyrilica.com/favicon.svg",
+        "sameAs": [
+            "https://github.com/malcolm15/cyrillic-learner"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "hello@cyrilica.com",
+            "contactType": "customer support"
+        }
+    }
+    </script>
+
+    <!-- BreadcrumbList for navigation -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://cyrilica.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "About",
+                "item": "https://cyrilica.com/about"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Contact",
+                "item": "https://cyrilica.com/contact"
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -2238,6 +2338,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>

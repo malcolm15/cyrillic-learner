@@ -1,4 +1,32 @@
+# robots.txt for cyrilica.com
+# World-class configuration for SEO optimization
+
+# Allow all crawlers to access all content
 User-agent: *
 Allow: /
 
+# Explicitly allow key pages
+Allow: /index.html
+Allow: /about
+Allow: /contact
+Allow: /settings
+Allow: /privacy
+
+# Allow resource files
+Allow: /*.css
+Allow: /*.js
+Allow: /*.woff2
+Allow: /*.woff
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.svg
+Allow: /*.ico
+
+# Disallow nothing (full site crawlable)
+# Disallow: 
+
+# Sitemap location
 Sitemap: https://cyrilica.com/sitemap.xml
+
+# Crawl-delay (optional - removed for faster crawling)
+# Note: We want Google to crawl us frequently, so no delay
