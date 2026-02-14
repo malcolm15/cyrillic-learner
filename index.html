@@ -841,12 +841,7 @@
 
         body.dark-mode .cyrillic-char {
             color: var(--matrix-green);
-            text-shadow: 
-                0 0 20px var(--matrix-green),
-                0 0 40px var(--matrix-green),
-                0 0 60px var(--matrix-green),
-                0 0 80px var(--matrix-green-dim),
-                6px 6px 0 rgba(0, 0, 0, 0.5);
+            text-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
         }
 
         .cyrillic-char-lowercase {
@@ -859,7 +854,7 @@
 
         body.dark-mode .cyrillic-char-lowercase {
             color: var(--matrix-green-dim);
-            text-shadow: 0 0 15px var(--matrix-green-dim);
+            text-shadow: none;
         }
 
         @keyframes pulse {
@@ -910,20 +905,21 @@
 
         .feedback {
             margin-top: 20px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            min-height: 40px;
-            letter-spacing: 1px;
-            animation: bounceIn 0.4s;
+            font-size: 2rem;
+            font-weight: 700;
+            min-height: 50px;
+            letter-spacing: 1.5px;
+            animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-transform: uppercase;
         }
 
         @keyframes bounceIn {
             0% {
                 opacity: 0;
-                transform: scale(0.3);
+                transform: scale(0.3) translateY(-20px);
             }
-            50% {
-                transform: scale(1.05);
+            60% {
+                transform: scale(1.15) translateY(0);
             }
             100% {
                 opacity: 1;
@@ -933,6 +929,35 @@
 
         .feedback.correct {
             color: #2E7D32;
+            text-shadow: 0 0 10px rgba(46, 125, 50, 0.3);
+        }
+
+        body.dark-mode .feedback.correct {
+            color: var(--matrix-green);
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        /* Confetti for correct answers */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #FFC107;
+            border-radius: 50%;
+            z-index: 10000;
+            pointer-events: none;
+            animation: confettiFall 1.2s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(300px) rotate(720deg);
+            }
         }
 
         .feedback.incorrect {
@@ -1840,6 +1865,40 @@
             document.querySelectorAll('.cyrillic-rain').forEach(drop => drop.remove());
         }
 
+        // Confetti burst for correct answers
+        function createConfetti() {
+            const colors = ['#FFC107', '#FF9800', '#4CAF50', '#2196F3', '#9C27B0'];
+            const confettiCount = 15; // Subtle amount
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Random color
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Start from center of screen
+                confetti.style.left = (50 + (Math.random() - 0.5) * 30) + '%';
+                confetti.style.top = '40%';
+                
+                // Random size (small)
+                const size = 6 + Math.random() * 6;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+                
+                // Random rotation
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                // Add slight random delay
+                confetti.style.animationDelay = (Math.random() * 0.1) + 's';
+                
+                document.body.appendChild(confetti);
+                
+                // Remove after animation completes
+                setTimeout(() => confetti.remove(), 1200);
+            }
+        }
+
         function updateLowercaseDisplay() {
             const lowerElement = document.getElementById('current-char-lower');
             if (lowerElement) {
@@ -2107,6 +2166,10 @@
                 feedback.className = 'feedback correct';
                 correctCount++;
                 currentStreak++;
+                
+                // Trigger confetti burst
+                createConfetti();
+                
                 // Remove from problem characters if they got it right
                 if (problemChars[currentChar]) {
                     delete problemChars[currentChar];
@@ -2127,10 +2190,10 @@
                 if (autoSubmit) {
                     nextQuestion();
                 } else {
-                    // Otherwise, show feedback and auto-advance after delay
+                    // Otherwise, show feedback and auto-advance after SHORTER delay
                     setTimeout(() => {
                         nextQuestion();
-                    }, 1500);
+                    }, 750); // Reduced from 1500ms to 750ms
                 }
             } else {
                 feedback.textContent = `✗ Wrong. Correct: ${studyChars[currentChar].roman}`;
@@ -2153,10 +2216,10 @@
                 
                 updateStats();
                 
-                // Always show wrong answer feedback for a moment
+                // Show wrong answer feedback for same duration
                 setTimeout(() => {
                     nextQuestion();
-                }, 1500);
+                }, 750); // Also reduced for consistency
             }
         }
 
@@ -2338,6 +2401,14 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
