@@ -1691,7 +1691,7 @@
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Settings
-        let includeLowercase = false;
+        let includeLowercase = true; // Default ON - users learn both cases from the start
         let autoSubmit = false;
         let continuousPlay = false;
         let repeatProblems = false;
@@ -1709,6 +1709,9 @@
             if (savedLowercase !== null) {
                 includeLowercase = savedLowercase === 'true';
                 document.getElementById('lowercase-toggle').checked = includeLowercase;
+            } else {
+                // First time user - set toggle to match default (true)
+                document.getElementById('lowercase-toggle').checked = true;
             }
             if (savedAutoSubmit !== null) {
                 autoSubmit = savedAutoSubmit === 'true';
@@ -2433,6 +2436,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
