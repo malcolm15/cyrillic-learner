@@ -472,19 +472,21 @@
             transition: all var(--transition-base);
         }
 
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+        @media (hover: hover) {
+            .card:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-lg);
+            }
+
+            body.dark-mode .card:hover {
+                box-shadow: 0 0 30px rgba(0, 255, 65, 0.25), var(--shadow-lg);
+            }
         }
 
         body.dark-mode .card {
             background: var(--matrix-card);
             border: 2px solid var(--matrix-green);
             box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), var(--shadow-md);
-        }
-
-        body.dark-mode .card:hover {
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.25), var(--shadow-lg);
         }
 
         @keyframes fadeIn {
@@ -640,27 +642,30 @@
             background: var(--matrix-green);
         }
 
-        .reference-section:hover::after {
-            left: 0;
-        }
+        /* Hover effects - only on devices that support hover (desktop/trackpad) */
+        @media (hover: hover) {
+            .reference-section:hover::after {
+                left: 0;
+            }
 
-        .reference-section:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
+            .reference-section:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-md);
+            }
 
-        body.dark-mode .reference-section:hover {
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3), var(--shadow-md);
-        }
+            body.dark-mode .reference-section:hover {
+                box-shadow: 0 0 20px rgba(0, 255, 65, 0.3), var(--shadow-md);
+            }
 
-        .reference-section:hover .section-title,
-        .reference-section:hover .char-ref-item {
-            color: white;
-        }
+            .reference-section:hover .section-title,
+            .reference-section:hover .char-ref-item {
+                color: white;
+            }
 
-        body.dark-mode .reference-section:hover .section-title,
-        body.dark-mode .reference-section:hover .char-ref-item {
-            color: var(--matrix-black);
+            body.dark-mode .reference-section:hover .section-title,
+            body.dark-mode .reference-section:hover .char-ref-item {
+                color: var(--matrix-black);
+            }
         }
 
         .reference-section.selected {
@@ -1071,15 +1076,34 @@
             transition: left var(--transition-slow);
         }
 
-        .btn:hover::before {
-            left: 100%;
-        }
+        @media (hover: hover) {
+            .btn:hover::before {
+                left: 100%;
+            }
 
-        .btn:hover {
-            background: var(--charcoal);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
+            .btn:hover {
+                background: var(--charcoal);
+                color: white;
+                transform: translateY(-3px);
+                box-shadow: var(--shadow-md);
+            }
+
+            body.dark-mode .btn:hover {
+                background: var(--matrix-green);
+                color: var(--matrix-black);
+                box-shadow: 0 0 20px rgba(0, 255, 65, 0.4), var(--shadow-md);
+            }
+
+            .btn-settings:hover {
+                background: var(--dark-blue);
+                color: white;
+            }
+
+            body.dark-mode .btn-settings:hover {
+                background: var(--matrix-green-bright);
+                color: var(--matrix-black);
+                box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
+            }
         }
 
         .btn:active {
@@ -1093,12 +1117,6 @@
             color: var(--matrix-green);
         }
 
-        body.dark-mode .btn:hover {
-            background: var(--matrix-green);
-            color: var(--matrix-black);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.4), var(--shadow-md);
-        }
-
         /* Settings button - unique style */
         .btn-settings {
             background: var(--gold);
@@ -1108,26 +1126,11 @@
             position: relative;
         }
 
-        .btn-settings:hover {
-            background: var(--dark-blue);
-            color: white;
-            border-color: var(--dark-blue);
-            transform: translateY(-3px);
-        }
-
         body.dark-mode .btn-settings {
             background: var(--matrix-green);
             color: var(--matrix-black);
-            border: 3px solid var(--matrix-green-bright);
+            border: 2px solid var(--matrix-green-bright);
             box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
-        }
-
-        body.dark-mode .btn-settings:hover {
-            background: var(--matrix-green-bright);
-            color: var(--matrix-black);
-            border-color: var(--matrix-green-bright);
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.6);
-            transform: translateY(-3px);
         }
 
         .stats {
@@ -2600,6 +2603,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
