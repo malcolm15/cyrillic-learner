@@ -580,6 +580,32 @@
             margin-bottom: 40px;
         }
 
+        .selection-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .selection-header h2 {
+            margin: 0;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .selection-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-control {
+            font-size: 1rem;
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+
         .reference-section {
             margin-bottom: 16px;
             background: var(--cream);
@@ -1484,7 +1510,13 @@
 
                     <!-- Combined Character Reference & Selection -->
                     <div class="card char-reference">
-                        <h2>Select Characters to Study</h2>
+                        <div class="selection-header">
+                            <h2>Select Characters to Study</h2>
+                            <div class="selection-controls">
+                                <button class="btn btn-control" onclick="selectAllGroups()">Select All</button>
+                                <button class="btn btn-control" onclick="clearAllGroups()">Clear All</button>
+                            </div>
+                        </div>
                         <p class="content-text" style="margin-bottom: 20px;">Click on a group below to select it for practice. Selected groups will be highlighted in red.</p>
                         <div id="reference-container"></div>
                         <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
@@ -2211,6 +2243,38 @@
             updateStartButton();
         }
 
+        function selectAllGroups() {
+            // Get all group elements
+            const groupElements = document.querySelectorAll('.reference-section');
+            
+            // Select all groups
+            groupElements.forEach(element => {
+                const groupKey = element.dataset.group;
+                if (groupKey && !selectedGroups.has(groupKey)) {
+                    selectedGroups.add(groupKey);
+                    element.classList.add('selected');
+                }
+            });
+            
+            updateStartButton();
+        }
+
+        function clearAllGroups() {
+            // Get all group elements
+            const groupElements = document.querySelectorAll('.reference-section');
+            
+            // Clear all selections
+            groupElements.forEach(element => {
+                const groupKey = element.dataset.group;
+                if (groupKey && selectedGroups.has(groupKey)) {
+                    selectedGroups.delete(groupKey);
+                    element.classList.remove('selected');
+                }
+            });
+            
+            updateStartButton();
+        }
+
         function updateStartButton() {
             const btn = document.getElementById('start-btn');
             btn.disabled = selectedGroups.size === 0;
@@ -2536,6 +2600,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
