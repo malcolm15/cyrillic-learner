@@ -2463,10 +2463,10 @@
                 if (autoSubmit) {
                     nextQuestion();
                 } else {
-                    // Otherwise, show feedback and auto-advance after SHORTER delay
+                    // Otherwise, show feedback and auto-advance after delay
                     setTimeout(() => {
                         nextQuestion();
-                    }, 750); // Reduced from 1500ms to 750ms
+                    }, 750); // Perfect for correct answers
                 }
             } else {
                 feedback.textContent = `✗ Wrong. Correct: ${studyChars[currentChar].roman}`;
@@ -2489,10 +2489,10 @@
                 
                 updateStats();
                 
-                // Show wrong answer feedback for same duration
+                // Show wrong answer feedback for LONGER to let users read the correct answer
                 setTimeout(() => {
                     nextQuestion();
-                }, 750); // Also reduced for consistency
+                }, 900); // 20% longer than correct answers (750ms → 900ms)
             }
         }
 
@@ -2674,6 +2674,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
