@@ -81,6 +81,20 @@
             --matrix-text: #e0e0e0;
             --matrix-text-dim: #808080;
             --matrix-border: #003300;
+            
+            /* Modern Design Tokens */
+            --border-radius: 12px;
+            --border-radius-sm: 6px;
+            --border-radius-lg: 16px;
+            
+            --shadow-sm: 0 1px 3px rgba(44, 44, 44, 0.12), 0 1px 2px rgba(44, 44, 44, 0.08);
+            --shadow-md: 0 4px 6px rgba(44, 44, 44, 0.1), 0 2px 4px rgba(44, 44, 44, 0.06);
+            --shadow-lg: 0 10px 15px rgba(44, 44, 44, 0.1), 0 4px 6px rgba(44, 44, 44, 0.05);
+            --shadow-xl: 0 20px 25px rgba(44, 44, 44, 0.15), 0 10px 10px rgba(44, 44, 44, 0.08);
+            
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -446,21 +460,31 @@
 
         .card {
             background: var(--paper);
-            border: 4px solid var(--charcoal);
-            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            margin-bottom: 20px;
+            border: 2px solid var(--charcoal);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            padding: 32px;
+            margin-bottom: 24px;
             position: relative;
             animation: fadeIn 0.6s ease-out;
             animation-delay: 0.2s;
             animation-fill-mode: backwards;
-            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: all var(--transition-base);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         body.dark-mode .card {
             background: var(--matrix-card);
-            border: 4px solid var(--matrix-green);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2), 8px 8px 0 rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--matrix-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), var(--shadow-md);
+        }
+
+        body.dark-mode .card:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.25), var(--shadow-lg);
         }
 
         @keyframes fadeIn {
@@ -557,19 +581,21 @@
         }
 
         .reference-section {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             background: var(--cream);
-            border: 4px solid var(--charcoal);
-            padding: 15px;
+            border: 2px solid var(--charcoal);
+            border-radius: var(--border-radius);
+            padding: 20px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all var(--transition-base);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         body.dark-mode .reference-section {
             background: var(--matrix-card);
-            border: 4px solid var(--matrix-border);
+            border: 2px solid var(--matrix-border);
         }
 
         .reference-section::after {
@@ -580,7 +606,7 @@
             width: 100%;
             height: 100%;
             background: var(--red);
-            transition: left 0.3s;
+            transition: left var(--transition-base);
             z-index: 0;
         }
 
@@ -593,12 +619,12 @@
         }
 
         .reference-section:hover {
-            transform: translateX(4px) translateY(-4px);
-            box-shadow: -4px 4px 0 var(--dark-blue);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
         }
 
         body.dark-mode .reference-section:hover {
-            box-shadow: -4px 4px 0 var(--matrix-green), 0 0 20px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3), var(--shadow-md);
         }
 
         .reference-section:hover .section-title,
@@ -613,13 +639,15 @@
 
         .reference-section.selected {
             background: var(--red);
-            border-color: var(--dark-blue);
+            border-color: var(--red);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
         body.dark-mode .reference-section.selected {
             background: var(--matrix-green);
             border-color: var(--matrix-green-bright);
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5), var(--shadow-lg);
         }
 
         .reference-section.selected::after {
@@ -636,12 +664,12 @@
 
         .reference-section.selected .char-ref-item {
             color: white;
-            border-color: white;
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         body.dark-mode .reference-section.selected .char-ref-item {
             color: var(--matrix-black);
-            border-color: var(--matrix-black);
+            border-color: rgba(10, 10, 10, 0.3);
         }
 
         .reference-section.selected .char-ref-cyrillic {
@@ -687,9 +715,10 @@
         .char-ref-item {
             background: transparent;
             border: 2px solid var(--charcoal);
-            padding: 8px;
+            border-radius: var(--border-radius-sm);
+            padding: 10px 8px;
             text-align: center;
-            transition: all 0.2s;
+            transition: all var(--transition-base);
             pointer-events: none;
         }
 
@@ -882,15 +911,17 @@
         input[type="text"] {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 2rem;
-            padding: 20px;
-            border: 4px solid var(--charcoal);
+            padding: 20px 24px;
+            border: 2px solid var(--charcoal);
+            border-radius: var(--border-radius);
             background: white;
             flex: 1;
             max-width: 400px;
             min-width: 200px;
             text-align: center;
             letter-spacing: 2px;
-            transition: all 0.3s;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-submit {
@@ -902,7 +933,7 @@
 
         body.dark-mode input[type="text"] {
             background: var(--matrix-black);
-            border: 4px solid var(--matrix-green);
+            border: 2px solid var(--matrix-green);
             color: var(--matrix-green);
             caret-color: var(--matrix-green);
         }
@@ -910,13 +941,13 @@
         input[type="text"]:focus {
             outline: none;
             border-color: var(--dark-blue);
-            box-shadow: 0 0 0 4px rgba(26, 35, 126, 0.1);
-            transform: scale(1.02);
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.15), var(--shadow-md);
+            transform: translateY(-2px);
         }
 
         body.dark-mode input[type="text"]:focus {
             border-color: var(--matrix-green-bright);
-            box-shadow: 0 0 0 4px rgba(0, 255, 65, 0.2), 0 0 20px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.2), 0 0 20px rgba(0, 255, 65, 0.3);
         }
 
         .feedback {
@@ -990,38 +1021,63 @@
         .btn {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.3rem;
-            padding: 15px 35px;
-            border: 3px solid var(--charcoal);
+            padding: 14px 32px;
+            border: 2px solid var(--charcoal);
+            border-radius: var(--border-radius-sm);
             background: var(--paper);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all var(--transition-base);
             letter-spacing: 2px;
             text-transform: uppercase;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left var(--transition-slow);
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
             background: var(--charcoal);
             color: white;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
         }
 
         body.dark-mode .btn {
             background: var(--matrix-black);
-            border: 3px solid var(--matrix-green);
+            border: 2px solid var(--matrix-green);
             color: var(--matrix-green);
         }
 
         body.dark-mode .btn:hover {
             background: var(--matrix-green);
             color: var(--matrix-black);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.4), var(--shadow-md);
         }
 
         /* Settings button - unique style */
         .btn-settings {
             background: var(--gold);
             color: var(--charcoal);
-            border: 3px solid var(--charcoal);
+            border: 2px solid var(--charcoal);
             font-weight: 700;
             position: relative;
         }
@@ -2480,6 +2536,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
