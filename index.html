@@ -2434,13 +2434,6 @@
             
             answered = true;
             
-            // Scroll feedback into view on mobile (after small delay to let feedback render)
-            setTimeout(() => {
-                if (window.innerWidth <= 768) {
-                    feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }, 100);
-            
             if (input === correct) {
                 feedback.textContent = '✓ Correct!';
                 feedback.className = 'feedback correct';
@@ -2681,6 +2674,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
