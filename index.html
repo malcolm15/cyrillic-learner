@@ -1337,12 +1337,76 @@
                 letter-spacing: 4px;
             }
 
+            /* Compress quiz elements to fit more on screen */
+            .quiz-header {
+                margin-bottom: 16px;
+                gap: 8px;
+            }
+
+            .score {
+                font-size: 0.95rem;
+                padding: 6px 14px;
+                border: 2px solid var(--charcoal);
+            }
+
+            body.dark-mode .score {
+                border: 2px solid var(--matrix-green);
+            }
+
+            .progress {
+                font-size: 0.85rem;
+            }
+
+            .character-display {
+                margin: 16px 0 24px 0;
+            }
+
             .cyrillic-char {
-                font-size: 8rem;
+                font-size: 5.5rem;
+                text-shadow: 3px 3px 0 var(--gold);
             }
 
             .cyrillic-char-lowercase {
-                font-size: 5rem;
+                font-size: 3.2rem;
+            }
+
+            .input-section {
+                margin-bottom: 16px;
+            }
+
+            .input-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                margin-bottom: 10px;
+            }
+
+            input[type="text"] {
+                font-size: 1.3rem;
+                max-width: 100%;
+                min-width: auto;
+                padding: 14px 18px;
+            }
+
+            .btn-submit {
+                width: 100%;
+                font-size: 1.2rem;
+                padding: 13px;
+            }
+
+            .feedback {
+                font-size: 1.4rem;
+                margin-top: 10px;
+                min-height: 36px;
+            }
+
+            .action-buttons {
+                margin-top: 16px;
+                gap: 8px;
+            }
+
+            .action-buttons .btn {
+                font-size: 0.95rem;
+                padding: 10px 14px;
             }
 
             .selection-header {
@@ -1367,23 +1431,6 @@
                 max-width: 160px;
                 font-size: 0.9rem;
                 padding: 12px 16px;
-            }
-
-            .input-wrapper {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            input[type="text"] {
-                font-size: 1.5rem;
-                max-width: 100%;
-                min-width: auto;
-            }
-
-            .btn-submit {
-                width: 100%;
-                font-size: 1.3rem;
-                padding: 15px;
             }
 
             .reference-grid {
@@ -2387,6 +2434,13 @@
             
             answered = true;
             
+            // Scroll feedback into view on mobile (after small delay to let feedback render)
+            setTimeout(() => {
+                if (window.innerWidth <= 768) {
+                    feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+            
             if (input === correct) {
                 feedback.textContent = '✓ Correct!';
                 feedback.className = 'feedback correct';
@@ -2627,6 +2681,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
