@@ -532,8 +532,8 @@
             border: 2px solid var(--charcoal);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-md);
-            padding: 32px;
-            margin-bottom: 24px;
+            padding: 24px;
+            margin-bottom: 16px;
             position: relative;
             animation: fadeIn 0.6s ease-out;
             animation-delay: 0.2s;
@@ -1119,29 +1119,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
         }
 
         .score {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: var(--gold);
-            border: 3px solid var(--charcoal);
+            border: 2px solid var(--charcoal);
             letter-spacing: 1px;
             transition: all 0.3s;
         }
 
         body.dark-mode .score {
             background: var(--matrix-card);
-            border: 3px solid var(--matrix-green);
+            border: 2px solid var(--matrix-green);
             color: var(--matrix-green);
         }
 
         .progress {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--dark-blue);
             font-weight: 600;
             transition: color 0.3s;
@@ -1153,7 +1153,7 @@
 
         .character-display {
             text-align: center;
-            margin: 60px 0;
+            margin: 30px 0 20px 0;
             animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
@@ -1170,9 +1170,9 @@
 
         .cyrillic-char {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 12rem;
+            font-size: 9rem;
             color: var(--dark-blue);
-            text-shadow: 6px 6px 0 var(--gold);
+            text-shadow: 5px 5px 0 var(--gold);
             line-height: 1;
             display: inline-block;
             animation: pulse 2s ease-in-out infinite;
@@ -1181,14 +1181,14 @@
 
         body.dark-mode .cyrillic-char {
             color: var(--matrix-green);
-            text-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+            text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
         }
 
         .cyrillic-char-lowercase {
-            font-size: 8rem;
+            font-size: 6rem;
             color: var(--red);
             opacity: 0.8;
-            margin-left: 20px;
+            margin-left: 15px;
             transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
@@ -1208,7 +1208,7 @@
 
         .input-section {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .input-wrapper {
@@ -1221,8 +1221,8 @@
 
         input[type="text"] {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 2rem;
-            padding: 20px 24px;
+            font-size: 1.8rem;
+            padding: 16px 20px;
             border: 2px solid var(--charcoal);
             border-radius: var(--border-radius);
             background: white;
@@ -1236,8 +1236,8 @@
         }
 
         .btn-submit {
-            font-size: 1.2rem;
-            padding: 20px 30px;
+            font-size: 1.1rem;
+            padding: 16px 26px;
             white-space: nowrap;
             flex-shrink: 0;
         }
@@ -1262,10 +1262,10 @@
         }
 
         .feedback {
-            margin-top: 20px;
-            font-size: 2rem;
+            margin-top: 15px;
+            font-size: 1.6rem;
             font-weight: 700;
-            min-height: 50px;
+            min-height: 40px;
             letter-spacing: 1.5px;
             animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             text-transform: uppercase;
@@ -1324,21 +1324,22 @@
 
         .action-buttons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
 
         .btn {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.3rem;
-            padding: 14px 32px;
+            font-size: 1.1rem;
+            padding: 12px 24px;
             border: 2px solid var(--charcoal);
             border-radius: var(--border-radius-sm);
             background: var(--paper);
             cursor: pointer;
             transition: all var(--transition-base);
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             box-shadow: var(--shadow-sm);
             position: relative;
@@ -2101,7 +2102,7 @@
 
                         <h3>Get in Touch</h3>
                         <div class="content-text">
-                            <p>Email me at: <a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a></p>
+                            <p>Email me at: <!--email_off--><a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a><!--/email_off--></p>
                         </div>
 
                         <div class="content-text">
@@ -2209,7 +2210,7 @@
                      data-ad-slot="3868336358"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script>
+                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
