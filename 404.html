@@ -2,18 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script>
-        // GitHub Pages SPA redirect trick
-        // When someone visits /about directly, GitHub returns 404
-        // This script captures the path and redirects to index.html
-        // The index.html will then read the path and show the correct page
-        
-        sessionStorage.setItem('redirect', location.pathname);
-        location.replace('/');
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyriЛica - Learn the Cyrillic Alphabet</title>
+    
+    <!-- Prerender/snapshot for crawlers -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "url": "https://cyrilica.com",
+        "name": "CyriЛica"
+    }
     </script>
+    
+    <script>
+        // Single Page Application redirect for GitHub Pages
+        // Capture the intended path
+        var path = window.location.pathname;
+        
+        // Store in sessionStorage for index.html to read
+        if (path && path !== '/') {
+            sessionStorage.setItem('redirect', path);
+        }
+        
+        // Redirect to root
+        window.location.replace('/');
+    </script>
+    
+    <noscript>
+        <meta http-equiv="refresh" content="0;url=https://cyrilica.com/">
+    </noscript>
 </head>
-<body>
-    <!-- This page redirects immediately, so users never see this -->
-    <p>Redirecting...</p>
+<body style="font-family: sans-serif; text-align: center; padding: 50px;">
+    <h1>CyriЛica</h1>
+    <p>Redirecting to <a href="https://cyrilica.com/">cyrilica.com</a>...</p>
 </body>
 </html>
