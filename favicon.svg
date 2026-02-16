@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Navy blue background circle -->
+  <circle cx="50" cy="50" r="48" fill="#1A237E" stroke="#FFC107" stroke-width="3"/>
+  
+  <!-- Л character in gold -->
+  <text x="50" y="75" font-family="Bebas Neue, Arial, sans-serif" font-size="65" fill="#FFC107" text-anchor="middle" font-weight="bold">Л</text>
+</svg>
