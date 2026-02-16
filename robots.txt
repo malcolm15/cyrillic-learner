@@ -11,6 +11,8 @@ Allow: /about
 Allow: /contact
 Allow: /settings
 Allow: /privacy
+Allow: /articles
+Allow: /articles/*
 
 # Allow resource files
 Allow: /*.css

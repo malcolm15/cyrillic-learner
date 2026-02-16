@@ -318,13 +318,13 @@
 
         .nav-links a {
             display: block;
-            padding: 25px 25px;
+            padding: 25px 18px;
             color: white;
             text-decoration: none;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.3s;
             border-right: 2px solid rgba(255, 255, 255, 0.1);
         }
@@ -644,6 +644,217 @@
         body.dark-mode .content-text a:hover {
             color: var(--matrix-green-bright);
             border-bottom-color: var(--matrix-green-bright);
+        }
+
+        /* Articles Styles */
+        .articles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .article-item {
+            padding: 20px;
+            border: 2px solid var(--charcoal);
+            border-radius: var(--border-radius);
+            background: var(--cream);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
+        }
+
+        body.dark-mode .article-item {
+            background: var(--matrix-card);
+            border-color: var(--matrix-border);
+        }
+
+        .article-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--red);
+        }
+
+        body.dark-mode .article-item:hover {
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2), var(--shadow-md);
+        }
+
+        .article-item h3 {
+            color: var(--dark-blue);
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        body.dark-mode .article-item h3 {
+            color: var(--matrix-green);
+        }
+
+        .article-item p {
+            margin: 0;
+            color: var(--charcoal);
+            font-size: 0.95rem;
+        }
+
+        body.dark-mode .article-item p {
+            color: var(--matrix-text);
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--red);
+        }
+
+        body.dark-mode .article-header {
+            border-bottom-color: var(--matrix-green);
+        }
+
+        .article-content {
+            margin-bottom: 40px;
+        }
+
+        .article-content h3 {
+            color: var(--dark-blue);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            letter-spacing: 1px;
+        }
+
+        body.dark-mode .article-content h3 {
+            color: var(--matrix-green);
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 15px 0 15px 30px;
+            line-height: 1.8;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+
+        .article-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        body.dark-mode .article-navigation {
+            border-top-color: var(--matrix-border);
+        }
+
+        .article-navigation .btn {
+            flex: 0 1 auto;
+            min-width: 140px;
+        }
+
+        .article-navigation .btn:nth-child(2) {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        /* Articles Index */
+        .article-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .article-list li {
+            margin-bottom: 16px;
+        }
+
+        .article-list a {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            text-decoration: none;
+            border-bottom: 2px dotted var(--dark-blue);
+            transition: all var(--transition-base);
+            display: inline-block;
+        }
+
+        body.dark-mode .article-list a {
+            color: var(--matrix-green);
+            border-bottom-color: var(--matrix-green);
+        }
+
+        .article-list a:hover {
+            color: var(--red);
+            border-bottom-style: solid;
+            transform: translateX(4px);
+        }
+
+        body.dark-mode .article-list a:hover {
+            color: var(--matrix-green-bright);
+        }
+
+        /* Article Content */
+        .article-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            margin: 30px 0 15px 0;
+            letter-spacing: 2px;
+        }
+
+        body.dark-mode .article-content h2 {
+            color: var(--matrix-green);
+        }
+
+        .article-content h3 {
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            margin: 25px 0 12px 0;
+            font-weight: 600;
+        }
+
+        body.dark-mode .article-content h3 {
+            color: var(--matrix-green-dim);
+        }
+
+        .article-content p {
+            margin-bottom: 18px;
+            line-height: 1.8;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 15px 0 20px 30px;
+            line-height: 1.8;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        /* Article Navigation */
+        .article-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid var(--charcoal);
+        }
+
+        body.dark-mode .article-nav {
+            border-top-color: var(--matrix-green);
+        }
+
+        .article-nav .btn {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .article-nav .btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
         /* Character Reference Guide */
@@ -1621,6 +1832,7 @@
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#" class="active" onclick="showPage('home'); return false;">Home</a></li>
+                <li><a href="#" onclick="showPage('articles'); return false;">Articles</a></li>
                 <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
                 <li><a href="#" onclick="showPage('contact'); return false;">Contact</a></li>
                 <li><a href="#" onclick="showPage('settings'); return false;">Settings</a></li>
@@ -1715,6 +1927,54 @@
                                     <span class="stat-value" id="streak-count">0</span>
                                     <span class="stat-label">Streak</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARTICLES PAGE -->
+                <div id="articles-page" class="page-content">
+                    <!-- Articles Index -->
+                    <div id="articles-index" class="articles-view active">
+                        <div class="card">
+                            <h2>Articles</h2>
+                            <p class="content-text" style="margin-bottom: 30px;">Learn more about the Cyrillic alphabet, tips for memorization, and language learning strategies.</p>
+                            
+                            <div class="articles-list">
+                                <!-- Article links will be added here -->
+                                <div class="article-item" onclick="showArticle('getting-started')">
+                                    <h3>Getting Started with Cyrillic</h3>
+                                    <p>A beginner's guide to learning the Cyrillic alphabet efficiently.</p>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('common-mistakes')">
+                                    <h3>5 Common Mistakes When Learning Cyrillic</h3>
+                                    <p>Avoid these pitfalls and accelerate your learning journey.</p>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('memory-tricks')">
+                                    <h3>Memory Tricks for Confusing Letters</h3>
+                                    <p>Never confuse Н, Р, В, and other tricky characters again.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Individual Article View (hidden by default) -->
+                    <div id="article-view" class="articles-view" style="display: none;">
+                        <div class="card">
+                            <div class="article-header">
+                                <h2 id="article-title"></h2>
+                            </div>
+                            
+                            <div class="article-content content-text" id="article-content">
+                                <!-- Article content loaded here -->
+                            </div>
+                            
+                            <div class="article-navigation">
+                                <button class="btn" id="prev-article" onclick="navigateArticle('prev')">← Previous</button>
+                                <button class="btn" onclick="showArticleIndex()">Back to Articles</button>
+                                <button class="btn" id="next-article" onclick="navigateArticle('next')">Next →</button>
                             </div>
                         </div>
                     </div>
@@ -2277,6 +2537,12 @@
             // Show selected page
             document.getElementById(pageName + '-page').classList.add('active');
             
+            // If showing articles page, show the index view
+            if (pageName === 'articles') {
+                document.getElementById('articles-index').style.display = 'block';
+                document.getElementById('article-view').style.display = 'none';
+            }
+            
             // Update nav active state
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
@@ -2311,6 +2577,150 @@
 
         function toggleMenu() {
             document.getElementById('nav-links').classList.toggle('active');
+        }
+
+        // Article data
+        const ARTICLES = [
+            {
+                id: 'getting-started',
+                title: 'Getting Started with Cyrillic',
+                content: `
+                    <p>Learning the Cyrillic alphabet might seem daunting at first, but with the right approach, you can master it in just a week or two of consistent practice.</p>
+                    
+                    <h3>Why Learn Cyrillic?</h3>
+                    <p>The Cyrillic alphabet is used by over 250 million people across multiple languages including Russian, Ukrainian, Bulgarian, Serbian, and many others. Mastering it opens doors to understanding these rich cultures and languages.</p>
+                    
+                    <h3>The Smart Approach</h3>
+                    <p>Instead of trying to memorize all 33 letters at once, break them into groups:</p>
+                    <ul>
+                        <li><strong>Start with familiar letters</strong> - Characters like A, E, K, M, O, and T that look and sound similar to Latin letters</li>
+                        <li><strong>Learn the false friends</strong> - Letters that look familiar but sound different (В = V, Н = N, Р = R)</li>
+                        <li><strong>Master the unique letters</strong> - Characters completely new to you like Ж, Ш, Щ, Ы</li>
+                    </ul>
+                    
+                    <h3>Practice Daily</h3>
+                    <p>Consistency beats intensity. Practice for 10-15 minutes every day rather than cramming for hours once a week. Use tools like CyriЛica to get instant feedback and track your progress.</p>
+                    
+                    <h3>Your First Week Plan</h3>
+                    <ul>
+                        <li><strong>Days 1-2:</strong> Learn the vowels (А, Е, И, О, У, Э, Ю, Я)</li>
+                        <li><strong>Days 3-4:</strong> Add common consonants (Б, В, Г, Д, К, Л, М, Н, П, Р, С, Т)</li>
+                        <li><strong>Days 5-6:</strong> Tackle the unique letters (Ж, З, Ц, Ч, Ш, Щ)</li>
+                        <li><strong>Day 7:</strong> Review everything and practice with real words</li>
+                    </ul>
+                    
+                    <p>Remember: the goal isn't perfection, it's progress. Even if you can only identify 20 out of 33 letters after your first week, you're well on your way!</p>
+                `
+            },
+            {
+                id: 'common-mistakes',
+                title: '5 Common Mistakes When Learning Cyrillic',
+                content: `
+                    <p>Learning a new alphabet is challenging, but avoiding these common pitfalls can save you time and frustration.</p>
+                    
+                    <h3>1. Confusing False Friends</h3>
+                    <p>The biggest trap for English speakers is assuming letters that look familiar sound the same. В isn't "V" in appearance but IS in sound. Н looks like H but sounds like N. Р looks like P but sounds like R. Write these down and practice them separately until they stick.</p>
+                    
+                    <h3>2. Skipping Lowercase Forms</h3>
+                    <p>Many learners focus only on uppercase letters, but most Russian text uses lowercase. The handwritten forms can look quite different! Make sure you're comfortable with both forms of each letter.</p>
+                    
+                    <h3>3. Not Learning in Context</h3>
+                    <p>Memorizing individual letters is important, but learning them in actual words helps tremendously. Try practicing with simple words like "мама" (mama), "папа" (papa), or "кот" (cat) to reinforce your learning.</p>
+                    
+                    <h3>4. Trying to Learn Too Fast</h3>
+                    <p>Your brain needs time to create new neural pathways. Cramming all 33 letters in one sitting leads to confusion. Space out your learning and give yourself time to sleep on it - sleep is when memories consolidate!</p>
+                    
+                    <h3>5. Not Getting Enough Practice</h3>
+                    <p>Reading about Cyrillic isn't the same as practicing it. You need active recall - testing yourself on characters without looking at the answers. Tools that provide instant feedback, like interactive quizzes, are much more effective than passive flashcards.</p>
+                    
+                    <p>Avoid these mistakes and you'll be reading Cyrillic much sooner than you think!</p>
+                `
+            },
+            {
+                id: 'memory-tricks',
+                title: 'Memory Tricks for Confusing Letters',
+                content: `
+                    <p>Some Cyrillic letters are notorious for tripping up beginners. Here are memory tricks to help you never mix them up again.</p>
+                    
+                    <h3>Н (sounds like N)</h3>
+                    <p><strong>Trick:</strong> "The H fell over" - It looks like a sideways H, which is close to N in the alphabet anyway. Or think: "Н = Not an H!"</p>
+                    
+                    <h3>Р (sounds like R)</h3>
+                    <p><strong>Trick:</strong> "Pirates say РРРР!" - Remember that pirates roll their R's, and this letter helps them do it.</p>
+                    
+                    <h3>В (sounds like V)</h3>
+                    <p><strong>Trick:</strong> "B lost the bottom bump to become V" - The letter looks like B but sounds like V.</p>
+                    
+                    <h3>Ш vs Щ (sh vs shch)</h3>
+                    <p><strong>Trick:</strong> "Щ has a tail because it's longer to say" - The extra hook at the bottom reminds you there's an extra sound (the 'ch').</p>
+                    
+                    <h3>И vs Н (i vs n)</h3>
+                    <p><strong>Trick:</strong> "И points right to I (eye)" - The slant points toward English "I". Н is straight up and down like eN.</p>
+                    
+                    <h3>Ь vs Ъ (soft sign vs hard sign)</h3>
+                    <p><strong>Trick:</strong> "The soft sign is skinny (Ь), the hard sign is blocky (Ъ)" - Soft = slim, Hard = hard angles.</p>
+                    
+                    <h3>Д (sounds like D)</h3>
+                    <p><strong>Trick:</strong> "It's a house with a Doorway" - The shape looks like a little house, and Door starts with D.</p>
+                    
+                    <h3>Ы (sounds like "ih")</h3>
+                    <p><strong>Trick:</strong> "The weird-looking one makes a weird sound" - It's unique to Slavic languages and has no English equivalent. Think of saying "bit" but holding the "i" sound longer.</p>
+                    
+                    <p>Create your own memory tricks too! The more personal and silly they are, the better they stick.</p>
+                `
+            }
+        ];
+
+        // Article navigation functions
+        function showArticle(articleId) {
+            const article = ARTICLES.find(a => a.id === articleId);
+            if (!article) return;
+            
+            // Hide article index, show article view
+            document.getElementById('articles-index').style.display = 'none';
+            document.getElementById('article-view').style.display = 'block';
+            
+            // Load article content
+            document.getElementById('article-title').textContent = article.title;
+            document.getElementById('article-content').innerHTML = article.content;
+            
+            // Update URL
+            window.history.pushState({ page: 'articles', article: articleId }, '', `/articles/${articleId}`);
+            
+            // Setup navigation buttons with looping
+            const currentIndex = ARTICLES.findIndex(a => a.id === articleId);
+            const prevBtn = document.getElementById('prev-article');
+            const nextBtn = document.getElementById('next-article');
+            
+            // Previous button (loop to end if on first article)
+            const prevIndex = currentIndex > 0 ? currentIndex - 1 : ARTICLES.length - 1;
+            prevBtn.setAttribute('data-article-id', ARTICLES[prevIndex].id);
+            
+            // Next button (loop to beginning if on last article)
+            const nextIndex = currentIndex < ARTICLES.length - 1 ? currentIndex + 1 : 0;
+            nextBtn.setAttribute('data-article-id', ARTICLES[nextIndex].id);
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function showArticleIndex() {
+            document.getElementById('articles-index').style.display = 'block';
+            document.getElementById('article-view').style.display = 'none';
+            
+            // Update URL
+            window.history.pushState({ page: 'articles' }, '', '/articles');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function navigateArticle(direction) {
+            const btn = direction === 'prev' ? document.getElementById('prev-article') : document.getElementById('next-article');
+            const articleId = btn.getAttribute('data-article-id');
+            if (articleId) {
+                showArticle(articleId);
+            }
         }
 
         // Cyrillic character data with romanizations
@@ -2725,6 +3135,12 @@
             
             if (path === '/' || path === '/home' || path === '') {
                 pageName = 'home';
+            } else if (path.startsWith('/articles/')) {
+                // Article detail page
+                const articleId = path.substring(10); // Remove '/articles/'
+                showPage('articles');
+                showArticle(articleId);
+                return;
             } else if (path.startsWith('/')) {
                 pageName = path.substring(1); // Remove leading slash
             }
@@ -2737,6 +3153,12 @@
                     page.classList.remove('active');
                 });
                 pageElement.classList.add('active');
+                
+                // If articles page, show index
+                if (pageName === 'articles') {
+                    document.getElementById('articles-index').style.display = 'block';
+                    document.getElementById('article-view').style.display = 'none';
+                }
                 
                 // Update nav active state
                 document.querySelectorAll('.nav-links a').forEach(link => {
@@ -2769,6 +3191,29 @@
             
             if (path === '/' || path === '/home' || path === '') {
                 pageName = 'home';
+            } else if (path.startsWith('/articles/')) {
+                // Article detail page - load article
+                const articleId = path.substring(10);
+                pageName = 'articles';
+                
+                // Show articles page first
+                document.querySelectorAll('.page-content').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById('articles-page').classList.add('active');
+                
+                // Then show the specific article
+                showArticle(articleId);
+                
+                // Update nav
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeLink = document.querySelector(`.nav-links a[onclick*="'articles'"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+                return;
             } else if (path.startsWith('/')) {
                 const pathName = path.substring(1);
                 // Check if page exists
@@ -2784,6 +3229,12 @@
                 });
                 document.getElementById(pageName + '-page').classList.add('active');
                 
+                // If articles page, show index
+                if (pageName === 'articles') {
+                    document.getElementById('articles-index').style.display = 'block';
+                    document.getElementById('article-view').style.display = 'none';
+                }
+                
                 // Update nav
                 document.querySelectorAll('.nav-links a').forEach(link => {
                     link.classList.remove('active');
@@ -2794,6 +3245,18 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
+    </script>
+</body>
+</html>
+);
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
