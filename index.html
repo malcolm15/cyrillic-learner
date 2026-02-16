@@ -228,17 +228,87 @@
         .nav-logo {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2rem;
-            letter-spacing: 3px;
-            color: var(--gold);
-            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+            letter-spacing: 6px;
+            color: white;
             text-decoration: none;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
+            transition: color 0.3s ease;
+            display: inline-block;
         }
 
         body.dark-mode .nav-logo {
             color: var(--matrix-green);
-            text-shadow: 0 0 4px rgba(0, 255, 65, 0.5), 2px 2px 0 rgba(0, 0, 0, 0.5);
         }
+
+        .nav-logo .letter-l,
+        h1 .letter-l {
+            color: var(--gold);
+            position: relative;
+            display: inline-block;
+            margin: 0 3px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        body.dark-mode .nav-logo .letter-l,
+        body.dark-mode h1 .letter-l {
+            color: var(--matrix-green-bright);
+        }
+
+        /* Confetti container - hidden by default */
+        .letter-l .confetti-burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            display: none;
+        }
+
+        /* Show confetti on hover or when clicked */
+        .letter-l:hover .confetti-burst,
+        .letter-l.burst-active .confetti-burst {
+            display: block;
+        }
+
+        /* Individual confetti piece animation */
+        .letter-l .conf {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Confetti falling animation - just like in-game! */
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(150px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .letter-l.burst-active .conf {
+            animation: confettiFall 1.2s ease-out forwards;
+        }
+
+        /* Stagger the confetti timing like in-game */
+        .letter-l.burst-active .conf:nth-child(1) { animation-delay: 0s; }
+        .letter-l.burst-active .conf:nth-child(2) { animation-delay: 0.05s; }
+        .letter-l.burst-active .conf:nth-child(3) { animation-delay: 0.1s; }
+        .letter-l.burst-active .conf:nth-child(4) { animation-delay: 0.05s; }
+        .letter-l.burst-active .conf:nth-child(5) { animation-delay: 0.15s; }
+        .letter-l.burst-active .conf:nth-child(6) { animation-delay: 0.08s; }
+        .letter-l.burst-active .conf:nth-child(7) { animation-delay: 0.12s; }
+        .letter-l.burst-active .conf:nth-child(8) { animation-delay: 0.03s; }
+        .letter-l.burst-active .conf:nth-child(9) { animation-delay: 0.18s; }
+        .letter-l.burst-active .conf:nth-child(10) { animation-delay: 0.1s; }
+        .letter-l.burst-active .conf:nth-child(11) { animation-delay: 0.06s; }
+        .letter-l.burst-active .conf:nth-child(12) { animation-delay: 0.14s; }
+        .letter-l.burst-active .conf:nth-child(13) { animation-delay: 0.09s; }
+        .letter-l.burst-active .conf:nth-child(14) { animation-delay: 0.11s; }
+        .letter-l.burst-active .conf:nth-child(15) { animation-delay: 0.04s; }
 
         .nav-links {
             display: flex;
@@ -430,18 +500,17 @@
         h1 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 3.5rem;
-            letter-spacing: 6px;
+            letter-spacing: 10px;
             color: var(--dark-blue);
             text-transform: uppercase;
             margin-bottom: 5px;
-            text-shadow: 3px 3px 0 var(--gold);
-            line-height: 0.9;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
+            line-height: 1;
+            transition: color 0.3s ease;
+            display: inline-block;
         }
 
         body.dark-mode h1 {
             color: var(--matrix-green);
-            text-shadow: 0 0 6px rgba(0, 255, 65, 0.4), 3px 3px 0 rgba(0, 0, 0, 0.5);
         }
 
         .subtitle {
@@ -1333,8 +1402,13 @@
             }
 
             h1 {
-                font-size: 3rem;
-                letter-spacing: 4px;
+                font-size: 2.5rem;
+                letter-spacing: 3px;
+            }
+
+            .nav-logo {
+                font-size: 1.5rem;
+                letter-spacing: 3px;
             }
 
             /* Compress quiz elements to fit more on screen */
@@ -1543,7 +1617,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="nav-logo" onclick="showPage('home'); return false;">CyriЛica</a>
+            <a href="#" class="nav-logo" onclick="showPage('home'); return false;">CYRI<span class="letter-l" onclick="burstConfetti(event, this)">Л<span class="confetti-burst"></span></span>ICA</a>
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#" class="active" onclick="showPage('home'); return false;">Home</a></li>
@@ -1578,7 +1652,7 @@
                 <!-- HOME PAGE -->
                 <div id="home-page" class="page-content active">
                     <header>
-                        <h1>CyriЛica</h1>
+                        <h1>CYRI<span class="letter-l" onclick="burstConfetti(event, this)">Л<span class="confetti-burst"></span></span>ICA</h1>
                         <div class="subtitle">Master the Cyrillic Alphabet</div>
                     </header>
 
@@ -2140,6 +2214,52 @@
             }
         }
 
+        // Logo confetti burst function
+        function burstConfetti(event, letterElement) {
+            event.stopPropagation(); // Don't trigger parent click handlers
+            
+            const colors = ['#FFC107', '#FF6B35', '#4CAF50', '#2196F3', '#9C27B0'];
+            const confettiCount = 15;
+            
+            // Get the position of the Л letter
+            const rect = letterElement.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.bottom;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '8px';
+                confetti.style.height = '8px';
+                confetti.style.borderRadius = '50%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.pointerEvents = 'none';
+                confetti.style.zIndex = '10000';
+                
+                // Start position (at the Л)
+                confetti.style.left = centerX + 'px';
+                confetti.style.top = centerY + 'px';
+                
+                // Random horizontal spread
+                const randomX = (Math.random() - 0.5) * 60;
+                const randomRotation = Math.random() * 720 - 360;
+                
+                // Animate with CSS
+                confetti.style.transition = 'all 1.2s ease-out';
+                
+                document.body.appendChild(confetti);
+                
+                // Trigger animation after a tiny delay (for CSS transition to work)
+                setTimeout(() => {
+                    confetti.style.transform = `translate(${randomX}px, 150px) rotate(${randomRotation}deg)`;
+                    confetti.style.opacity = '0';
+                }, 10);
+                
+                // Remove after animation
+                setTimeout(() => confetti.remove(), 1300);
+            }
+        }
+
         function updateLowercaseDisplay() {
             const lowerElement = document.getElementById('current-char-lower');
             if (lowerElement) {
@@ -2674,6 +2794,18 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
+    </script>
+</body>
+</html>
+);
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
