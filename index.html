@@ -740,9 +740,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             padding-top: 30px;
             border-top: 2px solid #e0e0e0;
+            flex-wrap: wrap;
         }
 
         body.dark-mode .article-navigation {
@@ -750,13 +751,28 @@
         }
 
         .article-navigation .btn {
-            flex: 0 1 auto;
-            min-width: 140px;
+            flex: 1 1 auto;
+            min-width: 120px;
+            text-align: center;
         }
 
         .article-navigation .btn:nth-child(2) {
-            flex: 1;
-            max-width: 200px;
+            flex: 1 1 auto;
+            max-width: none;
+        }
+
+        @media (max-width: 768px) {
+            .article-navigation {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .article-navigation .btn {
+                width: 100%;
+                min-width: unset;
+                text-align: center;
+            }
         }
 
         /* Articles Index */
@@ -3246,6 +3262,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
