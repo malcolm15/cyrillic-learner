@@ -1750,8 +1750,20 @@
                 gap: 8px;
             }
 
+            /* 2 columns of characters inside each group tile */
             .reference-grid {
-                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4px;
+            }
+
+            /* Tighter tile padding on mobile */
+            .reference-section {
+                padding: 10px;
+            }
+
+            /* Slightly tighter char tiles */
+            .char-ref-item {
+                padding: 5px 3px;
             }
         }
     </style>
@@ -3277,6 +3289,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
