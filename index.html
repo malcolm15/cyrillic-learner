@@ -1952,7 +1952,7 @@
                                 <button class="btn btn-control" onclick="clearAllGroups()">Clear All</button>
                             </div>
                         </div>
-                        <p class="content-text" style="margin-bottom: 14px; font-size: 0.9rem;">Click a group to select it for practice. Selected groups highlight in red. <strong>New to Cyrillic?</strong> Check out our <a href="#" onclick="showPage('reference'); return false;" style="color: var(--red); font-weight: 600; text-decoration: underline;">Complete Alphabet Reference</a> first!</p>
+                        <p class="content-text" style="margin-bottom: 14px; font-size: 0.9rem;">Click a group to select it for practice. Selected groups highlight in red. <strong>New to Cyrillic?</strong> Check out our <a href="#" onclick="showPage('reference'); return false;" style="color: var(--red); font-weight: 600;">Complete Alphabet Reference</a> first!</p>
                         <div id="reference-container"></div>
                         <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
                     </div>
@@ -2327,6 +2327,10 @@
 
                         <div class="content-text" style="margin-top: 30px;">
                             <p><strong>Practice Tip:</strong> Start by learning the vowels first, then move to consonants that look similar to English letters. Save the unique characters (Ж, Ш, Щ, Ы) for last. Use our interactive tool on the Home page to test your knowledge!</p>
+                            
+                            <div style="text-align: center; margin-top: 30px;">
+                                <button class="btn" onclick="showPage('home'); return false;" style="background: var(--dark-blue); color: white; padding: 14px 40px;">← Back to Home</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2410,7 +2414,7 @@
 
                         <h3>Get in Touch</h3>
                         <div class="content-text">
-                            <p>Email me at: <a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a></p>
+                            <p>Email me at: <!--email_off--><a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a><!--/email_off--></p>
                         </div>
 
                         <div class="content-text">
@@ -2518,7 +2522,7 @@
                      data-ad-slot="3868336358"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
@@ -2785,7 +2789,7 @@
 
         // Logo confetti burst function
         function burstConfetti(event, letterElement) {
-            event.stopPropagation(); // Don't trigger parent click handlers
+            // Allow parent link to work - confetti triggers, then navigation happens!
             
             const colors = ['#FFC107', '#FF6B35', '#4CAF50', '#2196F3', '#9C27B0'];
             const confettiCount = 15;
@@ -3924,7 +3928,6 @@
                 // Then show the specific article
                 showArticle(articleId);
                 
-                // Upd          
                 // Update nav
                 document.querySelectorAll('.nav-links a').forEach(link => {
                     link.classList.remove('active');
