@@ -652,41 +652,69 @@
         .articles-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 0;
         }
 
         .article-item {
-            padding: 20px;
-            border: 2px solid var(--charcoal);
-            border-radius: var(--border-radius);
-            background: var(--cream);
+            padding: 16px 20px;
+            border-bottom: 1px solid #ddd;
+            background: transparent;
             cursor: pointer;
-            transition: all var(--transition-base);
-            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .article-item:first-child {
+            border-top: 1px solid #ddd;
         }
 
         body.dark-mode .article-item {
-            background: var(--matrix-card);
-            border-color: var(--matrix-border);
+            border-bottom-color: var(--matrix-border);
+        }
+
+        body.dark-mode .article-item:first-child {
+            border-top-color: var(--matrix-border);
         }
 
         .article-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--red);
+            background: var(--cream);
+            padding-left: 24px;
         }
 
         body.dark-mode .article-item:hover {
-            border-color: var(--matrix-green);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2), var(--shadow-md);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .article-item::before {
+            content: "→";
+            color: var(--red);
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+
+        body.dark-mode .article-item::before {
+            color: var(--matrix-green);
+        }
+
+        .article-item:hover::before {
+            transform: translateX(3px);
+        }
+
+        .article-item-content {
+            flex: 1;
         }
 
         .article-item h3 {
             color: var(--dark-blue);
-            margin: 0 0 10px 0;
-            font-size: 1.3rem;
+            margin: 0 0 4px 0;
+            font-size: 1.1rem;
             font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
         body.dark-mode .article-item h3 {
@@ -695,12 +723,13 @@
 
         .article-item p {
             margin: 0;
-            color: var(--charcoal);
-            font-size: 0.95rem;
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
 
         body.dark-mode .article-item p {
-            color: var(--matrix-text);
+            color: var(--matrix-text-dim);
         }
 
         .article-header {
@@ -1987,20 +2016,95 @@
                             <p class="content-text" style="margin-bottom: 30px;">Learn more about the Cyrillic alphabet, tips for memorization, and language learning strategies.</p>
                             
                             <div class="articles-list">
-                                <!-- Article links will be added here -->
                                 <div class="article-item" onclick="showArticle('getting-started')">
-                                    <h3>Getting Started with Cyrillic</h3>
-                                    <p>A beginner's guide to learning the Cyrillic alphabet efficiently.</p>
+                                    <div class="article-item-content">
+                                        <h3>Getting Started with Cyrillic</h3>
+                                        <p>A beginner's guide to learning the Cyrillic alphabet efficiently.</p>
+                                    </div>
                                 </div>
                                 
                                 <div class="article-item" onclick="showArticle('common-mistakes')">
-                                    <h3>5 Common Mistakes When Learning Cyrillic</h3>
-                                    <p>Avoid these pitfalls and accelerate your learning journey.</p>
+                                    <div class="article-item-content">
+                                        <h3>5 Common Mistakes When Learning Cyrillic</h3>
+                                        <p>Avoid these pitfalls and accelerate your learning journey.</p>
+                                    </div>
                                 </div>
                                 
                                 <div class="article-item" onclick="showArticle('memory-tricks')">
-                                    <h3>Memory Tricks for Confusing Letters</h3>
-                                    <p>Never confuse Н, Р, В, and other tricky characters again.</p>
+                                    <div class="article-item-content">
+                                        <h3>Memory Tricks for Confusing Letters</h3>
+                                        <p>Never confuse Н, Р, В, and other tricky characters again.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('cyrillic-alphabet-chart')">
+                                    <div class="article-item-content">
+                                        <h3>Complete Cyrillic Alphabet Chart</h3>
+                                        <p>All 33 letters with pronunciations and examples.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('cyrillic-vs-latin')">
+                                    <div class="article-item-content">
+                                        <h3>Cyrillic vs Latin Alphabet</h3>
+                                        <p>Complete comparison of the two writing systems.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('how-to-type-cyrillic')">
+                                    <div class="article-item-content">
+                                        <h3>How to Type in Cyrillic</h3>
+                                        <p>Setup guide for Windows, Mac, iOS, and Android.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('history-of-cyrillic')">
+                                    <div class="article-item-content">
+                                        <h3>The History of the Cyrillic Alphabet</h3>
+                                        <p>1,150 years from Saints Cyril and Methodius to today.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('ukrainian-alphabet')">
+                                    <div class="article-item-content">
+                                        <h3>Ukrainian Alphabet Guide</h3>
+                                        <p>Key differences from Russian Cyrillic explained.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('bulgarian-alphabet')">
+                                    <div class="article-item-content">
+                                        <h3>Bulgarian Alphabet Guide</h3>
+                                        <p>The birthplace of Cyrillic - 30 letters explained.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('serbian-cyrillic-vs-latin')">
+                                    <div class="article-item-content">
+                                        <h3>Serbian: Cyrillic vs Latin Scripts</h3>
+                                        <p>Understanding Serbia's dual-alphabet system.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('cyrillic-handwriting')">
+                                    <div class="article-item-content">
+                                        <h3>Cyrillic Handwriting Guide</h3>
+                                        <p>How cursive letters differ from print.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('common-cyrillic-mistakes')">
+                                    <div class="article-item-content">
+                                        <h3>10 Common Cyrillic Mistakes</h3>
+                                        <p>English speakers' most frequent errors and how to fix them.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('cyrillic-learning-resources')">
+                                    <div class="article-item-content">
+                                        <h3>Best Resources for Learning Cyrillic</h3>
+                                        <p>Top apps, websites, and tools to accelerate your learning.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3860,6 +3964,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
