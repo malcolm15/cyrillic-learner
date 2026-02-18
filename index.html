@@ -390,9 +390,22 @@
                 max-height: 400px;
             }
 
+            .nav-links li {
+                width: 100%;
+            }
+
             .nav-links a {
                 border-right: none;
                 border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                padding: 16px 20px;
+                min-height: 54px;
+                display: flex;
+                align-items: center;
+            }
+
+            .nav-links li:last-child a {
+                border-bottom: none;
+                padding-bottom: 16px;
             }
         }
 
@@ -2916,6 +2929,21 @@
             document.getElementById('nav-links').classList.toggle('active');
         }
 
+        // Close mobile menu on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const navLinks = document.getElementById('nav-links');
+            if (navLinks && navLinks.classList.contains('active')) {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Close menu if user scrolls more than 50px
+                if (Math.abs(scrollTop - lastScrollTop) > 50) {
+                    navLinks.classList.remove('active');
+                }
+                lastScrollTop = scrollTop;
+            }
+        });
+
         // Article data
         const ARTICLES = [
             {
@@ -3993,6 +4021,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
