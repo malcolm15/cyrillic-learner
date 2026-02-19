@@ -750,21 +750,18 @@
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 3px solid var(--red);
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 20px;
             position: relative;
         }
 
         .article-header h2 {
-            flex: 1;
             margin: 0;
-            padding-right: 10px;
+            padding-right: 100px; /* Space for button */
         }
 
         .article-back-btn {
-            flex-shrink: 0;
+            position: absolute;
+            top: -10px;
+            right: 0;
             padding: 8px 16px;
             background: var(--dark-blue);
             color: white;
@@ -776,7 +773,6 @@
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
-            align-self: flex-start;
         }
 
         .article-back-btn:hover {
@@ -1888,17 +1884,8 @@
                 font-size: 0.85rem;
             }
 
-            /* Stack article header on very small screens if needed */
-            @media (max-width: 480px) {
-                .article-header {
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-
-                .article-back-btn {
-                    align-self: flex-end;
-                    margin-top: 10px;
-                }
+            .article-header h2 {
+                padding-right: 90px; /* Less space on mobile */
             }
         }
     </style>
@@ -4190,6 +4177,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
