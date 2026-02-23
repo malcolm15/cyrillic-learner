@@ -3650,6 +3650,39 @@
                 // No hash, scroll to top
                 window.scrollTo(0, 0);
             }
+            
+            // Setup anchor link handlers for TOC (must be after content is loaded)
+            setTimeout(() => {
+                setupAnchorLinks();
+            }, 50);
+        }
+
+        // Handle anchor link clicks within articles (especially TOC)
+        function setupAnchorLinks() {
+            const articleContent = document.getElementById('article-content');
+            if (!articleContent) return;
+            
+            const anchorLinks = articleContent.querySelectorAll('a[href^="#"]');
+            anchorLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Smooth scroll to the target
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start'
+                        });
+                        
+                        // Update URL hash without triggering navigation
+                        history.replaceState(null, null, targetId);
+                    }
+                });
+            });
         }
 
         function showArticleIndex() {
@@ -4194,6 +4227,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
