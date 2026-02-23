@@ -122,7 +122,6 @@
             flex-direction: column;
             align-items: center;
             transition: background 0.3s ease, color 0.3s ease;
-            scroll-behavior: smooth;
         }
 
         /* Matrix Mode / Dark Mode */
@@ -395,22 +394,9 @@
                 max-height: 400px;
             }
 
-            .nav-links li {
-                width: 100%;
-            }
-
             .nav-links a {
                 border-right: none;
                 border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-                padding: 16px 20px;
-                min-height: 54px;
-                display: flex;
-                align-items: center;
-            }
-
-            .nav-links li:last-child a {
-                border-bottom: none;
-                padding-bottom: 16px;
             }
         }
 
@@ -754,46 +740,6 @@
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 3px solid var(--red);
-            position: relative;
-        }
-
-        .article-header h2 {
-            margin: 0;
-            padding-right: 100px; /* Space for button */
-        }
-
-        .article-back-btn {
-            position: absolute;
-            top: -10px;
-            right: 0;
-            padding: 8px 16px;
-            background: var(--dark-blue);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .article-back-btn:hover {
-            background: var(--red);
-            transform: translateX(-3px);
-        }
-
-        body.dark-mode .article-back-btn {
-            background: var(--matrix-card);
-            color: var(--matrix-green);
-            border: 1px solid var(--matrix-green);
-        }
-
-        body.dark-mode .article-back-btn:hover {
-            background: var(--matrix-green);
-            color: var(--dark-blue);
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
         }
 
         body.dark-mode .article-header {
@@ -1854,43 +1800,6 @@
             .char-ref-item {
                 padding: 5px 3px;
             }
-
-            /* Mobile-optimized reference tables - compress to avoid horizontal scroll */
-            #reference-page table {
-                font-size: 0.85rem;
-            }
-
-            #reference-page th {
-                padding: 8px 4px !important;
-                font-size: 0.75rem;
-                line-height: 1.2;
-                white-space: normal;
-                word-wrap: break-word;
-            }
-
-            #reference-page td {
-                padding: 8px 4px !important;
-                font-size: 0.85rem;
-            }
-
-            /* Shrink the letter column on mobile */
-            #reference-page td:first-child span {
-                font-size: 1.3rem !important;
-            }
-
-            #reference-page td:first-child span:last-child {
-                font-size: 1rem !important;
-            }
-
-            /* Mobile article back button - make smaller */
-            .article-back-btn {
-                padding: 6px 12px;
-                font-size: 0.85rem;
-            }
-
-            .article-header h2 {
-                padding-right: 90px; /* Less space on mobile */
-            }
         }
     </style>
 
@@ -2047,7 +1956,7 @@
                                 <button class="btn btn-control" onclick="clearAllGroups()">Clear All</button>
                             </div>
                         </div>
-                        <p class="content-text" style="margin-bottom: 14px; font-size: 0.9rem;">Click a group to select it for practice. Selected groups highlight in red. <strong>New to Cyrillic?</strong> Check out our <a href="#" onclick="showPage('reference'); return false;" style="color: var(--red); font-weight: 600;">Complete Alphabet Reference</a> first!</p>
+                        <p class="content-text" style="margin-bottom: 14px; font-size: 0.9rem;">Click a group to select it for practice. Selected groups highlight in red. <strong>New to Cyrillic?</strong> Check out our <a href="#" onclick="showPage('reference'); return false;" style="color: var(--red); font-weight: 600; text-decoration: underline;">Complete Alphabet Reference</a> first!</p>
                         <div id="reference-container"></div>
                         <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
                     </div>
@@ -2210,7 +2119,6 @@
                         <div class="card">
                             <div class="article-header">
                                 <h2 id="article-title"></h2>
-                                <button class="article-back-btn" onclick="showArticleIndex()" title="Back to Articles">← Back</button>
                             </div>
                             
                             <div class="article-content content-text" id="article-content">
@@ -2282,76 +2190,77 @@
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                                 <tr style="background: var(--cream); border-bottom: 2px solid var(--charcoal);">
                                     <th style="padding: 10px; text-align: left;">Letter</th>
+                                    <th style="padding: 10px; text-align: left;">Lowercase</th>
                                     <th style="padding: 10px; text-align: left;">Sound</th>
-                                    <th style="padding: 10px; text-align: left;">Pronunciation</th>
-                                    <th style="padding: 10px; text-align: left;">Example</th>
+                                    <th style="padding: 10px; text-align: left;">Pronunciation Guide</th>
+                                    <th style="padding: 10px; text-align: left;">Example Word</th>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">А</span> <span style="font-size: 1.2rem;">а</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">А</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">а</td>
                                     <td style="padding: 10px;">a</td>
                                     <td style="padding: 10px;">Like "a" in "father"</td>
                                     <td style="padding: 10px;">Анна (Anna)</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Е</span> <span style="font-size: 1.2rem;">е</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Е</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">е</td>
                                     <td style="padding: 10px;">ye</td>
                                     <td style="padding: 10px;">Like "ye" in "yes"</td>
                                     <td style="padding: 10px;">есть (yest - to eat)</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ё</span> <span style="font-size: 1.2rem;">ё</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ё</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">ё</td>
                                     <td style="padding: 10px;">yo</td>
                                     <td style="padding: 10px;">Like "yo" in "yolk"</td>
                                     <td style="padding: 10px;">ёж (yozh - hedgehog)</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">И</span> <span style="font-size: 1.2rem;">и</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">И</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">и</td>
                                     <td style="padding: 10px;">i</td>
                                     <td style="padding: 10px;">Like "ee" in "see"</td>
                                     <td style="padding: 10px;">имя (imya - name)</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">О</span> <span style="font-size: 1.2rem;">о</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">О</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">о</td>
                                     <td style="padding: 10px;">o</td>
                                     <td style="padding: 10px;">Like "o" in "or"</td>
                                     <td style="padding: 10px;">окно (okno - window)</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">У</span> <span style="font-size: 1.2rem;">у</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">У</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">у</td>
                                     <td style="padding: 10px;">u</td>
                                     <td style="padding: 10px;">Like "oo" in "boot"</td>
                                     <td style="padding: 10px;">утро (utro - morning)</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ы</span> <span style="font-size: 1.2rem;">ы</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ы</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">ы</td>
                                     <td style="padding: 10px;">y</td>
                                     <td style="padding: 10px;">Unique sound (between "i" and "u")</td>
                                     <td style="padding: 10px;">мы (my - we)</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Э</span> <span style="font-size: 1.2rem;">э</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Э</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">э</td>
                                     <td style="padding: 10px;">e</td>
                                     <td style="padding: 10px;">Like "e" in "met"</td>
                                     <td style="padding: 10px;">это (eto - this)</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ю</span> <span style="font-size: 1.2rem;">ю</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ю</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">ю</td>
                                     <td style="padding: 10px;">yu</td>
                                     <td style="padding: 10px;">Like "yu" in "yuletide"</td>
                                     <td style="padding: 10px;">юг (yug - south)</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Я</span> <span style="font-size: 1.2rem;">я</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Я</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">я</td>
                                     <td style="padding: 10px;">ya</td>
                                     <td style="padding: 10px;">Like "ya" in "yard"</td>
                                     <td style="padding: 10px;">яблоко (yabloko - apple)</td>
@@ -2364,31 +2273,32 @@
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                                 <tr style="background: var(--cream); border-bottom: 2px solid var(--charcoal);">
                                     <th style="padding: 10px; text-align: left;">Letter</th>
+                                    <th style="padding: 10px; text-align: left;">Lowercase</th>
                                     <th style="padding: 10px; text-align: left;">Sound</th>
-                                    <th style="padding: 10px; text-align: left;">Pronunciation</th>
-                                    <th style="padding: 10px; text-align: left;">Example</th>
+                                    <th style="padding: 10px; text-align: left;">Pronunciation Guide</th>
+                                    <th style="padding: 10px; text-align: left;">Example Word</th>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Б</span> <span style="font-size: 1.2rem;">б</span></td><td style="padding: 10px;">b</td><td style="padding: 10px;">Like "b" in "boy"</td><td style="padding: 10px;">банк (bank)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">В</span> <span style="font-size: 1.2rem;">в</span></td><td style="padding: 10px;">v</td><td style="padding: 10px;">Like "v" in "van" (looks like B!)</td><td style="padding: 10px;">вода (voda - water)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Г</span> <span style="font-size: 1.2rem;">г</span></td><td style="padding: 10px;">g</td><td style="padding: 10px;">Like "g" in "go"</td><td style="padding: 10px;">город (gorod - city)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Д</span> <span style="font-size: 1.2rem;">д</span></td><td style="padding: 10px;">d</td><td style="padding: 10px;">Like "d" in "dog"</td><td style="padding: 10px;">дом (dom - house)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ж</span> <span style="font-size: 1.2rem;">ж</span></td><td style="padding: 10px;">zh</td><td style="padding: 10px;">Like "s" in "measure"</td><td style="padding: 10px;">жизнь (zhizn - life)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">З</span> <span style="font-size: 1.2rem;">з</span></td><td style="padding: 10px;">z</td><td style="padding: 10px;">Like "z" in "zoo"</td><td style="padding: 10px;">зима (zima - winter)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Й</span> <span style="font-size: 1.2rem;">й</span></td><td style="padding: 10px;">y</td><td style="padding: 10px;">Like "y" in "boy"</td><td style="padding: 10px;">мой (moy - my)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">К</span> <span style="font-size: 1.2rem;">к</span></td><td style="padding: 10px;">k</td><td style="padding: 10px;">Like "k" in "kite"</td><td style="padding: 10px;">кот (kot - cat)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Л</span> <span style="font-size: 1.2rem;">л</span></td><td style="padding: 10px;">l</td><td style="padding: 10px;">Like "l" in "lamp"</td><td style="padding: 10px;">любовь (lyubov - love)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">М</span> <span style="font-size: 1.2rem;">м</span></td><td style="padding: 10px;">m</td><td style="padding: 10px;">Like "m" in "mom"</td><td style="padding: 10px;">мама (mama)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Н</span> <span style="font-size: 1.2rem;">н</span></td><td style="padding: 10px;">n</td><td style="padding: 10px;">Like "n" in "no" (looks like H!)</td><td style="padding: 10px;">но (no - but)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">П</span> <span style="font-size: 1.2rem;">п</span></td><td style="padding: 10px;">p</td><td style="padding: 10px;">Like "p" in "pot"</td><td style="padding: 10px;">папа (papa)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Р</span> <span style="font-size: 1.2rem;">р</span></td><td style="padding: 10px;">r</td><td style="padding: 10px;">Rolled "r" (looks like P!)</td><td style="padding: 10px;">рука (ruka - hand)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">С</span> <span style="font-size: 1.2rem;">с</span></td><td style="padding: 10px;">s</td><td style="padding: 10px;">Like "s" in "sun" (looks like C!)</td><td style="padding: 10px;">слово (slovo - word)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Т</span> <span style="font-size: 1.2rem;">т</span></td><td style="padding: 10px;">t</td><td style="padding: 10px;">Like "t" in "top"</td><td style="padding: 10px;">там (tam - there)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ф</span> <span style="font-size: 1.2rem;">ф</span></td><td style="padding: 10px;">f</td><td style="padding: 10px;">Like "f" in "fun"</td><td style="padding: 10px;">фото (foto)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Х</span> <span style="font-size: 1.2rem;">х</span></td><td style="padding: 10px;">kh</td><td style="padding: 10px;">Guttural "h" (like Scottish "loch")</td><td style="padding: 10px;">хорошо (khorosho - good)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ц</span> <span style="font-size: 1.2rem;">ц</span></td><td style="padding: 10px;">ts</td><td style="padding: 10px;">Like "ts" in "cats"</td><td style="padding: 10px;">царь (tsar)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ч</span> <span style="font-size: 1.2rem;">ч</span></td><td style="padding: 10px;">ch</td><td style="padding: 10px;">Like "ch" in "chip"</td><td style="padding: 10px;">час (chas - hour)</td></tr>
-                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ш</span> <span style="font-size: 1.2rem;">ш</span></td><td style="padding: 10px;">sh</td><td style="padding: 10px;">Like "sh" in "shop"</td><td style="padding: 10px;">школа (shkola - school)</td></tr>
-                                <tr><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Щ</span> <span style="font-size: 1.2rem;">щ</span></td><td style="padding: 10px;">shch</td><td style="padding: 10px;">Like "shch" (longer sh)</td><td style="padding: 10px;">борщ (borshch)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Б</td><td style="padding: 10px; font-size: 1.3rem;">б</td><td style="padding: 10px;">b</td><td style="padding: 10px;">Like "b" in "boy"</td><td style="padding: 10px;">банк (bank)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">В</td><td style="padding: 10px; font-size: 1.3rem;">в</td><td style="padding: 10px;">v</td><td style="padding: 10px;">Like "v" in "van" (looks like B!)</td><td style="padding: 10px;">вода (voda - water)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Г</td><td style="padding: 10px; font-size: 1.3rem;">г</td><td style="padding: 10px;">g</td><td style="padding: 10px;">Like "g" in "go"</td><td style="padding: 10px;">город (gorod - city)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Д</td><td style="padding: 10px; font-size: 1.3rem;">д</td><td style="padding: 10px;">d</td><td style="padding: 10px;">Like "d" in "dog"</td><td style="padding: 10px;">дом (dom - house)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ж</td><td style="padding: 10px; font-size: 1.3rem;">ж</td><td style="padding: 10px;">zh</td><td style="padding: 10px;">Like "s" in "measure"</td><td style="padding: 10px;">жизнь (zhizn - life)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">З</td><td style="padding: 10px; font-size: 1.3rem;">з</td><td style="padding: 10px;">z</td><td style="padding: 10px;">Like "z" in "zoo"</td><td style="padding: 10px;">зима (zima - winter)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Й</td><td style="padding: 10px; font-size: 1.3rem;">й</td><td style="padding: 10px;">y</td><td style="padding: 10px;">Like "y" in "boy"</td><td style="padding: 10px;">мой (moy - my)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">К</td><td style="padding: 10px; font-size: 1.3rem;">к</td><td style="padding: 10px;">k</td><td style="padding: 10px;">Like "k" in "kite"</td><td style="padding: 10px;">кот (kot - cat)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Л</td><td style="padding: 10px; font-size: 1.3rem;">л</td><td style="padding: 10px;">l</td><td style="padding: 10px;">Like "l" in "lamp"</td><td style="padding: 10px;">любовь (lyubov - love)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">М</td><td style="padding: 10px; font-size: 1.3rem;">м</td><td style="padding: 10px;">m</td><td style="padding: 10px;">Like "m" in "mom"</td><td style="padding: 10px;">мама (mama)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Н</td><td style="padding: 10px; font-size: 1.3rem;">н</td><td style="padding: 10px;">n</td><td style="padding: 10px;">Like "n" in "no" (looks like H!)</td><td style="padding: 10px;">но (no - but)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">П</td><td style="padding: 10px; font-size: 1.3rem;">п</td><td style="padding: 10px;">p</td><td style="padding: 10px;">Like "p" in "pot"</td><td style="padding: 10px;">папа (papa)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Р</td><td style="padding: 10px; font-size: 1.3rem;">р</td><td style="padding: 10px;">r</td><td style="padding: 10px;">Rolled "r" (looks like P!)</td><td style="padding: 10px;">рука (ruka - hand)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">С</td><td style="padding: 10px; font-size: 1.3rem;">с</td><td style="padding: 10px;">s</td><td style="padding: 10px;">Like "s" in "sun" (looks like C!)</td><td style="padding: 10px;">слово (slovo - word)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Т</td><td style="padding: 10px; font-size: 1.3rem;">т</td><td style="padding: 10px;">t</td><td style="padding: 10px;">Like "t" in "top"</td><td style="padding: 10px;">там (tam - there)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ф</td><td style="padding: 10px; font-size: 1.3rem;">ф</td><td style="padding: 10px;">f</td><td style="padding: 10px;">Like "f" in "fun"</td><td style="padding: 10px;">фото (foto)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Х</td><td style="padding: 10px; font-size: 1.3rem;">х</td><td style="padding: 10px;">kh</td><td style="padding: 10px;">Guttural "h" (like Scottish "loch")</td><td style="padding: 10px;">хорошо (khorosho - good)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ц</td><td style="padding: 10px; font-size: 1.3rem;">ц</td><td style="padding: 10px;">ts</td><td style="padding: 10px;">Like "ts" in "cats"</td><td style="padding: 10px;">царь (tsar)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ч</td><td style="padding: 10px; font-size: 1.3rem;">ч</td><td style="padding: 10px;">ch</td><td style="padding: 10px;">Like "ch" in "chip"</td><td style="padding: 10px;">час (chas - hour)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ш</td><td style="padding: 10px; font-size: 1.3rem;">ш</td><td style="padding: 10px;">sh</td><td style="padding: 10px;">Like "sh" in "shop"</td><td style="padding: 10px;">школа (shkola - school)</td></tr>
+                                <tr><td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Щ</td><td style="padding: 10px; font-size: 1.3rem;">щ</td><td style="padding: 10px;">shch</td><td style="padding: 10px;">Like "shch" (longer sh)</td><td style="padding: 10px;">борщ (borshch)</td></tr>
                             </table>
                         </div>
 
@@ -2397,20 +2307,21 @@
                             <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                                 <tr style="background: var(--cream); border-bottom: 2px solid var(--charcoal);">
                                     <th style="padding: 10px; text-align: left;">Letter</th>
+                                    <th style="padding: 10px; text-align: left;">Lowercase</th>
                                     <th style="padding: 10px; text-align: left;">Name</th>
                                     <th style="padding: 10px; text-align: left;">Function</th>
-                                    <th style="padding: 10px; text-align: left;">Example</th>
+                                    <th style="padding: 10px; text-align: left;">Example Word</th>
                                 </tr>
                                 <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ь</span> <span style="font-size: 1.2rem;">ь</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ь</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">ь</td>
                                     <td style="padding: 10px;">Soft sign</td>
                                     <td style="padding: 10px;">Softens preceding consonant</td>
                                     <td style="padding: 10px;">мать (mat' - mother)</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ъ</span> <span style="font-size: 1.2rem;">ъ</span></td>
-                                    
+                                    <td style="padding: 10px; font-size: 1.5rem; font-weight: bold;">Ъ</td>
+                                    <td style="padding: 10px; font-size: 1.3rem;">ъ</td>
                                     <td style="padding: 10px;">Hard sign</td>
                                     <td style="padding: 10px;">Adds slight pause/separation</td>
                                     <td style="padding: 10px;">объект (ob-yekt - object)</td>
@@ -2420,10 +2331,6 @@
 
                         <div class="content-text" style="margin-top: 30px;">
                             <p><strong>Practice Tip:</strong> Start by learning the vowels first, then move to consonants that look similar to English letters. Save the unique characters (Ж, Ш, Щ, Ы) for last. Use our interactive tool on the Home page to test your knowledge!</p>
-                            
-                            <div style="text-align: center; margin-top: 30px;">
-                                <button class="btn" onclick="showPage('home'); return false;" style="background: var(--dark-blue); color: white; padding: 14px 40px;">← Back to Home</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -2507,7 +2414,7 @@
 
                         <h3>Get in Touch</h3>
                         <div class="content-text">
-                            <p>Email me at: <!--email_off--><a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a><!--/email_off--></p>
+                            <p>Email me at: <a href="/cdn-cgi/l/email-protection#5d35383131321d3e242f3431343e3c733e3230"><span class="__cf_email__" data-cfemail="751d1019191a35160c071c191c16145b161a18">[email&#160;protected]</span></a></p>
                         </div>
 
                         <div class="content-text">
@@ -2882,7 +2789,7 @@
 
         // Logo confetti burst function
         function burstConfetti(event, letterElement) {
-            // Allow parent link to work - confetti triggers, then navigation happens!
+            event.stopPropagation(); // Don't trigger parent click handlers
             
             const colors = ['#FFC107', '#FF6B35', '#4CAF50', '#2196F3', '#9C27B0'];
             const confettiCount = 15;
@@ -2984,21 +2891,6 @@
         function toggleMenu() {
             document.getElementById('nav-links').classList.toggle('active');
         }
-
-        // Close mobile menu on scroll
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
-            const navLinks = document.getElementById('nav-links');
-            if (navLinks && navLinks.classList.contains('active')) {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                // Close menu if user scrolls more than 50px
-                if (Math.abs(scrollTop - lastScrollTop) > 50) {
-                    navLinks.classList.remove('active');
-                }
-                lastScrollTop = scrollTop;
-            }
-        });
 
         // Article data
         const ARTICLES = [
@@ -3227,135 +3119,31 @@
                 id: 'history-of-cyrillic',
                 title: 'History of Cyrillic: From Saints to Superpower',
                 content: `
+                    <p>The Cyrillic alphabet has a fascinating 1,150-year history. Understanding its origins helps appreciate why it looks and functions as it does.</p>
                     
-                    <div class="article-toc" style="background: #f5f5f5; border-left: 4px solid var(--red); padding: 20px; margin-bottom: 30px; border-radius: 4px;">
-                        <h4 style="margin-top: 0; color: var(--dark-blue); font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;">Table of Contents</h4>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
-                            <li style="margin-bottom: 8px;"><a href="#world-before-cyrillic" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The World Before Cyrillic</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#saints-cyril-methodius" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Saints Cyril and Methodius</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#glagolitic-to-cyrillic" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ From Glagolitic to Cyrillic</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#greek-dna" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Greek DNA</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#medieval-spread" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Medieval Spread</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#peter-reforms" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Peter the Great's Reforms (1708)</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#bolshevik-reform" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Bolshevik Reform (1918)</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#soviet-expansion" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Soviet Expansion (1920s-1950s)</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#cold-war" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Cold War Era</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#post-soviet" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Post-Soviet Alphabet Wars</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#digital-age" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Digital Age</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#european-union" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Cyrillic in the EU</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#cultural-impact" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Contemporary Cultural Impact</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#why-survives" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Why Cyrillic Survives</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#learning-today" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Learning Cyrillic Today</a></li>
-                        </ul>
-                    </div>
-
-                    <p>The Cyrillic alphabet is one of the most widely used writing systems in the world, serving over 250 million people across more than 50 languages. But its origins are surprisingly humble — born from a religious mission in the 9th century, shaped by saints, reformed by tsars, weaponized by Soviet ideology, and ultimately outlasting every empire that carried it. This is the full story of an alphabet that changed the world.</p>
-
-                    <h3 id="world-before-cyrillic">The World Before Cyrillic: Slavs Without a Script</h3>
-                    <p>To understand why Cyrillic was created, you have to understand the problem it was solving. In the mid-9th century, the Slavic peoples of Central and Eastern Europe had no standardized writing system. They were a vast, culturally rich group of nations — stretching from modern-day Czech Republic and Slovakia in the west to Bulgaria and Serbia in the south — but they recorded almost nothing in writing. Trade, governance, poetry, and religious life all relied on oral tradition.</p>
-                    <p>This wasn't unusual for the time. Many cultures functioned without writing. But it created a serious obstacle for Christian missionaries. The Bible and liturgical texts existed in Latin and Greek, languages that most Slavic peoples didn't speak. Missionary work was hampered by this barrier. Converting a population to Christianity required scripture and ceremony to be accessible — and that meant writing.</p>
-                    <p>Some early attempts at adaptation existed. Archaeological evidence suggests Slavs occasionally used runic-style symbols for record-keeping or territorial markers, and some traded in regions where Greek or Latin script was used. But nothing approached a systematic writing system capable of recording complex speech, literature, or scripture.</p>
-                    <p>The political pressure came in 862 CE, when Prince Rastislav of Great Moravia sent a diplomatic request to Byzantine Emperor Michael III. Moravia was caught between the competing influence of the Roman Catholic Church (and its German clergy) and the Byzantine Empire. Rastislav wanted Byzantine missionaries who could conduct services in the Slavic language, creating a native church less dependent on German political influence. His request would change the history of writing forever.</p>
-
-                    <h3 id="saints-cyril-methodius">Saints Cyril and Methodius: The Missionary Brothers</h3>
-                    <p>Emperor Michael III dispatched two brothers from Thessaloniki: Constantine and Methodius. Constantine, a philosopher and linguist of considerable reputation, would later take the monastic name Cyril — the name history remembers him by. Methodius was a skilled administrator and former governor who had entered monastic life.</p>
-                    <p>What made Constantine extraordinary was his belief that God's word should be heard in every language. This was a radical position in an era when Latin held near-exclusive authority in Western Christianity and Greek dominated the Eastern church. The prevailing theological view held that only three languages were suitable for scripture — Latin, Greek, and Hebrew, the languages that appeared on the cross at Christ's crucifixion. Constantine rejected this "three language theory" as arbitrary and contrary to God's universal message.</p>
-                    <p>The brothers had a unique advantage: they grew up in Thessaloniki, a cosmopolitan Byzantine city with a large Slavic-speaking population. Constantine and Methodius were fluent in a South Slavic dialect, giving them native-speaker intuition for the sounds and structures they would need to represent in writing.</p>
-                    <p>Before departing for Moravia, Constantine did something that had never been done before: he invented an entirely new alphabet specifically designed to capture the sounds of the Slavic language. This first alphabet is now called <strong>Glagolitic</strong> (from the Old Slavonic word "glagol," meaning "word" or "to speak"). It was a remarkable achievement — a purpose-built writing system with unique letterforms that had no obvious ancestor in Greek, Latin, or any other known script.</p>
-                    <p>The Glagolitic letters were ornate, angular, and geometrically complex, possibly influenced by Georgian or Armenian scripts that Constantine had encountered during earlier missionary work in the Caucasus. Each character was carefully designed to represent a specific Slavic phoneme — sounds like "zh," "shch," and "ts" that didn't exist in Greek or Latin and had never before been written down.</p>
-                    <p>Constantine and Methodius used Glagolitic to translate key religious texts before they even arrived in Moravia. Their translations included portions of the Gospels, the Psalter, liturgical books, and essential prayers. The language they wrote in — now called Old Church Slavonic — would become the liturgical language of Slavic Orthodox Christianity, playing a role analogous to Latin in Western Christianity.</p>
-                    <p>Their mission to Moravia lasted several years and was largely successful in establishing Slavic-language worship. But they faced fierce opposition from German clergy based in Bavaria and Salzburg, who considered the use of any language other than Latin, Greek, or Hebrew in religious ceremony to be heretical — or at minimum, a dangerous precedent that undermined Rome's authority.</p>
-                    <p>In 867 CE, the brothers traveled to Rome to defend their approach before Pope Adrian II. They brought with them the relics of Saint Clement, discovered during an earlier mission to the Khazars — a strategic gift that demonstrated their orthodoxy and missionary credentials. Pope Adrian II ultimately ruled in their favor in 869 CE, giving official papal blessing to Slavic-language liturgy and even ordaining several of their disciples as priests. This was a landmark moment in the history of the Church, effectively recognizing that God's word was not bound to three sacred languages.</p>
-                    <p>Constantine fell gravely ill in Rome. On February 14, 869 CE, just days before his death, he took monastic vows and the name Cyril. He was buried in Rome in the Basilica of San Clemente, where his tomb remains a pilgrimage site today. Methodius returned to Moravia and continued the missionary work for another 16 years, expanding literacy and building a corpus of Slavic religious texts. He died on April 6, 885 CE.</p>
-
-                    <h3 id="glagolitic-to-cyrillic">From Glagolitic to Cyrillic: The Alphabet's True Origin</h3>
-                    <p>Here is one of history's great ironies: the alphabet we call "Cyrillic" was probably not invented by Cyril himself.</p>
-                    <p>After Methodius died in 885 CE, his disciples were expelled from Moravia by German clergy who reasserted control and suppressed Slavic-language worship. The Frankish bishop Wiching led a campaign to root out the "Slavic heresy," destroying manuscripts and forcing the brothers' followers to flee.</p>
-                    <p>Many escaped south to Bulgaria, where they found refuge under Tsar Boris I (who ruled 852-889 CE). Boris had recently converted to Christianity and was eager to build a literate church independent of Byzantine Greek influence. He welcomed the refugees and their knowledge of Slavic literacy. Among these scholars was <strong>Clement of Ohrid</strong> (c. 840-916 CE), who is now widely believed by historians to have been the true architect of what we call Cyrillic.</p>
-                    <p>Clement recognized that Glagolitic, while phonetically perfect, was difficult to write and even harder to teach to a population already somewhat familiar with Greek letters from trade and limited education. He developed a new, simpler alphabet based heavily on Greek uncial script (a form of rounded capital letters used in manuscripts of the era). Unlike the complex, unique letterforms of Glagolitic, this new script borrowed directly from the Greek letters that educated Bulgarians already recognized, supplementing them with new characters for sounds that didn't exist in Greek.</p>
-                    <p>The result was easier to teach, easier to write, easier to carve into stone or wood, and more visually compatible with the existing Greek texts that circulated in Bulgaria. Clement also developed a system of teaching literacy that proved remarkably effective — he reportedly trained 3,500 students in his career, according to medieval hagiographies.</p>
-                    <p>The new alphabet was named "Cyrillic" (Kirilitsa in Slavic) in honor of Saint Cyril — a tribute to the man whose mission had made it possible, even if the letterforms themselves were largely Clement's creation. This naming has caused centuries of historical confusion, but the tribute was appropriate. Without Cyril's foundational work and his insistence on Slavic-language literacy, neither Glagolitic nor Cyrillic would exist.</p>
-                    <p>The First Bulgarian Empire officially adopted Cyrillic in <strong>893 CE</strong> under Tsar Simeon I (who ruled 893-927 CE), son of Boris I. Simeon declared it the empire's official script and established the Preslav Literary School as a center of Cyrillic scholarship and manuscript production. Under Simeon's patronage, Bulgaria became the cultural and intellectual heart of the Slavic world, with Preslav rivaling Constantinople in literary output. This moment marks the formal birth of Cyrillic as a political and cultural institution.</p>
-                    <p>Glagolitic didn't disappear immediately. It continued to be used in Croatia and parts of Dalmatia until the early modern period, particularly in Catholic Slavic communities that wanted to maintain liturgical distinctiveness. But by the 11th century, Cyrillic had become the dominant script of Slavic Orthodox Christianity.</p>
-
-                    <h3 id="greek-dna">The Greek DNA of the Cyrillic Alphabet</h3>
-                    <p>Understanding where Cyrillic letters came from makes the alphabet significantly easier to learn for anyone familiar with Greek. Approximately 24 of the 33 letters in the modern Russian Cyrillic alphabet can be traced directly to Greek originals, often with minimal modification.</p>
-                    <p>The borrowings include some of the most common letters: <strong>А</strong> from Greek Alpha (Α), <strong>В</strong> from Beta (Β) — though the sound shifted from "b" to "v" in Cyrillic due to Slavic phonology, <strong>Г</strong> from Gamma (Γ), <strong>Д</strong> from Delta (Δ), <strong>Е</strong> from Epsilon (Ε), <strong>З</strong> from Zeta (Ζ), <strong>И</strong> from Eta (Η), <strong>К</strong> from Kappa (Κ), <strong>Л</strong> from Lambda (Λ), <strong>М</strong> from Mu (Μ), <strong>Н</strong> from Nu (Ν), <strong>О</strong> from Omicron (Ο), <strong>П</strong> from Pi (Π), <strong>Р</strong> from Rho (Ρ), <strong>С</strong> from Sigma (Σ), <strong>Т</strong> from Tau (Τ), <strong>У</strong> from Upsilon (Υ), <strong>Ф</strong> from Phi (Φ), and <strong>Х</strong> from Chi (Χ).</p>
-                    <p>The remaining letters — characters like <strong>Б, Ж, Ц, Ч, Ш, Щ, Ъ, Ы, Ь, Э, Ю, Я</strong> — were invented specifically to represent sounds in Slavic languages that Greek couldn't accommodate. These original Cyrillic inventions are what give the alphabet its distinctive character and make it so well-suited to Slavic phonology. The letter <strong>Ж</strong> (zh), for instance, represents a sound absent from Greek, as does <strong>Ш</strong> (sh), <strong>Ч</strong> (ch), and the unique Russian vowel <strong>Ы</strong> (y).</p>
-                    <p>Some scholars theorize that a few of these uniquely Cyrillic letters may have origins in Glagolitic, Hebrew, or even older runic traditions, though the evidence is circumstantial. What's clear is that by the 10th century, Cyrillic had matured into a complete, phonetically precise writing system capable of representing any Slavic language with remarkable clarity.</p>
-
-                    <h3 id="medieval-spread">The Spread Across Medieval Europe (10th-15th Centuries)</h3>
-                    <p>From Bulgaria, Cyrillic spread in two directions: north into Kievan Rus' and south into Serbia and other Balkan regions.</p>
-                    <p>Kievan Rus', the medieval state centered on Kiev (in modern-day Ukraine), adopted Christianity from Byzantium in 988 CE under Grand Prince Vladimir I. With Christianity came Cyrillic literacy. Old Church Slavonic texts written in Cyrillic became the foundation of religious and legal life in Rus'. The earliest surviving Cyrillic manuscript from Rus' is the <strong>Ostromir Gospel</strong>, completed in 1056-1057 CE — a beautifully illuminated codex now housed in the Russian National Library in Saint Petersburg.</p>
-                    <p>The adoption of Cyrillic in Rus' had profound consequences. Unlike Western Europe, where Latin functioned as a lingua franca and common people couldn't read religious texts, Cyrillic allowed Russians, Ukrainians, and Belarusians to read scripture in a language relatively close to their vernacular. This created higher rates of basic literacy in certain regions and gave Slavic languages prestige and literary tradition much earlier than in many Western European vernaculars.</p>
-                    <p>Serbia adopted Cyrillic under <strong>Saint Sava</strong> (1174-1236 CE), who founded the Serbian Orthodox Church and established schools that taught Cyrillic literacy. The <strong>Miroslav Gospel</strong> (c. 1186 CE) is one of the oldest surviving Serbian Cyrillic manuscripts, a masterpiece of medieval book art.</p>
-                    <p>Medieval Cyrillic varied regionally. <strong>Ustav</strong> (uncial script) was used for formal religious texts, characterized by large, clear, separated letters ideal for manuscript copying. <strong>Poluustav</strong> (semi-uncial) was a faster, more compact form used for non-liturgical texts. <strong>Skoropis</strong> (cursive) emerged later as a rapid handwriting style for everyday documents, though it was often nearly illegible to those unfamiliar with it.</p>
-
-                    <h3 id="peter-reforms">Peter the Great's Alphabet Reforms (1708)</h3>
-                    <p>By the early 18th century, Cyrillic had been used in Russia for over 700 years without major structural reform. The alphabet contained many archaic letters inherited from Old Church Slavonic that no longer corresponded to spoken Russian phonology. Some letters represented sounds that had merged with others; some were pure orthographic redundancy.</p>
-                    <p>In 1708, Tsar Peter I (Peter the Great) issued a decree creating the <strong>civil script</strong> (grazhdanskiy shrift), a rationalized, Westernized version of Cyrillic designed for secular use. Peter personally edited the new letterforms, simplifying the ornate curves of traditional Cyrillic and removing letters he considered unnecessary. The civil script was explicitly modeled on contemporary Latin typefaces popular in Western Europe, reflecting Peter's broader program of Westernization.</p>
-                    <p>The reform removed letters like <strong>Ѡ</strong> (omega), <strong>Ѱ</strong> (psi), <strong>Ѯ</strong> (ksi), and several others that had been borrowed from Greek but were phonetically redundant in Russian. Traditional Church Slavonic retained the old alphabet for religious texts — a split that persists today, with Orthodox liturgy still printed in pre-reform Cyrillic.</p>
-                    <p>Peter's civil script marked a turning point: Cyrillic was no longer just the alphabet of the Church but a tool of the secular state, science, and Enlightenment-era learning. Russian literature exploded in the 18th and 19th centuries — Pushkin, Dostoevsky, Tolstoy, Chekhov — all writing in a standardized, modern Cyrillic that descends from Peter's reforms.</p>
-
-                    <h3 id="bolshevik-reform">The Bolshevik Alphabet Reform (1918)</h3>
-                    <p>The Russian Revolution of 1917 brought another sweeping alphabet reform. The Bolsheviks, eager to modernize the country and break with Tsarist tradition, issued a decree on October 10, 1918 (by the old calendar), eliminating four more archaic letters from standard Russian orthography.</p>
-                    <p>The removed letters were: <strong>І</strong> (i decimal, used before certain vowels), <strong>Ѣ</strong> (yat, representing a vowel that had merged with Е centuries earlier), <strong>Ѳ</strong> (fita, a Greek theta representing "f" in a handful of words), and <strong>Ѵ</strong> (izhitsa, used only in Greek loanwords like "synod"). The hard sign <strong>Ъ</strong> was retained but its use at the end of words ending in consonants was abolished.</p>
-                    <p>The 1918 reform was pragmatic: it simplified spelling, eliminated memorization-based orthography (yat in particular was a shibboleth indicating education level), and saved paper — a significant concern during wartime and revolutionary scarcity. Removing the final hard sign alone reduced printed text length by approximately 3-4%, saving millions of kilograms of paper annually.</p>
-                    <p>The reform was politically charged. Opponents saw it as Bolshevik vandalism of Russian cultural heritage. Émigré presses continued using the old orthography for decades, creating a visual distinction between Soviet and White Russian publications. But within Soviet territory, the reform was absolute and irreversible. Modern Russian Cyrillic — 33 letters, no yat, no fita — is the direct result of this decree.</p>
-
-                    <h3 id="soviet-expansion">Cyrillic's Forced Expansion in the Soviet Era (1920s-1950s)</h3>
-                    <p>Perhaps the most dramatic chapter in Cyrillic's history occurred in the Soviet Union between the 1920s and 1950s, when Moscow imposed Cyrillic on dozens of ethnic minorities across the USSR.</p>
-                    <p>Before the Soviet era, most Turkic and other non-Slavic peoples in the Russian Empire used Arabic script (for Muslim populations) or had no written tradition at all. In the 1920s, the Soviets initially pursued "korenizatsiya" (indigenization), creating Latin-based alphabets for these languages as part of a modernization campaign and to break ties with Islamic tradition.</p>
-                    <p>By the mid-1930s, however, Stalin reversed this policy. Between 1936 and 1940, in a campaign orchestrated by the Academy of Sciences, over 40 languages were abruptly switched from Latin or other scripts to Cyrillic-based alphabets. The stated goal was to "bring the peoples of the USSR closer together" and facilitate learning Russian — the unstated goal was Russification and centralizing control.</p>
-                    <p>Languages affected included <strong>Kazakh, Uzbek, Turkmen, Kyrgyz, Tajik, Azerbaijani, Chechen, Avar, Bashkir, Tatar, Yakut</strong>, and many others. In each case, Soviet linguists developed new Cyrillic alphabets, often adding modified letters or diacritics to represent sounds absent from Russian. For instance, Kazakh Cyrillic uses 42 letters, including special characters like Ә, Ғ, Қ, Ң, Ө, Ұ, Ү, Һ, and І to represent uniquely Kazakh phonemes.</p>
-                    <p>The conversion was not optional. Textbooks were rewritten, printing presses retooled, adult literacy programs launched. Older generations who had learned Latin or Arabic script often struggled to adapt. The campaign succeeded in its political aims: by the 1950s, Cyrillic was the writing system of the Soviet empire, linking disparate peoples under a shared visual identity that quietly but persistently signaled Moscow's cultural authority.</p>
-                    <p>This created an interesting linguistic legacy: Cyrillic is not inherently a Slavic alphabet. It has successfully represented Turkic, Mongolian, Uralic, Tungusic, and even North Caucasian languages with no historical connection to Slavic culture. In this sense, Cyrillic proved to be a remarkably flexible and phonetically adaptable script — a testament to Clement of Ohrid's original design principles.</p>
-
-                    <h3 id="cold-war">The Cold War and Cyrillic's Global Image</h3>
-                    <p>During the Cold War, Cyrillic took on an additional layer of meaning in the Western imagination. Soviet propaganda posters, Pravda headlines, and CCCP (СССР) logos on cosmonauts' suits made Cyrillic one of the most recognizable visual symbols of the communist bloc. In Hollywood films, Cyrillic lettering on signs and documents became shorthand for "Soviet," "enemy," or "other."</p>
-                    <p>This Cold War association did Cyrillic's global reputation no favors, but it also gave the script an unmistakable visual power. Even people who couldn't read a single Cyrillic letter recognized it instantly. The alphabet had become a geopolitical symbol, appearing on news broadcasts, spy films, and political cartoons as a marker of the Iron Curtain.</p>
-                    <p>Meanwhile, Soviet investment in science and space exploration gave Cyrillic additional prestige within the Eastern bloc. When Yuri Gagarin became the first human in space on April 12, 1961, his mission documents, spacecraft instruments, and the celebrating headlines were all in Cyrillic. The script was associated not just with ideology but with scientific achievement. The Sputnik satellite's name itself — meaning "fellow traveler" — became one of the most famous Russian words written in Cyrillic characters.</p>
-
-                    <h3 id="post-soviet">The Post-Soviet Alphabet Wars (1991–Present)</h3>
-                    <p>The collapse of the Soviet Union in 1991 triggered a complex reassessment of Cyrillic's role across the former Soviet republics. For many newly independent nations, the alphabet was not a neutral tool but a symbol of Russian cultural dominance — something to be discarded as part of asserting national identity.</p>
-                    <p><strong>Azerbaijan</strong> transitioned to a Latin-based alphabet almost immediately in 1991, reconnecting with a pre-Soviet Azerbaijani literary tradition and aligning culturally with Turkey. The process was swift and politically popular. <strong>Turkmenistan</strong> and <strong>Uzbekistan</strong> followed suit in the early 1990s, both adopting Latin scripts with varying degrees of success in implementation.</p>
-                    <p><strong>Moldova</strong> had actually begun transitioning away from Cyrillic in 1989, even before the USSR collapsed, returning to the Romanian Latin alphabet used before Soviet occupation. The change was politically symbolic, emphasizing Moldova's linguistic and cultural connection to Romania rather than Russia.</p>
-                    <p><strong>Mongolia</strong>, never formally part of the USSR but deeply within its cultural orbit during the Cold War, has debated a return to the traditional Mongolian script for decades. While Cyrillic remains dominant in practice and most Mongolians are literate only in Cyrillic, the government has intermittently promoted the vertical Mongolian script as a heritage project.</p>
-                    <p><strong>Kazakhstan</strong> announced a transition to Latin script in 2017 under President Nursultan Nazarbayev, framing it as a modernization effort aligned with Turkey and the Turkic Council. The process has been slow and contested. A new Latin alphabet was approved in 2018, revised in 2019, and rolled out gradually in schools and official documents, with full implementation planned for the late 2020s. Public opinion remains divided, as older generations remain Cyrillic-literate and younger generations face the practical challenges of learning a new script.</p>
-                    <p>By contrast, <strong>Russia, Ukraine, Belarus, Bulgaria, Serbia, North Macedonia, Montenegro, Bosnia and Herzegovina, Kyrgyzstan, Tajikistan</strong>, and others have retained Cyrillic — in most cases without serious debate. For these nations, Cyrillic is not a Soviet imposition but a centuries-old cultural inheritance predating the Soviet era by 800 to 1,000 years.</p>
-                    <p>The situation in <strong>Ukraine</strong> deserves particular note. Ukrainian has used Cyrillic for centuries, and the Ukrainian Cyrillic alphabet differs from Russian in meaningful ways, including unique letters like Ґ, Є, І, and Ї that are absent in Russian. Far from abandoning Cyrillic, Ukraine has in recent years actively promoted the Ukrainian language — and its distinctive Cyrillic form — as an assertion of national identity distinct from Russia. The 2022 Russian invasion of Ukraine intensified this linguistic nationalism, with Ukrainian Cyrillic seen as a symbol of sovereignty and cultural independence.</p>
-                    <p><strong>Serbia</strong> presents another fascinating case: the country officially uses both Cyrillic and Latin, with Cyrillic designated as the official script in the constitution but Latin increasingly dominant in everyday life, especially among younger generations and in digital communication. Road signs, government documents, and education use both scripts interchangeably, creating a unique biliteracy environment.</p>
-
-                    <h3 id="digital-age">Cyrillic in the Digital Age</h3>
-                    <p>The transition to digital communication posed existential challenges for scripts that weren't Latin. In the early internet era, Cyrillic encoding was a mess — multiple incompatible systems (KOI8-R, Windows-1251, ISO 8859-5) meant that text sent from one computer often arrived as garbled nonsense on another. Russian internet users in the 1990s became intimately familiar with "кракозябры" (krakozyabry) — slang for the scrambled characters that appeared when encoding went wrong.</p>
-                    <p>The adoption of <strong>Unicode</strong> in the 1990s and 2000s solved this definitively. Unicode assigned standardized code points for every Cyrillic character across all languages — not just Russian but Ukrainian, Bulgarian, Serbian, Kazakh, and dozens of others. This made Cyrillic fully interoperable across platforms, devices, and borders for the first time in digital history.</p>
-                    <p>Today, Cyrillic is fully supported across all major operating systems, browsers, social media platforms, and messaging apps. The Russian internet — Runet — is one of the largest national internet communities in the world, with a thriving ecosystem of Cyrillic-language content. VKontakte (VK), Yandex, and Mail.ru are major platforms operating primarily in Cyrillic. The script has adapted seamlessly to touchscreens, emoji, and the conventions of digital communication.</p>
-                    <p>One interesting development is the rise of <strong>"Runglish"</strong> and transliteration — Russians sometimes typing in Latin characters for convenience on non-Cyrillic keyboards, or mixing scripts in informal communication (for instance, "spasibo" instead of "спасибо"). But these are habits of convenience, not signs of Cyrillic's decline. When Russians want to communicate formally, officially, or with cultural pride, they write in Cyrillic.</p>
-                    <p>Cyrillic domain names were approved by ICANN in 2010, allowing websites to use Russian, Bulgarian, and other Cyrillic characters in their URLs (e.g., президент.рф for the Russian president's website). While adoption has been slower than anticipated, it represents Cyrillic's full integration into the global internet infrastructure.</p>
-
-                    <h3 id="european-union">Cyrillic's Place in the European Union</h3>
-                    <p>A footnote worth noting: when Bulgaria joined the European Union in 2007, Cyrillic became an official script of the EU — joining Latin and Greek as the union's three writing systems. Bulgarian-language EU documents, regulations, and official communications are produced in Cyrillic. The Euro banknotes issued after Bulgaria's eventual adoption of the currency will include "ЕВРО" (EVRO) in Cyrillic alongside the Latin and Greek variants.</p>
-                    <p>This status as an EU official script represents a remarkable institutional legitimization — Cyrillic is not just the alphabet of the post-Soviet world but of modern Europe, with legal standing in the world's largest economic bloc.</p>
-
-                    <h3 id="cultural-impact">Contemporary Cultural Impact: Cyrillic Beyond Language</h3>
-                    <p>In the 21st century, Cyrillic has taken on new cultural meanings beyond its linguistic function. Western brands sometimes use faux-Cyrillic typography for "Russian" aesthetics — replacing Latin letters with similar-looking Cyrillic ones to create words like "ЯUSSIAИ" (combining backwards R for Я, which sounds like "ya"). This practice, sometimes called "faux Cyrillic" or "pseudo-Russian," is graphically striking but linguistically nonsensical, often annoying to actual Cyrillic readers.</p>
-                    <p>Fashion brands, video games, and music artists have used Cyrillic for its exotic, Cold War-era aesthetic. Streetwear brands like Gosha Rubchinskiy have built entire identities around Cyrillic typography. Video games set in Russia or Eastern Europe (Call of Duty, Metro series, S.T.A.L.K.E.R.) prominently feature Cyrillic signage, sometimes accurate, sometimes not.</p>
-                    <p>In Russia and other Cyrillic-using countries, calligraphy and hand-lettering traditions continue. The beautiful <strong>vyaz</strong> (вязь) style — an ornate, interlocking Cyrillic script traditionally used for church decoration and book titles — has seen a revival among designers and tattoo artists. Modern Russian graphic design has developed distinctive Cyrillic typography that balances historical forms with contemporary aesthetics.</p>
-
-                    <h3 id="why-survives">Why Cyrillic Survives</h3>
-                    <p>Alphabets don't survive for 1,150 years by accident. Cyrillic has outlasted the Byzantine Empire that inspired it, the First Bulgarian Empire that adopted it, the Mongol Empire that temporarily disrupted it, the Russian Empire that reformed it, the Soviet Union that weaponized it, and the Cold War that made it a geopolitical symbol. Several factors explain this extraordinary durability.</p>
-                    <p>First, <strong>linguistic fitness</strong>. Cyrillic is genuinely excellent at representing Slavic phonology. It handles sounds that Latin struggles with — the soft signs, the sibilants, the vowel distinctions — with dedicated letters rather than awkward digraphs or diacritical clusters. Russian written in Cyrillic has near-perfect phonetic consistency; Russian transliterated into Latin requires either heavy diacritics (as in scholarly romanization) or confusing digraphs (as in common transliteration). Languages written in Cyrillic tend to be more phonetically transparent than their Latin-script counterparts.</p>
-                    <p>Second, <strong>cultural inertia</strong>. Centuries of literature, religious texts, legal documents, and artistic tradition written in Cyrillic create an enormous gravitational pull. Pushkin, Dostoevsky, Tolstoy, Chekhov, Bulgakov, Akhmatova, Solzhenitsyn — the entire canon of Russian literature is in Cyrillic. The Orthodox liturgy is in Cyrillic. Switching alphabets means cutting off ordinary readers from their own heritage without expensive and extensive translation efforts. This is not a trivial cost, and most Cyrillic-using nations have concluded it isn't worth paying.</p>
-                    <p>Third, <strong>identity</strong>. For millions of people, Cyrillic is not just a tool but a statement of who they are — their connection to Orthodox Christianity, to Slavic culture, to a specific literary and intellectual tradition. An alphabet can carry civilization's weight. Abandoning Cyrillic feels, to many, like abandoning identity itself.</p>
-                    <p>Fourth, <strong>network effects</strong>. The more people use Cyrillic, the more valuable it becomes. Books, websites, education materials, keyboard layouts, fonts, and translation services all exist in Cyrillic at scale. The infrastructure is mature and ubiquitous. Switching scripts means rebuilding all of that from scratch.</p>
-
-                    <h3 id="learning-today">Learning Cyrillic Today</h3>
-                    <p>If you're reading this, you're part of a global community of learners who have decided — for reasons of language learning, travel, professional necessity, or pure curiosity — that Cyrillic is worth understanding. You're in good company. Millions of people learn Cyrillic every year, making it one of the more commonly studied non-Latin scripts in the world after Chinese characters and Arabic script.</p>
-                    <p>The good news is that the alphabet itself is one of the easier parts of learning Russian or any other Cyrillic language. Most learners can read Cyrillic fluently within two to three weeks of consistent practice — a remarkably short time considering the alphabet's thousand-year history and geopolitical weight. The challenge isn't memorizing the letters; it's training your brain to stop seeing В as "B" (it's "V") and Н as "H" (it's "N").</p>
-                    <p>Given that this alphabet has connected civilizations, preserved literary traditions, survived empires, and carried some of the world's greatest literature for over a millennium, two weeks seems like a pretty reasonable investment.</p>
-                    <p>The story of Cyrillic is ultimately a story about the enduring human need to write things down — to record experience, preserve knowledge, and communicate across time and space. Saint Cyril understood that in the 9th century when he created Glagolitic for a people who had never written their language. Clement of Ohrid understood it in the 10th century when he refined the script into something practical and teachable. Peter the Great understood it in the 18th century when he modernized the alphabet for a changing world. The Bolsheviks understood it in 1918 when they simplified spelling to make literacy more accessible.</p>
-                    <p>And we understand it today, every time we sit down to learn a new script, connect with another culture, or decode a sign in a language we don't yet speak. The Cyrillic alphabet has been many things over its long life — a missionary tool, an imperial stamp, a symbol of resistance, a mark of identity. But above all, it remains what it was always meant to be: a way to write things down so they won't be forgotten.</p>
-                    <p>That's still true today. And it will likely still be true a thousand years from now.</p>
+                    <h3>The Beginning: 862 CE</h3>
+                    <p>Prince Rastislav of Great Moravia asked Byzantine Emperor for missionaries. Brothers Constantine (later Cyril) and Methodius created the first Slavic alphabet - Glagolitic. After Constantine's death, disciples created simpler "Cyrillic" in his honor.</p>
+                    
+                    <h3>The Greek Foundation</h3>
+                    <p>About 24 of 33 letters come from Greek: А from Alpha, Б from Beta, Д from Delta, П from Pi. New letters like Ж, Ц, Ч, Ш were invented for Slavic sounds.</p>
+                    
+                    <h3>Spread Across Eastern Europe</h3>
+                    <p>Bulgaria officially adopted Cyrillic in 893 CE under Tsar Simeon I. From there: Serbia, Russia (988 CE under Prince Vladimir), and other Slavic nations. Each adapted it for their language.</p>
+                    
+                    <h3>Peter the Great's Reform (1708)</h3>
+                    <p>Tsar Peter simplified the alphabet, removing archaic letters. Created "civil script" for secular use while Church Slavonic kept old forms.</p>
+                    
+                    <h3>Bolshevik Simplification (1918)</h3>
+                    <p>After Russian Revolution, Bolsheviks removed four more letters (і, ѣ, ѳ, ѵ) to increase literacy. Brought alphabet to current 33 letters.</p>
+                    
+                    <h3>Soviet Expansion</h3>
+                    <p>USSR promoted Cyrillic across its territory. Over 50 languages converted to Cyrillic by 1930s. Each modified with special letters for unique sounds.</p>
+                    
+                    <h3>Post-Soviet Changes</h3>
+                    <p>After 1991, some countries switched to Latin (Moldova, Azerbaijan, Turkmenistan, Uzbekistan, Kazakhstan transitioning). Most former Soviet states continue using Cyrillic.</p>
+                    
+                    <h3>Modern Status</h3>
+                    <p>Today: 250+ million users, official EU script (Bulgaria), digital support via Unicode. Cyrillic survived empires, revolutions, and technology - testament to its utility and cultural importance.</p>
                 `
             },
             {
@@ -4158,7 +3946,6 @@
         });
         
         // Load correct page on initial page load based on URL
-        (fpage load based on URL
         (function() {
             // Check if redirected from 404.html (direct URL visit)
             const redirect = sessionStorage.getItem('redirect');
@@ -4222,12 +4009,4 @@
                 document.querySelectorAll('.nav-links a').forEach(link => {
                     link.classList.remove('active');
                 });
-                const activeLink = document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
-            }
-        })();
-    </script>
-</body>
-</html>
+                const acti
