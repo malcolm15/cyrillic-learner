@@ -105,6 +105,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'IBM Plex Mono', monospace;
             background: linear-gradient(135deg, var(--cream) 0%, #E8E4D9 100%);
@@ -3631,8 +3635,21 @@
             const nextIndex = currentIndex < ARTICLES.length - 1 ? currentIndex + 1 : 0;
             nextBtn.setAttribute('data-article-id', ARTICLES[nextIndex].id);
             
-            // Scroll to top
-            window.scrollTo(0, 0);
+            // Check if there's a hash in the URL (anchor link)
+            const hash = window.location.hash;
+            
+            if (hash) {
+                // Wait for content to render, then scroll to anchor
+                setTimeout(() => {
+                    const target = document.querySelector(hash);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
+            } else {
+                // No hash, scroll to top
+                window.scrollTo(0, 0);
+            }
         }
 
         function showArticleIndex() {
@@ -4177,6 +4194,10 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
