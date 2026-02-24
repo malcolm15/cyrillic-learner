@@ -74,15 +74,15 @@
             --charcoal: #2C2C2C;
             --paper: #FDFBF7;
             
-            /* Matrix Mode Colors */
-            --matrix-black: #0a0a0a;
-            --matrix-card: #111111;
-            --matrix-green: #00ff41;
-            --matrix-green-dim: #00aa2b;
-            --matrix-green-bright: #39ff14;
-            --matrix-text: #e0e0e0;
-            --matrix-text-dim: #808080;
-            --matrix-border: #003300;
+            /* Matrix Mode Colors - Optimized for Night Viewing */
+            --matrix-black: #0d0d0d;
+            --matrix-card: #1a1a1a;
+            --matrix-green: #00cc33;
+            --matrix-green-dim: #009922;
+            --matrix-green-bright: #00ff44;
+            --matrix-text: #d0d0d0;
+            --matrix-text-dim: #888888;
+            --matrix-border: #1a3a1a;
             
             /* Modern Design Tokens */
             --border-radius: 12px;
@@ -165,7 +165,6 @@
             color: var(--matrix-green);
             pointer-events: none;
             z-index: 9998;
-            text-shadow: 0 0 8px var(--matrix-green);
             line-height: 1.4;
             letter-spacing: 2px;
             animation: rainFall 2.5s linear forwards;
@@ -180,7 +179,6 @@
             width: 100%;
             color: var(--matrix-green-dim);
             opacity: 0.3;
-            text-shadow: 0 0 4px var(--matrix-green-dim);
             white-space: pre-line;
         }
 
@@ -219,7 +217,7 @@
         body.dark-mode nav {
             background: var(--matrix-black);
             border-bottom: 4px solid var(--matrix-green);
-            box-shadow: 0 4px 8px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
@@ -568,14 +566,14 @@
             }
 
             body.dark-mode .card:hover {
-                box-shadow: 0 0 30px rgba(0, 255, 65, 0.25), var(--shadow-lg);
+                box-shadow: var(--shadow-lg);
             }
         }
 
         body.dark-mode .card {
             background: var(--matrix-card);
             border: 2px solid var(--matrix-green);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), var(--shadow-md);
+            box-shadow: var(--shadow-md);
         }
 
         @keyframes fadeIn {
@@ -621,7 +619,6 @@
         body.dark-mode h2 {
             color: var(--matrix-green);
             border-bottom: 3px solid var(--matrix-green);
-            text-shadow: 0 0 10px var(--matrix-green-dim);
         }
 
         h3 {
@@ -793,11 +790,67 @@
         body.dark-mode .article-back-btn:hover {
             background: var(--matrix-green);
             color: var(--dark-blue);
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            box-shadow: none;
         }
 
         body.dark-mode .article-header {
             border-bottom-color: var(--matrix-green);
+        }
+
+        /* Table of Contents styling */
+        .article-toc {
+            background: #f5f5f5;
+            border-left: 4px solid var(--red);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .article-toc h4 {
+            margin-top: 0;
+            color: var(--dark-blue);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+        }
+
+        .article-toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .article-toc li {
+            margin-bottom: 8px;
+        }
+
+        .article-toc a {
+            color: var(--dark-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .article-toc a:hover {
+            color: var(--red);
+        }
+
+        /* Matrix Mode TOC */
+        body.dark-mode .article-toc {
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 4px solid var(--matrix-green);
+            box-shadow: none;
+        }
+
+        body.dark-mode .article-toc h4 {
+            color: var(--matrix-green);
+        }
+
+        body.dark-mode .article-toc a {
+            color: var(--matrix-green);
+        }
+
+        body.dark-mode .article-toc a:hover {
+            color: var(--matrix-green-bright);
         }
 
         .article-content {
@@ -1048,7 +1101,7 @@
             }
 
             body.dark-mode .reference-section:hover {
-                box-shadow: 0 0 20px rgba(0, 255, 65, 0.3), var(--shadow-md);
+                box-shadow: var(--shadow-md);
             }
 
             .reference-section:hover .section-title,
@@ -1072,7 +1125,7 @@
         body.dark-mode .reference-section.selected {
             background: var(--matrix-green);
             border-color: var(--matrix-green-bright);
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5), var(--shadow-lg);
+            box-shadow: var(--shadow-lg);
         }
 
         .reference-section.selected::after {
@@ -1212,13 +1265,13 @@
             background: var(--matrix-black);
             color: var(--matrix-green);
             border: 4px solid var(--matrix-green);
-            box-shadow: 5px 5px 0 var(--matrix-border), 0 0 20px rgba(0, 255, 65, 0.2);
+            box-shadow: 5px 5px 0 var(--matrix-border);
         }
 
         body.dark-mode .start-btn:not(:disabled):hover {
             background: var(--matrix-green);
             color: var(--matrix-black);
-            box-shadow: 3px 7px 0 var(--matrix-border), 0 0 30px rgba(0, 255, 65, 0.5);
+            box-shadow: 3px 7px 0 var(--matrix-border);
         }
 
         #quiz-container {
@@ -1372,7 +1425,7 @@
 
         body.dark-mode input[type="text"]:focus {
             border-color: var(--matrix-green-bright);
-            box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.2), 0 0 20px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 0 2px var(--matrix-green);
         }
 
         .feedback {
@@ -1401,12 +1454,10 @@
 
         .feedback.correct {
             color: #2E7D32;
-            text-shadow: 0 0 10px rgba(46, 125, 50, 0.3);
         }
 
         body.dark-mode .feedback.correct {
             color: var(--matrix-green);
-            text-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
         }
 
         /* Confetti for correct answers */
@@ -1486,7 +1537,7 @@
             body.dark-mode .btn:hover {
                 background: var(--matrix-green);
                 color: var(--matrix-black);
-                box-shadow: 0 0 20px rgba(0, 255, 65, 0.4), var(--shadow-md);
+                box-shadow: var(--shadow-md);
             }
 
             .btn-settings:hover {
@@ -1497,7 +1548,7 @@
             body.dark-mode .btn-settings:hover {
                 background: var(--matrix-green-bright);
                 color: var(--matrix-black);
-                box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
+                box-shadow: none;
             }
         }
 
@@ -1525,7 +1576,7 @@
             background: var(--matrix-green);
             color: var(--matrix-black);
             border: 2px solid var(--matrix-green-bright);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            box-shadow: none;
         }
 
         .stats {
@@ -1560,7 +1611,6 @@
 
         body.dark-mode .stat-value {
             color: var(--matrix-green);
-            text-shadow: 0 0 10px var(--matrix-green-dim);
         }
 
         .stat-label {
@@ -3413,24 +3463,24 @@
                 title: 'History of Cyrillic: From Saints to Superpower',
                 content: `
                     
-                    <div class="article-toc" style="background: #f5f5f5; border-left: 4px solid var(--red); padding: 20px; margin-bottom: 30px; border-radius: 4px;">
-                        <h4 style="margin-top: 0; color: var(--dark-blue); font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;">Table of Contents</h4>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
-                            <li style="margin-bottom: 8px;"><a href="#world-before-cyrillic" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The World Before Cyrillic</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#saints-cyril-methodius" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Saints Cyril and Methodius</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#glagolitic-to-cyrillic" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ From Glagolitic to Cyrillic</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#greek-dna" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Greek DNA</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#medieval-spread" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Medieval Spread</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#peter-reforms" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Peter the Great's Reforms (1708)</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#bolshevik-reform" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Bolshevik Reform (1918)</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#soviet-expansion" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Soviet Expansion (1920s-1950s)</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#cold-war" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Cold War Era</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#post-soviet" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Post-Soviet Alphabet Wars</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#digital-age" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ The Digital Age</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#european-union" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Cyrillic in the EU</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#cultural-impact" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Contemporary Cultural Impact</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#why-survives" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Why Cyrillic Survives</a></li>
-                            <li style="margin-bottom: 8px;"><a href="#learning-today" style="color: var(--dark-blue); text-decoration: none; font-weight: 500;">→ Learning Cyrillic Today</a></li>
+                    <div class="article-toc">
+                        <h4>Table of Contents</h4>
+                        <ul>
+                            <li><a href="#world-before-cyrillic">→ The World Before Cyrillic</a></li>
+                            <li><a href="#saints-cyril-methodius">→ Saints Cyril and Methodius</a></li>
+                            <li><a href="#glagolitic-to-cyrillic">→ From Glagolitic to Cyrillic</a></li>
+                            <li><a href="#greek-dna">→ The Greek DNA</a></li>
+                            <li><a href="#medieval-spread">→ The Medieval Spread</a></li>
+                            <li><a href="#peter-reforms">→ Peter the Great's Reforms (1708)</a></li>
+                            <li><a href="#bolshevik-reform">→ The Bolshevik Reform (1918)</a></li>
+                            <li><a href="#soviet-expansion">→ Soviet Expansion (1920s-1950s)</a></li>
+                            <li><a href="#cold-war">→ The Cold War Era</a></li>
+                            <li><a href="#post-soviet">→ Post-Soviet Alphabet Wars</a></li>
+                            <li><a href="#digital-age">→ The Digital Age</a></li>
+                            <li><a href="#european-union">→ Cyrillic in the EU</a></li>
+                            <li><a href="#cultural-impact">→ Contemporary Cultural Impact</a></li>
+                            <li><a href="#why-survives">→ Why Cyrillic Survives</a></li>
+                            <li><a href="#learning-today">→ Learning Cyrillic Today</a></li>
                         </ul>
                     </div>
 
@@ -4395,6 +4445,14 @@
                 }
             }
         })();
+    </script>
+</body>
+</html>
+);
+    </script>
+</body>
+</html>
+);
     </script>
 </body>
 </html>
