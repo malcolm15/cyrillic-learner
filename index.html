@@ -1322,6 +1322,7 @@
             text-align: center;
             margin: 30px 0 20px 0;
             animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
         }
 
         @keyframes scaleIn {
@@ -1333,6 +1334,39 @@
                 opacity: 1;
                 transform: scale(1) rotate(0deg);
             }
+        }
+
+        /* Audio pronunciation button */
+        .audio-btn {
+            position: absolute;
+            right: 20%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--dark-blue);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .audio-btn:hover {
+            background: var(--red);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        body.dark-mode .audio-btn {
+            background: var(--matrix-green);
+            color: var(--matrix-black);
+        }
+
+        body.dark-mode .audio-btn:hover {
+            background: var(--matrix-green-bright);
         }
 
         .cyrillic-char {
@@ -2112,6 +2146,7 @@
                             <div class="character-display">
                                 <span class="cyrillic-char" id="current-char">А</span>
                                 <span class="cyrillic-char cyrillic-char-lowercase" id="current-char-lower" style="display: none;">а</span>
+                                <button class="audio-btn" id="audio-btn" style="display: none;" title="Hear pronunciation">🔊</button>
                             </div>
 
                             <div class="input-section">
@@ -3927,66 +3962,76 @@
             vowels_1: {
                 title: 'Vowels 1',
                 chars: {
-                    'А': { upper: 'А', lower: 'а', roman: 'a' },
-                    'Е': { upper: 'Е', lower: 'е', roman: 'ye' },
-                    'И': { upper: 'И', lower: 'и', roman: 'i' },
-                    'О': { upper: 'О', lower: 'о', roman: 'o' },
-                    'У': { upper: 'У', lower: 'у', roman: 'u' }
+                    'А': { upper: 'А', lower: 'а', roman: 'a', audio: 'audio/a.mp3' },
+                    'Е': { upper: 'Е', lower: 'е', roman: 'ye', audio: 'audio/ye.mp3' },
+                    'И': { upper: 'И', lower: 'и', roman: 'i', audio: 'audio/i.mp3' },
+                    'О': { upper: 'О', lower: 'о', roman: 'o', audio: 'audio/o.mp3' },
+                    'У': { upper: 'У', lower: 'у', roman: 'u', audio: 'audio/u.mp3' }
                 }
             },
             vowels_2: {
                 title: 'Vowels 2',
                 chars: {
-                    'Ё': { upper: 'Ё', lower: 'ё', roman: 'yo' },
-                    'Ы': { upper: 'Ы', lower: 'ы', roman: 'y' },
-                    'Э': { upper: 'Э', lower: 'э', roman: 'e' },
-                    'Ю': { upper: 'Ю', lower: 'ю', roman: 'yu' },
-                    'Я': { upper: 'Я', lower: 'я', roman: 'ya' }
+                    'Ё': { upper: 'Ё', lower: 'ё', roman: 'yo', audio: 'audio/yo.mp3' },
+                    'Ы': { upper: 'Ы', lower: 'ы', roman: 'y', audio: 'audio/y2.mp3' },
+                    'Э': { upper: 'Э', lower: 'э', roman: 'e', audio: 'audio/e.mp3' },
+                    'Ю': { upper: 'Ю', lower: 'ю', roman: 'yu', audio: 'audio/yu.mp3' },
+                    'Я': { upper: 'Я', lower: 'я', roman: 'ya', audio: 'audio/ya.mp3' }
                 }
             },
             consonants_1: {
                 title: 'Consonants 1',
                 chars: {
-                    'Б': { upper: 'Б', lower: 'б', roman: 'b' },
-                    'В': { upper: 'В', lower: 'в', roman: 'v' },
-                    'Г': { upper: 'Г', lower: 'г', roman: 'g' },
-                    'Д': { upper: 'Д', lower: 'д', roman: 'd' },
-                    'Ж': { upper: 'Ж', lower: 'ж', roman: 'zh' },
-                    'З': { upper: 'З', lower: 'з', roman: 'z' }
+                    'Б': { upper: 'Б', lower: 'б', roman: 'b', audio: 'audio/b.mp3' },
+                    'В': { upper: 'В', lower: 'в', roman: 'v', audio: 'audio/v.mp3' },
+                    'Г': { upper: 'Г', lower: 'г', roman: 'g', audio: 'audio/g.mp3' },
+                    'Д': { upper: 'Д', lower: 'д', roman: 'd', audio: 'audio/d.mp3' },
+                    'Ж': { upper: 'Ж', lower: 'ж', roman: 'zh', audio: 'audio/zh.mp3' },
+                    'З': { upper: 'З', lower: 'з', roman: 'z', audio: 'audio/z.mp3' }
                 }
             },
             consonants_2: {
                 title: 'Consonants 2',
                 chars: {
-                    'К': { upper: 'К', lower: 'к', roman: 'k' },
-                    'Л': { upper: 'Л', lower: 'л', roman: 'l' },
-                    'М': { upper: 'М', lower: 'м', roman: 'm' },
-                    'Н': { upper: 'Н', lower: 'н', roman: 'n' },
-                    'П': { upper: 'П', lower: 'п', roman: 'p' },
-                    'Р': { upper: 'Р', lower: 'р', roman: 'r' }
+                    'К': { upper: 'К', lower: 'к', roman: 'k', audio: 'audio/k.mp3' },
+                    'Л': { upper: 'Л', lower: 'л', roman: 'l', audio: 'audio/l.mp3' },
+                    'М': { upper: 'М', lower: 'м', roman: 'm', audio: 'audio/m.mp3' },
+                    'Н': { upper: 'Н', lower: 'н', roman: 'n', audio: 'audio/n.mp3' },
+                    'П': { upper: 'П', lower: 'п', roman: 'p', audio: 'audio/p.mp3' },
+                    'Р': { upper: 'Р', lower: 'р', roman: 'r', audio: 'audio/r.mp3' }
                 }
             },
             consonants_3: {
                 title: 'Consonants 3',
                 chars: {
-                    'С': { upper: 'С', lower: 'с', roman: 's' },
-                    'Т': { upper: 'Т', lower: 'т', roman: 't' },
-                    'Ф': { upper: 'Ф', lower: 'ф', roman: 'f' },
-                    'Х': { upper: 'Х', lower: 'х', roman: 'kh' },
-                    'Ц': { upper: 'Ц', lower: 'ц', roman: 'ts' },
-                    'Ч': { upper: 'Ч', lower: 'ч', roman: 'ch' }
+                    'С': { upper: 'С', lower: 'с', roman: 's', audio: 'audio/s.mp3' },
+                    'Т': { upper: 'Т', lower: 'т', roman: 't', audio: 'audio/t.mp3' },
+                    'Ф': { upper: 'Ф', lower: 'ф', roman: 'f', audio: 'audio/f.mp3' },
+                    'Х': { upper: 'Х', lower: 'х', roman: 'kh', audio: 'audio/kh.mp3' },
+                    'Ц': { upper: 'Ц', lower: 'ц', roman: 'ts', audio: 'audio/ts.mp3' },
+                    'Ч': { upper: 'Ч', lower: 'ч', roman: 'ch', audio: 'audio/ch.mp3' }
                 }
             },
             consonants_4: {
                 title: 'Consonants 4',
                 chars: {
-                    'Ш': { upper: 'Ш', lower: 'ш', roman: 'sh' },
-                    'Щ': { upper: 'Щ', lower: 'щ', roman: 'shch' },
-                    'Ъ': { upper: 'Ъ', lower: 'ъ', roman: '"' },
-                    'Ь': { upper: 'Ь', lower: 'ь', roman: "'" }
+                    'Ш': { upper: 'Ш', lower: 'ш', roman: 'sh', audio: 'audio/sh.mp3' },
+                    'Щ': { upper: 'Щ', lower: 'щ', roman: 'shch', audio: 'audio/shch.mp3' },
+                    'Ъ': { upper: 'Ъ', lower: 'ъ', roman: '"', audio: 'audio/hard.mp3' },
+                    'Ь': { upper: 'Ь', lower: 'ь', roman: "'", audio: 'audio/soft.mp3' }
                 }
             }
         };
+
+        // Audio playback function
+        function playPronunciation(audioPath) {
+            if (!audioPath) return;
+            const audio = new Audio(audioPath);
+            audio.volume = 0.7;
+            audio.play().catch(error => {
+                console.log('Audio playback blocked:', error);
+            });
+        }
 
         // App state
         let selectedGroups = new Set();
@@ -4149,6 +4194,15 @@
             document.getElementById('answer-input').value = '';
             document.getElementById('feedback').textContent = '';
             document.getElementById('answer-input').focus();
+            
+            // Setup audio button
+            const audioBtn = document.getElementById('audio-btn');
+            if (studyChars[currentChar].audio && audioBtn) {
+                audioBtn.style.display = 'block';
+                audioBtn.onclick = () => playPronunciation(studyChars[currentChar].audio);
+            } else if (audioBtn) {
+                audioBtn.style.display = 'none';
+            }
             
             updateLowercaseDisplay();
             updateStats();
@@ -4445,18 +4499,6 @@
                 }
             }
         })();
-    </script>
-</body>
-</html>
-);
-    </script>
-</body>
-</html>
-);
-    </script>
-</body>
-</html>
-);
     </script>
 </body>
 </html>
