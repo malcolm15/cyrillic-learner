@@ -2082,7 +2082,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="nav-logo" onclick="showPage('home'); return false;">CYRI<span class="letter-l" onclick="burstConfetti(event, this)">Л<span class="confetti-burst"></span></span>ICA</a>
+            <a href="#" class="nav-logo" onclick="showPage('home'); return false;">CYRI<span class="letter-l" onclick="burstConfetti(event, this); showPage('home'); return false;">Л<span class="confetti-burst"></span></span>ICA</a>
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#" class="active" onclick="showPage('home'); return false;">Home</a></li>
@@ -2967,7 +2967,7 @@
 
         // Logo confetti burst function
         function burstConfetti(event, letterElement) {
-            // Allow parent link to work - confetti triggers, then navigation happens!
+            // Create confetti animation
             
             const colors = ['#FFC107', '#FF6B35', '#4CAF50', '#2196F3', '#9C27B0'];
             const confettiCount = 15;
@@ -3009,6 +3009,9 @@
                 // Remove after animation
                 setTimeout(() => confetti.remove(), 1300);
             }
+            
+            // Don't stop propagation - let parent link work
+            return true;
         }
 
         function updateLowercaseDisplay() {
