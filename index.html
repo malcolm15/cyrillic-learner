@@ -1691,40 +1691,89 @@
         }
 
         /* Settings Styles */
+        .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .settings-section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--charcoal);
+            margin: 0 0 15px 0;
+            opacity: 0.6;
+        }
+
+        body.dark-mode .settings-section-title {
+            color: var(--matrix-text);
+            opacity: 0.5;
+        }
+
         .setting-item {
-            background: var(--cream);
-            border: 3px solid var(--charcoal);
-            padding: 15px;
-            margin-bottom: 12px;
+            padding: 16px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            transition: all 0.3s;
+            gap: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.2s;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-item:hover {
+            padding-left: 8px;
         }
 
         body.dark-mode .setting-item {
-            background: var(--matrix-card);
-            border: 3px solid var(--matrix-green);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
         }
 
-        .setting-info h3 {
-            margin: 0 0 5px 0;
-            font-size: 1.3rem;
+        .setting-info {
+            flex: 1;
         }
 
-        .setting-info p {
-            margin: 0;
+        .setting-label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: var(--charcoal);
+        }
+
+        body.dark-mode .setting-label {
+            color: var(--matrix-text);
+        }
+
+        .setting-desc {
+            font-size: 0.85rem;
+            opacity: 0.65;
+            line-height: 1.4;
+        }
+
+        .settings-tip {
+            background: rgba(255, 107, 53, 0.08);
+            border-left: 3px solid var(--red);
+            padding: 12px 16px;
+            margin: 25px 0;
             font-size: 0.9rem;
-            opacity: 0.8;
+            border-radius: 4px;
         }
 
-        /* Toggle Switch */
+        body.dark-mode .settings-tip {
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 3px solid var(--matrix-green);
+            color: var(--matrix-text);
+        }
+
+        /* Toggle Switch - More Modern */
         .toggle-switch {
             position: relative;
-            width: 60px;
-            height: 30px;
+            width: 50px;
+            height: 26px;
+            flex-shrink: 0;
         }
 
         .toggle-switch input {
@@ -1740,29 +1789,30 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: var(--charcoal);
+            background-color: #cbd5e0;
             transition: 0.3s;
-            border: 3px solid var(--charcoal);
+            border-radius: 26px;
         }
 
         body.dark-mode .toggle-slider {
-            background-color: var(--matrix-border);
-            border: 3px solid var(--matrix-green);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .toggle-slider:before {
             position: absolute;
             content: "";
-            height: 18px;
-            width: 18px;
+            height: 20px;
+            width: 20px;
             left: 3px;
             bottom: 3px;
             background-color: white;
             transition: 0.3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         body.dark-mode .toggle-slider:before {
-            background-color: var(--matrix-green);
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         input:checked + .toggle-slider {
@@ -1774,7 +1824,7 @@
         }
 
         input:checked + .toggle-slider:before {
-            transform: translateX(30px);
+            transform: translateX(24px);
         }
 
         body.dark-mode input:checked + .toggle-slider:before {
@@ -2317,6 +2367,27 @@
                                         <p>Top apps, websites, and tools to accelerate your learning.</p>
                                     </div>
                                 </div>
+                                
+                                <div class="article-item" onclick="showArticle('false-friends')">
+                                    <div class="article-item-content">
+                                        <h3>False Friends: Cyrillic Letters That Fool English Speakers</h3>
+                                        <p>Master the six letters that look familiar but sound completely different.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('cyrillic-names-europe')">
+                                    <div class="article-item-content">
+                                        <h3>What is Cyrillic Called in Different European Languages?</h3>
+                                        <p>From Kirillitsa to Kyrillisches Alphabet - how Europe names Cyrillic.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-item" onclick="showArticle('first-25-words')">
+                                    <div class="article-item-content">
+                                        <h3>Reading Practice: Your First 25 Russian Words</h3>
+                                        <p>Start reading real Russian words using what you've learned.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2549,63 +2620,71 @@
                     <div class="card">
                         <h2>Settings</h2>
                         
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Include Lowercase</h3>
-                                <p>Show lowercase letters alongside uppercase during quizzes</p>
+                        <div class="settings-section">
+                            <h3 class="settings-section-title">Quiz Settings</h3>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Include Lowercase</div>
+                                    <div class="setting-desc">Show lowercase letters alongside uppercase during quizzes</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="lowercase-toggle" onchange="toggleLowercase()">
+                                    <span class="toggle-slider"></span>
+                                </label>
                             </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="lowercase-toggle" onchange="toggleLowercase()">
-                                <span class="toggle-slider"></span>
-                            </label>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Auto-Submit</div>
+                                    <div class="setting-desc">Answer is submitted automatically when correct</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autosubmit-toggle" onchange="toggleAutoSubmit()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Continuous Play</div>
+                                    <div class="setting-desc">Score persists when starting a new session</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="continuous-toggle" onchange="toggleContinuous()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Repeat Problem Questions</div>
+                                    <div class="setting-desc">Characters you get wrong appear more frequently</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="repeat-toggle" onchange="toggleRepeat()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
                         </div>
 
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Auto-Submit</h3>
-                                <p>Answer is submitted automatically when correct (no need to press Enter)</p>
+                        <div class="settings-section">
+                            <h3 class="settings-section-title">Appearance</h3>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Matrix Mode</div>
+                                    <div class="setting-desc">Dark theme with neon green cyberpunk aesthetics</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()">
+                                    <span class="toggle-slider"></span>
+                                </label>
                             </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="autosubmit-toggle" onchange="toggleAutoSubmit()">
-                                <span class="toggle-slider"></span>
-                            </label>
                         </div>
 
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Continuous Play</h3>
-                                <p>Your score persists when starting a new session with the same characters</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="continuous-toggle" onchange="toggleContinuous()">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Repeat Problem Questions</h3>
-                                <p>Characters you get wrong will appear more frequently</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="repeat-toggle" onchange="toggleRepeat()">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Matrix Mode</h3>
-                                <p>Dark theme with neon green cyberpunk aesthetics - easy on the eyes for nighttime practice</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-
-                        <div class="content-text" style="margin-top: 30px; margin-bottom: 30px;">
-                            <p><strong>Tip:</strong> Enable Auto-Submit for faster practice, or keep it off if you prefer to review your answer before submitting.</p>
+                        <div class="settings-tip">
+                            💡 <strong>Tip:</strong> Enable Auto-Submit for faster practice, or keep it off if you prefer to review your answer before submitting.
                         </div>
 
                         <button class="start-btn" id="resume-btn" onclick="resumeLearning()">Resume Learning</button>
@@ -3235,6 +3314,119 @@
                     <h3>Beyond the Big Six</h3>
                     <p>These aren't the only letters that might confuse you, but they're the most problematic. Once you've mastered them, other potential confusions like Э (backwards E, sounds like "eh") or Б (looks like a 6, sounds like "b") will feel much more manageable.</p>
                     <p>The false friends are your hazing ritual into Cyrillic literacy. Get through them, and everything else is downhill.</p>
+                `
+            },
+            {
+                id: 'cyrillic-names-europe',
+                title: 'What is Cyrillic Called in Different European Languages?',
+                content: `
+                    <p>If you've ever wondered what the Cyrillic alphabet is called in different countries, you're not alone! The name varies fascinatingly across European languages, reflecting both linguistic patterns and historical connections to this ancient writing system.</p>
+                    
+                    <p>A recent map making rounds on Reddit beautifully illustrates how Cyrillic isn't just one uniform system — it's actually several related alphabets used across Eastern Europe, each with its own name and slight variations. Let's explore what different countries call this script and why the names vary so much.</p>
+
+                    <h3>The Map: Where Cyrillic is Used Today</h3>
+
+                    <p>Looking at the distribution across Europe, you'll notice that Cyrillic is the official writing system in several countries:</p>
+
+                    <ul>
+                    <li><strong>Russian alphabet</strong> (33 letters) — Russia, Belarus, and Kazakhstan</li>
+                    <li><strong>Ukrainian alphabet</strong> (33 letters) — Ukraine, with unique letters like Ґ, Є, І, Ї</li>
+                    <li><strong>Bulgarian alphabet</strong> (30 letters) — Bulgaria, the birthplace of Cyrillic</li>
+                    <li><strong>Serbian Cyrillic</strong> (30 letters) — Serbia, used alongside Latin script</li>
+                    <li><strong>Macedonian alphabet</strong> (31 letters) — North Macedonia, with unique characters Ѓ and Ќ</li>
+                    <li><strong>Montenegrin alphabet</strong> (32 letters) — Montenegro, the newest variant (adds Ś and Ź)</li>
+                    <li><strong>Belarusian alphabet</strong> (32 letters) — Belarus, with unique soft sign combinations</li>
+                    </ul>
+
+                    <p>Each colored region on the map represents a different version of Cyrillic — they're similar enough to be mutually readable, but each has been adapted to fit the specific sounds of its language.</p>
+
+                    <h3>What It's Called in Cyrillic-Using Countries</h3>
+
+                    <p>In the countries that actually use Cyrillic script, the alphabet is called variations of "Kirillitsa," named after Saint Cyril, one of its legendary creators. Here's how each country writes and says it:</p>
+
+                    <p><strong>Russian:</strong> Кириллица (Kirillitsa)<br>
+                    <strong>Bulgarian:</strong> Кирилица (Kirilica)<br>
+                    <strong>Ukrainian:</strong> Кирилиця (Kyrylytsia)<br>
+                    <strong>Belarusian:</strong> Кірыліца (Kirylitsa)<br>
+                    <strong>Serbian:</strong> Ћирилица (Ćirilica)<br>
+                    <strong>Macedonian:</strong> Кирилица (Kirilica)<br>
+                    <strong>Montenegrin:</strong> Ћирилица (Ćirilica)</p>
+
+                    <p>Notice the pattern? All these names derive from "Cyril," but each language applies its own phonetic and spelling rules. The Ukrainian version with its soft "ць" sound, the Serbian/Montenegrin use of "ћ" (a unique palatalized sound), and the Bulgarian simplified spelling all reflect the unique character of each language.</p>
+
+                    <h3>What Western Europe Calls It</h3>
+
+                    <p>In countries outside the blue zone on the map — nations that don't use Cyrillic but need to refer to it — the naming convention shifts to describe it as an "alphabet" with a modifier:</p>
+
+                    <p><strong>English:</strong> Cyrillic alphabet / Cyrillic script<br>
+                    <strong>German:</strong> Kyrillisches Alphabet / Kyrillische Schrift<br>
+                    <strong>French:</strong> Alphabet cyrillique<br>
+                    <strong>Spanish:</strong> Alfabeto cirílico<br>
+                    <strong>Italian:</strong> Alfabeto cirillico<br>
+                    <strong>Portuguese:</strong> Alfabeto cirílico<br>
+                    <strong>Dutch:</strong> Cyrillisch alfabet</p>
+
+                    <p>These Western European languages treat Cyrillic as a foreign concept, so they use longer, more descriptive terms. Compare this to how Russian simply says "Kirillitsa" — the difference between calling something by its name versus describing what it is.</p>
+
+                    <h3>The Slavic Connection: Poland and Czechia</h3>
+
+                    <p>Interestingly, two Slavic countries that use Latin script — Poland and Czechia — have shorter names that echo their Cyrillic-using neighbors:</p>
+
+                    <p><strong>Polish:</strong> Cyrylica / Alfabet cyrylicki<br>
+                    <strong>Czech:</strong> Cyrilice / Cyrilská abeceda</p>
+
+                    <p>Notice how "Cyrylica" and "Cyrilice" sound much closer to the Russian "Kirillitsa" than the German "Kyrillisches Alphabet" does? This linguistic proximity shows through even though Poland and Czechia haven't used Cyrillic in centuries.</p>
+
+                    <h3>Northern Europe's Take</h3>
+
+                    <p>Scandinavian countries apply their own phonetic spelling rules to "Cyrillic":</p>
+
+                    <p><strong>Swedish:</strong> Kyrilliska alfabetet<br>
+                    <strong>Norwegian:</strong> Det kyrilliske alfabetet<br>
+                    <strong>Danish:</strong> Det kyrilliske alfabet<br>
+                    <strong>Finnish:</strong> Kyrillinen aakkoset<br>
+                    <strong>Icelandic:</strong> Kýrillískt letur</p>
+
+                    <p>The Nordic pattern uses "K" instead of "C" (following German conventions) and adds their characteristic grammatical structures ("det kyrilliske" = "the Cyrillic" in Norwegian/Danish).</p>
+
+                    <h3>Why So Many Variations?</h3>
+
+                    <p>The different names across the map reflect three main factors:</p>
+
+                    <p><strong>1. Native vs. Foreign Concept</strong><br>
+                    Look at the colored regions on the map — these countries have short, native-sounding names (Kirillitsa, Kirilica). The blue regions (Western Europe) use longer descriptive terms because they're describing a foreign writing system.</p>
+
+                    <p><strong>2. Phonetic Rules</strong><br>
+                    Each language applies its own pronunciation rules to "Cyril." German uses "K" instead of "C" (Kyrillisch) because of spelling conventions. Romance languages like French and Spanish soften the "c" sound differently (cyrillique vs cirílico).</p>
+
+                    <p><strong>3. Linguistic Family</strong><br>
+                    On the map, notice how the Slavic countries cluster together geographically — and their names for Cyrillic cluster together linguistically, whether they use the script or not. Romance languages group with their "alfabeto/alphabet" pattern, Germanic languages with theirs.</p>
+
+                    <h3>The Southeast Exception: Greece</h3>
+
+                    <p>Greece, sitting at the southeastern edge of the map, has a special connection to Cyrillic — the Greek alphabet was one of the primary sources Saints Cyril and Methodius used when creating Cyrillic in the 9th century!</p>
+
+                    <p><strong>Greek:</strong> Κυριλλικό αλφάβητο (Kyrilliko alfavito)</p>
+
+                    <p>The Greek term literally means "Cyrillic alphabet," but written in Greek letters — a fitting tribute since Cyrillic letters like Д, Л, П, and Ф are directly borrowed from Greek.</p>
+
+                    <h3>Fun Fact: English Is Actually Weird Here</h3>
+
+                    <p>The English word "Cyrillic" is actually closer to the Western European pattern than to how native users say it! If we were following the Slavic pattern shown in the colored regions of the map, we'd call it "Cyrillica" or "Kirillitsa" in English.</p>
+
+                    <p>But because English adopted the term as an adjective describing a foreign alphabet (from the perspective of English speakers), we say "Cyrillic alphabet" instead — just like "Arabic alphabet" or "Greek alphabet."</p>
+
+                    <h3>What Should You Call It?</h3>
+
+                    <p>In English, both "Cyrillic" and "Cyrillic alphabet" are correct and widely used. If you want to sound knowledgeable when discussing it with people from the colored regions on the map (native Cyrillic users), you could refer to it as "Kirillitsa" — but in most contexts, "Cyrillic" is perfectly fine and universally understood.</p>
+
+                    <p>The variations in naming actually highlight something beautiful about language itself: even when referring to the same writing system, different cultures apply their own linguistic lens. The map shows us the geographic distribution, but the names reveal the cultural and historical connections each language has to this ancient script.</p>
+
+                    <h3>Conclusion</h3>
+
+                    <p>Whether you call it Cyrillic, Kirillitsa, Kyrillische Schrift, or Alfabeto cirílico, you're referring to one of the world's most widely used alphabets. The name may vary across the European map, but the letters — and their fascinating 1,150-year history — remain the same.</p>
+                    
+                    <p>Next time you see that Reddit map or encounter the word for Cyrillic in another European language, you'll understand the pattern: short native names in the colored regions, longer descriptive terms in the blue zones, and linguistic families clustering together regardless of geography. That's the power of language families at work!</p>
                 `
             },
             {
