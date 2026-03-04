@@ -1132,6 +1132,14 @@
             body.dark-mode .reference-section:hover .char-ref-item {
                 color: var(--matrix-black);
             }
+
+            /* Make the actual Cyrillic letters and roman text visible on green hover background */
+            body.dark-mode .reference-section:hover .char-ref-cyrillic,
+            body.dark-mode .reference-section:hover .char-ref-roman {
+                color: var(--matrix-black) !important;
+                position: relative;
+                z-index: 1;
+            }
         }
 
         .reference-section.selected {
