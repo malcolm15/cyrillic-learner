@@ -653,6 +653,25 @@
             border-bottom: 2px solid var(--matrix-green);
         }
 
+        .reference-link {
+            color: var(--red);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .reference-link:hover {
+            opacity: 0.8;
+        }
+
+        body.dark-mode .reference-link {
+            color: var(--matrix-text);
+            font-weight: 600;
+        }
+
+        body.dark-mode .reference-link:hover {
+            color: var(--matrix-green);
+        }
+
         .content-text a:hover {
             color: var(--dark-blue);
             border-bottom-color: var(--dark-blue);
@@ -2131,7 +2150,7 @@
                                 <button class="btn btn-control" onclick="clearAllGroups()">Clear All</button>
                             </div>
                         </div>
-                        <p class="content-text" style="margin-bottom: 14px; font-size: 0.9rem;">Click a group to select it for practice. Selected groups highlight in red. <strong>New to Cyrillic?</strong> Check out our <a href="#" onclick="showPage('reference'); return false;" style="color: var(--red); font-weight: 600;">Complete Alphabet Reference</a> first!</p>
+                        <p class="content-text" style="margin-bottom: 14px; font-size: 0.9rem;">Click a group to select it for practice. Selected groups highlight in red. <strong>New to Cyrillic?</strong> Check out our <a href="#" onclick="showPage('reference'); return false;" class="reference-link">Complete Alphabet Reference</a> first!</p>
                         <div id="reference-container"></div>
                         <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
                     </div>
