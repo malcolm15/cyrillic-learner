@@ -692,6 +692,49 @@
             flex-direction: column;
             gap: 0;
         }
+        
+        .article-category {
+            margin-top: 40px;
+        }
+        
+        .article-category:first-child {
+            margin-top: 0;
+        }
+        
+        .article-category-header {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+            padding: 12px 20px;
+            background: var(--cream);
+            border-left: 4px solid var(--red);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        body.dark-mode .article-category-header {
+            color: var(--matrix-text);
+            background: rgba(0, 255, 0, 0.05);
+            border-left-color: var(--matrix-green);
+        }
+        
+        .article-category-header .emoji {
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+        
+        .article-category-desc {
+            font-size: 0.9rem;
+            color: #666;
+            padding: 0 20px 12px 20px;
+            font-style: italic;
+        }
+        
+        body.dark-mode .article-category-desc {
+            color: rgba(0, 255, 0, 0.6);
+        }
 
         .article-item {
             padding: 16px 20px;
@@ -2277,123 +2320,190 @@
                             <p class="content-text" style="margin-bottom: 30px;">Learn more about the Cyrillic alphabet, tips for memorization, and language learning strategies.</p>
                             
                             <div class="articles-list">
-                                <div class="article-item" onclick="showArticle('getting-started')">
-                                    <div class="article-item-content">
-                                        <h3>Getting Started with Cyrillic</h3>
-                                        <p>A beginner's guide to learning the Cyrillic alphabet efficiently.</p>
+                                <!-- Category 1: Getting Started -->
+                                <div class="article-category">
+                                    <div class="article-category-header">
+                                        <span class="emoji">🚀</span>
+                                        <span>Getting Started</span>
+                                    </div>
+                                    <div class="article-category-desc">For complete beginners - your learning foundation</div>
+                                    
+                                    <div class="article-item" onclick="showArticle('getting-started')">
+                                        <div class="article-item-content">
+                                            <h3>Getting Started with Cyrillic</h3>
+                                            <p>A beginner's guide to learning the Cyrillic alphabet efficiently.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('common-mistakes')">
+                                        <div class="article-item-content">
+                                            <h3>5 Common Mistakes When Learning Cyrillic</h3>
+                                            <p>Avoid these pitfalls and accelerate your learning journey.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('memory-tricks')">
+                                        <div class="article-item-content">
+                                            <h3>Memory Tricks for Confusing Letters</h3>
+                                            <p>Never confuse Н, Р, В, and other tricky characters again.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-tier-list')">
+                                        <div class="article-item-content">
+                                            <h3>Cyrillic Alphabet Tier List: Ranking Letters by Difficulty</h3>
+                                            <p>From S-tier (easy) to F-tier (nightmare) - every letter ranked for learners.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('false-friends')">
+                                        <div class="article-item-content">
+                                            <h3>False Friends: Cyrillic Letters That Fool English Speakers</h3>
+                                            <p>Master the six letters that look familiar but sound completely different.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('first-25-words')">
+                                        <div class="article-item-content">
+                                            <h3>Reading Practice: Your First 25 Russian Words</h3>
+                                            <p>Start reading real Russian words using what you've learned.</p>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="article-item" onclick="showArticle('common-mistakes')">
-                                    <div class="article-item-content">
-                                        <h3>5 Common Mistakes When Learning Cyrillic</h3>
-                                        <p>Avoid these pitfalls and accelerate your learning journey.</p>
+                                <!-- Category 2: Alphabet Variants -->
+                                <div class="article-category">
+                                    <div class="article-category-header">
+                                        <span class="emoji">📚</span>
+                                        <span>Alphabet Variants</span>
+                                    </div>
+                                    <div class="article-category-desc">Exploring Cyrillic across different languages</div>
+                                    
+                                    <div class="article-item" onclick="showArticle('ukrainian-alphabet')">
+                                        <div class="article-item-content">
+                                            <h3>Ukrainian Alphabet Guide</h3>
+                                            <p>Key differences from Russian Cyrillic explained.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('bulgarian-alphabet')">
+                                        <div class="article-item-content">
+                                            <h3>Bulgarian Alphabet Guide</h3>
+                                            <p>The birthplace of Cyrillic - 30 letters explained.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('serbian-cyrillic-vs-latin')">
+                                        <div class="article-item-content">
+                                            <h3>Serbian: Cyrillic vs Latin Scripts</h3>
+                                            <p>Understanding Serbia's dual-alphabet system.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('belarusian-alphabet')">
+                                        <div class="article-item-content">
+                                            <h3>Belarusian Alphabet Guide: 32 Letters of Eastern Europe</h3>
+                                            <p>Discover the unique Ў letter and Belarus's distinct Cyrillic system.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('montenegrin-alphabet')">
+                                        <div class="article-item-content">
+                                            <h3>Montenegrin Alphabet: The Newest Cyrillic (2009)</h3>
+                                            <p>Meet Ś and Ź - the newest letters added to Cyrillic in the 21st century.</p>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="article-item" onclick="showArticle('memory-tricks')">
-                                    <div class="article-item-content">
-                                        <h3>Memory Tricks for Confusing Letters</h3>
-                                        <p>Never confuse Н, Р, В, and other tricky characters again.</p>
+                                <!-- Category 3: History & Culture -->
+                                <div class="article-category">
+                                    <div class="article-category-header">
+                                        <span class="emoji">📖</span>
+                                        <span>History & Culture</span>
+                                    </div>
+                                    <div class="article-category-desc">Deep dives into Cyrillic's fascinating past</div>
+                                    
+                                    <div class="article-item" onclick="showArticle('history-of-cyrillic')">
+                                        <div class="article-item-content">
+                                            <h3>The History of the Cyrillic Alphabet</h3>
+                                            <p>1,150 years from Saints Cyril and Methodius to today.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('lost-letters')">
+                                        <div class="article-item-content">
+                                            <h3>The Lost Letters of Cyrillic: A Journey Through Extinct Characters</h3>
+                                            <p>Discover the 100+ letters that have vanished from Cyrillic over 1,150 years.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('glagolitic')">
+                                        <div class="article-item-content">
+                                            <h3>Glagolitic: The Mysterious Alphabet Before Cyrillic</h3>
+                                            <p>The strange, ornate alphabet that predates Cyrillic by decades.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-names-europe')">
+                                        <div class="article-item-content">
+                                            <h3>What is Cyrillic Called in Different European Languages?</h3>
+                                            <p>From Kirillitsa to Kyrillisches Alphabet - how Europe names Cyrillic.</p>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="article-item" onclick="showArticle('cyrillic-alphabet-chart')">
-                                    <div class="article-item-content">
-                                        <h3>Complete Cyrillic Alphabet Chart</h3>
-                                        <p>All 33 letters with pronunciations and examples.</p>
+                                <!-- Category 4: Learning Tools & Resources -->
+                                <div class="article-category">
+                                    <div class="article-category-header">
+                                        <span class="emoji">🛠️</span>
+                                        <span>Learning Tools & Resources</span>
+                                    </div>
+                                    <div class="article-category-desc">Practical guides for mastering Cyrillic</div>
+                                    
+                                    <div class="article-item" onclick="showArticle('how-to-type-cyrillic')">
+                                        <div class="article-item-content">
+                                            <h3>How to Type in Cyrillic</h3>
+                                            <p>Setup guide for Windows, Mac, iOS, and Android.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-handwriting')">
+                                        <div class="article-item-content">
+                                            <h3>Cyrillic Handwriting Guide</h3>
+                                            <p>How cursive letters differ from print.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-alphabet-chart')">
+                                        <div class="article-item-content">
+                                            <h3>Complete Cyrillic Alphabet Chart</h3>
+                                            <p>All 33 letters with pronunciations and examples.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-vs-latin')">
+                                        <div class="article-item-content">
+                                            <h3>Cyrillic vs Latin Alphabet</h3>
+                                            <p>Complete comparison of the two writing systems.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-learning-resources')">
+                                        <div class="article-item-content">
+                                            <h3>Best Resources for Learning Cyrillic</h3>
+                                            <p>Top apps, websites, and tools to accelerate your learning.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('common-cyrillic-mistakes')">
+                                        <div class="article-item-content">
+                                            <h3>10 Common Cyrillic Mistakes</h3>
+                                            <p>English speakers' most frequent errors and how to fix them.</p>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div class="article-item" onclick="showArticle('cyrillic-vs-latin')">
-                                    <div class="article-item-content">
-                                        <h3>Cyrillic vs Latin Alphabet</h3>
-                                        <p>Complete comparison of the two writing systems.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('how-to-type-cyrillic')">
-                                    <div class="article-item-content">
-                                        <h3>How to Type in Cyrillic</h3>
-                                        <p>Setup guide for Windows, Mac, iOS, and Android.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('history-of-cyrillic')">
-                                    <div class="article-item-content">
-                                        <h3>The History of the Cyrillic Alphabet</h3>
-                                        <p>1,150 years from Saints Cyril and Methodius to today.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('ukrainian-alphabet')">
-                                    <div class="article-item-content">
-                                        <h3>Ukrainian Alphabet Guide</h3>
-                                        <p>Key differences from Russian Cyrillic explained.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('bulgarian-alphabet')">
-                                    <div class="article-item-content">
-                                        <h3>Bulgarian Alphabet Guide</h3>
-                                        <p>The birthplace of Cyrillic - 30 letters explained.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('serbian-cyrillic-vs-latin')">
-                                    <div class="article-item-content">
-                                        <h3>Serbian: Cyrillic vs Latin Scripts</h3>
-                                        <p>Understanding Serbia's dual-alphabet system.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('cyrillic-handwriting')">
-                                    <div class="article-item-content">
-                                        <h3>Cyrillic Handwriting Guide</h3>
-                                        <p>How cursive letters differ from print.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('common-cyrillic-mistakes')">
-                                    <div class="article-item-content">
-                                        <h3>10 Common Cyrillic Mistakes</h3>
-                                        <p>English speakers' most frequent errors and how to fix them.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('cyrillic-learning-resources')">
-                                    <div class="article-item-content">
-                                        <h3>Best Resources for Learning Cyrillic</h3>
-                                        <p>Top apps, websites, and tools to accelerate your learning.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('false-friends')">
-                                    <div class="article-item-content">
-                                        <h3>False Friends: Cyrillic Letters That Fool English Speakers</h3>
-                                        <p>Master the six letters that look familiar but sound completely different.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('cyrillic-names-europe')">
-                                    <div class="article-item-content">
-                                        <h3>What is Cyrillic Called in Different European Languages?</h3>
-                                        <p>From Kirillitsa to Kyrillisches Alphabet - how Europe names Cyrillic.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('lost-letters')">
-                                    <div class="article-item-content">
-                                        <h3>The Lost Letters of Cyrillic: A Journey Through Extinct Characters</h3>
-                                        <p>Discover the 100+ letters that have vanished from Cyrillic over 1,150 years.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="article-item" onclick="showArticle('first-25-words')">
-                                    <div class="article-item-content">
-                                        <h3>Reading Practice: Your First 25 Russian Words</h3>
-                                        <p>Start reading real Russian words using what you've learned.</p>
-                                    </div>
+                            </div>
+
                                 </div>
                             </div>
                         </div>
@@ -2709,7 +2819,7 @@
 
                         <h3>Get in Touch</h3>
                         <div class="content-text">
-                            <p>Email me at: <!--email_off--><a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a><!--/email_off--></p>
+                            <p>Email me at: <a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a></p>
                         </div>
 
                         <div class="content-text">
@@ -3622,6 +3732,392 @@
                     <p><strong>Trick:</strong> "The weird-looking one makes a weird sound" - It's unique to Slavic languages and has no English equivalent. Think of saying "bit" but holding the "i" sound longer.</p>
                     
                     <p>Create your own memory tricks too! The more personal and silly they are, the better they stick.</p>
+                `
+            },
+            {
+                id: 'glagolitic',
+                title: 'Glagolitic: The Mysterious Alphabet Before Cyrillic',
+                content: `
+                    <p>Before Cyrillic became the writing system of the Slavic world, there was Glagolitic — a strange, beautiful, and almost alien-looking alphabet that predates Cyrillic by at least a few decades. If you think Cyrillic letters look exotic, wait until you see Glagolitic. It's like something from a fantasy novel.</p>
+                    
+                    <p>Created around 863 AD by Saints Cyril and Methodius (yes, the same Cyril that Cyrillic is named after), Glagolitic was the very first Slavic alphabet. And here's the twist: despite Cyrillic getting all the credit and the name, Glagolitic came first.</p>
+
+                    <h3>What Does Glagolitic Look Like?</h3>
+                    
+                    <p>Glagolitic letters are ornate, angular, and completely unlike any modern alphabet. They look almost runic or magical. The letter for "A" (Ⰰ) looks like a triangle with a cross. The letter for "B" (Ⰱ) resembles a backwards "4" with decorations. Each character is intricate and distinct.</p>
+                    
+                    <p>While Cyrillic borrowed heavily from Greek (making it somewhat recognizable to those who know the Greek alphabet), Glagolitic appears to have been designed from scratch or from multiple sources, creating something entirely unique. This gives it a mysterious quality that has fascinated scholars for centuries.</p>
+
+                    <h3>Why Was Glagolitic Created?</h3>
+                    
+                    <p>In 863 AD, the Byzantine Emperor sent Saints Cyril and Methodius to Great Moravia (modern-day Czech Republic and Slovakia) to spread Christianity among the Slavic peoples. But there was a problem: the Slavs had no written language, and the church services were in Greek and Latin — languages the people didn't understand.</p>
+                    
+                    <p>Cyril and Methodius needed a way to translate religious texts into Old Church Slavonic, the common Slavic language of the time. So Cyril designed Glagolitic specifically for this purpose. It was a phonetic alphabet that could accurately represent all the sounds of Slavic languages, something neither Greek nor Latin could do.</p>
+                    
+                    <p>The name "Glagolitic" comes from the Old Church Slavonic word "glagol" (глагол), meaning "word" or "speech." It was literally the alphabet of speech — designed to give voice to a previously unwritten language.</p>
+
+                    <h3>How Is It Different From Cyrillic?</h3>
+                    
+                    <p>While both alphabets were created for the same purpose and represent the same sounds, they look completely different:</p>
+                    
+                    <p><strong>Glagolitic:</strong> Ornate, angular, unique letter shapes. 41 original letters. Looks "alien" or "runic" to modern eyes.</p>
+                    
+                    <p><strong>Cyrillic:</strong> Based heavily on Greek letterforms. 43 original letters (later reduced). Looks more familiar due to Greek influence.</p>
+                    
+                    <p>The relationship between the two is fascinating. Cyrillic was developed by Cyril's students (particularly Saint Clement of Ohrid) after Cyril's death, probably around 890-900 AD. They kept Glagolitic's phonetic system but replaced the exotic letterforms with shapes borrowed from Greek, making it easier to write and more familiar to Greek-literate clergy.</p>
+                    
+                    <p>Think of it this way: Glagolitic was the revolutionary prototype, Cyrillic was the refined production model.</p>
+
+                    <h3>The Mystery of Its Origins</h3>
+                    
+                    <p>Nobody knows for certain where Cyril got the idea for Glagolitic's unique letter shapes. Several theories exist:</p>
+                    
+                    <p><strong>Greek Theory:</strong> Some letters appear to be heavily stylized Greek characters, rotated or mirrored.</p>
+                    
+                    <p><strong>Hebrew Theory:</strong> Some scholars see influences from Hebrew script, particularly in the angular nature of the letters.</p>
+                    
+                    <p><strong>Original Creation:</strong> Cyril might have invented most letters from scratch, possibly incorporating Christian symbolism (some letters form crosses or other religious symbols).</p>
+                    
+                    <p><strong>Armenian Influence:</strong> A few letters bear resemblance to the Armenian alphabet, which also has ornate, unique forms.</p>
+                    
+                    <p>The truth is probably a combination of all these influences, filtered through Cyril's creative genius. He needed letters for Slavic sounds that didn't exist in Greek, so he had to get creative.</p>
+
+                    <h3>Where Did Glagolitic Go?</h3>
+                    
+                    <p>Within a couple of centuries, Cyrillic largely replaced Glagolitic across most of the Slavic world. Why? Cyrillic was simpler to write, more familiar to educated Greeks, and easier to carve into stone or stamp into metal type later on.</p>
+                    
+                    <p>But Glagolitic didn't disappear entirely. It survived in Croatia, particularly along the Dalmatian coast and on the islands, where it was used in Catholic liturgy. While the Eastern Orthodox churches adopted Cyrillic, the Croatian Catholic Church kept Glagolitic alive as a distinctly Croatian script.</p>
+                    
+                    <p>Croatian Glagolitic was used continuously from the 11th century until the early 20th century — over 900 years! The last Glagolitic manuscripts were produced in the 1960s, and some Croatian Catholic churches still use Glagolitic in ceremonial contexts today.</p>
+
+                    <h3>Glagolitic's Modern Legacy</h3>
+                    
+                    <p>Though no longer in active daily use, Glagolitic has left its mark:</p>
+                    
+                    <p><strong>Croatian Pride:</strong> Many Croatians view Glagolitic as a symbol of their distinct cultural heritage. You'll find Glagolitic letters on monuments, street signs (particularly on the island of Krk), and Croatian euro coins.</p>
+                    
+                    <p><strong>Academic Interest:</strong> Medieval Slavic studies still require knowledge of Glagolitic to read the oldest Slavic manuscripts.</p>
+                    
+                    <p><strong>Artistic Inspiration:</strong> The ornate letters appear in modern art, tattoos, and design as a way to reference Slavic heritage or create a mysterious aesthetic.</p>
+                    
+                    <p><strong>UNESCO Recognition:</strong> Glagolitic manuscripts are recognized as part of the world's cultural heritage.</p>
+
+                    <h3>Can You Still Learn Glagolitic?</h3>
+                    
+                    <p>Yes! While it's not practical for everyday use, learning Glagolitic can be a fascinating journey, especially if you study medieval Slavic literature, have Croatian heritage, want to read the oldest Slavic texts in their original form, enjoy the challenge of exotic writing systems, or want to impress fellow language enthusiasts.</p>
+                    
+                    <p>The alphabet follows the same phonetic system as Cyrillic, so if you know Cyrillic, you're halfway there — you just need to memorize the different letter shapes.</p>
+
+                    <h3>The Ironic Twist</h3>
+                    
+                    <p>Here's the beautiful irony: the alphabet is called "Cyrillic," but Cyril himself probably never wrote in what we call Cyrillic. He wrote in Glagolitic. The alphabet named after him was actually created by his students after his death, based on his phonetic system but with different letters.</p>
+                    
+                    <p>So technically, if we were being historically accurate, we might call Glagolitic "Cyrillic" and what we now call Cyrillic something else — maybe "Clementine" after Saint Clement who likely developed it.</p>
+                    
+                    <p>But history isn't always logical, and names stick based on tradition, not technical accuracy.</p>
+
+                    <h3>Where to See Glagolitic Today</h3>
+                    
+                    <p>If you want to encounter Glagolitic in the wild:</p>
+                    
+                    <p><strong>Croatia:</strong> Visit the island of Krk, where street signs include Glagolitic. The town of Baška has the famous Baška Tablet, one of the oldest Glagolitic monuments.</p>
+                    
+                    <p><strong>Museums:</strong> Many Slavic museums display Glagolitic manuscripts, particularly in Bulgaria, Croatia, and Russia.</p>
+                    
+                    <p><strong>Religious Sites:</strong> Some Croatian Catholic churches still display Glagolitic inscriptions.</p>
+                    
+                    <p><strong>Croatian Currency:</strong> Before the euro, Croatian kuna coins featured Glagolitic letters. Some Croatian euro coins maintain this tradition.</p>
+
+                    <h3>Why Glagolitic Matters</h3>
+                    
+                    <p>Beyond historical curiosity, Glagolitic represents something profound: the moment when the Slavic languages gained a written form and entered recorded history. Before Glagolitic, Slavic culture was purely oral. After Glagolitic, it could be preserved, transmitted, and built upon across generations.</p>
+                    
+                    <p>When you learn Cyrillic, you're learning the descendant of that original vision — the idea that every language deserves its own written form, adapted to its unique sounds and needs. Glagolitic was the prototype that proved it could be done.</p>
+                    
+                    <p>So next time you're practicing your Cyrillic letters, take a moment to appreciate Glagolitic — the strange, beautiful, nearly forgotten ancestor of the alphabet you're learning. It paved the way for everything that came after.</p>
+                `
+            },
+            {
+                id: 'belarusian-alphabet',
+                title: 'Belarusian Alphabet Guide: 32 Letters of Eastern Europe',
+                content: `
+                    <p>Nestled between Russia, Ukraine, Poland, Latvia, and Lithuania, Belarus uses a Cyrillic alphabet that's distinct from its neighbors — a 32-letter system that reflects both Russian influence and uniquely Belarusian sounds. If you've learned Russian, Belarusian will feel familiar yet intriguingly different.</p>
+
+                    <h3>The Belarusian Alphabet: 32 Letters</h3>
+                    
+                    <p>Belarusian uses 32 letters compared to Russian's 33. The key difference? Belarusian doesn't have the Russian letter Ё (yo). But it has letters Russian doesn't use regularly:</p>
+                    
+                    <p><strong>Unique to Belarusian (not in standard Russian):</strong></p>
+                    <p>• <strong>Ў (short U)</strong> — Represents a "w" sound, like the "w" in "now"<br>
+                    • <strong>І (decimal I)</strong> — The hard "i" sound (Russian replaced this with И in 1918)</p>
+                    
+                    <p><strong>Missing from Belarusian (that Russian has):</strong></p>
+                    <p>• <strong>Ё (yo)</strong> — Belarusian just uses Е for this sound<br>
+                    • <strong>Ъ (hard sign)</strong> — Used very sparingly in Belarusian</p>
+
+                    <h3>The Most Important Letter: Ў</h3>
+                    
+                    <p>The letter Ў (called "ў нескладовае" or "non-syllabic u") is Belarusian's signature character. It doesn't exist in Russian and makes Belarusian instantly recognizable.</p>
+                    
+                    <p>It sounds like the "w" in English "cow" or "how" — a short, gliding sound that follows a vowel. In Russian, this sound is typically written as "в" but in Belarusian, it gets its own letter.</p>
+                    
+                    <p><strong>Examples:</strong><br>
+                    Belarusian: праўда (pravda) = truth<br>
+                    Russian: правда (pravda) = truth</p>
+                    
+                    <p>Notice how Belarusian uses Ў where Russian uses В? That's the Ў in action.</p>
+
+                    <h3>The Return of І</h3>
+                    
+                    <p>Belarusian kept the letter І (decimal I) that Russian eliminated in 1918. This gives Belarusian two "i" sounds:</p>
+                    
+                    <p>• <strong>І</strong> — hard "i" sound<br>
+                    • <strong>Ы</strong> — the difficult "y" sound (same as Russian)</p>
+                    
+                    <p><strong>Example:</strong><br>
+                    Belarusian: гісторыя (historya) = history<br>
+                    Russian: история (istoriya) = history</p>
+                    
+                    <p>The use of І instead of И is one of the most visible differences between Belarusian and Russian texts.</p>
+
+                    <h3>How Different Is It From Russian?</h3>
+                    
+                    <p>If you know Russian, Belarusian is highly comprehensible — probably 70-80% mutually intelligible. The alphabet differences are minimal (just 2-3 letters), but pronunciation and vocabulary differ more significantly.</p>
+                    
+                    <p><strong>Key differences:</strong></p>
+                    
+                    <p><strong>Pronunciation:</strong> Belarusian tends to be softer, with more "a" sounds where Russian has "o" (called "akanne").</p>
+                    
+                    <p><strong>Grammar:</strong> Similar but with some differences in declension and conjugation patterns.</p>
+                    
+                    <p><strong>Vocabulary:</strong> Many Polish and Lithuanian influences due to historical ties.</p>
+
+                    <h3>A Tale of Two Orthographies</h3>
+                    
+                    <p>Here's where it gets interesting: Belarusian actually has TWO standard spelling systems:</p>
+                    
+                    <p><strong>1. Official/Soviet Orthography (1933)</strong><br>
+                    This is the standard used in Belarus today. It was heavily influenced by Russian during the Soviet period and is the one you'll encounter in most Belarusian texts.</p>
+                    
+                    <p><strong>2. Taraškievica (1918)</strong><br>
+                    Named after linguist Branisłaŭ Taraškievič, this older standard is used by some diaspora communities and nationalist movements. It's considered more authentically Belarusian and less Russified.</p>
+                    
+                    <p>The differences are mostly spelling conventions, not different alphabets. Both use the same 32 letters.</p>
+
+                    <h3>Common Belarusian Words</h3>
+                    
+                    <p>Here are some words to get you started:</p>
+                    
+                    <p><strong>Прывітанне</strong> (pryvitanne) = Hello<br>
+                    <strong>Дзякуй</strong> (dziakuj) = Thank you<br>
+                    <strong>Так</strong> (tak) = Yes<br>
+                    <strong>Не</strong> (nie) = No<br>
+                    <strong>Беларусь</strong> (Bielarus) = Belarus<br>
+                    <strong>Мова</strong> (mova) = Language</p>
+
+                    <h3>The Political Dimension</h3>
+                    
+                    <p>Language in Belarus is politically complex. While Belarusian is one of two official languages (along with Russian), Russian dominates in daily life, especially in cities. Only about 10-15% of the population uses Belarusian as their primary language.</p>
+                    
+                    <p>This has made Belarusian language a symbol of national identity and independence. Learning and using Belarusian is sometimes seen as a political statement supporting Belarusian independence from Russian influence.</p>
+
+                    <h3>Why Learn Belarusian?</h3>
+                    
+                    <p>If you're learning Russian, adding Belarusian requires minimal extra effort:</p>
+                    
+                    <p>• <strong>One new letter</strong> (Ў) that's easy to pronounce<br>
+                    • <strong>One returned letter</strong> (І) that you might recognize from pre-revolutionary Russian texts<br>
+                    • <strong>Same basic grammar</strong> with minor variations<br>
+                    • <strong>Cultural access</strong> to Belarusian literature, music, and heritage<br>
+                    • <strong>Unique perspective</strong> on East Slavic languages</p>
+
+                    <h3>The Bottom Line</h3>
+                    
+                    <p>The Belarusian alphabet sits at the crossroads of Slavic linguistic heritage — preserving the old decimal I that Russian discarded, adding the unique Ў that neither Russian nor Ukrainian use, and creating a writing system that's distinctly Belarusian while remaining largely comprehensible to Russian speakers.</p>
+                    
+                    <p>For learners of Cyrillic, Belarusian represents an easy expansion of your skills with just two key letters to learn. For those interested in Slavic culture, it's a window into a nation caught between East and West, using its language as a quiet assertion of identity.</p>
+                `
+            },
+            {
+                id: 'montenegrin-alphabet',
+                title: 'Montenegrin Alphabet: The Newest Cyrillic (2009)',
+                content: `
+                    <p>In 2009, Montenegro did something almost unheard of in modern linguistics: it officially added two brand new letters to its Cyrillic alphabet. While most alphabets are losing letters or staying the same, Montenegro went the opposite direction, expanding from 30 to 32 letters. Meet the newest additions to the Cyrillic family: Ś and Ź.</p>
+
+                    <h3>The 32-Letter Montenegrin Alphabet</h3>
+                    
+                    <p>The Montenegrin alphabet contains all the letters of Serbian Cyrillic plus two extras:</p>
+                    
+                    <p><strong>The two new letters:</strong><br>
+                    • <strong>Ś ś</strong> (S with acute accent)<br>
+                    • <strong>Ź ź</strong> (Z with acute accent)</p>
+                    
+                    <p>These letters represent softer, palatalized versions of S and Z — sounds that existed in spoken Montenegrin but previously had no dedicated letters. Before 2009, these sounds were just written as regular С and З.</p>
+
+                    <h3>What Do Ś and Ź Sound Like?</h3>
+                    
+                    <p><strong>Ś (soft S):</strong> Like the "sh" in "sheep" but softer and more forward in the mouth. Similar to Polish "ś" or the "s" in "sugar."</p>
+                    
+                    <p><strong>Ź (soft Z):</strong> The voiced equivalent of Ś. Like "zh" in "measure" but softer. Similar to the "s" in "vision" or Polish "ź."</p>
+                    
+                    <p>If you speak Polish, you'll recognize these sounds immediately — they're nearly identical to Polish palatalized consonants. In fact, the whole idea likely came from Polish orthographic influence.</p>
+
+                    <h3>Why Add New Letters in 2009?</h3>
+                    
+                    <p>Montenegro declared independence from Serbia in 2006. Part of building national identity involved distinguishing Montenegrin from Serbian more clearly. The language was already distinct in pronunciation — these sounds existed in speech — but the writing system was identical to Serbian.</p>
+                    
+                    <p>Adding Ś and Ź accomplished several things: phonetic accuracy in representing sounds that were actually spoken, creation of a visibly distinct written language, cultural assertion establishing Montenegrin as its own language not a Serbian dialect, and historical restoration as some argue these sounds existed in older Montenegrin dialects.</p>
+
+                    <h3>The Controversy</h3>
+                    
+                    <p>Not everyone in Montenegro was thrilled about the new letters. The addition sparked significant debate. Supporters argued these sounds genuinely exist in Montenegrin speech, other languages distinguish similar sounds in writing, it's part of language modernization and standardization, and Montenegro has a right to its own linguistic standard. Critics argued the change was politically motivated not linguistically necessary, Serbian and Montenegrin are mutually intelligible and essentially the same language, it creates artificial barriers between similar languages, and the sounds aren't used consistently enough to warrant new letters.</p>
+                    
+                    <p>The debate reflects broader questions about the relationship between language, politics, and national identity in the Balkans.</p>
+
+                    <h3>How Common Are Ś and Ź Actually?</h3>
+                    
+                    <p>Here's the reality: these letters appear in Montenegrin texts, but not as frequently as you might expect for "essential" letters. They're used in specific dialectal words, certain regional pronunciation patterns, official standardized Montenegrin texts, and words where palatalization is clear.</p>
+                    
+                    <p>Many Montenegrins, especially those in areas close to Serbia or those educated before 2009, don't consistently use these letters. You'll see variation even in official contexts.</p>
+
+                    <h3>Montenegrin vs. Serbian: Side by Side</h3>
+                    
+                    <p><strong>Example with Ś:</strong><br>
+                    Montenegrin: сјећање (śećanje) = memory<br>
+                    Serbian: сећање (sećanje) = memory</p>
+                    
+                    <p><strong>Example with Ź:</strong><br>
+                    Montenegrin: зјеница (źenica) = pupil (of eye)<br>
+                    Serbian: зеница (zenica) = pupil (of eye)</p>
+                    
+                    <p>Notice that the difference is subtle — often just marking a pronunciation that Serbian leaves implicit.</p>
+
+                    <h3>Will These Letters Stick?</h3>
+                    
+                    <p>It's still early to tell. As of 2026, the letters are officially part of the Montenegrin alphabet and appear in government documents, official signage, standardized educational materials, and Montenegrin language publications.</p>
+                    
+                    <p>But usage in informal contexts (social media, texting, casual writing) is inconsistent. Older Montenegrins and those who identify more with Serbian cultural ties may not use them at all.</p>
+                    
+                    <p>The letters' long-term success depends on generational shift (kids learning them in school), political stability of Montenegrin independence, cultural reinforcement through media and literature, and practical adoption in everyday writing.</p>
+
+                    <h3>A Unique Moment in Linguistic History</h3>
+                    
+                    <p>The 2009 addition of Ś and Ź makes Montenegrin genuinely unique in the modern world. When was the last time a major national language added completely new letters to its alphabet? Typically, languages simplify their writing systems over time, dropping letters that seem redundant.</p>
+                    
+                    <p>Montenegro went against this trend, making its alphabet more complex to better represent its phonetic reality. Whether you see this as nationalist posturing or legitimate linguistic reform depends partly on your politics, but it's undeniably fascinating from a language evolution perspective.</p>
+
+                    <h3>The Bottom Line</h3>
+                    
+                    <p>The Montenegrin alphabet stands as the newest addition to the Cyrillic family — a 32-letter system born in the 21st century from a mix of phonetic precision, national pride, and political independence. Whether Ś and Ź become permanent fixtures of South Slavic orthography or fade into historical footnotes remains to be seen.</p>
+                    
+                    <p>For learners of Cyrillic, Montenegrin offers a glimpse into how writing systems continue to evolve even in the modern era. Languages aren't dead museum pieces — they're living, changing, politically charged systems that reflect the communities that use them.</p>
+                    
+                    <p>And sometimes, just sometimes, they add letters instead of subtracting them.</p>
+                `
+            },
+            {
+                id: 'cyrillic-tier-list',
+                title: 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty',
+                content: `
+                    <p>Not all Cyrillic letters are created equal. Some are intuitive, friendly, and easy to remember. Others are soul-crushing nightmares that haunt your learning journey for weeks. Let's rank all 33 letters of the Russian alphabet by difficulty, from S-tier (easiest) to F-tier (why does this letter exist?).</p>
+                    
+                    <p>This tier list is based on difficulty for English speakers learning to read Russian. We're considering: visual similarity to English, pronunciation difficulty, false friend potential, and overall brain-breaking capacity.</p>
+
+                    <h3>S-TIER: Welcome Gifts (Basically Free)</h3>
+                    
+                    <p>These letters look like English, sound like English, and require almost no effort to learn.</p>
+                    
+                    <p><strong>А (a)</strong> — Looks like A, sounds like A. Perfect.<br>
+                    <strong>К (k)</strong> — Looks like K, sounds like K. Chef's kiss.<br>
+                    <strong>М (m)</strong> — Looks like M, sounds like M. Thank you, Cyrillic gods.<br>
+                    <strong>О (o)</strong> — Looks like O, sounds like O. We love you.<br>
+                    <strong>Т (t)</strong> — Looks like T, sounds like T. No notes.</p>
+                    
+                    <p><strong>Why S-tier:</strong> These are your gateway drug into Cyrillic. They give you immediate confidence and let you read simple words like "MAMA" (мама) and "KOT" (кот - cat) right away. Zero learning curve.</p>
+
+                    <h3>A-TIER: Pretty Easy (Minor Adjustments)</h3>
+                    
+                    <p>These require slight mental adjustment but are still very learner-friendly.</p>
+                    
+                    <p><strong>Е (ye)</strong> — Looks like E, sounds like "ye" in "yes." Close enough.<br>
+                    <strong>С (s)</strong> — Looks like C, sounds like S. Makes sense once you realize Cyrillic doesn't have "C" sound.<br>
+                    <strong>У (u)</strong> — Looks like Y, sounds like "oo." A bit weird but manageable.<br>
+                    <strong>Ф (f)</strong> — Looks like Φ (Greek phi), sounds like F. Easy if you know Greek.<br>
+                    <strong>Э (e)</strong> — Backwards E, sounds like "eh." Memorable shape.</p>
+                    
+                    <p><strong>Why A-tier:</strong> These require one mental hop (looks like X, sounds like Y) but the jump is small. You'll have them down in a day or two.</p>
+
+                    <h3>B-TIER: Moderate Challenge (New Territory)</h3>
+                    
+                    <p>These letters look unfamiliar but are phonetically straightforward.</p>
+                    
+                    <p><strong>Б (b)</strong> — Looks like a number 6, sounds like B. Weird but works.<br>
+                    <strong>Д (d)</strong> — Looks like a house, sounds like D. Once you see it, you can't unsee it.<br>
+                    <strong>З (z)</strong> — Looks like a 3, sounds like Z. Makes sense.<br>
+                    <strong>И (i)</strong> — Backwards N, sounds like "ee." Annoying but memorable.<br>
+                    <strong>Й (y)</strong> — И with a breve, sounds like Y in "boy." Short and sweet.<br>
+                    <strong>Л (l)</strong> — Looks like an upside-down V, sounds like L. Weird shape, simple sound.<br>
+                    <strong>П (p)</strong> — Looks like a Greek pi, sounds like P. Greek knowledge helps.</p>
+                    
+                    <p><strong>Why B-tier:</strong> These look alien but have straightforward sounds. Once you memorize the shapes, you're good. No false friends, no pronunciation nightmares.</p>
+
+                    <h3>C-TIER: Tricky Business (Concentration Required)</h3>
+                    
+                    <p>These letters demand your full attention and will cause mistakes even after you've "learned" them.</p>
+                    
+                    <p><strong>Г (g)</strong> — Looks like an upside-down L, sounds like G. Not intuitive.<br>
+                    <strong>Ж (zh)</strong> — Looks like a bug, sounds like "zh" in "measure." Exotic sound.<br>
+                    <strong>Ц (ts)</strong> — Looks like a squiggly U, sounds like "ts" in "cats." Combo sound is hard.<br>
+                    <strong>Ч (ch)</strong> — Looks like a 4, sounds like "ch." Takes practice.<br>
+                    <strong>Ш (sh)</strong> — Looks like Ш, sounds like "sh" in "shoe." Fine once memorized.<br>
+                    <strong>Ю (yu)</strong> — Looks like a sideways lollipop, sounds like "yoo." Visually weird.<br>
+                    <strong>Я (ya)</strong> — Backwards R, sounds like "ya." Common source of memes.</p>
+                    
+                    <p><strong>Why C-tier:</strong> These require real effort. The shapes don't hint at the sounds, and some sounds don't exist in English. You'll get there, but it takes deliberate practice.</p>
+
+                    <h3>D-TIER: Serious Pain Points (Study Required)</h3>
+                    
+                    <p>These letters will actively fight you. They look wrong, sound wrong, or both.</p>
+                    
+                    <p><strong>В (v)</strong> — **FALSE FRIEND ALERT.** Looks exactly like B, sounds like V. Your brain will fight this for weeks. Every. Single. Time.<br>
+                    <strong>Н (n)</strong> — **FALSE FRIEND ALERT.** Looks exactly like H, sounds like N. You'll misread it as H approximately one million times.<br>
+                    <strong>Щ (shch)</strong> — Looks like a longer Ш, sounds like "sh-ch" mashed together. Hard to pronounce for English speakers. Why is this one letter?<br>
+                    <strong>Ё (yo)</strong> — E with dots, sounds like "yo." Easy except nobody uses the dots in normal writing, so you have to guess when it's Ё vs Е.</p>
+                    
+                    <p><strong>Why D-tier:</strong> False friends are brutal. Your brain sees В and instantly thinks "B" even though you KNOW it's V. Щ is just phonetically annoying for English speakers. Ё is fine except for the "dots are optional" chaos.</p>
+
+                    <h3>F-TIER: The Final Bosses (Abandon Hope)</h3>
+                    
+                    <p>These letters are the reason people quit learning Cyrillic.</p>
+                    
+                    <p><strong>Р (r)</strong> — **THE ULTIMATE FALSE FRIEND.** Looks EXACTLY like P, sounds like R. This is the letter that breaks people. You'll be reading along fine, see РЕСТОРАН (restaurant), and your brain will scream "PECTOPAH!" even though you've practiced this a thousand times. It never stops being annoying.<br>
+                    <strong>Ы (y)</strong> — **THE NIGHTMARE VOWEL.** Looks like a weird Ь + I combo, sounds like... nothing in English. It's like "i" but with your throat positioned wrong. English speakers physically can't make this sound without practice. Russians can hear when you get it wrong. This letter haunts dreams.<br>
+                    <strong>Ь (soft sign)</strong> — **THE INVISIBLE VILLAIN.** Doesn't make a sound. Just... softens the previous consonant. What does that even mean? How do you soften a consonant? Why is this a letter? It's a phonetic modifier masquerading as a letter and it's confusing as hell.<br>
+                    <strong>Ъ (hard sign)</strong> — **THE USELESS ONE.** Appears in like 0.01% of words. Supposedly marks a hard consonant but in practice barely exists in modern Russian. Why is it still here? What did we do to deserve this?</p>
+                    
+                    <p><strong>Why F-tier:</strong> Р is the false friend that never stops being a false friend. Ы is a sound your mouth doesn't want to make. Ь is conceptually weird. Ъ barely exists. These are your final bosses in the Cyrillic learning journey.</p>
+
+                    <h3>The Learning Journey</h3>
+                    
+                    <p><strong>Week 1:</strong> Master S-tier and A-tier. Feel good about yourself. (10 letters down!)</p>
+                    
+                    <p><strong>Week 2:</strong> Conquer B-tier. Still making good progress. (17 letters!)</p>
+                    
+                    <p><strong>Week 3:</strong> Battle through C-tier. Progress slows but you're committed. (24 letters!)</p>
+                    
+                    <p><strong>Week 4:</strong> D-tier makes you question your life choices. The false friends are winning. (28 letters...)</p>
+                    
+                    <p><strong>Week 5-∞:</strong> F-tier. You thought you learned Р three weeks ago. You were wrong. Ы still sounds weird when you say it. Ь remains conceptually frustrating. But slowly, painfully, you're getting there.</p>
+
+                    <h3>The Reward</h3>
+                    
+                    <p>Here's the thing: even the F-tier letters eventually click. One day you'll see РЫБА (fish) and just read it as "RYBA" without your brain screaming "PYBA!" at you. One day Ы will come out of your mouth naturally. One day you'll understand what Ь actually does.</p>
+                    
+                    <p>The tier list tells you the difficulty, but not the timeline. S-tier letters take minutes. F-tier letters take months. But they all become automatic eventually.</p>
+                    
+                    <p>And then you can make tier lists for other Cyrillic alphabets and discover that Ukrainian's Ґ is somehow even weirder than anything Russian has. But that's a problem for future you.</p>
+                    
+                    <p>For now, celebrate every tier conquered. Even F-tier letters can't resist forever. You've got this.</p>
                 `
             },
             {
