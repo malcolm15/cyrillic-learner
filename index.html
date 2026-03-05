@@ -414,36 +414,37 @@
 
         .page-wrapper {
             display: flex;
-            flex-wrap: nowrap; /* CRITICAL: Prevent sidebars from wrapping */
+            flex-wrap: nowrap !important; /* CRITICAL: Prevent sidebars from wrapping */
             width: 100%;
             max-width: 1400px;
             margin: 0 auto; /* Center the wrapper */
             gap: 20px;
             padding: 20px;
-            flex: 1;
+            background: rgba(255, 255, 0, 0.1); /* DEBUG: Yellow tint to see bounds */
         }
 
         .ad-sidebar {
-            flex: 0 0 160px;
+            flex: 0 0 160px !important; /* CRITICAL: Fixed width, no grow/shrink */
             position: sticky;
             top: 90px;
             height: fit-content;
+            border: 3px solid red; /* DEBUG: Make sidebars visible */
         }
 
         .ad-sidebar.left {
-            order: 1;
+            order: 1 !important;
         }
 
         .main-content {
             flex: 1;
-            order: 2;
+            order: 2 !important;
             min-width: 0;
             max-width: 1040px; /* Prevent content from getting too wide and wrapping sidebars */
             overflow-x: hidden; /* Prevent overflow from forcing width */
         }
 
         .ad-sidebar.right {
-            order: 3;
+            order: 3 !important;
         }
 
         .ad-placeholder {
