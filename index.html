@@ -420,6 +420,83 @@
             padding: 20px;
         }
 
+        /* Share buttons */
+        .share-section {
+            margin: 40px 0 30px 0;
+            padding: 25px 0;
+            border-top: 2px solid #e0e0e0;
+            border-bottom: 2px solid #e0e0e0;
+            text-align: center;
+        }
+
+        body.dark-mode .share-section {
+            border-top-color: var(--matrix-border);
+            border-bottom-color: var(--matrix-border);
+        }
+
+        .share-section p {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        body.dark-mode .share-section p {
+            color: #888;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 10px 18px;
+            background: var(--paper);
+            border: 2px solid var(--charcoal);
+            border-radius: var(--border-radius);
+            color: var(--charcoal);
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .share-btn:hover {
+            background: var(--charcoal);
+            color: var(--paper);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        body.dark-mode .share-btn {
+            background: var(--dark-bg);
+            border-color: var(--matrix-green);
+            color: var(--matrix-green);
+        }
+
+        body.dark-mode .share-btn:hover {
+            background: var(--matrix-green);
+            color: var(--dark-bg);
+        }
+
+        .share-btn.copied {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+
+        body.dark-mode .share-btn.copied {
+            background: var(--matrix-green);
+            color: var(--dark-bg);
+            border-color: var(--matrix-green);
+        }
+
         /* Decorative background pattern */
         body::before {
             content: '';
@@ -3313,6 +3390,16 @@
                     </ul>
                     
                     <p>Remember: the goal isn't perfection, it's progress. Even if you can only identify 20 out of 33 letters after your first week, you're well on your way!</p>
+                    
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('getting-started', 'Getting Started with Cyrillic')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('getting-started', 'Getting Started with Cyrillic'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('getting-started', 'Getting Started with Cyrillic'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('getting-started', 'Getting Started with Cyrillic')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -3337,6 +3424,16 @@
                     <p>Reading about Cyrillic isn't the same as practicing it. You need active recall - testing yourself on characters without looking at the answers. Tools that provide instant feedback, like interactive quizzes, are much more effective than passive flashcards.</p>
                     
                     <p>Avoid these mistakes and you'll be reading Cyrillic much sooner than you think!</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('common-mistakes', '5 Common Mistakes When Learning Cyrillic')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('common-mistakes', '5 Common Mistakes When Learning Cyrillic')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -3398,6 +3495,16 @@
                     <h3>Beyond the Big Six</h3>
                     <p>These aren't the only letters that might confuse you, but they're the most problematic. Once you've mastered them, other potential confusions like Э (backwards E, sounds like "eh") or Б (looks like a 6, sounds like "b") will feel much more manageable.</p>
                     <p>The false friends are your hazing ritual into Cyrillic literacy. Get through them, and everything else is downhill.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -3511,6 +3618,16 @@
                     <p>Whether you call it Cyrillic, Kirillitsa, Kyrillische Schrift, or Alfabeto cirílico, you're referring to one of the world's most widely used alphabets. The name may vary across the European map, but the letters — and their fascinating 1,150-year history — remain the same.</p>
                     
                     <p>Next time you see that Reddit map or encounter the word for Cyrillic in another European language, you'll understand the pattern: short native names in the colored regions, longer descriptive terms in the blue zones, and linguistic families clustering together regardless of geography. That's the power of language families at work!</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -3666,6 +3783,16 @@
                     <p>Or go really deep: visit a Russian Orthodox church and look at their service books. You'll see an alphabet that most Russians couldn't read fluently — their own writing system frozen in time, preserved like a linguistic fossil.</p>
                     
                     <p>The modern Russian alphabet is sleek, efficient, and relatively easy to learn. But lurking beneath it is a vast history of lost letters — characters that served their purpose, outlived their usefulness, and faded into history. They're gone, but they left their mark on the language, the culture, and the endless Cyrillic iceberg memes that language learners love to share.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('lost-letters', 'The Lost Letters of Cyrillic')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('lost-letters', 'The Lost Letters of Cyrillic'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('lost-letters', 'The Lost Letters of Cyrillic'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('lost-letters', 'The Lost Letters of Cyrillic')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -3699,6 +3826,16 @@
                     <p><strong>Trick:</strong> "The weird-looking one makes a weird sound" - It's unique to Slavic languages and has no English equivalent. Think of saying "bit" but holding the "i" sound longer.</p>
                     
                     <p>Create your own memory tricks too! The more personal and silly they are, the better they stick.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('memory-tricks', 'Memory Tricks for Confusing Letters')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('memory-tricks', 'Memory Tricks for Confusing Letters')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -3802,6 +3939,16 @@
                     <p>When you learn Cyrillic, you're learning the descendant of that original vision — the idea that every language deserves its own written form, adapted to its unique sounds and needs. Glagolitic was the prototype that proved it could be done.</p>
                     
                     <p>So next time you're practicing your Cyrillic letters, take a moment to appreciate Glagolitic — the strange, beautiful, nearly forgotten ancestor of the alphabet you're learning. It paved the way for everything that came after.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -3903,6 +4050,16 @@
                     <p>The Belarusian alphabet sits at the crossroads of Slavic linguistic heritage — preserving the old decimal I that Russian discarded, adding the unique Ў that neither Russian nor Ukrainian use, and creating a writing system that's distinctly Belarusian while remaining largely comprehensible to Russian speakers.</p>
                     
                     <p>For learners of Cyrillic, Belarusian represents an easy expansion of your skills with just two key letters to learn. For those interested in Slavic culture, it's a window into a nation caught between East and West, using its language as a quiet assertion of identity.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('belarusian-alphabet', 'Belarusian Alphabet')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('belarusian-alphabet', 'Belarusian Alphabet'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('belarusian-alphabet', 'Belarusian Alphabet'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('belarusian-alphabet', 'Belarusian Alphabet')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -3980,6 +4137,16 @@
                     <p>For learners of Cyrillic, Montenegrin offers a glimpse into how writing systems continue to evolve even in the modern era. Languages aren't dead museum pieces — they're living, changing, politically charged systems that reflect the communities that use them.</p>
                     
                     <p>And sometimes, just sometimes, they add letters instead of subtracting them.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4085,6 +4252,16 @@
                     <p>And then you can make tier lists for other Cyrillic alphabets and discover that Ukrainian's Ґ is somehow even weirder than anything Russian has. But that's a problem for future you.</p>
                     
                     <p>For now, celebrate every tier conquered. Even F-tier letters can't resist forever. You've got this.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4209,6 +4386,16 @@
                     </ul>
                     <p>The goal isn't to understand everything — it's to build confidence recognizing letters and sounding out words. Each word you successfully read reinforces your Cyrillic knowledge and brings you closer to fluency.</p>
                     <p>Remember: every Russian speaker started exactly where you are now. With practice, these words will become as automatic as reading English.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('first-25-words', 'Reading Practice: Your First 25 Russian Words')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('first-25-words', 'Reading Practice: Your First 25 Russian Words')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4341,6 +4528,16 @@
                     <p>And if you're learning Cyrillic, you get to be slightly annoyed every time Hollywood does this. Consider it a rite of passage.</p>
                     
                     <p>Just remember: <strong>Я is not backwards R. Я is "ya."</strong> Р is R, and it looks like P. Welcome to Cyrillic, where nothing is what it seems.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4497,6 +4694,16 @@
                     <p>Plus, cursive Russian looks beautiful when done well. The flowing connections, the rhythmic loops — it's genuinely aesthetic.</p>
                     
                     <p>So grab a pen, find some grid paper, and start writing. Your hand might cramp at first, and your letters might look wonky, but that's how everyone starts. With practice, you'll develop your own Russian handwriting style — and that's when it really becomes yours.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4673,6 +4880,16 @@
                     <p>Whether it succeeds depends on political will, economic resources, and how well the government manages the transition. Turkey proved it can be done. Uzbekistan shows it can stall. Kazakhstan is betting billions of dollars and its linguistic future on getting it right.</p>
                     
                     <p>By 2031, we'll know if this was a bold success or an expensive mistake. Either way, it's one of the most fascinating real-time language experiments happening in the world today.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4727,6 +4944,16 @@
                     </ul>
                     
                     <p>Start by learning vowels first, then consonants that look similar to English letters. Save unique characters for last. Within a few weeks of daily practice, you'll be reading Cyrillic fluently!</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4759,6 +4986,16 @@
                     
                     <h3>Which is Easier?</h3>
                     <p>For English speakers, Latin is easier (we already know it!). However, Cyrillic is surprisingly learnable - most people master the basics in 1-2 weeks. Don't let "false friends" trip you up!</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('cyrillic-vs-latin', 'Cyrillic vs Latin: A Side-by-Side Comparison')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-vs-latin', 'Cyrillic vs Latin: A Side-by-Side Comparison'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-vs-latin', 'Cyrillic vs Latin: A Side-by-Side Comparison'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('cyrillic-vs-latin', 'Cyrillic vs Latin: A Side-by-Side Comparison')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4806,6 +5043,16 @@
                     
                     <h3>Online Alternative</h3>
                     <p>Google Input Tools, Branah, and Lexilogos offer web-based Russian keyboards for occasional use without installation.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('how-to-type-cyrillic', 'How to Type in Cyrillic')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('how-to-type-cyrillic', 'How to Type in Cyrillic'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('how-to-type-cyrillic', 'How to Type in Cyrillic'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('how-to-type-cyrillic', 'How to Type in Cyrillic')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4941,6 +5188,16 @@
                     <p>The story of Cyrillic is ultimately a story about the enduring human need to write things down — to record experience, preserve knowledge, and communicate across time and space. Saint Cyril understood that in the 9th century when he created Glagolitic for a people who had never written their language. Clement of Ohrid understood it in the 10th century when he refined the script into something practical and teachable. Peter the Great understood it in the 18th century when he modernized the alphabet for a changing world. The Bolsheviks understood it in 1918 when they simplified spelling to make literacy more accessible.</p>
                     <p>And we understand it today, every time we sit down to learn a new script, connect with another culture, or decode a sign in a language we don't yet speak. The Cyrillic alphabet has been many things over its long life — a missionary tool, an imperial stamp, a symbol of resistance, a mark of identity. But above all, it remains what it was always meant to be: a way to write things down so they won't be forgotten.</p>
                     <p>That's still true today. And it will likely still be true a thousand years from now.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('history-of-cyrillic', 'The History of the Cyrillic Alphabet')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('history-of-cyrillic', 'The History of the Cyrillic Alphabet')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -4976,6 +5233,16 @@
                     
                     <h3>Learning Both</h3>
                     <p>If learning both, alphabet differences help keep languages separate. Ukrainian pronunciation is more consistent - easier for beginners!</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('ukrainian-alphabet', 'Ukrainian Alphabet Guide')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('ukrainian-alphabet', 'Ukrainian Alphabet Guide'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('ukrainian-alphabet', 'Ukrainian Alphabet Guide'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('ukrainian-alphabet', 'Ukrainian Alphabet Guide')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -5009,6 +5276,16 @@
                     
                     <h3>Learning Bulgarian</h3>
                     <p>If you know Russian: just learn Ъ and Щ differences. Starting fresh? Fewer letters and consistent pronunciation make it one of easier Cyrillic alphabets!</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('bulgarian-alphabet', 'Bulgarian Alphabet: The OG Cyrillic')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('bulgarian-alphabet', 'Bulgarian Alphabet: The OG Cyrillic'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('bulgarian-alphabet', 'Bulgarian Alphabet: The OG Cyrillic'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('bulgarian-alphabet', 'Bulgarian Alphabet: The OG Cyrillic')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -5045,6 +5322,16 @@
                     
                     <h3>Which to Learn?</h3>
                     <p><strong>Learn both!</strong> Conversion is straightforward. Start with Cyrillic if interested in formal Serbian. Start with Latin for modern, everyday use. Good news: same language, only letters change!</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('serbian-cyrillic-vs-latin', 'Serbian: The Only Language That Writes Both Ways')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('serbian-cyrillic-vs-latin', 'Serbian: The Only Language That Writes Both Ways'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('serbian-cyrillic-vs-latin', 'Serbian: The Only Language That Writes Both Ways'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('serbian-cyrillic-vs-latin', 'Serbian: The Only Language That Writes Both Ways')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -5081,6 +5368,16 @@
                     
                     <h3>Do You Need It?</h3>
                     <p>Not immediately! Focus on print first. But if you want to: write notes, read letters, achieve fluency, correspond with Russians - then yes. For a structured approach to learning both print and cursive, check out our guide on <a href="#" onclick="showArticle('practice-writing-cyrillic'); return false;">how to practice writing Cyrillic by hand</a>.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('cyrillic-handwriting', 'Cyrillic Cursive: How Handwriting Differs')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-handwriting', 'Cyrillic Cursive: How Handwriting Differs'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-handwriting', 'Cyrillic Cursive: How Handwriting Differs'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('cyrillic-handwriting', 'Cyrillic Cursive: How Handwriting Differs')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -5121,6 +5418,16 @@
                     
                     <h3>Bonus: Giving Up Too Soon</h3>
                     <p>15-20 minutes daily = basic reading in 2 weeks, fluent in 1-2 months. The alphabet isn't the hard part - stick with it!</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -5187,6 +5494,16 @@
                     
                     <h3>Bottom Line</h3>
                     <p>Best resource = one you'll actually use. Pick 2-3 tools (CyriЛica + Anki + YouTube), commit to 15 minutes daily, fluent in a month!</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('cyrillic-learning-resources', 'Best Free Resources for Learning Cyrillic')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-learning-resources', 'Best Free Resources for Learning Cyrillic'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-learning-resources', 'Best Free Resources for Learning Cyrillic'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('cyrillic-learning-resources', 'Best Free Resources for Learning Cyrillic')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -5352,6 +5669,16 @@
                     <p>So when you see Polish written in Latin and Russian written in Cyrillic, you're not just seeing two alphabets — you're seeing the legacy of medieval Christianity's split, centuries of political rivalry, and deeply rooted cultural identities.</p>
                     
                     <p>The alphabet is never just an alphabet. It's history written on the page.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -5542,6 +5869,16 @@
                     <p>But the journey starts with КОТ and ДОМ. Master the basics, enjoy the small wins, and before you know it, you'll be reading Russian menus, signs, and social media posts with ease.</p>
                     
                     <p><strong>Remember:</strong> Every expert was once a beginner who could barely read КОТ. You're on the same path. Keep going.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('easy-russian-words', 'Common Russian Words Using Only Easy Letters')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('easy-russian-words', 'Common Russian Words Using Only Easy Letters')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             },
             {
@@ -5717,6 +6054,16 @@
                     <p>That cultural penetration is both Cyrillic's strength and its curse — widely known, often misunderstood, forever associated with Cold War villains, post-Soviet grit, and hardbass memes.</p>
                     
                     <p>And honestly? That's kind of perfect. Cyrillic deserves to be a little bit mysterious, a little bit dangerous, and a whole lot cooler than just another alphabet.</p>
+                
+                    <div class="share-section">
+                        <p>Found this helpful? Share it:</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="copyArticleLink('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')">🔗 Copy Link</button>
+                            <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;">🦋 Bluesky</a>
+                            <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;">🔴 Reddit</a>
+                            <button class="share-btn" onclick="nativeShare('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')">📱 Share</button>
+                        </div>
+                    </div>
                 `
             }
         ];
@@ -5827,6 +6174,84 @@
             
             // Scroll to top
             window.scrollTo(0, 0);
+        }
+
+        // Share button functions
+        function copyArticleLink(articleId, articleTitle) {
+            const url = `https://cyrilica.com/articles/${articleId}`;
+            
+            // Copy to clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    // Show feedback
+                    const btn = event.target.closest('.share-btn');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '✓ Copied!';
+                    btn.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    // Fallback: show URL in alert
+                    prompt('Copy this link:', url);
+                });
+            } else {
+                // Fallback for older browsers
+                prompt('Copy this link:', url);
+            }
+        }
+
+        function shareToBluesky(articleId, articleTitle) {
+            const url = `https://cyrilica.com/articles/${articleId}`;
+            const text = `${articleTitle} ${url}`;
+            const blueskyUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(text)}`;
+            window.open(blueskyUrl, '_blank');
+        }
+
+        function shareToReddit(articleId, articleTitle) {
+            const url = `https://cyrilica.com/articles/${articleId}`;
+            
+            // Suggest subreddit based on article
+            let subreddit = 'languagelearning'; // default
+            
+            // Map specific articles to relevant subreddits
+            const subredditMap = {
+                'cyrillic-pop-culture': 'gaming', // or movies
+                'cyrillic-tier-list': 'languagelearning',
+                'backwards-r-myth': 'movies',
+                'latin-vs-cyrillic-slavic': 'history',
+                'kazakhstan-latin-transition': 'geopolitics'
+            };
+            
+            if (subredditMap[articleId]) {
+                subreddit = subredditMap[articleId];
+            }
+            
+            const redditUrl = `https://reddit.com/r/${subreddit}/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(articleTitle)}`;
+            window.open(redditUrl, '_blank');
+        }
+
+        function nativeShare(articleId, articleTitle) {
+            const url = `https://cyrilica.com/articles/${articleId}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: articleTitle,
+                    text: `Check out: ${articleTitle}`,
+                    url: url
+                }).catch(err => {
+                    // User cancelled, ignore
+                    if (err.name !== 'AbortError') {
+                        console.error('Share failed:', err);
+                    }
+                });
+            } else {
+                // Fallback: copy to clipboard
+                copyArticleLink(articleId, articleTitle);
+            }
         }
 
         function navigateArticle(direction) {
