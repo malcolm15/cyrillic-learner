@@ -414,6 +414,7 @@
 
         .page-wrapper {
             display: flex;
+            flex-wrap: nowrap; /* CRITICAL: Prevent sidebars from wrapping */
             width: 100%;
             max-width: 1400px;
             margin: 0 auto; /* Center the wrapper */
@@ -438,6 +439,7 @@
             order: 2;
             min-width: 0;
             max-width: 1040px; /* Prevent content from getting too wide and wrapping sidebars */
+            overflow-x: hidden; /* Prevent overflow from forcing width */
         }
 
         .ad-sidebar.right {
@@ -487,8 +489,10 @@
 
         .container {
             width: 100%;
+            max-width: 100%; /* Prevent overflow */
             position: relative;
             z-index: 1;
+            overflow-x: hidden; /* Prevent horizontal scroll from wide content */
         }
 
         /* Page content styles */
@@ -559,6 +563,8 @@
             animation-delay: 0.2s;
             animation-fill-mode: backwards;
             transition: all var(--transition-base);
+            max-width: 100%; /* Prevent cards from overflowing */
+            box-sizing: border-box; /* Include padding in width calculation */
         }
 
         @media (hover: hover) {
@@ -923,6 +929,9 @@
 
         .article-content {
             margin-bottom: 40px;
+            overflow-wrap: break-word; /* Break long words */
+            word-wrap: break-word; /* Legacy support */
+            max-width: 100%; /* Prevent overflow */
         }
 
         .article-content h3 {
