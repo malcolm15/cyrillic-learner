@@ -416,6 +416,7 @@
             display: flex;
             width: 100%;
             max-width: 1400px;
+            margin: 0 auto; /* Center the wrapper */
             gap: 20px;
             padding: 20px;
             flex: 1;
@@ -436,6 +437,7 @@
             flex: 1;
             order: 2;
             min-width: 0;
+            max-width: 1040px; /* Prevent content from getting too wide and wrapping sidebars */
         }
 
         .ad-sidebar.right {
@@ -2450,6 +2452,20 @@
                                             <p>From Kirillitsa to Kyrillisches Alphabet - how Europe names Cyrillic.</p>
                                         </div>
                                     </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('backwards-r-myth')">
+                                        <div class="article-item-content">
+                                            <h3>The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong</h3>
+                                            <p>Faux Cyrillic in movies, vodka bottles, and Rocky IV explained.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('kazakhstan-latin-transition')">
+                                        <div class="article-item-content">
+                                            <h3>Kazakhstan's Alphabet Transition: From Cyrillic to Latin by 2031</h3>
+                                            <p>One of the most ambitious alphabet reforms of the 21st century.</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                                 <!-- Category 4: Learning Tools & Resources -->
@@ -2471,6 +2487,13 @@
                                         <div class="article-item-content">
                                             <h3>Cyrillic Handwriting Guide</h3>
                                             <p>How cursive letters differ from print.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('practice-writing-cyrillic')">
+                                        <div class="article-item-content">
+                                            <h3>How to Practice Writing Cyrillic by Hand</h3>
+                                            <p>Stroke order, cursive challenges, and daily practice routines.</p>
                                         </div>
                                     </div>
                                     
@@ -4245,6 +4268,468 @@
                 `
             },
             {
+                id: 'backwards-r-myth',
+                title: 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong',
+                content: `
+                    <p>You've seen it in movies, video games, and graphic design: English text with random Cyrillic letters thrown in to look "Russian." ҎЦSSЇАИ becomes "RUSSIAN" with Я as a backwards R, И as N, and Ц for U. It's everywhere, it's wrong, and it drives people who actually know Cyrillic absolutely insane.</p>
+                    
+                    <p>Welcome to "faux Cyrillic" — the Western world's favorite way to make something look Russian without actually using Russian.</p>
+
+                    <h3>The Most Famous False Friend: Я ≠ R</h3>
+                    
+                    <p>Let's start with the big one. The Cyrillic letter Я looks exactly like a backwards Latin R. Hollywood sees this and thinks "perfect! We'll use Я whenever we want to write R in faux-Russian!"</p>
+                    
+                    <p>The problem: <strong>Я sounds like "ya" as in "yard."</strong> It's nowhere close to an R sound.</p>
+                    
+                    <p>So when you see a movie poster that says "FЯONT" thinking it looks Russian, anyone who knows Cyrillic reads it as "FYAONT" and dies a little inside.</p>
+                    
+                    <p><strong>Real Cyrillic R:</strong> Р (looks like P)<br>
+                    <strong>What Hollywood uses:</strong> Я (backwards R, sounds like "ya")<br>
+                    <strong>Actual Russian word with Я:</strong> ЯБЛОКО (yabloko) = apple</p>
+
+                    <h3>The Other Common Substitutions</h3>
+                    
+                    <p>Я isn't the only victim of faux Cyrillic. Here are the usual suspects:</p>
+                    
+                    <p><strong>И used for N:</strong><br>
+                    <strong>What it looks like:</strong> Backwards N<br>
+                    <strong>What it sounds like:</strong> "ee" (like in "see")<br>
+                    <strong>Example fail:</strong> "ЯUSSЇА" for "Russia" reads as "YAUSSEEA"</p>
+                    
+                    <p><strong>Г used for backwards L or Γ:</strong><br>
+                    <strong>What it looks like:</strong> Upside down L<br>
+                    <strong>What it sounds like:</strong> "g" (like in "go")<br>
+                    <strong>Example fail:</strong> Using Г for Greek gamma in fraternity names</p>
+                    
+                    <p><strong>Ш used for W:</strong><br>
+                    <strong>What it looks like:</strong> Looks like three vertical lines<br>
+                    <strong>What it sounds like:</strong> "sh" (like in "shop")<br>
+                    <strong>Example fail:</strong> "ШЕ" for "WE" actually says "SHE"</p>
+                    
+                    <p><strong>Ф used for Φ (phi):</strong><br>
+                    <strong>What it looks like:</strong> Looks like Greek phi<br>
+                    <strong>What it sounds like:</strong> "f" (like in "fox")<br>
+                    <strong>This one's actually okay-ish</strong> since both are pronounced "f" in modern Greek</p>
+
+                    <h3>Why Does This Happen?</h3>
+                    
+                    <p>Faux Cyrillic exists because Hollywood (and graphic designers, and game developers) want to signal "this is Russian" or "this is Soviet" without actually using Russian. The reasons:</p>
+                    
+                    <p><strong>1. Target Audience Doesn't Read Cyrillic</strong><br>
+                    If your American audience can't read Cyrillic anyway, why bother with accuracy? Just make it look exotic.</p>
+                    
+                    <p><strong>2. Visual Recognition</strong><br>
+                    Backwards R is instantly recognizable as "trying to be Russian" in a way that Р isn't. Я works as a visual signal even though it's wrong.</p>
+                    
+                    <p><strong>3. Aesthetic Over Accuracy</strong><br>
+                    Designers care about the look, not the linguistic reality. Я looks cool. И looks like a backwards N. Mission accomplished.</p>
+                    
+                    <p><strong>4. Historical Precedent</strong><br>
+                    This has been done for so long that it's become a visual trope. People expect to see Я used as R in "Russian-looking" text.</p>
+
+                    <h3>Famous Examples of Faux Cyrillic Fails</h3>
+                    
+                    <p><strong>Rocky IV (1985):</strong><br>
+                    The movie poster and merchandise used faux Cyrillic extensively. "DЯAGO" for "Drago" reads as "DYAAGO" in Russian.</p>
+                    
+                    <p><strong>Red Alert Video Game Series:</strong><br>
+                    The Soviet faction uses faux Cyrillic in all its graphics. It looks cool but reads like nonsense.</p>
+                    
+                    <p><strong>Chernobyl TV Series:</strong><br>
+                    Even HBO's critically acclaimed series occasionally used faux Cyrillic in graphics and signage, despite otherwise being extremely detail-oriented.</p>
+                    
+                    <p><strong>Vodka Branding:</strong><br>
+                    Countless vodka bottles use Я and И to look Russian. None of them would make sense to an actual Russian reader.</p>
+
+                    <h3>When It's Done Right</h3>
+                    
+                    <p>Occasionally, Western media gets it right:</p>
+                    
+                    <p><strong>The Americans (TV Show):</strong><br>
+                    Actually used correct Russian and proper Cyrillic throughout. The attention to detail was impressive.</p>
+                    
+                    <p><strong>Some Video Games:</strong><br>
+                    Metro 2033 and S.T.A.L.K.E.R. series use actual Russian text and signage, making the environment authentic.</p>
+                    
+                    <p><strong>Historical Films:</strong><br>
+                    Movies like "Child 44" and "The Death of Stalin" used real Russian consultants and avoided faux Cyrillic.</p>
+
+                    <h3>The Flip Side: Fake English in Russia</h3>
+                    
+                    <p>Before we judge too harshly, Russians do the exact same thing with English! You'll see:</p>
+                    
+                    <p>• Random English words on clothing that make no sense<br>
+                    • English letters used decoratively without forming words<br>
+                    • "Engrish" — English text with grammatical errors used for aesthetic<br>
+                    • Latin alphabet used to look "Western" or "modern"</p>
+                    
+                    <p>It's the same phenomenon in reverse. The text isn't meant to be read — it's meant to signal "foreign" or "exotic."</p>
+
+                    <h3>How to Spot Faux Cyrillic</h3>
+                    
+                    <p>Quick test: Can you read it as Russian?</p>
+                    
+                    <p><strong>Faux Cyrillic:</strong> ЯUSSЇАИ<br>
+                    <strong>How you're supposed to read it:</strong> RUSSIAN<br>
+                    <strong>How it actually reads:</strong> YAUSSEEAN<br>
+                    <strong>Verdict:</strong> Gibberish = faux Cyrillic</p>
+                    
+                    <p><strong>Real Cyrillic:</strong> РУССКИЙ<br>
+                    <strong>How it reads:</strong> RUSSKIY (Russian for "Russian")<br>
+                    <strong>Verdict:</strong> Makes sense = real Cyrillic</p>
+
+                    <h3>Should You Care?</h3>
+                    
+                    <p>If you're learning Cyrillic: Yes! Because faux Cyrillic will confuse you and reinforce wrong associations. Seeing Я used as R when you're trying to learn that Я = "ya" is counterproductive.</p>
+                    
+                    <p>If you're a designer: Please care! Using actual Russian (or having someone who knows Russian check your work) makes your design more authentic and shows respect for the culture.</p>
+                    
+                    <p>If you're just watching movies: Probably not worth stressing over. Faux Cyrillic is a visual trope at this point. Just know that it's fake.</p>
+
+                    <h3>The Backwards R Will Never Die</h3>
+                    
+                    <p>Here's the brutal truth: faux Cyrillic isn't going anywhere. It's too visually effective, too culturally embedded, and too useful as a design shorthand. Я will continue being used as backwards R in Western media forever.</p>
+                    
+                    <p>But now you know the truth. When you see "ЯUSSЇАИ VОDКД" on a bottle, you can smile knowingly at the absurdity while everyone else just sees "Russian Vodka."</p>
+                    
+                    <p>And if you're learning Cyrillic, you get to be slightly annoyed every time Hollywood does this. Consider it a rite of passage.</p>
+                    
+                    <p>Just remember: <strong>Я is not backwards R. Я is "ya."</strong> Р is R, and it looks like P. Welcome to Cyrillic, where nothing is what it seems.</p>
+                `
+            },
+            {
+                id: 'practice-writing-cyrillic',
+                title: 'How to Practice Writing Cyrillic by Hand',
+                content: `
+                    <p>Learning to read Cyrillic is one thing. Learning to write it by hand — especially in cursive — is a completely different challenge. While digital typing dominates modern communication, handwriting Cyrillic helps cement the letters in your memory and opens up the ability to take notes, write letters, or simply understand handwritten Russian text.</p>
+
+                    <h3>Why Bother With Handwriting?</h3>
+                    
+                    <p>In the age of keyboards, why learn to write Cyrillic by hand?</p>
+                    
+                    <p><strong>Memory Retention:</strong> The physical act of writing activates different parts of your brain. You'll remember letters better when you've written them hundreds of times.</p>
+                    
+                    <p><strong>Reading Handwritten Text:</strong> Russian handwriting — especially cursive — can look completely different from printed text. If you can't write it, you'll struggle to read it.</p>
+                    
+                    <p><strong>Practical Use:</strong> Taking notes in Russian classes, writing letters, filling out forms while traveling, or keeping a language journal all require handwriting.</p>
+                    
+                    <p><strong>Cultural Authenticity:</strong> Native Russians learn cursive in school. Being able to write in cursive makes you more connected to the language.</p>
+
+                    <h3>Print vs. Cursive: Know the Difference</h3>
+                    
+                    <p>Russian has two distinct handwriting styles:</p>
+                    
+                    <p><strong>Printed (Печатные буквы):</strong><br>
+                    Individual letters, similar to typed text. Each letter stands alone. This is what you should learn first.</p>
+                    
+                    <p><strong>Cursive (Прописные буквы):</strong><br>
+                    Connected, flowing script. Letters link together. Some letters look completely different from their printed forms. Russians learn this in elementary school and use it for everything.</p>
+                    
+                    <p>Start with print to build basic muscle memory, then move to cursive once you're comfortable.</p>
+
+                    <h3>The Printed Alphabet: Your Foundation</h3>
+                    
+                    <p>When writing printed Cyrillic, follow these principles:</p>
+                    
+                    <p><strong>Stroke Order Matters:</strong><br>
+                    Just like in English, there's a conventional order for writing strokes. Following it makes writing faster and more natural.</p>
+                    
+                    <p><strong>General rules:</strong><br>
+                    • Top to bottom<br>
+                    • Left to right<br>
+                    • Outside strokes before inside details</p>
+                    
+                    <p><strong>Example: Д (D)</strong><br>
+                    1. Left vertical line (top to bottom)<br>
+                    2. Diagonal to top right<br>
+                    3. Right vertical line (top to bottom)<br>
+                    4. Horizontal base with "feet"</p>
+
+                    <h3>Letters That Look Different When Handwritten</h3>
+                    
+                    <p>Some printed letters have different handwritten forms:</p>
+                    
+                    <p><strong>Т (T):</strong><br>
+                    • Printed: Т (looks like T)<br>
+                    • Handwritten: Usually written like lowercase 'm' in English</p>
+                    
+                    <p><strong>Д (D):</strong><br>
+                    • Printed: Д (house shape)<br>
+                    • Handwritten: Often looks like English 'g' or 'd'</p>
+                    
+                    <p><strong>Г (G):</strong><br>
+                    • Printed: Г (backwards L)<br>
+                    • Handwritten: Often looks like number '2' or English 'r'</p>
+
+                    <h3>The Cursive Challenge</h3>
+                    
+                    <p>Russian cursive is notorious. Some letters become nearly unrecognizable. Here are the worst offenders:</p>
+                    
+                    <p><strong>Т (T) in cursive:</strong> Looks like English 'm'</p>
+                    
+                    <p><strong>П (P) in cursive:</strong> Looks like English 'n'</p>
+                    
+                    <p><strong>Ш (Sh) in cursive:</strong> Looks like English 'w' but continues to the next letter</p>
+                    
+                    <p><strong>Д (D) in cursive:</strong> Has a big loop, looks like English 'g'</p>
+                    
+                    <p><strong>The "ишишишиши" problem:</strong><br>
+                    Multiple letters in cursive can create identical-looking sequences. The word "шиши" looks like "uuuu" in cursive. You have to use context to figure out what letters they actually are.</p>
+
+                    <h3>Practice Method: The Proven System</h3>
+                    
+                    <p><strong>Step 1: Learn Stroke Order (Week 1)</strong><br>
+                    Practice each printed letter 20 times, focusing on correct stroke order. Don't rush.</p>
+                    
+                    <p><strong>Step 2: Write Simple Words (Week 2)</strong><br>
+                    Combine letters into words. Start with easy ones like:<br>
+                    • МАМА (mama)<br>
+                    • ПАПА (papa)<br>
+                    • КОТ (cat)<br>
+                    • ДОМ (house)</p>
+                    
+                    <p><strong>Step 3: Copy Real Text (Week 3)</strong><br>
+                    Find Russian sentences and copy them by hand. Children's books are perfect for this.</p>
+                    
+                    <p><strong>Step 4: Introduction to Cursive (Week 4)</strong><br>
+                    Learn cursive versions of each letter. Practice connecting them.</p>
+                    
+                    <p><strong>Step 5: Cursive Words (Week 5+)</strong><br>
+                    Write full words in cursive. Start with short words and build up.</p>
+
+                    <h3>Practice Resources</h3>
+                    
+                    <p><strong>Printable Worksheets:</strong><br>
+                    Search for "Russian handwriting worksheets" or "прописи" (propisi). Many are free online.</p>
+                    
+                    <p><strong>Tracing Practice:</strong><br>
+                    Start with dotted letters you can trace. This builds muscle memory for the shapes.</p>
+                    
+                    <p><strong>Grid Paper:</strong><br>
+                    Use quadrille (graph) paper. Russians typically learn to write on squared paper, which helps with letter proportions.</p>
+                    
+                    <p><strong>Russian Children's Workbooks:</strong><br>
+                    Books titled "Прописи" are designed for Russian first-graders learning to write. Perfect for adult learners too!</p>
+
+                    <h3>Common Handwriting Mistakes</h3>
+                    
+                    <p><strong>1. Mixing Print and Cursive</strong><br>
+                    Don't randomly switch between printed and cursive letters in the same word. Pick one style and stick with it.</p>
+                    
+                    <p><strong>2. Wrong Stroke Order</strong><br>
+                    Starting from the bottom or right side makes letters look wrong and slows you down.</p>
+                    
+                    <p><strong>3. Inconsistent Letter Size</strong><br>
+                    Some letters (like Д, Р) should be taller. Others (like а, о) should be smaller. Maintain proportions.</p>
+                    
+                    <p><strong>4. Not Connecting Cursive Letters</strong><br>
+                    Cursive letters should flow together. Lifting your pen between every letter defeats the purpose.</p>
+                    
+                    <p><strong>5. Confusing Cursive т and ш</strong><br>
+                    Both can look like 'm' shapes. Practice distinguishing them through context and careful formation.</p>
+
+                    <h3>Speed vs. Legibility</h3>
+                    
+                    <p>When starting out, prioritize legibility over speed. Write slowly and carefully. Speed comes naturally with practice — clarity doesn't.</p>
+                    
+                    <p>Russians who write cursive quickly often produce text that looks like scribbles to learners. That's fine for them (they can read their own handwriting), but as a learner, focus on making each letter clear and distinct.</p>
+
+                    <h3>Daily Practice Routine</h3>
+                    
+                    <p>15 minutes daily beats 2 hours once a week. Here's a quick routine:</p>
+                    
+                    <p><strong>Minutes 1-5:</strong> Write the alphabet (printed or cursive)<br>
+                    <strong>Minutes 6-10:</strong> Copy 3-5 Russian sentences from a book or article<br>
+                    <strong>Minutes 11-15:</strong> Free writing — write anything in Russian. Your shopping list, today's date, simple sentences.</p>
+                    
+                    <p>Repeat daily. In a month, you'll see massive improvement.</p>
+
+                    <h3>The Satisfaction Factor</h3>
+                    
+                    <p>There's something deeply satisfying about being able to write Russian by hand. When you can jot down notes during a language class, write a postcard to a Russian friend, or simply sign your name in Cyrillic, you've crossed a threshold from "learning about Russian" to "using Russian."</p>
+                    
+                    <p>Plus, cursive Russian looks beautiful when done well. The flowing connections, the rhythmic loops — it's genuinely aesthetic.</p>
+                    
+                    <p>So grab a pen, find some grid paper, and start writing. Your hand might cramp at first, and your letters might look wonky, but that's how everyone starts. With practice, you'll develop your own Russian handwriting style — and that's when it really becomes yours.</p>
+                `
+            },
+            {
+                id: 'kazakhstan-latin-transition',
+                title: 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031',
+                content: `
+                    <p>In one of the most ambitious language reforms of the 21st century, Kazakhstan is in the process of switching its entire writing system from Cyrillic to Latin alphabet. By 2031, Kazakh — currently written in Cyrillic — will officially use Latin script. This affects signage, education, government documents, and the daily lives of 19 million people.</p>
+                    
+                    <p>Why would a country abandon an alphabet it's used for decades? And what does this tell us about the relationship between writing systems, politics, and national identity?</p>
+
+                    <h3>The Timeline of Kazakh Writing Systems</h3>
+                    
+                    <p>Kazakhstan's alphabet journey has been remarkably turbulent:</p>
+                    
+                    <p><strong>Pre-1929: Arabic Script</strong><br>
+                    Kazakh was traditionally written in a modified Arabic alphabet, reflecting Central Asia's Islamic heritage.</p>
+                    
+                    <p><strong>1929-1940: Latin Alphabet</strong><br>
+                    The Soviet Union forced a switch to Latin as part of a broader Latinization campaign across Soviet republics.</p>
+                    
+                    <p><strong>1940-Present: Cyrillic Alphabet</strong><br>
+                    Stalin reversed course and imposed Cyrillic on all Soviet republics, including Kazakhstan. This is the alphabet most Kazakhs alive today learned.</p>
+                    
+                    <p><strong>2017-2031: Transition to Latin</strong><br>
+                    Independent Kazakhstan announced plans to switch back to Latin, with full implementation by 2031.</p>
+                    
+                    <p>That's four alphabet changes in just over a century. For perspective, English has used the same alphabet for about 1,500 years.</p>
+
+                    <h3>Why Is Kazakhstan Doing This?</h3>
+                    
+                    <p>The official reasons and the political subtext are different:</p>
+                    
+                    <p><strong>Official Reasons:</strong></p>
+                    
+                    <p><strong>1. Technological Compatibility</strong><br>
+                    Latin alphabet works better with computers, websites, and international communication. No special keyboard configurations needed.</p>
+                    
+                    <p><strong>2. Economic Integration</strong><br>
+                    Easier business with Turkey (also uses Latin for a Turkic language) and Western countries. Latin is the global standard for international commerce.</p>
+                    
+                    <p><strong>3. Educational Benefits</strong><br>
+                    Students learning English or other Latin-based languages won't need to switch alphabets. Reduces cognitive load.</p>
+                    
+                    <p><strong>4. Linguistic Accuracy</strong><br>
+                    The new Latin alphabet can be designed specifically for Kazakh sounds, potentially representing the language better than Cyrillic does.</p>
+                    
+                    <p><strong>Political Subtext:</strong></p>
+                    
+                    <p><strong>1. De-Russification</strong><br>
+                    Cyrillic is associated with Russian/Soviet rule. Switching alphabets symbolizes Kazakhstan's independence and European/Western orientation.</p>
+                    
+                    <p><strong>2. National Identity</strong><br>
+                    A distinct alphabet reinforces Kazakh identity separate from Russia. Makes Kazakh visually distinct from Russian.</p>
+                    
+                    <p><strong>3. Turkic Unity</strong><br>
+                    Turkey, Azerbaijan, Turkmenistan, and Uzbekistan all use or are considering Latin alphabets for their Turkic languages. Kazakhstan joins this club.</p>
+                    
+                    <p><strong>4. Geopolitical Realignment</strong><br>
+                    Signals Kazakhstan's future lies with Europe/the West, not Russia. A symbolic but powerful statement.</p>
+
+                    <h3>The New Kazakh Latin Alphabet</h3>
+                    
+                    <p>The proposed Latin alphabet has 32 letters and uses some special characters:</p>
+                    
+                    <p><strong>A, Ä, B, C, Ç, D, E, F, G, Ğ, H, I, İ, J, K, L, M, N, Ñ, O, Ö, P, Q, R, S, Ş, T, U, Ü, V, Y, Z</strong></p>
+                    
+                    <p>Note the use of diacritics (dots, accents) on some letters — Ä, Ğ, Ñ, Ö, Ş, Ü. These represent sounds specific to Kazakh.</p>
+                    
+                    <p>This follows the Turkish model, which also uses Latin with diacritics for Turkic sounds.</p>
+
+                    <h3>The Challenges Are Massive</h3>
+                    
+                    <p>Switching alphabets isn't like flipping a switch. It's an enormous undertaking:</p>
+                    
+                    <p><strong>1. Education System Overhaul</strong><br>
+                    • Retrain all teachers<br>
+                    • Reprint all textbooks<br>
+                    • Teach students two alphabets during transition (Cyrillic for old books, Latin for new)<br>
+                    • Redesign curriculum</p>
+                    
+                    <p><strong>2. Signage and Infrastructure</strong><br>
+                    • Replace every street sign<br>
+                    • Update government buildings<br>
+                    • Change storefront signs<br>
+                    • Redo highway markers and maps</p>
+                    
+                    <p><strong>3. Legal and Official Documents</strong><br>
+                    • Rewrite or translate all laws<br>
+                    • Update government forms<br>
+                    • Change passports and ID cards<br>
+                    • Revise official records</p>
+                    
+                    <p><strong>4. Digital Transition</strong><br>
+                    • Update all government websites<br>
+                    • Change keyboard layouts<br>
+                    • Revise software and databases<br>
+                    • Train people in new typing systems</p>
+                    
+                    <p><strong>5. Generational Literacy Gap</strong><br>
+                    Older Kazakhs who spent their whole lives reading Cyrillic will struggle with Latin. Younger generations will learn Latin primarily, making Cyrillic texts from before 2031 harder for them to access.</p>
+                    
+                    <p>This creates a literacy divide that will take a generation to fully resolve.</p>
+
+                    <h3>Opposition and Criticism</h3>
+                    
+                    <p>Not everyone in Kazakhstan supports this change:</p>
+                    
+                    <p><strong>Russian-Speaking Citizens:</strong><br>
+                    Kazakhstan has a large ethnic Russian minority (~18% of population). They see this as marginalizing Russian language and culture.</p>
+                    
+                    <p><strong>Older Kazakhs:</strong><br>
+                    People educated in Cyrillic don't want to relearn an alphabet in middle age or old age.</p>
+                    
+                    <p><strong>Cost Concerns:</strong><br>
+                    The transition is expensive — estimated in billions of dollars. Critics say this money could be better spent on healthcare, education quality, or infrastructure.</p>
+                    
+                    <p><strong>Cultural Loss:</strong><br>
+                    Switching alphabets means future generations may struggle to read Kazakh literature, historical documents, and family letters written in Cyrillic.</p>
+
+                    <h3>Russia's Reaction</h3>
+                    
+                    <p>Russia is not pleased. Kazakhstan's move is seen as:</p>
+                    
+                    <p>• A rejection of Russian influence<br>
+                    • A geopolitical shift toward the West<br>
+                    • Part of a broader trend of former Soviet states asserting independence</p>
+                    
+                    <p>Russia has condemned the move as "unnecessary" and "harmful to cultural ties." But Kazakhstan is sovereign and can do what it wants with its own language.</p>
+
+                    <h3>Similar Transitions in History</h3>
+                    
+                    <p>Kazakhstan isn't the first to attempt this:</p>
+                    
+                    <p><strong>Turkey (1928):</strong><br>
+                    Successfully switched from Arabic to Latin under Atatürk. Probably the most successful alphabet transition in modern history. Took about 5 years of intense effort.</p>
+                    
+                    <p><strong>Uzbekistan (1990s):</strong><br>
+                    Announced Latin alphabet transition. Progress has been slow and inconsistent. Cyrillic is still widely used alongside Latin.</p>
+                    
+                    <p><strong>Turkmenistan (1990s-2000s):</strong><br>
+                    Transitioned to Latin but implementation has been uneven.</p>
+                    
+                    <p><strong>Azerbaijan (1991):</strong><br>
+                    Switched from Cyrillic to Latin. Generally considered successful, though older generations still use Cyrillic.</p>
+                    
+                    <p>The track record is mixed. It's doable, but difficult.</p>
+
+                    <h3>What Happens to Cyrillic?</h3>
+                    
+                    <p>Cyrillic won't disappear overnight:</p>
+                    
+                    <p>• Russian is still an official language in Kazakhstan<br>
+                    • Older people will continue using Cyrillic Kazakh<br>
+                    • Historical texts remain in Cyrillic<br>
+                    • Bilingual signage during the transition period<br>
+                    • Academic study of pre-2031 literature requires Cyrillic knowledge</p>
+                    
+                    <p>But by 2050, most young Kazakhs will probably only know Latin Kazakh, reading Cyrillic as a historical curiosity the way modern English speakers might read Middle English — technically possible with effort, but not natural.</p>
+
+                    <h3>The Global Implications</h3>
+                    
+                    <p>Kazakhstan's transition is being watched closely by other former Soviet republics. If successful, it could inspire:</p>
+                    
+                    <p>• Kyrgyzstan (also Turkic)<br>
+                    • Tajikistan (considered it, but unlikely)<br>
+                    • Other Central Asian states</p>
+                    
+                    <p>Each alphabet switch chips away at Cyrillic's global footprint and Russian cultural influence. The post-Soviet linguistic landscape is shifting.</p>
+
+                    <h3>The Bottom Line</h3>
+                    
+                    <p>Kazakhstan's alphabet transition is as much political as practical. It's about asserting independence, realigning geopolitically, and defining national identity in the post-Soviet era.</p>
+                    
+                    <p>Whether it succeeds depends on political will, economic resources, and how well the government manages the transition. Turkey proved it can be done. Uzbekistan shows it can stall. Kazakhstan is betting billions of dollars and its linguistic future on getting it right.</p>
+                    
+                    <p>By 2031, we'll know if this was a bold success or an expensive mistake. Either way, it's one of the most fascinating real-time language experiments happening in the world today.</p>
+                `
+            },
+            {
                 id: 'cyrillic-alphabet-chart',
                 title: 'Complete Cyrillic Alphabet Chart: All 33 Letters with Pronunciations',
                 content: `
@@ -4780,9 +5265,12 @@
             'lost-letters',
             'glagolitic',
             'cyrillic-names-europe',
+            'backwards-r-myth',
+            'kazakhstan-latin-transition',
             // 🛠️ Learning Tools & Resources
             'how-to-type-cyrillic',
             'cyrillic-handwriting',
+            'practice-writing-cyrillic',
             'cyrillic-alphabet-chart',
             'cyrillic-vs-latin',
             'cyrillic-learning-resources',
