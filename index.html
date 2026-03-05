@@ -2112,6 +2112,43 @@
                 padding-right: 90px; /* Less space on mobile */
             }
         }
+        
+        /* ========================================================
+           NUCLEAR OPTION: FORCE CORRECT LAYOUT 
+           Ultra-specific selectors to override everything
+           ======================================================== */
+        body .page-wrapper {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            align-items: flex-start !important;
+            width: 100% !important;
+            max-width: 1400px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+        
+        body .page-wrapper > .ad-sidebar {
+            flex: 0 0 160px !important;
+            width: 160px !important;
+            min-width: 160px !important;
+            max-width: 160px !important;
+        }
+        
+        body .page-wrapper > .ad-sidebar.left {
+            order: -1 !important;
+        }
+        
+        body .page-wrapper > .main-content {
+            flex: 1 1 auto !important;
+            max-width: 1040px !important;
+            min-width: 0 !important;
+            order: 0 !important;
+        }
+        
+        body .page-wrapper > .ad-sidebar.right {
+            order: 1 !important;
+        }
     </style>
 
     <!-- Structured Data (Schema.org) for Rich Results -->
