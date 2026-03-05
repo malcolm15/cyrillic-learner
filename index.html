@@ -2819,7 +2819,7 @@
 
                         <h3>Get in Touch</h3>
                         <div class="content-text">
-                            <p>Email me at: <a href="mailto:hello@cyrilica.com">hello@cyrilica.com</a></p>
+                            <p>Email me at: <a href="/cdn-cgi/l/email-protection#6d05080101022d0e141f0401040e0c430e0200"><span class="__cf_email__" data-cfemail="9af2fff6f6f5daf9e3e8f3f6f3f9fbb4f9f5f7">[email&#160;protected]</span></a></p>
                         </div>
 
                         <div class="content-text">
@@ -2927,7 +2927,7 @@
                      data-ad-slot="3868336358"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
@@ -4760,6 +4760,35 @@
             }
         ];
 
+        // Article display order (matches the categorized visual order on the articles page)
+        const ARTICLE_ORDER = [
+            // 🚀 Getting Started
+            'getting-started',
+            'common-mistakes',
+            'memory-tricks',
+            'cyrillic-tier-list',
+            'false-friends',
+            'first-25-words',
+            // 📚 Alphabet Variants
+            'ukrainian-alphabet',
+            'bulgarian-alphabet',
+            'serbian-cyrillic-vs-latin',
+            'belarusian-alphabet',
+            'montenegrin-alphabet',
+            // 📖 History & Culture
+            'history-of-cyrillic',
+            'lost-letters',
+            'glagolitic',
+            'cyrillic-names-europe',
+            // 🛠️ Learning Tools & Resources
+            'how-to-type-cyrillic',
+            'cyrillic-handwriting',
+            'cyrillic-alphabet-chart',
+            'cyrillic-vs-latin',
+            'cyrillic-learning-resources',
+            'common-cyrillic-mistakes'
+        ];
+
         // Article navigation functions
         function showArticle(articleId) {
             const article = ARTICLES.find(a => a.id === articleId);
@@ -4776,18 +4805,18 @@
             // Update URL
             window.history.pushState({ page: 'articles', article: articleId }, '', `/articles/${articleId}`);
             
-            // Setup navigation buttons with looping
-            const currentIndex = ARTICLES.findIndex(a => a.id === articleId);
+            // Setup navigation buttons with looping (using visual categorized order)
+            const currentIndex = ARTICLE_ORDER.findIndex(id => id === articleId);
             const prevBtn = document.getElementById('prev-article');
             const nextBtn = document.getElementById('next-article');
             
             // Previous button (loop to end if on first article)
-            const prevIndex = currentIndex > 0 ? currentIndex - 1 : ARTICLES.length - 1;
-            prevBtn.setAttribute('data-article-id', ARTICLES[prevIndex].id);
+            const prevIndex = currentIndex > 0 ? currentIndex - 1 : ARTICLE_ORDER.length - 1;
+            prevBtn.setAttribute('data-article-id', ARTICLE_ORDER[prevIndex]);
             
             // Next button (loop to beginning if on last article)
-            const nextIndex = currentIndex < ARTICLES.length - 1 ? currentIndex + 1 : 0;
-            nextBtn.setAttribute('data-article-id', ARTICLES[nextIndex].id);
+            const nextIndex = currentIndex < ARTICLE_ORDER.length - 1 ? currentIndex + 1 : 0;
+            nextBtn.setAttribute('data-article-id', ARTICLE_ORDER[nextIndex]);
             
             // Scroll to top or to anchor if hash present
             const hash = window.location.hash;
@@ -5377,12 +5406,10 @@
                 document.querySelectorAll('.nav-links a').forEach(link => {
                     link.classList.remove('active');
                 });
-                const activeLink = document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
+                const activeLink = document.querySelector(`.nav-links a[href="/${pageName}"]`);
+                if (activeLink) activeLink.classList.add('active');
             }
-        })();
+        });
     </script>
 </body>
 </html>
