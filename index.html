@@ -412,62 +412,12 @@
             }
         }
 
-        .page-wrapper {
-            display: flex;
-            flex-wrap: nowrap !important; /* CRITICAL: Prevent sidebars from wrapping */
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto; /* Center the wrapper */
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .ad-sidebar {
-            flex: 0 0 160px !important; /* CRITICAL: Fixed width, no grow/shrink */
-            position: sticky;
-            top: 90px;
-            height: fit-content;
-        }
-
-        .ad-sidebar.left {
-            order: 1 !important;
-        }
-
+        /* Main content centered layout (no sidebars) */
         .main-content {
-            flex: 1;
-            order: 2 !important;
-            min-width: 0;
-            max-width: 1040px; /* Prevent content from getting too wide and wrapping sidebars */
-            overflow-x: hidden; /* Prevent overflow from forcing width */
-        }
-
-        .ad-sidebar.right {
-            order: 3 !important;
-        }
-
-        .ad-placeholder {
-            background: rgba(255, 255, 255, 0.5);
-            border: 3px dashed var(--charcoal);
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
             padding: 20px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--charcoal);
-            opacity: 0.6;
-        }
-
-        /* Hide ads on mobile */
-        @media (max-width: 1100px) {
-            .ad-sidebar {
-                display: none;
-            }
-            
-            .page-wrapper {
-                justify-content: center;
-            }
         }
 
         /* Decorative background pattern */
@@ -2110,43 +2060,6 @@
                 padding-right: 90px; /* Less space on mobile */
             }
         }
-        
-        /* ========================================================
-           NUCLEAR OPTION: FORCE CORRECT LAYOUT 
-           Ultra-specific selectors to override everything
-           ======================================================== */
-        body .page-wrapper {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            align-items: flex-start !important;
-            width: 100% !important;
-            max-width: 1400px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-        
-        body .page-wrapper > .ad-sidebar {
-            flex: 0 0 160px !important;
-            width: 160px !important;
-            min-width: 160px !important;
-            max-width: 160px !important;
-        }
-        
-        body .page-wrapper > .ad-sidebar.left {
-            order: -1 !important;
-        }
-        
-        body .page-wrapper > .main-content {
-            flex: 1 1 auto !important;
-            max-width: 1040px !important;
-            min-width: 0 !important;
-            order: 0 !important;
-        }
-        
-        body .page-wrapper > .ad-sidebar.right {
-            order: 1 !important;
-        }
     </style>
 
     <!-- Structured Data (Schema.org) for Rich Results -->
@@ -2266,22 +2179,6 @@
         </div>
     </nav>
 
-        <div class="page-wrapper">
-        <aside class="ad-sidebar left">
-            <div class="ad-placeholder">
-                <!-- Cyrilica - Left Sidebar -->
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-5821564771189825"
-                     data-ad-slot="8924279961"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-        </aside>
-        
         <div class="main-content">
             <div class="container">
                 <!-- HOME PAGE -->
@@ -2982,22 +2879,6 @@
                 </div>
             </div>
         </div>
-        
-        <aside class="ad-sidebar right">
-            <div class="ad-placeholder">
-                <!-- Cyrilica - Right Sidebar -->
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-5821564771189825"
-                     data-ad-slot="3868336358"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-        </aside>
-    </div>
 
     <!-- Footer -->
     <footer>
