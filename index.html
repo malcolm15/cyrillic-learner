@@ -3299,14 +3299,23 @@
                 page.classList.remove('active');
             });
             
+            // CRITICAL FIX: Always hide article-view when navigating to main pages
+            // This fixes the bug where articles remain visible when clicking nav tabs
+            const articleView = document.getElementById('article-view');
+            const articlesIndex = document.getElementById('articles-index');
+            
+            if (pageName === 'articles') {
+                // Show articles index, hide article view
+                if (articlesIndex) articlesIndex.style.display = 'block';
+                if (articleView) articleView.style.display = 'none';
+            } else {
+                // Hide both articles components when navigating to other pages
+                if (articlesIndex) articlesIndex.style.display = 'none';
+                if (articleView) articleView.style.display = 'none';
+            }
+            
             // Show selected page
             document.getElementById(pageName + '-page').classList.add('active');
-            
-            // If showing articles page, show the index view
-            if (pageName === 'articles') {
-                document.getElementById('articles-index').style.display = 'block';
-                document.getElementById('article-view').style.display = 'none';
-            }
             
             // Update nav active state
             document.querySelectorAll('.nav-links a').forEach(link => {
