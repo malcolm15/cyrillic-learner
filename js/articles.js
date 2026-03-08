@@ -2703,8 +2703,7 @@ const ARTICLES = [
                 </div>
             </div>
         `
-    }
-},
+    },
     {
         id: 'cyrillic-copy-paste',
         title: 'Cyrillic Alphabet Copy and Paste',
