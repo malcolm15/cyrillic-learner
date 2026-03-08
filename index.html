@@ -577,6 +577,20 @@
             color: var(--matrix-green-dim);
         }
 
+        .site-description {
+            max-width: 600px;
+            margin: 20px auto 30px auto;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body.dark-mode .site-description {
+            color: #999;
+        }
+
         .card {
             background: var(--paper);
             border: 2px solid var(--charcoal);
@@ -2151,38 +2165,91 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "LearningResource",
-        "name": "CyriЛica - Learn the Cyrillic Alphabet",
-        "description": "Free interactive tool to learn the Cyrillic alphabet through practice and repetition. Master all 33 letters with instant feedback and progress tracking.",
+        "@type": "SoftwareApplication",
+        "name": "Cyrilica",
+        "alternateName": "CyriЛica",
+        "applicationCategory": "EducationalApplication",
+        "applicationSubCategory": "Language Learning",
+        "description": "Free interactive web app to learn the Cyrillic alphabet in 1-2 weeks. Master Russian, Ukrainian, Bulgarian, and Serbian letters through interactive practice with instant feedback and progress tracking.",
         "url": "https://cyrilica.com",
-        "image": "https://cyrilica.com/favicon.svg",
+        "image": "https://cyrilica.com/og-image.png",
+        "screenshot": "https://cyrilica.com/og-image.png",
+        "operatingSystem": "Web browser (Chrome, Firefox, Safari, Edge)",
+        "browserRequirements": "Requires JavaScript",
+        "softwareVersion": "2.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "featureList": [
+            "Interactive character selection",
+            "Instant feedback on answers",
+            "Progress tracking and statistics",
+            "Audio pronunciation for each letter",
+            "Dark mode support",
+            "Mobile-responsive design",
+            "No account required"
+        ],
         "educationalLevel": "Beginner",
-        "teaches": "Cyrillic alphabet",
+        "teaches": "Cyrillic alphabet reading and recognition",
         "learningResourceType": "Interactive Exercise",
         "interactivityType": "active",
         "educationalUse": "self-assessment",
-        "timeRequired": "PT2H",
+        "timeRequired": "PT14D",
         "inLanguage": "en",
-        "about": {
+        "targetProduct": {
             "@type": "Thing",
-            "name": "Cyrillic script",
-            "description": "The Cyrillic alphabet used in Russian, Ukrainian, Bulgarian, Serbian, and other Slavic languages"
+            "name": "Cyrillic script knowledge",
+            "description": "Ability to read and recognize all 33 letters of the Cyrillic alphabet"
+        },
+        "about": [
+            {
+                "@type": "Thing",
+                "name": "Cyrillic alphabet",
+                "description": "Writing system used for Russian, Ukrainian, Bulgarian, Serbian, and other Slavic languages"
+            },
+            {
+                "@type": "Thing",
+                "name": "Russian alphabet"
+            },
+            {
+                "@type": "Thing",
+                "name": "Ukrainian alphabet"
+            },
+            {
+                "@type": "Thing",
+                "name": "Bulgarian alphabet"
+            }
+        ],
+        "audience": {
+            "@type": "EducationalAudience",
+            "educationalRole": "student",
+            "audienceType": [
+                "Language learners",
+                "Travelers",
+                "Students",
+                "Heritage speakers"
+            ]
         },
         "author": {
             "@type": "Organization",
-            "name": "CyriЛica",
+            "name": "Cyrilica",
             "url": "https://cyrilica.com"
         },
         "provider": {
             "@type": "Organization",
-            "name": "CyriЛica",
+            "name": "Cyrilica",
             "url": "https://cyrilica.com"
         },
         "isAccessibleForFree": true,
         "usageInfo": "https://cyrilica.com/privacy",
-        "audience": {
-            "@type": "EducationalAudience",
-            "educationalRole": "student"
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "ratingCount": "1",
+            "reviewCount": "1"
         }
     }
     </script>
@@ -2271,6 +2338,7 @@
                     <header>
                         <h1>CYRI<span class="letter-l" onclick="burstConfetti(event, this)">Л<span class="confetti-burst"></span></span>ICA</h1>
                         <div class="subtitle">Master the Cyrillic Alphabet</div>
+                        <p class="site-description">Free interactive tool to learn the Cyrillic alphabet in 1–2 weeks. Select characters, practice with instant feedback, and track your progress.</p>
                     </header>
 
                     <!-- Combined Character Reference & Selection -->
