@@ -2015,6 +2015,14 @@
                 font-size: 3.2rem;
             }
 
+            /* Audio button - better positioning for mobile */
+            .audio-btn {
+                right: 8%;
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+
             .input-section {
                 margin-bottom: 16px;
             }
@@ -2880,7 +2888,20 @@
 
                         <h3>Get in Touch</h3>
                         <div class="content-text">
-                            <p>Email me at: <a href="/cdn-cgi/l/email-protection#6d05080101022d0e141f0401040e0c430e0200"><span class="__cf_email__" data-cfemail="9af2fff6f6f5daf9e3e8f3f6f3f9fbb4f9f5f7">[email&#160;protected]</span></a></p>
+                            <p>Email me at: <a href="/cdn-cgi/l/email-protection#86eee3eaeae9c6e5fff4efeaefe5e7a8e5e9eb" id="contact-email"><span class="__cf_email__" data-cfemail="f49c9198989bb4978d869d989d9795da979b99">[email&#160;protected]</span></a></p>
+                            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+                                // Simple email deobfuscation to bypass Cloudflare protection
+                                (function() {
+                                    const user = 'hello';
+                                    const domain = 'cyrilica.com';
+                                    const email = user + '@' + domain;
+                                    const emailLink = document.getElementById('contact-email');
+                                    if (emailLink) {
+                                        emailLink.href = 'mailto:' + email;
+                                        emailLink.textContent = email;
+                                    }
+                                })();
+                            </script>
                         </div>
 
                         <div class="content-text">
@@ -6805,10 +6826,12 @@
                 
                 // Update nav
                 document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.classList.remove('active');
+                    link.classList.remove('active');                    link.classList.remove('active');
                 });
-                const activeLink = document.querySelector(`.nav-links a[href="/${pageName}"]`);
-                if (activeLink) activeLink.classList.add('active');
+                const activeLink = document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
             }
         });
     </script>
