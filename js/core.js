@@ -472,6 +472,13 @@ function showArticle(articleId) {
             });
         }
     }, 50);
+    
+    // Run article-specific script if it exists
+    if (typeof ArticleScripts !== 'undefined' && ArticleScripts[articleId]) {
+        setTimeout(() => {
+            ArticleScripts[articleId]();
+        }, 100);
+    }
 }
 
 function showArticleIndex() {

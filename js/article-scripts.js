@@ -4,31 +4,6 @@
 
 const ArticleScripts = {};
 
-// Example: Article with interactive features
-// ArticleScripts['article-id'] = function() {
-//     // Your interactive code here
-// };
-
-// Hook into showArticle to run article scripts when articles are displayed
-(function() {
-    // Store the original showArticle function
-    const originalShowArticle = window.showArticle;
-    
-    // Override showArticle to also run article scripts
-    window.showArticle = function(articleId) {
-        // Call the original function
-        originalShowArticle(articleId);
-        
-        // Run the article's script if it exists
-        if (ArticleScripts[articleId]) {
-            // Small delay to ensure DOM is ready
-            setTimeout(() => {
-                ArticleScripts[articleId]();
-            }, 10);
-        }
-    };
-})();
-
 // ==================== HELPER FUNCTIONS ====================
 
 // Helper: Copy text to clipboard
