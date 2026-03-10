@@ -261,7 +261,9 @@ ArticleScripts['russian-alphabet-chart'] = function() {
         
         if (audioPath) {
             console.log('Attempting to play:', audioPath);
-            var audio = new Audio(audioPath);
+            // Make path absolute if it's not already
+            const fullPath = audioPath.startsWith('/') ? audioPath : '/' + audioPath;
+            var audio = new Audio(fullPath);
             audio.volume = 0.7;
             audio.play().then(function() {
                 console.log('Audio playing successfully');
