@@ -4,6 +4,7 @@ let includeLowercase = true; // Default ON - users learn both cases from the sta
 let autoSubmit = false;
 let continuousPlay = false;
 let repeatProblems = false;
+let autoPlayAudio = false;
 let darkMode = false;
 let problemChars = {}; // Track characters user got wrong
 
@@ -33,6 +34,11 @@ function loadSettings() {
     if (savedRepeat !== null) {
         repeatProblems = savedRepeat === 'true';
         document.getElementById('repeat-toggle').checked = repeatProblems;
+    }
+    const savedAutoAudio = localStorage.getItem('autoPlayAudio');
+    if (savedAutoAudio !== null) {
+        autoPlayAudio = savedAutoAudio === 'true';
+        document.getElementById('autoaudio-toggle').checked = autoPlayAudio;
     }
     if (savedDarkMode !== null) {
         darkMode = savedDarkMode === 'true';
@@ -97,6 +103,19 @@ function toggleRepeat() {
         gtag('event', 'setting_changed', {
             'setting_name': 'repeat_problems',
             'setting_value': repeatProblems
+        });
+    }
+}
+
+function toggleAutoAudio() {
+    autoPlayAudio = document.getElementById('autoaudio-toggle').checked;
+    localStorage.setItem('autoPlayAudio', autoPlayAudio);
+    
+    // Track setting change in Google Analytics
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'setting_changed', {
+            'setting_name': 'auto_play_audio',
+            'setting_value': autoPlayAudio
         });
     }
 }
@@ -899,6 +918,11 @@ function checkAnswer() {
         // Trigger confetti burst
         createConfetti();
         
+        // Auto-play audio if setting enabled
+        if (autoPlayAudio && studyChars[currentChar].audio) {
+            playPronunciation(studyChars[currentChar].audio);
+        }
+        
         // Remove from problem characters if they got it right
         if (problemChars[currentChar]) {
             delete problemChars[currentChar];
@@ -1215,6 +1239,7 @@ window.checkAnswer = checkAnswer;
 window.skipQuestion = skipQuestion;
 window.resumeLearning = resumeLearning;
 window.toggleLowercase = toggleLowercase;
+window.toggleAutoAudio = toggleAutoAudio;
 window.copyArticleLink = copyArticleLink;
 window.shareToBluesky = shareToBluesky;
 window.shareToReddit = shareToReddit;
