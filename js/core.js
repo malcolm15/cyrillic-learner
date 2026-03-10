@@ -388,8 +388,6 @@ const ARTICLE_ORDER = [
     'first-25-words',
     'easy-russian-words',
     // 📚 Alphabet Variants
-    'ukrainian-alphabet',
-    'bulgarian-alphabet',
     'serbian-cyrillic-vs-latin',
     'belarusian-alphabet',
     'montenegrin-alphabet',
@@ -403,11 +401,8 @@ const ARTICLE_ORDER = [
     'latin-vs-cyrillic-slavic',
     'cyrillic-pop-culture',
     // 🛠️ Learning Tools & Resources
-    'how-to-type-cyrillic',
-    'cyrillic-handwriting',
     'practice-writing-cyrillic',
     'cyrillic-alphabet-chart',
-    'cyrillic-vs-latin',
     'cyrillic-learning-resources',
     'common-cyrillic-mistakes'
 ];

@@ -3,39 +3,117 @@ const ARTICLES = [
         id: 'getting-started',
         title: 'Getting Started with Cyrillic',
         content: `
-            <p>Learning the Cyrillic alphabet might seem daunting at first, but with the right approach, you can master it in just a week or two of consistent practice.</p>
-            
-            <h3>Why Learn Cyrillic?</h3>
-            <p>The Cyrillic alphabet is used by over 250 million people across multiple languages including Russian, Ukrainian, Bulgarian, Serbian, and many others. Mastering it opens doors to understanding these rich cultures and languages.</p>
-            
-            <h3>The Smart Approach</h3>
-            <p>Instead of trying to memorize all 33 letters at once, break them into groups:</p>
-            <ul>
-                <li><strong>Start with familiar letters</strong> - Characters like A, E, K, M, O, and T that look and sound similar to Latin letters</li>
-                <li><strong>Learn the false friends</strong> - Letters that look familiar but sound different (В = V, Н = N, Р = R). Check out our guide on <a href="#" onclick="showArticle('false-friends'); return false;">false friends that fool English speakers</a></li>
-                <li><strong>Master the unique letters</strong> - Characters completely new to you like Ж, Ш, Щ, Ы</li>
-            </ul>
-            
-            <h3>Practice Daily</h3>
-            <p>Consistency beats intensity. Practice for 10-15 minutes every day rather than cramming for hours once a week. Use tools like CyriЛica to get instant feedback and track your progress.</p>
-            
-            <h3>Your First Week Plan</h3>
-            <ul>
-                <li><strong>Days 1-2:</strong> Learn the vowels (А, Е, И, О, У, Э, Ю, Я)</li>
-                <li><strong>Days 3-4:</strong> Add common consonants (Б, В, Г, Д, К, Л, М, Н, П, Р, С, Т)</li>
-                <li><strong>Days 5-6:</strong> Tackle the unique letters (Ж, З, Ц, Ч, Ш, Щ)</li>
-                <li><strong>Day 7:</strong> Review everything and practice with real words</li>
-            </ul>
-            
-            <p>Remember: the goal isn't perfection, it's progress. Even if you can only identify 20 out of 33 letters after your first week, you're well on your way!</p>
+            <p>So you want to learn the Cyrillic alphabet. Maybe you're planning a trip to Russia. Maybe you're tired of not being able to read street signs in Eastern Europe. Or maybe you just think it looks cool and want to decode those mysterious letters you see in movies.</p>
+
+            <p>Whatever your reason, I've got good news. Cyrillic isn't nearly as hard as it looks. In fact, if you can spare 15 minutes a day for the next week or two, you can learn to read it. Not fluently, but well enough to sound out words and start recognizing patterns.</p>
+
+            <p>I'm not going to lie and say it's effortless. But it's also not some impossible task that requires years of study. It's just a different set of symbols for sounds you already know how to make.</p>
+
+            <h3>Why Bother Learning Cyrillic?</h3>
+
+            <p>Good question. The Cyrillic alphabet is used by over 250 million people. Russian is the obvious one, but you've also got Ukrainian, Bulgarian, Serbian, Belarusian, Macedonian, and a bunch of other languages in Central Asia. If you ever want to travel in that part of the world, knowing the alphabet makes everything easier.</p>
+
+            <p>And honestly? It's just satisfying to decode something that used to look like gibberish. The first time you read a Russian word off a menu or a sign and actually know what it says, it feels pretty good.</p>
+
+            <h3>The Biggest Mistake People Make</h3>
+
+            <p>Most people try to memorize all 33 letters at once. They print out an alphabet chart, stare at it for an hour, and then wonder why nothing sticks.</p>
+
+            <p>Don't do that.</p>
+
+            <p>Instead, break it into chunks. Start with the easy letters, then work your way up to the weird ones. It's like learning to swim. You don't jump straight into the deep end.</p>
+
+            <h3>The Three-Group Method</h3>
+
+            <p>Here's how I recommend splitting up the alphabet.</p>
+
+            <p><strong>Group 1: The Easy Ones</strong></p>
+
+            <p>These letters look familiar and sound pretty much the same as in English. Things like А (ah), К (k), М (m), О (oh), and Т (t). If you can read "ATOM" in English, you can read АТОМ in Cyrillic. Same word, same pronunciation.</p>
+
+            <p>Start here. Learn maybe 6 or 7 of these in your first session. They're your anchor points.</p>
+
+            <p><strong>Group 2: The Tricksters</strong></p>
+
+            <p>This is where things get interesting. These letters LOOK like English letters, but they don't sound the same at all. В looks like a B but sounds like V. Н looks like an H but sounds like N. Р looks like a P but sounds like R.</p>
+
+            <p>These are called false friends, and they will mess you up at first. I still sometimes see Р and think "puh" before I catch myself. Your brain wants to take shortcuts, and you have to actively fight that instinct.</p>
+
+            <p>But once you get past the initial confusion, these letters actually stick pretty well. They're memorable precisely because they're so weird.</p>
+
+            <p><strong>Group 3: The Totally New Stuff</strong></p>
+
+            <p>Finally, you've got letters that don't look like anything in English. Ж (zh, like the s in "measure"), Ш (sh), Щ (shch), Ы (a weird "ih" sound that doesn't really exist in English), and so on.</p>
+
+            <p>These take more practice because you don't have any visual reference point. But in some ways they're easier than the false friends because there's no confusion. You just have to learn them from scratch.</p>
+
+            <h3>Your First Week (Realistically)</h3>
+
+            <p>Here's what actually works, not some idealized study plan that assumes you have unlimited time and focus.</p>
+
+            <p><strong>Day 1 and 2: Vowels</strong></p>
+
+            <p>Learn the 10 vowel letters. Yes, Russian has 10 vowels (well, technically some are consonant-vowel combos, but let's not get into that right now). Focus on the easy ones first like А, О, У, then add the trickier ones like Е, Ё, Ю, Я.</p>
+
+            <p>Spend 15 minutes each day. Write them out. Say them out loud. Quiz yourself.</p>
+
+            <p><strong>Day 3 and 4: Common Consonants</strong></p>
+
+            <p>Add the most frequent consonants. В, Г, Д, К, Л, М, Н, П, Р, С, Т. That's 11 letters. Some of them are easy (К, М, Т). Some are false friends (В, Н, Р). Just power through it.</p>
+
+            <p>At this point you can start reading simple words. Maybe not understanding them, but sounding them out. That's progress.</p>
+
+            <p><strong>Day 5 and 6: The Weird Ones</strong></p>
+
+            <p>Now tackle Ж, З, Ц, Ч, Ш, Щ. These are the letters that look totally foreign. Take your time with them. Write them repeatedly. Find words that use them and practice.</p>
+
+            <p><strong>Day 7: Just Practice</strong></p>
+
+            <p>Don't learn anything new. Just review everything you've learned so far. Use flashcards, take quizzes, try reading actual Russian text (even if you have no idea what it means).</p>
+
+            <p>By the end of week one, you should be able to recognize most of the alphabet. You won't be fast, and you'll make mistakes, but that's fine. You're building the foundation.</p>
+
+            <h3>What About Those Other Letters?</h3>
+
+            <p>Russian has a few letters I didn't mention above. Ъ (hard sign), Ь (soft sign), and a couple others. Don't worry about them yet. They're important, but they're not going to stop you from reading. You can learn those in week two or three once the basic alphabet is solid.</p>
+
+            <h3>The 15-Minute Rule</h3>
+
+            <p>Here's the thing about learning a new alphabet. Consistency matters way more than marathon study sessions. Practicing for 15 minutes every single day is better than studying for three hours once a week.</p>
+
+            <p>Why? Because your brain needs time to process and consolidate the information. Cramming doesn't work for alphabet learning. Repetition over time does.</p>
+
+            <p>So set a timer. Study for 15 minutes. Stop when the timer goes off, even if you're in the middle of something. Do it again tomorrow.</p>
+
+            <h3>Use Real Tools</h3>
+
+            <p>Reading charts is helpful, but at some point you need active practice. That's where tools like this site come in. Interactive quizzes force you to recall letters from memory instead of just passively looking at them. That's when the real learning happens.</p>
+
+            <p>Also, don't be afraid to write things down by hand. It sounds old school, but there's something about physically forming the letters that helps them stick in your brain.</p>
+
+            <h3>When You Get Frustrated</h3>
+
+            <p>You will get frustrated. Probably around day 4 or 5 when your brain is tired of trying to remember which weird squiggle makes which sound.</p>
+
+            <p>When that happens, take a break. Go watch a Russian movie with subtitles. Listen to some Russian music. Browse a Russian website and see how many words you can sound out.</p>
+
+            <p>Sometimes the best way to learn is to remind yourself why you wanted to learn in the first place.</p>
+
+            <h3>The Goal Isn't Perfection</h3>
+
+            <p>After one week, you will not be perfect. You'll still mix up letters. You'll still read slowly. You might only recognize 25 out of 33 letters with confidence.</p>
+
+            <p>That's totally fine. You're learning a new writing system. Give yourself credit for the progress you make, not grief for the progress you haven't made yet.</p>
+
+            <p>The point is to get started and build momentum. The rest will come with practice.</p>
             
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('getting-started', 'Getting Started with Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('getting-started', 'Getting Started with Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('getting-started', 'Getting Started with Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('getting-started', 'Getting Started with Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('getting-started', 'Getting Started with Cyrillic')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('getting-started', 'Getting Started with Cyrillic'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('getting-started', 'Getting Started with Cyrillic'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('getting-started', 'Getting Started with Cyrillic')">Share</button>
                 </div>
             </div>
         `
@@ -44,32 +122,79 @@ const ARTICLES = [
         id: 'common-mistakes',
         title: '5 Common Mistakes When Learning Cyrillic',
         content: `
-            <p>Learning a new alphabet is challenging, but avoiding these common pitfalls can save you time and frustration.</p>
+            <p>I've watched a lot of people learn the Cyrillic alphabet over the years. And I've noticed that almost everyone makes the same handful of mistakes. The good news? These are all totally avoidable if you know what to watch out for.</p>
+
+            <h3>Mistake 1: Treating False Friends Like Real Friends</h3>
+
+            <p>This is the big one. You see a letter that looks like a B, and your brain automatically wants to read it as "buh." But in Cyrillic, that letter is actually В, and it sounds like V.</p>
+
+            <p>Same thing with Н (which looks like H but sounds like N), Р (looks like P but sounds like R), and a few others. These false friends will trip you up constantly in the beginning.</p>
+
+            <p>The solution? You have to actively unlearn the association. Every single time you see В, force yourself to think "vuh, not buh." Say it out loud. Write it down. Drill it until the correct sound becomes automatic.</p>
+
+            <p>I know this sounds tedious. And it is. But it's also the only way to rewire your brain. There's no shortcut here. You just have to put in the reps.</p>
+
+            <p>One trick that helps: write the false friends on flashcards with the correct sound in big letters on the back. Then quiz yourself repeatedly. Within a few days, your brain will start to make the switch.</p>
+
+            <h3>Mistake 2: Trying to Learn Everything at Once</h3>
+
+            <p>33 letters is not actually that many. The English alphabet has 26, and you learned that as a kid without thinking about it.</p>
+
+            <p>But when you're an adult trying to cram all 33 Cyrillic letters into your head in one sitting, it doesn't work. Your brain can only handle so much new information at once before it starts mixing things up.</p>
+
+            <p>What works better: learn 5 to 7 letters at a time. Really nail those letters before moving on to the next batch. This takes longer overall, but you'll actually retain what you learn instead of forgetting it all by next week.</p>
+
+            <p>Think of it like stacking blocks. If you try to stack 33 blocks all at once, they're going to fall over. But if you stack them carefully, 5 or 7 at a time, you can build something solid.</p>
+
+            <h3>Mistake 3: Only Reading, Never Writing</h3>
+
+            <p>Most people focus all their energy on recognizing letters. They use apps, they do quizzes, they read Russian signs in photos. And all of that is good.</p>
+
+            <p>But here's what they don't do: they don't actually write the letters by hand.</p>
+
+            <p>Writing forces your brain to engage with the shapes in a different way. When you read, you're passively recognizing. When you write, you're actively producing. That makes a huge difference in how well the letters stick.</p>
+
+            <p>You don't need to write pages and pages. Just get a notebook, write out each letter 10 or 15 times, and move on. Do this for all 33 letters once or twice, and you'll notice a difference.</p>
+
+            <p>Also, fun fact: Russian cursive is completely different from print. So if you ever want to read handwritten Russian, you'll need to learn a whole separate set of letter forms. But don't worry about that yet. Just focus on print for now.</p>
+
+            <h3>Mistake 4: Skipping the Vowels</h3>
+
+            <p>Some people jump straight to consonants because they think vowels are boring. Or they assume vowels will be easy and they can learn them later.</p>
+
+            <p>Bad idea.</p>
+
+            <p>Russian has 10 vowel letters, and they show up in basically every word. If you don't know your vowels cold, you're going to struggle to read anything. Plus, some of the vowels are actually kind of tricky. Ы doesn't exist in English. Ё and Е sound different but look almost identical.</p>
+
+            <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix.</p>
+
+            <p>Trust me on this one. I've seen people try to learn backwards (consonants first, vowels later), and it never goes well. You end up having to relearn everything because you don't have the foundation you need.</p>
+
+            <h3>Mistake 5: Not Practicing with Real Words</h3>
+
+            <p>You can drill individual letters all day long. But at some point, you need to start reading actual words. Real Russian words that mean something.</p>
+
+            <p>Why? Because reading letters in isolation is one skill, and reading them in context is another. When you read a word, the letters flow together. You start to recognize patterns. You get faster.</p>
+
+            <p>Start simple. Look for Russian words that are similar to English words. Автобус (bus), метро (metro), банк (bank). Sound them out. Check your pronunciation. Then move on to harder words.</p>
+
+            <p>The internet makes this easy. You can find Russian websites, Russian Wikipedia, Russian social media. Just pick something and start trying to read it. You won't understand most of it at first, but that's okay. You're training your brain to recognize the letters in their natural habitat.</p>
+
+            <h3>One More Thing</h3>
+
+            <p>Learning Cyrillic is frustrating sometimes. There will be days when you mix up letters you thought you knew. Days when it feels like you're not making any progress at all.</p>
+
+            <p>That's normal. Everyone goes through it. The difference between people who succeed and people who give up is just stubbornness. Keep showing up. Keep practicing. Even if it's only 10 minutes a day.</p>
+
+            <p>You'll get there.</p>
             
-            <h3>1. Confusing False Friends</h3>
-            <p>The biggest trap for English speakers is assuming letters that look familiar sound the same. В isn't "V" in appearance but IS in sound. Н looks like H but sounds like N. Р looks like P but sounds like R. Write these down and practice them separately until they stick.</p>
-            
-            <h3>2. Skipping Lowercase Forms</h3>
-            <p>Many learners focus only on uppercase letters, but most Russian text uses lowercase. The handwritten forms can look quite different! Make sure you're comfortable with both forms of each letter.</p>
-            
-            <h3>3. Not Learning in Context</h3>
-            <p>Memorizing individual letters is important, but learning them in actual words helps tremendously. Try practicing with simple words like "мама" (mama), "папа" (papa), or "кот" (cat) to reinforce your learning.</p>
-            
-            <h3>4. Trying to Learn Too Fast</h3>
-            <p>Your brain needs time to create new neural pathways. Cramming all 33 letters in one sitting leads to confusion. Space out your learning and give yourself time to sleep on it - sleep is when memories consolidate!</p>
-            
-            <h3>5. Not Getting Enough Practice</h3>
-            <p>Reading about Cyrillic isn't the same as practicing it. You need active recall - testing yourself on characters without looking at the answers. Tools that provide instant feedback, like interactive quizzes, are much more effective than passive flashcards.</p>
-            
-            <p>Avoid these mistakes and you'll be reading Cyrillic much sooner than you think!</p>
-        
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('common-mistakes', '5 Common Mistakes When Learning Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('common-mistakes', '5 Common Mistakes When Learning Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('common-mistakes', '5 Common Mistakes When Learning Cyrillic')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('common-mistakes', '5 Common Mistakes When Learning Cyrillic')">Share</button>
                 </div>
             </div>
         `
@@ -437,41 +562,91 @@ const ARTICLES = [
         id: 'memory-tricks',
         title: 'Memory Tricks for Confusing Letters',
         content: `
-            <p>Some Cyrillic letters are notorious for tripping up beginners. Here are memory tricks to help you never mix them up again.</p>
+            <p>Learning 33 new letters sounds overwhelming. But here's the secret: you don't need to memorize them as 33 random symbols. You need to create associations, stories, and mental hooks that make them stick.</p>
+
+            <p>Some people can just brute force memorize things. If that's you, great. But most of us need tricks. We need ways to connect new information to stuff we already know. That's what this guide is about.</p>
+
+            <h3>The False Friend Fixes</h3>
+
+            <p>The letters that look like English letters but sound different are the worst. Your brain sees В and wants to say "buh" instead of "vuh." Here's how to fix that.</p>
+
+            <p><strong>В (sounds like V):</strong> Think "Very Big B" but it's actually a V. Or picture the letter as two Victory fingers making a V shape. Every time you see it, say "victory" in your head.</p>
+
+            <p><strong>Н (sounds like N):</strong> Imagine a soccer goal with a Net stretched across it. The Н looks like goalposts. N for Net.</p>
+
+            <p><strong>Р (sounds like R):</strong> This is a pirate letter. Every time you see it, think "Arrrrr!" Like a pirate. That rolled R sound is exactly what this letter makes. Bonus: imagine a pirate ship flag with Р on it.</p>
+
+            <p><strong>С (sounds like S):</strong> Picture a Serpent curled up in a C shape. S for serpent, shaped like C.</p>
+
+            <p><strong>У (sounds like OO):</strong> Looks like a drinking cup. When you drink something good, you say "ooooh." U for oo.</p>
+
+            <h3>Visual Associations for Unique Letters</h3>
+
+            <p>These letters don't look like anything in English, which is actually good. No false associations to unlearn. You just need to create new ones.</p>
+
+            <p><strong>Ж (sounds like ZH):</strong> This letter looks like a bug. Specifically, a beetle. And beetles make a buzzing "zhzhzh" sound when they fly. Picture a buzzing beetle every time.</p>
+
+            <p><strong>Ш (sounds like SH):</strong> It's a shush letter. Looks like someone holding up three fingers to their lips saying "shhh, be quiet." Three vertical lines, three shushes.</p>
+
+            <p><strong>Щ (sounds like SHCH):</strong> Same as Ш but with a little tail. The tail makes it longer. SH becomes SHCH. Imagine the tail is pulling the sound out longer.</p>
+
+            <p><strong>Ы (weird Y sound):</strong> This one's tough because English doesn't have this sound. But the letter looks like a soft sign (Ь) with a vertical line next to it. Think of it as the "eeee" sound but pulled back in your throat. Like you're saying "eee" while yawning.</p>
+
+            <p><strong>Э (sounds like EH):</strong> Backwards E. Everything about it is backwards from English. In English, E can make an "ee" sound. This one makes "eh." Backwards sound, backwards letter.</p>
+
+            <p><strong>Ю (sounds like YU):</strong> Looks like "I" and "O" attached. Say them fast: "I-O" becomes "YOO." Like "you" in English. Picture someone saying "Hey YOU!" and pointing.</p>
+
+            <p><strong>Я (sounds like YA):</strong> The backwards R. Not to be confused with the regular Р. This one looks lazy, leaning back. When you lean back, you say "ahhhhh." Add a Y in front: "yahhh."</p>
+
+            <h3>Sound-Alike Tricks</h3>
+
+            <p>Some Cyrillic letters sound similar to English but look totally different. Use that to your advantage.</p>
+
+            <p><strong>Б (sounds like B):</strong> Looks like a number 6 with a line through it. Six Bees buzzing around. B for bees.</p>
+
+            <p><strong>Г (sounds like G):</strong> Looks like an upside-down L or a gallows. G for Gallows. Dark, but it works.</p>
+
+            <p><strong>Д (sounds like D):</strong> Picture a doorway. D for Door. The letter kinda looks like a doorframe when you squint.</p>
+
+            <p><strong>З (sounds like Z):</strong> Looks like a 3. Three Zebras. Z for Zebras. Easy.</p>
+
+            <p><strong>И (sounds like EE):</strong> Backwards N. In English, we say "N" as "en." In Cyrillic, backwards N makes an "eee" sound. Everything is backwards.</p>
+
+            <p><strong>Л (sounds like L):</strong> Looks like a teepee or a lambda if you know Greek. L for Lambda. Or just remember: it's the Л in CyriЛica.</p>
+
+            <p><strong>П (sounds like P):</strong> Looks like a doorway or goal posts. P for Posts. Two vertical posts with a horizontal top.</p>
+
+            <h3>The Soft and Hard Signs</h3>
+
+            <p>Okay these are weird. They don't make sounds on their own.</p>
+
+            <p><strong>Ь (soft sign):</strong> Imagine it's whispering "softer, softer" to the letter before it. Makes consonants soft.</p>
+
+            <p><strong>Ъ (hard sign):</strong> Picture it as a wall. It separates letters, keeps them hard and apart. Like a boundary.</p>
+
+            <p>Honestly, don't stress about these two yet. Learn the regular letters first. These are advanced.</p>
+
+            <h3>Grouping Strategy</h3>
+
+            <p>Don't try to learn all these tricks at once. Pick 5 or 6 letters, learn their tricks, practice them for a few days. Then add the next batch.</p>
+
+            <p>The goal isn't to memorize the tricks forever. The goal is to use the tricks until the letters become automatic. Eventually you won't need to think "pirate R" every time. Your brain will just see Р and know it's an R sound.</p>
+
+            <p>But in the beginning, the tricks are scaffolding. They hold everything together while the real learning happens underneath.</p>
+
+            <h3>Make Your Own</h3>
+
+            <p>The best memory tricks are the ones you create yourself. If my pirate R doesn't work for you, come up with your own. Maybe Р looks like a walking stick. Maybe it's a flag. Whatever sticks in YOUR brain is the right answer.</p>
+
+            <p>Spend 5 minutes being creative with each letter. Draw it. Make up a story. The weirder and more personal, the better.</p>
             
-            <h3>Н (sounds like N)</h3>
-            <p><strong>Trick:</strong> "The H fell over" - It looks like a sideways H, which is close to N in the alphabet anyway. Or think: "Н = Not an H!"</p>
-            
-            <h3>Р (sounds like R)</h3>
-            <p><strong>Trick:</strong> "Pirates say РРРР!" - Remember that pirates roll their R's, and this letter helps them do it.</p>
-            
-            <h3>В (sounds like V)</h3>
-            <p><strong>Trick:</strong> "B lost the bottom bump to become V" - The letter looks like B but sounds like V.</p>
-            
-            <h3>Ш vs Щ (sh vs shch)</h3>
-            <p><strong>Trick:</strong> "Щ has a tail because it's longer to say" - The extra hook at the bottom reminds you there's an extra sound (the 'ch').</p>
-            
-            <h3>И vs Н (i vs n)</h3>
-            <p><strong>Trick:</strong> "И points right to I (eye)" - The slant points toward English "I". Н is straight up and down like eN.</p>
-            
-            <h3>Ь vs Ъ (soft sign vs hard sign)</h3>
-            <p><strong>Trick:</strong> "The soft sign is skinny (Ь), the hard sign is blocky (Ъ)" - Soft = slim, Hard = hard angles.</p>
-            
-            <h3>Д (sounds like D)</h3>
-            <p><strong>Trick:</strong> "It's a house with a Doorway" - The shape looks like a little house, and Door starts with D.</p>
-            
-            <h3>Ы (sounds like "ih")</h3>
-            <p><strong>Trick:</strong> "The weird-looking one makes a weird sound" - It's unique to Slavic languages and has no English equivalent. Think of saying "bit" but holding the "i" sound longer.</p>
-            
-            <p>Create your own memory tricks too! The more personal and silly they are, the better they stick.</p>
-        
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('memory-tricks', 'Memory Tricks for Confusing Letters')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('memory-tricks', 'Memory Tricks for Confusing Letters')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('memory-tricks', 'Memory Tricks for Confusing Letters')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('memory-tricks', 'Memory Tricks for Confusing Letters')">Share</button>
                 </div>
             </div>
         `
@@ -1534,161 +1709,145 @@ const ARTICLES = [
         id: 'cyrillic-alphabet-chart',
         title: 'Complete Cyrillic Alphabet Chart: All 33 Letters with Pronunciations',
         content: `
-            <p>The Cyrillic alphabet consists of 33 letters used across Russian, Ukrainian, Bulgarian, Serbian, and other Slavic languages. This comprehensive chart breaks down each letter with its pronunciation.</p>
+            <p>You want to learn the Cyrillic alphabet. Great. But staring at a chart of 33 random letters and hoping they stick in your brain doesn't work. Trust me, I've tried.</p>
+
+            <p>What does work is understanding how the alphabet is organized, learning the letters in logical groups, and practicing with real words. This guide breaks down the entire Cyrillic alphabet in a way that actually makes sense.</p>
+
+            <h3>The Basic Structure</h3>
+
+            <p>The Russian Cyrillic alphabet has 33 letters. That's only 7 more than English. So it's not like you're learning Chinese with thousands of characters. It's manageable.</p>
+
+            <p>Those 33 letters break down into:
+            <br>• 10 vowels (А, Е, Ё, И, О, У, Ы, Э, Ю, Я)
+            <br>• 21 consonants (Б, В, Г, Д, Ж, З, Й, К, Л, М, Н, П, Р, С, Т, Ф, Х, Ц, Ч, Ш, Щ)
+            <br>• 2 signs that don't make sounds (Ъ, Ь)</p>
+
+            <p>Start with the vowels. Always. They're the foundation of every word. Once you've got those down, consonants become way easier.</p>
+
+            <h3>Group 1: The Easy Vowels</h3>
+
+            <p>These look and sound similar to English letters. Easy wins.</p>
+
+            <p><strong>А</strong> (ah) - Like the "a" in "father." Exactly the same.</p>
+
+            <p><strong>Е</strong> (yeh) - Like "ye" in "yes." Sometimes sounds more like "eh" depending on stress.</p>
+
+            <p><strong>О</strong> (oh) - Like the "o" in "or." When stressed. When unstressed, it sounds more like "uh."</p>
+
+            <p><strong>У</strong> (oo) - Like the "oo" in "moon." Looks like a Y but sounds like OO. Don't get tricked.</p>
+
+            <h3>Group 2: The Tricky Vowels</h3>
+
+            <p>These are vowels that don't really exist in English or look weird.</p>
+
+            <p><strong>И</strong> (ee) - Like the "ee" in "see." Looks like a backwards N, which is confusing at first.</p>
+
+            <p><strong>Ы</strong> (ih) - This sound doesn't exist in English. It's like "ee" but with your tongue pulled back. Say "ee" while trying to swallow. That's Ы.</p>
+
+            <p><strong>Э</strong> (eh) - Like the "e" in "met." Backwards E for backwards sound (compared to English E which can be "ee").</p>
+
+            <p><strong>Ё</strong> (yo) - Like "yo" in "yogurt." Always stressed. That's why it has the two dots. Russians often write it as just Е, which is annoying.</p>
+
+            <p><strong>Ю</strong> (yoo) - Like "you." Looks like "I" and "O" stuck together. I-O becomes YOO.</p>
+
+            <p><strong>Я</strong> (ya) - Like "ya" in "yacht." The famous backwards R. Except it's not really an R at all.</p>
+
+            <h3>Group 3: The False Friend Consonants</h3>
+
+            <p>These look like English letters but sound completely different. This is where most mistakes happen.</p>
+
+            <p><strong>В</strong> (v) - Looks like B, sounds like V. Think "very" not "boy."</p>
+
+            <p><strong>Н</strong> (n) - Looks like H, sounds like N. Think "net" not "hat."</p>
+
+            <p><strong>Р</strong> (r) - Looks like P, sounds like R. Rolled R, like a pirate. "Arrrrr!"</p>
+
+            <p><strong>С</strong> (s) - Looks like C, sounds like S. Like a serpent.</p>
+
+            <p><strong>Х</strong> (kh) - Looks like X, sounds like the "ch" in Scottish "loch." Guttural, back of throat.</p>
+
+            <h3>Group 4: The Easy Consonants</h3>
+
+            <p>These look different from English but sound the same or similar.</p>
+
+            <p><strong>Б</strong> (b) - Looks like a 6 with a line. Sounds like B.</p>
+
+            <p><strong>Г</strong> (g) - Looks like an upside down L. Sounds like G in "go."</p>
+
+            <p><strong>Д</strong> (d) - Looks like a doorway. Sounds like D.</p>
+
+            <p><strong>З</strong> (z) - Looks like a 3. Sounds like Z in "zoo."</p>
+
+            <p><strong>К</strong> (k) - Same as English K. Easy.</p>
+
+            <p><strong>Л</strong> (l) - Looks like an upside down V or lambda. Sounds like L.</p>
+
+            <p><strong>М</strong> (m) - Same as English M. Another freebie.</p>
+
+            <p><strong>П</strong> (p) - Looks like a doorframe. Sounds like P.</p>
+
+            <p><strong>Т</strong> (t) - Same as English T. You already know this one.</p>
+
+            <p><strong>Ф</strong> (f) - Looks like a fancy phi symbol. Sounds like F in "fun."</p>
+
+            <h3>Group 5: The Weird Unique Letters</h3>
+
+            <p>These don't look like anything in English and represent sounds that might be new to you.</p>
+
+            <p><strong>Ж</strong> (zh) - Like the "s" in "measure." Or like a buzzing bee. Ж looks like a bug, remember that.</p>
+
+            <p><strong>Й</strong> (y) - Short I. Makes a quick "y" sound like in "boy." Only appears in certain words, usually at the end.</p>
+
+            <p><strong>Ц</strong> (ts) - Like "ts" in "cats." One sound, one letter.</p>
+
+            <p><strong>Ч</strong> (ch) - Like "ch" in "church." Clean, simple.</p>
+
+            <p><strong>Ш</strong> (sh) - Like "sh" in "shoe." Three vertical lines, think "shhh be quiet."</p>
+
+            <p><strong>Щ</strong> (shch) - Like Ш but longer. SH + CH together. Has a little tail, the tail makes it longer.</p>
+
+            <h3>Group 6: The Signs</h3>
+
+            <p>These don't make sounds by themselves. They modify other letters.</p>
+
+            <p><strong>Ъ</strong> (hard sign) - Separates letters, makes a hard stop. Rare in modern Russian.</p>
+
+            <p><strong>Ь</strong> (soft sign) - Makes the previous consonant soft. Common and important but hard to explain until you hear it.</p>
+
+            <p>Don't stress about these yet. Learn the regular letters first. These are advanced.</p>
+
+            <h3>How to Actually Use This Chart</h3>
+
+            <p>Don't try to memorize everything at once. That's a recipe for frustration.</p>
+
+            <p>Instead, learn one group at a time. Spend a few days on vowels. Then add the easy consonants. Then tackle the false friends. Then the weird letters.</p>
+
+            <p>Practice with flashcards. Write the letters by hand. Use an app or website (like this one) to quiz yourself.</p>
+
+            <p>And most importantly, start reading real Russian words as soon as possible. Even if you don't know what they mean. Just sound them out. That's how the letters become automatic.</p>
+
+            <h3>Common Words to Practice</h3>
+
+            <p>Here are some easy Russian words you can read right now (or very soon):</p>
+
+            <p>МАМА (mama) - mom
+            <br>ПАПА (papa) - dad  
+            <br>КОФЕ (kofe) - coffee
+            <br>ДА (da) - yes
+            <br>НЕТ (nyet) - no
+            <br>МЕТРО (metro) - subway
+            <br>ТАКСИ (taksi) - taxi
+            <br>БАНК (bank) - bank</p>
+
+            <p>See? You're already reading Russian. The alphabet isn't that scary once you break it down.</p>
             
-            <h3>The Vowels (10 letters)</h3>
-            <ul>
-                <li><strong>А а</strong> - "ah" in "father"</li>
-                <li><strong>Е е</strong> - "ye" in "yes"</li>
-                <li><strong>Ё ё</strong> - "yo" in "yolk"</li>
-                <li><strong>И и</strong> - "ee" in "see"</li>
-                <li><strong>О о</strong> - "o" in "or"</li>
-                <li><strong>У у</strong> - "oo" in "boot"</li>
-                <li><strong>Ы ы</strong> - Unique sound (doesn't exist in English)</li>
-                <li><strong>Э э</strong> - "e" in "met"</li>
-                <li><strong>Ю ю</strong> - "yu" in "yuletide"</li>
-                <li><strong>Я я</strong> - "ya" in "yard"</li>
-            </ul>
-            
-            <h3>The Consonants (21 letters)</h3>
-            <ul>
-                <li><strong>Б б</strong> - "b" in "boy"</li>
-                <li><strong>В в</strong> - "v" in "van" (looks like B!)</li>
-                <li><strong>Г г</strong> - "g" in "go"</li>
-                <li><strong>Д д</strong> - "d" in "dog"</li>
-                <li><strong>Ж ж</strong> - "s" in "measure"</li>
-                <li><strong>З з</strong> - "z" in "zoo"</li>
-                <li><strong>Й й</strong> - "y" in "boy"</li>
-                <li><strong>К к</strong> - "k" in "kite"</li>
-                <li><strong>Л л</strong> - "l" in "lamp"</li>
-                <li><strong>М м</strong> - "m" in "mom"</li>
-                <li><strong>Н н</strong> - "n" in "no" (looks like H!)</li>
-                <li><strong>П п</strong> - "p" in "pot"</li>
-                <li><strong>Р р</strong> - Rolled "r" (looks like P!)</li>
-                <li><strong>С с</strong> - "s" in "sun" (looks like C!)</li>
-                <li><strong>Т т</strong> - "t" in "top"</li>
-                <li><strong>Ф ф</strong> - "f" in "fun"</li>
-                <li><strong>Х х</strong> - Guttural "h"</li>
-                <li><strong>Ц ц</strong> - "ts" in "cats"</li>
-                <li><strong>Ч ч</strong> - "ch" in "chip"</li>
-                <li><strong>Ш ш</strong> - "sh" in "shop"</li>
-                <li><strong>Щ щ</strong> - "shch" (longer sh)</li>
-            </ul>
-            
-            <h3>Special Signs (2 letters)</h3>
-            <ul>
-                <li><strong>Ь ь</strong> - Soft sign (softens consonant)</li>
-                <li><strong>Ъ ъ</strong> - Hard sign (adds pause)</li>
-            </ul>
-            
-            <p>Start by learning vowels first, then consonants that look similar to English letters. Save unique characters for last. Within a few weeks of daily practice, you'll be reading Cyrillic fluently!</p>
-        
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')">📱 Share</button>
-                </div>
-            </div>
-        `
-    },
-    {
-        id: 'cyrillic-vs-latin',
-        title: 'Cyrillic vs Latin Alphabet: Complete Comparison',
-        content: `
-            <p>The Cyrillic and Latin alphabets are two of the world's most widely used writing systems. Understanding the differences helps English speakers learn Cyrillic more effectively.</p>
-            
-            <h3>Historical Origins</h3>
-            <p>Latin alphabet traces its roots to ancient Rome (2,000+ years). Cyrillic was created in the 9th century by Saints Cyril and Methodius for Slavic languages.</p>
-            
-            <h3>Size and Structure</h3>
-            <p>Latin: 26 letters. Russian Cyrillic: 33 letters. The extra letters exist for sounds unique to Slavic languages.</p>
-            
-            <h3>False Friends</h3>
-            <p>Letters that look identical but sound different:</p>
-            <ul>
-                <li><strong>В</strong> - Looks like "V", sounds like "V" (not B)</li>
-                <li><strong>Н</strong> - Looks like "H", sounds like "N"</li>
-                <li><strong>Р</strong> - Looks like "P", sounds like "R"</li>
-                <li><strong>С</strong> - Looks like "C", sounds like "S"</li>
-                <li><strong>У</strong> - Looks like "Y", sounds like "OO"</li>
-            </ul>
-            
-            <h3>Identical Letters</h3>
-            <p>А, Е, К, М, О, Т - Same shape and similar sounds in both alphabets.</p>
-            
-            <h3>Unique Cyrillic Characters</h3>
-            <p>Ж (zh), Ш (sh), Щ (shch), Ы (unique vowel), Ю (yu), Я (ya) - No Latin equivalents.</p>
-            
-            <h3>Which is Easier?</h3>
-            <p>For English speakers, Latin is easier (we already know it!). However, Cyrillic is surprisingly learnable - most people master the basics in 1-2 weeks. Don't let "false friends" trip you up!</p>
-        
-            <div class="share-section">
-                <p>Found this helpful? Share it:</p>
-                <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-vs-latin', 'Cyrillic vs Latin: A Side-by-Side Comparison')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-vs-latin', 'Cyrillic vs Latin: A Side-by-Side Comparison'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-vs-latin', 'Cyrillic vs Latin: A Side-by-Side Comparison'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-vs-latin', 'Cyrillic vs Latin: A Side-by-Side Comparison')">📱 Share</button>
-                </div>
-            </div>
-        `
-    },
-    {
-        id: 'how-to-type-cyrillic',
-        title: 'How to Type Cyrillic: Windows, Mac, iOS & Android',
-        content: `
-            <p>Learning to type Cyrillic is essential for communication and practice. This guide shows setup for every major platform.</p>
-            
-            <h3>Windows 10 & 11</h3>
-            <ol>
-                <li>Open Settings → Time & Language</li>
-                <li>Select Language & region</li>
-                <li>Click Add a language</li>
-                <li>Search for "Russian" and install</li>
-            </ol>
-            <p>Switch keyboards: <strong>Windows Key + Spacebar</strong></p>
-            
-            <h3>macOS</h3>
-            <ol>
-                <li>System Preferences → Keyboard</li>
-                <li>Input Sources tab</li>
-                <li>Click + button</li>
-                <li>Select Russian and Add</li>
-            </ol>
-            <p>Switch keyboards: <strong>Control + Spacebar</strong></p>
-            
-            <h3>iPhone & iPad</h3>
-            <ol>
-                <li>Settings → General → Keyboard</li>
-                <li>Keyboards → Add New Keyboard</li>
-                <li>Select Russian</li>
-            </ol>
-            <p>Switch: Press 🌐 globe icon</p>
-            
-            <h3>Android</h3>
-            <ol>
-                <li>Settings → System → Languages & input</li>
-                <li>Virtual keyboard → Gboard</li>
-                <li>Languages → Add keyboard → Russian</li>
-            </ol>
-            <p>Switch: Tap 🌐 globe or swipe spacebar</p>
-            
-            <h3>Keyboard Layout</h3>
-            <p>Russian keyboard is ЙЦУКЕН (not QWERTY). Consider phonetic layout for beginners where Latin keys produce similar Cyrillic letters.</p>
-            
-            <h3>Online Alternative</h3>
-            <p>Google Input Tools, Branah, and Lexilogos offer web-based Russian keyboards for occasional use without installation.</p>
-        
-            <div class="share-section">
-                <p>Found this helpful? Share it:</p>
-                <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('how-to-type-cyrillic', 'How to Type in Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('how-to-type-cyrillic', 'How to Type in Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('how-to-type-cyrillic', 'How to Type in Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('how-to-type-cyrillic', 'How to Type in Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')">Share</button>
                 </div>
             </div>
         `
@@ -1839,181 +1998,102 @@ const ARTICLES = [
         `
     },
     {
-        id: 'ukrainian-alphabet',
-        title: 'Ukrainian Alphabet: Differences from Russian',
-        content: `
-            <p>Ukrainian and Russian both use Cyrillic, but they're not identical. Understanding differences is crucial for learners.</p>
-            
-            <h3>Size and Structure</h3>
-            <p>Both have 33 letters, but four are different:</p>
-            <p><strong>Ukrainian has:</strong> Ґ ґ, Є є, І і, Ї ї</p>
-            <p><strong>Russian has:</strong> Ё ё, Ъ ъ, Ы ы, Э э</p>
-            
-            <h3>Unique Ukrainian Letters</h3>
-            <ul>
-                <li><strong>Ґ ґ</strong> - Hard "G" (restored 1990)</li>
-                <li><strong>Є є</strong> - "ye" (very common)</li>
-                <li><strong>І і</strong> - "ee" (most frequent letter!)</li>
-                <li><strong>Ї ї</strong> - "yi" sound</li>
-            </ul>
-            
-            <h3>Different Sounds</h3>
-            <p><strong>Г г</strong> - Russian: "G" sound. Ukrainian: "H" sound!</p>
-            
-            <h3>Missing Russian Letters</h3>
-            <p>Ё, Ъ, Ы, Э don't exist in Ukrainian.</p>
-            
-            <h3>Apostrophe Usage</h3>
-            <p>Ukrainian uses apostrophe (') after consonants before certain vowels: сім'я (family), п'ять (five). Russian doesn't use this.</p>
-            
-            <h3>Quick Recognition</h3>
-            <p>See Є, І, or Ї? Ukrainian. See apostrophes? Ukrainian. See Ы or Э? Russian.</p>
-            
-            <h3>Learning Both</h3>
-            <p>If learning both, alphabet differences help keep languages separate. Ukrainian pronunciation is more consistent - easier for beginners!</p>
-        
-            <div class="share-section">
-                <p>Found this helpful? Share it:</p>
-                <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('ukrainian-alphabet', 'Ukrainian Alphabet Guide')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('ukrainian-alphabet', 'Ukrainian Alphabet Guide'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('ukrainian-alphabet', 'Ukrainian Alphabet Guide'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('ukrainian-alphabet', 'Ukrainian Alphabet Guide')">📱 Share</button>
-                </div>
-            </div>
-        `
-    },
-    {
-        id: 'bulgarian-alphabet',
-        title: 'Bulgarian Alphabet Guide',
-        content: `
-            <p>Bulgarian alphabet is the earliest Cyrillic still in use - Bulgaria is the birthplace of this writing system. With 30 letters, it's slightly smaller than Russian.</p>
-            
-            <h3>30 Letters</h3>
-            <p>А Б В Г Д Е Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ь Ю Я</p>
-            
-            <h3>Key Differences from Russian</h3>
-            <p><strong>Ъ ъ</strong> - In Russian: silent "hard sign". In Bulgarian: full vowel ("uh" sound)! Most common vowel in Bulgarian. България (Bulgaria) uses it.</p>
-            <p><strong>Щ щ</strong> - Russian: "shch". Bulgarian: simple "sht" (two sounds). Much easier!</p>
-            
-            <h3>Missing Letters</h3>
-            <p>Bulgarian doesn't have: Ё, Ы, Э (Russian letters). Also no І, Ї, Є, Ґ (Ukrainian letters).</p>
-            
-            <h3>Historical Significance</h3>
-            <p>Cyrillic created in First Bulgarian Empire (9th century). May 24 is national holiday celebrating Bulgarian role in creating the alphabet.</p>
-            
-            <h3>Pronunciation</h3>
-            <p>More phonetic than Russian - words spelled how they sound. No complex vowel reduction. Easier for learners!</p>
-            
-            <h3>Common Words</h3>
-            <ul>
-                <li>Здравей (zdravey) - Hello</li>
-                <li>Благодаря (blagodarya) - Thank you</li>
-                <li>Довиждане (dovizhdane) - Goodbye</li>
-            </ul>
-            
-            <h3>Learning Bulgarian</h3>
-            <p>If you know Russian: just learn Ъ and Щ differences. Starting fresh? Fewer letters and consistent pronunciation make it one of easier Cyrillic alphabets!</p>
-        
-            <div class="share-section">
-                <p>Found this helpful? Share it:</p>
-                <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('bulgarian-alphabet', 'Bulgarian Alphabet: The OG Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('bulgarian-alphabet', 'Bulgarian Alphabet: The OG Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('bulgarian-alphabet', 'Bulgarian Alphabet: The OG Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('bulgarian-alphabet', 'Bulgarian Alphabet: The OG Cyrillic')">📱 Share</button>
-                </div>
-            </div>
-        `
-    },
-    {
         id: 'serbian-cyrillic-vs-latin',
         title: 'Serbian: Cyrillic vs Latin Scripts',
         content: `
-            <p>Serbian is unique: officially written in both Cyrillic and Latin. Both taught in schools, both appear on signs, both used in media.</p>
+            <p>Serbia is kind of unique. It's one of the only countries in the world that officially uses two completely different alphabets for the same language. Walk down a street in Belgrade and you'll see signs in Cyrillic right next to signs in Latin. Sometimes the same word written both ways on the same sign.</p>
+
+            <p>This isn't like how some countries are bilingual. This is one language, Serbian, written two different ways. And both are considered equally correct.</p>
+
+            <h3>Why Two Alphabets?</h3>
+
+            <p>The short answer: history is messy.</p>
+
+            <p>Serbia used Cyrillic for centuries. It was part of their cultural and religious identity, connected to the Orthodox Church and the legacy of Saints Cyril and Methodius. Cyrillic was the alphabet of literature, government, and education.</p>
+
+            <p>But Serbia also spent time under Austro-Hungarian influence, where Latin script dominated. And when Yugoslavia formed in the 20th century, there was a push to standardize across different South Slavic languages, some of which used Latin (like Croatian).</p>
+
+            <p>Instead of picking one alphabet and making everyone switch, Serbia just said: we'll use both. And that's been the official policy ever since.</p>
+
+            <h3>The Latin Alphabet (Latinica)</h3>
+
+            <p>Serbian Latin isn't quite the same as English Latin. It uses some special characters to represent sounds that don't exist in English.</p>
+
+            <p>Letters like č, ć, š, ž, and đ. These are borrowed from Czech and Croatian orthography. Each one represents a specific Slavic sound.</p>
+
+            <p>For example, "č" makes a "ch" sound (like in "church"). "š" makes a "sh" sound (like in "shoe"). "ž" is the "zh" sound (like the s in "measure").</p>
+
+            <p>If you know the Latin alphabet, you can learn Serbian Latinica pretty quickly. The special characters take some getting used to, but the basic structure is familiar.</p>
+
+            <h3>The Cyrillic Alphabet (Ćirilica)</h3>
+
+            <p>Serbian Cyrillic is based on the Russian alphabet but with some modifications. It has 30 letters, compared to Russian's 33.</p>
+
+            <p>The key difference: Serbian doesn't use some of the Russian letters like Ё, Ъ, Ы, and Э. And it has a couple unique letters of its own, like Ј (which makes a "y" sound like in "yes").</p>
+
+            <p>Serbian Cyrillic is also more phonetic than Russian. Generally, one letter equals one sound. No complicated spelling rules or silent letters. If you can read it, you can pronounce it.</p>
+
+            <h3>Which One Do Serbians Use More?</h3>
+
+            <p>This is a surprisingly political question.</p>
+
+            <p>Officially, both alphabets are equal. Government documents, street signs, and official communications are supposed to be available in both. Schools teach both. Everyone is expected to be literate in both.</p>
+
+            <p>But in practice? It depends on context and sometimes personal preference.</p>
+
+            <p>Younger people tend to use Latin more, especially online. It's easier to type on Western keyboards. Social media, texting, and internet communication lean heavily toward Latin.</p>
+
+            <p>Older generations and more traditional/nationalist folks prefer Cyrillic. It's seen as more authentically Serbian, more connected to history and culture.</p>
+
+            <p>Official documents, newspapers, and books often use Cyrillic. But you'll also find plenty of Serbian media entirely in Latin.</p>
+
+            <p>Basically, if you're learning Serbian, you need to learn both. You can't just pick one and ignore the other.</p>
+
+            <h3>The Conversion Is Easy (Once You Know Both)</h3>
+
+            <p>Here's the good news: there's a direct one-to-one mapping between Serbian Latin and Serbian Cyrillic. Every Latin letter has an exact Cyrillic equivalent, and vice versa.</p>
+
+            <p>For example:
+            <br>Latin "j" = Cyrillic "ј"
+            <br>Latin "č" = Cyrillic "ч"  
+            <br>Latin "š" = Cyrillic "ш"
+            <br>Latin "ž" = Cyrillic "ж"</p>
+
+            <p>So once you learn the alphabet, you can actually read the same text in both scripts. The words are spelled the same way, just with different symbols.</p>
+
+            <p>This is different from, say, Russian to English transliteration, where there are multiple ways to romanize the same word and no standard conversion.</p>
+
+            <h3>Learning Strategy</h3>
+
+            <p>If you're learning Serbian from scratch, most people recommend starting with Cyrillic. Here's why:</p>
+
+            <p>First, it forces you to actually learn the sounds properly. With Latin, English speakers tend to guess at pronunciation based on English rules, which leads to mistakes. Cyrillic forces you to learn each letter from scratch.</p>
+
+            <p>Second, once you know Cyrillic, switching to Latin is easy. You already know the sounds, you're just learning new symbols. Going the other direction (Latin first, Cyrillic later) is harder because you have to unlearn bad pronunciation habits.</p>
+
+            <p>Third, a lot of important historical and literary texts are in Cyrillic. If you want to read original sources, you need Cyrillic.</p>
+
+            <p>But honestly, you'll need both eventually. So just pick one, get comfortable with it, then add the other.</p>
+
+            <h3>The Cultural Angle</h3>
+
+            <p>The Cyrillic vs Latin debate isn't just about practical communication. It's tied up in identity, politics, and history.</p>
+
+            <p>Some Serbians see Cyrillic as an essential part of Serbian identity. Losing Cyrillic would be losing part of what makes Serbia distinct from its neighbors.</p>
+
+            <p>Others see the dual alphabet system as practical and modern. Why limit yourself to one script when you can use both?</p>
+
+            <p>And some younger Serbians honestly don't care that much. They use whichever alphabet is more convenient at the moment, without overthinking it.</p>
+
+            <p>As a learner, you don't have to pick a side in this debate. Just learn both alphabets and appreciate that Serbia managed to keep both alive instead of forcing everyone to choose.</p>
             
-            <h3>Serbian Cyrillic (30 Letters)</h3>
-            <p>А Б В Г Д Ђ Е Ж З И Ј К Л Љ М Н Њ О П Р С Т Ћ У Ф Х Ц Ч Џ Ш</p>
-            
-            <h3>Unique Serbian Letters</h3>
-            <ul>
-                <li><strong>Ђ ђ</strong> - Soft "dj"</li>
-                <li><strong>Ј ј</strong> - "Y" sound</li>
-                <li><strong>Љ љ</strong> - Soft "l"</li>
-                <li><strong>Њ њ</strong> - Soft "n"</li>
-                <li><strong>Ћ ћ</strong> - Soft "tch"</li>
-                <li><strong>Џ џ</strong> - "J" in "judge"</li>
-            </ul>
-            
-            <h3>Serbian Latin</h3>
-            <p>A B C Č Ć D Dž Đ E F G H I J K L Lj M N Nj O P R S Š T U V Z Ž</p>
-            
-            <h3>Perfect Conversion</h3>
-            <p>Each Cyrillic letter = exactly one Latin equivalent. Ђ↔Đ, Ж↔Ž, Љ↔Lj, etc. Easy automated conversion!</p>
-            
-            <h3>When Each is Used</h3>
-            <p><strong>Cyrillic (official):</strong> Government, legal docs, traditional publications, religious texts, rural areas.</p>
-            <p><strong>Latin (popular):</strong> Newspapers, business, internet, social media, younger generations, urban areas.</p>
-            
-            <h3>Regional Differences</h3>
-            <p>Serbia: Both used. Bosnia: More Latin. Montenegro: More Latin since independence. Areas under Austro-Hungarian rule historically used Latin.</p>
-            
-            <h3>Which to Learn?</h3>
-            <p><strong>Learn both!</strong> Conversion is straightforward. Start with Cyrillic if interested in formal Serbian. Start with Latin for modern, everyday use. Good news: same language, only letters change!</p>
-        
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('serbian-cyrillic-vs-latin', 'Serbian: The Only Language That Writes Both Ways')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('serbian-cyrillic-vs-latin', 'Serbian: The Only Language That Writes Both Ways'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('serbian-cyrillic-vs-latin', 'Serbian: The Only Language That Writes Both Ways'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('serbian-cyrillic-vs-latin', 'Serbian: The Only Language That Writes Both Ways')">📱 Share</button>
-                </div>
-            </div>
-        `
-    },
-    {
-        id: 'cyrillic-handwriting',
-        title: 'Cyrillic Cursive: How Handwriting Differs',
-        content: `
-            <p>Handwritten Cyrillic cursive can look completely unrecognizable compared to print. This guide breaks down the major differences.</p>
-            
-            <h3>Why So Different?</h3>
-            <p>Cyrillic cursive evolved from Church Slavonic manuscripts, standardized in 18th century. Unlike English where most letters stay recognizable, Cyrillic transforms dramatically for writing fluidity.</p>
-            
-            <h3>Most Confusing Letters</h3>
-            <ul>
-                <li><strong>Т т</strong> - Print: "T". Cursive: т (looks like "m"!)</li>
-                <li><strong>Г г</strong> - Print: Gamma. Cursive: г (backward "s"!)</li>
-                <li><strong>И и</strong> - Print: backwards N. Cursive: и (like "u")</li>
-                <li><strong>Ш ш</strong> - Print: three lines. Cursive: ш (three "u"s)</li>
-                <li><strong>Д д</strong> - Print: delta. Cursive: д (like Latin "g"!)</li>
-            </ul>
-            
-            <h3>Similar-Looking Cursive</h3>
-            <p>л, м, ш, щ all look like series of "u" shapes. Distinguished only by count and spacing. Even native Russians struggle with messy cursive!</p>
-            
-            <h3>Recognizable Letters</h3>
-            <p>Good news: а, б, о, с, ф, ю, я stay mostly the same in cursive.</p>
-            
-            <h3>Learning Cursive</h3>
-            <ol>
-                <li>Learn transformations (T→m, Г→backward s)</li>
-                <li>Practice combinations (ство, ение)</li>
-                <li>Read authentic handwriting samples</li>
-                <li>Write yourself (buy пропись workbooks)</li>
-            </ol>
-            
-            <h3>Do You Need It?</h3>
-            <p>Not immediately! Focus on print first. But if you want to: write notes, read letters, achieve fluency, correspond with Russians - then yes. For a structured approach to learning both print and cursive, check out our guide on <a href="#" onclick="showArticle('practice-writing-cyrillic'); return false;">how to practice writing Cyrillic by hand</a>.</p>
-        
-            <div class="share-section">
-                <p>Found this helpful? Share it:</p>
-                <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-handwriting', 'Cyrillic Cursive: How Handwriting Differs')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-handwriting', 'Cyrillic Cursive: How Handwriting Differs'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-handwriting', 'Cyrillic Cursive: How Handwriting Differs'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-handwriting', 'Cyrillic Cursive: How Handwriting Differs')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts')">Share</button>
                 </div>
             </div>
         `
@@ -2072,74 +2152,99 @@ const ARTICLES = [
         id: 'cyrillic-learning-resources',
         title: 'Best Resources for Learning Cyrillic',
         content: `
-            <p>Learning Cyrillic doesn't require expensive courses. Here are the best tools, apps, and methods to accelerate learning.</p>
-            
-            <h3>Interactive Platforms</h3>
-            <ul>
-                <li><strong>CyriЛica (Free)</strong> - This tool! Interactive practice with instant feedback. Perfect for daily 10-15 minute sessions.</li>
-                <li><strong>Duolingo (Free/Pro)</strong> - Russian course with excellent alphabet intro. Gamified, streak motivation.</li>
-                <li><strong>Memrise (Free/Pro)</strong> - Dedicated Cyrillic courses. Spaced repetition and mnemonics.</li>
-            </ul>
-            
+            <p>So you want to learn Cyrillic. You're here, which is a good start. But what else should you be using? What apps, books, websites, and tools actually help?</p>
+
+            <p>I've tried a lot of resources over the years. Some are great. Some are terrible. Some are somewhere in between. Here's my honest take on what's worth your time.</p>
+
+            <h3>Interactive Tools (Best for Beginners)</h3>
+
+            <p><strong>This Site (CyriЛica)</strong> - Obviously I'm biased, but I built this because I couldn't find a simple, focused alphabet learning tool. It's designed for one thing: drilling Cyrillic letters until they stick. No fluff, no distractions.</p>
+
+            <p><strong>Memrise Cyrillic Courses</strong> - Memrise has user-created courses specifically for the Russian alphabet. Some are better than others. Look for ones with lots of reviews. The spaced repetition system works well for alphabet learning.</p>
+
+            <p><strong>Duolingo Russian</strong> - Duolingo teaches Cyrillic in the first few lessons of the Russian course. It's not perfect, but it's free and gamified, which keeps some people motivated. Just don't rely on it alone. Use it as supplementary practice.</p>
+
             <h3>YouTube Channels</h3>
-            <ul>
-                <li><strong>Real Russian Club</strong> - "Russian Alphabet in 50 minutes" comprehensive video.</li>
-                <li><strong>Learn Russian with Alina</strong> - Bite-sized videos per letter.</li>
-                <li><strong>Be Fluent in Russian</strong> - Focuses on confusing letters.</li>
-            </ul>
-            
-            <h3>Physical Workbooks</h3>
-            <ul>
-                <li><strong>Пропись</strong> - Russian handwriting workbooks (Amazon).</li>
-                <li><strong>"Read & Write Russian Script"</strong> by Daphne West - Comprehensive workbook (~$12).</li>
-            </ul>
-            
-            <h3>Flashcard Apps</h3>
-            <ul>
-                <li><strong>Anki (Free)</strong> - Powerful spaced-repetition. Download "Russian Alphabet" decks.</li>
-                <li><strong>Quizlet (Free)</strong> - Easier than Anki. Many pre-made sets.</li>
-                <li><strong>Drops (Free/Premium)</strong> - Beautiful design, illustrated flashcards.</li>
-            </ul>
-            
-            <h3>Typing Practice</h3>
-            <ul>
-                <li><strong>Typing.com</strong> - Free Russian keyboard course.</li>
-                <li><strong>KeepRussian</strong> - Interactive keyboard with Cyrillic/Latin equivalents.</li>
-            </ul>
-            
-            <h3>Reference Materials</h3>
-            <ul>
-                <li><strong>Forvo</strong> - Pronunciation dictionary with native speakers.</li>
-                <li><strong>Wiktionary</strong> - Each letter has detailed page.</li>
-                <li><strong>Omniglot</strong> - Compare Cyrillic across all Slavic languages.</li>
-            </ul>
-            
+
+            <p><strong>Be Fluent in Russian</strong> - Fedor has a great video breaking down the Cyrillic alphabet for beginners. He explains each letter clearly and gives good examples. Watch it, then practice.</p>
+
+            <p><strong>Learn Russian with Alfia</strong> - Alfia's channel has multiple Cyrillic lessons, including pronunciation guides and writing practice. She speaks clearly and explains things well.</p>
+
+            <p><strong>Russian with Max</strong> - Max has a comprehensive alphabet series. He goes deep into pronunciation and shows you how native speakers actually form the sounds.</p>
+
+            <p>Don't just watch these videos passively. Actually repeat the sounds out loud. Write the letters down. Pause and practice.</p>
+
+            <h3>Apps (For Drilling and Practice)</h3>
+
+            <p><strong>Drops</strong> - Beautiful design, short 5-minute lessons. Good for learning new vocabulary in Cyrillic once you know the basics. Not great for initial alphabet learning, but useful after.</p>
+
+            <p><strong>AnkiDroid (Android) / AnkiMobile (iOS)</strong> - Anki is the king of spaced repetition flashcard apps. You can download pre-made Cyrillic decks or create your own. Warning: the interface is ugly and confusing at first. But it works.</p>
+
+            <p><strong>Russian Alphabet Mastery (iOS)</strong> - Simple app, does one thing well: teaches you the Russian alphabet through quizzes and flashcards. Worth the small price if you're on iPhone.</p>
+
+            <h3>Physical Resources</h3>
+
+            <p><strong>A notebook and pen</strong> - Seriously. Writing letters by hand makes them stick in your brain way better than typing or just reading. Get a cheap notebook and write each letter 20 times. Old school but effective.</p>
+
+            <p><strong>"The New Penguin Russian Course" by Nicholas J. Brown</strong> - If you want a physical textbook, this one's solid. It teaches Cyrillic in the first few chapters with clear explanations and exercises.</p>
+
+            <p><strong>Russian alphabet wall chart</strong> - You can buy these on Amazon or print one for free. Stick it somewhere you'll see every day (bathroom, kitchen, desk). Passive exposure helps.</p>
+
             <h3>Reading Practice</h3>
-            <ul>
-                <li><strong>Russian children's books</strong> - Ages 4-7 perfect for beginners.</li>
-                <li><strong>News in Slow Russian</strong> - Podcast with transcripts.</li>
-                <li><strong>Russian cartoons</strong> - YouTube search "Русский алфавит мультфильм".</li>
-            </ul>
+
+            <p>Once you know the basic letters, you need to practice reading real text.</p>
+
+            <p><strong>Russian Wikipedia</strong> - Pick a topic you know well in English, then read the Russian version. You won't understand the words, but you can practice reading the Cyrillic. Compare to the English version to check yourself.</p>
+
+            <p><strong>Russian children's books</strong> - Seriously. Kids' books use simple vocabulary and often have pictures, which helps. You can find free PDFs online or buy physical copies on Amazon.</p>
+
+            <p><strong>Russian news sites</strong> - RT, TASS, Kommersant. Browse the headlines. See how many words you can sound out. You'll start recognizing common words even if you don't know what they mean yet.</p>
+
+            <p><strong>VK (Russian social media)</strong> - Like Russian Facebook. Create an account, follow some pages, and practice reading posts. Real, casual Russian. Not textbook perfect, but that's the point.</p>
+
+            <h3>Pronunciation Resources</h3>
+
+            <p><strong>Forvo.com</strong> - Native speaker pronunciations of Russian words. Type in a word, hear how real Russians say it. Super useful for checking if you're pronouncing letters correctly.</p>
+
+            <p><strong>Google Translate</strong> - I know, I know. But the pronunciation feature is actually decent for individual letters and simple words. Not perfect, but it's free and instant.</p>
+
+            <p><strong>italki</strong> - If you want to actually practice speaking with a native Russian speaker, italki connects you with tutors. You can book short, cheap sessions just to practice reading words out loud and getting feedback on pronunciation.</p>
+
+            <h3>What to Avoid</h3>
+
+            <p><strong>Alphabet songs</strong> - These are everywhere on YouTube. They're catchy, but they don't actually help you learn. You'll memorize the song, not the letters. Skip them.</p>
+
+            <p><strong>Complex Cyrillic courses before you know the basics</strong> - Some courses jump into advanced Cyrillic topics (cursive, handwriting styles, ancient variants) before you've even learned the standard print alphabet. Save those for later.</p>
+
+            <p><strong>Romanization crutches</strong> - Tools that show you Russian words written in English letters (like "privet" instead of "привет"). These seem helpful at first, but they stop you from actually learning Cyrillic. Force yourself to read the real letters.</p>
+
+            <h3>My Recommended Learning Path</h3>
+
+            <p>Week 1: Use this site (or similar) to drill the alphabet. 15 minutes a day. Supplement with YouTube videos for pronunciation.</p>
+
+            <p>Week 2: Add writing practice. Get a notebook, write each letter multiple times. Start reading simple Russian words on Wikipedia or kids' books.</p>
+
+            <p>Week 3: Continue daily practice, but start using Anki or Memrise for spaced repetition. Add some real reading (news headlines, social media).</p>
+
+            <p>Week 4: By now you should be able to read most Cyrillic, even if slowly. Start learning actual Russian vocabulary while continuing to practice reading.</p>
+
+            <p>After that, it's just consistency. Keep reading Russian text every day. The more you see the letters in context, the faster and more automatic your reading becomes.</p>
+
+            <h3>The Most Important Resource</h3>
+
+            <p>Honestly? Consistency. You can have all the apps and books and courses in the world, but if you don't practice regularly, you won't learn.</p>
+
+            <p>Pick 2 or 3 resources from this list. Use them every single day for 10-15 minutes. That's it. That's the secret.</p>
+
+            <p>The best resource is the one you'll actually use consistently.</p>
             
-            <h3>Practice Strategy</h3>
-            <p><strong>Days 1-3:</strong> Interactive tools + YouTube</p>
-            <p><strong>Days 4-7:</strong> Add flashcards (Anki)</p>
-            <p><strong>Week 2:</strong> Typing practice + simple words</p>
-            <p><strong>Week 3+:</strong> Real content (children's books, news)</p>
-            
-            <h3>Free vs Paid</h3>
-            <p>Honest truth: You can master Cyrillic using only free resources (CyriЛica, YouTube, Anki). Paid apps offer convenience but aren't necessary.</p>
-            
-            <h3>Bottom Line</h3>
-            <p>Best resource = one you'll actually use. Pick 2-3 tools (CyriЛica + Anki + YouTube), commit to 15 minutes daily, fluent in a month!</p>
-        
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-learning-resources', 'Best Free Resources for Learning Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-learning-resources', 'Best Free Resources for Learning Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-learning-resources', 'Best Free Resources for Learning Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-learning-resources', 'Best Free Resources for Learning Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic')">Share</button>
                 </div>
             </div>
         `
