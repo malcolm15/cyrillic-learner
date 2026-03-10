@@ -2156,3 +2156,74 @@
 .share-btn i {
     margin-right: 6px;
 }
+
+/* Article Navigation with Titles */
+.nav-btn {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-height: 60px;
+    padding: 12px 20px !important;
+}
+
+.nav-direction {
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.nav-title {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: normal;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Related Articles Grid */
+.related-articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.related-article-card {
+    border: 2px solid var(--cream);
+    border-radius: 8px;
+    padding: 20px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.related-article-card:hover {
+    border-color: var(--red);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.related-article-card h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    color: var(--charcoal);
+}
+
+.related-article-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Mobile responsiveness for navigation */
+@media (max-width: 768px) {
+    .nav-title {
+        font-size: 0.75rem;
+    }
+    
+    .related-articles-grid {
+        grid-template-columns: 1fr;
+    }
+}
