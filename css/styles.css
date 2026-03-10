@@ -2151,3 +2151,8 @@
         .copy-char-btn.copied .copy-feedback {
             opacity: 1;
         }
+
+/* Font Awesome icon spacing in share buttons */
+.share-btn i {
+    margin-right: 6px;
+}
