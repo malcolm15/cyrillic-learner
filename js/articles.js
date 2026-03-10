@@ -47,31 +47,37 @@ const ARTICLES = [
 
             <p>These take more practice because you don't have any visual reference point. But in some ways they're easier than the false friends because there's no confusion. You just have to learn them from scratch.</p>
 
-            <h3>Your First Week (Realistically)</h3>
+            <h3>Your First Week (Using This Site)</h3>
 
-            <p>Here's what actually works, not some idealized study plan that assumes you have unlimited time and focus.</p>
+            <p>Here's a practical 7-day plan using the character groups available on this site. You can click "Begin Learning" on the home page and select exactly the groups mentioned below.</p>
 
-            <p><strong>Day 1 and 2: Vowels</strong></p>
+            <p><strong>Day 1 and 2: Vowels 1</strong></p>
 
-            <p>Learn the 10 vowel letters. Yes, Russian has 10 vowels (well, technically some are consonant-vowel combos, but let's not get into that right now). Focus on the easy ones first like А, О, У, then add the trickier ones like Е, Ё, Ю, Я.</p>
+            <p>Start with the Vowels 1 group on the home page. This covers the basic vowels like А, О, У, and Е. These are your foundation letters. Every Russian word uses at least one vowel, so nail these first.</p>
 
-            <p>Spend 15 minutes each day. Write them out. Say them out loud. Quiz yourself.</p>
+            <p>Practice for 15 minutes each day using the quiz. The instant feedback helps way more than just staring at a chart. Write them out by hand too.</p>
 
-            <p><strong>Day 3 and 4: Common Consonants</strong></p>
+            <p><strong>Day 3 and 4: Consonants 1</strong></p>
 
-            <p>Add the most frequent consonants. В, Г, Д, К, Л, М, Н, П, Р, С, Т. That's 11 letters. Some of them are easy (К, М, Т). Some are false friends (В, Н, Р). Just power through it.</p>
+            <p>Add Consonants 1 to your practice. These are the most common consonants you'll see: М, Т, К, Н, and others. Some are easy (М, Т look and sound familiar). Some are false friends (Н looks like H but sounds like N).</p>
 
-            <p>At this point you can start reading simple words. Maybe not understanding them, but sounding them out. That's progress.</p>
+            <p>Now you're combining vowels and consonants. Try sounding out the practice words the quiz gives you. You won't know what they mean yet, but you're training your brain to recognize the patterns.</p>
 
-            <p><strong>Day 5 and 6: The Weird Ones</strong></p>
+            <p><strong>Day 5 and 6: Consonants 2</strong></p>
 
-            <p>Now tackle Ж, З, Ц, Ч, Ш, Щ. These are the letters that look totally foreign. Take your time with them. Write them repeatedly. Find words that use them and practice.</p>
+            <p>Time to add Consonants 2. This group includes trickier letters like Р (looks like P, sounds like R) and some of the weirder ones like Ж and Ш. These take more mental effort because they're totally new.</p>
 
-            <p><strong>Day 7: Just Practice</strong></p>
+            <p>Practice both groups together now (Vowels 1, Consonants 1, and Consonants 2). The quiz will mix them up, which is exactly what you need. Real Russian words don't conveniently separate easy letters from hard ones.</p>
 
-            <p>Don't learn anything new. Just review everything you've learned so far. Use flashcards, take quizzes, try reading actual Russian text (even if you have no idea what it means).</p>
+            <p><strong>Day 7: Review Mode</strong></p>
 
-            <p>By the end of week one, you should be able to recognize most of the alphabet. You won't be fast, and you'll make mistakes, but that's fine. You're building the foundation.</p>
+            <p>Don't add any new groups. Just drill what you've learned so far. Use the quiz in Repeat Problems mode (turn it on in Settings) to focus on letters you keep missing.</p>
+
+            <p>If you're feeling confident, try adding Vowels 2 to see the remaining vowel letters like Ы and Э. But if you're still struggling with the basics, stick with what you know and get faster.</p>
+
+            <p>By the end of week one, you should be able to recognize most of the core alphabet. You won't be fast, and you'll make mistakes, but that's fine. You're building the foundation.</p>
+
+            <p><strong>Pro tip:</strong> The character group system on this site is designed to match how your brain actually learns. Start with one group, get comfortable, then add the next. Don't try to learn all groups at once or you'll just confuse yourself.</p>
 
             <h3>What About Those Other Letters?</h3>
 
@@ -2867,6 +2873,154 @@ const ARTICLES = [
                     <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;">🦋 Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;">🔴 Reddit</a>
                     <button class="share-btn" onclick="nativeShare('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')">📱 Share</button>
+                </div>
+            </div>
+        `
+    }
+,,
+    {
+        id: 'russian-alphabet-chart',
+        title: 'Russian Alphabet Chart: All 33 Letters with Pronunciation',
+        content: `
+            <p>Here's every letter in the Russian alphabet, organized so you can actually learn them. Click any letter to hear how it's pronounced. Filter by vowels or consonants. Use this as your reference while you practice.</p>
+
+            <div id="alphabet-controls" style="margin: 30px 0; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                <div style="display: flex; gap: 10px;">
+                    <button class="filter-btn active" data-filter="all" style="padding: 10px 20px; border: 2px solid #e74c3c; background: #e74c3c; color: white; border-radius: 5px; cursor: pointer; font-weight: bold;">All Letters</button>
+                    <button class="filter-btn" data-filter="vowels" style="padding: 10px 20px; border: 2px solid #e74c3c; background: transparent; color: #e74c3c; border-radius: 5px; cursor: pointer; font-weight: bold;">Vowels Only</button>
+                    <button class="filter-btn" data-filter="consonants" style="padding: 10px 20px; border: 2px solid #e74c3c; background: transparent; color: #e74c3c; border-radius: 5px; cursor: pointer; font-weight: bold;">Consonants Only</button>
+                </div>
+                <div style="margin-left: auto; color: #666;">
+                    <span id="letter-count">33 letters</span>
+                </div>
+            </div>
+
+            <div id="alphabet-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin: 30px 0;">
+                <!-- Letters will be inserted here by JavaScript -->
+            </div>
+
+            <div id="letter-legend" style="margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                <h4 style="margin-top: 0;">Difficulty Key:</h4>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #27ae60; border-radius: 3px; vertical-align: middle;"></span> <strong>Easy</strong> - Similar to English</div>
+                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #f39c12; border-radius: 3px; vertical-align: middle;"></span> <strong>Medium</strong> - False friends or unique shapes</div>
+                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #e74c3c; border-radius: 3px; vertical-align: middle;"></span> <strong>Hard</strong> - Completely new sounds</div>
+                </div>
+            </div>
+
+            <h3>How to Use This Chart</h3>
+
+            <p>This isn't just a reference chart. It's a learning tool. Here's how to actually use it.</p>
+
+            <p><strong>For complete beginners:</strong> Start by filtering to "Vowels Only." Learn those 10 letters first. Click each one to hear the pronunciation. Write them down. Then switch to "Consonants Only" and tackle those in groups of 5 or 6.</p>
+
+            <p><strong>For intermediate learners:</strong> Use this to drill the letters you keep confusing. If you mix up Н and Р, click on both repeatedly until your brain stops making that mistake. The audio helps retrain your ear.</p>
+
+            <p><strong>For reference:</strong> Keep this page bookmarked. When you're reading Russian text and forget what a letter sounds like, come back here and check. The example words show you how each letter appears in real Russian.</p>
+
+            <h3>Understanding the Russian Alphabet</h3>
+
+            <p>Russian uses the Cyrillic alphabet, which was created in the 9th century by Saints Cyril and Methodius. The modern Russian version has 33 letters, compared to English's 26.</p>
+
+            <p>But here's the thing: learning 7 extra letters isn't the hard part. The hard part is that some Cyrillic letters look exactly like English letters but make completely different sounds. Your brain sees a familiar shape and wants to take a shortcut. You have to actively fight that instinct.</p>
+
+            <h3>The Three Categories</h3>
+
+            <p><strong>Category 1: Easy Letters (Green)</strong></p>
+
+            <p>These letters look and sound similar to English letters. When you see А, you can just think "ah" like in "father." Same with К (k), М (m), О (oh), and Т (t). These are your anchor points. Learn these first and you'll have a foundation to build on.</p>
+
+            <p><strong>Category 2: False Friends (Orange)</strong></p>
+
+            <p>These are the troublemakers. В looks like B but sounds like V. Н looks like H but sounds like N. Р looks like P but sounds like R. Your brain will fight you on these for weeks. Every time you see В, you'll want to say "buh" instead of "vuh." That's normal. Just keep correcting yourself until the right sound becomes automatic.</p>
+
+            <p>The good news? There are only about 6 major false friends. Once you've retrained your brain on those specific letters, the confusion stops.</p>
+
+            <p><strong>Category 3: New Letters (Red)</strong></p>
+
+            <p>Letters like Ж, Ш, Щ, and Ы don't look like anything in English. They represent sounds that might be new to you. Ж makes a "zh" sound like the "s" in "measure." Ш makes a "sh" sound. Щ is like "shch" mashed together.</p>
+
+            <p>These take practice because you're learning from scratch. But in some ways they're easier than the false friends because there's no confusion. You just have to memorize new shapes and sounds.</p>
+
+            <h3>Vowels vs Consonants</h3>
+
+            <p>Russian has 10 vowel letters. That seems like a lot compared to English's 5, but it makes sense once you understand the pattern.</p>
+
+            <p>Some vowels are "hard" (А, О, У, Э, Ы) and some are "soft" (Я, Ё, Ю, Е, И). The soft vowels have a "y" sound at the beginning. Я is "ya," Ю is "yoo," Е is "yeh," and so on. This soft/hard distinction is important for Russian pronunciation and grammar, but don't worry about that yet. Just learn the sounds.</p>
+
+            <p>The 21 consonants work more or less like English consonants, with a few exceptions. Russian has sounds like Ж (zh) and Ч (ch) that English writes with two letters. Russian just gives them their own characters.</p>
+
+            <h3>The Two Weird Signs</h3>
+
+            <p>At the bottom of the chart, you'll see Ъ (hard sign) and Ь (soft sign). These don't make sounds on their own. They modify how you pronounce the letters around them.</p>
+
+            <p>The soft sign (Ь) makes consonants "soft." If you see a consonant followed by Ь, you soften that consonant sound. The hard sign (Ъ) creates a separation between syllables and keeps consonants "hard."</p>
+
+            <p>Honestly, don't stress about these yet. They're advanced. Focus on learning the regular letters first. Once you've got those down solid, then worry about the signs.</p>
+
+            <h3>Common Patterns to Notice</h3>
+
+            <p>As you study the chart, you'll start to notice patterns:</p>
+
+            <p><strong>Letters with hooks or tails tend to make "soft" sounds.</strong> Я has that hook on the left. Ю has a curved section. These visual cues can help you remember which letters are soft.</p>
+
+            <p><strong>Three vertical lines usually means "sh."</strong> Ш is "sh" and Щ is "shch" (just "sh" but longer). Both have three vertical strokes.</p>
+
+            <p><strong>The backwards letters aren't random.</strong> Я is a backwards R but sounds like "ya." Э is a backwards E but makes a different E sound than Е. There's a logic to it, even if it's not always obvious at first.</p>
+
+            <h3>How to Practice with This Chart</h3>
+
+            <p>Don't just stare at the chart and hope the letters will magically stick in your brain. That doesn't work. You need active practice.</p>
+
+            <p><strong>Method 1: Cover and Recall</strong></p>
+
+            <p>Cover up the transliteration and pronunciation columns. Look at just the Cyrillic letters. Try to remember what sound each one makes. Click to check yourself. This is active recall, and it's way more effective than passive reading.</p>
+
+            <p><strong>Method 2: Reverse Lookup</strong></p>
+
+            <p>Think of an English sound like "sh." Now find which Cyrillic letter makes that sound. This forces you to search through the chart and engages your brain differently. It's harder than it sounds.</p>
+
+            <p><strong>Method 3: Write While Listening</strong></p>
+
+            <p>Click through each letter and listen to the pronunciation. As you listen, write the letter by hand. The combination of visual, auditory, and motor memory helps cement the letters in your brain.</p>
+
+            <p><strong>Method 4: Speed Drills</strong></p>
+
+            <p>Set a timer for 2 minutes. Go through the chart as fast as you can, trying to identify each letter. Track how many you get right. Do this daily and watch your speed improve.</p>
+
+            <h3>What About Cursive?</h3>
+
+            <p>Russian cursive is completely different from print. Some letters look nothing like their printed versions. For example, the letter Т in cursive looks like an "m" in English cursive.</p>
+
+            <p>But don't worry about cursive yet. Learn print first. Once you can read printed Russian fluently, then you can tackle cursive if you need it (which most learners don't). This chart focuses on print because that's what you'll see in books, signs, and online.</p>
+
+            <h3>Using This Chart Long-Term</h3>
+
+            <p>In the beginning, you'll reference this chart constantly. That's fine. Look up letters as many times as you need.</p>
+
+            <p>After a week or two, you'll find yourself needing it less often. Maybe you only check a few letters you keep forgetting.</p>
+
+            <p>After a month of consistent practice, you should rarely need the chart at all. At that point, you're not just recognizing letters anymore - you're reading them automatically.</p>
+
+            <p>But even experienced learners keep alphabet charts bookmarked as a quick reference. There's no shame in double-checking a letter you haven't seen in a while.</p>
+
+            <h3>Next Steps After Learning the Alphabet</h3>
+
+            <p>Once you know all 33 letters, you're ready to start reading real Russian. Not understanding it yet - just reading it, sounding out the words.</p>
+
+            <p>Start with Russian words that are borrowed from English. Words like "компьютер" (computer), "интернет" (internet), "кофе" (coffee). You can sound these out and recognize them.</p>
+
+            <p>Then move on to simple Russian words. "мама" (mama), "да" (yes), "нет" (no). Build up your vocabulary while practicing your letter recognition.</p>
+
+            <p>The alphabet is your foundation. Everything else in Russian builds on this. So take your time, use this chart as much as you need, and don't rush. Getting the alphabet solid now will save you countless hours of confusion later.</p>
+
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation')">Share</button>
                 </div>
             </div>
         `

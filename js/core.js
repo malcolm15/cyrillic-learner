@@ -401,6 +401,8 @@ const ARTICLE_ORDER = [
     'latin-vs-cyrillic-slavic',
     'cyrillic-pop-culture',
     // 🛠️ Learning Tools & Resources
+    'cyrillic-copy-paste',
+    'russian-alphabet-chart',
     'practice-writing-cyrillic',
     'cyrillic-alphabet-chart',
     'cyrillic-learning-resources',
