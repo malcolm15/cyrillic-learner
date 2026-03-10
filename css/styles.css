@@ -2229,8 +2229,15 @@
 
 /* Mobile responsiveness for navigation */
 @media (max-width: 768px) {
+    .article-navigation {
+        flex-direction: column;  /* Stack vertically */
+        gap: 15px;
+    }
+    
+    .article-navigation .btn,
     .nav-btn {
-        max-width: 200px;  /* Narrower on mobile */
+        width: 100% !important;  /* Full width on mobile */
+        max-width: 100% !important;  /* Override desktop max-width */
     }
     
     .nav-title {
