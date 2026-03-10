@@ -236,12 +236,30 @@ ArticleScripts['russian-alphabet-chart'] = function() {
     }
     
     function playAudio(char) {
-        // Try to find the audio file for this character
-        var audioPath = '/audio/' + char + '.mp3';
-        var audio = new Audio(audioPath);
-        audio.play().catch(function(err) {
-            console.log('Audio not available for ' + char);
-        });
+        // Look up the character in CYRILLIC_DATA to get the correct audio path
+        if (typeof CYRILLIC_DATA === 'undefined') return;
+        
+        var audioPath = null;
+        var groupKeys = Object.keys(CYRILLIC_DATA);
+        
+        // Search through all character groups to find this character
+        for (var i = 0; i < groupKeys.length; i++) {
+            var group = CYRILLIC_DATA[groupKeys[i]];
+            if (group.chars && group.chars[char]) {
+                audioPath = group.chars[char].audio;
+                break;
+            }
+        }
+        
+        if (audioPath) {
+            var audio = new Audio(audioPath);
+            audio.volume = 0.7;
+            audio.play().catch(function(err) {
+                console.log('Audio playback failed for ' + char + ':', err);
+            });
+        } else {
+            console.log('No audio file found for ' + char);
+        }
     }
     
     function renderAlphabet(filter) {
