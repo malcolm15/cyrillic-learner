@@ -441,6 +441,58 @@ function showArticle(articleId) {
     const nextIndex = currentIndex < ARTICLE_ORDER.length - 1 ? currentIndex + 1 : 0;
     nextBtn.setAttribute('data-article-id', ARTICLE_ORDER[nextIndex]);
     
+    // Populate navigation button titles
+    const prevArticle = ARTICLES.find(a => a.id === ARTICLE_ORDER[prevIndex]);
+    const nextArticle = ARTICLES.find(a => a.id === ARTICLE_ORDER[nextIndex]);
+    
+    if (prevArticle) {
+        const prevTitle = document.getElementById('prev-article-title');
+        if (prevTitle) prevTitle.textContent = prevArticle.title;
+    }
+    
+    if (nextArticle) {
+        const nextTitle = document.getElementById('next-article-title');
+        if (nextTitle) nextTitle.textContent = nextArticle.title;
+    }
+    
+    // Handle Related Articles section
+    const relatedSection = document.getElementById('related-articles-section');
+    const relatedGrid = document.getElementById('related-articles-grid');
+    
+    if (article.relatedArticles && article.relatedArticles.length > 0) {
+        // Show related articles section
+        relatedSection.style.display = 'block';
+        relatedGrid.innerHTML = '';
+        
+        // Add up to 3 related articles
+        const relatedIds = article.relatedArticles.slice(0, 3);
+        relatedIds.forEach(relatedId => {
+            const relatedArticle = ARTICLES.find(a => a.id === relatedId);
+            if (relatedArticle) {
+                const card = document.createElement('div');
+                card.className = 'related-article-card';
+                card.onclick = () => showArticle(relatedId);
+                
+                // Extract first sentence or first 120 chars for preview
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = relatedArticle.content;
+                const firstPara = tempDiv.querySelector('p');
+                let preview = firstPara ? firstPara.textContent : '';
+                preview = preview.substring(0, 120).trim() + '...';
+                
+                card.innerHTML = `
+                    <h4>${relatedArticle.title}</h4>
+                    <p>${preview}</p>
+                `;
+                
+                relatedGrid.appendChild(card);
+            }
+        });
+    } else {
+        // Hide related articles section if none defined
+        relatedSection.style.display = 'none';
+    }
+    
     // Scroll to top or to anchor if hash present
     const hash = window.location.hash;
     if (hash) {

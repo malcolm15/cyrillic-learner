@@ -2,6 +2,7 @@ const ARTICLES = [
     {
         id: 'getting-started',
         title: 'Getting Started with Cyrillic',
+        relatedArticles: ['russian-alphabet-chart', 'memory-tricks', 'common-mistakes'],
         content: `
             <p>So you want to learn the Cyrillic alphabet. Maybe you're planning a trip to Russia. Maybe you're tired of not being able to read street signs in Eastern Europe. Or maybe you just think it looks cool and want to decode those mysterious letters you see in movies.</p>
 
@@ -127,6 +128,7 @@ const ARTICLES = [
     {
         id: 'common-mistakes',
         title: '5 Common Mistakes When Learning Cyrillic',
+        relatedArticles: ['false-friends', 'getting-started', 'memory-tricks'],
         content: `
             <p>I've watched a lot of people learn the Cyrillic alphabet over the years. And I've noticed that almost everyone makes the same handful of mistakes. The good news? These are all totally avoidable if you know what to watch out for.</p>
 
@@ -567,6 +569,7 @@ const ARTICLES = [
     {
         id: 'memory-tricks',
         title: 'Memory Tricks for Confusing Letters',
+        relatedArticles: ['russian-alphabet-chart', 'false-friends', 'common-mistakes'],
         content: `
             <p>Learning 33 new letters sounds overwhelming. But here's the secret: you don't need to memorize them as 33 random symbols. You need to create associations, stories, and mental hooks that make them stick.</p>
 
@@ -2880,6 +2883,7 @@ const ARTICLES = [
     {
         id: 'russian-alphabet-chart',
         title: 'Russian Alphabet Chart: All 33 Letters with Pronunciation',
+        relatedArticles: ['getting-started', 'false-friends', 'memory-tricks'],
         content: `
             <p>Here's every letter in the Russian alphabet, organized so you can actually learn them. Click any letter to hear how it's pronounced. Filter by vowels or consonants. Use this as your reference while you practice.</p>
 
