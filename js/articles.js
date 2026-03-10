@@ -268,10 +268,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')">Share</button>
                 </div>
             </div>
         `
@@ -391,10 +391,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')">Share</button>
                 </div>
             </div>
         `
@@ -556,10 +556,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('lost-letters', 'The Lost Letters of Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('lost-letters', 'The Lost Letters of Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('lost-letters', 'The Lost Letters of Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('lost-letters', 'The Lost Letters of Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('lost-letters', 'The Lost Letters of Cyrillic')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('lost-letters', 'The Lost Letters of Cyrillic'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('lost-letters', 'The Lost Letters of Cyrillic'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('lost-letters', 'The Lost Letters of Cyrillic')">Share</button>
                 </div>
             </div>
         `
@@ -762,10 +762,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')">Share</button>
                 </div>
             </div>
         `
@@ -873,10 +873,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('belarusian-alphabet', 'Belarusian Alphabet')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('belarusian-alphabet', 'Belarusian Alphabet'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('belarusian-alphabet', 'Belarusian Alphabet'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('belarusian-alphabet', 'Belarusian Alphabet')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('belarusian-alphabet', 'Belarusian Alphabet')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('belarusian-alphabet', 'Belarusian Alphabet'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('belarusian-alphabet', 'Belarusian Alphabet'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('belarusian-alphabet', 'Belarusian Alphabet')">Share</button>
                 </div>
             </div>
         `
@@ -960,10 +960,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')">Share</button>
                 </div>
             </div>
         `
@@ -1075,10 +1075,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')">Share</button>
                 </div>
             </div>
         `
@@ -1209,10 +1209,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('first-25-words', 'Reading Practice: Your First 25 Russian Words')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('first-25-words', 'Reading Practice: Your First 25 Russian Words')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('first-25-words', 'Reading Practice: Your First 25 Russian Words')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('first-25-words', 'Reading Practice: Your First 25 Russian Words')">Share</button>
                 </div>
             </div>
         `
@@ -1351,10 +1351,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')">Share</button>
                 </div>
             </div>
         `
@@ -1517,10 +1517,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')">Share</button>
                 </div>
             </div>
         `
@@ -1703,10 +1703,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')">Share</button>
                 </div>
             </div>
         `
@@ -1995,10 +1995,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('history-of-cyrillic', 'The History of the Cyrillic Alphabet')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('history-of-cyrillic', 'The History of the Cyrillic Alphabet')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('history-of-cyrillic', 'The History of the Cyrillic Alphabet')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('history-of-cyrillic', 'The History of the Cyrillic Alphabet')">Share</button>
                 </div>
             </div>
         `
@@ -2146,10 +2146,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')">Share</button>
                 </div>
             </div>
         `
@@ -2422,10 +2422,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')">Share</button>
                 </div>
             </div>
         `
@@ -2622,10 +2622,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('easy-russian-words', 'Common Russian Words Using Only Easy Letters')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('easy-russian-words', 'Common Russian Words Using Only Easy Letters')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('easy-russian-words', 'Common Russian Words Using Only Easy Letters')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('easy-russian-words', 'Common Russian Words Using Only Easy Letters')">Share</button>
                 </div>
             </div>
         `
@@ -2807,10 +2807,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')">Share</button>
                 </div>
             </div>
         `
@@ -2869,15 +2869,14 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')">Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;">Share on Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;">Share on Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')">Share</button>
                 </div>
             </div>
         `
-    }
-,,
+    },
     {
         id: 'russian-alphabet-chart',
         title: 'Russian Alphabet Chart: All 33 Letters with Pronunciation',
