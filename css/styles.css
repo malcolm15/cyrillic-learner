@@ -2251,48 +2251,50 @@
 
 /* Interactive Tool CTA Banner */
 .tool-cta-banner {
-    margin: 50px 0 40px 0;
-    padding: 30px;
+    margin: 40px 0 30px 0;
+    padding: 18px 25px;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border: 3px solid var(--red);
-    border-radius: 12px;
+    border-left: 4px solid var(--red);
+    border-radius: 6px;
     text-align: center;
 }
 
 .tool-cta-content p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--charcoal);
-    margin: 0 0 20px 0;
-    max-width: 700px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555;
+    margin: 0 0 12px 0;
+    max-width: 650px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .tool-cta-content strong {
     color: var(--red);
+    font-weight: 600;
 }
 
 .tool-cta-btn {
     background: var(--red) !important;
     color: white !important;
-    font-size: 1.1rem !important;
-    padding: 15px 40px !important;
-    font-weight: bold !important;
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
-    transition: all 0.3s ease;
+    font-size: 0.9rem !important;
+    padding: 10px 24px !important;
+    font-weight: 600 !important;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(231, 76, 60, 0.2);
+    transition: all 0.2s ease;
 }
 
 .tool-cta-btn:hover {
     background: #c0392b !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(231, 76, 60, 0.3);
 }
 
 /* Dark mode support */
 body.dark-mode .tool-cta-banner {
     background: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, rgba(0, 255, 65, 0.08) 100%);
-    border-color: var(--matrix-green);
+    border-left-color: var(--matrix-green);
 }
 
 body.dark-mode .tool-cta-content p {
@@ -2306,17 +2308,18 @@ body.dark-mode .tool-cta-content strong {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .tool-cta-banner {
-        margin: 40px 0 30px 0;
-        padding: 25px 20px;
+        margin: 30px 0 25px 0;
+        padding: 16px 20px;
     }
     
     .tool-cta-content p {
-        font-size: 1rem;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
     }
     
     .tool-cta-btn {
-        font-size: 1rem !important;
-        padding: 12px 30px !important;
+        font-size: 0.85rem !important;
+        padding: 9px 20px !important;
         width: 100%;
     }
 }
