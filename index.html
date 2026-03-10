@@ -548,10 +548,24 @@
                                 <!-- Article content loaded here -->
                             </div>
                             
+                            <!-- Related Articles Section -->
+                            <div class="related-articles" id="related-articles-section" style="display: none;">
+                                <h3 style="margin: 40px 0 20px 0; font-size: 1.5rem; color: var(--charcoal);">Related Articles</h3>
+                                <div class="related-articles-grid" id="related-articles-grid">
+                                    <!-- Related articles loaded here by JavaScript -->
+                                </div>
+                            </div>
+                            
                             <div class="article-navigation">
-                                <button class="btn" id="prev-article" onclick="navigateArticle('prev')">← Previous</button>
+                                <button class="btn nav-btn" id="prev-article" onclick="navigateArticle('prev')">
+                                    <span class="nav-direction">← PREVIOUS</span>
+                                    <span class="nav-title" id="prev-article-title"></span>
+                                </button>
                                 <button class="btn" onclick="showArticleIndex()">Back to Articles</button>
-                                <button class="btn" id="next-article" onclick="navigateArticle('next')">Next →</button>
+                                <button class="btn nav-btn" id="next-article" onclick="navigateArticle('next')">
+                                    <span class="nav-direction">NEXT →</span>
+                                    <span class="nav-title" id="next-article-title"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
