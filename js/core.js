@@ -422,8 +422,11 @@ function showArticle(articleId) {
     document.getElementById('article-title').textContent = article.title;
     document.getElementById('article-content').innerHTML = article.content;
     
-    // Update URL
-    window.history.pushState({ page: 'articles', article: articleId }, '', `/articles/${articleId}`);
+    // Update URL (only if different)
+    const articleUrl = `/articles/${articleId}`;
+    if (window.location.pathname !== articleUrl) {
+        window.history.pushState({ page: 'articles', article: articleId }, '', articleUrl);
+    }
     
     // Setup navigation buttons with looping (using visual categorized order)
     const currentIndex = ARTICLE_ORDER.findIndex(id => id === articleId);
@@ -998,6 +1001,35 @@ document.getElementById('answer-input').addEventListener('input', (e) => {
 // Initialize app
 loadSettings();
 initReference();
+
+// Handle initial URL on page load
+(function handleInitialURL() {
+    const path = window.location.pathname;
+    
+    if (path === '/' || path === '/home' || path === '') {
+        // Already on home, do nothing
+        return;
+    } else if (path.startsWith('/articles/')) {
+        // Article detail page
+        const articleId = path.substring(10); // Remove '/articles/'
+        if (articleId && articleId !== '') {
+            showPage('articles');
+            setTimeout(() => {
+                showArticle(articleId);
+            }, 100);
+        } else {
+            // Just /articles - show article index
+            showPage('articles');
+        }
+    } else if (path.startsWith('/')) {
+        // Other page (about, contact, privacy)
+        const pageName = path.substring(1); // Remove leading slash
+        const pageElement = document.getElementById(pageName + '-page');
+        if (pageElement) {
+            showPage(pageName);
+        }
+    }
+})();
 
 // Handle browser back/forward buttons
 window.addEventListener('popstate', (event) => {
