@@ -2164,6 +2164,7 @@
     align-items: center;
     gap: 5px;
     min-height: 60px;
+    max-width: 300px;  /* Prevent stretching */
     padding: 12px 20px !important;
 }
 
@@ -2179,6 +2180,15 @@
     font-weight: normal;
     text-align: center;
     line-height: 1.2;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    /* Limit to 3 lines with ellipsis */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* Related Articles Grid */
@@ -2219,6 +2229,10 @@
 
 /* Mobile responsiveness for navigation */
 @media (max-width: 768px) {
+    .nav-btn {
+        max-width: 200px;  /* Narrower on mobile */
+    }
+    
     .nav-title {
         font-size: 0.75rem;
     }
