@@ -1135,3 +1135,4 @@ window.copyArticleLink = copyArticleLink;
 window.shareToBluesky = shareToBluesky;
 window.shareToReddit = shareToReddit;
 window.nativeShare = nativeShare;
+window.CYRILLIC_DATA = CYRILLIC_DATA;

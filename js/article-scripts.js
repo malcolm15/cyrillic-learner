@@ -236,8 +236,15 @@ ArticleScripts['russian-alphabet-chart'] = function() {
     }
     
     function playAudio(char) {
+        console.log('playAudio called for:', char);
+        
         // Look up the character in CYRILLIC_DATA to get the correct audio path
-        if (typeof CYRILLIC_DATA === 'undefined') return;
+        if (typeof CYRILLIC_DATA === 'undefined') {
+            console.log('CYRILLIC_DATA is undefined');
+            return;
+        }
+        
+        console.log('CYRILLIC_DATA exists');
         
         var audioPath = null;
         var groupKeys = Object.keys(CYRILLIC_DATA);
@@ -247,14 +254,18 @@ ArticleScripts['russian-alphabet-chart'] = function() {
             var group = CYRILLIC_DATA[groupKeys[i]];
             if (group.chars && group.chars[char]) {
                 audioPath = group.chars[char].audio;
+                console.log('Found audio path:', audioPath);
                 break;
             }
         }
         
         if (audioPath) {
+            console.log('Attempting to play:', audioPath);
             var audio = new Audio(audioPath);
             audio.volume = 0.7;
-            audio.play().catch(function(err) {
+            audio.play().then(function() {
+                console.log('Audio playing successfully');
+            }).catch(function(err) {
                 console.log('Audio playback failed for ' + char + ':', err);
             });
         } else {
