@@ -1,40 +1,979 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+    GOOGLE ADSENSE INTEGRATION INSTRUCTIONS:
+    
+    Once you're approved for Google AdSense:
+    1. Log into your AdSense account
+    2. Create a new ad unit (Display ads → Vertical)
+    3. Choose size: 160x600 (Wide Skyscraper)
+    4. Copy the ad code Google provides
+    5. Replace the .ad-placeholder divs with your ad code
+    
+    The ad placeholders are located in two places:
+    - Left sidebar: Search for "Left Ad Sidebar"
+    - Right sidebar: Search for "Right Ad Sidebar"
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyriЛica - Learn the Cyrillic Alphabet</title>
+    <title>Cyrilica - Learn the Cyrillic Alphabet | Free Interactive Study</title>
     
-    <!-- Prerender/snapshot for crawlers -->
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free interactive tool to learn the Cyrillic alphabet. Master Russian, Ukrainian, Bulgarian, and Serbian letters with instant feedback. Perfect for beginners.">
+    <meta name="keywords" content="learn Cyrillic, Cyrillic alphabet, Russian alphabet, learn Russian letters, Cyrillic study, Ukrainian alphabet, Bulgarian alphabet, Serbian alphabet, learn Cyrillic online, free Cyrillic learning">
+    <meta name="author" content="Cyrilica">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cyrilica.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cyrilica.com/">
+    <meta property="og:title" content="Cyrilica - Learn the Cyrillic Alphabet | Free Interactive Study">
+    <meta property="og:description" content="Free interactive tool to learn the Cyrillic alphabet. Master Russian, Ukrainian, Bulgarian, and Serbian letters with instant feedback. Perfect for beginners.">
+    <meta property="og:image" content="https://cyrilica.com/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://cyrilica.com/">
+    <meta property="twitter:title" content="Cyrilica - Learn the Cyrillic Alphabet | Free Interactive Study">
+    <meta property="twitter:description" content="Free interactive tool to learn the Cyrillic alphabet. Master Russian, Ukrainian, Bulgarian, and Serbian letters with our simple study-based learning system.">
+    <meta property="twitter:image" content="https://cyrilica.com/og-image.png">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZ9MYG6HGE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WZ9MYG6HGE');
+    </script>
+    
+    <!-- Google AdSense Verification -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5821564771189825"
+     crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Merriweather:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    </style>
+
+    <!-- Structured Data (Schema.org) for Rich Results -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "WebPage",
+        "@type": "SoftwareApplication",
+        "name": "Cyrilica",
+        "alternateName": "CyriЛica",
+        "applicationCategory": "EducationalApplication",
+        "applicationSubCategory": "Language Learning",
+        "description": "Free interactive web app to learn the Cyrillic alphabet in 1-2 weeks. Master Russian, Ukrainian, Bulgarian, and Serbian letters through interactive practice with instant feedback and progress tracking.",
         "url": "https://cyrilica.com",
-        "name": "CyriЛica"
+        "image": "https://cyrilica.com/og-image.png",
+        "screenshot": "https://cyrilica.com/og-image.png",
+        "operatingSystem": "Web browser (Chrome, Firefox, Safari, Edge)",
+        "browserRequirements": "Requires JavaScript",
+        "softwareVersion": "2.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "featureList": [
+            "Interactive character selection",
+            "Instant feedback on answers",
+            "Progress tracking and statistics",
+            "Audio pronunciation for each letter",
+            "Dark mode support",
+            "Mobile-responsive design",
+            "No account required"
+        ],
+        "educationalLevel": "Beginner",
+        "teaches": "Cyrillic alphabet reading and recognition",
+        "learningResourceType": "Interactive Exercise",
+        "interactivityType": "active",
+        "educationalUse": "self-assessment",
+        "timeRequired": "PT14D",
+        "inLanguage": "en",
+        "targetProduct": {
+            "@type": "Thing",
+            "name": "Cyrillic script knowledge",
+            "description": "Ability to read and recognize all 33 letters of the Cyrillic alphabet"
+        },
+        "about": [
+            {
+                "@type": "Thing",
+                "name": "Cyrillic alphabet",
+                "description": "Writing system used for Russian, Ukrainian, Bulgarian, Serbian, and other Slavic languages"
+            },
+            {
+                "@type": "Thing",
+                "name": "Russian alphabet"
+            },
+            {
+                "@type": "Thing",
+                "name": "Ukrainian alphabet"
+            },
+            {
+                "@type": "Thing",
+                "name": "Bulgarian alphabet"
+            }
+        ],
+        "audience": {
+            "@type": "EducationalAudience",
+            "educationalRole": "student",
+            "audienceType": [
+                "Language learners",
+                "Travelers",
+                "Students",
+                "Heritage speakers"
+            ]
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Cyrilica",
+            "url": "https://cyrilica.com"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "Cyrilica",
+            "url": "https://cyrilica.com"
+        },
+        "isAccessibleForFree": true,
+        "usageInfo": "https://cyrilica.com/privacy",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "ratingCount": "1",
+            "reviewCount": "1"
+        }
+    }
+    </script>
+
+    <!-- WebSite Schema for Sitelinks Search Box -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "CyriЛica",
+        "alternateName": "Cyrilica",
+        "url": "https://cyrilica.com",
+        "description": "Learn the Cyrillic alphabet interactively",
+        "inLanguage": "en"
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "CyriЛica",
+        "url": "https://cyrilica.com",
+        "logo": "https://cyrilica.com/favicon.svg",
+        "sameAs": [
+            "https://github.com/malcolm15/cyrillic-learner"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "hello@cyrilica.com",
+            "contactType": "customer support"
+        }
+    }
+    </script>
+
+    <!-- BreadcrumbList for navigation -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://cyrilica.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "About",
+                "item": "https://cyrilica.com/about"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Contact",
+                "item": "https://cyrilica.com/contact"
+            }
+        ]
     }
     </script>
     
-    <script>
-        // Single Page Application redirect for GitHub Pages
-        // Capture the intended path
-        var path = window.location.pathname;
-        
-        // Store in sessionStorage for index.html to read
-        if (path && path !== '/') {
-            sessionStorage.setItem('redirect', path);
-        }
-        
-        // Redirect to root
-        window.location.replace('/');
-    </script>
-    
-    <noscript>
-        <meta http-equiv="refresh" content="0;url=https://cyrilica.com/">
-    </noscript>
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body style="font-family: sans-serif; text-align: center; padding: 50px;">
-    <h1>CyriЛica</h1>
-    <p>Redirecting to <a href="https://cyrilica.com/">cyrilica.com</a>...</p>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo" onclick="showPage('home'); return false;">CYRI<span class="letter-l" onclick="burstConfetti(event, this); showPage('home'); return false;">Л<span class="confetti-burst"></span></span>ICA</a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#" class="active" onclick="showPage('home'); return false;">Home</a></li>
+                <li><a href="#" onclick="showPage('settings'); return false;">Settings</a></li>
+                <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
+                <li><a href="#" onclick="showPage('articles'); return false;">Articles</a></li>
+                <li><a href="#" onclick="showPage('contact'); return false;">Contact</a></li>
+                <li><a href="#" onclick="showPage('privacy'); return false;">Privacy</a></li>
+            </ul>
+        </div>
+    </nav>
+
+        <div class="main-content">
+            <div class="container">
+                <!-- HOME PAGE -->
+                <div id="home-page" class="page-content active">
+                    <header>
+                        <h1>CYRI<span class="letter-l" onclick="burstConfetti(event, this)">Л<span class="confetti-burst"></span></span>ICA</h1>
+                        <div class="subtitle">Master the Cyrillic Alphabet</div>
+                        <p class="site-description">Free interactive tool to learn the Cyrillic alphabet. Practice with instant feedback and track your progress.</p>
+                    </header>
+
+                    <!-- Combined Character Reference & Selection -->
+                    <div class="card char-reference">
+                        <div class="selection-header">
+                            <h2>Select Characters to Study</h2>
+                            <div class="selection-controls">
+                                <button class="btn btn-control" onclick="selectAllGroups()">Select All</button>
+                                <button class="btn btn-control" onclick="clearAllGroups()">Clear All</button>
+                            </div>
+                        </div>
+                        <p class="content-text" style="margin-bottom: 14px; font-size: 0.9rem;">Click a group to select it for practice. Selected groups highlight in red. <strong>New to Cyrillic?</strong> Check out our <a href="#" onclick="showPage('reference'); return false;" class="reference-link">Complete Alphabet Reference</a> first!</p>
+                        <div id="reference-container"></div>
+                        <button class="start-btn" id="start-btn" disabled>Begin Learning</button>
+                    </div>
+
+                    <div id="quiz-container">
+                        <div class="card">
+                            <div class="quiz-header">
+                                <div class="score" id="score">Score: 0/0</div>
+                                <div class="progress" id="progress">Question 1</div>
+                            </div>
+
+                            <div class="character-display">
+                                <span class="cyrillic-char" id="current-char">А</span>
+                                <span class="cyrillic-char cyrillic-char-lowercase" id="current-char-lower" style="display: none;">а</span>
+                                <button class="audio-btn" id="audio-btn" style="display: none;" title="Hear pronunciation">🔊</button>
+                            </div>
+
+                            <div class="input-section">
+                                <div class="input-wrapper">
+                                    <input 
+                                        type="text" 
+                                        id="answer-input" 
+                                        placeholder="Type romanization..."
+                                        autocomplete="off"
+                                    />
+                                    <button class="btn btn-submit" id="submit-btn" onclick="checkAnswer()">Submit</button>
+                                </div>
+                                <div class="feedback" id="feedback"></div>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button class="btn" id="skip-btn">Skip</button>
+                                <button class="btn" id="reset-btn">Reset</button>
+                                <button class="btn" id="home-btn">Home</button>
+                                <button class="btn btn-settings" id="settings-btn" onclick="showPage('settings')">⚙️ Settings</button>
+                            </div>
+
+                            <div class="stats">
+                                <div class="stat-item">
+                                    <span class="stat-value" id="correct-count">0</span>
+                                    <span class="stat-label">Correct</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="incorrect-count">0</span>
+                                    <span class="stat-label">Incorrect</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="streak-count">0</span>
+                                    <span class="stat-label">Streak</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARTICLES PAGE -->
+                <div id="articles-page" class="page-content">
+                    <!-- Articles Index -->
+                    <div id="articles-index" class="articles-view active">
+                        <div class="card">
+                            <h2>Articles</h2>
+                            <p class="content-text" style="margin-bottom: 30px;">Learn more about the Cyrillic alphabet, tips for memorization, and language learning strategies.</p>
+                            
+                            <div class="articles-list">
+                                <!-- Category 1: Getting Started -->
+                                <div class="article-category">
+                                    <div class="article-category-header">
+                                        
+                                        <span>Getting Started</span>
+                                    </div>
+                                    <div class="article-category-desc">For complete beginners - your learning foundation</div>
+                                    
+                                    <div class="article-item" onclick="showArticle('getting-started')">
+                                        <div class="article-item-content">
+                                            <h3>Getting Started with Cyrillic</h3>
+                                            <p>A beginner's guide to learning the Cyrillic alphabet efficiently.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('common-mistakes')">
+                                        <div class="article-item-content">
+                                            <h3>5 Common Mistakes When Learning Cyrillic</h3>
+                                            <p>Avoid these pitfalls and accelerate your learning journey.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('memory-tricks')">
+                                        <div class="article-item-content">
+                                            <h3>Memory Tricks for Confusing Letters</h3>
+                                            <p>Never confuse Н, Р, В, and other tricky characters again.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-tier-list')">
+                                        <div class="article-item-content">
+                                            <h3>Cyrillic Alphabet Tier List: Ranking Letters by Difficulty</h3>
+                                            <p>From S-tier (easy) to F-tier (nightmare) - every letter ranked for learners.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('false-friends')">
+                                        <div class="article-item-content">
+                                            <h3>False Friends: Cyrillic Letters That Fool English Speakers</h3>
+                                            <p>Master the six letters that look familiar but sound completely different.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('first-25-words')">
+                                        <div class="article-item-content">
+                                            <h3>Reading Practice: Your First 25 Russian Words</h3>
+                                            <p>Start reading real Russian words using what you've learned.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('easy-russian-words')">
+                                        <div class="article-item-content">
+                                            <h3>Common Russian Words Using Only Easy Letters</h3>
+                                            <p>Read real Russian words today using just 5-9 simple letters.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Category 2: Alphabet Variants -->
+                                <div class="article-category">
+                                    <div class="article-category-header">
+                                        
+                                        <span>Alphabet Variants</span>
+                                    </div>
+                                    <div class="article-category-desc">Exploring Cyrillic across different languages</div>
+                                    
+                                    <div class="article-item" onclick="showArticle('serbian-cyrillic-vs-latin')">
+                                        <div class="article-item-content">
+                                            <h3>Serbian: Cyrillic vs Latin Scripts</h3>
+                                            <p>Understanding Serbia's dual-alphabet system.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('belarusian-alphabet')">
+                                        <div class="article-item-content">
+                                            <h3>Belarusian Alphabet Guide: 32 Letters of Eastern Europe</h3>
+                                            <p>Discover the unique Ў letter and Belarus's distinct Cyrillic system.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('montenegrin-alphabet')">
+                                        <div class="article-item-content">
+                                            <h3>Montenegrin Alphabet: The Newest Cyrillic (2009)</h3>
+                                            <p>Meet Ś and Ź - the newest letters added to Cyrillic in the 21st century.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Category 3: History & Culture -->
+                                <div class="article-category">
+                                    <div class="article-category-header">
+                                        
+                                        <span>History & Culture</span>
+                                    </div>
+                                    <div class="article-category-desc">Deep dives into Cyrillic's fascinating past</div>
+                                    
+                                    <div class="article-item" onclick="showArticle('history-of-cyrillic')">
+                                        <div class="article-item-content">
+                                            <h3>The History of the Cyrillic Alphabet</h3>
+                                            <p>1,150 years from Saints Cyril and Methodius to today.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('lost-letters')">
+                                        <div class="article-item-content">
+                                            <h3>The Lost Letters of Cyrillic: A Journey Through Extinct Characters</h3>
+                                            <p>Discover the 100+ letters that have vanished from Cyrillic over 1,150 years.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('glagolitic')">
+                                        <div class="article-item-content">
+                                            <h3>Glagolitic: The Mysterious Alphabet Before Cyrillic</h3>
+                                            <p>The strange, ornate alphabet that predates Cyrillic by decades.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-names-europe')">
+                                        <div class="article-item-content">
+                                            <h3>What is Cyrillic Called in Different European Languages?</h3>
+                                            <p>From Kirillitsa to Kyrillisches Alphabet - how Europe names Cyrillic.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('backwards-r-myth')">
+                                        <div class="article-item-content">
+                                            <h3>The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong</h3>
+                                            <p>Faux Cyrillic in movies, vodka bottles, and Rocky IV explained.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('kazakhstan-latin-transition')">
+                                        <div class="article-item-content">
+                                            <h3>Kazakhstan's Alphabet Transition: From Cyrillic to Latin by 2031</h3>
+                                            <p>One of the most ambitious alphabet reforms of the 21st century.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('latin-vs-cyrillic-slavic')">
+                                        <div class="article-item-content">
+                                            <h3>Why Some Slavic Countries Use Latin Instead of Cyrillic</h3>
+                                            <p>The Great Schism's thousand-year impact on Slavic alphabets.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-pop-culture')">
+                                        <div class="article-item-content">
+                                            <h3>Cyrillic in Pop Culture: From Rocky IV to Call of Duty</h3>
+                                            <p>How Cyrillic appears in movies, games, fashion, and memes.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Category 4: Learning Tools & Resources -->
+                                <div class="article-category">
+                                    <div class="article-category-header">
+                                        
+                                        <span>Learning Tools & Resources</span>
+                                    </div>
+                                    <div class="article-category-desc">Practical guides for mastering Cyrillic</div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-copy-paste')">
+                                        <div class="article-item-content">
+                                            <h3>Cyrillic Alphabet Copy and Paste</h3>
+                                            <p>One-click copying for all Cyrillic letters - perfect for quick use.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="article-item" onclick="showArticle('russian-alphabet-chart')">
+                                        <div class="article-item-content">
+                                            <h3>Russian Alphabet Chart: All 33 Letters with Pronunciation</h3>
+                                            <p>Interactive chart with audio pronunciation, filters, and color-coded difficulty levels.</p>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="article-item" onclick="showArticle('practice-writing-cyrillic')">
+                                        <div class="article-item-content">
+                                            <h3>How to Practice Writing Cyrillic by Hand</h3>
+                                            <p>Stroke order, cursive challenges, and daily practice routines.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-alphabet-chart')">
+                                        <div class="article-item-content">
+                                            <h3>Complete Cyrillic Alphabet Chart</h3>
+                                            <p>All 33 letters with pronunciations and examples.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('cyrillic-learning-resources')">
+                                        <div class="article-item-content">
+                                            <h3>Best Resources for Learning Cyrillic</h3>
+                                            <p>Top apps, websites, and tools to accelerate your learning.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="article-item" onclick="showArticle('common-cyrillic-mistakes')">
+                                        <div class="article-item-content">
+                                            <h3>10 Common Cyrillic Mistakes</h3>
+                                            <p>English speakers' most frequent errors and how to fix them.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Individual Article View (hidden by default) -->
+                    <div id="article-view" class="articles-view" style="display: none;">
+                        <div class="card">
+                            <div class="article-header">
+                                <h2 id="article-title"></h2>
+                                <button class="article-back-btn" onclick="showArticleIndex()" title="Back to Articles">← Back</button>
+                            </div>
+                            
+                            <div class="article-content content-text" id="article-content">
+                                <!-- Article content loaded here -->
+                            </div>
+                            
+                            <div class="article-navigation">
+                                <button class="btn" id="prev-article" onclick="navigateArticle('prev')">← Previous</button>
+                                <button class="btn" onclick="showArticleIndex()">Back to Articles</button>
+                                <button class="btn" id="next-article" onclick="navigateArticle('next')">Next →</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABOUT PAGE -->
+                <div id="about-page" class="page-content">
+                    <div class="card">
+                        <h2>About Cyrilica</h2>
+                        
+                        <div class="content-text">
+                            <p>Hey there! I'm a language learner who was looking for a simple, no-nonsense tool to learn the Cyrillic alphabet, so I decided to build the tool I wished existed. Something straightforward: you pick which letters you want to practice, the app shows you a character, you type what it sounds like, and you get instant feedback. That's it. No fluff, no subscriptions, no annoying popups asking you to upgrade.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>I built this mostly for myself while learning Russian, but honestly? If it helps even one other person out there trying to wrap their head around Cyrillic, that's awesome. Learning a new alphabet can feel overwhelming at first, but breaking it down into small groups and just drilling the basics makes it so much more manageable.</p>
+                        </div>
+
+                        <h3>Why Cyrillic?</h3>
+                        <div class="content-text">
+                            <p>The Cyrillic script is used by over 250 million people worldwide. It's the writing system for Russian, Ukrainian, Bulgarian, Serbian, and many other languages. Once you get past the initial "these letters look weird" phase, it's actually pretty logical and consistent.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>Plus, there's something really satisfying about being able to read signs and menus in a whole new script. It feels like unlocking a secret code.</p>
+                        </div>
+
+                        <h3>How It Works</h3>
+                        <div class="content-text">
+                            <p>The concept is dead simple: choose which character groups you want to study (vowels, consonants, whatever), click "Begin Learning," and start typing. The app will randomly quiz you on those characters. Get it right, your streak goes up. Get it wrong, you see the correct answer and keep going.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>There's no complicated spaced repetition algorithm or points system—just you, the letters, and honest practice. Sometimes the simplest approach is the best one.</p>
+                        </div>
+
+                        <h3>Keep Practicing</h3>
+                        <div class="content-text">
+                            <p>Learning an alphabet takes repetition. Don't get discouraged if some letters don't stick right away (looking at you, Ы and Щ). Just keep at it, practice a little bit every day, and before you know it, you'll be reading Cyrillic like it's second nature.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>Good luck with your learning, and thanks for using Cyrilica!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CYRILLIC ALPHABET REFERENCE PAGE -->
+                <div id="reference-page" class="page-content">
+                    <div class="card">
+                        <h2>Complete Cyrillic Alphabet Reference</h2>
+                        
+                        <div class="content-text">
+                            <p>The Russian Cyrillic alphabet consists of 33 letters. This comprehensive reference shows each letter's uppercase and lowercase forms, pronunciation guide, and example words.</p>
+                        </div>
+
+                        <h3>Vowels (10 letters)</h3>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                                <tr style="background: var(--cream); border-bottom: 2px solid var(--charcoal);">
+                                    <th style="padding: 10px; text-align: left;">Letter</th>
+                                    <th style="padding: 10px; text-align: left;">Sound</th>
+                                    <th style="padding: 10px; text-align: left;">Pronunciation</th>
+                                    <th style="padding: 10px; text-align: left;">Example</th>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">А</span> <span style="font-size: 1.2rem;">а</span></td>
+                                    
+                                    <td style="padding: 10px;">a</td>
+                                    <td style="padding: 10px;">Like "a" in "father"</td>
+                                    <td style="padding: 10px;">Анна (Anna)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Е</span> <span style="font-size: 1.2rem;">е</span></td>
+                                    
+                                    <td style="padding: 10px;">ye</td>
+                                    <td style="padding: 10px;">Like "ye" in "yes"</td>
+                                    <td style="padding: 10px;">есть (yest - to eat)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ё</span> <span style="font-size: 1.2rem;">ё</span></td>
+                                    
+                                    <td style="padding: 10px;">yo</td>
+                                    <td style="padding: 10px;">Like "yo" in "yolk"</td>
+                                    <td style="padding: 10px;">ёж (yozh - hedgehog)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">И</span> <span style="font-size: 1.2rem;">и</span></td>
+                                    
+                                    <td style="padding: 10px;">i</td>
+                                    <td style="padding: 10px;">Like "ee" in "see"</td>
+                                    <td style="padding: 10px;">имя (imya - name)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">О</span> <span style="font-size: 1.2rem;">о</span></td>
+                                    
+                                    <td style="padding: 10px;">o</td>
+                                    <td style="padding: 10px;">Like "o" in "or"</td>
+                                    <td style="padding: 10px;">окно (okno - window)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">У</span> <span style="font-size: 1.2rem;">у</span></td>
+                                    
+                                    <td style="padding: 10px;">u</td>
+                                    <td style="padding: 10px;">Like "oo" in "boot"</td>
+                                    <td style="padding: 10px;">утро (utro - morning)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ы</span> <span style="font-size: 1.2rem;">ы</span></td>
+                                    
+                                    <td style="padding: 10px;">y</td>
+                                    <td style="padding: 10px;">Unique sound (between "i" and "u")</td>
+                                    <td style="padding: 10px;">мы (my - we)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Э</span> <span style="font-size: 1.2rem;">э</span></td>
+                                    
+                                    <td style="padding: 10px;">e</td>
+                                    <td style="padding: 10px;">Like "e" in "met"</td>
+                                    <td style="padding: 10px;">это (eto - this)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ю</span> <span style="font-size: 1.2rem;">ю</span></td>
+                                    
+                                    <td style="padding: 10px;">yu</td>
+                                    <td style="padding: 10px;">Like "yu" in "yuletide"</td>
+                                    <td style="padding: 10px;">юг (yug - south)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Я</span> <span style="font-size: 1.2rem;">я</span></td>
+                                    
+                                    <td style="padding: 10px;">ya</td>
+                                    <td style="padding: 10px;">Like "ya" in "yard"</td>
+                                    <td style="padding: 10px;">яблоко (yabloko - apple)</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <h3>Consonants (21 letters)</h3>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                                <tr style="background: var(--cream); border-bottom: 2px solid var(--charcoal);">
+                                    <th style="padding: 10px; text-align: left;">Letter</th>
+                                    <th style="padding: 10px; text-align: left;">Sound</th>
+                                    <th style="padding: 10px; text-align: left;">Pronunciation</th>
+                                    <th style="padding: 10px; text-align: left;">Example</th>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Б</span> <span style="font-size: 1.2rem;">б</span></td><td style="padding: 10px;">b</td><td style="padding: 10px;">Like "b" in "boy"</td><td style="padding: 10px;">банк (bank)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">В</span> <span style="font-size: 1.2rem;">в</span></td><td style="padding: 10px;">v</td><td style="padding: 10px;">Like "v" in "van" (looks like B!)</td><td style="padding: 10px;">вода (voda - water)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Г</span> <span style="font-size: 1.2rem;">г</span></td><td style="padding: 10px;">g</td><td style="padding: 10px;">Like "g" in "go"</td><td style="padding: 10px;">город (gorod - city)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Д</span> <span style="font-size: 1.2rem;">д</span></td><td style="padding: 10px;">d</td><td style="padding: 10px;">Like "d" in "dog"</td><td style="padding: 10px;">дом (dom - house)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ж</span> <span style="font-size: 1.2rem;">ж</span></td><td style="padding: 10px;">zh</td><td style="padding: 10px;">Like "s" in "measure"</td><td style="padding: 10px;">жизнь (zhizn - life)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">З</span> <span style="font-size: 1.2rem;">з</span></td><td style="padding: 10px;">z</td><td style="padding: 10px;">Like "z" in "zoo"</td><td style="padding: 10px;">зима (zima - winter)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Й</span> <span style="font-size: 1.2rem;">й</span></td><td style="padding: 10px;">y</td><td style="padding: 10px;">Like "y" in "boy"</td><td style="padding: 10px;">мой (moy - my)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">К</span> <span style="font-size: 1.2rem;">к</span></td><td style="padding: 10px;">k</td><td style="padding: 10px;">Like "k" in "kite"</td><td style="padding: 10px;">кот (kot - cat)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Л</span> <span style="font-size: 1.2rem;">л</span></td><td style="padding: 10px;">l</td><td style="padding: 10px;">Like "l" in "lamp"</td><td style="padding: 10px;">любовь (lyubov - love)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">М</span> <span style="font-size: 1.2rem;">м</span></td><td style="padding: 10px;">m</td><td style="padding: 10px;">Like "m" in "mom"</td><td style="padding: 10px;">мама (mama)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Н</span> <span style="font-size: 1.2rem;">н</span></td><td style="padding: 10px;">n</td><td style="padding: 10px;">Like "n" in "no" (looks like H!)</td><td style="padding: 10px;">но (no - but)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">П</span> <span style="font-size: 1.2rem;">п</span></td><td style="padding: 10px;">p</td><td style="padding: 10px;">Like "p" in "pot"</td><td style="padding: 10px;">папа (papa)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Р</span> <span style="font-size: 1.2rem;">р</span></td><td style="padding: 10px;">r</td><td style="padding: 10px;">Rolled "r" (looks like P!)</td><td style="padding: 10px;">рука (ruka - hand)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">С</span> <span style="font-size: 1.2rem;">с</span></td><td style="padding: 10px;">s</td><td style="padding: 10px;">Like "s" in "sun" (looks like C!)</td><td style="padding: 10px;">слово (slovo - word)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Т</span> <span style="font-size: 1.2rem;">т</span></td><td style="padding: 10px;">t</td><td style="padding: 10px;">Like "t" in "top"</td><td style="padding: 10px;">там (tam - there)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ф</span> <span style="font-size: 1.2rem;">ф</span></td><td style="padding: 10px;">f</td><td style="padding: 10px;">Like "f" in "fun"</td><td style="padding: 10px;">фото (foto)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Х</span> <span style="font-size: 1.2rem;">х</span></td><td style="padding: 10px;">kh</td><td style="padding: 10px;">Guttural "h" (like Scottish "loch")</td><td style="padding: 10px;">хорошо (khorosho - good)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ц</span> <span style="font-size: 1.2rem;">ц</span></td><td style="padding: 10px;">ts</td><td style="padding: 10px;">Like "ts" in "cats"</td><td style="padding: 10px;">царь (tsar)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ч</span> <span style="font-size: 1.2rem;">ч</span></td><td style="padding: 10px;">ch</td><td style="padding: 10px;">Like "ch" in "chip"</td><td style="padding: 10px;">час (chas - hour)</td></tr>
+                                <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ш</span> <span style="font-size: 1.2rem;">ш</span></td><td style="padding: 10px;">sh</td><td style="padding: 10px;">Like "sh" in "shop"</td><td style="padding: 10px;">школа (shkola - school)</td></tr>
+                                <tr><td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Щ</span> <span style="font-size: 1.2rem;">щ</span></td><td style="padding: 10px;">shch</td><td style="padding: 10px;">Like "shch" (longer sh)</td><td style="padding: 10px;">борщ (borshch)</td></tr>
+                            </table>
+                        </div>
+
+                        <h3>Special Signs (2 letters)</h3>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                                <tr style="background: var(--cream); border-bottom: 2px solid var(--charcoal);">
+                                    <th style="padding: 10px; text-align: left;">Letter</th>
+                                    <th style="padding: 10px; text-align: left;">Name</th>
+                                    <th style="padding: 10px; text-align: left;">Function</th>
+                                    <th style="padding: 10px; text-align: left;">Example</th>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ь</span> <span style="font-size: 1.2rem;">ь</span></td>
+                                    
+                                    <td style="padding: 10px;">Soft sign</td>
+                                    <td style="padding: 10px;">Softens preceding consonant</td>
+                                    <td style="padding: 10px;">мать (mat' - mother)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px;"><span style="font-size: 1.5rem; font-weight: bold;">Ъ</span> <span style="font-size: 1.2rem;">ъ</span></td>
+                                    
+                                    <td style="padding: 10px;">Hard sign</td>
+                                    <td style="padding: 10px;">Adds slight pause/separation</td>
+                                    <td style="padding: 10px;">объект (ob-yekt - object)</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="content-text" style="margin-top: 30px;">
+                            <p><strong>Practice Tip:</strong> Start by learning the vowels first, then move to consonants that look similar to English letters. Save the unique characters (Ж, Ш, Щ, Ы) for last. Use our interactive tool on the Home page to test your knowledge!</p>
+                            
+                            <div style="text-align: center; margin-top: 30px;">
+                                <button class="btn" onclick="showPage('home'); return false;" style="background: var(--dark-blue); color: white; padding: 14px 40px;">← Back to Home</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SETTINGS PAGE -->
+                <div id="settings-page" class="page-content">
+                    <div class="card">
+                        <h2>Settings</h2>
+                        
+                        <div class="settings-section">
+                            <h3 class="settings-section-title">Quiz Settings</h3>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Include Lowercase</div>
+                                    <div class="setting-desc">Show lowercase letters alongside uppercase during quizzes</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="lowercase-toggle" onchange="toggleLowercase()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Auto-Submit</div>
+                                    <div class="setting-desc">Answer is submitted automatically when correct</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autosubmit-toggle" onchange="toggleAutoSubmit()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Continuous Play</div>
+                                    <div class="setting-desc">Score persists when starting a new session</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="continuous-toggle" onchange="toggleContinuous()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Repeat Problem Questions</div>
+                                    <div class="setting-desc">Characters you get wrong appear more frequently</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="repeat-toggle" onchange="toggleRepeat()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="settings-section-title">Appearance</h3>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label">Matrix Mode</div>
+                                    <div class="setting-desc">Dark theme with neon green cyberpunk aesthetics</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-tip">
+                            💡 <strong>Tip:</strong> Enable Auto-Submit for faster practice, or keep it off if you prefer to review your answer before submitting.
+                        </div>
+
+                        <button class="start-btn" id="resume-btn" onclick="resumeLearning()">Resume Learning</button>
+                    </div>
+                </div>
+
+                <!-- CONTACT PAGE -->
+                <div id="contact-page" class="page-content">
+                    <div class="card">
+                        <h2>Contact</h2>
+                        
+                        <div class="content-text">
+                            <p>Have feedback, found a bug, or have suggestions for improving CyriЛica? I'd love to hear from you!</p>
+                        </div>
+
+                        <h3>Get in Touch</h3>
+                        <div class="content-text">
+                            <p>Email me at: <a href="/cdn-cgi/l/email-protection#86eee3eaeae9c6e5fff4efeaefe5e7a8e5e9eb" id="contact-email"><span class="__cf_email__" data-cfemail="f49c9198989bb4978d869d989d9795da979b99">[email&#160;protected]</span></a></p>
+                            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+                                // Simple email deobfuscation to bypass Cloudflare protection
+                                (function() {
+                                    const user = 'hello';
+                                    const domain = 'cyrilica.com';
+                                    const email = user + '@' + domain;
+                                    const emailLink = document.getElementById('contact-email');
+                                    if (emailLink) {
+                                        emailLink.href = 'mailto:' + email;
+                                        emailLink.textContent = email;
+                                    }
+                                })();
+                            </script>
+                        </div>
+
+                        <div class="content-text">
+                            <p>This is a small, personal project built by a language learner for language learners. Your feedback helps make it better for everyone.</p>
+                        </div>
+
+                        <h3>What to Report</h3>
+                        <div class="content-text">
+                            <p><strong>Bug reports:</strong> If something isn't working as expected, let me know! Include details like what browser you're using and what happened.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p><strong>Feature requests:</strong> Have an idea for a new feature? I'm always open to suggestions that would make learning easier.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p><strong>General feedback:</strong> Enjoying the site? Having trouble with something? Just want to say hi? Drop me a line!</p>
+                        </div>
+
+                        <h3>Response Time</h3>
+                        <div class="content-text">
+                            <p>I'll do my best to respond within a few days. Thanks for your patience – this is a side project, but I genuinely appreciate hearing from users.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>Happy learning! 🎓</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRIVACY PAGE -->
+                <div id="privacy-page" class="page-content">
+                    <div class="card">
+                        <h2>Privacy Policy</h2>
+                        
+                        <div class="content-text">
+                            <p><strong>Last updated: February 10, 2026</strong></p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>Cyrilica is a simple learning tool, and we want to be completely transparent about what data is collected when you use this site.</p>
+                        </div>
+
+                        <h3>What We Collect</h3>
+                        <div class="content-text">
+                            <p>Cyrilica itself doesn't directly collect, store, or process any personal information. However, this site uses third-party services that may collect data:</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p><strong>Google Analytics:</strong> We use Google Analytics to understand how people use the site (like which pages are visited, how long people stay, and general location data). We also track quiz activity to improve the learning experience, such as which characters are studied and how the quiz features are used. This helps us identify which areas are most challenging and which features are most helpful. All tracking is anonymous and aggregated. You can learn more about how Google uses data at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p><strong>Google AdSense:</strong> We display ads through Google AdSense to help cover the costs of running this site. Google AdSense uses cookies to show ads based on your browsing activity. You can control ad personalization through <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google's Ad Settings</a>.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p><strong>Consent Management:</strong> If you're visiting from the European Economic Area (EEA), the UK, or Switzerland, you'll see a consent banner asking for your permission to use cookies for personalized ads. Your choice is stored locally in your browser.</p>
+                        </div>
+
+                        <h3>What We Don't Do</h3>
+                        <div class="content-text">
+                            <p>We don't collect your name, email address, or any personal information. We don't track your quiz scores or study progress outside of your own browser session. We don't sell or share data with anyone except the third-party services mentioned above (Google Analytics and AdSense), which are industry-standard tools.</p>
+                        </div>
+
+                        <h3>Cookies</h3>
+                        <div class="content-text">
+                            <p>This site uses cookies from Google Analytics and Google AdSense. Cookies are small files stored on your device that help these services function. You can disable cookies in your browser settings, but some features of the site may not work properly if you do.</p>
+                        </div>
+
+                        <h3>Your Choices</h3>
+                        <div class="content-text">
+                            <p>You can opt out of personalized ads by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google's Ad Settings</a>. You can also use browser extensions or privacy tools to block tracking cookies.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>If you're in the EEA, UK, or Switzerland, you can update your consent preferences at any time through the consent banner that appears when you visit the site.</p>
+                        </div>
+
+                        <h3>Changes to This Policy</h3>
+                        <div class="content-text">
+                            <p>If we make changes to this privacy policy, we'll update the "Last updated" date at the top of this page. Since this site is pretty simple, we don't expect major changes, but we'll keep you informed if anything does change.</p>
+                        </div>
+
+                        <h3>Questions?</h3>
+                        <div class="content-text">
+                            <p>This is a small, personal project, so if you have questions or concerns about privacy, feel free to reach out. We're committed to being transparent and straightforward about how this site works.</p>
+                        </div>
+
+                        <div class="content-text">
+                            <p>Thanks for using Cyrilica, and happy learning!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Cyrilica. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a>
+                <a href="#" onclick="showPage('about'); return false;">About</a>
+                <a href="#" onclick="showPage('contact'); return false;">Contact</a>
+                <a href="#" onclick="showPage('settings'); return false;">Settings</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Core functionality -->
+    <script src="js/core.js"></script>
+    <script src="js/articles.js"></script>
+    <script src="js/article-scripts.js"></script>
 </body>
 </html>
