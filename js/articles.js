@@ -117,7 +117,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('getting-started', 'Getting Started with Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('getting-started', 'Getting Started with Cyrillic'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('getting-started', 'Getting Started with Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('getting-started', 'Getting Started with Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('getting-started', 'Getting Started with Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -198,7 +198,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('common-mistakes', '5 Common Mistakes When Learning Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('common-mistakes', '5 Common Mistakes When Learning Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -269,7 +269,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -392,7 +392,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -557,7 +557,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('lost-letters', 'The Lost Letters of Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('lost-letters', 'The Lost Letters of Cyrillic'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('lost-letters', 'The Lost Letters of Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('lost-letters', 'The Lost Letters of Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('lost-letters', 'The Lost Letters of Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -650,7 +650,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('memory-tricks', 'Memory Tricks for Confusing Letters')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('memory-tricks', 'Memory Tricks for Confusing Letters')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -763,7 +763,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -874,7 +874,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('belarusian-alphabet', 'Belarusian Alphabet')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('belarusian-alphabet', 'Belarusian Alphabet'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('belarusian-alphabet', 'Belarusian Alphabet'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('belarusian-alphabet', 'Belarusian Alphabet'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('belarusian-alphabet', 'Belarusian Alphabet')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -961,7 +961,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -1076,7 +1076,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -1210,7 +1210,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('first-25-words', 'Reading Practice: Your First 25 Russian Words')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('first-25-words', 'Reading Practice: Your First 25 Russian Words')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -1352,7 +1352,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -1518,7 +1518,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -1704,7 +1704,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -1851,7 +1851,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -1996,7 +1996,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('history-of-cyrillic', 'The History of the Cyrillic Alphabet')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('history-of-cyrillic', 'The History of the Cyrillic Alphabet')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -2097,7 +2097,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -2147,7 +2147,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -2248,7 +2248,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -2423,7 +2423,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -2623,7 +2623,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('easy-russian-words', 'Common Russian Words Using Only Easy Letters')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('easy-russian-words', 'Common Russian Words Using Only Easy Letters')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -2808,7 +2808,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -2870,7 +2870,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
@@ -3017,7 +3017,7 @@ const ARTICLES = [
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
                     <button class="share-btn" onclick="copyArticleLink('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation'); return false;"><i class="fab fa-bluesky"></i> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
