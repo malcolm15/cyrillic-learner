@@ -352,10 +352,35 @@ function startMiniQuiz() {
     // Shuffle the character order for variety
     miniQuizState.charKeys = ['В', 'Н', 'Р', 'С', 'У', 'Х'].sort(() => Math.random() - 0.5);
     
-    // Hide start screen, show quiz
-    document.querySelector('.mini-quiz-start').style.display = 'none';
+    // Show quiz, hide completion screen
     document.getElementById('mini-quiz-active').style.display = 'block';
     document.getElementById('mini-quiz-complete').style.display = 'none';
+    
+    // Attach Enter key listener to input
+    const miniInput = document.getElementById('mini-answer-input');
+    if (miniInput) {
+        // Remove any existing listeners to avoid duplicates
+        const newInput = miniInput.cloneNode(true);
+        miniInput.parentNode.replaceChild(newInput, miniInput);
+        
+        // Add Enter key listener
+        newInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkMiniAnswer();
+            }
+        });
+        
+        // Auto-submit if global setting enabled
+        newInput.addEventListener('input', function(e) {
+            if (typeof autoSubmit !== 'undefined' && autoSubmit && !miniQuizState.answered) {
+                const input = e.target.value.trim().toLowerCase();
+                const correct = miniQuizState.chars[miniQuizState.currentChar]?.roman.toLowerCase();
+                if (input === correct) {
+                    checkMiniAnswer();
+                }
+            }
+        });
+    }
     
     // Load first question
     nextMiniQuestion();
@@ -517,29 +542,6 @@ function createMiniConfetti() {
         setTimeout(() => confetti.remove(), 1200);
     }
 }
-
-// Auto-submit for mini quiz if setting enabled
-document.addEventListener('DOMContentLoaded', function() {
-    const miniInput = document.getElementById('mini-answer-input');
-    if (miniInput) {
-        miniInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkMiniAnswer();
-            }
-        });
-        
-        // Auto-submit if global setting enabled
-        miniInput.addEventListener('input', function(e) {
-            if (typeof autoSubmit !== 'undefined' && autoSubmit && !miniQuizState.answered) {
-                const input = e.target.value.trim().toLowerCase();
-                const correct = miniQuizState.chars[miniQuizState.currentChar]?.roman.toLowerCase();
-                if (input === correct) {
-                    checkMiniAnswer();
-                }
-            }
-        });
-    }
-});
 
 // Expose functions globally
 window.startMiniQuiz = startMiniQuiz;

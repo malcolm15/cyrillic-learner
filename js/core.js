@@ -550,6 +550,15 @@ function showArticle(articleId) {
             ArticleScripts[articleId]();
         }, 100);
     }
+    
+    // Auto-initialize mini quiz for false-friends article
+    if (articleId === 'false-friends') {
+        setTimeout(() => {
+            if (typeof startMiniQuiz === 'function') {
+                startMiniQuiz();
+            }
+        }, 200);
+    }
 }
 
 function showArticleIndex() {
