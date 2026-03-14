@@ -2326,8 +2326,9 @@ body.dark-mode .tool-cta-content strong {
 
 /* ==================== MINI QUIZ (EMBEDDED IN ARTICLES) ==================== */
 .mini-quiz-container {
-    margin: 40px 0;
-    padding: 25px;
+    margin: 40px auto;
+    padding: 15px;
+    max-width: 500px;
     background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
     border: 2px solid var(--red);
     border-radius: 10px;
@@ -2337,10 +2338,15 @@ body.dark-mode .tool-cta-content strong {
 .mini-quiz-header h3 {
     color: var(--red);
     font-size: 1.3rem;
+    margin-bottom: 3px;
+}
+
+.mini-quiz-header p {
+    margin: 0;
 }
 
 #mini-quiz-content {
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .mini-char-display {
@@ -2348,7 +2354,7 @@ body.dark-mode .tool-cta-content strong {
     font-size: 72px;
     font-weight: bold;
     color: var(--charcoal);
-    margin: 20px 0;
+    margin: 8px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2363,14 +2369,14 @@ body.dark-mode .tool-cta-content strong {
 
 .mini-input-area {
     display: flex;
-    gap: 10px;
-    max-width: 400px;
-    margin: 20px auto;
+    gap: 8px;
+    max-width: 380px;
+    margin: 8px auto;
 }
 
 #mini-answer-input {
     flex: 1;
-    padding: 12px 15px;
+    padding: 10px 12px;
     font-size: 1.1rem;
     border: 2px solid #ddd;
     border-radius: 5px;
@@ -2386,16 +2392,16 @@ body.dark-mode .tool-cta-content strong {
     text-align: center;
     font-weight: bold;
     font-size: 1.1rem;
-    margin: 15px 0;
-    min-height: 30px;
+    margin: 8px 0;
+    min-height: 26px;
 }
 
 .mini-quiz-stats {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin: 25px 0;
-    padding: 15px;
+    gap: 15px;
+    margin: 10px 0 8px 0;
+    padding: 10px;
     background: white;
     border-radius: 8px;
     flex-wrap: wrap;
@@ -2405,18 +2411,18 @@ body.dark-mode .tool-cta-content strong {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 2px;
 }
 
 .mini-stat-label {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: #666;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .mini-stat span:last-child {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: var(--red);
 }
@@ -2424,8 +2430,8 @@ body.dark-mode .tool-cta-content strong {
 .mini-quiz-controls {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 8px;
+    margin-top: 10px;
 }
 
 .btn-secondary {
@@ -2471,11 +2477,13 @@ body.dark-mode .mini-stat span:last-child {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .mini-quiz-container {
-        padding: 20px 15px;
+        padding: 12px;
+        max-width: 100%;
     }
     
     .mini-char-display {
         font-size: 56px;
+        margin: 8px 0;
     }
     
     #mini-current-char-lower {
@@ -2485,6 +2493,7 @@ body.dark-mode .mini-stat span:last-child {
     .mini-input-area {
         flex-direction: column;
         max-width: 100%;
+        margin: 8px auto;
     }
     
     #mini-answer-input {
@@ -2492,11 +2501,14 @@ body.dark-mode .mini-stat span:last-child {
     }
     
     .mini-quiz-stats {
-        gap: 20px;
+        gap: 12px;
+        margin: 10px 0;
+        padding: 8px;
     }
     
     .mini-quiz-controls {
         flex-direction: column;
+        margin-top: 8px;
     }
     
     .mini-quiz-controls .btn {
