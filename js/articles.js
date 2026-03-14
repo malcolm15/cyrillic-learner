@@ -259,6 +259,64 @@ const ARTICLES = [
                 <li><strong>Practice typing:</strong> Set your keyboard to Russian and type these letters repeatedly. Muscle memory helps reinforce visual memory.</li>
             </ul>
             
+            <!-- Mini Quiz Embedded -->
+            <div class="mini-quiz-container">
+                <div class="mini-quiz-header">
+                    <h3 style="margin: 0 0 10px 0;">Practice These False Friends Right Now</h3>
+                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Test yourself on all 6 letters. Your settings apply here too!</p>
+                </div>
+                
+                <div id="mini-quiz-content">
+                    <div class="mini-quiz-start">
+                        <p style="text-align: center; margin: 20px 0;">Ready to practice? Let's drill these false friends until they stick.</p>
+                        <button class="btn" onclick="startMiniQuiz()" style="display: block; margin: 0 auto;">Start Practice</button>
+                    </div>
+                    
+                    <div id="mini-quiz-active" style="display: none;">
+                        <div class="mini-quiz-question">
+                            <div class="mini-char-display">
+                                <span id="mini-current-char"></span>
+                                <span id="mini-current-char-lower" style="display: none;"></span>
+                                <button class="audio-btn" id="mini-audio-btn" style="display: none; margin-left: 10px;" title="Hear pronunciation">🔊</button>
+                            </div>
+                            
+                            <div class="mini-input-area">
+                                <input type="text" id="mini-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                                <button class="btn" onclick="checkMiniAnswer()">Submit</button>
+                            </div>
+                            
+                            <div id="mini-feedback" class="feedback"></div>
+                        </div>
+                        
+                        <div class="mini-quiz-stats">
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Progress:</span>
+                                <span id="mini-progress">0/6</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Score:</span>
+                                <span id="mini-score">0/0</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Streak:</span>
+                                <span id="mini-streak">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mini-quiz-controls">
+                            <button class="btn btn-secondary" onclick="skipMiniQuestion()">Skip</button>
+                            <button class="btn btn-secondary" onclick="resetMiniQuiz()">Reset</button>
+                        </div>
+                    </div>
+                    
+                    <div id="mini-quiz-complete" style="display: none; text-align: center; padding: 20px;">
+                        <h4 style="color: var(--red); margin-bottom: 10px;">🎉 Great work!</h4>
+                        <p id="mini-final-score" style="font-size: 1.1rem; margin-bottom: 15px;"></p>
+                        <button class="btn" onclick="resetMiniQuiz()">Practice Again</button>
+                    </div>
+                </div>
+            </div>
+            
             <h3>The Moment It Clicks</h3>
             <p>Most learners report a sudden breakthrough after about a week of focused practice. You'll be reading a word, see "Р" and without thinking, your brain will supply "r" instead of "p." That's when you know the retraining has worked.</p>
             <p>Until then, expect to make mistakes. Everyone does. The key is catching yourself, correcting the association, and moving on. With consistent practice, these false friends become true allies in your journey to reading Russian.</p>

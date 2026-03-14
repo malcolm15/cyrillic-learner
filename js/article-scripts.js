@@ -319,3 +319,230 @@ ArticleScripts['russian-alphabet-chart'] = function() {
     // Initial render
     renderAlphabet('all');
 };
+
+// ==================== MINI QUIZ: FALSE FRIENDS ====================
+// Isolated state for embedded mini quiz (doesn't interfere with main quiz)
+let miniQuizState = {
+    chars: {
+        'В': { upper: 'В', lower: 'в', roman: 'v', audio: 'audio/v.mp3' },
+        'Н': { upper: 'Н', lower: 'н', roman: 'n', audio: 'audio/n.mp3' },
+        'Р': { upper: 'Р', lower: 'р', roman: 'r', audio: 'audio/r.mp3' },
+        'С': { upper: 'С', lower: 'с', roman: 's', audio: 'audio/s.mp3' },
+        'У': { upper: 'У', lower: 'у', roman: 'u', audio: 'audio/u.mp3' },
+        'Х': { upper: 'Х', lower: 'х', roman: 'kh', audio: 'audio/kh.mp3' }
+    },
+    charKeys: ['В', 'Н', 'Р', 'С', 'У', 'Х'],
+    currentChar: null,
+    currentIndex: 0,
+    correctCount: 0,
+    incorrectCount: 0,
+    streak: 0,
+    answered: false,
+    questionsAsked: 0
+};
+
+function startMiniQuiz() {
+    // Reset state
+    miniQuizState.currentIndex = 0;
+    miniQuizState.correctCount = 0;
+    miniQuizState.incorrectCount = 0;
+    miniQuizState.streak = 0;
+    miniQuizState.questionsAsked = 0;
+    
+    // Shuffle the character order for variety
+    miniQuizState.charKeys = ['В', 'Н', 'Р', 'С', 'У', 'Х'].sort(() => Math.random() - 0.5);
+    
+    // Hide start screen, show quiz
+    document.querySelector('.mini-quiz-start').style.display = 'none';
+    document.getElementById('mini-quiz-active').style.display = 'block';
+    document.getElementById('mini-quiz-complete').style.display = 'none';
+    
+    // Load first question
+    nextMiniQuestion();
+}
+
+function nextMiniQuestion() {
+    // Check if we've gone through all 6 letters
+    if (miniQuizState.currentIndex >= miniQuizState.charKeys.length) {
+        showMiniQuizComplete();
+        return;
+    }
+    
+    miniQuizState.currentChar = miniQuizState.charKeys[miniQuizState.currentIndex];
+    miniQuizState.answered = false;
+    
+    const charData = miniQuizState.chars[miniQuizState.currentChar];
+    
+    // Update display
+    document.getElementById('mini-current-char').textContent = charData.upper;
+    document.getElementById('mini-current-char-lower').textContent = charData.lower;
+    document.getElementById('mini-answer-input').value = '';
+    document.getElementById('mini-feedback').textContent = '';
+    document.getElementById('mini-answer-input').focus();
+    
+    // Update progress
+    miniQuizState.questionsAsked++;
+    document.getElementById('mini-progress').textContent = miniQuizState.questionsAsked + '/6';
+    
+    // Setup audio button
+    const audioBtn = document.getElementById('mini-audio-btn');
+    if (charData.audio && audioBtn) {
+        audioBtn.style.display = 'inline-block';
+        audioBtn.onclick = () => {
+            const audio = new Audio('/' + charData.audio);
+            audio.volume = 0.7;
+            audio.play().catch(err => console.log('Audio playback failed:', err));
+        };
+    } else if (audioBtn) {
+        audioBtn.style.display = 'none';
+    }
+    
+    // Update lowercase display based on global setting
+    updateMiniLowercaseDisplay();
+    updateMiniStats();
+}
+
+function checkMiniAnswer() {
+    if (miniQuizState.answered) return;
+    
+    const input = document.getElementById('mini-answer-input').value.trim().toLowerCase();
+    const correct = miniQuizState.chars[miniQuizState.currentChar].roman.toLowerCase();
+    const feedback = document.getElementById('mini-feedback');
+    
+    miniQuizState.answered = true;
+    
+    if (input === correct) {
+        feedback.textContent = '✓ Correct!';
+        feedback.className = 'feedback correct';
+        miniQuizState.correctCount++;
+        miniQuizState.streak++;
+        
+        // Small confetti burst
+        createMiniConfetti();
+        
+        // Auto-play audio if setting enabled (uses global setting)
+        if (typeof autoPlayAudio !== 'undefined' && autoPlayAudio && miniQuizState.chars[miniQuizState.currentChar].audio) {
+            const audio = new Audio('/' + miniQuizState.chars[miniQuizState.currentChar].audio);
+            audio.volume = 0.7;
+            audio.play().catch(err => console.log('Audio playback failed:', err));
+        }
+        
+        updateMiniStats();
+        
+        // Move to next question
+        setTimeout(() => {
+            miniQuizState.currentIndex++;
+            nextMiniQuestion();
+        }, 600);
+    } else {
+        feedback.textContent = `✗ Wrong. Correct: ${miniQuizState.chars[miniQuizState.currentChar].roman}`;
+        feedback.className = 'feedback incorrect';
+        miniQuizState.incorrectCount++;
+        miniQuizState.streak = 0;
+        
+        updateMiniStats();
+        
+        setTimeout(() => {
+            miniQuizState.currentIndex++;
+            nextMiniQuestion();
+        }, 900);
+    }
+}
+
+function skipMiniQuestion() {
+    const feedback = document.getElementById('mini-feedback');
+    feedback.textContent = `Answer: ${miniQuizState.chars[miniQuizState.currentChar].roman}`;
+    feedback.className = 'feedback';
+    miniQuizState.answered = true;
+    
+    miniQuizState.incorrectCount++;
+    miniQuizState.streak = 0;
+    
+    updateMiniStats();
+    
+    setTimeout(() => {
+        miniQuizState.currentIndex++;
+        nextMiniQuestion();
+    }, 1200);
+}
+
+function resetMiniQuiz() {
+    startMiniQuiz();
+}
+
+function updateMiniStats() {
+    const total = miniQuizState.correctCount + miniQuizState.incorrectCount;
+    document.getElementById('mini-score').textContent = miniQuizState.correctCount + '/' + total;
+    document.getElementById('mini-streak').textContent = miniQuizState.streak;
+}
+
+function updateMiniLowercaseDisplay() {
+    // Use global setting if available
+    const lowerElement = document.getElementById('mini-current-char-lower');
+    if (lowerElement && typeof includeLowercase !== 'undefined') {
+        lowerElement.style.display = includeLowercase ? 'inline-block' : 'none';
+    }
+}
+
+function showMiniQuizComplete() {
+    document.getElementById('mini-quiz-active').style.display = 'none';
+    document.getElementById('mini-quiz-complete').style.display = 'block';
+    
+    const total = miniQuizState.correctCount + miniQuizState.incorrectCount;
+    const percentage = total > 0 ? Math.round((miniQuizState.correctCount / total) * 100) : 0;
+    
+    document.getElementById('mini-final-score').textContent = 
+        `You got ${miniQuizState.correctCount} out of ${total} correct (${percentage}%)!`;
+}
+
+function createMiniConfetti() {
+    const colors = ['#FFC107', '#FF9800', '#4CAF50', '#2196F3', '#9C27B0'];
+    const confettiCount = 8; // Smaller burst for mini quiz
+    
+    for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = (50 + (Math.random() - 0.5) * 20) + '%';
+        confetti.style.top = '40%';
+        
+        const size = 4 + Math.random() * 4;
+        confetti.style.width = size + 'px';
+        confetti.style.height = size + 'px';
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+        confetti.style.animationDelay = (Math.random() * 0.1) + 's';
+        
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1200);
+    }
+}
+
+// Auto-submit for mini quiz if setting enabled
+document.addEventListener('DOMContentLoaded', function() {
+    const miniInput = document.getElementById('mini-answer-input');
+    if (miniInput) {
+        miniInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkMiniAnswer();
+            }
+        });
+        
+        // Auto-submit if global setting enabled
+        miniInput.addEventListener('input', function(e) {
+            if (typeof autoSubmit !== 'undefined' && autoSubmit && !miniQuizState.answered) {
+                const input = e.target.value.trim().toLowerCase();
+                const correct = miniQuizState.chars[miniQuizState.currentChar]?.roman.toLowerCase();
+                if (input === correct) {
+                    checkMiniAnswer();
+                }
+            }
+        });
+    }
+});
+
+// Expose functions globally
+window.startMiniQuiz = startMiniQuiz;
+window.checkMiniAnswer = checkMiniAnswer;
+window.skipMiniQuestion = skipMiniQuestion;
+window.resetMiniQuiz = resetMiniQuiz;
