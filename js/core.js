@@ -441,14 +441,6 @@ function showArticle(articleId) {
     document.getElementById('article-title').textContent = article.title;
     document.getElementById('article-content').innerHTML = article.content;
     
-    // Initialize mini quiz if it exists (for False Friends article)
-    if (typeof window.startMiniQuiz === 'function') {
-        const miniQuizActive = document.getElementById('mini-quiz-active');
-        if (miniQuizActive) {
-            window.startMiniQuiz();
-        }
-    }
-    
     // Update URL (only if different)
     const articleUrl = `/articles/${articleId}`;
     if (window.location.pathname !== articleUrl) {
@@ -559,14 +551,12 @@ function showArticle(articleId) {
         }, 100);
     }
     
-    // Auto-initialize mini quiz for false-friends article
-    if (articleId === 'false-friends') {
-        setTimeout(() => {
-            if (typeof startMiniQuiz === 'function') {
-                startMiniQuiz();
-            }
-        }, 200);
-    }
+    // Auto-initialize embedded quizzes (delayed to ensure DOM is ready)
+    setTimeout(() => {
+        if (typeof initArticleQuizzes === 'function') {
+            initArticleQuizzes(articleId);
+        }
+    }, 200);
 }
 
 function showArticleIndex() {

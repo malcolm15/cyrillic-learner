@@ -266,21 +266,21 @@ const ARTICLES = [
                     <p style="margin: 0; color: #666; font-size: 0.95rem;">Test yourself on all 6 letters. Your settings apply here too!</p>
                 </div>
                 
-                <div id="mini-quiz-content">
+                <div id="mini-quiz-content" class="quiz-content">
                     <div id="mini-quiz-active">
                         <div class="mini-quiz-question">
                             <div class="mini-char-display">
                                 <span id="mini-current-char"></span>
-                                <span id="mini-current-char-lower" style="display: none;"></span>
+                                <span id="mini-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
                                 <button class="audio-btn" id="mini-audio-btn" style="display: none; margin-left: 10px;" title="Hear pronunciation">🔊</button>
                             </div>
                             
                             <div class="mini-input-area">
-                                <input type="text" id="mini-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                                <input type="text" id="mini-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
                                 <button class="btn" onclick="checkMiniAnswer()">Submit</button>
                             </div>
                             
-                            <div id="mini-feedback" class="feedback"></div>
+                            <div id="mini-feedback" class="feedback quiz-feedback"></div>
                         </div>
                         
                         <div class="mini-quiz-stats">
@@ -701,6 +701,59 @@ const ARTICLES = [
             <p>The best memory tricks are the ones you create yourself. If my pirate R doesn't work for you, come up with your own. Maybe Р looks like a walking stick. Maybe it's a flag. Whatever sticks in YOUR brain is the right answer.</p>
 
             <p>Spend 5 minutes being creative with each letter. Draw it. Make up a story. The weirder and more personal, the better.</p>
+            
+            <!-- Memory Tricks Mini Quiz Embedded -->
+            <div class="mini-quiz-container">
+                <div class="mini-quiz-header">
+                    <h3 style="margin: 0 0 10px 0;">Test Your Memory Tricks</h3>
+                    <p style="margin: 0; color: #666; font-size: 0.95rem;">You just learned the mnemonics — now see if they stick. All 7 unique letters!</p>
+                </div>
+                
+                <div id="mem-quiz-content" class="quiz-content">
+                    <div id="mem-quiz-active">
+                        <div class="mini-quiz-question">
+                            <div class="mini-char-display">
+                                <span id="mem-current-char"></span>
+                                <span id="mem-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
+                                <button class="audio-btn" id="mem-audio-btn" style="display: none; margin-left: 10px;" title="Hear pronunciation">🔊</button>
+                            </div>
+                            
+                            <div class="mini-input-area">
+                                <input type="text" id="mem-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                                <button class="btn" onclick="checkMemAnswer()">Submit</button>
+                            </div>
+                            
+                            <div id="mem-feedback" class="feedback quiz-feedback"></div>
+                        </div>
+                        
+                        <div class="mini-quiz-stats">
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Progress:</span>
+                                <span id="mem-progress">0/7</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Score:</span>
+                                <span id="mem-score">0/0</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Streak:</span>
+                                <span id="mem-streak">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mini-quiz-controls">
+                            <button class="btn btn-secondary" onclick="skipMemQuestion()">Skip</button>
+                            <button class="btn btn-secondary" onclick="resetMemQuiz()">Reset</button>
+                        </div>
+                    </div>
+                    
+                    <div id="mem-quiz-complete" style="display: none; text-align: center; padding: 15px;">
+                        <h4 style="color: var(--red); margin-bottom: 8px;">🎉 Great work!</h4>
+                        <p id="mem-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
+                        <button class="btn" onclick="resetMemQuiz()">Practice Again</button>
+                    </div>
+                </div>
+            </div>
             
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>

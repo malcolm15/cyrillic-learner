@@ -320,96 +320,121 @@ ArticleScripts['russian-alphabet-chart'] = function() {
     renderAlphabet('all');
 };
 
-// ==================== MINI QUIZ: FALSE FRIENDS ====================
-// Isolated state for embedded mini quiz (doesn't interfere with main quiz)
-let miniQuizState = {
-    chars: {
-        'В': { upper: 'В', lower: 'в', roman: 'v', audio: 'audio/v.mp3' },
-        'Н': { upper: 'Н', lower: 'н', roman: 'n', audio: 'audio/n.mp3' },
-        'Р': { upper: 'Р', lower: 'р', roman: 'r', audio: 'audio/r.mp3' },
-        'С': { upper: 'С', lower: 'с', roman: 's', audio: 'audio/s.mp3' },
-        'У': { upper: 'У', lower: 'у', roman: 'u', audio: 'audio/u.mp3' },
-        'Х': { upper: 'Х', lower: 'х', roman: 'kh', audio: 'audio/kh.mp3' }
+// ==================== GENERIC MINI QUIZ ENGINE ====================
+// Supports multiple embedded quizzes across different articles.
+// Each quiz is identified by a DOM prefix (e.g. 'mini', 'mem') and
+// configured via QUIZ_CONFIGS keyed by article ID.
+
+const quizInstances = {};
+
+const QUIZ_CONFIGS = {
+    'false-friends': {
+        prefix: 'mini',
+        chars: {
+            'В': { upper: 'В', lower: 'в', roman: 'v', audio: 'audio/v.mp3' },
+            'Н': { upper: 'Н', lower: 'н', roman: 'n', audio: 'audio/n.mp3' },
+            'Р': { upper: 'Р', lower: 'р', roman: 'r', audio: 'audio/r.mp3' },
+            'С': { upper: 'С', lower: 'с', roman: 's', audio: 'audio/s.mp3' },
+            'У': { upper: 'У', lower: 'у', roman: 'u', audio: 'audio/u.mp3' },
+            'Х': { upper: 'Х', lower: 'х', roman: 'kh', audio: 'audio/kh.mp3' }
+        }
     },
-    charKeys: ['В', 'Н', 'Р', 'С', 'У', 'Х'],
-    currentChar: null,
-    currentIndex: 0,
-    correctCount: 0,
-    incorrectCount: 0,
-    streak: 0,
-    answered: false,
-    questionsAsked: 0
+    'memory-tricks': {
+        prefix: 'mem',
+        chars: {
+            'Ж': { upper: 'Ж', lower: 'ж', roman: 'zh', audio: 'audio/zh.mp3' },
+            'Ш': { upper: 'Ш', lower: 'ш', roman: 'sh', audio: 'audio/sh.mp3' },
+            'Щ': { upper: 'Щ', lower: 'щ', roman: 'shch', audio: 'audio/shch.mp3' },
+            'Ы': { upper: 'Ы', lower: 'ы', roman: 'y', audio: 'audio/y2.mp3' },
+            'Э': { upper: 'Э', lower: 'э', roman: 'e', audio: 'audio/e.mp3' },
+            'Ю': { upper: 'Ю', lower: 'ю', roman: 'yu', audio: 'audio/yu.mp3' },
+            'Я': { upper: 'Я', lower: 'я', roman: 'ya', audio: 'audio/ya.mp3' }
+        }
+    }
 };
 
-function startMiniQuiz() {
-    // Reset state
-    miniQuizState.currentIndex = 0;
-    miniQuizState.correctCount = 0;
-    miniQuizState.incorrectCount = 0;
-    miniQuizState.streak = 0;
-    miniQuizState.questionsAsked = 0;
+// Initialize any quiz that exists on the current article
+function initArticleQuizzes(articleId) {
+    const config = QUIZ_CONFIGS[articleId];
+    if (!config) return;
     
-    // Shuffle the character order for variety
-    miniQuizState.charKeys = ['В', 'Н', 'Р', 'С', 'У', 'Х'].sort(() => Math.random() - 0.5);
+    const activeEl = document.getElementById(config.prefix + '-quiz-active');
+    if (activeEl) {
+        quizStart(config.prefix);
+    }
+}
+
+// --- Core engine functions (prefix-based) ---
+
+function quizStart(prefix) {
+    const config = getConfigByPrefix(prefix);
+    if (!config) return;
+    
+    const charKeys = Object.keys(config.chars).sort(() => Math.random() - 0.5);
+    
+    quizInstances[prefix] = {
+        chars: config.chars,
+        charKeys: charKeys,
+        totalCount: charKeys.length,
+        currentChar: null,
+        currentIndex: 0,
+        correctCount: 0,
+        incorrectCount: 0,
+        streak: 0,
+        answered: false,
+        questionsAsked: 0
+    };
     
     // Show quiz, hide completion screen
-    document.getElementById('mini-quiz-active').style.display = 'block';
-    document.getElementById('mini-quiz-complete').style.display = 'none';
+    document.getElementById(prefix + '-quiz-active').style.display = 'block';
+    document.getElementById(prefix + '-quiz-complete').style.display = 'none';
     
-    // Attach Enter key listener to input
-    const miniInput = document.getElementById('mini-answer-input');
-    if (miniInput) {
-        // Remove any existing listeners to avoid duplicates
-        const newInput = miniInput.cloneNode(true);
-        miniInput.parentNode.replaceChild(newInput, miniInput);
+    // Setup input listeners (clone to remove old listeners)
+    const input = document.getElementById(prefix + '-answer-input');
+    if (input) {
+        const newInput = input.cloneNode(true);
+        input.parentNode.replaceChild(newInput, input);
         
-        // Add Enter key listener
         newInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkMiniAnswer();
-            }
+            if (e.key === 'Enter') quizCheck(prefix);
         });
         
-        // Auto-submit if global setting enabled
         newInput.addEventListener('input', function(e) {
-            if (typeof autoSubmit !== 'undefined' && autoSubmit && !miniQuizState.answered) {
-                const input = e.target.value.trim().toLowerCase();
-                const correct = miniQuizState.chars[miniQuizState.currentChar]?.roman.toLowerCase();
-                if (input === correct) {
-                    checkMiniAnswer();
-                }
+            const state = quizInstances[prefix];
+            if (typeof autoSubmit !== 'undefined' && autoSubmit && state && !state.answered) {
+                const val = e.target.value.trim().toLowerCase();
+                const correct = state.chars[state.currentChar]?.roman.toLowerCase();
+                if (val === correct) quizCheck(prefix);
             }
         });
     }
     
-    // Load first question
-    nextMiniQuestion();
+    quizNext(prefix);
 }
 
-function nextMiniQuestion() {
-    // Check if we've gone through all 6 letters
-    if (miniQuizState.currentIndex >= miniQuizState.charKeys.length) {
-        showMiniQuizComplete();
+function quizNext(prefix) {
+    const state = quizInstances[prefix];
+    if (!state) return;
+    
+    if (state.currentIndex >= state.charKeys.length) {
+        quizShowComplete(prefix);
         return;
     }
     
-    miniQuizState.currentChar = miniQuizState.charKeys[miniQuizState.currentIndex];
-    miniQuizState.answered = false;
+    state.currentChar = state.charKeys[state.currentIndex];
+    state.answered = false;
     
-    const charData = miniQuizState.chars[miniQuizState.currentChar];
+    const charData = state.chars[state.currentChar];
     
-    // Update display
-    document.getElementById('mini-current-char').textContent = charData.upper;
-    document.getElementById('mini-current-char-lower').textContent = charData.lower;
-    document.getElementById('mini-answer-input').value = '';
-    document.getElementById('mini-feedback').textContent = '';
-    document.getElementById('mini-answer-input').focus();
-    
-    // Update progress (shows how many completed out of 6 total)
-    document.getElementById('mini-progress').textContent = miniQuizState.questionsAsked + '/6';
+    document.getElementById(prefix + '-current-char').textContent = charData.upper;
+    document.getElementById(prefix + '-current-char-lower').textContent = charData.lower;
+    document.getElementById(prefix + '-answer-input').value = '';
+    document.getElementById(prefix + '-feedback').textContent = '';
+    document.getElementById(prefix + '-answer-input').focus();
+    document.getElementById(prefix + '-progress').textContent = state.questionsAsked + '/' + state.totalCount;
     
     // Setup audio button
-    const audioBtn = document.getElementById('mini-audio-btn');
+    const audioBtn = document.getElementById(prefix + '-audio-btn');
     if (charData.audio && audioBtn) {
         audioBtn.style.display = 'inline-block';
         audioBtn.onclick = () => {
@@ -422,137 +447,142 @@ function nextMiniQuestion() {
     }
     
     // Update lowercase display based on global setting
-    updateMiniLowercaseDisplay();
-    updateMiniStats();
+    const lowerEl = document.getElementById(prefix + '-current-char-lower');
+    if (lowerEl && typeof includeLowercase !== 'undefined') {
+        lowerEl.style.display = includeLowercase ? 'inline-block' : 'none';
+    }
+    
+    quizUpdateStats(prefix);
 }
 
-function checkMiniAnswer() {
-    if (miniQuizState.answered) return;
+function quizCheck(prefix) {
+    const state = quizInstances[prefix];
+    if (!state || state.answered) return;
     
-    const input = document.getElementById('mini-answer-input').value.trim().toLowerCase();
-    const correct = miniQuizState.chars[miniQuizState.currentChar].roman.toLowerCase();
-    const feedback = document.getElementById('mini-feedback');
+    const input = document.getElementById(prefix + '-answer-input').value.trim().toLowerCase();
+    const correct = state.chars[state.currentChar].roman.toLowerCase();
+    const feedback = document.getElementById(prefix + '-feedback');
     
-    miniQuizState.answered = true;
+    state.answered = true;
     
     if (input === correct) {
         feedback.textContent = '✓ Correct!';
         feedback.className = 'feedback correct';
-        miniQuizState.correctCount++;
-        miniQuizState.streak++;
+        state.correctCount++;
+        state.streak++;
         
-        // Small confetti burst
-        createMiniConfetti();
+        quizConfetti();
         
-        // Auto-play audio if setting enabled (uses global setting)
-        if (typeof autoPlayAudio !== 'undefined' && autoPlayAudio && miniQuizState.chars[miniQuizState.currentChar].audio) {
-            const audio = new Audio('/' + miniQuizState.chars[miniQuizState.currentChar].audio);
+        // Auto-play audio if setting enabled
+        if (typeof autoPlayAudio !== 'undefined' && autoPlayAudio && state.chars[state.currentChar].audio) {
+            const audio = new Audio('/' + state.chars[state.currentChar].audio);
             audio.volume = 0.7;
             audio.play().catch(err => console.log('Audio playback failed:', err));
         }
         
-        updateMiniStats();
+        quizUpdateStats(prefix);
+        state.questionsAsked++;
         
-        // Increment completed questions counter
-        miniQuizState.questionsAsked++;
-        
-        // Move to next question
-        setTimeout(() => {
-            miniQuizState.currentIndex++;
-            nextMiniQuestion();
-        }, 600);
+        setTimeout(() => { state.currentIndex++; quizNext(prefix); }, 600);
     } else {
-        feedback.textContent = `✗ Wrong. Correct: ${miniQuizState.chars[miniQuizState.currentChar].roman}`;
+        feedback.textContent = `✗ Wrong. Correct: ${state.chars[state.currentChar].roman}`;
         feedback.className = 'feedback incorrect';
-        miniQuizState.incorrectCount++;
-        miniQuizState.streak = 0;
+        state.incorrectCount++;
+        state.streak = 0;
         
-        updateMiniStats();
+        quizUpdateStats(prefix);
+        state.questionsAsked++;
         
-        // Increment completed questions counter
-        miniQuizState.questionsAsked++;
-        
-        setTimeout(() => {
-            miniQuizState.currentIndex++;
-            nextMiniQuestion();
-        }, 900);
+        setTimeout(() => { state.currentIndex++; quizNext(prefix); }, 900);
     }
 }
 
-function skipMiniQuestion() {
-    const feedback = document.getElementById('mini-feedback');
-    feedback.textContent = `Answer: ${miniQuizState.chars[miniQuizState.currentChar].roman}`;
+function quizSkip(prefix) {
+    const state = quizInstances[prefix];
+    if (!state) return;
+    
+    const feedback = document.getElementById(prefix + '-feedback');
+    feedback.textContent = `Answer: ${state.chars[state.currentChar].roman}`;
     feedback.className = 'feedback';
-    miniQuizState.answered = true;
+    state.answered = true;
+    state.incorrectCount++;
+    state.streak = 0;
     
-    miniQuizState.incorrectCount++;
-    miniQuizState.streak = 0;
+    quizUpdateStats(prefix);
+    state.questionsAsked++;
     
-    updateMiniStats();
-    
-    // Increment completed questions counter
-    miniQuizState.questionsAsked++;
-    
-    setTimeout(() => {
-        miniQuizState.currentIndex++;
-        nextMiniQuestion();
-    }, 1200);
+    setTimeout(() => { state.currentIndex++; quizNext(prefix); }, 1200);
 }
 
-function resetMiniQuiz() {
-    startMiniQuiz();
+function quizReset(prefix) {
+    quizStart(prefix);
 }
 
-function updateMiniStats() {
-    const total = miniQuizState.correctCount + miniQuizState.incorrectCount;
-    document.getElementById('mini-score').textContent = miniQuizState.correctCount + '/' + total;
-    document.getElementById('mini-streak').textContent = miniQuizState.streak;
+function quizUpdateStats(prefix) {
+    const state = quizInstances[prefix];
+    if (!state) return;
+    const total = state.correctCount + state.incorrectCount;
+    document.getElementById(prefix + '-score').textContent = state.correctCount + '/' + total;
+    document.getElementById(prefix + '-streak').textContent = state.streak;
 }
 
-function updateMiniLowercaseDisplay() {
-    // Use global setting if available
-    const lowerElement = document.getElementById('mini-current-char-lower');
-    if (lowerElement && typeof includeLowercase !== 'undefined') {
-        lowerElement.style.display = includeLowercase ? 'inline-block' : 'none';
-    }
-}
-
-function showMiniQuizComplete() {
-    document.getElementById('mini-quiz-active').style.display = 'none';
-    document.getElementById('mini-quiz-complete').style.display = 'block';
+function quizShowComplete(prefix) {
+    const state = quizInstances[prefix];
+    if (!state) return;
     
-    const total = miniQuizState.correctCount + miniQuizState.incorrectCount;
-    const percentage = total > 0 ? Math.round((miniQuizState.correctCount / total) * 100) : 0;
+    document.getElementById(prefix + '-quiz-active').style.display = 'none';
+    document.getElementById(prefix + '-quiz-complete').style.display = 'block';
     
-    document.getElementById('mini-final-score').textContent = 
-        `You got ${miniQuizState.correctCount} out of ${total} correct (${percentage}%)!`;
+    const total = state.correctCount + state.incorrectCount;
+    const pct = total > 0 ? Math.round((state.correctCount / total) * 100) : 0;
+    document.getElementById(prefix + '-final-score').textContent =
+        `You got ${state.correctCount} out of ${total} correct (${pct}%)!`;
 }
 
-function createMiniConfetti() {
+function quizConfetti() {
     const colors = ['#FFC107', '#FF9800', '#4CAF50', '#2196F3', '#9C27B0'];
-    const confettiCount = 8; // Smaller burst for mini quiz
-    
-    for (let i = 0; i < confettiCount; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        
-        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.left = (50 + (Math.random() - 0.5) * 20) + '%';
-        confetti.style.top = '40%';
-        
+    for (let i = 0; i < 8; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.background = colors[Math.floor(Math.random() * colors.length)];
+        c.style.left = (50 + (Math.random() - 0.5) * 20) + '%';
+        c.style.top = '40%';
         const size = 4 + Math.random() * 4;
-        confetti.style.width = size + 'px';
-        confetti.style.height = size + 'px';
-        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-        confetti.style.animationDelay = (Math.random() * 0.1) + 's';
-        
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 1200);
+        c.style.width = size + 'px';
+        c.style.height = size + 'px';
+        c.style.transform = `rotate(${Math.random() * 360}deg)`;
+        c.style.animationDelay = (Math.random() * 0.1) + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 1200);
     }
 }
 
-// Expose functions globally
+function getConfigByPrefix(prefix) {
+    for (const key in QUIZ_CONFIGS) {
+        if (QUIZ_CONFIGS[key].prefix === prefix) return QUIZ_CONFIGS[key];
+    }
+    return null;
+}
+
+// --- Backward-compatible wrappers for False Friends (prefix: mini) ---
+function startMiniQuiz()    { quizStart('mini'); }
+function checkMiniAnswer()  { quizCheck('mini'); }
+function skipMiniQuestion() { quizSkip('mini'); }
+function resetMiniQuiz()    { quizReset('mini'); }
+
+// --- Wrappers for Memory Tricks quiz (prefix: mem) ---
+function startMemQuiz()     { quizStart('mem'); }
+function checkMemAnswer()   { quizCheck('mem'); }
+function skipMemQuestion()  { quizSkip('mem'); }
+function resetMemQuiz()     { quizReset('mem'); }
+
+// Expose all functions globally
 window.startMiniQuiz = startMiniQuiz;
 window.checkMiniAnswer = checkMiniAnswer;
 window.skipMiniQuestion = skipMiniQuestion;
 window.resetMiniQuiz = resetMiniQuiz;
+window.startMemQuiz = startMemQuiz;
+window.checkMemAnswer = checkMemAnswer;
+window.skipMemQuestion = skipMemQuestion;
+window.resetMemQuiz = resetMemQuiz;
+window.initArticleQuizzes = initArticleQuizzes;
