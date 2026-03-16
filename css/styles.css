@@ -2345,7 +2345,7 @@ body.dark-mode .tool-cta-content strong {
     margin: 0;
 }
 
-#mini-quiz-content {
+#mini-quiz-content, .quiz-content {
     margin-top: 10px;
 }
 
@@ -2361,7 +2361,7 @@ body.dark-mode .tool-cta-content strong {
     gap: 10px;
 }
 
-#mini-current-char-lower {
+.quiz-char-lower {
     font-size: 60px;
     color: #666;
     margin-left: 10px;
@@ -2374,7 +2374,7 @@ body.dark-mode .tool-cta-content strong {
     margin: 8px auto;
 }
 
-#mini-answer-input {
+.quiz-answer-input {
     flex: 1;
     padding: 10px 12px;
     font-size: 1.1rem;
@@ -2383,12 +2383,12 @@ body.dark-mode .tool-cta-content strong {
     text-align: center;
 }
 
-#mini-answer-input:focus {
+.quiz-answer-input:focus {
     outline: none;
     border-color: var(--red);
 }
 
-#mini-feedback {
+.quiz-feedback {
     text-align: center;
     font-weight: bold;
     font-size: 1.1rem;
@@ -2456,11 +2456,11 @@ body.dark-mode .mini-char-display {
     color: var(--matrix-text);
 }
 
-body.dark-mode #mini-current-char-lower {
+body.dark-mode .quiz-char-lower {
     color: var(--matrix-green);
 }
 
-body.dark-mode #mini-answer-input {
+body.dark-mode .quiz-answer-input {
     background: rgba(0, 0, 0, 0.3);
     border-color: var(--matrix-green);
     color: var(--matrix-text);
@@ -2486,7 +2486,7 @@ body.dark-mode .mini-stat span:last-child {
         margin: 8px 0;
     }
     
-    #mini-current-char-lower {
+    .quiz-char-lower {
         font-size: 48px;
     }
     
@@ -2496,7 +2496,7 @@ body.dark-mode .mini-stat span:last-child {
         margin: 8px auto;
     }
     
-    #mini-answer-input {
+    .quiz-answer-input {
         width: 100%;
     }
     
