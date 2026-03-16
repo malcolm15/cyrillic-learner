@@ -405,8 +405,7 @@ function nextMiniQuestion() {
     document.getElementById('mini-feedback').textContent = '';
     document.getElementById('mini-answer-input').focus();
     
-    // Update progress
-    miniQuizState.questionsAsked++;
+    // Update progress (shows how many completed out of 6 total)
     document.getElementById('mini-progress').textContent = miniQuizState.questionsAsked + '/6';
     
     // Setup audio button
@@ -454,6 +453,9 @@ function checkMiniAnswer() {
         
         updateMiniStats();
         
+        // Increment completed questions counter
+        miniQuizState.questionsAsked++;
+        
         // Move to next question
         setTimeout(() => {
             miniQuizState.currentIndex++;
@@ -466,6 +468,9 @@ function checkMiniAnswer() {
         miniQuizState.streak = 0;
         
         updateMiniStats();
+        
+        // Increment completed questions counter
+        miniQuizState.questionsAsked++;
         
         setTimeout(() => {
             miniQuizState.currentIndex++;
@@ -484,6 +489,9 @@ function skipMiniQuestion() {
     miniQuizState.streak = 0;
     
     updateMiniStats();
+    
+    // Increment completed questions counter
+    miniQuizState.questionsAsked++;
     
     setTimeout(() => {
         miniQuizState.currentIndex++;

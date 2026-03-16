@@ -441,6 +441,14 @@ function showArticle(articleId) {
     document.getElementById('article-title').textContent = article.title;
     document.getElementById('article-content').innerHTML = article.content;
     
+    // Initialize mini quiz if it exists (for False Friends article)
+    if (typeof window.startMiniQuiz === 'function') {
+        const miniQuizActive = document.getElementById('mini-quiz-active');
+        if (miniQuizActive) {
+            window.startMiniQuiz();
+        }
+    }
+    
     // Update URL (only if different)
     const articleUrl = `/articles/${articleId}`;
     if (window.location.pathname !== articleUrl) {
