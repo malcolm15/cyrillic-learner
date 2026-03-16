@@ -2335,6 +2335,19 @@ body.dark-mode .tool-cta-content strong {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+.mini-quiz-container .audio-btn {
+    position: static;
+    transform: none;
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.mini-quiz-container .audio-btn:hover {
+    transform: scale(1.1);
+}
+
 .mini-quiz-header h3 {
     color: var(--red);
     font-size: 1.3rem;
