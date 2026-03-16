@@ -267,12 +267,7 @@ const ARTICLES = [
                 </div>
                 
                 <div id="mini-quiz-content">
-                    <div class="mini-quiz-start">
-                        <p style="text-align: center; margin: 20px 0;">Ready to practice? Let's drill these false friends until they stick.</p>
-                        <button class="btn" onclick="startMiniQuiz()" style="display: block; margin: 0 auto;">Start Practice</button>
-                    </div>
-                    
-                    <div id="mini-quiz-active" style="display: none;">
+                    <div id="mini-quiz-active">
                         <div class="mini-quiz-question">
                             <div class="mini-char-display">
                                 <span id="mini-current-char"></span>
@@ -309,9 +304,9 @@ const ARTICLES = [
                         </div>
                     </div>
                     
-                    <div id="mini-quiz-complete" style="display: none; text-align: center; padding: 20px;">
-                        <h4 style="color: var(--red); margin-bottom: 10px;">🎉 Great work!</h4>
-                        <p id="mini-final-score" style="font-size: 1.1rem; margin-bottom: 15px;"></p>
+                    <div id="mini-quiz-complete" style="display: none; text-align: center; padding: 15px;">
+                        <h4 style="color: var(--red); margin-bottom: 8px;">🎉 Great work!</h4>
+                        <p id="mini-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
                         <button class="btn" onclick="resetMiniQuiz()">Practice Again</button>
                     </div>
                 </div>
