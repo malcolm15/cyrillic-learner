@@ -136,7 +136,7 @@ const ARTICLES = [
 
             <p>This is the big one. You see a letter that looks like a B, and your brain automatically wants to read it as "buh." But in Cyrillic, that letter is actually В, and it sounds like V.</p>
 
-            <p>Same thing with Н (which looks like H but sounds like N), Р (looks like P but sounds like R), and a few others. These false friends will trip you up constantly in the beginning.</p>
+            <p>Same thing with Н (which looks like H but sounds like N), Р (looks like P but sounds like R), and a few others. These false friends will trip you up constantly in the beginning. We've got a <a href="#" onclick="showArticle('false-friends'); return false;">full breakdown of all six false friends</a> with an interactive quiz so you can practice them right here on the site.</p>
 
             <p>The solution? You have to actively unlearn the association. Every single time you see В, force yourself to think "vuh, not buh." Say it out loud. Write it down. Drill it until the correct sound becomes automatic.</p>
 
@@ -150,7 +150,7 @@ const ARTICLES = [
 
             <p>But when you're an adult trying to cram all 33 Cyrillic letters into your head in one sitting, it doesn't work. Your brain can only handle so much new information at once before it starts mixing things up.</p>
 
-            <p>What works better: learn 5 to 7 letters at a time. Really nail those letters before moving on to the next batch. This takes longer overall, but you'll actually retain what you learn instead of forgetting it all by next week.</p>
+            <p>What works better: learn 5 to 7 letters at a time. Really nail those letters before moving on to the next batch. Our <a href="#" onclick="showArticle('getting-started'); return false;">getting started guide</a> walks you through a three-group method for breaking the alphabet into manageable chunks. And if you're not sure which letters to tackle first, the <a href="#" onclick="showArticle('cyrillic-tier-list'); return false;">difficulty tier list</a> ranks all 33 from easiest to hardest.</p>
 
             <p>Think of it like stacking blocks. If you try to stack 33 blocks all at once, they're going to fall over. But if you stack them carefully, 5 or 7 at a time, you can build something solid.</p>
 
@@ -162,7 +162,7 @@ const ARTICLES = [
 
             <p>Writing forces your brain to engage with the shapes in a different way. When you read, you're passively recognizing. When you write, you're actively producing. That makes a huge difference in how well the letters stick.</p>
 
-            <p>You don't need to write pages and pages. Just get a notebook, write out each letter 10 or 15 times, and move on. Do this for all 33 letters once or twice, and you'll notice a difference.</p>
+            <p>You don't need to write pages and pages. Just get a notebook, write out each letter 10 or 15 times, and move on. Do this for all 33 letters once or twice, and you'll notice a difference. If you want a structured approach, our <a href="#" onclick="showArticle('practice-writing-cyrillic'); return false;">guide to practicing Cyrillic by hand</a> covers techniques, materials, and common pitfalls.</p>
 
             <p>Also, fun fact: Russian cursive is completely different from print. So if you ever want to read handwritten Russian, you'll need to learn a whole separate set of letter forms. But don't worry about that yet. Just focus on print for now.</p>
 
@@ -174,7 +174,7 @@ const ARTICLES = [
 
             <p>Russian has 10 vowel letters, and they show up in basically every word. If you don't know your vowels cold, you're going to struggle to read anything. Plus, some of the vowels are actually kind of tricky. Ы doesn't exist in English. Ё and Е sound different but look almost identical.</p>
 
-            <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix.</p>
+            <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix. The <a href="#" onclick="showArticle('russian-alphabet-chart'); return false;">alphabet chart</a> lets you filter by vowels so you can focus on just those ten.</p>
 
             <p>Trust me on this one. I've seen people try to learn backwards (consonants first, vowels later), and it never goes well. You end up having to relearn everything because you don't have the foundation you need.</p>
 
@@ -184,7 +184,7 @@ const ARTICLES = [
 
             <p>Why? Because reading letters in isolation is one skill, and reading them in context is another. When you read a word, the letters flow together. You start to recognize patterns. You get faster.</p>
 
-            <p>Start simple. Look for Russian words that are similar to English words. Автобус (bus), метро (metro), банк (bank). Sound them out. Check your pronunciation. Then move on to harder words.</p>
+            <p>Start simple. Look for Russian words that are similar to English words. Автобус (bus), метро (metro), банк (bank). Sound them out. Check your pronunciation. Then move on to harder words. Our <a href="#" onclick="showArticle('easy-russian-words'); return false;">easy Russian words guide</a> gives you a bunch of real words built entirely from the simplest letters, and <a href="#" onclick="showArticle('first-25-words'); return false;">Your First 25 Russian Words</a> takes it a step further with reading practice.</p>
 
             <p>The internet makes this easy. You can find Russian websites, Russian Wikipedia, Russian social media. Just pick something and start trying to read it. You won't understand most of it at first, but that's okay. You're training your brain to recognize the letters in their natural habitat.</p>
 
@@ -192,7 +192,7 @@ const ARTICLES = [
 
             <p>Learning Cyrillic is frustrating sometimes. There will be days when you mix up letters you thought you knew. Days when it feels like you're not making any progress at all.</p>
 
-            <p>That's normal. Everyone goes through it. The difference between people who succeed and people who give up is just stubbornness. Keep showing up. Keep practicing. Even if it's only 10 minutes a day.</p>
+            <p>That's normal. Everyone goes through it. The difference between people who succeed and people who give up is just stubbornness. Keep showing up. Keep practicing. Even if it's only 10 minutes a day. If you need help getting unstuck, our <a href="#" onclick="showArticle('memory-tricks'); return false;">memory tricks guide</a> has mnemonics for the trickiest letters, and the <a href="#" onclick="showArticle('cyrillic-learning-resources'); return false;">learning resources page</a> rounds up the best apps, books, and tools to keep you moving forward.</p>
 
             <p>You'll get there.</p>
             
