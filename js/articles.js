@@ -210,6 +210,7 @@ const ARTICLES = [
     {
         id: 'false-friends',
         title: 'False Friends: Cyrillic Letters That Fool English Speakers',
+        relatedArticles: ['common-mistakes', 'memory-tricks', 'cyrillic-tier-list'],
         content: `
             <p>One of the biggest challenges when learning Cyrillic is dealing with "false friends" — letters that look exactly like English letters but represent completely different sounds. Your brain sees a familiar shape and automatically assumes the familiar sound, leading to constant confusion until you retrain your visual associations.</p>
             
@@ -334,6 +335,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-names-europe',
         title: 'What is Cyrillic Called in Different European Languages?',
+        relatedArticles: ['history-of-cyrillic', 'glagolitic', 'latin-vs-cyrillic-slavic'],
         content: `
             <p>If you've ever wondered what the Cyrillic alphabet is called in different countries, you're not alone! The name varies fascinatingly across European languages, reflecting both linguistic patterns and historical connections to this ancient writing system.</p>
             
@@ -457,6 +459,7 @@ const ARTICLES = [
     {
         id: 'lost-letters',
         title: 'The Lost Letters of Cyrillic: A Journey Through Extinct Characters',
+        relatedArticles: ['glagolitic', 'history-of-cyrillic', 'cyrillic-names-europe'],
         content: `
             <p>You've mastered the 33 letters of the modern Russian alphabet. Congratulations! But here's a secret: you've only scratched the surface. Throughout its 1,150-year history, the Cyrillic alphabet has had over 100 different letters — and most of them have vanished into the mists of time.</p>
             
@@ -769,6 +772,7 @@ const ARTICLES = [
     {
         id: 'glagolitic',
         title: 'Glagolitic: The Mysterious Alphabet Before Cyrillic',
+        relatedArticles: ['lost-letters', 'history-of-cyrillic', 'cyrillic-names-europe'],
         content: `
             <p>Before Cyrillic became the writing system of the Slavic world, there was Glagolitic — a strange, beautiful, and almost alien-looking alphabet that predates Cyrillic by at least a few decades. If you think Cyrillic letters look exotic, wait until you see Glagolitic. It's like something from a fantasy novel.</p>
             
@@ -882,6 +886,7 @@ const ARTICLES = [
     {
         id: 'belarusian-alphabet',
         title: 'Belarusian Alphabet Guide: 32 Letters of Eastern Europe',
+        relatedArticles: ['montenegrin-alphabet', 'serbian-cyrillic-vs-latin', 'history-of-cyrillic'],
         content: `
             <p>Nestled between Russia, Ukraine, Poland, Latvia, and Lithuania, Belarus uses a Cyrillic alphabet that's distinct from its neighbors — a 32-letter system that reflects both Russian influence and uniquely Belarusian sounds. If you've learned Russian, Belarusian will feel familiar yet intriguingly different.</p>
 
@@ -993,6 +998,7 @@ const ARTICLES = [
     {
         id: 'montenegrin-alphabet',
         title: 'Montenegrin Alphabet: The Newest Cyrillic (2009)',
+        relatedArticles: ['belarusian-alphabet', 'serbian-cyrillic-vs-latin', 'latin-vs-cyrillic-slavic'],
         content: `
             <p>In 2009, Montenegro did something almost unheard of in modern linguistics: it officially added two brand new letters to its Cyrillic alphabet. While most alphabets are losing letters or staying the same, Montenegro went the opposite direction, expanding from 30 to 32 letters. Meet the newest additions to the Cyrillic family: Ś and Ź.</p>
 
@@ -1080,6 +1086,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-tier-list',
         title: 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty',
+        relatedArticles: ['easy-russian-words', 'false-friends', 'memory-tricks'],
         content: `
             <p>Not all Cyrillic letters are created equal. Some are intuitive, friendly, and easy to remember. Others are soul-crushing nightmares that haunt your learning journey for weeks. Let's rank all 33 letters of the Russian alphabet by difficulty, from S-tier (easiest) to F-tier (why does this letter exist?).</p>
             
@@ -1195,6 +1202,7 @@ const ARTICLES = [
     {
         id: 'first-25-words',
         title: 'Reading Practice: Your First 25 Russian Words',
+        relatedArticles: ['easy-russian-words', 'getting-started', 'russian-alphabet-chart'],
         content: `
             <p>One of the best ways to reinforce your Cyrillic learning is to start reading actual Russian words as soon as possible. You don't need to understand everything to get value from reading practice — just sounding out the letters builds crucial muscle memory.</p>
             <p>This guide focuses on 25 words that are either cognates (borrowed from other languages), simple enough for beginners, or so common you'll see them everywhere. By the end, you'll be able to read basic Russian signs, menus, and social media posts.</p>
@@ -1329,6 +1337,7 @@ const ARTICLES = [
     {
         id: 'backwards-r-myth',
         title: 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong',
+        relatedArticles: ['cyrillic-pop-culture', 'false-friends', 'cyrillic-tier-list'],
         content: `
             <p>You've seen it in movies, video games, and graphic design: English text with random Cyrillic letters thrown in to look "Russian." ҎЦSSЇАИ becomes "RUSSIAN" with Я as a backwards R, И as N, and Ц for U. It's everywhere, it's wrong, and it drives people who actually know Cyrillic absolutely insane.</p>
             
@@ -1471,6 +1480,7 @@ const ARTICLES = [
     {
         id: 'practice-writing-cyrillic',
         title: 'How to Practice Writing Cyrillic by Hand',
+        relatedArticles: ['russian-alphabet-chart', 'memory-tricks', 'getting-started'],
         content: `
             <p>Learning to read Cyrillic is one thing. Learning to write it by hand — especially in cursive — is a completely different challenge. While digital typing dominates modern communication, handwriting Cyrillic helps cement the letters in your memory and opens up the ability to take notes, write letters, or simply understand handwritten Russian text.</p>
 
@@ -1637,6 +1647,7 @@ const ARTICLES = [
     {
         id: 'kazakhstan-latin-transition',
         title: 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031',
+        relatedArticles: ['latin-vs-cyrillic-slavic', 'history-of-cyrillic', 'serbian-cyrillic-vs-latin'],
         content: `
             <p>In one of the most ambitious language reforms of the 21st century, Kazakhstan is in the process of switching its entire writing system from Cyrillic to Latin alphabet. By 2031, Kazakh — currently written in Cyrillic — will officially use Latin script. This affects signage, education, government documents, and the daily lives of 19 million people.</p>
             
@@ -1823,6 +1834,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-alphabet-chart',
         title: 'Complete Cyrillic Alphabet Chart: All 33 Letters with Pronunciations',
+        relatedArticles: ['russian-alphabet-chart', 'getting-started', 'cyrillic-copy-paste'],
         content: `
             <p>You want to learn the Cyrillic alphabet. Great. But staring at a chart of 33 random letters and hoping they stick in your brain doesn't work. Trust me, I've tried.</p>
 
@@ -1970,6 +1982,7 @@ const ARTICLES = [
     {
         id: 'history-of-cyrillic',
         title: 'History of Cyrillic: From Saints to Superpower',
+        relatedArticles: ['glagolitic', 'lost-letters', 'latin-vs-cyrillic-slavic'],
         content: `
             
             <div class="article-toc">
@@ -2115,6 +2128,7 @@ const ARTICLES = [
     {
         id: 'serbian-cyrillic-vs-latin',
         title: 'Serbian: Cyrillic vs Latin Scripts',
+        relatedArticles: ['montenegrin-alphabet', 'latin-vs-cyrillic-slavic', 'belarusian-alphabet'],
         content: `
             <p>Serbia is kind of unique. It's one of the only countries in the world that officially uses two completely different alphabets for the same language. Walk down a street in Belgrade and you'll see signs in Cyrillic right next to signs in Latin. Sometimes the same word written both ways on the same sign.</p>
 
@@ -2216,6 +2230,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-learning-resources',
         title: 'Best Resources for Learning Cyrillic',
+        relatedArticles: ['getting-started', 'practice-writing-cyrillic', 'cyrillic-copy-paste'],
         content: `
             <p>So you want to learn Cyrillic. You're here, which is a good start. But what else should you be using? What apps, books, websites, and tools actually help?</p>
 
@@ -2317,6 +2332,7 @@ const ARTICLES = [
     {
         id: 'latin-vs-cyrillic-slavic',
         title: 'Why Some Slavic Countries Use Latin Instead of Cyrillic',
+        relatedArticles: ['serbian-cyrillic-vs-latin', 'kazakhstan-latin-transition', 'history-of-cyrillic'],
         content: `
             <p>Walk through Eastern Europe and you'll notice something odd: some Slavic languages use Cyrillic (Russian, Ukrainian, Bulgarian, Serbian), while others use Latin alphabet (Polish, Czech, Croatian, Slovenian). These languages are all related — they're part of the same language family — so why the alphabet split?</p>
             
@@ -2492,6 +2508,7 @@ const ARTICLES = [
     {
         id: 'easy-russian-words',
         title: 'Common Russian Words Using Only Easy Letters',
+        relatedArticles: ['first-25-words', 'cyrillic-tier-list', 'getting-started'],
         content: `
             <p>When you're learning Cyrillic, the first few days feel overwhelming. 33 new letters, half of which look familiar but sound different. It's tempting to give up before you even start.</p>
             
@@ -2692,6 +2709,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-pop-culture',
         title: 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty',
+        relatedArticles: ['backwards-r-myth', 'false-friends', 'cyrillic-copy-paste'],
         content: `
             <p>For most Westerners, Cyrillic isn't something you learn in school — it's something you encounter in movies, video games, and internet memes. From Cold War thrillers to modern gaming, Cyrillic has become visual shorthand for "Russian," "Soviet," or "Eastern European."</p>
             
@@ -2877,6 +2895,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-copy-paste',
         title: 'Cyrillic Alphabet Copy and Paste',
+        relatedArticles: ['russian-alphabet-chart', 'cyrillic-alphabet-chart', 'cyrillic-learning-resources'],
         content: `
             <p>Need to copy Cyrillic letters quickly? Use the buttons below to copy any Cyrillic character to your clipboard with one click. Perfect for usernames, social media, design projects, or learning.</p>
 
