@@ -424,8 +424,7 @@ const ARTICLE_ORDER = [
     'russian-alphabet-chart',
     'practice-writing-cyrillic',
     'cyrillic-alphabet-chart',
-    'cyrillic-learning-resources',
-    'common-cyrillic-mistakes'
+    'cyrillic-learning-resources'
 ];
 
 // Article navigation functions

@@ -2214,56 +2214,6 @@ const ARTICLES = [
         `
     },
     {
-        id: 'common-cyrillic-mistakes',
-        title: '10 Common Cyrillic Mistakes (And Fixes)',
-        content: `
-            <p>English speakers consistently face specific challenges learning Cyrillic. Recognizing these mistakes beforehand accelerates learning.</p>
-            
-            <h3>1. Reading Р as P (not R)</h3>
-            <p><strong>Fix:</strong> Р looks like P but sounds like R. Practice "RUSSIA" (RUSSИЯ) until Р triggers R sound automatically.</p>
-            
-            <h3>2. Confusing В (V) with B</h3>
-            <p><strong>Fix:</strong> В looks like B, sounds like V. Remember "Van" - looks wrong, sounds right. Practice ВОЛК (volk - wolf).</p>
-            
-            <h3>3. Reading Н as H (not N)</h3>
-            <p><strong>Fix:</strong> "Н = NOT an H!" Practice НЕТ (nyet - no), not "het".</p>
-            
-            <h3>4. Mixing И and Н</h3>
-            <p><strong>Fix:</strong> И leans right, points at "I". Н is straight like "eN". Practice КНИГА (kneega - book).</p>
-            
-            <h3>5. Pronouncing Ы like И</h3>
-            <p><strong>Fix:</strong> Ы is unique sound - "ee" while pulling tongue back. Darker, more "uh"-like. Practice ВЫ (vy - you).</p>
-            
-            <h3>6. Ignoring Soft Sign Ь</h3>
-            <p><strong>Fix:</strong> Ь softens preceding consonant. МАТ (swear word) vs МАТЬ (mother). The Ь matters!</p>
-            
-            <h3>7. Not Distinguishing Ш/Щ</h3>
-            <p><strong>Fix:</strong> Ш is "sh". Щ is "shch" (longer). Practice БОРЩ (borshch - beet soup).</p>
-            
-            <h3>8. Wrong Syllable Stress</h3>
-            <p><strong>Fix:</strong> Russian stress is unpredictable. Use learning resources with stress marks. МОЛОКО = mo-lo-KO.</p>
-            
-            <h3>9. Reading Too Slowly</h3>
-            <p><strong>Fix:</strong> Practice syllable chunks: ПО-, ПРО-, НА-. Learn frequent words as units: ПРИВЕТ, СПАСИБО, ПОКА.</p>
-            
-            <h3>10. Neglecting Lowercase</h3>
-            <p><strong>Fix:</strong> Learn both forms from day one. Real text uses lowercase. Some look very different (Д/д, Т/т).</p>
-            
-            <h3>Bonus: Giving Up Too Soon</h3>
-            <p>15-20 minutes daily = basic reading in 2 weeks, fluent in 1-2 months. The alphabet isn't the hard part - stick with it!</p>
-        
-            <div class="share-section">
-                <p>Found this helpful? Share it:</p>
-                <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')"><i class="fas fa-share-nodes"></i> Share</button>
-                </div>
-            </div>
-        `
-    },
-    {
         id: 'cyrillic-learning-resources',
         title: 'Best Resources for Learning Cyrillic',
         content: `
