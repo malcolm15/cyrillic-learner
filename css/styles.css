@@ -2103,6 +2103,12 @@
             margin-right: auto;
         }
 
+        .featured-guides {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         /* ==================== CYRILLIC COPY-PASTE BUTTONS ==================== */
         .copy-char-btn {
             background: var(--paper);
