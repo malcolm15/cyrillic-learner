@@ -2096,7 +2096,8 @@
         /* Constrain text-heavy pages for better readability */
         #about-page .card,
         #contact-page .card,
-        #privacy-page .card {
+        #privacy-page .card,
+        #reference-page .card {
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
