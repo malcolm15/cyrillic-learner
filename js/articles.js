@@ -1863,6 +1863,8 @@ const ARTICLES = [
 
             <p><strong>У</strong> (oo) - Like the "oo" in "moon." Looks like a Y but sounds like OO. Don't get tricked.</p>
 
+            <div id="cg1-quiz-placeholder"></div>
+
             <h3>Group 2: The Tricky Vowels</h3>
 
             <p>These are vowels that don't really exist in English or look weird.</p>
@@ -1879,6 +1881,8 @@ const ARTICLES = [
 
             <p><strong>Я</strong> (ya) - Like "ya" in "yacht." The famous backwards R. Except it's not really an R at all.</p>
 
+            <div id="cg2-quiz-placeholder"></div>
+
             <h3>Group 3: The False Friend Consonants</h3>
 
             <p>These look like English letters but sound completely different. This is where most mistakes happen.</p>
@@ -1892,6 +1896,8 @@ const ARTICLES = [
             <p><strong>С</strong> (s) - Looks like C, sounds like S. Like a serpent.</p>
 
             <p><strong>Х</strong> (kh) - Looks like X, sounds like the "ch" in Scottish "loch." Guttural, back of throat.</p>
+
+            <div id="cg3-quiz-placeholder"></div>
 
             <h3>Group 4: The Easy Consonants</h3>
 
@@ -1917,6 +1923,8 @@ const ARTICLES = [
 
             <p><strong>Ф</strong> (f) - Looks like a fancy phi symbol. Sounds like F in "fun."</p>
 
+            <div id="cg4-quiz-placeholder"></div>
+
             <h3>Group 5: The Weird Unique Letters</h3>
 
             <p>These don't look like anything in English and represent sounds that might be new to you.</p>
@@ -1932,6 +1940,8 @@ const ARTICLES = [
             <p><strong>Ш</strong> (sh) - Like "sh" in "shoe." Three vertical lines, think "shhh be quiet."</p>
 
             <p><strong>Щ</strong> (shch) - Like Ш but longer. SH + CH together. Has a little tail, the tail makes it longer.</p>
+
+            <div id="cg5-quiz-placeholder"></div>
 
             <h3>Group 6: The Signs</h3>
 

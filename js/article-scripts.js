@@ -321,15 +321,16 @@ ArticleScripts['russian-alphabet-chart'] = function() {
 };
 
 // ==================== GENERIC MINI QUIZ ENGINE ====================
-// Supports multiple embedded quizzes across different articles.
-// Each quiz is identified by a DOM prefix (e.g. 'mini', 'mem') and
-// configured via QUIZ_CONFIGS keyed by article ID.
+// Supports multiple embedded quizzes on any page.
+// Each quiz is identified by a DOM prefix (e.g. 'mini', 'mem', 'cg1').
+// QUIZ_CONFIGS is keyed by prefix. initArticleQuizzes scans the DOM
+// for any quiz whose elements exist and starts them automatically.
 
 const quizInstances = {};
 
 const QUIZ_CONFIGS = {
-    'false-friends': {
-        prefix: 'mini',
+    // False Friends article
+    'mini': {
         chars: {
             'В': { upper: 'В', lower: 'в', roman: 'v', audio: 'audio/v.mp3' },
             'Н': { upper: 'Н', lower: 'н', roman: 'n', audio: 'audio/n.mp3' },
@@ -339,8 +340,8 @@ const QUIZ_CONFIGS = {
             'Х': { upper: 'Х', lower: 'х', roman: 'kh', audio: 'audio/kh.mp3' }
         }
     },
-    'memory-tricks': {
-        prefix: 'mem',
+    // Memory Tricks article
+    'mem': {
         chars: {
             'Ж': { upper: 'Ж', lower: 'ж', roman: 'zh', audio: 'audio/zh.mp3' },
             'Ш': { upper: 'Ш', lower: 'ш', roman: 'sh', audio: 'audio/sh.mp3' },
@@ -350,24 +351,79 @@ const QUIZ_CONFIGS = {
             'Ю': { upper: 'Ю', lower: 'ю', roman: 'yu', audio: 'audio/yu.mp3' },
             'Я': { upper: 'Я', lower: 'я', roman: 'ya', audio: 'audio/ya.mp3' }
         }
+    },
+    // Chart article — Group 1: Easy Vowels
+    'cg1': {
+        chars: {
+            'А': { upper: 'А', lower: 'а', roman: 'a', audio: 'audio/a.mp3' },
+            'Е': { upper: 'Е', lower: 'е', roman: 'ye', audio: 'audio/ye.mp3' },
+            'О': { upper: 'О', lower: 'о', roman: 'o', audio: 'audio/o.mp3' },
+            'У': { upper: 'У', lower: 'у', roman: 'u', audio: 'audio/u.mp3' }
+        }
+    },
+    // Chart article — Group 2: Tricky Vowels
+    'cg2': {
+        chars: {
+            'И': { upper: 'И', lower: 'и', roman: 'i', audio: 'audio/i.mp3' },
+            'Ы': { upper: 'Ы', lower: 'ы', roman: 'y', audio: 'audio/y2.mp3' },
+            'Э': { upper: 'Э', lower: 'э', roman: 'e', audio: 'audio/e.mp3' },
+            'Ё': { upper: 'Ё', lower: 'ё', roman: 'yo', audio: 'audio/yo.mp3' },
+            'Ю': { upper: 'Ю', lower: 'ю', roman: 'yu', audio: 'audio/yu.mp3' },
+            'Я': { upper: 'Я', lower: 'я', roman: 'ya', audio: 'audio/ya.mp3' }
+        }
+    },
+    // Chart article — Group 3: False Friend Consonants
+    'cg3': {
+        chars: {
+            'В': { upper: 'В', lower: 'в', roman: 'v', audio: 'audio/v.mp3' },
+            'Н': { upper: 'Н', lower: 'н', roman: 'n', audio: 'audio/n.mp3' },
+            'Р': { upper: 'Р', lower: 'р', roman: 'r', audio: 'audio/r.mp3' },
+            'С': { upper: 'С', lower: 'с', roman: 's', audio: 'audio/s.mp3' },
+            'Х': { upper: 'Х', lower: 'х', roman: 'kh', audio: 'audio/kh.mp3' }
+        }
+    },
+    // Chart article — Group 4: Easy Consonants
+    'cg4': {
+        chars: {
+            'Б': { upper: 'Б', lower: 'б', roman: 'b', audio: 'audio/b.mp3' },
+            'Г': { upper: 'Г', lower: 'г', roman: 'g', audio: 'audio/g.mp3' },
+            'Д': { upper: 'Д', lower: 'д', roman: 'd', audio: 'audio/d.mp3' },
+            'З': { upper: 'З', lower: 'з', roman: 'z', audio: 'audio/z.mp3' },
+            'К': { upper: 'К', lower: 'к', roman: 'k', audio: 'audio/k.mp3' },
+            'Л': { upper: 'Л', lower: 'л', roman: 'l', audio: 'audio/l.mp3' },
+            'М': { upper: 'М', lower: 'м', roman: 'm', audio: 'audio/m.mp3' },
+            'П': { upper: 'П', lower: 'п', roman: 'p', audio: 'audio/p.mp3' },
+            'Т': { upper: 'Т', lower: 'т', roman: 't', audio: 'audio/t.mp3' },
+            'Ф': { upper: 'Ф', lower: 'ф', roman: 'f', audio: 'audio/f.mp3' }
+        }
+    },
+    // Chart article — Group 5: Weird Unique Letters
+    'cg5': {
+        chars: {
+            'Ж': { upper: 'Ж', lower: 'ж', roman: 'zh', audio: 'audio/zh.mp3' },
+            'Й': { upper: 'Й', lower: 'й', roman: 'y', audio: null },
+            'Ц': { upper: 'Ц', lower: 'ц', roman: 'ts', audio: 'audio/ts.mp3' },
+            'Ч': { upper: 'Ч', lower: 'ч', roman: 'ch', audio: 'audio/ch.mp3' },
+            'Ш': { upper: 'Ш', lower: 'ш', roman: 'sh', audio: 'audio/sh.mp3' },
+            'Щ': { upper: 'Щ', lower: 'щ', roman: 'shch', audio: 'audio/shch.mp3' }
+        }
     }
 };
 
-// Initialize any quiz that exists on the current article
-function initArticleQuizzes(articleId) {
-    const config = QUIZ_CONFIGS[articleId];
-    if (!config) return;
-    
-    const activeEl = document.getElementById(config.prefix + '-quiz-active');
-    if (activeEl) {
-        quizStart(config.prefix);
+// Initialize all quizzes whose DOM elements exist on the current page
+function initArticleQuizzes() {
+    for (const prefix in QUIZ_CONFIGS) {
+        const activeEl = document.getElementById(prefix + '-quiz-active');
+        if (activeEl) {
+            quizStart(prefix);
+        }
     }
 }
 
 // --- Core engine functions (prefix-based) ---
 
 function quizStart(prefix) {
-    const config = getConfigByPrefix(prefix);
+    const config = QUIZ_CONFIGS[prefix];
     if (!config) return;
     
     const charKeys = Object.keys(config.chars).sort(() => Math.random() - 0.5);
@@ -557,13 +613,6 @@ function quizConfetti() {
     }
 }
 
-function getConfigByPrefix(prefix) {
-    for (const key in QUIZ_CONFIGS) {
-        if (QUIZ_CONFIGS[key].prefix === prefix) return QUIZ_CONFIGS[key];
-    }
-    return null;
-}
-
 // --- Backward-compatible wrappers for False Friends (prefix: mini) ---
 function startMiniQuiz()    { quizStart('mini'); }
 function checkMiniAnswer()  { quizCheck('mini'); }
@@ -576,6 +625,11 @@ function checkMemAnswer()   { quizCheck('mem'); }
 function skipMemQuestion()  { quizSkip('mem'); }
 function resetMemQuiz()     { quizReset('mem'); }
 
+// --- Wrappers for Chart Group quizzes (prefix: cg1-cg5) ---
+function checkCgAnswer(n)   { quizCheck('cg' + n); }
+function skipCgQuestion(n)  { quizSkip('cg' + n); }
+function resetCgQuiz(n)     { quizReset('cg' + n); }
+
 // Expose all functions globally
 window.startMiniQuiz = startMiniQuiz;
 window.checkMiniAnswer = checkMiniAnswer;
@@ -585,4 +639,76 @@ window.startMemQuiz = startMemQuiz;
 window.checkMemAnswer = checkMemAnswer;
 window.skipMemQuestion = skipMemQuestion;
 window.resetMemQuiz = resetMemQuiz;
+window.checkCgAnswer = checkCgAnswer;
+window.skipCgQuestion = skipCgQuestion;
+window.resetCgQuiz = resetCgQuiz;
 window.initArticleQuizzes = initArticleQuizzes;
+
+// ==================== CHART ARTICLE: GROUP QUIZZES ====================
+// Generates quiz HTML dynamically for placeholder divs in the chart article
+
+function generateGroupQuizHTML(prefix, groupNum, count, title, subtitle) {
+    return `
+        <div class="mini-quiz-container">
+            <div class="mini-quiz-header">
+                <h3 style="margin: 0 0 10px 0;">${title}</h3>
+                <p style="margin: 0; color: #666; font-size: 0.95rem;">${subtitle}</p>
+            </div>
+            <div id="${prefix}-quiz-content" class="quiz-content">
+                <div id="${prefix}-quiz-active">
+                    <div class="mini-quiz-question">
+                        <div class="mini-char-display">
+                            <span id="${prefix}-current-char"></span>
+                            <span id="${prefix}-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
+                            <button class="audio-btn" id="${prefix}-audio-btn" style="display: none; margin-left: 10px;" title="Hear pronunciation">🔊</button>
+                        </div>
+                        <div class="mini-input-area">
+                            <input type="text" id="${prefix}-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                            <button class="btn" onclick="checkCgAnswer(${groupNum})">Submit</button>
+                        </div>
+                        <div id="${prefix}-feedback" class="feedback quiz-feedback"></div>
+                    </div>
+                    <div class="mini-quiz-stats">
+                        <div class="mini-stat">
+                            <span class="mini-stat-label">Progress:</span>
+                            <span id="${prefix}-progress">0/${count}</span>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-label">Score:</span>
+                            <span id="${prefix}-score">0/0</span>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-label">Streak:</span>
+                            <span id="${prefix}-streak">0</span>
+                        </div>
+                    </div>
+                    <div class="mini-quiz-controls">
+                        <button class="btn btn-secondary" onclick="skipCgQuestion(${groupNum})">Skip</button>
+                        <button class="btn btn-secondary" onclick="resetCgQuiz(${groupNum})">Reset</button>
+                    </div>
+                </div>
+                <div id="${prefix}-quiz-complete" style="display: none; text-align: center; padding: 15px;">
+                    <h4 style="color: var(--red); margin-bottom: 8px;">🎉 Group ${groupNum} complete!</h4>
+                    <p id="${prefix}-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
+                    <button class="btn" onclick="resetCgQuiz(${groupNum})">Practice Again</button>
+                </div>
+            </div>
+        </div>`;
+}
+
+ArticleScripts['cyrillic-alphabet-chart'] = function() {
+    const quizGroups = [
+        { num: 1, prefix: 'cg1', count: 4, title: 'Drill: Easy Vowels', subtitle: 'Quick round — 4 letters you already know.' },
+        { num: 2, prefix: 'cg2', count: 6, title: 'Drill: Tricky Vowels', subtitle: '6 vowels that don\'t exist in English. Let\'s see how you do.' },
+        { num: 3, prefix: 'cg3', count: 5, title: 'Drill: False Friend Consonants', subtitle: '5 letters that look familiar but sound different. Watch out.' },
+        { num: 4, prefix: 'cg4', count: 10, title: 'Drill: Easy Consonants', subtitle: 'The big round — 10 consonants. New shapes, familiar sounds.' },
+        { num: 5, prefix: 'cg5', count: 6, title: 'Drill: Weird Unique Letters', subtitle: '6 letters unlike anything in English. The final challenge.' }
+    ];
+
+    quizGroups.forEach(g => {
+        const placeholder = document.getElementById(g.prefix + '-quiz-placeholder');
+        if (placeholder) {
+            placeholder.innerHTML = generateGroupQuizHTML(g.prefix, g.num, g.count, g.title, g.subtitle);
+        }
+    });
+};
