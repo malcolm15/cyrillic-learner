@@ -750,7 +750,7 @@ function showArticle(articleId) {
     // Auto-initialize embedded quizzes (delayed to ensure DOM is ready)
     setTimeout(() => {
         if (typeof initArticleQuizzes === 'function') {
-            initArticleQuizzes(articleId);
+            initArticleQuizzes();
         }
     }, 200);
 }
