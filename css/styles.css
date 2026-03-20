@@ -2104,9 +2104,38 @@
         }
 
         .featured-guides {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            padding: 15px 24px;
+        }
+
+        .featured-guides h2 {
+            font-size: 1.4rem;
+            margin-bottom: 2px;
+        }
+
+        .featured-guides .related-articles-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .featured-guides .related-article-card {
+            padding: 12px 15px;
+        }
+
+        .featured-guides .related-article-card h4 {
+            margin: 0 0 4px 0;
+            font-size: 1rem;
+        }
+
+        .featured-guides .related-article-card p {
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+
+        @media (max-width: 768px) {
+            .featured-guides .related-articles-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* ==================== CYRILLIC COPY-PASTE BUTTONS ==================== */
