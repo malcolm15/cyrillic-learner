@@ -1,4 +1,12 @@
 
+// Valid page names (whitelist for URL routing)
+const VALID_PAGES = ['home', 'articles', 'reference', 'settings', 'about', 'contact', 'privacy'];
+
+function safeGetNavLink(pageName) {
+    if (!VALID_PAGES.includes(pageName)) return null;
+    return document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
+}
+
 // Settings
 let includeLowercase = true; // Default ON - users learn both cases from the start
 let autoSubmit = false;
@@ -349,7 +357,7 @@ function showPage(pageName) {
     });
     
     // Find and activate the correct nav link
-    const activeLink = document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
+    const activeLink = safeGetNavLink(pageName);
     if (activeLink) {
         activeLink.classList.add('active');
     }
@@ -513,9 +521,9 @@ function showArticle(articleId) {
     
     // Scroll to top or to anchor if hash present
     const hash = window.location.hash;
-    if (hash) {
+    if (hash && /^#[a-zA-Z0-9_-]+$/.test(hash)) {
         setTimeout(() => {
-            const target = document.querySelector(hash);
+            const target = document.getElementById(hash.substring(1));
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
@@ -1149,7 +1157,7 @@ window.addEventListener('popstate', (event) => {
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.classList.remove('active');
         });
-        const activeLink = document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
+        const activeLink = safeGetNavLink(pageName);
         if (activeLink) {
             activeLink.classList.add('active');
         }
@@ -1223,9 +1231,9 @@ window.addEventListener('popstate', (event) => {
         
         // Update nav
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.classList.remove('active');                    link.classList.remove('active');
+            link.classList.remove('active');
         });
-        const activeLink = document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
+        const activeLink = safeGetNavLink(pageName);
         if (activeLink) {
             activeLink.classList.add('active');
         }
