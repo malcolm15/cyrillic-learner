@@ -328,6 +328,9 @@ function updateLowercaseDisplay() {
 
 // Page navigation
 function showPage(pageName) {
+    // Remove article-specific structured data when leaving articles
+    removeArticleSchema();
+    
     // Hide all pages
     document.querySelectorAll('.page-content').forEach(page => {
         page.classList.remove('active');
@@ -435,6 +438,189 @@ const ARTICLE_ORDER = [
     'cyrillic-learning-resources'
 ];
 
+// ==================== ARTICLE STRUCTURED DATA ====================
+// Metadata for dynamic Article schema (JSON-LD) injection
+
+const ARTICLE_META = {
+    // Getting Started
+    'getting-started':          { section: 'Getting Started',           published: '2026-02-10', modified: '2026-03-15', keywords: ['cyrillic alphabet', 'learn cyrillic', 'beginner guide', 'russian letters'] },
+    'common-mistakes':          { section: 'Getting Started',           published: '2026-02-10', modified: '2026-03-20', keywords: ['cyrillic mistakes', 'learning tips', 'false friends', 'beginner errors'] },
+    'false-friends':            { section: 'Getting Started',           published: '2026-02-12', modified: '2026-03-15', keywords: ['false friends', 'cyrillic letters', 'confusing letters', 'look-alike letters'] },
+    'memory-tricks':            { section: 'Getting Started',           published: '2026-02-14', modified: '2026-03-20', keywords: ['memory tricks', 'mnemonics', 'cyrillic memorization', 'confusing letters'] },
+    'cyrillic-tier-list':       { section: 'Getting Started',           published: '2026-02-18', modified: '2026-03-10', keywords: ['cyrillic difficulty', 'letter ranking', 'tier list', 'hardest letters'] },
+    'first-25-words':           { section: 'Getting Started',           published: '2026-02-20', modified: '2026-03-10', keywords: ['russian words', 'reading practice', 'first words', 'beginner russian'] },
+    'easy-russian-words':       { section: 'Getting Started',           published: '2026-03-01', modified: '2026-03-10', keywords: ['easy russian', 'simple words', 'beginner vocabulary', 's-tier letters'] },
+    // Alphabet Variants
+    'belarusian-alphabet':      { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['belarusian alphabet', 'belarusian cyrillic', '32 letters', 'eastern europe'] },
+    'montenegrin-alphabet':     { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['montenegrin alphabet', 'newest cyrillic', 'montenegrin language', 'balkan alphabet'] },
+    'serbian-cyrillic-vs-latin':{ section: 'Alphabet Variants',         published: '2026-02-24', modified: '2026-03-10', keywords: ['serbian cyrillic', 'serbian latin', 'digraphia', 'dual script'] },
+    // History & Culture
+    'lost-letters':             { section: 'History & Culture',         published: '2026-02-16', modified: '2026-03-10', keywords: ['lost letters', 'extinct characters', 'cyrillic history', 'old church slavonic'] },
+    'glagolitic':               { section: 'History & Culture',         published: '2026-02-16', modified: '2026-03-10', keywords: ['glagolitic', 'old alphabet', 'saints cyril methodius', 'slavic writing'] },
+    'cyrillic-names-europe':    { section: 'History & Culture',         published: '2026-02-18', modified: '2026-03-10', keywords: ['cyrillic names', 'european languages', 'alphabet names', 'azbuka'] },
+    'backwards-r-myth':         { section: 'History & Culture',         published: '2026-02-26', modified: '2026-03-10', keywords: ['backwards R', 'ya letter', 'hollywood russian', 'cyrillic myths'] },
+    'kazakhstan-latin-transition':{ section: 'History & Culture',       published: '2026-02-28', modified: '2026-03-10', keywords: ['kazakhstan', 'latin transition', 'alphabet reform', 'cyrillic to latin'] },
+    'history-of-cyrillic':      { section: 'History & Culture',         published: '2026-03-02', modified: '2026-03-10', keywords: ['cyrillic history', 'saints to superpower', 'slavic alphabet', 'writing history'] },
+    'latin-vs-cyrillic-slavic': { section: 'History & Culture',         published: '2026-03-04', modified: '2026-03-10', keywords: ['latin vs cyrillic', 'slavic countries', 'alphabet choice', 'religion and script'] },
+    'cyrillic-pop-culture':     { section: 'History & Culture',         published: '2026-03-06', modified: '2026-03-10', keywords: ['cyrillic movies', 'pop culture', 'rocky iv', 'call of duty', 'faux cyrillic'] },
+    // Learning Tools & Resources
+    'cyrillic-copy-paste':      { section: 'Learning Tools & Resources', published: '2026-03-01', modified: '2026-03-10', keywords: ['cyrillic copy paste', 'russian letters clipboard', 'cyrillic characters', 'copy tool'] },
+    'russian-alphabet-chart':   { section: 'Learning Tools & Resources', published: '2026-02-12', modified: '2026-03-10', keywords: ['russian alphabet chart', '33 letters', 'pronunciation guide', 'interactive chart'] },
+    'practice-writing-cyrillic':{ section: 'Learning Tools & Resources', published: '2026-02-28', modified: '2026-03-10', keywords: ['write cyrillic', 'handwriting practice', 'cyrillic cursive', 'penmanship'] },
+    'cyrillic-alphabet-chart':  { section: 'Learning Tools & Resources', published: '2026-02-14', modified: '2026-03-10', keywords: ['cyrillic chart', 'all 33 letters', 'complete reference', 'pronunciation'] },
+    'cyrillic-learning-resources':{ section: 'Learning Tools & Resources', published: '2026-03-04', modified: '2026-03-10', keywords: ['learning resources', 'best apps', 'cyrillic tools', 'study materials'] }
+};
+
+function injectArticleSchema(articleId, article) {
+    // Remove any previously injected article schema
+    const existing = document.getElementById('article-schema');
+    if (existing) existing.remove();
+    const existingBreadcrumb = document.getElementById('breadcrumb-schema');
+    if (existingBreadcrumb) existingBreadcrumb.remove();
+
+    const meta = ARTICLE_META[articleId];
+    if (!meta) return;
+
+    // Extract description from first paragraph of content
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = article.content;
+    const firstPara = tempDiv.querySelector('p');
+    const description = firstPara ? firstPara.textContent.substring(0, 200).trim() + '...' : '';
+
+    // Estimate word count from text content
+    const wordCount = tempDiv.textContent.replace(/\s+/g, ' ').trim().split(' ').length;
+
+    const articleUrl = 'https://cyrilica.com/articles/' + articleId;
+
+    // Article schema
+    const articleSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        'headline': article.title,
+        'description': description,
+        'url': articleUrl,
+        'mainEntityOfPage': {
+            '@type': 'WebPage',
+            '@id': articleUrl
+        },
+        'image': 'https://cyrilica.com/og-image.png',
+        'datePublished': meta.published,
+        'dateModified': meta.modified,
+        'author': {
+            '@type': 'Organization',
+            'name': 'Cyrilica',
+            'url': 'https://cyrilica.com'
+        },
+        'publisher': {
+            '@type': 'Organization',
+            'name': 'Cyrilica',
+            'url': 'https://cyrilica.com',
+            'logo': {
+                '@type': 'ImageObject',
+                'url': 'https://cyrilica.com/favicon.svg'
+            }
+        },
+        'articleSection': meta.section,
+        'wordCount': wordCount,
+        'inLanguage': 'en',
+        'isAccessibleForFree': true,
+        'educationalLevel': 'Beginner',
+        'keywords': meta.keywords.join(', '),
+        'about': {
+            '@type': 'Thing',
+            'name': 'Cyrillic alphabet',
+            'description': 'Writing system used for Russian, Ukrainian, Bulgarian, Serbian, and other Slavic languages'
+        }
+    };
+
+    const script = document.createElement('script');
+    script.id = 'article-schema';
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(articleSchema);
+    document.head.appendChild(script);
+
+    // Breadcrumb schema
+    const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+            {
+                '@type': 'ListItem',
+                'position': 1,
+                'name': 'Home',
+                'item': 'https://cyrilica.com'
+            },
+            {
+                '@type': 'ListItem',
+                'position': 2,
+                'name': 'Articles',
+                'item': 'https://cyrilica.com/articles'
+            },
+            {
+                '@type': 'ListItem',
+                'position': 3,
+                'name': article.title,
+                'item': articleUrl
+            }
+        ]
+    };
+
+    const breadcrumbScript = document.createElement('script');
+    breadcrumbScript.id = 'breadcrumb-schema';
+    breadcrumbScript.type = 'application/ld+json';
+    breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(breadcrumbScript);
+
+    // Update page title and meta tags for SEO and social sharing
+    document.title = article.title + ' | Cyrilica';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', description);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', article.title + ' | Cyrilica');
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', description);
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', articleUrl);
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', articleUrl);
+    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute('content', article.title + ' | Cyrilica');
+    const twitterDesc = document.querySelector('meta[property="twitter:description"]');
+    if (twitterDesc) twitterDesc.setAttribute('content', description);
+    const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+    if (twitterUrl) twitterUrl.setAttribute('content', articleUrl);
+}
+
+const DEFAULT_TITLE = 'Cyrilica - Learn the Cyrillic Alphabet | Free Interactive Study';
+const DEFAULT_DESC = 'Free interactive tool to learn the Cyrillic alphabet. Master Russian, Ukrainian, Bulgarian, and Serbian letters with instant feedback. Perfect for beginners.';
+const DEFAULT_URL = 'https://cyrilica.com/';
+
+function removeArticleSchema() {
+    const existing = document.getElementById('article-schema');
+    if (existing) existing.remove();
+    const existingBreadcrumb = document.getElementById('breadcrumb-schema');
+    if (existingBreadcrumb) existingBreadcrumb.remove();
+
+    // Restore default meta tags
+    document.title = DEFAULT_TITLE;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', DEFAULT_DESC);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', DEFAULT_TITLE);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', DEFAULT_DESC);
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', DEFAULT_URL);
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', DEFAULT_URL);
+    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute('content', DEFAULT_TITLE);
+    const twitterDesc = document.querySelector('meta[property="twitter:description"]');
+    if (twitterDesc) twitterDesc.setAttribute('content', DEFAULT_DESC);
+    const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+    if (twitterUrl) twitterUrl.setAttribute('content', DEFAULT_URL);
+}
+
 // Article navigation functions
 function showArticle(articleId) {
     const article = ARTICLES.find(a => a.id === articleId);
@@ -447,6 +633,9 @@ function showArticle(articleId) {
     // Load article content
     document.getElementById('article-title').textContent = article.title;
     document.getElementById('article-content').innerHTML = article.content;
+    
+    // Inject Article structured data (JSON-LD)
+    injectArticleSchema(articleId, article);
     
     // Update URL (only if different)
     const articleUrl = `/articles/${articleId}`;
@@ -569,6 +758,9 @@ function showArticle(articleId) {
 function showArticleIndex() {
     document.getElementById('articles-index').style.display = 'block';
     document.getElementById('article-view').style.display = 'none';
+    
+    // Remove article-specific structured data
+    removeArticleSchema();
     
     // Update URL
     window.history.pushState({ page: 'articles' }, '', '/articles');
