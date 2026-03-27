@@ -721,19 +721,23 @@ function showArticle(articleId) {
         window.scrollTo(0, 0);
     }
     
-    // Setup anchor link handlers for TOC
+    // Setup anchor link handlers for TOC (exclude bare # links used by share buttons)
     setTimeout(() => {
         const articleContent = document.getElementById('article-content');
         if (articleContent) {
             const anchorLinks = articleContent.querySelectorAll('a[href^="#"]');
             anchorLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === '#' || href.length <= 1) return; // Skip share buttons
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        history.replaceState(null, null, targetId);
+                    if (/^#[a-zA-Z0-9_-]+$/.test(targetId)) {
+                        const targetElement = document.getElementById(targetId.substring(1));
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            history.replaceState(null, null, targetId);
+                        }
                     }
                 });
             });
