@@ -51,6 +51,9 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
     var uppercaseContainer = document.getElementById('uppercase-container');
     var lowercaseContainer = document.getElementById('lowercase-container');
     var specialContainer = document.getElementById('special-container');
+    var accentedUpperContainer = document.getElementById('accented-upper-container');
+    var accentedLowerContainer = document.getElementById('accented-lower-container');
+    var prereformContainer = document.getElementById('prereform-container');
     
     if (!uppercaseContainer || !lowercaseContainer || !specialContainer) return;
 
@@ -117,6 +120,37 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
     // Build special character buttons
     for (var i = 0; i < special.length; i++) {
         specialContainer.appendChild(createCopyButton(special[i]));
+    }
+
+    // Build accented vowel buttons (combining acute accent U+0301)
+    var accentMark = '\u0301';
+    var vowelsUpper = ['А', 'Е', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я', 'Ё'];
+    var vowelsLower = ['а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я', 'ё'];
+
+    if (accentedUpperContainer) {
+        for (var i = 0; i < vowelsUpper.length; i++) {
+            accentedUpperContainer.appendChild(createCopyButton(vowelsUpper[i] + accentMark));
+        }
+    }
+
+    if (accentedLowerContainer) {
+        for (var i = 0; i < vowelsLower.length; i++) {
+            accentedLowerContainer.appendChild(createCopyButton(vowelsLower[i] + accentMark));
+        }
+    }
+
+    // Build pre-reform letter buttons
+    var prereformLetters = [
+        'Ѣ', 'ѣ',  // yat
+        'Ѳ', 'ѳ',  // fita
+        'І', 'і',   // decimal i
+        'Ѵ', 'ѵ'   // izhitsa
+    ];
+
+    if (prereformContainer) {
+        for (var i = 0; i < prereformLetters.length; i++) {
+            prereformContainer.appendChild(createCopyButton(prereformLetters[i]));
+        }
     }
 };
 

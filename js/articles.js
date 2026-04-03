@@ -2907,53 +2907,53 @@ const ARTICLES = [
         title: 'Cyrillic Alphabet Copy and Paste',
         relatedArticles: ['russian-alphabet-chart', 'cyrillic-alphabet-chart', 'cyrillic-learning-resources'],
         content: `
-            <p>Need to copy Cyrillic letters quickly? Use the buttons below to copy any Cyrillic character to your clipboard with one click. Perfect for usernames, social media, design projects, or learning.</p>
+            <p>Click any letter to copy it to your clipboard instantly. Works for usernames, social media, design projects, learning materials, and academic work.</p>
 
-            <h3>Uppercase Cyrillic Letters</h3>
-            <div id="uppercase-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin: 20px 0;"></div>
+            <h3>Standard Russian Alphabet</h3>
+            <p class="copy-section-label">Uppercase</p>
+            <div id="uppercase-container" class="copy-grid"></div>
 
-            <h3>Lowercase Cyrillic Letters</h3>
-            <div id="lowercase-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin: 20px 0;"></div>
+            <p class="copy-section-label">Lowercase</p>
+            <div id="lowercase-container" class="copy-grid"></div>
 
-            <h3>Special Characters</h3>
-            <div id="special-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin: 20px 0;"></div>
+            <p class="copy-section-label">Special Characters (Ё, Signs, Ы, Э, Ю, Я)</p>
+            <div id="special-container" class="copy-grid"></div>
+
+            <h3>Accented Letters (Stress Marks)</h3>
+            <p>Russian dictionaries and textbooks use acute accents to mark stressed syllables. These are hard to type — here they are ready to copy.</p>
+            <p class="copy-section-label">Uppercase Accented</p>
+            <div id="accented-upper-container" class="copy-grid"></div>
+            <p class="copy-section-label">Lowercase Accented</p>
+            <div id="accented-lower-container" class="copy-grid"></div>
+
+            <h3>Pre-Reform Letters (Pre-1918)</h3>
+            <p>These letters were removed during the 1918 Russian spelling reform. You'll still encounter them in pre-revolutionary texts, historical documents, and academic publications.</p>
+            <div id="prereform-container" class="copy-grid"></div>
 
             <h3>How to Use</h3>
 
-            <p>Simply click any letter above and it will be copied to your clipboard. You'll see a "Copied!" message appear briefly. Then paste it wherever you need it using Ctrl+V (Windows/Linux) or Cmd+V (Mac).</p>
+            <p>Click any letter and it's on your clipboard. Paste with Ctrl+V (Windows/Linux) or Cmd+V (Mac). The accented letters use a Unicode combining accent, so they work in any modern text field.</p>
 
-            <h3>What Can You Use This For?</h3>
+            <h3>Who Needs This?</h3>
 
-            <p><strong>Social Media Usernames:</strong> Stand out with Cyrillic characters in your Instagram, TikTok, or Discord name. Just remember that some platforms may limit which characters you can use.</p>
+            <p><strong>Language Learners:</strong> Copy individual letters while you're still getting comfortable with the Cyrillic keyboard layout.</p>
 
-            <p><strong>Design Projects:</strong> Add authentic Cyrillic typography to posters, graphics, or branding without needing to switch keyboard layouts.</p>
+            <p><strong>Teachers and Textbook Authors:</strong> The accented vowels are especially useful for creating learning materials with stress marks — something that's surprisingly tedious to type otherwise.</p>
 
-            <p><strong>Learning Russian:</strong> Practice typing Russian words by copying and pasting letters until you're comfortable with the Cyrillic keyboard layout.</p>
+            <p><strong>Designers:</strong> Add authentic Cyrillic typography to posters, graphics, or branding without switching keyboard layouts.</p>
 
-            <p><strong>Memes and Creative Content:</strong> Use Cyrillic letters for aesthetic effect or authentic Russian-language content creation.</p>
+            <p><strong>Historians and Academics:</strong> The pre-reform characters are essential for working with pre-revolutionary Russian texts. Finding Ѣ (yat) or Ѳ (fita) on a standard keyboard is nearly impossible.</p>
 
-            <h3>Special Characters Explained</h3>
+            <h3>About the Pre-Reform Letters</h3>
 
-            <p><strong>Ё (yo):</strong> A special vowel that's often written as Е in casual Russian text, but technically distinct.</p>
+            <p><strong>Ѣ (yat):</strong> Once represented a distinct vowel sound that merged with Е over centuries. Its removal in 1918 was the most controversial change of the spelling reform — some conservative writers refused to adopt the new rules for years.</p>
 
-            <p><strong>Ъ (hard sign):</strong> A silent letter that creates a hard separation between consonants and vowels.</p>
+            <p><strong>Ѳ (fita):</strong> Borrowed from Greek theta, used in words of Greek origin like Ѳеодоръ (Theodore). Replaced by Ф in the reform.</p>
 
-            <p><strong>Ь (soft sign):</strong> Makes the preceding consonant "soft" — crucial for correct Russian pronunciation.</p>
+            <p><strong>І (decimal i):</strong> Functioned identically to И but was used before vowels and Й. Still survives in Ukrainian as І.</p>
 
-            <p><strong>Ы (y):</strong> A vowel unique to Slavic languages. Sounds like the "i" in "bit" but further back in your throat.</p>
-
-            <p><strong>Э (e):</strong> The "reverse E" — sounds like the "e" in "met."</p>
-
-            <p><strong>Ю (yu):</strong> Combines "y" + "oo" sounds into one letter.</p>
-
-            <p><strong>Я (ya):</strong> The famous "backwards R" — actually sounds like "ya" as in "yard."</p>
-
-            <h3>Need More Than Copy-Paste?</h3>
-
-            <p>If you're seriously learning Russian or another Cyrillic language, you'll eventually want to type fluently. Check out our guide on <a href="#" onclick="showArticle('how-to-type-cyrillic'); return false;">how to set up and use a Cyrillic keyboard</a>.</p>
-
-            <p>For now, enjoy the convenience of one-click copying!</p>
-
+            <p><strong>Ѵ (izhitsa):</strong> The rarest of the bunch — borrowed from Greek upsilon, used in a handful of church and scientific terms. Had largely fallen out of use even before the reform made it official.</p>
+        
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
