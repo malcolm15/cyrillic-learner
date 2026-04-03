@@ -2907,7 +2907,7 @@ const ARTICLES = [
         title: 'Cyrillic Alphabet Copy and Paste',
         relatedArticles: ['russian-alphabet-chart', 'cyrillic-alphabet-chart', 'cyrillic-learning-resources'],
         content: `
-            <p>Click any letter to add it to the text builder below. You can also click individual letters to copy them one at a time.</p>
+            <p>Copy any Cyrillic character to your clipboard with one click — standard Russian letters, accented vowels with stress marks, and pre-reform characters from before 1918. Click a letter to copy it individually, or use the text builder to assemble full words and phrases.</p>
 
             <div id="copy-text-builder">
                 <div class="text-builder-header">

@@ -464,7 +464,7 @@ const ARTICLE_META = {
     'latin-vs-cyrillic-slavic': { section: 'History & Culture',         published: '2026-03-04', modified: '2026-03-10', keywords: ['latin vs cyrillic', 'slavic countries', 'alphabet choice', 'religion and script'] },
     'cyrillic-pop-culture':     { section: 'History & Culture',         published: '2026-03-06', modified: '2026-03-10', keywords: ['cyrillic movies', 'pop culture', 'rocky iv', 'call of duty', 'faux cyrillic'] },
     // Learning Tools & Resources
-    'cyrillic-copy-paste':      { section: 'Learning Tools & Resources', published: '2026-03-01', modified: '2026-03-10', keywords: ['cyrillic copy paste', 'russian letters clipboard', 'cyrillic characters', 'copy tool'] },
+    'cyrillic-copy-paste':      { section: 'Learning Tools & Resources', published: '2026-03-01', modified: '2026-04-03', keywords: ['cyrillic copy paste', 'russian letters clipboard', 'cyrillic characters', 'accented cyrillic vowels', 'russian stress marks', 'pre-reform russian letters', 'yat letter', 'copy tool'] },
     'russian-alphabet-chart':   { section: 'Learning Tools & Resources', published: '2026-02-12', modified: '2026-03-10', keywords: ['russian alphabet chart', '33 letters', 'pronunciation guide', 'interactive chart'] },
     'practice-writing-cyrillic':{ section: 'Learning Tools & Resources', published: '2026-02-28', modified: '2026-03-10', keywords: ['write cyrillic', 'handwriting practice', 'cyrillic cursive', 'penmanship'] },
     'cyrillic-alphabet-chart':  { section: 'Learning Tools & Resources', published: '2026-02-14', modified: '2026-03-10', keywords: ['cyrillic chart', 'all 33 letters', 'complete reference', 'pronunciation'] },
