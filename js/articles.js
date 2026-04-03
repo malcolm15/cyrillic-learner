@@ -2907,7 +2907,19 @@ const ARTICLES = [
         title: 'Cyrillic Alphabet Copy and Paste',
         relatedArticles: ['russian-alphabet-chart', 'cyrillic-alphabet-chart', 'cyrillic-learning-resources'],
         content: `
-            <p>Click any letter to copy it to your clipboard instantly. Works for usernames, social media, design projects, learning materials, and academic work.</p>
+            <p>Click any letter to add it to the text builder below. You can also click individual letters to copy them one at a time.</p>
+
+            <div id="copy-text-builder">
+                <div class="text-builder-header">
+                    <span class="text-builder-label">Text Builder</span>
+                    <div class="text-builder-controls">
+                        <button class="text-builder-btn" id="text-builder-copy" title="Copy all">Copy</button>
+                        <button class="text-builder-btn text-builder-btn-clear" id="text-builder-clear" title="Clear">Clear</button>
+                    </div>
+                </div>
+                <textarea id="text-builder-area" placeholder="Click letters below to build text here..." rows="2"></textarea>
+                <div id="text-builder-toast" class="text-builder-toast">Copied to clipboard!</div>
+            </div>
 
             <h3>Standard Russian Alphabet</h3>
             <p class="copy-section-label">Uppercase</p>

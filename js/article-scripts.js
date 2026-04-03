@@ -54,6 +54,8 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
     var accentedUpperContainer = document.getElementById('accented-upper-container');
     var accentedLowerContainer = document.getElementById('accented-lower-container');
     var prereformContainer = document.getElementById('prereform-container');
+    var textArea = document.getElementById('text-builder-area');
+    var toast = document.getElementById('text-builder-toast');
     
     if (!uppercaseContainer || !lowercaseContainer || !specialContainer) return;
 
@@ -86,6 +88,17 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
     var uniqueUpper = removeDuplicates(uppercase);
     var uniqueLower = removeDuplicates(lowercase);
 
+    // Toast helper
+    var toastTimeout = null;
+    function showToast() {
+        if (!toast) return;
+        toast.classList.add('visible');
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(function() {
+            toast.classList.remove('visible');
+        }, 1500);
+    }
+
     function createCopyButton(char) {
         var btn = document.createElement('button');
         btn.className = 'copy-char-btn';
@@ -97,6 +110,13 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
         btn.appendChild(feedback);
         
         btn.onclick = function() {
+            // Append to text builder
+            if (textArea) {
+                var pos = textArea.selectionStart || textArea.value.length;
+                textArea.value = textArea.value.substring(0, pos) + char + textArea.value.substring(pos);
+                textArea.selectionStart = textArea.selectionEnd = pos + char.length;
+            }
+            // Also copy individual character
             copyToClipboard(char, btn);
         };
         
@@ -151,6 +171,43 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
         for (var i = 0; i < prereformLetters.length; i++) {
             prereformContainer.appendChild(createCopyButton(prereformLetters[i]));
         }
+    }
+
+    // Wire up Copy button
+    var copyBtn = document.getElementById('text-builder-copy');
+    if (copyBtn && textArea) {
+        copyBtn.onclick = function() {
+            if (textArea.value.length === 0) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textArea.value).then(function() {
+                    showToast();
+                }).catch(function() {
+                    textArea.select();
+                    document.execCommand('copy');
+                    showToast();
+                });
+            } else {
+                textArea.select();
+                document.execCommand('copy');
+                showToast();
+            }
+        };
+    }
+
+    // Wire up Clear button
+    var clearBtn = document.getElementById('text-builder-clear');
+    if (clearBtn && textArea) {
+        clearBtn.onclick = function() {
+            textArea.value = '';
+            textArea.focus();
+        };
+    }
+
+    // Detect copy from textarea (Ctrl+C / Cmd+C)
+    if (textArea) {
+        textArea.addEventListener('copy', function() {
+            showToast();
+        });
     }
 };
 
