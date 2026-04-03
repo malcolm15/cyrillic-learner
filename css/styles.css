@@ -2204,6 +2204,129 @@
         .copy-section-label:first-of-type {
             margin-top: 0;
         }
+        #copy-text-builder {
+            background: white;
+            border: 2px solid var(--dark-blue);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 15px 0 25px 0;
+            position: relative;
+        }
+        .text-builder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .text-builder-label {
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--charcoal);
+        }
+        .text-builder-controls {
+            display: flex;
+            gap: 6px;
+        }
+        .text-builder-btn {
+            padding: 4px 14px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 2px solid var(--dark-blue);
+            border-radius: 5px;
+            background: var(--dark-blue);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .text-builder-btn:hover {
+            background: var(--red);
+            border-color: var(--red);
+        }
+        .text-builder-btn-clear {
+            background: transparent;
+            color: var(--dark-blue);
+        }
+        .text-builder-btn-clear:hover {
+            background: #eee;
+            border-color: #999;
+            color: #333;
+        }
+        #text-builder-area {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            font-size: 1.3rem;
+            font-family: 'Bebas Neue', serif;
+            letter-spacing: 1px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 44px;
+            color: var(--charcoal);
+        }
+        #text-builder-area:focus {
+            outline: none;
+            border-color: var(--red);
+        }
+        #text-builder-area::placeholder {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0;
+            color: #aaa;
+        }
+        .text-builder-toast {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--charcoal);
+            color: white;
+            padding: 5px 16px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .text-builder-toast.visible {
+            opacity: 1;
+        }
+        body.dark-mode #copy-text-builder {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: var(--matrix-green);
+        }
+        body.dark-mode .text-builder-label {
+            color: var(--matrix-text);
+        }
+        body.dark-mode .text-builder-btn {
+            background: var(--matrix-green);
+            border-color: var(--matrix-green);
+            color: var(--matrix-black);
+        }
+        body.dark-mode .text-builder-btn:hover {
+            background: var(--matrix-green-bright);
+            border-color: var(--matrix-green-bright);
+        }
+        body.dark-mode .text-builder-btn-clear {
+            background: transparent;
+            color: var(--matrix-green);
+        }
+        body.dark-mode #text-builder-area {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: var(--matrix-border);
+            color: var(--matrix-text);
+        }
+        body.dark-mode #text-builder-area:focus {
+            border-color: var(--matrix-green);
+        }
+        body.dark-mode .text-builder-toast {
+            background: var(--matrix-green);
+            color: var(--matrix-black);
+        }
 
 /* Font Awesome icon spacing in share buttons */
 .share-btn i {
