@@ -2142,10 +2142,10 @@
         .copy-char-btn {
             background: var(--paper);
             border: 2px solid var(--dark-blue);
-            border-radius: 8px;
-            padding: 15px 10px;
+            border-radius: 6px;
+            padding: 8px 4px;
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
+            font-size: 1.4rem;
             color: var(--dark-blue);
             cursor: pointer;
             transition: all 0.2s;
@@ -2155,8 +2155,8 @@
         .copy-char-btn:hover {
             background: var(--dark-blue);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         .copy-char-btn.copied {
             background: var(--red);
@@ -2177,15 +2177,32 @@
             border-color: var(--matrix-green-bright);
         }
         .copy-feedback {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-family: 'Roboto', sans-serif;
-            margin-top: 5px;
+            margin-top: 2px;
             display: block;
             opacity: 0;
             transition: opacity 0.2s;
         }
         .copy-char-btn.copied .copy-feedback {
             opacity: 1;
+        }
+        .copy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+            gap: 6px;
+            margin: 12px 0;
+        }
+        .copy-section-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 20px 0 4px 0;
+            font-weight: bold;
+        }
+        .copy-section-label:first-of-type {
+            margin-top: 0;
         }
 
 /* Font Awesome icon spacing in share buttons */
