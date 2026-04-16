@@ -430,6 +430,7 @@ const ARTICLE_ORDER = [
     'kazakhstan-latin-transition',
     'latin-vs-cyrillic-slavic',
     'cyrillic-pop-culture',
+    'letter-yo-story',
     // 🛠️ Learning Tools & Resources
     'cyrillic-copy-paste',
     'russian-alphabet-chart',
@@ -463,6 +464,7 @@ const ARTICLE_META = {
     'history-of-cyrillic':      { section: 'History & Culture',         published: '2026-03-02', modified: '2026-03-10', keywords: ['cyrillic history', 'saints to superpower', 'slavic alphabet', 'writing history'] },
     'latin-vs-cyrillic-slavic': { section: 'History & Culture',         published: '2026-03-04', modified: '2026-03-10', keywords: ['latin vs cyrillic', 'slavic countries', 'alphabet choice', 'religion and script'] },
     'cyrillic-pop-culture':     { section: 'History & Culture',         published: '2026-03-06', modified: '2026-03-10', keywords: ['cyrillic movies', 'pop culture', 'rocky iv', 'call of duty', 'faux cyrillic'] },
+    'letter-yo-story':          { section: 'History & Culture',         published: '2026-04-15', modified: '2026-04-15', keywords: ['letter yo russian', 'russian letter ё', 'karamzin letter yo', 'princess dashkova', 'russian spelling', 'yofikator', 'optional russian letter', 'cyrillic letter ё history'] },
     // Learning Tools & Resources
     'cyrillic-copy-paste':      { section: 'Learning Tools & Resources', published: '2026-03-01', modified: '2026-04-03', keywords: ['cyrillic copy paste', 'russian letters clipboard', 'cyrillic characters', 'accented cyrillic vowels', 'russian stress marks', 'pre-reform russian letters', 'yat letter', 'copy tool'] },
     'russian-alphabet-chart':   { section: 'Learning Tools & Resources', published: '2026-02-12', modified: '2026-03-10', keywords: ['russian alphabet chart', '33 letters', 'pronunciation guide', 'interactive chart'] },

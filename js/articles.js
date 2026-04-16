@@ -610,6 +610,8 @@ const ARTICLES = [
             <p>Or go really deep: visit a Russian Orthodox church and look at their service books. You'll see an alphabet that most Russians couldn't read fluently — their own writing system frozen in time, preserved like a linguistic fossil.</p>
             
             <p>The modern Russian alphabet is sleek, efficient, and relatively easy to learn. But lurking beneath it is a vast history of lost letters — characters that served their purpose, outlived their usefulness, and faded into history. They're gone, but they left their mark on the language, the culture, and the endless Cyrillic iceberg memes that language learners love to share.</p>
+
+            <p>Want another letter with a strange history? Check out <a href="#" onclick="showArticle('letter-yo-story'); return false;">the story of Ё</a>, a modern Russian letter that's still fighting for consistent use two centuries after it was invented.</p>
         
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
@@ -2898,6 +2900,104 @@ const ARTICLES = [
                     <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
                     <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
                     <button class="share-btn" onclick="nativeShare('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
+        id: 'letter-yo-story',
+        title: 'The Story of Ё: Russia\'s Most Controversial Letter',
+        relatedArticles: ['lost-letters', 'memory-tricks', 'history-of-cyrillic'],
+        content: `
+            <p>The Russian alphabet has 33 letters, but one of them isn't always there. It appears in dictionaries and children's books, then vanishes from newspapers and novels. It sits on Russian keyboards but gets skipped when people type. It has a monument, a campaign, and a two-hundred-year argument behind it. The letter is Ё — pronounced "yo" — and it might be the strangest letter in the Cyrillic alphabet.</p>
+
+            <p>Here's what makes Ё genuinely weird. Russian writers can leave it out of almost any word and most readers will understand them anyway. A newspaper headline that should read "всё" (everything) is routinely printed as "все" (everyone) — same letters, different meaning, and Russians mostly cope. Imagine if English writers could skip the letter O whenever they felt like it. That's roughly the situation Ё is in.</p>
+
+            <h3>A Princess, a Dinner Party, and a Fir Tree</h3>
+
+            <p>The story begins on November 29, 1783, at a meeting of the newly founded Russian Academy in Saint Petersburg. Princess Yekaterina Dashkova, who led the Academy, was hosting some of the most important literary figures of the era — the writers Fonvizin and Derzhavin among them. They were discussing a new six-volume Russian dictionary when Dashkova asked a pointed question. How, she wanted to know, should they write the word for "fir tree"?</p>
+
+            <p>Everyone present wrote it the standard way: <strong>іолка</strong>. Two letters to represent what was clearly one sound. Dashkova pointed out the absurdity of it. Why use a clunky two-letter combination when a single letter would do? She proposed a new character — the familiar E with two dots placed above it, borrowing the form from French and German typography. The new letter would represent the distinct "yo" sound that Russians were already making but had no clean way to write.</p>
+
+            <p>The room agreed. Ё was born.</p>
+
+            <h3>The Slow Climb to Respectability</h3>
+
+            <p>Being invented at a dinner party doesn't automatically get a letter into the alphabet. Ё spent its first few decades as a curiosity. The poet Gavrila Derzhavin used it in personal correspondence. The first book to feature the letter in print was Ivan Dmitriev's poetry collection "My Trinkets" in 1795. The first surname ever printed with Ё was Потёмкин (Potyomkin) — the famous general and favorite of Catherine the Great.</p>
+
+            <p>The real champion of the letter came a few years later. Nikolay Karamzin, one of the most influential Russian writers of the late 18th century, used Ё prominently in his 1797 almanac <em>Aonida</em>, printing words like слёзы (tears), орёл (eagle), and мотылёк (moth). Because Karamzin carried so much literary weight, Ё started to feel respectable. For a long time, Karamzin was credited as the letter's inventor — though the real credit belongs to Dashkova.</p>
+
+            <p>Even with Karamzin's backing, Ё didn't make it into the official Russian alphabet until the 1860s. And "official" is a flexible word here, because the letter remained optional in practice. Writers used it when they felt like it. Printers skipped it when convenient. A great many Russian books and newspapers simply didn't include it at all.</p>
+
+            <h3>Stalin, a Typo, and a Decree</h3>
+
+            <p>The most dramatic chapter in the Ё story is also the most legendary. The details vary by source, but the core of the tale goes like this: during the Second World War, Joseph Stalin received a document listing the surnames of several generals. Because the typists had skipped Ё, the names were rendered incorrectly. Stalin was furious. The generals' names were mispronounced, which in the Soviet system was not a small matter.</p>
+
+            <p>Whether this specific incident happened or whether the story has grown in the telling, something changed. In 1942, the Soviet People's Commissariat of Education issued a decree making Ё mandatory in school textbooks. The following day, according to persistent accounts, the newspaper <em>Pravda</em> began printing the letter in every relevant word. Overnight, Ё had teeth.</p>
+
+            <p>The mandate was more official than effective. Mandatory in schools didn't mean mandatory in everyday use, and as soon as Soviet cultural enforcement loosened, Russian printers quietly went back to their old habits. By the late 20th century, Ё was once again optional almost everywhere outside of dictionaries, educational materials, and texts for children.</p>
+
+            <h3>When Skipping a Letter Actually Matters</h3>
+
+            <p>You might wonder why any of this matters. If Russians can read перше (perhaps) and все (everyone) without Ё, what's the problem?</p>
+
+            <p>The problem is that sometimes context isn't enough. Consider these pairs:</p>
+
+            <p><strong>все</strong> (vse) means "everyone." <strong>всё</strong> (vsyo) means "everything." In speech these sound completely different. In writing, if you drop the dots, they become identical.</p>
+
+            <p><strong>передохнем</strong> means "we will die." <strong>передохнём</strong> means "we will take a break." Two entirely different outcomes, written identically when Ё gets simplified.</p>
+
+            <p><strong>небо</strong> (sky) versus <strong>нёбо</strong> (palate, as in the roof of your mouth). One belongs in poetry, the other in a dentist's office.</p>
+
+            <p>Linguists estimate Russian has around 12,500 words containing Ё, plus roughly 2,750 surnames and 1,650 given names. More than 300 Russian surnames are distinguished from other surnames only by the presence or absence of this single letter — Lezhnev versus Lezhnyov, Demin versus Dyomin.</p>
+
+            <p>The real-world consequences of this can be genuinely absurd. Russian bureaucracy takes spelling extremely seriously, and people with Ё in their legal name regularly discover that their birth certificate, passport, and marriage certificate all spell their name slightly differently depending on which clerk typed which document. There was a court case in 2018 involving a Russian mother of three who was denied state benefits because her surname was written with Е on some documents and Ё on others — meaning, legally, the state wasn't sure she was the same person on her children's birth certificates.</p>
+
+            <h3>The Campaigners and the Monument</h3>
+
+            <p>The situation is weird enough that Ё has defenders. Russians call them <em>yofikators</em> — people who campaign for the consistent use of Ё in print, correspondence, and official documents. Some are academics. Some are retired engineers who have, no joke, written multiple books about the letter and compiled entire dictionaries of Ё-words. Editors of major publications receive polite but persistent letters from yofikators urging them to respect the letter.</p>
+
+            <p>Their efforts have had occasional wins. Several Russian newspapers — <em>Sovetskaya Rossiya</em>, <em>Literaturnaya Gazeta</em>, and <em>Argumenty i Fakty</em> among them — have officially reintroduced consistent use of Ё. The Russian Language Institute issued recommendations in 2006 asking that Ё be used in proper nouns to prevent mispronunciation.</p>
+
+            <p>And in 2005, the letter got a monument. The city of Ulyanovsk — the hometown of Karamzin, Ё's most famous champion — installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from its first printed appearance in Karamzin's 1797 almanac. It reportedly took three tons of stone. The unveiling actually triggered protests — because even a monument to a letter couldn't escape the argument.</p>
+
+            <p>There's a delightful detail here: the governor of Ulyanovsk Oblast has been known to refuse to sign state documents if Ё appears as Е in the text. The letter has a literal state defender.</p>
+
+            <h3>Why the Argument Continues</h3>
+
+            <p>So why is this still a debate in 2026? A few reasons.</p>
+
+            <p>The first is historical inertia. Russian was printed without consistent Ё use for so long that the tradition is baked in. Books, legal documents, and newspaper archives all reflect this inconsistency, and switching requires real effort.</p>
+
+            <p>The second is typographical. Older typewriters and early Soviet printing presses genuinely didn't make Ё easy to produce. The letter required a separate key or an extra mark. Skipping it saved time. By the time digital typography made Ё trivially available, the habit of skipping it had hardened into practice.</p>
+
+            <p>The third is cultural. Russians largely agree that you <em>should</em> use Ё when it matters for meaning — but "when it matters" turns out to be a judgment call. Some writers see it as pedantic to demand Ё everywhere. Others see dropping Ё as lazy and disrespectful to the language. There's a whole essay's worth of literary snobbery in this fight.</p>
+
+            <h3>What This Means for Learners</h3>
+
+            <p>If you're learning Russian, Ё is one of those letters where the written form and the reality on the ground diverge. Textbooks will teach you the letter carefully. Children's books will use it consistently. But as soon as you try to read a newspaper or a novel, you'll encounter Е where you expect Ё and need to infer the pronunciation from context.</p>
+
+            <p>This is frustrating, and also a useful signal that you're reading real Russian instead of pedagogical Russian. A few practical notes: Ё is always stressed, which actually helps. If you see a word where Ё would belong, the syllable containing it is almost certainly the stressed one. When in doubt about a word you've never heard, a dictionary will show you whether it contains Ё. And if you're dealing with proper names, especially surnames, it's always worth checking whether the official spelling uses Ё, because Russians may not pronounce the name the way the English transliteration suggests.</p>
+
+            <p>The English press, for instance, has spent decades misrendering Russian names because of Ё confusion. Khrushchev's name in Russian is actually Хрущёв — pronounced Khrushchyov, not Khrushchev. Gorbachev is Горбачёв — pronounced Gorbachyov. The transliterations we grew up with reflect a stripped-down version of names that Russians themselves often write incorrectly.</p>
+
+            <p>For more on the letters that fool English speakers in general, you might enjoy our guide to <a href="#" onclick="showArticle('memory-tricks'); return false;">memory tricks for confusing Cyrillic letters</a>, which covers Ё alongside other tricky characters. And if you're interested in the deeper history of the alphabet, <a href="#" onclick="showArticle('history-of-cyrillic'); return false;">the full history of Cyrillic</a> puts Ё's strange status in context.</p>
+
+            <h3>The Letter That Won't Quite Settle Down</h3>
+
+            <p>In a sense, Ё is the Russian language arguing with itself. It's a useful letter that nobody fully agrees to use. It's official but optional. It changes meaning but gets skipped anyway. It has a monument and a protest movement, state defenders and casual detractors, a clear pronunciation and an ambiguous written form.</p>
+
+            <p>If you ever catch yourself wondering whether learning Russian is going to be straightforward, remember Ё. The language has had 240 years to decide what to do about a single vowel and still hasn't committed. Everything that feels confusing about Russian spelling probably has a story behind it like this one — a committee decision from two centuries ago, a wartime decree, a literary feud, and a monument nobody quite agrees on.</p>
+
+            <p>Russian is like that. It's worth it anyway.</p>
+        
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('letter-yo-story', 'The Story of Ё: Russia\\'s Most Controversial Letter')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('letter-yo-story', 'The Story of Ё: Russia\\'s Most Controversial Letter'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('letter-yo-story', 'The Story of Ё: Russia\\'s Most Controversial Letter'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('letter-yo-story', 'The Story of Ё: Russia\\'s Most Controversial Letter')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
