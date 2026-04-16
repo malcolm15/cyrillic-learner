@@ -3003,6 +3003,150 @@ const ARTICLES = [
         `
     },
     {
+        id: 'how-to-type-cyrillic',
+        title: 'How to Type Cyrillic on Any Device: Complete Setup Guide',
+        relatedArticles: ['cyrillic-copy-paste', 'russian-alphabet-chart', 'cyrillic-learning-resources'],
+        content: `
+            <p>You've learned enough Cyrillic letters to recognize words. Now you want to actually type them. Maybe you're messaging someone in Russian, filling out a language exchange profile, or trying to search for something in Russian Google. Problem is, your keyboard shows Latin letters and you have no idea how to switch.</p>
+
+            <p>Good news: every major device supports Cyrillic typing natively. You don't need to buy a Russian keyboard or install any apps. The setup takes a few minutes on each platform. This guide walks you through all of them — Windows, Mac, iPhone, iPad, and Android — plus a few tips that will make the whole thing easier.</p>
+
+            <h3>Which Keyboard Layout Should You Pick?</h3>
+
+            <p>Before you start, a quick decision: every platform offers at least two Russian keyboard layouts, and picking the right one matters.</p>
+
+            <p><strong>Standard Russian (ЙЦУКЕН):</strong> This is the layout used in Russia. The letters are arranged the way native Russians expect them. If you bought a keyboard in Moscow, this is what the labels on the keys would show. The problem? It has almost nothing in common with QWERTY. The Russian letter Й is where English Q is, Ц is where W is, and so on. If you learn this layout, you're essentially learning to type from scratch.</p>
+
+            <p><strong>Russian Phonetic (sometimes called "Russian — Phonetic" or "Russian — Mnemonic"):</strong> This layout maps Cyrillic letters to the QWERTY key that produces a similar sound. Press A and you get А. Press K and you get К. Press V and you get В (which sounds like V in Russian even though it looks like B). This is much easier if you're coming from an English keyboard and aren't planning to become a Russian typist.</p>
+
+            <p>For most English speakers learning Russian, the phonetic layout is the right choice. You can start typing immediately without retraining your muscle memory. If you're serious about eventually working in Russia or typing long documents in Russian daily, the standard layout is worth learning — but you can always add it later.</p>
+
+            <p>The steps below cover both options on each platform.</p>
+
+            <h3>How to Type Cyrillic on Windows 11 and Windows 10</h3>
+
+            <p>Windows has solid built-in Russian support. The setup is identical on Windows 10 and Windows 11 with only minor UI differences.</p>
+
+            <p><strong>Step 1:</strong> Open Settings. The fastest way is pressing the Windows key and typing "language settings."</p>
+
+            <p><strong>Step 2:</strong> Go to Time & Language, then Language & Region.</p>
+
+            <p><strong>Step 3:</strong> Under Preferred Languages, click "Add a language."</p>
+
+            <p><strong>Step 4:</strong> Search for "Russian" in the list. Select Russian (Русский) and click Next.</p>
+
+            <p><strong>Step 5:</strong> On the optional language features screen, you can uncheck "Set as my Windows display language" unless you want your entire operating system in Russian. Click Install.</p>
+
+            <p><strong>Step 6:</strong> Windows will download and install the language pack. When it's done, you'll have the standard Russian ЙЦУКЕН keyboard available. If you want the phonetic layout instead, click on the Russian language you just added, click Options, then click "Add a keyboard" and choose Russian Mnemonic.</p>
+
+            <p><strong>Step 7:</strong> To switch to Russian typing, press Windows Key + Space. You'll see a language indicator appear showing EN or RU. You can also click the language indicator in the bottom-right corner of your taskbar to switch.</p>
+
+            <p>A word of warning: do not click "Make Default" when setting up the Russian keyboard. If you do, Russian becomes your primary typing language and English becomes the secondary one, which is confusing if you're not ready for that. Keep English as your default and switch to Russian only when you need it.</p>
+
+            <h3>How to Type Cyrillic on Mac (macOS)</h3>
+
+            <p>macOS has the cleanest Russian keyboard setup of any platform. The whole process takes about thirty seconds.</p>
+
+            <p><strong>Step 1:</strong> Open System Settings (called System Preferences on older macOS versions). You can find it in the Apple menu at the top-left of your screen, or press Command + Space and type "System Settings."</p>
+
+            <p><strong>Step 2:</strong> Click Keyboard in the sidebar.</p>
+
+            <p><strong>Step 3:</strong> Find the Input Sources section and click Edit (or the equivalent button on your version).</p>
+
+            <p><strong>Step 4:</strong> Click the plus button (+) to add a new input source.</p>
+
+            <p><strong>Step 5:</strong> Scroll down or search for Russian. You'll see several options: Russian (standard ЙЦУКЕН), Russian — Phonetic, and Russian — PC. For most learners, pick Russian — Phonetic. Click Add.</p>
+
+            <p><strong>Step 6:</strong> Make sure "Show Input menu in menu bar" is enabled. This puts a small flag icon in your menu bar that shows which keyboard is active.</p>
+
+            <p><strong>Step 7:</strong> To switch keyboards, press Control + Space (or Caps Lock if you've enabled it as a keyboard switcher in Keyboard settings). You can also click the flag in your menu bar and pick Russian from the dropdown.</p>
+
+            <p>A handy trick: if you forget which Cyrillic letter is on which key, click the flag in your menu bar and select "Show Keyboard Viewer." A floating keyboard appears on screen showing exactly what each key produces in the current layout.</p>
+
+            <h3>How to Type Cyrillic on iPhone and iPad (iOS)</h3>
+
+            <p>Apple makes this simple. The steps are identical on iPhone and iPad.</p>
+
+            <p><strong>Step 1:</strong> Open the Settings app.</p>
+
+            <p><strong>Step 2:</strong> Tap General, then Keyboard, then Keyboards.</p>
+
+            <p><strong>Step 3:</strong> Tap "Add New Keyboard."</p>
+
+            <p><strong>Step 4:</strong> Scroll down the list and tap Russian. (iOS only offers the standard ЙЦУКЕН layout for Russian — there's no built-in phonetic option on mobile.)</p>
+
+            <p><strong>Step 5:</strong> The Russian keyboard is now active. To switch to it while typing, tap and hold the globe icon (🌐) at the bottom-left of the keyboard, then select Russian. A quick tap on the globe cycles through your enabled keyboards.</p>
+
+            <p>If you need a phonetic layout on iOS, you can install a third-party keyboard app from the App Store. Just be aware that third-party keyboards have access to what you type, so stick with reputable ones if you go this route.</p>
+
+            <h3>How to Type Cyrillic on Android</h3>
+
+            <p>Android's setup depends on which keyboard app you use. Most Android phones come with Google's Gboard, which handles Russian natively. If your phone uses Samsung Keyboard or SwiftKey, the process is similar but the menu names differ slightly.</p>
+
+            <p><strong>For Gboard (most Android phones):</strong></p>
+
+            <p><strong>Step 1:</strong> Open any app where you can type, like Messages or Gmail. Tap on a text field to bring up the keyboard.</p>
+
+            <p><strong>Step 2:</strong> Tap the gear icon or the settings icon on your keyboard. On newer Gboard versions, tap the three dots in the top-left of the keyboard to access settings.</p>
+
+            <p><strong>Step 3:</strong> Tap Languages, then "Add keyboard."</p>
+
+            <p><strong>Step 4:</strong> Search for Russian and tap it. You'll see multiple layout options including ЙЦУКЕН (standard) and several phonetic variants. Pick the one that suits you and tap Done.</p>
+
+            <p><strong>Step 5:</strong> To switch to Russian while typing, tap and hold the spacebar (a language menu pops up) or tap the globe icon if it's visible on your keyboard.</p>
+
+            <p><strong>For Samsung Keyboard:</strong> Open Settings, then General Management, then Samsung Keyboard Settings, then Languages and Types. Tap "Manage input languages" and toggle Russian on. Switch using the globe icon or by swiping the spacebar.</p>
+
+            <h3>Tips That Will Save You Frustration</h3>
+
+            <p><strong>Get keyboard stickers.</strong> If you plan to type in Russian regularly, clear Cyrillic keyboard stickers are the cheapest and most useful accessory you can buy. Stick them onto your existing keyboard keys and you can see both alphabets without squinting. They cost a few dollars on Amazon.</p>
+
+            <p><strong>Use an on-screen keyboard viewer when you're starting out.</strong> Windows, Mac, and Linux all have built-in keyboard viewers that show a floating picture of your current keyboard layout. This is much easier than trying to memorize which QWERTY key produces which Cyrillic letter.</p>
+
+            <p><strong>Turn on the language indicator.</strong> Every platform lets you show which keyboard is currently active. Turn this on. Accidentally typing Russian when you meant English (or vice versa) produces gibberish that's easy to avoid if you can see at a glance which mode you're in.</p>
+
+            <p><strong>Learn the switching hotkey cold.</strong> On Windows it's Windows + Space. On Mac it's Control + Space (customizable). On mobile it's the globe icon. Internalize this so switching becomes reflexive rather than an interruption.</p>
+
+            <p><strong>Remember Ё.</strong> The letter Ё is not where you'd expect it on most layouts. On standard ЙЦУКЕН, it's in the top-left corner where you'd expect the tilde (~) on an English keyboard. On the phonetic layout, it often requires a modifier key. If you're curious why this letter is its own whole situation, we've got a <a href="#" onclick="showArticle('letter-yo-story'); return false;">dedicated article on the strange history of Ё</a>.</p>
+
+            <h3>When You Just Need One Character Quickly</h3>
+
+            <p>Setting up a keyboard makes sense if you type Russian regularly. If you just need a Cyrillic letter or two for a username, a design project, or to paste into a translator, a keyboard setup is overkill. Our <a href="#" onclick="showArticle('cyrillic-copy-paste'); return false;">Cyrillic copy-and-paste tool</a> gives you every letter in the alphabet — including accented letters and pre-reform characters — with one-click copying. No installation, no configuration, works on any device.</p>
+
+            <p>For learning the actual letters and their sounds, the <a href="#" onclick="showArticle('russian-alphabet-chart'); return false;">interactive alphabet chart</a> has pronunciation audio for all 33 Russian letters. Learning the alphabet first makes the keyboard layout way less intimidating.</p>
+
+            <h3>Which Platform Is Easiest?</h3>
+
+            <p>Ranking from easiest to hardest for first-time Cyrillic typists: Mac, then Windows, then iPhone and iPad tied, then Android. Mac wins because it offers a phonetic layout out of the box with zero friction. Windows requires adding a separate mnemonic layout but supports it well. iOS is simple but only offers the standard ЙЦУКЕН layout, which is harder for beginners. Android's setup varies by keyboard app, which makes the process a little inconsistent.</p>
+
+            <p>The good news is that once you set it up on one device, you rarely touch the settings again. Five minutes of configuration buys you months of convenient Russian typing. And if you're planning to learn the language seriously, you might as well tackle the standard ЙЦУКЕН layout eventually — muscle memory builds faster than you'd think, and Russian keyboards in Russia will all use that layout.</p>
+
+            <h3>Troubleshooting Common Issues</h3>
+
+            <p><strong>I added the keyboard but I don't see a switcher.</strong> Make sure the language indicator is enabled. On Windows, it should appear in the taskbar automatically. On Mac, toggle "Show Input menu in menu bar" in Keyboard settings. On iOS, you need at least two keyboards enabled for the globe icon to appear.</p>
+
+            <p><strong>My keys produce Cyrillic when I'm trying to type English.</strong> You're in Russian mode. Press your switching hotkey once to go back to English.</p>
+
+            <p><strong>I can't find the phonetic layout on iOS.</strong> iOS doesn't include one natively. You'll need a third-party keyboard app, or you can use the standard layout and rely on the on-screen keyboard to find letters.</p>
+
+            <p><strong>My Cyrillic shows up as boxes or question marks.</strong> This is a font issue, not a keyboard issue. The app or website you're using doesn't have a font installed that supports Cyrillic. Try a different app. This is rare on modern systems but occasionally happens in older software.</p>
+
+            <p><strong>I need to type Russian on a shared computer where I can't install anything.</strong> Use an online virtual Russian keyboard. Several free websites let you type Russian via an on-screen layout and copy the result. Our <a href="#" onclick="showArticle('cyrillic-copy-paste'); return false;">copy-and-paste tool</a> works in this scenario too, including the text builder for longer phrases.</p>
+
+            <p>Most first-time Russian typists get over the initial confusion within a couple of hours of practice. If you stick with it, within a week you'll be switching between keyboards without thinking about it. The setup is the hard part. The typing becomes automatic pretty quickly.</p>
+        
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('how-to-type-cyrillic', 'How to Type Cyrillic on Any Device: Complete Setup Guide')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('how-to-type-cyrillic', 'How to Type Cyrillic on Any Device: Complete Setup Guide'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('how-to-type-cyrillic', 'How to Type Cyrillic on Any Device: Complete Setup Guide'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('how-to-type-cyrillic', 'How to Type Cyrillic on Any Device: Complete Setup Guide')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
         id: 'cyrillic-copy-paste',
         title: 'Cyrillic Alphabet Copy and Paste',
         relatedArticles: ['russian-alphabet-chart', 'cyrillic-alphabet-chart', 'cyrillic-learning-resources'],
@@ -3048,7 +3192,7 @@ const ARTICLES = [
 
             <h3>Who Needs This?</h3>
 
-            <p><strong>Language Learners:</strong> Copy individual letters while you're still getting comfortable with the Cyrillic keyboard layout.</p>
+            <p><strong>Language Learners:</strong> Copy individual letters while you're still getting comfortable with the Cyrillic keyboard layout. If you type Russian often enough that copy-paste gets tedious, our <a href="#" onclick="showArticle('how-to-type-cyrillic'); return false;">complete Cyrillic keyboard setup guide</a> walks through the process for every major platform.</p>
 
             <p><strong>Teachers and Textbook Authors:</strong> The accented vowels are especially useful for creating learning materials with stress marks — something that's surprisingly tedious to type otherwise.</p>
 
