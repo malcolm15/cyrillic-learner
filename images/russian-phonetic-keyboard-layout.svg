@@ -1,0 +1,262 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="keyGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#e9ecef"/>
+    </linearGradient>
+    <linearGradient id="specialGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a237e"/>
+      <stop offset="100%" stop-color="#0d1654"/>
+    </linearGradient>
+    <filter id="keyShadow2" x="-2%" y="-2%" width="104%" height="108%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#00000022"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="720" height="280" rx="12" fill="#2c2c2c"/>
+  
+  <!-- Title -->
+  <text x="360" y="28" text-anchor="middle" fill="#aaa" font-size="13" font-weight="600" letter-spacing="1">PHONETIC LAYOUT (PRESS Q → GET Я)</text>
+  
+  <!-- Row 1: Ё and numbers -->
+  <g transform="translate(18, 40)">
+    <rect x="0" y="0" width="44" height="44" rx="6" fill="url(#specialGrad2)" filter="url(#keyShadow2)"/>
+    <text x="22" y="24" text-anchor="middle" fill="white" font-size="17" font-weight="700">Ё</text>
+    <text x="22" y="38" text-anchor="middle" fill="#8888cc" font-size="9" font-weight="600">`</text>
+    
+    <rect x="50" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="72" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">1</text>
+    <rect x="100" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="122" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">2</text>
+    <rect x="150" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="172" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">3</text>
+    <rect x="200" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="222" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">4</text>
+    <rect x="250" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="272" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">5</text>
+    <rect x="300" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="322" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">6</text>
+    <rect x="350" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="372" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">7</text>
+    <rect x="400" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="422" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">8</text>
+    <rect x="450" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="472" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">9</text>
+    <rect x="500" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="522" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">0</text>
+    
+    <rect x="550" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="572" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">-</text>
+    <rect x="600" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="622" y="28" text-anchor="middle" fill="#333" font-size="16" font-weight="600">=</text>
+    <rect x="650" y="0" width="34" height="44" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="667" y="26" text-anchor="middle" fill="#ccc" font-size="9" font-weight="600">⌫</text>
+  </g>
+  
+  <!-- Row 2: ЯШЕРТЫ row -->
+  <g transform="translate(18, 90)">
+    <rect x="0" y="0" width="54" height="44" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="27" y="26" text-anchor="middle" fill="#ccc" font-size="9" font-weight="600">TAB</text>
+    
+    <!-- Q→Я -->
+    <rect x="60" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="82" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Я</text>
+    <text x="82" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">Q</text>
+    
+    <!-- W→Ш -->
+    <rect x="110" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="132" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Ш</text>
+    <text x="132" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">W</text>
+    
+    <!-- E→Е -->
+    <rect x="160" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="182" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Е</text>
+    <text x="182" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">E</text>
+    
+    <!-- R→Р -->
+    <rect x="210" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="232" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Р</text>
+    <text x="232" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">R</text>
+    
+    <!-- T→Т -->
+    <rect x="260" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="282" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Т</text>
+    <text x="282" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">T</text>
+    
+    <!-- Y→Ы -->
+    <rect x="310" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="332" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Ы</text>
+    <text x="332" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">Y</text>
+    
+    <!-- U→У -->
+    <rect x="360" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="382" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">У</text>
+    <text x="382" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">U</text>
+    
+    <!-- I→И -->
+    <rect x="410" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="432" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">И</text>
+    <text x="432" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">I</text>
+    
+    <!-- O→О -->
+    <rect x="460" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="482" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">О</text>
+    <text x="482" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">O</text>
+    
+    <!-- P→П -->
+    <rect x="510" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="532" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">П</text>
+    <text x="532" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">P</text>
+    
+    <!-- [→Ю -->
+    <rect x="560" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="582" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Ю</text>
+    <text x="582" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">[</text>
+    
+    <!-- ]→Щ -->
+    <rect x="610" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="632" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Щ</text>
+    <text x="632" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">]</text>
+  </g>
+  
+  <!-- Row 3: АСДФ row -->
+  <g transform="translate(18, 140)">
+    <rect x="0" y="0" width="64" height="44" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="32" y="26" text-anchor="middle" fill="#ccc" font-size="9" font-weight="600">CAPS</text>
+    
+    <!-- A→А -->
+    <rect x="70" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="92" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">А</text>
+    <text x="92" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">A</text>
+    
+    <!-- S→С -->
+    <rect x="120" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="142" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">С</text>
+    <text x="142" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">S</text>
+    
+    <!-- D→Д -->
+    <rect x="170" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="192" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Д</text>
+    <text x="192" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">D</text>
+    
+    <!-- F→Ф -->
+    <rect x="220" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="242" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Ф</text>
+    <text x="242" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">F</text>
+    
+    <!-- G→Г -->
+    <rect x="270" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="292" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Г</text>
+    <text x="292" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">G</text>
+    
+    <!-- H→Ч -->
+    <rect x="320" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="342" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Ч</text>
+    <text x="342" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">H</text>
+    
+    <!-- J→Й -->
+    <rect x="370" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="392" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Й</text>
+    <text x="392" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">J</text>
+    
+    <!-- K→К -->
+    <rect x="420" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="442" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">К</text>
+    <text x="442" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">K</text>
+    
+    <!-- L→Л -->
+    <rect x="470" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="492" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Л</text>
+    <text x="492" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">L</text>
+    
+    <!-- ;→Ь -->
+    <rect x="520" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="542" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Ь</text>
+    <text x="542" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">;</text>
+    
+    <!-- '→Э -->
+    <rect x="570" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="592" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Э</text>
+    <text x="592" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">'</text>
+    
+    <rect x="620" y="0" width="64" height="44" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="652" y="26" text-anchor="middle" fill="#ccc" font-size="9" font-weight="600">ENTER</text>
+  </g>
+  
+  <!-- Row 4: ЗХЦВ row -->
+  <g transform="translate(18, 190)">
+    <rect x="0" y="0" width="80" height="44" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="40" y="26" text-anchor="middle" fill="#ccc" font-size="9" font-weight="600">SHIFT</text>
+    
+    <!-- Z→З -->
+    <rect x="86" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="108" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">З</text>
+    <text x="108" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">Z</text>
+    
+    <!-- X→Х -->
+    <rect x="136" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="158" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Х</text>
+    <text x="158" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">X</text>
+    
+    <!-- C→Ц -->
+    <rect x="186" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="208" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Ц</text>
+    <text x="208" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">C</text>
+    
+    <!-- V→Ж -->
+    <rect x="236" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="258" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Ж</text>
+    <text x="258" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">V</text>
+    
+    <!-- B→Б -->
+    <rect x="286" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="308" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Б</text>
+    <text x="308" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">B</text>
+    
+    <!-- N→Н -->
+    <rect x="336" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="358" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Н</text>
+    <text x="358" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">N</text>
+    
+    <!-- M→М -->
+    <rect x="386" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="408" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">М</text>
+    <text x="408" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">M</text>
+    
+    <!-- ,→В -->
+    <rect x="436" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="458" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">В</text>
+    <text x="458" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">,</text>
+    
+    <!-- .→Ъ -->
+    <rect x="486" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="508" y="24" text-anchor="middle" fill="#1a237e" font-size="17" font-weight="700">Ъ</text>
+    <text x="508" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700">.</text>
+    
+    <rect x="536" y="0" width="44" height="44" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <text x="558" y="28" text-anchor="middle" fill="#333" font-size="18" font-weight="600">/</text>
+    
+    <rect x="586" y="0" width="98" height="44" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="635" y="26" text-anchor="middle" fill="#ccc" font-size="9" font-weight="600">SHIFT</text>
+  </g>
+  
+  <!-- Row 5: Space bar -->
+  <g transform="translate(18, 240)">
+    <rect x="0" y="0" width="80" height="34" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="40" y="22" text-anchor="middle" fill="#ccc" font-size="8" font-weight="600">CTRL</text>
+    <rect x="86" y="0" width="54" height="34" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="113" y="22" text-anchor="middle" fill="#ccc" font-size="8" font-weight="600">ALT</text>
+    <rect x="146" y="0" width="390" height="34" rx="6" fill="url(#keyGrad2)" filter="url(#keyShadow2)"/>
+    <rect x="542" y="0" width="54" height="34" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="569" y="22" text-anchor="middle" fill="#ccc" font-size="8" font-weight="600">ALT</text>
+    <rect x="602" y="0" width="82" height="34" rx="6" fill="#555" filter="url(#keyShadow2)"/>
+    <text x="643" y="22" text-anchor="middle" fill="#ccc" font-size="8" font-weight="600">CTRL</text>
+  </g>
+  
+  <!-- Legend -->
+  <rect x="156" y="262" width="10" height="10" rx="2" fill="#1a237e"/>
+  <text x="172" y="271" fill="#aaa" font-size="10">= Cyrillic letter</text>
+  <rect x="280" y="262" width="10" height="10" rx="2" fill="#e74c3c"/>
+  <text x="296" y="271" fill="#aaa" font-size="10">= QWERTY key you press</text>
+</svg>
