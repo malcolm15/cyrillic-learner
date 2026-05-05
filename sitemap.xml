@@ -160,16 +160,24 @@
     <!-- Articles: History & Culture -->
     <url>
         <loc>https://cyrilica.com/articles/history-of-cyrillic</loc>
-        <lastmod>2026-02-24</lastmod>
+        <lastmod>2026-05-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/history-of-cyrillic-timeline.png</image:loc>
+            <image:title>History of the Cyrillic Alphabet Timeline from 862 CE to 2007</image:title>
+        </image:image>
     </url>
     
     <url>
         <loc>https://cyrilica.com/articles/lost-letters</loc>
-        <lastmod>2026-04-15</lastmod>
+        <lastmod>2026-05-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/lost-cyrillic-letters.png</image:loc>
+            <image:title>The Lost Letters of Cyrillic - Extinct Characters From Yat to Izhitsa</image:title>
+        </image:image>
     </url>
     
     <url>
