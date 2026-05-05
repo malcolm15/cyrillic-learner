@@ -1370,6 +1370,11 @@ const ARTICLES = [
             
             <p>Welcome to "faux Cyrillic" — the Western world's favorite way to make something look Russian without actually using Russian.</p>
 
+            <figure class="article-image">
+                <img src="/images/backwards-r-myth.png" alt="Infographic debunking the backwards R myth: the Cyrillic letter Я is not a backwards R but a unique letter pronounced YA, with example word Язык meaning Language" loading="lazy" width="1600" height="1240" style="max-width: 550px;">
+                <figcaption>Я is not a backwards R. It's pronounced "ya" and has nothing to do with the letter R.</figcaption>
+            </figure>
+
             <h3>The Most Famous False Friend: Я ≠ R</h3>
             
             <p>Let's start with the big one. The Cyrillic letter Я looks exactly like a backwards Latin R. Hollywood sees this and thinks "perfect! We'll use Я whenever we want to write R in faux-Russian!"</p>
@@ -1534,6 +1539,11 @@ const ARTICLES = [
             Connected, flowing script. Letters link together. Some letters look completely different from their printed forms. Russians learn this in elementary school and use it for everything.</p>
             
             <p>Start with print to build basic muscle memory, then move to cursive once you're comfortable.</p>
+
+            <figure class="article-image">
+                <img src="/images/cyrillic-handwriting-chart.png" alt="Chart comparing all 33 Russian Cyrillic letters in printed form versus their cursive handwriting equivalents, with letters that change dramatically in cursive highlighted in orange" loading="lazy" width="1720" height="1300" style="max-width: 600px;">
+                <figcaption>All 33 Russian letters: printed form on the left, cursive on the right. Orange-marked letters change the most.</figcaption>
+            </figure>
 
             <h3>The Printed Alphabet: Your Foundation</h3>
             
@@ -2380,6 +2390,11 @@ const ARTICLES = [
             
             <p>The answer has nothing to do with linguistics and everything to do with religion, politics, and a thousand years of European history.</p>
 
+            <figure class="article-image">
+                <img src="/images/cyrillic-vs-latin-countries.png" alt="Chart comparing which Slavic and post-Soviet countries use Cyrillic script, Latin script, or both, organized in three columns: Cyrillic only includes Russia, Ukraine, Belarus, Bulgaria; Both/Transitioning includes Serbia, Bosnia, Kazakhstan; Latin only includes Croatia, Poland, Czech Republic" loading="lazy" width="1860" height="1168" style="max-width: 650px;">
+                <figcaption>Which Slavic and post-Soviet nations use which script. The divide is driven by religion and politics, not linguistics.</figcaption>
+            </figure>
+
             <h3>The Great Schism: The Root of the Split</h3>
             
             <p>In 1054 AD, Christianity split into two branches: Roman Catholicism (based in Rome) and Eastern Orthodoxy (based in Constantinople). This wasn't just a theological disagreement — it created a cultural fault line that runs through Europe to this day.</p>
@@ -2998,7 +3013,7 @@ const ARTICLES = [
 
             <figure class="article-image">
                 <img src="/images/yo-monument-ulyanovsk.jpg" alt="Monument to the letter Ё in Ulyanovsk, Russia — a two-meter triangular granite stele with the letter Ё carved into it, located on Novy Venets Boulevard" loading="lazy" style="max-width: 500px;">
-                <figcaption>The monument to Ё in Ulyanovsk, unveiled in 2005. Photo by Sergey M R via <a href="https://commons.wikimedia.org/wiki/File:%D0%9F%D0%B0%D0%BC%D1%8F%D1%82%D0%BD%D0%B8%D0%BA_%D0%B1%D1%83%D0%BA%D0%B2%D0%B5_%D0%81_(1)_(%D0%A3%D0%BB%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2%D1%81%D0%BA).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</figcaption>
+                <figcaption>The monument to Ё in Ulyanovsk, unveiled in 2005. Photo by Vadim Indeikin via <a href="https://commons.wikimedia.org/wiki/Category:Yo-monument_in_Ulyanovsk" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</figcaption>
             </figure>
 
             <p>There's a delightful detail here: the governor of Ulyanovsk Oblast has been known to refuse to sign state documents if Ё appears as Е in the text. The letter has a literal state defender.</p>
