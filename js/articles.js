@@ -2991,6 +2991,11 @@ const ARTICLES = [
 
             <p>And in 2005, the letter got a monument. The city of Ulyanovsk — the hometown of Karamzin, Ё's most famous champion — installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from its first printed appearance in Karamzin's 1797 almanac. It reportedly took three tons of stone. The unveiling actually triggered protests — because even a monument to a letter couldn't escape the argument.</p>
 
+            <figure class="article-image">
+                <img src="/images/yo-monument-ulyanovsk.jpg" alt="Monument to the letter Ё in Ulyanovsk, Russia — a two-meter triangular granite stele with the letter Ё carved into it, located on Novy Venets Boulevard" loading="lazy" style="max-width: 500px;">
+                <figcaption>The monument to Ё in Ulyanovsk, unveiled in 2005. Photo by Vadim Indeikin via <a href="https://commons.wikimedia.org/wiki/Category:Yo-monument_in_Ulyanovsk" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</figcaption>
+            </figure>
+
             <p>There's a delightful detail here: the governor of Ulyanovsk Oblast has been known to refuse to sign state documents if Ё appears as Е in the text. The letter has a literal state defender.</p>
 
             <h3>Why the Argument Continues</h3>
