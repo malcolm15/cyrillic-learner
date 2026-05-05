@@ -470,6 +470,11 @@ const ARTICLES = [
             
             <p>This is the story of the lost letters: the characters that once filled medieval manuscripts, adorned church texts, and puzzled scribes across Eastern Europe. Some disappeared centuries ago. Others survived until your great-grandparents' generation. All of them tell a fascinating story about how writing systems evolve.</p>
 
+            <figure class="article-image">
+                <img src="/images/lost-cyrillic-letters.png" alt="Showcase of extinct Cyrillic letters organized by era: the Famous Four killed in 1918 (Yat, Fita, I Decimal, Izhitsa), earlier casualties phased out by the 1700s (Dzelo, Omega, Small Yus, Big Yus), Old Church Slavonic Greek borrowings (Ksi, Psi), and medieval oddities (Iotified A, Iotified E)" loading="lazy" width="900" height="940">
+                <figcaption>Twelve extinct Cyrillic letters, grouped by when they disappeared from use.</figcaption>
+            </figure>
+
             <h3>The Iceberg of Cyrillic</h3>
             
             <p>If you've spent any time on language learning forums, you might have seen the "Cyrillic iceberg" meme — a tiered chart showing the descent from common letters everyone knows to increasingly obscure, archaic, and downright bizarre characters that would make medieval monks scratch their heads.</p>
@@ -2034,6 +2039,11 @@ const ARTICLES = [
             </div>
 
             <p>The Cyrillic alphabet is one of the most widely used writing systems in the world, serving over 250 million people across more than 50 languages. But its origins are surprisingly humble — born from a religious mission in the 9th century, shaped by saints, reformed by tsars, weaponized by Soviet ideology, and ultimately outlasting every empire that carried it. This is the full story of an alphabet that changed the world.</p>
+
+            <figure class="article-image">
+                <img src="/images/history-of-cyrillic-timeline.png" alt="Timeline of Cyrillic alphabet history showing 8 key dates from 862 CE when Prince Rastislav requested missionaries through 2007 when Cyrillic became the EU's third official script" loading="lazy" width="900" height="1120">
+                <figcaption>1,150 years of Cyrillic history, from a missionary request to a global writing system.</figcaption>
+            </figure>
 
             <h3 id="world-before-cyrillic">The World Before Cyrillic: Slavs Without a Script</h3>
             <p>To understand why Cyrillic was created, you have to understand the problem it was solving. In the mid-9th century, the Slavic peoples of Central and Eastern Europe had no standardized writing system. They were a vast, culturally rich group of nations — stretching from modern-day Czech Republic and Slovakia in the west to Bulgaria and Serbia in the south — but they recorded almost nothing in writing. Trade, governance, poetry, and religious life all relied on oral tradition.</p>
