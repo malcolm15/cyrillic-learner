@@ -1104,6 +1104,11 @@ const ARTICLES = [
             
             <p>This tier list is based on difficulty for English speakers learning to read Russian. We're considering: visual similarity to English, pronunciation difficulty, false friend potential, and overall brain-breaking capacity.</p>
 
+            <figure class="article-image">
+                <img src="/images/cyrillic-tier-list.png" alt="Cyrillic alphabet tier list ranking all 33 Russian letters by difficulty for English speakers, from S-tier easiest letters like А К М О Т to F-tier hardest letters like Р Ы Ь Ъ" loading="lazy" width="1100" height="811">
+                <figcaption>All 33 Russian letters ranked by difficulty. S-tier takes minutes to learn, F-tier takes months.</figcaption>
+            </figure>
+
             <h3>S-TIER: Welcome Gifts (Basically Free)</h3>
             
             <p>These letters look like English, sound like English, and require almost no effort to learn.</p>
