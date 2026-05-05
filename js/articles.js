@@ -3023,6 +3023,16 @@ const ARTICLES = [
 
             <p>The steps below cover both options on each platform.</p>
 
+            <figure class="article-image">
+                <img src="images/russian-keyboard-layout.svg" alt="Standard Russian ЙЦУКЕН keyboard layout showing all 33 Cyrillic letters arranged on a QWERTY-sized keyboard" loading="lazy" width="720" height="280">
+                <figcaption>The standard ЙЦУКЕН layout used in Russia. Note Ё in the top-left corner.</figcaption>
+            </figure>
+
+            <figure class="article-image">
+                <img src="images/russian-phonetic-keyboard-layout.svg" alt="Russian phonetic keyboard layout mapping Cyrillic letters to similar-sounding QWERTY keys, with Latin key labels shown in red" loading="lazy" width="720" height="280">
+                <figcaption>The phonetic layout maps Cyrillic letters to similar-sounding QWERTY keys (shown in red).</figcaption>
+            </figure>
+
             <h3>How to Type Cyrillic on Windows 11 and Windows 10</h3>
 
             <p>Windows has solid built-in Russian support. The setup is identical on Windows 10 and Windows 11 with only minor UI differences.</p>
