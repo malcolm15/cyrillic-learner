@@ -2949,6 +2949,11 @@ const ARTICLES = [
 
             <p><strong>небо</strong> (sky) versus <strong>нёбо</strong> (palate, as in the roof of your mouth). One belongs in poetry, the other in a dentist's office.</p>
 
+            <figure class="article-image">
+                <img src="/images/yo-letter-word-pairs.svg" alt="Comparison of Russian word pairs showing how dropping the letter Ё changes meaning: все (everyone) versus всё (everything), передохнем (we will die) versus передохнём (we will take a break), небо (sky) versus нёбо (palate)" loading="lazy" width="680" height="520">
+                <figcaption>Three word pairs where dropping the dots on Ё produces an entirely different word.</figcaption>
+            </figure>
+
             <p>Linguists estimate Russian has around 12,500 words containing Ё, plus roughly 2,750 surnames and 1,650 given names. More than 300 Russian surnames are distinguished from other surnames only by the presence or absence of this single letter — Lezhnev versus Lezhnyov, Demin versus Dyomin.</p>
 
             <p>The real-world consequences of this can be genuinely absurd. Russian bureaucracy takes spelling extremely seriously, and people with Ё in their legal name regularly discover that their birth certificate, passport, and marriage certificate all spell their name slightly differently depending on which clerk typed which document. There was a court case in 2018 involving a Russian mother of three who was denied state benefits because her surname was written with Е on some documents and Ё on others — meaning, legally, the state wasn't sure she was the same person on her children's birth certificates.</p>
