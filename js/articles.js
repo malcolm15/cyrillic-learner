@@ -220,6 +220,11 @@ const ARTICLES = [
             
             <h3>The Confusing Six</h3>
             <p>Here are the letters that trip up nearly every English speaker. Master these, and you're halfway to fluent reading.</p>
+
+            <figure class="article-image">
+                <img src="/images/cyrillic-false-friends.png" alt="Cyrillic false friends chart showing 8 letters that look like English letters but sound different: Р is not P but R, Н is not H but N, В is not B but V, С is not C but S, У is not Y but OO, Х is not X but KH, Е is not E but YE, and Ё is not E but YO, with example Russian words for each" loading="lazy" width="1000" height="1380">
+                <figcaption>Eight Cyrillic letters that look like English but sound completely different. Save this for reference.</figcaption>
+            </figure>
             
             <p><strong>В (Ve) — Sounds like "V"</strong></p>
             <p>This is usually the first shock. It looks exactly like the Latin letter B, but it sounds like V. Think "very" not "boy."</p>
