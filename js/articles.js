@@ -637,6 +637,11 @@ const ARTICLES = [
 
             <p>The letters that look like English letters but sound different are the worst. Your brain sees В and wants to say "buh" instead of "vuh." Here's how to fix that.</p>
 
+            <figure class="article-image">
+                <img src="/images/cyrillic-memory-tricks.png" alt="Visual mnemonic chart for confusing Cyrillic letters showing six false friends: Р looks like P but sounds like R, Н looks like H but sounds like N, В looks like B but sounds like V, С looks like C but sounds like S, У looks like Y but sounds like U, and Х looks like X but sounds like KH" loading="lazy" width="800" height="940">
+                <figcaption>Quick reference: six Cyrillic letters that look like English letters but sound completely different.</figcaption>
+            </figure>
+
             <p><strong>В (sounds like V):</strong> Think "Very Big B" but it's actually a V. Or picture the letter as two Victory fingers making a V shape. Every time you see it, say "victory" in your head.</p>
 
             <p><strong>Н (sounds like N):</strong> Imagine a soccer goal with a Net stretched across it. The Н looks like goalposts. N for Net.</p>
