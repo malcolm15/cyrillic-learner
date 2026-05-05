@@ -2041,7 +2041,7 @@ const ARTICLES = [
             <p>The Cyrillic alphabet is one of the most widely used writing systems in the world, serving over 250 million people across more than 50 languages. But its origins are surprisingly humble — born from a religious mission in the 9th century, shaped by saints, reformed by tsars, weaponized by Soviet ideology, and ultimately outlasting every empire that carried it. This is the full story of an alphabet that changed the world.</p>
 
             <figure class="article-image">
-                <img src="/images/history-of-cyrillic-timeline.png" alt="Timeline of Cyrillic alphabet history showing 8 key dates from 862 CE when Prince Rastislav requested missionaries through 2007 when Cyrillic became the EU's third official script" loading="lazy" width="900" height="1120">
+                <img src="/images/history-of-cyrillic-timeline.png" alt="Timeline of Cyrillic alphabet history showing 8 key dates from 862 CE when Prince Rastislav requested missionaries through 2007 when Cyrillic became the EU's third official script" loading="lazy" width="1800" height="2240" style="max-width: 500px;">
                 <figcaption>1,150 years of Cyrillic history, from a missionary request to a global writing system.</figcaption>
             </figure>
 
