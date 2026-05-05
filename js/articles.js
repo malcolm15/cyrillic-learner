@@ -471,7 +471,7 @@ const ARTICLES = [
             <p>This is the story of the lost letters: the characters that once filled medieval manuscripts, adorned church texts, and puzzled scribes across Eastern Europe. Some disappeared centuries ago. Others survived until your great-grandparents' generation. All of them tell a fascinating story about how writing systems evolve.</p>
 
             <figure class="article-image">
-                <img src="/images/lost-cyrillic-letters.png" alt="Showcase of extinct Cyrillic letters organized by era: the Famous Four killed in 1918 (Yat, Fita, I Decimal, Izhitsa), earlier casualties phased out by the 1700s (Dzelo, Omega, Small Yus, Big Yus), Old Church Slavonic Greek borrowings (Ksi, Psi), and medieval oddities (Iotified A, Iotified E)" loading="lazy" width="900" height="940">
+                <img src="/images/lost-cyrillic-letters.png" alt="Showcase of extinct Cyrillic letters organized by era: the Famous Four killed in 1918 (Yat, Fita, I Decimal, Izhitsa), earlier casualties phased out by the 1700s (Dzelo, Omega, Small Yus, Big Yus), Old Church Slavonic Greek borrowings (Ksi, Psi), and medieval oddities (Iotified A, Iotified E)" loading="lazy" width="1800" height="2010" style="max-width: 600px;">
                 <figcaption>Twelve extinct Cyrillic letters, grouped by when they disappeared from use.</figcaption>
             </figure>
 
