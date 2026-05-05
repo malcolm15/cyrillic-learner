@@ -83,16 +83,24 @@
     
     <url>
         <loc>https://cyrilica.com/articles/memory-tricks</loc>
-        <lastmod>2026-03-10</lastmod>
+        <lastmod>2026-05-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/cyrillic-memory-tricks.png</image:loc>
+            <image:title>Visual Mnemonic Chart for Confusing Cyrillic False Friend Letters</image:title>
+        </image:image>
     </url>
     
     <url>
         <loc>https://cyrilica.com/articles/false-friends</loc>
-        <lastmod>2026-02-24</lastmod>
+        <lastmod>2026-05-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/cyrillic-false-friends.png</image:loc>
+            <image:title>Cyrillic False Friends Chart - Letters That Look Like English But Sound Different</image:title>
+        </image:image>
     </url>
     
     <url>
