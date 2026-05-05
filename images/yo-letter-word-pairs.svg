@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 520" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <filter id="cardShadow" x="-3%" y="-3%" width="106%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="680" height="520" rx="16" fill="#1a237e"/>
+  
+  <!-- Title -->
+  <text x="340" y="42" text-anchor="middle" fill="white" font-size="20" font-weight="700" letter-spacing="1">WHEN DROPPING Ё CHANGES MEANING</text>
+  <text x="340" y="64" text-anchor="middle" fill="#8888cc" font-size="13">Without the dots, these words mean something completely different</text>
+  
+  <!-- Column headers -->
+  <text x="210" y="100" text-anchor="middle" fill="#e74c3c" font-size="14" font-weight="700" letter-spacing="1">WITHOUT Ё</text>
+  <text x="500" y="100" text-anchor="middle" fill="#4CAF50" font-size="14" font-weight="700" letter-spacing="1">WITH Ё</text>
+  
+  <!-- Divider line -->
+  <line x1="340" y1="82" x2="340" y2="500" stroke="#ffffff22" stroke-width="2" stroke-dasharray="6,4"/>
+  
+  <!-- Pair 1: все / всё -->
+  <g transform="translate(0, 110)">
+    <!-- Left card -->
+    <rect x="30" y="0" width="280" height="100" rx="10" fill="white" filter="url(#cardShadow)"/>
+    <text x="170" y="38" text-anchor="middle" fill="#1a237e" font-size="36" font-weight="700">все</text>
+    <text x="170" y="58" text-anchor="middle" fill="#888" font-size="13" font-style="italic">/vsye/</text>
+    <text x="170" y="82" text-anchor="middle" fill="#e74c3c" font-size="15" font-weight="600">"everyone"</text>
+    
+    <!-- Arrow -->
+    <text x="340" y="55" text-anchor="middle" fill="#f9a825" font-size="24">≠</text>
+    
+    <!-- Right card -->
+    <rect x="370" y="0" width="280" height="100" rx="10" fill="white" filter="url(#cardShadow)"/>
+    <text x="510" y="38" text-anchor="middle" fill="#1a237e" font-size="36" font-weight="700">всё</text>
+    <text x="510" y="58" text-anchor="middle" fill="#888" font-size="13" font-style="italic">/vsyo/</text>
+    <text x="510" y="82" text-anchor="middle" fill="#4CAF50" font-size="15" font-weight="600">"everything"</text>
+  </g>
+  
+  <!-- Pair 2: передохнем / передохнём -->
+  <g transform="translate(0, 230)">
+    <!-- Left card -->
+    <rect x="30" y="0" width="280" height="100" rx="10" fill="white" filter="url(#cardShadow)"/>
+    <text x="170" y="38" text-anchor="middle" fill="#1a237e" font-size="28" font-weight="700">передохнем</text>
+    <text x="170" y="58" text-anchor="middle" fill="#888" font-size="13" font-style="italic">/peredókhnem/</text>
+    <text x="170" y="82" text-anchor="middle" fill="#e74c3c" font-size="15" font-weight="600">"we will die"</text>
+    
+    <!-- Arrow -->
+    <text x="340" y="55" text-anchor="middle" fill="#f9a825" font-size="24">≠</text>
+    
+    <!-- Right card -->
+    <rect x="370" y="0" width="280" height="100" rx="10" fill="white" filter="url(#cardShadow)"/>
+    <text x="510" y="38" text-anchor="middle" fill="#1a237e" font-size="28" font-weight="700">передохнём</text>
+    <text x="510" y="58" text-anchor="middle" fill="#888" font-size="13" font-style="italic">/peredokhnyóm/</text>
+    <text x="510" y="82" text-anchor="middle" fill="#4CAF50" font-size="15" font-weight="600">"we will take a break"</text>
+  </g>
+  
+  <!-- Pair 3: небо / нёбо -->
+  <g transform="translate(0, 350)">
+    <!-- Left card -->
+    <rect x="30" y="0" width="280" height="100" rx="10" fill="white" filter="url(#cardShadow)"/>
+    <text x="170" y="38" text-anchor="middle" fill="#1a237e" font-size="36" font-weight="700">небо</text>
+    <text x="170" y="58" text-anchor="middle" fill="#888" font-size="13" font-style="italic">/nyébo/</text>
+    <text x="170" y="82" text-anchor="middle" fill="#e74c3c" font-size="15" font-weight="600">"sky"</text>
+    
+    <!-- Arrow -->
+    <text x="340" y="55" text-anchor="middle" fill="#f9a825" font-size="24">≠</text>
+    
+    <!-- Right card -->
+    <rect x="370" y="0" width="280" height="100" rx="10" fill="white" filter="url(#cardShadow)"/>
+    <text x="510" y="38" text-anchor="middle" fill="#1a237e" font-size="36" font-weight="700">нёбо</text>
+    <text x="510" y="58" text-anchor="middle" fill="#888" font-size="13" font-style="italic">/nyóbo/</text>
+    <text x="510" y="82" text-anchor="middle" fill="#4CAF50" font-size="15" font-weight="600">"palate" (roof of mouth)</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="340" y="492" text-anchor="middle" fill="#8888cc" font-size="12">Same spelling without the dots. Completely different meanings.</text>
+  <text x="340" y="510" text-anchor="middle" fill="#555599" font-size="11">cyrilica.com</text>
+</svg>
