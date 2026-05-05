@@ -801,6 +801,11 @@ const ARTICLES = [
             
             <p>While Cyrillic borrowed heavily from Greek (making it somewhat recognizable to those who know the Greek alphabet), Glagolitic appears to have been designed from scratch or from multiple sources, creating something entirely unique. This gives it a mysterious quality that has fascinated scholars for centuries.</p>
 
+            <figure class="article-image">
+                <img src="/images/kiev-missal-glagolitic.jpg" alt="The Kiev Missal, a 10th century Glagolitic manuscript showing ornate handwritten text in the oldest known Slavic alphabet on aged parchment" loading="lazy" style="max-width: 600px;">
+                <figcaption>The Kiev Missal (10th century), the oldest known Old Church Slavonic manuscript, written in Glagolitic script. Photo by Zde via <a href="https://commons.wikimedia.org/wiki/Category:Kiev_Missal" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</figcaption>
+            </figure>
+
             <h3>Why Was Glagolitic Created?</h3>
             
             <p>In 863 AD, the Byzantine Emperor sent Saints Cyril and Methodius to Great Moravia (modern-day Czech Republic and Slovakia) to spread Christianity among the Slavic peoples. But there was a problem: the Slavs had no written language, and the church services were in Greek and Latin — languages the people didn't understand.</p>
@@ -2993,7 +2998,7 @@ const ARTICLES = [
 
             <figure class="article-image">
                 <img src="/images/yo-monument-ulyanovsk.jpg" alt="Monument to the letter Ё in Ulyanovsk, Russia — a two-meter triangular granite stele with the letter Ё carved into it, located on Novy Venets Boulevard" loading="lazy" style="max-width: 500px;">
-                <figcaption>The monument to Ё in Ulyanovsk, unveiled in 2005. Photo by Vadim Indeikin via <a href="https://commons.wikimedia.org/wiki/Category:Yo-monument_in_Ulyanovsk" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</figcaption>
+                <figcaption>The monument to Ё in Ulyanovsk, unveiled in 2005. Photo by Sergey M R via <a href="https://commons.wikimedia.org/wiki/File:%D0%9F%D0%B0%D0%BC%D1%8F%D1%82%D0%BD%D0%B8%D0%BA_%D0%B1%D1%83%D0%BA%D0%B2%D0%B5_%D0%81_(1)_(%D0%A3%D0%BB%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2%D1%81%D0%BA).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</figcaption>
             </figure>
 
             <p>There's a delightful detail here: the governor of Ulyanovsk Oblast has been known to refuse to sign state documents if Ё appears as Е in the text. The letter has a literal state defender.</p>
