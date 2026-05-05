@@ -255,8 +255,9 @@
   </g>
   
   <!-- Legend -->
-  <rect x="156" y="262" width="10" height="10" rx="2" fill="#1a237e"/>
-  <text x="172" y="271" fill="#aaa" font-size="10">= Cyrillic letter</text>
-  <rect x="280" y="262" width="10" height="10" rx="2" fill="#e74c3c"/>
-  <text x="296" y="271" fill="#aaa" font-size="10">= QWERTY key you press</text>
+  <rect x="220" y="262" width="10" height="10" rx="2" fill="#1a237e"/>
+  <text x="236" y="271" fill="#aaa" font-size="10">= Cyrillic letter</text>
+  <rect x="355" y="262" width="10" height="10" rx="2" fill="#e74c3c"/>
+  <text x="371" y="271" fill="#aaa" font-size="10">= QWERTY key you press</text>
+  <text x="680" y="271" text-anchor="end" fill="#555" font-size="9">cyrilica.com</text>
 </svg>

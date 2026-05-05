@@ -219,4 +219,5 @@
     <rect x="602" y="0" width="82" height="34" rx="6" fill="#555" filter="url(#keyShadow)"/>
     <text x="643" y="22" text-anchor="middle" fill="#ccc" font-size="8" font-weight="600">CTRL</text>
   </g>
+  <text x="700" y="271" text-anchor="end" fill="#555" font-size="9">cyrilica.com</text>
 </svg>
