@@ -1053,6 +1053,12 @@
             border: 2px solid #e0e0e0;
         }
 
+        @media (max-width: 768px) {
+            .article-image img {
+                max-width: 100% !important;
+            }
+        }
+
         .article-image figcaption {
             font-size: 0.85rem;
             color: #777;
