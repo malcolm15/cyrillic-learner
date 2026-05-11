@@ -2468,6 +2468,26 @@
     
     .related-articles-grid {
         grid-template-columns: 1fr;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .related-article-card {
+        padding: 10px 14px;
+    }
+
+    .related-article-card h4 {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .related-article-card p {
+        display: none;
+    }
+
+    #related-articles-section h3 {
+        font-size: 1.1rem !important;
+        margin: 25px 0 12px 0 !important;
     }
 }
 
