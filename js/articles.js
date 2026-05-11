@@ -913,7 +913,7 @@ const ARTICLES = [
             <p>Nestled between Russia, Ukraine, Poland, Latvia, and Lithuania, Belarus uses a Cyrillic alphabet that's distinct from its neighbors — a 32-letter system that reflects both Russian influence and uniquely Belarusian sounds. If you've learned Russian, Belarusian will feel familiar yet intriguingly different.</p>
 
             <figure class="article-image">
-                <img src="/images/belarusian-vs-russian-alphabet.png" alt="Belarusian vs Russian alphabet comparison showing 32 vs 33 letters: Belarusian has unique letters Ў (short U) and І (decimal I), while Russian has Ё and Ъ which Belarusian does not use" loading="lazy" width="1700" height="1500" style="max-width: 600px;">
+                <img src="/images/belarusian-vs-russian-alphabet.png" alt="Belarusian vs Russian alphabet comparison showing 32 vs 33 letters: Belarusian has unique letters Ў (short U) and І (decimal I), while Russian has Ё and Ъ which Belarusian does not use" loading="lazy" width="1700" height="1320" style="max-width: 600px;">
                 <figcaption>The key differences between Belarusian and Russian alphabets at a glance.</figcaption>
             </figure>
 
