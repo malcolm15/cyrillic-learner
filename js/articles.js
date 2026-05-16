@@ -2995,6 +2995,98 @@ const ARTICLES = [
         `
     },
     {
+        id: 'cyrillic-vs-greek',
+        title: 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor',
+        relatedArticles: ['history-of-cyrillic', 'glagolitic', 'lost-letters'],
+        content: `
+            <p>If you've ever looked at the Greek and Russian alphabets side by side, the resemblance is hard to miss. The letter A appears in both. So does K, M, O, and T. Some letters look identical but make different sounds. Others have clearly evolved from the same ancestor but drifted apart over a thousand years of separate history.</p>
+
+            <p>This isn't a coincidence. The Cyrillic alphabet was created in the 9th century by disciples of Saints Cyril and Methodius, and they built it directly on top of the Greek alphabet. Every Cyrillic letter either came from Greek, was modified from Greek, or was invented from scratch to fill a gap that Greek couldn't cover. Understanding this relationship makes both alphabets easier to learn and reveals a fascinating piece of linguistic history.</p>
+
+            <h3>The Family Tree</h3>
+
+            <p>The story starts with the Phoenician alphabet, the great-grandparent of most Western writing systems. The Greeks adapted Phoenician letters around the 8th century BC. The Romans later adapted Greek into what became the Latin alphabet (the one you're reading now). And in the 9th century AD, Slavic scholars adapted Greek into what became Cyrillic.</p>
+
+            <p>This means Cyrillic and Latin are siblings, both descended from Greek. And Greek itself descends from Phoenician. When you look at the letter A in English, А in Russian, and Α in Greek, you're seeing the same letter three times, passed down through three thousand years of continuous use.</p>
+
+            <figure class="article-image">
+                <img src="/images/cyrillic-vs-greek-comparison.png" alt="Comparison chart of Cyrillic and Greek alphabets showing identical letters, similar letters, false friends, and letters unique to each alphabet" loading="lazy" width="1900" height="1400" style="max-width: 650px;">
+                <figcaption>How the two alphabets compare: shared letters, recognizable cousins, false friends, and unique characters.</figcaption>
+            </figure>
+
+            <h3>The Identical Letters</h3>
+
+            <p>Six letters are essentially the same in both alphabets, sharing both their shape and their sound. If you know the Greek alphabet, these Cyrillic letters are free:</p>
+
+            <p><strong>А/Α</strong> (both say "ah"), <strong>Е/Ε</strong> (both say "eh"), <strong>К/Κ</strong> (both say "k"), <strong>М/Μ</strong> (both say "m"), <strong>О/О</strong> (both say "o"), and <strong>Т/Τ</strong> (both say "t"). These are direct borrowings. When the creators of Cyrillic needed these sounds, they simply took the Greek letters as they were.</p>
+
+            <h3>The Recognizable Cousins</h3>
+
+            <p>Beyond the identical letters, several more share a clear visual relationship. You can see the family resemblance even though the letters have evolved apart:</p>
+
+            <p><strong>Б and Β (Beta)</strong> are visually similar, though Б specifically represents "b" in Cyrillic while Beta has shifted to a "v" sound in modern Greek. <strong>Г and Γ (Gamma)</strong> both represent the "g" sound. <strong>Д and Δ (Delta)</strong> both say "d." <strong>Л and Λ (Lambda)</strong> both say "l." <strong>П and Π (Pi)</strong> both say "p." <strong>Ф and Φ (Phi)</strong> both say "f."</p>
+
+            <p>If you're learning Cyrillic and you know even a handful of Greek letters from math class (pi, delta, sigma, phi), you already have a head start. Those Greek letters are sitting inside the Cyrillic alphabet, wearing slightly different clothes.</p>
+
+            <h3>The False Friends</h3>
+
+            <p>This is where things get interesting. Several letters appear in both alphabets with identical or similar shapes but represent different sounds. These are the traps:</p>
+
+            <p><strong>В</strong> looks like the Greek <strong>Β (Beta)</strong>, and historically they're the same letter. But modern Greek Beta sounds like "v," while Cyrillic В also sounds like "v." The twist is that English speakers see В and think "B" (since Latin also borrowed from Greek), when actually both the Cyrillic and modern Greek versions say "v." The real false friend here is English.</p>
+
+            <p><strong>Н</strong> looks like the Greek <strong>Η (Eta)</strong>. Same shape, completely different sounds. Cyrillic Н says "n." Greek Η says "ee." This catches almost everyone who tries to read both alphabets.</p>
+
+            <p><strong>Р</strong> and <strong>Ρ (Rho)</strong> both look like the Latin letter P but both actually represent the "r" sound. If you know Greek, Cyrillic Р makes instant sense. If you only know English, both alphabets will fool you the same way.</p>
+
+            <p><strong>С</strong> comes from a variant of Greek <strong>Σ (Sigma)</strong> called the "lunate sigma," which was C-shaped. Both represent the "s" sound. The shape changed but the sound survived.</p>
+
+            <p><strong>Х</strong> and <strong>Χ (Chi)</strong> both look like the Latin X, and both actually represent a throaty "kh" sound (like the "ch" in "Bach"). English borrowed the shape of Chi but gave it the "ks" sound, creating yet another false friend for English speakers learning either alphabet.</p>
+
+            <h3>What Cyrillic Added</h3>
+
+            <p>The Greek alphabet has 24 letters. Russian Cyrillic has 33. Those extra 9 letters exist because Slavic languages have sounds that Greek doesn't.</p>
+
+            <p>The creators of Cyrillic needed letters for sounds like "zh" (Ж), "ts" (Ц), "ch" (Ч), "sh" (Ш), "shch" (Щ), and the uniquely Slavic "y" sound (Ы). They also needed the hard and soft signs (Ъ and Ь) which modify how preceding consonants are pronounced. And they added Э, Ю, and Я for vowel sounds that Greek couldn't represent.</p>
+
+            <p>Some of these extra letters came from the earlier Glagolitic alphabet (the first Slavic writing system, which predated Cyrillic). Others were invented specifically for the new alphabet. If you're curious about Glagolitic and its relationship to Cyrillic, we have a <a href="#" onclick="showArticle('glagolitic'); return false;">deep dive into the Glagolitic alphabet</a> that covers its bizarre and beautiful letter forms.</p>
+
+            <h3>What Greek Kept</h3>
+
+            <p>Greek has four letters that Cyrillic chose not to adopt: <strong>Θ (Theta)</strong>, <strong>Ξ (Xi)</strong>, <strong>Ψ (Psi)</strong>, and <strong>Ω (Omega)</strong>.</p>
+
+            <p>Theta's "th" sound doesn't exist in Slavic languages. Xi's "ks" and Psi's "ps" sounds can be written with letter combinations in Cyrillic (КС and ПС), so dedicated letters weren't needed. Omega's "o" sound was already covered by О. Interestingly, Cyrillic did originally borrow some of these letters (the early alphabet included variants of Xi and Psi), but they were dropped during later reforms because they were redundant. You can read about those and other <a href="#" onclick="showArticle('lost-letters'); return false;">lost letters of Cyrillic</a> that didn't survive.</p>
+
+            <h3>If You Know One, How Much of the Other Can You Read?</h3>
+
+            <p>This is the practical question. If you already know the Greek alphabet, roughly half of Cyrillic will feel immediately familiar. You'll recognize the shapes, know the sounds, and be able to make educated guesses about words. The unique Cyrillic letters (Ж, Ц, Ч, Ш, etc.) will be completely new, but that's only about a dozen letters to learn from scratch rather than 33.</p>
+
+            <p>Going the other direction is similar. If you know Cyrillic, you can look at the Greek alphabet and instantly spot the letters you already know. The Greek-only letters (Θ, Ξ, Ψ, Ω) will be new, but there are only four of them.</p>
+
+            <p>The biggest hazard in both directions is the false friends. Your brain will see Н and try to apply whichever sound you learned first. Retraining those automatic associations takes practice, and it's the same challenge English speakers face when learning either alphabet independently. If you want to build that recognition skill, our <a href="#" onclick="showArticle('false-friends'); return false;">false friends guide</a> covers the most confusing letter pairs in detail.</p>
+
+            <div class="quiz-cta">
+                <p>Ready to learn the Cyrillic side of the family? Our interactive quiz lets you practice all 33 letters at your own pace.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">TRY THE QUIZ</button>
+            </div>
+
+            <h3>Two Alphabets, One Story</h3>
+
+            <p>The relationship between Greek and Cyrillic isn't just a linguistic curiosity. It reflects a thousand years of cultural transmission, from Byzantine missionaries to Slavic kingdoms to modern nation-states. Every time you write a Cyrillic А, you're using a letter that traveled from Phoenician traders to Greek scholars to Slavic monks, accumulating meaning and history at every stop.</p>
+
+            <p>For learners, the practical takeaway is encouraging: these alphabets are more alike than they are different. The shared foundation means that learning one genuinely helps with the other. And understanding where the letters came from makes them easier to remember, because each letter has a story behind it. For the full timeline of how Cyrillic evolved from those Greek roots into the alphabet used by 250 million people today, check out our <a href="#" onclick="showArticle('history-of-cyrillic'); return false;">complete history of Cyrillic</a>.</p>
+        
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-vs-greek', 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-vs-greek', 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-vs-greek', 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-vs-greek', 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
         id: 'letter-yo-story',
         title: 'The Story of Ё: Russia\'s Most Controversial Letter',
         relatedArticles: ['lost-letters', 'memory-tricks', 'history-of-cyrillic'],
