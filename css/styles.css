@@ -1075,6 +1075,85 @@
             opacity: 0.7;
         }
 
+        /* Quiz CTA Box */
+        .quiz-cta {
+            margin: 30px 0;
+            padding: 22px 28px;
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+        }
+
+        .quiz-cta p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin: 0 0 14px 0;
+            line-height: 1.5;
+        }
+
+        .quiz-cta .quiz-cta-btn {
+            display: inline-block;
+            padding: 10px 28px;
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Bebas Neue', serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .quiz-cta .quiz-cta-btn:hover {
+            background: #c62828;
+            transform: translateY(-1px);
+        }
+
+        body.dark-mode .quiz-cta {
+            background: linear-gradient(135deg, #0a1a0a 0%, #112211 100%);
+            border: 1px solid var(--matrix-border);
+        }
+
+        body.dark-mode .quiz-cta p {
+            color: var(--matrix-text);
+        }
+
+        body.dark-mode .quiz-cta .quiz-cta-btn {
+            background: var(--matrix-green);
+            color: var(--matrix-black);
+        }
+
+        @media (max-width: 768px) {
+            .quiz-cta {
+                padding: 18px 20px;
+                margin: 25px 0;
+            }
+
+            .quiz-cta p {
+                font-size: 0.9rem;
+            }
+
+            .quiz-cta .quiz-cta-btn {
+                padding: 9px 24px;
+                font-size: 1rem;
+            }
+        }
+
         /* Article Navigation */
         .article-nav {
             display: flex;
