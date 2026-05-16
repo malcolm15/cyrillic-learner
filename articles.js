@@ -2,6 +2,7 @@ const ARTICLES = [
     {
         id: 'getting-started',
         title: 'Getting Started with Cyrillic',
+        relatedArticles: ['russian-alphabet-chart', 'memory-tricks', 'common-mistakes'],
         content: `
             <p>So you want to learn the Cyrillic alphabet. Maybe you're planning a trip to Russia. Maybe you're tired of not being able to read street signs in Eastern Europe. Or maybe you just think it looks cool and want to decode those mysterious letters you see in movies.</p>
 
@@ -46,6 +47,11 @@ const ARTICLES = [
             <p>Finally, you've got letters that don't look like anything in English. Ж (zh, like the s in "measure"), Ш (sh), Щ (shch), Ы (a weird "ih" sound that doesn't really exist in English), and so on.</p>
 
             <p>These take more practice because you don't have any visual reference point. But in some ways they're easier than the false friends because there's no confusion. You just have to learn them from scratch.</p>
+
+            <div class="quiz-cta">
+                <p>Ready to try the Three-Group Method? Pick your first group and start learning right now.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">PICK YOUR FIRST GROUP</button>
+            </div>
 
             <h3>Your First Week (Using This Site)</h3>
 
@@ -116,10 +122,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('getting-started', 'Getting Started with Cyrillic')">Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('getting-started', 'Getting Started with Cyrillic'); return false;">Share on Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('getting-started', 'Getting Started with Cyrillic'); return false;">Share on Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('getting-started', 'Getting Started with Cyrillic')">Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('getting-started', 'Getting Started with Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('getting-started', 'Getting Started with Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('getting-started', 'Getting Started with Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('getting-started', 'Getting Started with Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -127,6 +133,7 @@ const ARTICLES = [
     {
         id: 'common-mistakes',
         title: '5 Common Mistakes When Learning Cyrillic',
+        relatedArticles: ['false-friends', 'getting-started', 'memory-tricks'],
         content: `
             <p>I've watched a lot of people learn the Cyrillic alphabet over the years. And I've noticed that almost everyone makes the same handful of mistakes. The good news? These are all totally avoidable if you know what to watch out for.</p>
 
@@ -134,7 +141,7 @@ const ARTICLES = [
 
             <p>This is the big one. You see a letter that looks like a B, and your brain automatically wants to read it as "buh." But in Cyrillic, that letter is actually В, and it sounds like V.</p>
 
-            <p>Same thing with Н (which looks like H but sounds like N), Р (looks like P but sounds like R), and a few others. These false friends will trip you up constantly in the beginning.</p>
+            <p>Same thing with Н (which looks like H but sounds like N), Р (looks like P but sounds like R), and a few others. These false friends will trip you up constantly in the beginning. We've got a <a href="#" onclick="showArticle('false-friends'); return false;">full breakdown of all six false friends</a> with an interactive quiz so you can practice them right here on the site.</p>
 
             <p>The solution? You have to actively unlearn the association. Every single time you see В, force yourself to think "vuh, not buh." Say it out loud. Write it down. Drill it until the correct sound becomes automatic.</p>
 
@@ -148,7 +155,7 @@ const ARTICLES = [
 
             <p>But when you're an adult trying to cram all 33 Cyrillic letters into your head in one sitting, it doesn't work. Your brain can only handle so much new information at once before it starts mixing things up.</p>
 
-            <p>What works better: learn 5 to 7 letters at a time. Really nail those letters before moving on to the next batch. This takes longer overall, but you'll actually retain what you learn instead of forgetting it all by next week.</p>
+            <p>What works better: learn 5 to 7 letters at a time. Really nail those letters before moving on to the next batch. Our <a href="#" onclick="showArticle('getting-started'); return false;">getting started guide</a> walks you through a three-group method for breaking the alphabet into manageable chunks. And if you're not sure which letters to tackle first, the <a href="#" onclick="showArticle('cyrillic-tier-list'); return false;">difficulty tier list</a> ranks all 33 from easiest to hardest.</p>
 
             <p>Think of it like stacking blocks. If you try to stack 33 blocks all at once, they're going to fall over. But if you stack them carefully, 5 or 7 at a time, you can build something solid.</p>
 
@@ -160,7 +167,7 @@ const ARTICLES = [
 
             <p>Writing forces your brain to engage with the shapes in a different way. When you read, you're passively recognizing. When you write, you're actively producing. That makes a huge difference in how well the letters stick.</p>
 
-            <p>You don't need to write pages and pages. Just get a notebook, write out each letter 10 or 15 times, and move on. Do this for all 33 letters once or twice, and you'll notice a difference.</p>
+            <p>You don't need to write pages and pages. Just get a notebook, write out each letter 10 or 15 times, and move on. Do this for all 33 letters once or twice, and you'll notice a difference. If you want a structured approach, our <a href="#" onclick="showArticle('practice-writing-cyrillic'); return false;">guide to practicing Cyrillic by hand</a> covers techniques, materials, and common pitfalls.</p>
 
             <p>Also, fun fact: Russian cursive is completely different from print. So if you ever want to read handwritten Russian, you'll need to learn a whole separate set of letter forms. But don't worry about that yet. Just focus on print for now.</p>
 
@@ -172,7 +179,7 @@ const ARTICLES = [
 
             <p>Russian has 10 vowel letters, and they show up in basically every word. If you don't know your vowels cold, you're going to struggle to read anything. Plus, some of the vowels are actually kind of tricky. Ы doesn't exist in English. Ё and Е sound different but look almost identical.</p>
 
-            <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix.</p>
+            <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix. The <a href="#" onclick="showArticle('russian-alphabet-chart'); return false;">alphabet chart</a> lets you filter by vowels so you can focus on just those ten.</p>
 
             <p>Trust me on this one. I've seen people try to learn backwards (consonants first, vowels later), and it never goes well. You end up having to relearn everything because you don't have the foundation you need.</p>
 
@@ -182,7 +189,7 @@ const ARTICLES = [
 
             <p>Why? Because reading letters in isolation is one skill, and reading them in context is another. When you read a word, the letters flow together. You start to recognize patterns. You get faster.</p>
 
-            <p>Start simple. Look for Russian words that are similar to English words. Автобус (bus), метро (metro), банк (bank). Sound them out. Check your pronunciation. Then move on to harder words.</p>
+            <p>Start simple. Look for Russian words that are similar to English words. Автобус (bus), метро (metro), банк (bank). Sound them out. Check your pronunciation. Then move on to harder words. Our <a href="#" onclick="showArticle('easy-russian-words'); return false;">easy Russian words guide</a> gives you a bunch of real words built entirely from the simplest letters, and <a href="#" onclick="showArticle('first-25-words'); return false;">Your First 25 Russian Words</a> takes it a step further with reading practice.</p>
 
             <p>The internet makes this easy. You can find Russian websites, Russian Wikipedia, Russian social media. Just pick something and start trying to read it. You won't understand most of it at first, but that's okay. You're training your brain to recognize the letters in their natural habitat.</p>
 
@@ -190,17 +197,17 @@ const ARTICLES = [
 
             <p>Learning Cyrillic is frustrating sometimes. There will be days when you mix up letters you thought you knew. Days when it feels like you're not making any progress at all.</p>
 
-            <p>That's normal. Everyone goes through it. The difference between people who succeed and people who give up is just stubbornness. Keep showing up. Keep practicing. Even if it's only 10 minutes a day.</p>
+            <p>That's normal. Everyone goes through it. The difference between people who succeed and people who give up is just stubbornness. Keep showing up. Keep practicing. Even if it's only 10 minutes a day. If you need help getting unstuck, our <a href="#" onclick="showArticle('memory-tricks'); return false;">memory tricks guide</a> has mnemonics for the trickiest letters, and the <a href="#" onclick="showArticle('cyrillic-learning-resources'); return false;">learning resources page</a> rounds up the best apps, books, and tools to keep you moving forward.</p>
 
             <p>You'll get there.</p>
             
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('common-mistakes', '5 Common Mistakes When Learning Cyrillic')">Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;">Share on Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;">Share on Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('common-mistakes', '5 Common Mistakes When Learning Cyrillic')">Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('common-mistakes', '5 Common Mistakes When Learning Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('common-mistakes', '5 Common Mistakes When Learning Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('common-mistakes', '5 Common Mistakes When Learning Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -208,6 +215,7 @@ const ARTICLES = [
     {
         id: 'false-friends',
         title: 'False Friends: Cyrillic Letters That Fool English Speakers',
+        relatedArticles: ['common-mistakes', 'memory-tricks', 'cyrillic-tier-list'],
         content: `
             <p>One of the biggest challenges when learning Cyrillic is dealing with "false friends" — letters that look exactly like English letters but represent completely different sounds. Your brain sees a familiar shape and automatically assumes the familiar sound, leading to constant confusion until you retrain your visual associations.</p>
             
@@ -217,6 +225,11 @@ const ARTICLES = [
             
             <h3>The Confusing Six</h3>
             <p>Here are the letters that trip up nearly every English speaker. Master these, and you're halfway to fluent reading.</p>
+
+            <figure class="article-image">
+                <img src="/images/cyrillic-false-friends.png" alt="Cyrillic false friends chart showing 8 letters that look like English letters but sound different: Р is not P but R, Н is not H but N, В is not B but V, С is not C but S, У is not Y but OO, Х is not X but KH, Е is not E but YE, and Ё is not E but YO, with example Russian words for each" loading="lazy" width="1000" height="1380">
+                <figcaption>Eight Cyrillic letters that look like English but sound completely different. Save this for reference.</figcaption>
+            </figure>
             
             <p><strong>В (Ve) — Sounds like "V"</strong></p>
             <p>This is usually the first shock. It looks exactly like the Latin letter B, but it sounds like V. Think "very" not "boy."</p>
@@ -249,6 +262,11 @@ const ARTICLES = [
             <p><em>Memory trick:</em> Think of clearing your throat — that harsh "kh" sound is what this letter makes.</p>
             
             <h3>Practice Strategy: Isolation and Repetition</h3>
+
+            <div class="quiz-cta">
+                <p>Think you can tell these false friends apart? Test yourself with our interactive quiz.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START PRACTICING</button>
+            </div>
             <p>Don't try to learn these mixed in with other letters. Your brain needs to form new, isolated associations. Here's how:</p>
             <ul>
                 <li><strong>Write them separately:</strong> Make flashcards for just these six letters. Practice them daily until the new sounds feel automatic.</li>
@@ -256,6 +274,59 @@ const ARTICLES = [
                 <li><strong>Use silly sentences:</strong> Create memorable phrases like "Very Nice Restaurants Serve Unique Khleb" (bread) using В-Н-Р-С-У-Х.</li>
                 <li><strong>Practice typing:</strong> Set your keyboard to Russian and type these letters repeatedly. Muscle memory helps reinforce visual memory.</li>
             </ul>
+            
+            <!-- Mini Quiz Embedded -->
+            <div class="mini-quiz-container">
+                <div class="mini-quiz-header">
+                    <h3 style="margin: 0 0 10px 0;">Practice These False Friends Right Now</h3>
+                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Test yourself on all 6 letters. Your settings apply here too!</p>
+                </div>
+                
+                <div id="mini-quiz-content" class="quiz-content">
+                    <div id="mini-quiz-active">
+                        <div class="mini-quiz-question">
+                            <div class="mini-char-display">
+                                <span id="mini-current-char"></span>
+                                <span id="mini-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
+                                <button class="audio-btn" id="mini-audio-btn" style="display: none; margin-left: 10px;" title="Hear pronunciation">🔊</button>
+                            </div>
+                            
+                            <div class="mini-input-area">
+                                <input type="text" id="mini-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                                <button class="btn" onclick="checkMiniAnswer()">Submit</button>
+                            </div>
+                            
+                            <div id="mini-feedback" class="feedback quiz-feedback"></div>
+                        </div>
+                        
+                        <div class="mini-quiz-stats">
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Progress:</span>
+                                <span id="mini-progress">0/6</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Score:</span>
+                                <span id="mini-score">0/0</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Streak:</span>
+                                <span id="mini-streak">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mini-quiz-controls">
+                            <button class="btn btn-secondary" onclick="skipMiniQuestion()">Skip</button>
+                            <button class="btn btn-secondary" onclick="resetMiniQuiz()">Reset</button>
+                        </div>
+                    </div>
+                    
+                    <div id="mini-quiz-complete" style="display: none; text-align: center; padding: 15px;">
+                        <h4 style="color: var(--red); margin-bottom: 8px;">🎉 Great work!</h4>
+                        <p id="mini-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
+                        <button class="btn" onclick="resetMiniQuiz()">Practice Again</button>
+                    </div>
+                </div>
+            </div>
             
             <h3>The Moment It Clicks</h3>
             <p>Most learners report a sudden breakthrough after about a week of focused practice. You'll be reading a word, see "Р" and without thinking, your brain will supply "r" instead of "p." That's when you know the retraining has worked.</p>
@@ -268,10 +339,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('false-friends', 'False Friends: Cyrillic Letters That Fool English Speakers')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -279,6 +350,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-names-europe',
         title: 'What is Cyrillic Called in Different European Languages?',
+        relatedArticles: ['history-of-cyrillic', 'glagolitic', 'latin-vs-cyrillic-slavic'],
         content: `
             <p>If you've ever wondered what the Cyrillic alphabet is called in different countries, you're not alone! The name varies fascinatingly across European languages, reflecting both linguistic patterns and historical connections to this ancient writing system.</p>
             
@@ -391,10 +463,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-names-europe', 'What is Cyrillic Called in Different European Languages?')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -402,10 +474,16 @@ const ARTICLES = [
     {
         id: 'lost-letters',
         title: 'The Lost Letters of Cyrillic: A Journey Through Extinct Characters',
+        relatedArticles: ['glagolitic', 'history-of-cyrillic', 'cyrillic-names-europe'],
         content: `
             <p>You've mastered the 33 letters of the modern Russian alphabet. Congratulations! But here's a secret: you've only scratched the surface. Throughout its 1,150-year history, the Cyrillic alphabet has had over 100 different letters — and most of them have vanished into the mists of time.</p>
             
             <p>This is the story of the lost letters: the characters that once filled medieval manuscripts, adorned church texts, and puzzled scribes across Eastern Europe. Some disappeared centuries ago. Others survived until your great-grandparents' generation. All of them tell a fascinating story about how writing systems evolve.</p>
+
+            <figure class="article-image">
+                <img src="/images/lost-cyrillic-letters.png" alt="Showcase of extinct Cyrillic letters organized by era: the Famous Four killed in 1918 (Yat, Fita, I Decimal, Izhitsa), earlier casualties phased out by the 1700s (Dzelo, Omega, Small Yus, Big Yus), Old Church Slavonic Greek borrowings (Ksi, Psi), and medieval oddities (Iotified A, Iotified E)" loading="lazy" width="1800" height="2010" style="max-width: 600px;">
+                <figcaption>Twelve extinct Cyrillic letters, grouped by when they disappeared from use.</figcaption>
+            </figure>
 
             <h3>The Iceberg of Cyrillic</h3>
             
@@ -551,15 +629,22 @@ const ARTICLES = [
             
             <p>Or go really deep: visit a Russian Orthodox church and look at their service books. You'll see an alphabet that most Russians couldn't read fluently — their own writing system frozen in time, preserved like a linguistic fossil.</p>
             
+            <div class="quiz-cta">
+                <p>The lost letters are gone, but the 33 that survived are waiting for you. Learn them all with our free interactive quiz.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">LEARN THE SURVIVORS</button>
+            </div>
+
             <p>The modern Russian alphabet is sleek, efficient, and relatively easy to learn. But lurking beneath it is a vast history of lost letters — characters that served their purpose, outlived their usefulness, and faded into history. They're gone, but they left their mark on the language, the culture, and the endless Cyrillic iceberg memes that language learners love to share.</p>
+
+            <p>Want another letter with a strange history? Check out <a href="#" onclick="showArticle('letter-yo-story'); return false;">the story of Ё</a>, a modern Russian letter that's still fighting for consistent use two centuries after it was invented.</p>
         
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('lost-letters', 'The Lost Letters of Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('lost-letters', 'The Lost Letters of Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('lost-letters', 'The Lost Letters of Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('lost-letters', 'The Lost Letters of Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('lost-letters', 'The Lost Letters of Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('lost-letters', 'The Lost Letters of Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('lost-letters', 'The Lost Letters of Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('lost-letters', 'The Lost Letters of Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -567,6 +652,7 @@ const ARTICLES = [
     {
         id: 'memory-tricks',
         title: 'Memory Tricks for Confusing Letters',
+        relatedArticles: ['russian-alphabet-chart', 'false-friends', 'common-mistakes'],
         content: `
             <p>Learning 33 new letters sounds overwhelming. But here's the secret: you don't need to memorize them as 33 random symbols. You need to create associations, stories, and mental hooks that make them stick.</p>
 
@@ -575,6 +661,11 @@ const ARTICLES = [
             <h3>The False Friend Fixes</h3>
 
             <p>The letters that look like English letters but sound different are the worst. Your brain sees В and wants to say "buh" instead of "vuh." Here's how to fix that.</p>
+
+            <figure class="article-image">
+                <img src="/images/cyrillic-memory-tricks.png" alt="Visual mnemonic chart for confusing Cyrillic letters showing six false friends: Р looks like P but sounds like R, Н looks like H but sounds like N, В looks like B but sounds like V, С looks like C but sounds like S, У looks like Y but sounds like U, and Х looks like X but sounds like KH" loading="lazy" width="800" height="940">
+                <figcaption>Quick reference: six Cyrillic letters that look like English letters but sound completely different.</figcaption>
+            </figure>
 
             <p><strong>В (sounds like V):</strong> Think "Very Big B" but it's actually a V. Or picture the letter as two Victory fingers making a V shape. Every time you see it, say "victory" in your head.</p>
 
@@ -632,6 +723,11 @@ const ARTICLES = [
 
             <p>Honestly, don't stress about these two yet. Learn the regular letters first. These are advanced.</p>
 
+            <div class="quiz-cta">
+                <p>Ready to put these memory tricks to the test? Our interactive quiz lets you practice each letter until it sticks.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">TEST YOUR MEMORY</button>
+            </div>
+
             <h3>Grouping Strategy</h3>
 
             <p>Don't try to learn all these tricks at once. Pick 5 or 6 letters, learn their tricks, practice them for a few days. Then add the next batch.</p>
@@ -646,13 +742,66 @@ const ARTICLES = [
 
             <p>Spend 5 minutes being creative with each letter. Draw it. Make up a story. The weirder and more personal, the better.</p>
             
+            <!-- Memory Tricks Mini Quiz Embedded -->
+            <div class="mini-quiz-container">
+                <div class="mini-quiz-header">
+                    <h3 style="margin: 0 0 10px 0;">Test Your Memory Tricks</h3>
+                    <p style="margin: 0; color: #666; font-size: 0.95rem;">You just learned the mnemonics — now see if they stick. All 7 unique letters!</p>
+                </div>
+                
+                <div id="mem-quiz-content" class="quiz-content">
+                    <div id="mem-quiz-active">
+                        <div class="mini-quiz-question">
+                            <div class="mini-char-display">
+                                <span id="mem-current-char"></span>
+                                <span id="mem-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
+                                <button class="audio-btn" id="mem-audio-btn" style="display: none; margin-left: 10px;" title="Hear pronunciation">🔊</button>
+                            </div>
+                            
+                            <div class="mini-input-area">
+                                <input type="text" id="mem-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                                <button class="btn" onclick="checkMemAnswer()">Submit</button>
+                            </div>
+                            
+                            <div id="mem-feedback" class="feedback quiz-feedback"></div>
+                        </div>
+                        
+                        <div class="mini-quiz-stats">
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Progress:</span>
+                                <span id="mem-progress">0/7</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Score:</span>
+                                <span id="mem-score">0/0</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Streak:</span>
+                                <span id="mem-streak">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mini-quiz-controls">
+                            <button class="btn btn-secondary" onclick="skipMemQuestion()">Skip</button>
+                            <button class="btn btn-secondary" onclick="resetMemQuiz()">Reset</button>
+                        </div>
+                    </div>
+                    
+                    <div id="mem-quiz-complete" style="display: none; text-align: center; padding: 15px;">
+                        <h4 style="color: var(--red); margin-bottom: 8px;">🎉 Great work!</h4>
+                        <p id="mem-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
+                        <button class="btn" onclick="resetMemQuiz()">Practice Again</button>
+                    </div>
+                </div>
+            </div>
+            
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('memory-tricks', 'Memory Tricks for Confusing Letters')">Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;">Share on Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;">Share on Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('memory-tricks', 'Memory Tricks for Confusing Letters')">Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('memory-tricks', 'Memory Tricks for Confusing Letters')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('memory-tricks', 'Memory Tricks for Confusing Letters'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('memory-tricks', 'Memory Tricks for Confusing Letters')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -660,6 +809,7 @@ const ARTICLES = [
     {
         id: 'glagolitic',
         title: 'Glagolitic: The Mysterious Alphabet Before Cyrillic',
+        relatedArticles: ['lost-letters', 'history-of-cyrillic', 'cyrillic-names-europe'],
         content: `
             <p>Before Cyrillic became the writing system of the Slavic world, there was Glagolitic — a strange, beautiful, and almost alien-looking alphabet that predates Cyrillic by at least a few decades. If you think Cyrillic letters look exotic, wait until you see Glagolitic. It's like something from a fantasy novel.</p>
             
@@ -670,6 +820,11 @@ const ARTICLES = [
             <p>Glagolitic letters are ornate, angular, and completely unlike any modern alphabet. They look almost runic or magical. The letter for "A" (Ⰰ) looks like a triangle with a cross. The letter for "B" (Ⰱ) resembles a backwards "4" with decorations. Each character is intricate and distinct.</p>
             
             <p>While Cyrillic borrowed heavily from Greek (making it somewhat recognizable to those who know the Greek alphabet), Glagolitic appears to have been designed from scratch or from multiple sources, creating something entirely unique. This gives it a mysterious quality that has fascinated scholars for centuries.</p>
+
+            <figure class="article-image">
+                <img src="/images/kiev-missal-glagolitic.jpg" alt="The Kiev Missal, a 10th century Glagolitic manuscript showing ornate handwritten text in the oldest known Slavic alphabet on aged parchment" loading="lazy" style="max-width: 600px;">
+                <figcaption>The Kiev Missal (10th century), the oldest known Old Church Slavonic manuscript, written in Glagolitic script. Photo by Zde via <a href="https://commons.wikimedia.org/wiki/Category:Kiev_Missal" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</figcaption>
+            </figure>
 
             <h3>Why Was Glagolitic Created?</h3>
             
@@ -762,10 +917,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('glagolitic', 'Glagolitic: The Mysterious Alphabet Before Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -773,8 +928,14 @@ const ARTICLES = [
     {
         id: 'belarusian-alphabet',
         title: 'Belarusian Alphabet Guide: 32 Letters of Eastern Europe',
+        relatedArticles: ['montenegrin-alphabet', 'serbian-cyrillic-vs-latin', 'history-of-cyrillic'],
         content: `
             <p>Nestled between Russia, Ukraine, Poland, Latvia, and Lithuania, Belarus uses a Cyrillic alphabet that's distinct from its neighbors — a 32-letter system that reflects both Russian influence and uniquely Belarusian sounds. If you've learned Russian, Belarusian will feel familiar yet intriguingly different.</p>
+
+            <figure class="article-image">
+                <img src="/images/belarusian-vs-russian-alphabet.png" alt="Belarusian vs Russian alphabet comparison showing 32 vs 33 letters: Belarusian has unique letters Ў (short U) and І (decimal I), while Russian has Ё and Ъ which Belarusian does not use" loading="lazy" width="1700" height="1320" style="max-width: 600px;">
+                <figcaption>The key differences between Belarusian and Russian alphabets at a glance.</figcaption>
+            </figure>
 
             <h3>The Belarusian Alphabet: 32 Letters</h3>
             
@@ -873,10 +1034,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('belarusian-alphabet', 'Belarusian Alphabet')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('belarusian-alphabet', 'Belarusian Alphabet'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('belarusian-alphabet', 'Belarusian Alphabet'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('belarusian-alphabet', 'Belarusian Alphabet')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('belarusian-alphabet', 'Belarusian Alphabet')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('belarusian-alphabet', 'Belarusian Alphabet'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('belarusian-alphabet', 'Belarusian Alphabet'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('belarusian-alphabet', 'Belarusian Alphabet')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -884,6 +1045,7 @@ const ARTICLES = [
     {
         id: 'montenegrin-alphabet',
         title: 'Montenegrin Alphabet: The Newest Cyrillic (2009)',
+        relatedArticles: ['belarusian-alphabet', 'serbian-cyrillic-vs-latin', 'latin-vs-cyrillic-slavic'],
         content: `
             <p>In 2009, Montenegro did something almost unheard of in modern linguistics: it officially added two brand new letters to its Cyrillic alphabet. While most alphabets are losing letters or staying the same, Montenegro went the opposite direction, expanding from 30 to 32 letters. Meet the newest additions to the Cyrillic family: Ś and Ź.</p>
 
@@ -960,10 +1122,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('montenegrin-alphabet', 'Montenegrin: Europe\'s Newest Cyrillic Alphabet')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -971,10 +1133,16 @@ const ARTICLES = [
     {
         id: 'cyrillic-tier-list',
         title: 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty',
+        relatedArticles: ['easy-russian-words', 'false-friends', 'memory-tricks'],
         content: `
             <p>Not all Cyrillic letters are created equal. Some are intuitive, friendly, and easy to remember. Others are soul-crushing nightmares that haunt your learning journey for weeks. Let's rank all 33 letters of the Russian alphabet by difficulty, from S-tier (easiest) to F-tier (why does this letter exist?).</p>
             
             <p>This tier list is based on difficulty for English speakers learning to read Russian. We're considering: visual similarity to English, pronunciation difficulty, false friend potential, and overall brain-breaking capacity.</p>
+
+            <figure class="article-image">
+                <img src="/images/cyrillic-tier-list.png" alt="Cyrillic alphabet tier list ranking all 33 Russian letters by difficulty for English speakers, from S-tier easiest letters like А К М О Т to F-tier hardest letters like Р Ы Ь Ъ" loading="lazy" width="1100" height="811">
+                <figcaption>All 33 Russian letters ranked by difficulty. S-tier takes minutes to learn, F-tier takes months.</figcaption>
+            </figure>
 
             <h3>S-TIER: Welcome Gifts (Basically Free)</h3>
             
@@ -1050,6 +1218,11 @@ const ARTICLES = [
             
             <p><strong>Why F-tier:</strong> Р is the false friend that never stops being a false friend. Ы is a sound your mouth doesn't want to make. Ь is conceptually weird. Ъ barely exists. These are your final bosses in the Cyrillic learning journey.</p>
 
+            <div class="quiz-cta">
+                <p>Think you can handle the S-tier letters? Start there and work your way down. Our quiz lets you pick which groups to practice.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START WITH S-TIER</button>
+            </div>
+
             <h3>The Learning Journey</h3>
             
             <p><strong>Week 1:</strong> Master S-tier and A-tier. Feel good about yourself. (10 letters down!)</p>
@@ -1075,10 +1248,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-tier-list', 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -1086,6 +1259,7 @@ const ARTICLES = [
     {
         id: 'first-25-words',
         title: 'Reading Practice: Your First 25 Russian Words',
+        relatedArticles: ['easy-russian-words', 'getting-started', 'russian-alphabet-chart'],
         content: `
             <p>One of the best ways to reinforce your Cyrillic learning is to start reading actual Russian words as soon as possible. You don't need to understand everything to get value from reading practice — just sounding out the letters builds crucial muscle memory.</p>
             <p>This guide focuses on 25 words that are either cognates (borrowed from other languages), simple enough for beginners, or so common you'll see them everywhere. By the end, you'll be able to read basic Russian signs, menus, and social media posts.</p>
@@ -1209,10 +1383,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('first-25-words', 'Reading Practice: Your First 25 Russian Words')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('first-25-words', 'Reading Practice: Your First 25 Russian Words')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('first-25-words', 'Reading Practice: Your First 25 Russian Words')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('first-25-words', 'Reading Practice: Your First 25 Russian Words'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('first-25-words', 'Reading Practice: Your First 25 Russian Words')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -1220,10 +1394,16 @@ const ARTICLES = [
     {
         id: 'backwards-r-myth',
         title: 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong',
+        relatedArticles: ['cyrillic-pop-culture', 'false-friends', 'cyrillic-tier-list'],
         content: `
             <p>You've seen it in movies, video games, and graphic design: English text with random Cyrillic letters thrown in to look "Russian." ҎЦSSЇАИ becomes "RUSSIAN" with Я as a backwards R, И as N, and Ц for U. It's everywhere, it's wrong, and it drives people who actually know Cyrillic absolutely insane.</p>
             
             <p>Welcome to "faux Cyrillic" — the Western world's favorite way to make something look Russian without actually using Russian.</p>
+
+            <figure class="article-image">
+                <img src="/images/backwards-r-myth.png" alt="Infographic debunking the backwards R myth: the Cyrillic letter Я is not a backwards R but a unique letter pronounced YA, with example word Язык meaning Language" loading="lazy" width="1600" height="1240" style="max-width: 550px;">
+                <figcaption>Я is not a backwards R. It's pronounced "ya" and has nothing to do with the letter R.</figcaption>
+            </figure>
 
             <h3>The Most Famous False Friend: Я ≠ R</h3>
             
@@ -1262,6 +1442,11 @@ const ARTICLES = [
             <strong>This one's actually okay-ish</strong> since both are pronounced "f" in modern Greek</p>
             
             <p>These letters that look familiar but sound different are what we call "false friends." If you're learning Cyrillic, check out our complete guide to <a href="#" onclick="showArticle('false-friends'); return false;">false friends that fool English speakers</a>.</p>
+
+            <div class="quiz-cta">
+                <p>Я isn't the only letter that surprises English speakers. Learn all 33 Russian letters with instant feedback on every answer.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">LEARN THE REAL SOUNDS</button>
+            </div>
 
             <h3>Why Does This Happen?</h3>
             
@@ -1351,10 +1536,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -1362,6 +1547,7 @@ const ARTICLES = [
     {
         id: 'practice-writing-cyrillic',
         title: 'How to Practice Writing Cyrillic by Hand',
+        relatedArticles: ['russian-alphabet-chart', 'memory-tricks', 'getting-started'],
         content: `
             <p>Learning to read Cyrillic is one thing. Learning to write it by hand — especially in cursive — is a completely different challenge. While digital typing dominates modern communication, handwriting Cyrillic helps cement the letters in your memory and opens up the ability to take notes, write letters, or simply understand handwritten Russian text.</p>
 
@@ -1388,6 +1574,11 @@ const ARTICLES = [
             Connected, flowing script. Letters link together. Some letters look completely different from their printed forms. Russians learn this in elementary school and use it for everything.</p>
             
             <p>Start with print to build basic muscle memory, then move to cursive once you're comfortable.</p>
+
+            <figure class="article-image">
+                <img src="/images/cyrillic-handwriting-chart.png" alt="Chart comparing all 33 Russian Cyrillic letters in printed form versus their cursive handwriting equivalents, with letters that change dramatically in cursive highlighted in orange" loading="lazy" width="1720" height="1300" style="max-width: 600px;">
+                <figcaption>All 33 Russian letters: printed form on the left, cursive on the right. Orange-marked letters change the most.</figcaption>
+            </figure>
 
             <h3>The Printed Alphabet: Your Foundation</h3>
             
@@ -1437,6 +1628,11 @@ const ARTICLES = [
             
             <p><strong>The "ишишишиши" problem:</strong><br>
             Multiple letters in cursive can create identical-looking sequences. The word "шиши" looks like "uuuu" in cursive. You have to use context to figure out what letters they actually are.</p>
+
+            <div class="quiz-cta">
+                <p>Before you write, make sure you can recognize each letter. Our quiz builds letter recognition fast.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">BUILD RECOGNITION FIRST</button>
+            </div>
 
             <h3>Practice Method: The Proven System</h3>
             
@@ -1517,10 +1713,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('practice-writing-cyrillic', 'How to Practice Writing Cyrillic by Hand')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -1528,6 +1724,7 @@ const ARTICLES = [
     {
         id: 'kazakhstan-latin-transition',
         title: 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031',
+        relatedArticles: ['latin-vs-cyrillic-slavic', 'history-of-cyrillic', 'serbian-cyrillic-vs-latin'],
         content: `
             <p>In one of the most ambitious language reforms of the 21st century, Kazakhstan is in the process of switching its entire writing system from Cyrillic to Latin alphabet. By 2031, Kazakh — currently written in Cyrillic — will officially use Latin script. This affects signage, education, government documents, and the daily lives of 19 million people.</p>
             
@@ -1703,10 +1900,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('kazakhstan-latin-transition', 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -1714,6 +1911,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-alphabet-chart',
         title: 'Complete Cyrillic Alphabet Chart: All 33 Letters with Pronunciations',
+        relatedArticles: ['russian-alphabet-chart', 'getting-started', 'cyrillic-copy-paste'],
         content: `
             <p>You want to learn the Cyrillic alphabet. Great. But staring at a chart of 33 random letters and hoping they stick in your brain doesn't work. Trust me, I've tried.</p>
 
@@ -1742,6 +1940,8 @@ const ARTICLES = [
 
             <p><strong>У</strong> (oo) - Like the "oo" in "moon." Looks like a Y but sounds like OO. Don't get tricked.</p>
 
+            <div id="cg1-quiz-placeholder"></div>
+
             <h3>Group 2: The Tricky Vowels</h3>
 
             <p>These are vowels that don't really exist in English or look weird.</p>
@@ -1758,6 +1958,8 @@ const ARTICLES = [
 
             <p><strong>Я</strong> (ya) - Like "ya" in "yacht." The famous backwards R. Except it's not really an R at all.</p>
 
+            <div id="cg2-quiz-placeholder"></div>
+
             <h3>Group 3: The False Friend Consonants</h3>
 
             <p>These look like English letters but sound completely different. This is where most mistakes happen.</p>
@@ -1771,6 +1973,8 @@ const ARTICLES = [
             <p><strong>С</strong> (s) - Looks like C, sounds like S. Like a serpent.</p>
 
             <p><strong>Х</strong> (kh) - Looks like X, sounds like the "ch" in Scottish "loch." Guttural, back of throat.</p>
+
+            <div id="cg3-quiz-placeholder"></div>
 
             <h3>Group 4: The Easy Consonants</h3>
 
@@ -1796,6 +2000,8 @@ const ARTICLES = [
 
             <p><strong>Ф</strong> (f) - Looks like a fancy phi symbol. Sounds like F in "fun."</p>
 
+            <div id="cg4-quiz-placeholder"></div>
+
             <h3>Group 5: The Weird Unique Letters</h3>
 
             <p>These don't look like anything in English and represent sounds that might be new to you.</p>
@@ -1811,6 +2017,8 @@ const ARTICLES = [
             <p><strong>Ш</strong> (sh) - Like "sh" in "shoe." Three vertical lines, think "shhh be quiet."</p>
 
             <p><strong>Щ</strong> (shch) - Like Ш but longer. SH + CH together. Has a little tail, the tail makes it longer.</p>
+
+            <div id="cg5-quiz-placeholder"></div>
 
             <h3>Group 6: The Signs</h3>
 
@@ -1850,10 +2058,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')">Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;">Share on Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;">Share on Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')">Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-alphabet-chart', 'Complete Cyrillic Alphabet Chart')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -1861,6 +2069,7 @@ const ARTICLES = [
     {
         id: 'history-of-cyrillic',
         title: 'History of Cyrillic: From Saints to Superpower',
+        relatedArticles: ['glagolitic', 'lost-letters', 'latin-vs-cyrillic-slavic'],
         content: `
             
             <div class="article-toc">
@@ -1885,6 +2094,11 @@ const ARTICLES = [
             </div>
 
             <p>The Cyrillic alphabet is one of the most widely used writing systems in the world, serving over 250 million people across more than 50 languages. But its origins are surprisingly humble — born from a religious mission in the 9th century, shaped by saints, reformed by tsars, weaponized by Soviet ideology, and ultimately outlasting every empire that carried it. This is the full story of an alphabet that changed the world.</p>
+
+            <figure class="article-image">
+                <img src="/images/history-of-cyrillic-timeline.png" alt="Timeline of Cyrillic alphabet history showing 8 key dates from 862 CE when Prince Rastislav requested missionaries through 2007 when Cyrillic became the EU's third official script" loading="lazy" width="1800" height="2240" style="max-width: 500px;">
+                <figcaption>1,150 years of Cyrillic history, from a missionary request to a global writing system.</figcaption>
+            </figure>
 
             <h3 id="world-before-cyrillic">The World Before Cyrillic: Slavs Without a Script</h3>
             <p>To understand why Cyrillic was created, you have to understand the problem it was solving. In the mid-9th century, the Slavic peoples of Central and Eastern Europe had no standardized writing system. They were a vast, culturally rich group of nations — stretching from modern-day Czech Republic and Slovakia in the west to Bulgaria and Serbia in the south — but they recorded almost nothing in writing. Trade, governance, poetry, and religious life all relied on oral tradition.</p>
@@ -1984,6 +2198,11 @@ const ARTICLES = [
             <p>Third, <strong>identity</strong>. For millions of people, Cyrillic is not just a tool but a statement of who they are — their connection to Orthodox Christianity, to Slavic culture, to a specific literary and intellectual tradition. An alphabet can carry civilization's weight. Abandoning Cyrillic feels, to many, like abandoning identity itself.</p>
             <p>Fourth, <strong>network effects</strong>. The more people use Cyrillic, the more valuable it becomes. Books, websites, education materials, keyboard layouts, fonts, and translation services all exist in Cyrillic at scale. The infrastructure is mature and ubiquitous. Switching scripts means rebuilding all of that from scratch.</p>
 
+            <div class="quiz-cta">
+                <p>Inspired by 1,150 years of alphabet history? Learn the modern Cyrillic alphabet with our free interactive quiz.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START LEARNING</button>
+            </div>
+
             <h3 id="learning-today">Learning Cyrillic Today</h3>
             <p>If you're reading this, you're part of a global community of learners who have decided — for reasons of language learning, travel, professional necessity, or pure curiosity — that Cyrillic is worth understanding. You're in good company. Millions of people learn Cyrillic every year, making it one of the more commonly studied non-Latin scripts in the world after Chinese characters and Arabic script.</p>
             <p>The good news is that the alphabet itself is one of the easier parts of learning Russian or any other Cyrillic language. Most learners can read Cyrillic fluently within two to three weeks of consistent practice — a remarkably short time considering the alphabet's thousand-year history and geopolitical weight. The challenge isn't memorizing the letters; it's training your brain to stop seeing В as "B" (it's "V") and Н as "H" (it's "N").</p>
@@ -1995,10 +2214,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('history-of-cyrillic', 'The History of the Cyrillic Alphabet')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('history-of-cyrillic', 'The History of the Cyrillic Alphabet')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('history-of-cyrillic', 'The History of the Cyrillic Alphabet')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('history-of-cyrillic', 'The History of the Cyrillic Alphabet'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('history-of-cyrillic', 'The History of the Cyrillic Alphabet')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -2006,6 +2225,7 @@ const ARTICLES = [
     {
         id: 'serbian-cyrillic-vs-latin',
         title: 'Serbian: Cyrillic vs Latin Scripts',
+        relatedArticles: ['montenegrin-alphabet', 'latin-vs-cyrillic-slavic', 'belarusian-alphabet'],
         content: `
             <p>Serbia is kind of unique. It's one of the only countries in the world that officially uses two completely different alphabets for the same language. Walk down a street in Belgrade and you'll see signs in Cyrillic right next to signs in Latin. Sometimes the same word written both ways on the same sign.</p>
 
@@ -2096,60 +2316,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts')">Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts'); return false;">Share on Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts'); return false;">Share on Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts')">Share</button>
-                </div>
-            </div>
-        `
-    },
-    {
-        id: 'common-cyrillic-mistakes',
-        title: '10 Common Cyrillic Mistakes (And Fixes)',
-        content: `
-            <p>English speakers consistently face specific challenges learning Cyrillic. Recognizing these mistakes beforehand accelerates learning.</p>
-            
-            <h3>1. Reading Р as P (not R)</h3>
-            <p><strong>Fix:</strong> Р looks like P but sounds like R. Practice "RUSSIA" (RUSSИЯ) until Р triggers R sound automatically.</p>
-            
-            <h3>2. Confusing В (V) with B</h3>
-            <p><strong>Fix:</strong> В looks like B, sounds like V. Remember "Van" - looks wrong, sounds right. Practice ВОЛК (volk - wolf).</p>
-            
-            <h3>3. Reading Н as H (not N)</h3>
-            <p><strong>Fix:</strong> "Н = NOT an H!" Practice НЕТ (nyet - no), not "het".</p>
-            
-            <h3>4. Mixing И and Н</h3>
-            <p><strong>Fix:</strong> И leans right, points at "I". Н is straight like "eN". Practice КНИГА (kneega - book).</p>
-            
-            <h3>5. Pronouncing Ы like И</h3>
-            <p><strong>Fix:</strong> Ы is unique sound - "ee" while pulling tongue back. Darker, more "uh"-like. Practice ВЫ (vy - you).</p>
-            
-            <h3>6. Ignoring Soft Sign Ь</h3>
-            <p><strong>Fix:</strong> Ь softens preceding consonant. МАТ (swear word) vs МАТЬ (mother). The Ь matters!</p>
-            
-            <h3>7. Not Distinguishing Ш/Щ</h3>
-            <p><strong>Fix:</strong> Ш is "sh". Щ is "shch" (longer). Practice БОРЩ (borshch - beet soup).</p>
-            
-            <h3>8. Wrong Syllable Stress</h3>
-            <p><strong>Fix:</strong> Russian stress is unpredictable. Use learning resources with stress marks. МОЛОКО = mo-lo-KO.</p>
-            
-            <h3>9. Reading Too Slowly</h3>
-            <p><strong>Fix:</strong> Practice syllable chunks: ПО-, ПРО-, НА-. Learn frequent words as units: ПРИВЕТ, СПАСИБО, ПОКА.</p>
-            
-            <h3>10. Neglecting Lowercase</h3>
-            <p><strong>Fix:</strong> Learn both forms from day one. Real text uses lowercase. Some look very different (Д/д, Т/т).</p>
-            
-            <h3>Bonus: Giving Up Too Soon</h3>
-            <p>15-20 minutes daily = basic reading in 2 weeks, fluent in 1-2 months. The alphabet isn't the hard part - stick with it!</p>
-        
-            <div class="share-section">
-                <p>Found this helpful? Share it:</p>
-                <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('common-cyrillic-mistakes', '10 Common Cyrillic Mistakes (And Fixes)')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('serbian-cyrillic-vs-latin', 'Serbian: Cyrillic vs Latin Scripts')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -2157,6 +2327,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-learning-resources',
         title: 'Best Resources for Learning Cyrillic',
+        relatedArticles: ['getting-started', 'practice-writing-cyrillic', 'cyrillic-copy-paste'],
         content: `
             <p>So you want to learn Cyrillic. You're here, which is a good start. But what else should you be using? What apps, books, websites, and tools actually help?</p>
 
@@ -2247,10 +2418,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic')">Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic'); return false;">Share on Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic'); return false;">Share on Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic')">Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-learning-resources', 'Best Resources for Learning Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -2258,10 +2429,16 @@ const ARTICLES = [
     {
         id: 'latin-vs-cyrillic-slavic',
         title: 'Why Some Slavic Countries Use Latin Instead of Cyrillic',
+        relatedArticles: ['serbian-cyrillic-vs-latin', 'kazakhstan-latin-transition', 'history-of-cyrillic'],
         content: `
             <p>Walk through Eastern Europe and you'll notice something odd: some Slavic languages use Cyrillic (Russian, Ukrainian, Bulgarian, Serbian), while others use Latin alphabet (Polish, Czech, Croatian, Slovenian). These languages are all related — they're part of the same language family — so why the alphabet split?</p>
             
             <p>The answer has nothing to do with linguistics and everything to do with religion, politics, and a thousand years of European history.</p>
+
+            <figure class="article-image">
+                <img src="/images/cyrillic-vs-latin-countries.png" alt="Chart comparing which Slavic and post-Soviet countries use Cyrillic script, Latin script, or both, organized in three columns: Cyrillic only includes Russia, Ukraine, Belarus, Bulgaria; Both/Transitioning includes Serbia, Bosnia, Kazakhstan; Latin only includes Croatia, Poland, Czech Republic" loading="lazy" width="1860" height="1168" style="max-width: 650px;">
+                <figcaption>Which Slavic and post-Soviet nations use which script. The divide is driven by religion and politics, not linguistics.</figcaption>
+            </figure>
 
             <h3>The Great Schism: The Root of the Split</h3>
             
@@ -2422,10 +2599,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('latin-vs-cyrillic-slavic', 'Why Some Slavic Countries Use Latin Instead of Cyrillic')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -2433,6 +2610,7 @@ const ARTICLES = [
     {
         id: 'easy-russian-words',
         title: 'Common Russian Words Using Only Easy Letters',
+        relatedArticles: ['first-25-words', 'cyrillic-tier-list', 'getting-started'],
         content: `
             <p>When you're learning Cyrillic, the first few days feel overwhelming. 33 new letters, half of which look familiar but sound different. It's tempting to give up before you even start.</p>
             
@@ -2622,10 +2800,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('easy-russian-words', 'Common Russian Words Using Only Easy Letters')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('easy-russian-words', 'Common Russian Words Using Only Easy Letters')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('easy-russian-words', 'Common Russian Words Using Only Easy Letters')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('easy-russian-words', 'Common Russian Words Using Only Easy Letters'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('easy-russian-words', 'Common Russian Words Using Only Easy Letters')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -2633,6 +2811,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-pop-culture',
         title: 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty',
+        relatedArticles: ['backwards-r-myth', 'false-friends', 'cyrillic-copy-paste'],
         content: `
             <p>For most Westerners, Cyrillic isn't something you learn in school — it's something you encounter in movies, video games, and internet memes. From Cold War thrillers to modern gaming, Cyrillic has become visual shorthand for "Russian," "Soviet," or "Eastern European."</p>
             
@@ -2807,10 +2986,374 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-pop-culture', 'Cyrillic in Pop Culture: From Rocky IV to Call of Duty')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
+        id: 'cyrillic-vs-greek',
+        title: 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor',
+        relatedArticles: ['history-of-cyrillic', 'glagolitic', 'lost-letters'],
+        content: `
+            <p>If you've ever looked at the Greek and Russian alphabets side by side, the resemblance is hard to miss. The letter A appears in both. So does K, M, O, and T. Some letters look identical but make different sounds. Others have clearly evolved from the same ancestor but drifted apart over a thousand years of separate history.</p>
+
+            <p>This isn't a coincidence. The Cyrillic alphabet was created in the 9th century by disciples of Saints Cyril and Methodius, and they built it directly on top of the Greek alphabet. Every Cyrillic letter either came from Greek, was modified from Greek, or was invented from scratch to fill a gap that Greek couldn't cover. Understanding this relationship makes both alphabets easier to learn and reveals a fascinating piece of linguistic history.</p>
+
+            <h3>The Family Tree</h3>
+
+            <p>The story starts with the Phoenician alphabet, the great-grandparent of most Western writing systems. The Greeks adapted Phoenician letters around the 8th century BC. The Romans later adapted Greek into what became the Latin alphabet (the one you're reading now). And in the 9th century AD, Slavic scholars adapted Greek into what became Cyrillic.</p>
+
+            <p>This means Cyrillic and Latin are siblings, both descended from Greek. And Greek itself descends from Phoenician. When you look at the letter A in English, А in Russian, and Α in Greek, you're seeing the same letter three times, passed down through three thousand years of continuous use.</p>
+
+            <figure class="article-image">
+                <img src="/images/cyrillic-vs-greek-comparison.png" alt="Comparison chart of Cyrillic and Greek alphabets showing identical letters, similar letters, false friends, and letters unique to each alphabet" loading="lazy" width="1900" height="1580" style="max-width: 650px;">
+                <figcaption>How the two alphabets compare: shared letters, recognizable cousins, false friends, and unique characters.</figcaption>
+            </figure>
+
+            <h3>The Identical Letters</h3>
+
+            <p>Six letters are essentially the same in both alphabets, sharing both their shape and their sound. If you know the Greek alphabet, these Cyrillic letters are free:</p>
+
+            <p><strong>А/Α</strong> (both say "ah"), <strong>Е/Ε</strong> (both say "eh"), <strong>К/Κ</strong> (both say "k"), <strong>М/Μ</strong> (both say "m"), <strong>О/О</strong> (both say "o"), and <strong>Т/Τ</strong> (both say "t"). These are direct borrowings. When the creators of Cyrillic needed these sounds, they simply took the Greek letters as they were.</p>
+
+            <h3>The Recognizable Cousins</h3>
+
+            <p>Beyond the identical letters, several more share a clear visual relationship. You can see the family resemblance even though the letters have evolved apart:</p>
+
+            <p><strong>Б and Β (Beta)</strong> are visually similar, though Б specifically represents "b" in Cyrillic while Beta has shifted to a "v" sound in modern Greek. <strong>Г and Γ (Gamma)</strong> both represent the "g" sound. <strong>Д and Δ (Delta)</strong> both say "d." <strong>Л and Λ (Lambda)</strong> both say "l." <strong>П and Π (Pi)</strong> both say "p." <strong>Ф and Φ (Phi)</strong> both say "f."</p>
+
+            <p>If you're learning Cyrillic and you know even a handful of Greek letters from math class (pi, delta, sigma, phi), you already have a head start. Those Greek letters are sitting inside the Cyrillic alphabet, wearing slightly different clothes.</p>
+
+            <h3>The False Friends</h3>
+
+            <p>This is where things get interesting. Several letters appear in both alphabets with identical or similar shapes but represent different sounds. These are the traps:</p>
+
+            <p><strong>В</strong> looks like the Greek <strong>Β (Beta)</strong>, and historically they're the same letter. But modern Greek Beta sounds like "v," while Cyrillic В also sounds like "v." The twist is that English speakers see В and think "B" (since Latin also borrowed from Greek), when actually both the Cyrillic and modern Greek versions say "v." The real false friend here is English.</p>
+
+            <p><strong>Н</strong> looks like the Greek <strong>Η (Eta)</strong>. Same shape, completely different sounds. Cyrillic Н says "n." Greek Η says "ee." This catches almost everyone who tries to read both alphabets.</p>
+
+            <p><strong>Р</strong> and <strong>Ρ (Rho)</strong> both look like the Latin letter P but both actually represent the "r" sound. If you know Greek, Cyrillic Р makes instant sense. If you only know English, both alphabets will fool you the same way.</p>
+
+            <p><strong>С</strong> comes from a variant of Greek <strong>Σ (Sigma)</strong> called the "lunate sigma," which was C-shaped. Both represent the "s" sound. The shape changed but the sound survived.</p>
+
+            <p><strong>Х</strong> and <strong>Χ (Chi)</strong> both look like the Latin X, and both actually represent a throaty "kh" sound (like the "ch" in "Bach"). English borrowed the shape of Chi but gave it the "ks" sound, creating yet another false friend for English speakers learning either alphabet.</p>
+
+            <h3>What Cyrillic Added</h3>
+
+            <p>The Greek alphabet has 24 letters. Russian Cyrillic has 33. Those extra 9 letters exist because Slavic languages have sounds that Greek doesn't.</p>
+
+            <p>The creators of Cyrillic needed letters for sounds like "zh" (Ж), "ts" (Ц), "ch" (Ч), "sh" (Ш), "shch" (Щ), and the uniquely Slavic "y" sound (Ы). They also needed the hard and soft signs (Ъ and Ь) which modify how preceding consonants are pronounced. And they added Э, Ю, and Я for vowel sounds that Greek couldn't represent.</p>
+
+            <p>Some of these extra letters came from the earlier Glagolitic alphabet (the first Slavic writing system, which predated Cyrillic). Others were invented specifically for the new alphabet. If you're curious about Glagolitic and its relationship to Cyrillic, we have a <a href="#" onclick="showArticle('glagolitic'); return false;">deep dive into the Glagolitic alphabet</a> that covers its bizarre and beautiful letter forms.</p>
+
+            <h3>What Greek Kept</h3>
+
+            <p>Greek has four letters that Cyrillic chose not to adopt: <strong>Θ (Theta)</strong>, <strong>Ξ (Xi)</strong>, <strong>Ψ (Psi)</strong>, and <strong>Ω (Omega)</strong>.</p>
+
+            <p>Theta's "th" sound doesn't exist in Slavic languages. Xi's "ks" and Psi's "ps" sounds can be written with letter combinations in Cyrillic (КС and ПС), so dedicated letters weren't needed. Omega's "o" sound was already covered by О. Interestingly, Cyrillic did originally borrow some of these letters (the early alphabet included variants of Xi and Psi), but they were dropped during later reforms because they were redundant. You can read about those and other <a href="#" onclick="showArticle('lost-letters'); return false;">lost letters of Cyrillic</a> that didn't survive.</p>
+
+            <h3>If You Know One, How Much of the Other Can You Read?</h3>
+
+            <p>This is the practical question. If you already know the Greek alphabet, roughly half of Cyrillic will feel immediately familiar. You'll recognize the shapes, know the sounds, and be able to make educated guesses about words. The unique Cyrillic letters (Ж, Ц, Ч, Ш, etc.) will be completely new, but that's only about a dozen letters to learn from scratch rather than 33.</p>
+
+            <p>Going the other direction is similar. If you know Cyrillic, you can look at the Greek alphabet and instantly spot the letters you already know. The Greek-only letters (Θ, Ξ, Ψ, Ω) will be new, but there are only four of them.</p>
+
+            <p>The biggest hazard in both directions is the false friends. Your brain will see Н and try to apply whichever sound you learned first. Retraining those automatic associations takes practice, and it's the same challenge English speakers face when learning either alphabet independently. If you want to build that recognition skill, our <a href="#" onclick="showArticle('false-friends'); return false;">false friends guide</a> covers the most confusing letter pairs in detail.</p>
+
+            <div class="quiz-cta">
+                <p>Ready to learn the Cyrillic side of the family? Our interactive quiz lets you practice all 33 letters at your own pace.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">TRY THE QUIZ</button>
+            </div>
+
+            <h3>Two Alphabets, One Story</h3>
+
+            <p>The relationship between Greek and Cyrillic isn't just a linguistic curiosity. It reflects a thousand years of cultural transmission, from Byzantine missionaries to Slavic kingdoms to modern nation-states. Every time you write a Cyrillic А, you're using a letter that traveled from Phoenician traders to Greek scholars to Slavic monks, accumulating meaning and history at every stop.</p>
+
+            <p>For learners, the practical takeaway is encouraging: these alphabets are more alike than they are different. The shared foundation means that learning one genuinely helps with the other. And understanding where the letters came from makes them easier to remember, because each letter has a story behind it. For the full timeline of how Cyrillic evolved from those Greek roots into the alphabet used by 250 million people today, check out our <a href="#" onclick="showArticle('history-of-cyrillic'); return false;">complete history of Cyrillic</a>.</p>
+        
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-vs-greek', 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-vs-greek', 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-vs-greek', 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-vs-greek', 'Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
+        id: 'letter-yo-story',
+        title: 'The Story of Ё: Russia\'s Most Controversial Letter',
+        relatedArticles: ['lost-letters', 'memory-tricks', 'history-of-cyrillic'],
+        content: `
+            <p>The Russian alphabet has 33 letters, but one of them isn't always there. It appears in dictionaries and children's books, then vanishes from newspapers and novels. It sits on Russian keyboards but gets skipped when people type. It has a monument, a campaign, and a two-hundred-year argument behind it. The letter is Ё — pronounced "yo" — and it might be the strangest letter in the Cyrillic alphabet.</p>
+
+            <p>Here's what makes Ё genuinely weird. Russian writers can leave it out of almost any word and most readers will understand them anyway. A newspaper headline that should read "всё" (everything) is routinely printed as "все" (everyone) — same letters, different meaning, and Russians mostly cope. Imagine if English writers could skip the letter O whenever they felt like it. That's roughly the situation Ё is in.</p>
+
+            <h3>A Princess, a Dinner Party, and a Fir Tree</h3>
+
+            <p>The story begins on November 29, 1783, at a meeting of the newly founded Russian Academy in Saint Petersburg. Princess Yekaterina Dashkova, who led the Academy, was hosting some of the most important literary figures of the era — the writers Fonvizin and Derzhavin among them. They were discussing a new six-volume Russian dictionary when Dashkova asked a pointed question. How, she wanted to know, should they write the word for "fir tree"?</p>
+
+            <p>Everyone present wrote it the standard way: <strong>іолка</strong>. Two letters to represent what was clearly one sound. Dashkova pointed out the absurdity of it. Why use a clunky two-letter combination when a single letter would do? She proposed a new character — the familiar E with two dots placed above it, borrowing the form from French and German typography. The new letter would represent the distinct "yo" sound that Russians were already making but had no clean way to write.</p>
+
+            <p>The room agreed. Ё was born.</p>
+
+            <h3>The Slow Climb to Respectability</h3>
+
+            <p>Being invented at a dinner party doesn't automatically get a letter into the alphabet. Ё spent its first few decades as a curiosity. The poet Gavrila Derzhavin used it in personal correspondence. The first book to feature the letter in print was Ivan Dmitriev's poetry collection "My Trinkets" in 1795. The first surname ever printed with Ё was Потёмкин (Potyomkin) — the famous general and favorite of Catherine the Great.</p>
+
+            <p>The real champion of the letter came a few years later. Nikolay Karamzin, one of the most influential Russian writers of the late 18th century, used Ё prominently in his 1797 almanac <em>Aonida</em>, printing words like слёзы (tears), орёл (eagle), and мотылёк (moth). Because Karamzin carried so much literary weight, Ё started to feel respectable. For a long time, Karamzin was credited as the letter's inventor — though the real credit belongs to Dashkova.</p>
+
+            <p>Even with Karamzin's backing, Ё didn't make it into the official Russian alphabet until the 1860s. And "official" is a flexible word here, because the letter remained optional in practice. Writers used it when they felt like it. Printers skipped it when convenient. A great many Russian books and newspapers simply didn't include it at all.</p>
+
+            <h3>Stalin, a Typo, and a Decree</h3>
+
+            <p>The most dramatic chapter in the Ё story is also the most legendary. The details vary by source, but the core of the tale goes like this: during the Second World War, Joseph Stalin received a document listing the surnames of several generals. Because the typists had skipped Ё, the names were rendered incorrectly. Stalin was furious. The generals' names were mispronounced, which in the Soviet system was not a small matter.</p>
+
+            <p>Whether this specific incident happened or whether the story has grown in the telling, something changed. In 1942, the Soviet People's Commissariat of Education issued a decree making Ё mandatory in school textbooks. The following day, according to persistent accounts, the newspaper <em>Pravda</em> began printing the letter in every relevant word. Overnight, Ё had teeth.</p>
+
+            <p>The mandate was more official than effective. Mandatory in schools didn't mean mandatory in everyday use, and as soon as Soviet cultural enforcement loosened, Russian printers quietly went back to their old habits. By the late 20th century, Ё was once again optional almost everywhere outside of dictionaries, educational materials, and texts for children.</p>
+
+            <h3>When Skipping a Letter Actually Matters</h3>
+
+            <p>You might wonder why any of this matters. If Russians can read перше (perhaps) and все (everyone) without Ё, what's the problem?</p>
+
+            <p>The problem is that sometimes context isn't enough. Consider these pairs:</p>
+
+            <p><strong>все</strong> (vse) means "everyone." <strong>всё</strong> (vsyo) means "everything." In speech these sound completely different. In writing, if you drop the dots, they become identical.</p>
+
+            <p><strong>передохнем</strong> means "we will die." <strong>передохнём</strong> means "we will take a break." Two entirely different outcomes, written identically when Ё gets simplified.</p>
+
+            <p><strong>небо</strong> (sky) versus <strong>нёбо</strong> (palate, as in the roof of your mouth). One belongs in poetry, the other in a dentist's office.</p>
+
+            <figure class="article-image">
+                <img src="/images/yo-letter-word-pairs.svg" alt="Comparison of Russian word pairs showing how dropping the letter Ё changes meaning: все (everyone) versus всё (everything), передохнем (we will die) versus передохнём (we will take a break), небо (sky) versus нёбо (palate)" loading="lazy" width="680" height="520">
+                <figcaption>Three word pairs where dropping the dots on Ё produces an entirely different word.</figcaption>
+            </figure>
+
+            <p>Linguists estimate Russian has around 12,500 words containing Ё, plus roughly 2,750 surnames and 1,650 given names. More than 300 Russian surnames are distinguished from other surnames only by the presence or absence of this single letter — Lezhnev versus Lezhnyov, Demin versus Dyomin.</p>
+
+            <p>The real-world consequences of this can be genuinely absurd. Russian bureaucracy takes spelling extremely seriously, and people with Ё in their legal name regularly discover that their birth certificate, passport, and marriage certificate all spell their name slightly differently depending on which clerk typed which document. There was a court case in 2018 involving a Russian mother of three who was denied state benefits because her surname was written with Е on some documents and Ё on others — meaning, legally, the state wasn't sure she was the same person on her children's birth certificates.</p>
+
+            <h3>The Campaigners and the Monument</h3>
+
+            <p>The situation is weird enough that Ё has defenders. Russians call them <em>yofikators</em> — people who campaign for the consistent use of Ё in print, correspondence, and official documents. Some are academics. Some are retired engineers who have, no joke, written multiple books about the letter and compiled entire dictionaries of Ё-words. Editors of major publications receive polite but persistent letters from yofikators urging them to respect the letter.</p>
+
+            <p>Their efforts have had occasional wins. Several Russian newspapers — <em>Sovetskaya Rossiya</em>, <em>Literaturnaya Gazeta</em>, and <em>Argumenty i Fakty</em> among them — have officially reintroduced consistent use of Ё. The Russian Language Institute issued recommendations in 2006 asking that Ё be used in proper nouns to prevent mispronunciation.</p>
+
+            <p>And in 2005, the letter got a monument. The city of Ulyanovsk — the hometown of Karamzin, Ё's most famous champion — installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from its first printed appearance in Karamzin's 1797 almanac. It reportedly took three tons of stone. The unveiling actually triggered protests — because even a monument to a letter couldn't escape the argument.</p>
+
+            <figure class="article-image">
+                <img src="/images/yo-monument-ulyanovsk.jpg" alt="Monument to the letter Ё in Ulyanovsk, Russia — a two-meter triangular granite stele with the letter Ё carved into it, located on Novy Venets Boulevard" loading="lazy" style="max-width: 500px;">
+                <figcaption>The monument to Ё in Ulyanovsk, unveiled in 2005. Photo by Vadim Indeikin via <a href="https://commons.wikimedia.org/wiki/Category:Yo-monument_in_Ulyanovsk" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</figcaption>
+            </figure>
+
+            <p>There's a delightful detail here: the governor of Ulyanovsk Oblast has been known to refuse to sign state documents if Ё appears as Е in the text. The letter has a literal state defender.</p>
+
+            <h3>Why the Argument Continues</h3>
+
+            <p>So why is this still a debate in 2026? A few reasons.</p>
+
+            <p>The first is historical inertia. Russian was printed without consistent Ё use for so long that the tradition is baked in. Books, legal documents, and newspaper archives all reflect this inconsistency, and switching requires real effort.</p>
+
+            <p>The second is typographical. Older typewriters and early Soviet printing presses genuinely didn't make Ё easy to produce. The letter required a separate key or an extra mark. Skipping it saved time. By the time digital typography made Ё trivially available, the habit of skipping it had hardened into practice.</p>
+
+            <p>The third is cultural. Russians largely agree that you <em>should</em> use Ё when it matters for meaning — but "when it matters" turns out to be a judgment call. Some writers see it as pedantic to demand Ё everywhere. Others see dropping Ё as lazy and disrespectful to the language. There's a whole essay's worth of literary snobbery in this fight.</p>
+
+            <div class="quiz-cta">
+                <p>Want to learn all 33 Russian letters, including Ё? Our interactive quiz adapts to your level.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">LEARN THE ALPHABET</button>
+            </div>
+
+            <h3>What This Means for Learners</h3>
+
+            <p>If you're learning Russian, Ё is one of those letters where the written form and the reality on the ground diverge. Textbooks will teach you the letter carefully. Children's books will use it consistently. But as soon as you try to read a newspaper or a novel, you'll encounter Е where you expect Ё and need to infer the pronunciation from context.</p>
+
+            <p>This is frustrating, and also a useful signal that you're reading real Russian instead of pedagogical Russian. A few practical notes: Ё is always stressed, which actually helps. If you see a word where Ё would belong, the syllable containing it is almost certainly the stressed one. When in doubt about a word you've never heard, a dictionary will show you whether it contains Ё. And if you're dealing with proper names, especially surnames, it's always worth checking whether the official spelling uses Ё, because Russians may not pronounce the name the way the English transliteration suggests.</p>
+
+            <p>The English press, for instance, has spent decades misrendering Russian names because of Ё confusion. Khrushchev's name in Russian is actually Хрущёв — pronounced Khrushchyov, not Khrushchev. Gorbachev is Горбачёв — pronounced Gorbachyov. The transliterations we grew up with reflect a stripped-down version of names that Russians themselves often write incorrectly.</p>
+
+            <p>For more on the letters that fool English speakers in general, you might enjoy our guide to <a href="#" onclick="showArticle('memory-tricks'); return false;">memory tricks for confusing Cyrillic letters</a>, which covers Ё alongside other tricky characters. And if you're interested in the deeper history of the alphabet, <a href="#" onclick="showArticle('history-of-cyrillic'); return false;">the full history of Cyrillic</a> puts Ё's strange status in context.</p>
+
+            <h3>The Letter That Won't Quite Settle Down</h3>
+
+            <p>In a sense, Ё is the Russian language arguing with itself. It's a useful letter that nobody fully agrees to use. It's official but optional. It changes meaning but gets skipped anyway. It has a monument and a protest movement, state defenders and casual detractors, a clear pronunciation and an ambiguous written form.</p>
+
+            <p>If you ever catch yourself wondering whether learning Russian is going to be straightforward, remember Ё. The language has had 240 years to decide what to do about a single vowel and still hasn't committed. Everything that feels confusing about Russian spelling probably has a story behind it like this one — a committee decision from two centuries ago, a wartime decree, a literary feud, and a monument nobody quite agrees on.</p>
+
+            <p>Russian is like that. It's worth it anyway.</p>
+        
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('letter-yo-story', 'The Story of Ё: Russia\\'s Most Controversial Letter')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('letter-yo-story', 'The Story of Ё: Russia\\'s Most Controversial Letter'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('letter-yo-story', 'The Story of Ё: Russia\\'s Most Controversial Letter'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('letter-yo-story', 'The Story of Ё: Russia\\'s Most Controversial Letter')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
+        id: 'how-to-type-cyrillic',
+        title: 'How to Type Cyrillic on Any Device: Complete Setup Guide',
+        relatedArticles: ['cyrillic-copy-paste', 'russian-alphabet-chart', 'cyrillic-learning-resources'],
+        content: `
+            <p>You've learned enough Cyrillic letters to recognize words. Now you want to actually type them. Maybe you're messaging someone in Russian, filling out a language exchange profile, or trying to search for something in Russian Google. Problem is, your keyboard shows Latin letters and you have no idea how to switch.</p>
+
+            <p>Good news: every major device supports Cyrillic typing natively. You don't need to buy a Russian keyboard or install any apps. The setup takes a few minutes on each platform. This guide walks you through all of them — Windows, Mac, iPhone, iPad, and Android — plus a few tips that will make the whole thing easier.</p>
+
+            <h3>Which Keyboard Layout Should You Pick?</h3>
+
+            <p>Before you start, a quick decision: every platform offers at least two Russian keyboard layouts, and picking the right one matters.</p>
+
+            <p><strong>Standard Russian (ЙЦУКЕН):</strong> This is the layout used in Russia. The letters are arranged the way native Russians expect them. If you bought a keyboard in Moscow, this is what the labels on the keys would show. The problem? It has almost nothing in common with QWERTY. The Russian letter Й is where English Q is, Ц is where W is, and so on. If you learn this layout, you're essentially learning to type from scratch.</p>
+
+            <p><strong>Russian Phonetic (sometimes called "Russian — Phonetic" or "Russian — Mnemonic"):</strong> This layout maps Cyrillic letters to the QWERTY key that produces a similar sound. Press A and you get А. Press K and you get К. Press V and you get В (which sounds like V in Russian even though it looks like B). This is much easier if you're coming from an English keyboard and aren't planning to become a Russian typist.</p>
+
+            <p>For most English speakers learning Russian, the phonetic layout is the right choice. You can start typing immediately without retraining your muscle memory. If you're serious about eventually working in Russia or typing long documents in Russian daily, the standard layout is worth learning — but you can always add it later.</p>
+
+            <p>The steps below cover both options on each platform.</p>
+
+            <figure class="article-image">
+                <img src="/images/russian-keyboard-layout.svg" alt="Standard Russian ЙЦУКЕН keyboard layout showing all 33 Cyrillic letters arranged on a QWERTY-sized keyboard" loading="lazy" width="720" height="280">
+                <figcaption>The standard ЙЦУКЕН layout used in Russia. Note Ё in the top-left corner.</figcaption>
+            </figure>
+
+            <figure class="article-image">
+                <img src="/images/russian-phonetic-keyboard-layout.svg" alt="Russian phonetic keyboard layout mapping Cyrillic letters to similar-sounding QWERTY keys, with Latin key labels shown in red" loading="lazy" width="720" height="280">
+                <figcaption>The phonetic layout maps Cyrillic letters to similar-sounding QWERTY keys (shown in red).</figcaption>
+            </figure>
+
+            <h3>How to Type Cyrillic on Windows 11 and Windows 10</h3>
+
+            <p>Windows has solid built-in Russian support. The setup is identical on Windows 10 and Windows 11 with only minor UI differences.</p>
+
+            <p><strong>Step 1:</strong> Open Settings. The fastest way is pressing the Windows key and typing "language settings."</p>
+
+            <p><strong>Step 2:</strong> Go to Time & Language, then Language & Region.</p>
+
+            <p><strong>Step 3:</strong> Under Preferred Languages, click "Add a language."</p>
+
+            <p><strong>Step 4:</strong> Search for "Russian" in the list. Select Russian (Русский) and click Next.</p>
+
+            <p><strong>Step 5:</strong> On the optional language features screen, you can uncheck "Set as my Windows display language" unless you want your entire operating system in Russian. Click Install.</p>
+
+            <p><strong>Step 6:</strong> Windows will download and install the language pack. When it's done, you'll have the standard Russian ЙЦУКЕН keyboard available. If you want the phonetic layout instead, click on the Russian language you just added, click Options, then click "Add a keyboard" and choose Russian Mnemonic.</p>
+
+            <p><strong>Step 7:</strong> To switch to Russian typing, press Windows Key + Space. You'll see a language indicator appear showing EN or RU. You can also click the language indicator in the bottom-right corner of your taskbar to switch.</p>
+
+            <p>A word of warning: do not click "Make Default" when setting up the Russian keyboard. If you do, Russian becomes your primary typing language and English becomes the secondary one, which is confusing if you're not ready for that. Keep English as your default and switch to Russian only when you need it.</p>
+
+            <h3>How to Type Cyrillic on Mac (macOS)</h3>
+
+            <p>macOS has the cleanest Russian keyboard setup of any platform. The whole process takes about thirty seconds.</p>
+
+            <p><strong>Step 1:</strong> Open System Settings (called System Preferences on older macOS versions). You can find it in the Apple menu at the top-left of your screen, or press Command + Space and type "System Settings."</p>
+
+            <p><strong>Step 2:</strong> Click Keyboard in the sidebar.</p>
+
+            <p><strong>Step 3:</strong> Find the Input Sources section and click Edit (or the equivalent button on your version).</p>
+
+            <p><strong>Step 4:</strong> Click the plus button (+) to add a new input source.</p>
+
+            <p><strong>Step 5:</strong> Scroll down or search for Russian. You'll see several options: Russian (standard ЙЦУКЕН), Russian — Phonetic, and Russian — PC. For most learners, pick Russian — Phonetic. Click Add.</p>
+
+            <p><strong>Step 6:</strong> Make sure "Show Input menu in menu bar" is enabled. This puts a small flag icon in your menu bar that shows which keyboard is active.</p>
+
+            <p><strong>Step 7:</strong> To switch keyboards, press Control + Space (or Caps Lock if you've enabled it as a keyboard switcher in Keyboard settings). You can also click the flag in your menu bar and pick Russian from the dropdown.</p>
+
+            <p>A handy trick: if you forget which Cyrillic letter is on which key, click the flag in your menu bar and select "Show Keyboard Viewer." A floating keyboard appears on screen showing exactly what each key produces in the current layout.</p>
+
+            <h3>How to Type Cyrillic on iPhone and iPad (iOS)</h3>
+
+            <p>Apple makes this simple. The steps are identical on iPhone and iPad.</p>
+
+            <p><strong>Step 1:</strong> Open the Settings app.</p>
+
+            <p><strong>Step 2:</strong> Tap General, then Keyboard, then Keyboards.</p>
+
+            <p><strong>Step 3:</strong> Tap "Add New Keyboard."</p>
+
+            <p><strong>Step 4:</strong> Scroll down the list and tap Russian. (iOS only offers the standard ЙЦУКЕН layout for Russian — there's no built-in phonetic option on mobile.)</p>
+
+            <p><strong>Step 5:</strong> The Russian keyboard is now active. To switch to it while typing, tap and hold the globe icon (🌐) at the bottom-left of the keyboard, then select Russian. A quick tap on the globe cycles through your enabled keyboards.</p>
+
+            <p>If you need a phonetic layout on iOS, you can install a third-party keyboard app from the App Store. Just be aware that third-party keyboards have access to what you type, so stick with reputable ones if you go this route.</p>
+
+            <h3>How to Type Cyrillic on Android</h3>
+
+            <p>Android's setup depends on which keyboard app you use. Most Android phones come with Google's Gboard, which handles Russian natively. If your phone uses Samsung Keyboard or SwiftKey, the process is similar but the menu names differ slightly.</p>
+
+            <p><strong>For Gboard (most Android phones):</strong></p>
+
+            <p><strong>Step 1:</strong> Open any app where you can type, like Messages or Gmail. Tap on a text field to bring up the keyboard.</p>
+
+            <p><strong>Step 2:</strong> Tap the gear icon or the settings icon on your keyboard. On newer Gboard versions, tap the three dots in the top-left of the keyboard to access settings.</p>
+
+            <p><strong>Step 3:</strong> Tap Languages, then "Add keyboard."</p>
+
+            <p><strong>Step 4:</strong> Search for Russian and tap it. You'll see multiple layout options including ЙЦУКЕН (standard) and several phonetic variants. Pick the one that suits you and tap Done.</p>
+
+            <p><strong>Step 5:</strong> To switch to Russian while typing, tap and hold the spacebar (a language menu pops up) or tap the globe icon if it's visible on your keyboard.</p>
+
+            <p><strong>For Samsung Keyboard:</strong> Open Settings, then General Management, then Samsung Keyboard Settings, then Languages and Types. Tap "Manage input languages" and toggle Russian on. Switch using the globe icon or by swiping the spacebar.</p>
+
+            <h3>Tips That Will Save You Frustration</h3>
+
+            <p><strong>Get keyboard stickers.</strong> If you plan to type in Russian regularly, clear Cyrillic keyboard stickers are the cheapest and most useful accessory you can buy. Stick them onto your existing keyboard keys and you can see both alphabets without squinting. They cost a few dollars on Amazon.</p>
+
+            <p><strong>Use an on-screen keyboard viewer when you're starting out.</strong> Windows, Mac, and Linux all have built-in keyboard viewers that show a floating picture of your current keyboard layout. This is much easier than trying to memorize which QWERTY key produces which Cyrillic letter.</p>
+
+            <p><strong>Turn on the language indicator.</strong> Every platform lets you show which keyboard is currently active. Turn this on. Accidentally typing Russian when you meant English (or vice versa) produces gibberish that's easy to avoid if you can see at a glance which mode you're in.</p>
+
+            <p><strong>Learn the switching hotkey cold.</strong> On Windows it's Windows + Space. On Mac it's Control + Space (customizable). On mobile it's the globe icon. Internalize this so switching becomes reflexive rather than an interruption.</p>
+
+            <p><strong>Remember Ё.</strong> The letter Ё is not where you'd expect it on most layouts. On standard ЙЦУКЕН, it's in the top-left corner where you'd expect the tilde (~) on an English keyboard. On the phonetic layout, it often requires a modifier key. If you're curious why this letter is its own whole situation, we've got a <a href="#" onclick="showArticle('letter-yo-story'); return false;">dedicated article on the strange history of Ё</a>.</p>
+
+            <h3>When You Just Need One Character Quickly</h3>
+
+            <p>Setting up a keyboard makes sense if you type Russian regularly. If you just need a Cyrillic letter or two for a username, a design project, or to paste into a translator, a keyboard setup is overkill. Our <a href="#" onclick="showArticle('cyrillic-copy-paste'); return false;">Cyrillic copy-and-paste tool</a> gives you every letter in the alphabet — including accented letters and pre-reform characters — with one-click copying. No installation, no configuration, works on any device.</p>
+
+            <p>For learning the actual letters and their sounds, the <a href="#" onclick="showArticle('russian-alphabet-chart'); return false;">interactive alphabet chart</a> has pronunciation audio for all 33 Russian letters. Learning the alphabet first makes the keyboard layout way less intimidating.</p>
+
+            <div class="quiz-cta">
+                <p>Got your keyboard set up? Practice typing the letters you just learned with our interactive quiz.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START TYPING PRACTICE</button>
+            </div>
+
+            <h3>Which Platform Is Easiest?</h3>
+
+            <p>Ranking from easiest to hardest for first-time Cyrillic typists: Mac, then Windows, then iPhone and iPad tied, then Android. Mac wins because it offers a phonetic layout out of the box with zero friction. Windows requires adding a separate mnemonic layout but supports it well. iOS is simple but only offers the standard ЙЦУКЕН layout, which is harder for beginners. Android's setup varies by keyboard app, which makes the process a little inconsistent.</p>
+
+            <p>The good news is that once you set it up on one device, you rarely touch the settings again. Five minutes of configuration buys you months of convenient Russian typing. And if you're planning to learn the language seriously, you might as well tackle the standard ЙЦУКЕН layout eventually — muscle memory builds faster than you'd think, and Russian keyboards in Russia will all use that layout.</p>
+
+            <h3>Troubleshooting Common Issues</h3>
+
+            <p><strong>I added the keyboard but I don't see a switcher.</strong> Make sure the language indicator is enabled. On Windows, it should appear in the taskbar automatically. On Mac, toggle "Show Input menu in menu bar" in Keyboard settings. On iOS, you need at least two keyboards enabled for the globe icon to appear.</p>
+
+            <p><strong>My keys produce Cyrillic when I'm trying to type English.</strong> You're in Russian mode. Press your switching hotkey once to go back to English.</p>
+
+            <p><strong>I can't find the phonetic layout on iOS.</strong> iOS doesn't include one natively. You'll need a third-party keyboard app, or you can use the standard layout and rely on the on-screen keyboard to find letters.</p>
+
+            <p><strong>My Cyrillic shows up as boxes or question marks.</strong> This is a font issue, not a keyboard issue. The app or website you're using doesn't have a font installed that supports Cyrillic. Try a different app. This is rare on modern systems but occasionally happens in older software.</p>
+
+            <p><strong>I need to type Russian on a shared computer where I can't install anything.</strong> Use an online virtual Russian keyboard. Several free websites let you type Russian via an on-screen layout and copy the result. Our <a href="#" onclick="showArticle('cyrillic-copy-paste'); return false;">copy-and-paste tool</a> works in this scenario too, including the text builder for longer phrases.</p>
+
+            <p>Most first-time Russian typists get over the initial confusion within a couple of hours of practice. If you stick with it, within a week you'll be switching between keyboards without thinking about it. The setup is the hard part. The typing becomes automatic pretty quickly.</p>
+        
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('how-to-type-cyrillic', 'How to Type Cyrillic on Any Device: Complete Setup Guide')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('how-to-type-cyrillic', 'How to Type Cyrillic on Any Device: Complete Setup Guide'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('how-to-type-cyrillic', 'How to Type Cyrillic on Any Device: Complete Setup Guide'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('how-to-type-cyrillic', 'How to Type Cyrillic on Any Device: Complete Setup Guide')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
@@ -2818,61 +3361,222 @@ const ARTICLES = [
     {
         id: 'cyrillic-copy-paste',
         title: 'Cyrillic Alphabet Copy and Paste',
+        relatedArticles: ['russian-alphabet-chart', 'cyrillic-alphabet-chart', 'cyrillic-learning-resources'],
         content: `
-            <p>Need to copy Cyrillic letters quickly? Use the buttons below to copy any Cyrillic character to your clipboard with one click. Perfect for usernames, social media, design projects, or learning.</p>
+            <p>Copy any Cyrillic character to your clipboard with one click — standard Russian letters, accented vowels with stress marks, and pre-reform characters from before 1918. Click a letter to copy it individually, or use the text builder to assemble full words and phrases.</p>
 
-            <h3>Uppercase Cyrillic Letters</h3>
-            <div id="uppercase-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin: 20px 0;"></div>
+            <div id="copy-text-builder">
+                <div class="text-builder-header">
+                    <span class="text-builder-label">Text Builder</span>
+                    <div class="text-builder-controls">
+                        <button class="text-builder-btn" id="text-builder-copy" title="Copy all">Copy</button>
+                        <button class="text-builder-btn text-builder-btn-clear" id="text-builder-clear" title="Clear">Clear</button>
+                    </div>
+                </div>
+                <textarea id="text-builder-area" placeholder="Click letters below to build text here..." rows="2"></textarea>
+                <div id="text-builder-toast" class="text-builder-toast">Copied to clipboard!</div>
+            </div>
 
-            <h3>Lowercase Cyrillic Letters</h3>
-            <div id="lowercase-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin: 20px 0;"></div>
+            <h3>Standard Russian Alphabet</h3>
+            <p class="copy-section-label">Uppercase</p>
+            <div id="uppercase-container" class="copy-grid"></div>
 
-            <h3>Special Characters</h3>
-            <div id="special-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin: 20px 0;"></div>
+            <p class="copy-section-label">Lowercase</p>
+            <div id="lowercase-container" class="copy-grid"></div>
+
+            <p class="copy-section-label">Special Characters (Ё, Signs, Ы, Э, Ю, Я)</p>
+            <div id="special-container" class="copy-grid"></div>
+
+            <h3>Accented Letters (Stress Marks)</h3>
+            <p>Russian dictionaries and textbooks use acute accents to mark stressed syllables. These are hard to type — here they are ready to copy.</p>
+            <p class="copy-section-label">Uppercase Accented</p>
+            <div id="accented-upper-container" class="copy-grid"></div>
+            <p class="copy-section-label">Lowercase Accented</p>
+            <div id="accented-lower-container" class="copy-grid"></div>
+
+            <h3>Pre-Reform Letters (Pre-1918)</h3>
+            <p>These letters were removed during the 1918 Russian spelling reform. You'll still encounter them in pre-revolutionary texts, historical documents, and academic publications.</p>
+            <div id="prereform-container" class="copy-grid"></div>
 
             <h3>How to Use</h3>
 
-            <p>Simply click any letter above and it will be copied to your clipboard. You'll see a "Copied!" message appear briefly. Then paste it wherever you need it using Ctrl+V (Windows/Linux) or Cmd+V (Mac).</p>
+            <p>Click any letter and it's on your clipboard. Paste with Ctrl+V (Windows/Linux) or Cmd+V (Mac). The accented letters use a Unicode combining accent, so they work in any modern text field.</p>
 
-            <h3>What Can You Use This For?</h3>
+            <h3>Who Needs This?</h3>
 
-            <p><strong>Social Media Usernames:</strong> Stand out with Cyrillic characters in your Instagram, TikTok, or Discord name. Just remember that some platforms may limit which characters you can use.</p>
+            <p><strong>Language Learners:</strong> Copy individual letters while you're still getting comfortable with the Cyrillic keyboard layout. If you type Russian often enough that copy-paste gets tedious, our <a href="#" onclick="showArticle('how-to-type-cyrillic'); return false;">complete Cyrillic keyboard setup guide</a> walks through the process for every major platform.</p>
 
-            <p><strong>Design Projects:</strong> Add authentic Cyrillic typography to posters, graphics, or branding without needing to switch keyboard layouts.</p>
+            <p><strong>Teachers and Textbook Authors:</strong> The accented vowels are especially useful for creating learning materials with stress marks — something that's surprisingly tedious to type otherwise.</p>
 
-            <p><strong>Learning Russian:</strong> Practice typing Russian words by copying and pasting letters until you're comfortable with the Cyrillic keyboard layout.</p>
+            <p><strong>Designers:</strong> Add authentic Cyrillic typography to posters, graphics, or branding without switching keyboard layouts.</p>
 
-            <p><strong>Memes and Creative Content:</strong> Use Cyrillic letters for aesthetic effect or authentic Russian-language content creation.</p>
+            <p><strong>Historians and Academics:</strong> The pre-reform characters are essential for working with pre-revolutionary Russian texts. Finding Ѣ (yat) or Ѳ (fita) on a standard keyboard is nearly impossible.</p>
 
-            <h3>Special Characters Explained</h3>
+            <h3>About the Pre-Reform Letters</h3>
 
-            <p><strong>Ё (yo):</strong> A special vowel that's often written as Е in casual Russian text, but technically distinct.</p>
+            <p><strong>Ѣ (yat):</strong> Once represented a distinct vowel sound that merged with Е over centuries. Its removal in 1918 was the most controversial change of the spelling reform — some conservative writers refused to adopt the new rules for years.</p>
 
-            <p><strong>Ъ (hard sign):</strong> A silent letter that creates a hard separation between consonants and vowels.</p>
+            <p><strong>Ѳ (fita):</strong> Borrowed from Greek theta, used in words of Greek origin like Ѳеодоръ (Theodore). Replaced by Ф in the reform.</p>
 
-            <p><strong>Ь (soft sign):</strong> Makes the preceding consonant "soft" — crucial for correct Russian pronunciation.</p>
+            <p><strong>І (decimal i):</strong> Functioned identically to И but was used before vowels and Й. Still survives in Ukrainian as І.</p>
 
-            <p><strong>Ы (y):</strong> A vowel unique to Slavic languages. Sounds like the "i" in "bit" but further back in your throat.</p>
+            <p><strong>Ѵ (izhitsa):</strong> The rarest of the bunch — borrowed from Greek upsilon, used in a handful of church and scientific terms. Had largely fallen out of use even before the reform made it official.</p>
+        
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
+        id: 'russian-alphabet-chart',
+        title: 'Russian Alphabet Chart: All 33 Letters with Pronunciation',
+        relatedArticles: ['getting-started', 'false-friends', 'memory-tricks'],
+        content: `
+            <p>Here's every letter in the Russian alphabet, organized so you can actually learn them. Click any letter to hear how it's pronounced. Filter by vowels or consonants. Use this as your reference while you practice.</p>
 
-            <p><strong>Э (e):</strong> The "reverse E" — sounds like the "e" in "met."</p>
+            <div id="alphabet-controls" style="margin: 30px 0; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                <div style="display: flex; gap: 10px;">
+                    <button class="filter-btn active" data-filter="all" style="padding: 10px 20px; border: 2px solid #e74c3c; background: #e74c3c; color: white; border-radius: 5px; cursor: pointer; font-weight: bold;">All Letters</button>
+                    <button class="filter-btn" data-filter="vowels" style="padding: 10px 20px; border: 2px solid #e74c3c; background: transparent; color: #e74c3c; border-radius: 5px; cursor: pointer; font-weight: bold;">Vowels Only</button>
+                    <button class="filter-btn" data-filter="consonants" style="padding: 10px 20px; border: 2px solid #e74c3c; background: transparent; color: #e74c3c; border-radius: 5px; cursor: pointer; font-weight: bold;">Consonants Only</button>
+                </div>
+                <div style="margin-left: auto; color: #666;">
+                    <span id="letter-count">33 letters</span>
+                </div>
+            </div>
 
-            <p><strong>Ю (yu):</strong> Combines "y" + "oo" sounds into one letter.</p>
+            <div id="alphabet-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin: 30px 0;">
+                <!-- Letters will be inserted here by JavaScript -->
+            </div>
 
-            <p><strong>Я (ya):</strong> The famous "backwards R" — actually sounds like "ya" as in "yard."</p>
+            <div id="letter-legend" style="margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                <h4 style="margin-top: 0;">Difficulty Key:</h4>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #27ae60; border-radius: 3px; vertical-align: middle;"></span> <strong>Easy</strong> - Similar to English</div>
+                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #f39c12; border-radius: 3px; vertical-align: middle;"></span> <strong>Medium</strong> - False friends or unique shapes</div>
+                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #e74c3c; border-radius: 3px; vertical-align: middle;"></span> <strong>Hard</strong> - Completely new sounds</div>
+                </div>
+            </div>
 
-            <h3>Need More Than Copy-Paste?</h3>
+            <h3>How to Use This Chart</h3>
 
-            <p>If you're seriously learning Russian or another Cyrillic language, you'll eventually want to type fluently. Check out our guide on <a href="#" onclick="showArticle('how-to-type-cyrillic'); return false;">how to set up and use a Cyrillic keyboard</a>.</p>
+            <p>This isn't just a reference chart. It's a learning tool. Here's how to actually use it.</p>
 
-            <p>For now, enjoy the convenience of one-click copying!</p>
+            <p><strong>For complete beginners:</strong> Start by filtering to "Vowels Only." Learn those 10 letters first. Click each one to hear the pronunciation. Write them down. Then switch to "Consonants Only" and tackle those in groups of 5 or 6.</p>
+
+            <p><strong>For intermediate learners:</strong> Use this to drill the letters you keep confusing. If you mix up Н and Р, click on both repeatedly until your brain stops making that mistake. The audio helps retrain your ear.</p>
+
+            <p><strong>For reference:</strong> Keep this page bookmarked. When you're reading Russian text and forget what a letter sounds like, come back here and check. The example words show you how each letter appears in real Russian.</p>
+
+            <h3>Understanding the Russian Alphabet</h3>
+
+            <p>Russian uses the Cyrillic alphabet, which was created in the 9th century by Saints Cyril and Methodius. The modern Russian version has 33 letters, compared to English's 26.</p>
+
+            <p>But here's the thing: learning 7 extra letters isn't the hard part. The hard part is that some Cyrillic letters look exactly like English letters but make completely different sounds. Your brain sees a familiar shape and wants to take a shortcut. You have to actively fight that instinct.</p>
+
+            <h3>The Three Categories</h3>
+
+            <p><strong>Category 1: Easy Letters (Green)</strong></p>
+
+            <p>These letters look and sound similar to English letters. When you see А, you can just think "ah" like in "father." Same with К (k), М (m), О (oh), and Т (t). These are your anchor points. Learn these first and you'll have a foundation to build on.</p>
+
+            <p><strong>Category 2: False Friends (Orange)</strong></p>
+
+            <p>These are the troublemakers. В looks like B but sounds like V. Н looks like H but sounds like N. Р looks like P but sounds like R. Your brain will fight you on these for weeks. Every time you see В, you'll want to say "buh" instead of "vuh." That's normal. Just keep correcting yourself until the right sound becomes automatic.</p>
+
+            <p>The good news? There are only about 6 major false friends. Once you've retrained your brain on those specific letters, the confusion stops.</p>
+
+            <p><strong>Category 3: New Letters (Red)</strong></p>
+
+            <p>Letters like Ж, Ш, Щ, and Ы don't look like anything in English. They represent sounds that might be new to you. Ж makes a "zh" sound like the "s" in "measure." Ш makes a "sh" sound. Щ is like "shch" mashed together.</p>
+
+            <p>These take practice because you're learning from scratch. But in some ways they're easier than the false friends because there's no confusion. You just have to memorize new shapes and sounds.</p>
+
+            <h3>Vowels vs Consonants</h3>
+
+            <p>Russian has 10 vowel letters. That seems like a lot compared to English's 5, but it makes sense once you understand the pattern.</p>
+
+            <p>Some vowels are "hard" (А, О, У, Э, Ы) and some are "soft" (Я, Ё, Ю, Е, И). The soft vowels have a "y" sound at the beginning. Я is "ya," Ю is "yoo," Е is "yeh," and so on. This soft/hard distinction is important for Russian pronunciation and grammar, but don't worry about that yet. Just learn the sounds.</p>
+
+            <p>The 21 consonants work more or less like English consonants, with a few exceptions. Russian has sounds like Ж (zh) and Ч (ch) that English writes with two letters. Russian just gives them their own characters.</p>
+
+            <h3>The Two Weird Signs</h3>
+
+            <p>At the bottom of the chart, you'll see Ъ (hard sign) and Ь (soft sign). These don't make sounds on their own. They modify how you pronounce the letters around them.</p>
+
+            <p>The soft sign (Ь) makes consonants "soft." If you see a consonant followed by Ь, you soften that consonant sound. The hard sign (Ъ) creates a separation between syllables and keeps consonants "hard."</p>
+
+            <p>Honestly, don't stress about these yet. They're advanced. Focus on learning the regular letters first. Once you've got those down solid, then worry about the signs.</p>
+
+            <h3>Common Patterns to Notice</h3>
+
+            <p>As you study the chart, you'll start to notice patterns:</p>
+
+            <p><strong>Letters with hooks or tails tend to make "soft" sounds.</strong> Я has that hook on the left. Ю has a curved section. These visual cues can help you remember which letters are soft.</p>
+
+            <p><strong>Three vertical lines usually means "sh."</strong> Ш is "sh" and Щ is "shch" (just "sh" but longer). Both have three vertical strokes.</p>
+
+            <p><strong>The backwards letters aren't random.</strong> Я is a backwards R but sounds like "ya." Э is a backwards E but makes a different E sound than Е. There's a logic to it, even if it's not always obvious at first.</p>
+
+            <h3>How to Practice with This Chart</h3>
+
+            <p>Don't just stare at the chart and hope the letters will magically stick in your brain. That doesn't work. You need active practice.</p>
+
+            <p><strong>Method 1: Cover and Recall</strong></p>
+
+            <p>Cover up the transliteration and pronunciation columns. Look at just the Cyrillic letters. Try to remember what sound each one makes. Click to check yourself. This is active recall, and it's way more effective than passive reading.</p>
+
+            <p><strong>Method 2: Reverse Lookup</strong></p>
+
+            <p>Think of an English sound like "sh." Now find which Cyrillic letter makes that sound. This forces you to search through the chart and engages your brain differently. It's harder than it sounds.</p>
+
+            <p><strong>Method 3: Write While Listening</strong></p>
+
+            <p>Click through each letter and listen to the pronunciation. As you listen, write the letter by hand. The combination of visual, auditory, and motor memory helps cement the letters in your brain.</p>
+
+            <p><strong>Method 4: Speed Drills</strong></p>
+
+            <p>Set a timer for 2 minutes. Go through the chart as fast as you can, trying to identify each letter. Track how many you get right. Do this daily and watch your speed improve.</p>
+
+            <h3>What About Cursive?</h3>
+
+            <p>Russian cursive is completely different from print. Some letters look nothing like their printed versions. For example, the letter Т in cursive looks like an "m" in English cursive.</p>
+
+            <p>But don't worry about cursive yet. Learn print first. Once you can read printed Russian fluently, then you can tackle cursive if you need it (which most learners don't). This chart focuses on print because that's what you'll see in books, signs, and online.</p>
+
+            <h3>Using This Chart Long-Term</h3>
+
+            <p>In the beginning, you'll reference this chart constantly. That's fine. Look up letters as many times as you need.</p>
+
+            <p>After a week or two, you'll find yourself needing it less often. Maybe you only check a few letters you keep forgetting.</p>
+
+            <p>After a month of consistent practice, you should rarely need the chart at all. At that point, you're not just recognizing letters anymore - you're reading them automatically.</p>
+
+            <p>But even experienced learners keep alphabet charts bookmarked as a quick reference. There's no shame in double-checking a letter you haven't seen in a while.</p>
+
+            <h3>Next Steps After Learning the Alphabet</h3>
+
+            <p>Once you know all 33 letters, you're ready to start reading real Russian. Not understanding it yet - just reading it, sounding out the words.</p>
+
+            <p>Start with Russian words that are borrowed from English. Words like "компьютер" (computer), "интернет" (internet), "кофе" (coffee). You can sound these out and recognize them.</p>
+
+            <p>Then move on to simple Russian words. "мама" (mama), "да" (yes), "нет" (no). Build up your vocabulary while practicing your letter recognition.</p>
+
+            <p>The alphabet is your foundation. Everything else in Russian builds on this. So take your time, use this chart as much as you need, and don't rush. Getting the alphabet solid now will save you countless hours of confusion later.</p>
 
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')">🔗 Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;">🦋 Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste'); return false;">🔴 Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('cyrillic-copy-paste', 'Cyrillic Alphabet Copy and Paste')">📱 Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('russian-alphabet-chart', 'Russian Alphabet Chart: All 33 Letters with Pronunciation')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `
