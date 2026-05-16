@@ -207,6 +207,17 @@
     </url>
     
     <url>
+        <loc>https://cyrilica.com/articles/cyrillic-vs-greek</loc>
+        <lastmod>2026-05-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/cyrillic-vs-greek-comparison.png</image:loc>
+            <image:title>Cyrillic vs Greek Alphabet Comparison Chart Showing Shared Letters and Differences</image:title>
+        </image:image>
+    </url>
+    
+    <url>
         <loc>https://cyrilica.com/articles/letter-yo-story</loc>
         <lastmod>2026-05-04</lastmod>
         <changefreq>monthly</changefreq>
