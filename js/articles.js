@@ -48,6 +48,11 @@ const ARTICLES = [
 
             <p>These take more practice because you don't have any visual reference point. But in some ways they're easier than the false friends because there's no confusion. You just have to learn them from scratch.</p>
 
+            <div class="quiz-cta">
+                <p>Ready to try the Three-Group Method? Pick your first group and start learning right now.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">PICK YOUR FIRST GROUP</button>
+            </div>
+
             <h3>Your First Week (Using This Site)</h3>
 
             <p>Here's a practical 7-day plan using the character groups available on this site. You can click "Begin Learning" on the home page and select exactly the groups mentioned below.</p>
@@ -257,6 +262,11 @@ const ARTICLES = [
             <p><em>Memory trick:</em> Think of clearing your throat — that harsh "kh" sound is what this letter makes.</p>
             
             <h3>Practice Strategy: Isolation and Repetition</h3>
+
+            <div class="quiz-cta">
+                <p>Think you can tell these false friends apart? Test yourself with our interactive quiz.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START PRACTICING</button>
+            </div>
             <p>Don't try to learn these mixed in with other letters. Your brain needs to form new, isolated associations. Here's how:</p>
             <ul>
                 <li><strong>Write them separately:</strong> Make flashcards for just these six letters. Practice them daily until the new sounds feel automatic.</li>
@@ -619,6 +629,11 @@ const ARTICLES = [
             
             <p>Or go really deep: visit a Russian Orthodox church and look at their service books. You'll see an alphabet that most Russians couldn't read fluently — their own writing system frozen in time, preserved like a linguistic fossil.</p>
             
+            <div class="quiz-cta">
+                <p>The lost letters are gone, but the 33 that survived are waiting for you. Learn them all with our free interactive quiz.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">LEARN THE SURVIVORS</button>
+            </div>
+
             <p>The modern Russian alphabet is sleek, efficient, and relatively easy to learn. But lurking beneath it is a vast history of lost letters — characters that served their purpose, outlived their usefulness, and faded into history. They're gone, but they left their mark on the language, the culture, and the endless Cyrillic iceberg memes that language learners love to share.</p>
 
             <p>Want another letter with a strange history? Check out <a href="#" onclick="showArticle('letter-yo-story'); return false;">the story of Ё</a>, a modern Russian letter that's still fighting for consistent use two centuries after it was invented.</p>
@@ -707,6 +722,11 @@ const ARTICLES = [
             <p><strong>Ъ (hard sign):</strong> Picture it as a wall. It separates letters, keeps them hard and apart. Like a boundary.</p>
 
             <p>Honestly, don't stress about these two yet. Learn the regular letters first. These are advanced.</p>
+
+            <div class="quiz-cta">
+                <p>Ready to put these memory tricks to the test? Our interactive quiz lets you practice each letter until it sticks.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">TEST YOUR MEMORY</button>
+            </div>
 
             <h3>Grouping Strategy</h3>
 
@@ -1198,6 +1218,11 @@ const ARTICLES = [
             
             <p><strong>Why F-tier:</strong> Р is the false friend that never stops being a false friend. Ы is a sound your mouth doesn't want to make. Ь is conceptually weird. Ъ barely exists. These are your final bosses in the Cyrillic learning journey.</p>
 
+            <div class="quiz-cta">
+                <p>Think you can handle the S-tier letters? Start there and work your way down. Our quiz lets you pick which groups to practice.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START WITH S-TIER</button>
+            </div>
+
             <h3>The Learning Journey</h3>
             
             <p><strong>Week 1:</strong> Master S-tier and A-tier. Feel good about yourself. (10 letters down!)</p>
@@ -1418,6 +1443,11 @@ const ARTICLES = [
             
             <p>These letters that look familiar but sound different are what we call "false friends." If you're learning Cyrillic, check out our complete guide to <a href="#" onclick="showArticle('false-friends'); return false;">false friends that fool English speakers</a>.</p>
 
+            <div class="quiz-cta">
+                <p>Я isn't the only letter that surprises English speakers. Learn all 33 Russian letters with instant feedback on every answer.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">LEARN THE REAL SOUNDS</button>
+            </div>
+
             <h3>Why Does This Happen?</h3>
             
             <p>Faux Cyrillic exists because Hollywood (and graphic designers, and game developers) want to signal "this is Russian" or "this is Soviet" without actually using Russian. The reasons:</p>
@@ -1598,6 +1628,11 @@ const ARTICLES = [
             
             <p><strong>The "ишишишиши" problem:</strong><br>
             Multiple letters in cursive can create identical-looking sequences. The word "шиши" looks like "uuuu" in cursive. You have to use context to figure out what letters they actually are.</p>
+
+            <div class="quiz-cta">
+                <p>Before you write, make sure you can recognize each letter. Our quiz builds letter recognition fast.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">BUILD RECOGNITION FIRST</button>
+            </div>
 
             <h3>Practice Method: The Proven System</h3>
             
@@ -2162,6 +2197,11 @@ const ARTICLES = [
             <p>Second, <strong>cultural inertia</strong>. Centuries of literature, religious texts, legal documents, and artistic tradition written in Cyrillic create an enormous gravitational pull. Pushkin, Dostoevsky, Tolstoy, Chekhov, Bulgakov, Akhmatova, Solzhenitsyn — the entire canon of Russian literature is in Cyrillic. The Orthodox liturgy is in Cyrillic. Switching alphabets means cutting off ordinary readers from their own heritage without expensive and extensive translation efforts. This is not a trivial cost, and most Cyrillic-using nations have concluded it isn't worth paying.</p>
             <p>Third, <strong>identity</strong>. For millions of people, Cyrillic is not just a tool but a statement of who they are — their connection to Orthodox Christianity, to Slavic culture, to a specific literary and intellectual tradition. An alphabet can carry civilization's weight. Abandoning Cyrillic feels, to many, like abandoning identity itself.</p>
             <p>Fourth, <strong>network effects</strong>. The more people use Cyrillic, the more valuable it becomes. Books, websites, education materials, keyboard layouts, fonts, and translation services all exist in Cyrillic at scale. The infrastructure is mature and ubiquitous. Switching scripts means rebuilding all of that from scratch.</p>
+
+            <div class="quiz-cta">
+                <p>Inspired by 1,150 years of alphabet history? Learn the modern Cyrillic alphabet with our free interactive quiz.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START LEARNING</button>
+            </div>
 
             <h3 id="learning-today">Learning Cyrillic Today</h3>
             <p>If you're reading this, you're part of a global community of learners who have decided — for reasons of language learning, travel, professional necessity, or pure curiosity — that Cyrillic is worth understanding. You're in good company. Millions of people learn Cyrillic every year, making it one of the more commonly studied non-Latin scripts in the world after Chinese characters and Arabic script.</p>
@@ -3033,6 +3073,11 @@ const ARTICLES = [
 
             <p>The third is cultural. Russians largely agree that you <em>should</em> use Ё when it matters for meaning — but "when it matters" turns out to be a judgment call. Some writers see it as pedantic to demand Ё everywhere. Others see dropping Ё as lazy and disrespectful to the language. There's a whole essay's worth of literary snobbery in this fight.</p>
 
+            <div class="quiz-cta">
+                <p>Want to learn all 33 Russian letters, including Ё? Our interactive quiz adapts to your level.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">LEARN THE ALPHABET</button>
+            </div>
+
             <h3>What This Means for Learners</h3>
 
             <p>If you're learning Russian, Ё is one of those letters where the written form and the reality on the ground diverge. Textbooks will teach you the letter carefully. Children's books will use it consistently. But as soon as you try to read a newspaper or a novel, you'll encounter Е where you expect Ё and need to infer the pronunciation from context.</p>
@@ -3184,6 +3229,11 @@ const ARTICLES = [
             <p>Setting up a keyboard makes sense if you type Russian regularly. If you just need a Cyrillic letter or two for a username, a design project, or to paste into a translator, a keyboard setup is overkill. Our <a href="#" onclick="showArticle('cyrillic-copy-paste'); return false;">Cyrillic copy-and-paste tool</a> gives you every letter in the alphabet — including accented letters and pre-reform characters — with one-click copying. No installation, no configuration, works on any device.</p>
 
             <p>For learning the actual letters and their sounds, the <a href="#" onclick="showArticle('russian-alphabet-chart'); return false;">interactive alphabet chart</a> has pronunciation audio for all 33 Russian letters. Learning the alphabet first makes the keyboard layout way less intimidating.</p>
+
+            <div class="quiz-cta">
+                <p>Got your keyboard set up? Practice typing the letters you just learned with our interactive quiz.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START TYPING PRACTICE</button>
+            </div>
 
             <h3>Which Platform Is Easiest?</h3>
 
