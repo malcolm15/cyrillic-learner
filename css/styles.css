@@ -541,7 +541,6 @@
 
         @media (hover: hover) {
             .card:hover {
-                transform: translateY(-2px);
                 box-shadow: var(--shadow-lg);
                 border-color: var(--red);
             }
