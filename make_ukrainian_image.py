@@ -51,8 +51,8 @@ def text_w(text, font):
 LETTER_H  = text_h("Ґ", font_letter)
 SOUND_H   = text_h("/g/", font_sound)
 EXAMPLE_H = text_h("ґанок = porch", font_example)
-GAP_LS    = 8 * SCALE   # letter → sound gap
-GAP_SE    = 5 * SCALE   # sound  → example gap
+GAP_LS    = 22 * SCALE  # letter → sound gap
+GAP_SE    = 8 * SCALE   # sound  → example gap
 
 CELL_CONTENT_H = LETTER_H + GAP_LS + SOUND_H + GAP_SE + EXAMPLE_H
 
