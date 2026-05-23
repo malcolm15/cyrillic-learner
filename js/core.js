@@ -365,6 +365,28 @@ function showPage(pageName) {
         activeLink.classList.add('active');
     }
     
+    // Update meta tags for static pages
+    const pm = PAGE_META[pageName];
+    if (pm) {
+        document.title = pm.title;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', pm.desc);
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute('content', pm.title);
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc) ogDesc.setAttribute('content', pm.desc);
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) ogUrl.setAttribute('content', pm.url);
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) canonical.setAttribute('href', pm.url);
+        const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+        if (twitterTitle) twitterTitle.setAttribute('content', pm.title);
+        const twitterDesc = document.querySelector('meta[property="twitter:description"]');
+        if (twitterDesc) twitterDesc.setAttribute('content', pm.desc);
+        const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+        if (twitterUrl) twitterUrl.setAttribute('content', pm.url);
+    }
+
     // Update URL without page reload
     const urlPath = pageName === 'home' ? '/' : `/${pageName}`;
     if (window.location.pathname !== urlPath) {
@@ -597,9 +619,19 @@ function injectArticleSchema(articleId, article) {
     if (twitterUrl) twitterUrl.setAttribute('content', articleUrl);
 }
 
-const DEFAULT_TITLE = 'Cyrilica - Learn the Cyrillic Alphabet | Free Interactive Study';
+const DEFAULT_TITLE = 'Cyrilica — Learn the Cyrillic Alphabet Free';
 const DEFAULT_DESC = 'Free interactive tool to learn the Cyrillic alphabet. Master Russian, Ukrainian, Bulgarian, and Serbian letters with instant feedback. Perfect for beginners.';
 const DEFAULT_URL = 'https://cyrilica.com/';
+
+const PAGE_META = {
+    home:      { title: DEFAULT_TITLE,                                          desc: DEFAULT_DESC,                                                                                              url: 'https://cyrilica.com/' },
+    about:     { title: 'About Cyrilica — Free Cyrillic Alphabet Learner',      desc: 'Learn about Cyrilica — the free, no-fluff tool built by a language learner to make mastering the Cyrillic alphabet simple and approachable.',  url: 'https://cyrilica.com/about' },
+    contact:   { title: 'Contact — Cyrilica',                                   desc: 'Have feedback, found a bug, or want to suggest a feature? Get in touch with the team behind Cyrilica.',                                         url: 'https://cyrilica.com/contact' },
+    privacy:   { title: 'Privacy Policy — Cyrilica',                            desc: 'Cyrilica privacy policy. Learn what data is collected, how it is used, and your choices regarding Google Analytics and AdSense.',               url: 'https://cyrilica.com/privacy' },
+    settings:  { title: 'Settings — Cyrilica',                                  desc: 'Customize your Cyrillic learning experience. Toggle lowercase display, auto-submit, continuous play, audio, and dark mode.',                    url: 'https://cyrilica.com/settings' },
+    reference: { title: 'Complete Cyrillic Alphabet Reference — Cyrilica',      desc: 'All 33 Russian Cyrillic letters with uppercase, lowercase, pronunciation guides, and example words in one easy reference table.',              url: 'https://cyrilica.com/reference' },
+    articles:  { title: 'Cyrillic Alphabet Articles — Cyrilica',                desc: 'In-depth articles on the Cyrillic alphabet: history, regional variants, writing tips, memory tricks, and cultural curiosities.',               url: 'https://cyrilica.com/articles' },
+};
 
 function removeArticleSchema() {
     const existing = document.getElementById('article-schema');
