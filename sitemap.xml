@@ -104,13 +104,6 @@
     </url>
     
     <url>
-        <loc>https://cyrilica.com/articles/cyrillic-vs-latin</loc>
-        <lastmod>2026-02-24</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <url>
         <loc>https://cyrilica.com/articles/first-25-words</loc>
         <lastmod>2026-02-24</lastmod>
         <changefreq>monthly</changefreq>
@@ -147,13 +140,6 @@
     </url>
     
     <!-- Articles: Writing & Typing -->
-    <url>
-        <loc>https://cyrilica.com/articles/cyrillic-handwriting</loc>
-        <lastmod>2026-02-24</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
     <url>
         <loc>https://cyrilica.com/articles/practice-writing-cyrillic</loc>
         <lastmod>2026-05-04</lastmod>
@@ -233,20 +219,6 @@
     </url>
     
     <!-- Articles: Regional Alphabets -->
-    <url>
-        <loc>https://cyrilica.com/articles/ukrainian-alphabet</loc>
-        <lastmod>2026-02-24</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <url>
-        <loc>https://cyrilica.com/articles/bulgarian-alphabet</loc>
-        <lastmod>2026-02-24</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
     <url>
         <loc>https://cyrilica.com/articles/serbian-cyrillic-vs-latin</loc>
         <lastmod>2026-02-24</lastmod>
