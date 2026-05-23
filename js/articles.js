@@ -1152,6 +1152,127 @@ const ARTICLES = [
         `
     },
     {
+        id: 'bulgarian-alphabet',
+        title: 'Bulgarian Alphabet: The Cyrillic That Started It All',
+        relatedArticles: ['history-of-cyrillic', 'ukrainian-alphabet', 'serbian-cyrillic-vs-latin'],
+        content: `
+            <p>Bulgaria has a unique claim that no other country can make: the Cyrillic alphabet was born here. While Cyril and Methodius created the Glagolitic script in the 860s, their disciples developed Cyrillic in Bulgaria — at the Preslav Literary School — and used it to write the very first Slavic texts. Every country using Cyrillic today is, in some sense, building on a Bulgarian foundation.</p>
+
+            <p>So what does modern Bulgarian Cyrillic look like, and how does it differ from Russian?</p>
+
+            <figure class="article-image">
+                <img src="/images/bulgarian-vs-russian-alphabet.png" alt="Bulgarian vs Russian Cyrillic alphabet comparison: Bulgarian has 30 letters, uses Ъ as a real vowel and Щ sounds like sht, while Russian letters Ё Ы Э are absent from Bulgarian" loading="lazy" width="1400" height="767" style="max-width: 600px;">
+                <figcaption>The key differences between Bulgarian and Russian Cyrillic at a glance.</figcaption>
+            </figure>
+
+            <h3>The Bulgarian Alphabet: 30 Letters</h3>
+
+            <p>Bulgarian uses 30 letters — three fewer than Russian's 33. The missing letters are Ё, Ы, and Э, all of which represent sounds that Bulgarian either doesn't use or handles differently. What Bulgarian kept, it sometimes uses in a completely different way.</p>
+
+            <p>The 30 Bulgarian letters are:<br>
+            А, Б, В, Г, Д, Е, Ж, З, И, Й, К, Л, М, Н, О, П, Р, С, Т, У, Ф, Х, Ц, Ч, Ш, Щ, Ъ, Ь, Ю, Я</p>
+
+            <p>If you know Russian Cyrillic, you can read Bulgarian text immediately. Most letters look and sound the same. The interesting differences are in how a few familiar letters behave.</p>
+
+            <h3>Ъ — The Letter That Became a Vowel</h3>
+
+            <p>This is the most striking difference between Bulgarian and Russian. In Russian, Ъ (the hard sign) is a silent modifier — it separates a consonant from a following soft vowel without making any sound itself. It's a grammatical device, not a real sound.</p>
+
+            <p>In Bulgarian, Ъ is a real vowel. It's called "ер голям" (er golyam, "big er") and sounds like the "u" in "but" or the "a" in "about" — a neutral mid-back sound linguists write as /ɤ/ or /ǎ/.</p>
+
+            <p><strong>Examples:</strong><br>
+            <strong>ъгъл</strong> (ǎgǎl) = corner<br>
+            <strong>стъкло</strong> (stǎklo) = glass<br>
+            <strong>кръв</strong> (krǎv) = blood</p>
+
+            <p>When a Russian speaker sees Ъ in Bulgarian text, their instinct is to skip it. A Bulgarian speaker hears a clear vowel. This single difference makes Bulgarian text look subtly alien even to fluent Russian readers.</p>
+
+            <h3>Щ — A Different Sound Than You'd Expect</h3>
+
+            <p>Both Russian and Bulgarian have the letter Щ, but they pronounce it differently — and this trips up Russian speakers learning Bulgarian regularly.</p>
+
+            <p>In Russian, Щ makes a long, soft sound — roughly "shch" or a prolonged soft "sh," depending on the speaker's dialect. In Bulgarian, Щ is simply "sht," like the "sht" in "shtick."</p>
+
+            <p><strong>Examples:</strong><br>
+            <strong>защо</strong> (zashto) = why<br>
+            <strong>щастие</strong> (shtastie) = happiness<br>
+            <strong>още</strong> (oshte) = still / more</p>
+
+            <p>If you read Bulgarian Щ as the Russian "shch," you'll be understood, but you'll sound distinctly foreign. The Bulgarian /sht/ is crisper and more direct.</p>
+
+            <div class="quiz-cta">
+                <p>Ready to test your Cyrillic knowledge?</p>
+                <a href="#" onclick="showPage('quiz'); return false;" class="quiz-cta-btn">Take the Free Quiz</a>
+            </div>
+
+            <h3>What's Missing: Ё, Ы, and Э</h3>
+
+            <p>Three Russian letters have no place in Bulgarian:</p>
+
+            <p><strong>Ё (/yo/)</strong> — Bulgarian simply uses Е where Russian would write Ё. The "yo" sound exists in Bulgarian but doesn't get its own letter.</p>
+
+            <p><strong>Ы (/y/)</strong> — This famously difficult Russian vowel doesn't exist in Bulgarian. Bulgarian И does the work of both Russian И and Ы — one letter, one clean sound.</p>
+
+            <p><strong>Э (/e/)</strong> — Bulgarian uses Е for the "e" sound that Russian sometimes writes as Э. This simplification makes Bulgarian slightly more phonetically consistent.</p>
+
+            <p>The absence of Ы alone is welcome news for learners coming from Bulgarian. Ы is one of the sounds Russian teachers spend the most time on with English speakers — Bulgarian sidesteps the problem entirely.</p>
+
+            <h3>Bulgarian Grammar: A Slavic Outlier</h3>
+
+            <p>The alphabet differences are interesting, but the grammar differences are more dramatic. Bulgarian breaks almost every rule you'd expect of a Slavic language.</p>
+
+            <p><strong>No grammatical cases.</strong> Russian has six cases; Ukrainian has seven. Bulgarian has zero. You don't change word endings depending on grammatical role — word order does that work instead. This makes Bulgarian grammar closer to English or French than to Russian.</p>
+
+            <p><strong>Definite articles attached to the end of words.</strong> Bulgarian is almost unique among Slavic languages in having definite articles, and they're suffixes rather than separate words:</p>
+            <p>студент (student) → студентът (the student)<br>
+            книга (book) → книгата (the book)</p>
+
+            <p>This is more like Romanian than Russian, and it surprises Slavic language learners every time.</p>
+
+            <h3>Common Bulgarian Words</h3>
+
+            <p>Here are some everyday Bulgarian words to get a feel for the language:</p>
+
+            <p><strong>Здравей</strong> (zdravey) = Hello (informal)<br>
+            <strong>Здравейте</strong> (zdraveyte) = Hello (formal / plural)<br>
+            <strong>Благодаря</strong> (blagodarya) = Thank you<br>
+            <strong>Да</strong> (da) = Yes<br>
+            <strong>Не</strong> (ne) = No<br>
+            <strong>България</strong> (Balgariya) = Bulgaria<br>
+            <strong>Добре дошли</strong> (dobre doshli) = Welcome<br>
+            <strong>Обичам те</strong> (obicham te) = I love you</p>
+
+            <p>Russian speakers will recognize structural patterns immediately. The vocabulary diverges more than the script does.</p>
+
+            <h3>If You Know Russian Cyrillic</h3>
+
+            <p>The transition from Russian Cyrillic to Bulgarian is about as smooth as it gets. You can read Bulgarian text on day one. The adjustments are:</p>
+
+            <p>• <strong>Ъ is a vowel</strong> — pronounce it, don't skip it<br>
+            • <strong>Щ sounds like "sht"</strong> — not "shch"<br>
+            • <strong>Ё, Ы, Э don't exist</strong> — don't look for them<br>
+            • <strong>Grammar is completely different</strong> — the script is easy; the language is its own thing</p>
+
+            <p>If you've also studied the <a href="#" onclick="showArticle('ukrainian-alphabet'); return false;">Ukrainian alphabet</a>, you'll notice that Ukrainian and Bulgarian each solved the "letters that Russian has and we don't need" problem in different ways. Ukrainian kept its own distinct letters; Bulgarian simplified and dropped three.</p>
+
+            <h3>The Bottom Line</h3>
+
+            <p>Bulgarian Cyrillic is 30 letters of living history. It descends directly from the script invented on Bulgarian soil in the 9th century — and it's evolved into something that's simpler in some ways (no cases, fewer letters) and more distinctive in others (Ъ as a vowel, Щ as "sht").</p>
+
+            <p>For Cyrillic learners, Bulgarian is a reminder that the script isn't monolithic. The same letters can carry different sounds, different functions, and different histories depending on which language is using them. Learn the script, then pay attention to what each language does with it.</p>
+
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('bulgarian-alphabet', 'Bulgarian Alphabet')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('bulgarian-alphabet', 'Bulgarian Alphabet'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('bulgarian-alphabet', 'Bulgarian Alphabet'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('bulgarian-alphabet', 'Bulgarian Alphabet')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
         id: 'montenegrin-alphabet',
         title: 'Montenegrin Alphabet: The Newest Cyrillic (2009)',
         relatedArticles: ['belarusian-alphabet', 'serbian-cyrillic-vs-latin', 'latin-vs-cyrillic-slavic'],

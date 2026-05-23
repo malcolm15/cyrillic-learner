@@ -249,6 +249,17 @@
     </url>
     
     <url>
+        <loc>https://cyrilica.com/articles/bulgarian-alphabet</loc>
+        <lastmod>2026-05-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/bulgarian-vs-russian-alphabet.png</image:loc>
+            <image:title>Bulgarian vs Russian Cyrillic Alphabet Comparison — 30 Letters vs 33, Unique Ъ Vowel</image:title>
+        </image:image>
+    </url>
+
+    <url>
         <loc>https://cyrilica.com/articles/montenegrin-alphabet</loc>
         <lastmod>2026-03-04</lastmod>
         <changefreq>monthly</changefreq>

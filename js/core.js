@@ -443,6 +443,7 @@ const ARTICLE_ORDER = [
     'ukrainian-alphabet',
     'serbian-cyrillic-vs-latin',
     'belarusian-alphabet',
+    'bulgarian-alphabet',
     'montenegrin-alphabet',
     // 📖 History & Culture
     'history-of-cyrillic',
@@ -479,6 +480,7 @@ const ARTICLE_META = {
     // Alphabet Variants
     'ukrainian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-05-23', keywords: ['ukrainian alphabet', 'ukrainian cyrillic', 'ukrainian letters', 'cyrillic vs russian', 'ukrainian language', 'Ґ Є І Ї letters', 'learn ukrainian script'] },
     'belarusian-alphabet':      { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['belarusian alphabet', 'belarusian cyrillic', '32 letters', 'eastern europe'] },
+    'bulgarian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-05-23', keywords: ['bulgarian alphabet', 'bulgarian cyrillic', '30 letters', 'cyrillic origin', 'bulgarian letters', 'learn bulgarian'] },
     'montenegrin-alphabet':     { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['montenegrin alphabet', 'newest cyrillic', 'montenegrin language', 'balkan alphabet'] },
     'serbian-cyrillic-vs-latin':{ section: 'Alphabet Variants',         published: '2026-02-24', modified: '2026-03-10', keywords: ['serbian cyrillic', 'serbian latin', 'digraphia', 'dual script'] },
     // History & Culture
