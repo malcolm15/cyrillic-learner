@@ -440,6 +440,7 @@ const ARTICLE_ORDER = [
     'first-25-words',
     'easy-russian-words',
     // 📚 Alphabet Variants
+    'ukrainian-alphabet',
     'serbian-cyrillic-vs-latin',
     'belarusian-alphabet',
     'montenegrin-alphabet',
@@ -476,6 +477,7 @@ const ARTICLE_META = {
     'first-25-words':           { section: 'Getting Started',           published: '2026-02-20', modified: '2026-03-10', keywords: ['russian words', 'reading practice', 'first words', 'beginner russian'] },
     'easy-russian-words':       { section: 'Getting Started',           published: '2026-03-01', modified: '2026-03-10', keywords: ['easy russian', 'simple words', 'beginner vocabulary', 's-tier letters'] },
     // Alphabet Variants
+    'ukrainian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-05-23', keywords: ['ukrainian alphabet', 'ukrainian cyrillic', 'ukrainian letters', 'cyrillic vs russian', 'ukrainian language', 'Ґ Є І Ї letters', 'learn ukrainian script'] },
     'belarusian-alphabet':      { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['belarusian alphabet', 'belarusian cyrillic', '32 letters', 'eastern europe'] },
     'montenegrin-alphabet':     { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['montenegrin alphabet', 'newest cyrillic', 'montenegrin language', 'balkan alphabet'] },
     'serbian-cyrillic-vs-latin':{ section: 'Alphabet Variants',         published: '2026-02-24', modified: '2026-03-10', keywords: ['serbian cyrillic', 'serbian latin', 'digraphia', 'dual script'] },

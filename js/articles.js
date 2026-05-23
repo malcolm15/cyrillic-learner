@@ -926,6 +926,115 @@ const ARTICLES = [
         `
     },
     {
+        id: 'ukrainian-alphabet',
+        title: 'Ukrainian Cyrillic: The Alphabet That Sets Ukrainian Apart',
+        relatedArticles: ['belarusian-alphabet', 'latin-vs-cyrillic-slavic', 'history-of-cyrillic'],
+        content: `
+            <p>Ukrainian is the third most-spoken Slavic language, with around 40 million speakers, and it uses Cyrillic — but not the same Cyrillic as Russian. The two alphabets share 29 letters. Four letters exist only in Ukrainian. Four Russian letters don't appear in Ukrainian at all. Those eight characters are where the whole story lives.</p>
+
+            <figure class="article-image">
+                <img src="/images/ukrainian-vs-russian-alphabet.png" alt="Side-by-side comparison of Ukrainian-only Cyrillic letters Ґ, Є, І, Ї versus Russian-only letters Ё, Ъ, Ы, Э, with pronunciation guides and example words for each" loading="lazy" width="1400" height="960" style="max-width: 600px;">
+                <figcaption>The eight letters that separate Ukrainian Cyrillic from Russian Cyrillic.</figcaption>
+            </figure>
+
+            <h3>The Ukrainian Alphabet: 33 Letters</h3>
+
+            <p>Ukrainian has 33 letters, the same count as Russian — but it's a different 33. The alphabet is arranged slightly differently, reads differently in places, and sounds different enough that the two languages aren't mutually intelligible to untrained ears, despite being closely related.</p>
+
+            <p>If you already know Russian Cyrillic, you can read most Ukrainian text. You'll recognize the majority of letters and can sound out words, even if you don't understand them. But four letters will stop you immediately — the ones Russian doesn't have.</p>
+
+            <h3>The Four Letters Only Ukrainian Has</h3>
+
+            <p>These are the letters that mark a text as Ukrainian, not Russian:</p>
+
+            <p><strong>Ґ (ґ) — Hard G</strong><br>
+            Pronounced like the "g" in "get" — a hard, voiced stop. Russian uses Г for a softer fricative "g" sound. Ukrainian has both: Г for the softer sound and Ґ for the hard stop. Examples: ґанок (porch), ґрунт (soil). This letter was suppressed during the Soviet period and only formally restored to the Ukrainian alphabet in 1990.</p>
+
+            <p><strong>Є (є) — YE sound</strong><br>
+            Sounds like "ye" in "yes." Russian has Е for a similar sound, but Ukrainian's Є is visually distinct — it looks like a backwards Russian numeral 3 with a hook. It's one of the first letters that marks a text as unmistakably Ukrainian. Examples: єдність (unity), Європа (Europe).</p>
+
+            <p><strong>І (і) — Pure I sound</strong><br>
+            The clean "ee" sound, like in "see." Russian eliminated this letter in the 1918 spelling reform, replacing it with И. Ukrainian kept it, and it appears far more frequently than И does. Historically called "і десяткове" — decimal i. Examples: іти (to go), місто (city), він (he).</p>
+
+            <p><strong>Ї (ї) — YI sound</strong><br>
+            This one has no direct Russian equivalent. It's a two-sound letter — "y" + "i" combined, like saying "yee" quickly. It's always pronounced with that initial "y" glide, never as a plain "i." Examples: їжа (food), їхати (to travel), Україна (Ukraine — the і in Украї is this letter).</p>
+
+            <div class="quiz-cta">
+                <p>Drilling Cyrillic letters is the fastest way to make them stick. Pick your character groups and start practicing now.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">PRACTICE CYRILLIC NOW</button>
+            </div>
+
+            <h3>The Four Russian Letters Ukrainian Doesn't Use</h3>
+
+            <p>Going the other direction — letters Russian has that Ukrainian dropped:</p>
+
+            <p><strong>Ё (ё) — YO sound</strong><br>
+            Ukrainian uses the combination Йо or relies on context instead. The absence of Ё is one reason Ukrainian spelling is considered more phonetically straightforward. You can read more about Ё's complicated history in Russian in our article on <a href="#" onclick="showArticle('letter-yo-story'); return false;">Russia's most controversial letter</a>.</p>
+
+            <p><strong>Ъ (ъ) — Hard Sign</strong><br>
+            Russian uses this to create a pause or separation between sounds. Ukrainian replaces it entirely with an apostrophe ('). So Russian объект becomes Ukrainian об'єкт — same pronunciation, different notation.</p>
+
+            <p><strong>Ы (ы) — The difficult Y sound</strong><br>
+            One of the hardest sounds for English speakers learning Russian. Ukrainian doesn't use it. The Ukrainian И fills a similar role but sounds slightly different — closer to the English "i" in "bit" than the deeper Russian Ы.</p>
+
+            <p><strong>Э (э) — Plain E sound</strong><br>
+            Russian uses Э for a plain "e" sound without any "y" glide. Ukrainian simply uses Е for this, keeping the alphabet leaner.</p>
+
+            <h3>How Different Is Ukrainian From Russian?</h3>
+
+            <p>Linguists classify Ukrainian and Russian as distinct languages in the East Slavic branch, alongside Belarusian. They share a common ancestor in Old East Slavic but diverged significantly over centuries of different political and cultural influences — Ukrainian absorbed more Polish and Central European vocabulary, while Russian developed under different pressures from the east and north.</p>
+
+            <p>Mutual intelligibility is real but limited. Russian speakers can often follow written Ukrainian reasonably well, since shared vocabulary is high. Spoken Ukrainian is harder, especially as pronunciation differs more than spelling alone suggests — Ukrainian vowels are more stable and less reduced than Russian ones.</p>
+
+            <p>For learners of the Cyrillic script, Ukrainian is often described as more phonetic than Russian: what you see is generally what you pronounce, with fewer pronunciation rules to memorize. The apostrophe replacing the hard sign is one example of this streamlining.</p>
+
+            <p>If you're coming from Russian Cyrillic, the script barrier is low — four new letters to learn. Pronunciation takes longer; vocabulary and grammar longer still. But you can start reading Ukrainian text almost immediately. Compare this to the <a href="#" onclick="showArticle('belarusian-alphabet'); return false;">Belarusian alphabet</a>, where the gap from Russian is similarly small.</p>
+
+            <h3>Language as Identity: Post-2014 and 2022</h3>
+
+            <p>Ukrainian has been politically charged for a long time. The language was suppressed under the Russian Empire — the Ems Decree of 1876 banned Ukrainian-language publishing entirely — and was severely restricted under Stalin in the 1930s. The language survived through diaspora communities, underground literature, and stubborn persistence.</p>
+
+            <p>After Russia's annexation of Crimea in 2014, and especially after the full-scale invasion in 2022, the language question became acute inside Ukraine itself. Millions of Russian-speaking Ukrainians switched to Ukrainian as a deliberate statement of cultural and national identity. Language schools saw massive enrollment increases. Ukrainian stopped being a regional marker and became a symbol of nationhood.</p>
+
+            <p>For the wider world, this brought a surge of interest in learning Ukrainian — and the alphabet is always the first step. The <a href="#" onclick="showArticle('history-of-cyrillic'); return false;">history of Cyrillic</a> includes many moments where script and political power were intertwined. The Ukrainian case is one of the clearest modern examples.</p>
+
+            <h3>Common Ukrainian Words to Start With</h3>
+
+            <p>A handful of words to get the unique letters working in your head:</p>
+
+            <p><strong>Привіт</strong> (pryvit) = Hello<br>
+            <strong>Дякую</strong> (dyakuyu) = Thank you<br>
+            <strong>Так</strong> (tak) = Yes<br>
+            <strong>Ні</strong> (ni) = No<br>
+            <strong>Мова</strong> (mova) = Language<br>
+            <strong>Україна</strong> (Ukrayina) = Ukraine<br>
+            <strong>Київ</strong> (Kyiv) = Kyiv<br>
+            <strong>Їжа</strong> (yizha) = Food<br>
+            <strong>Єдність</strong> (yednist) = Unity<br>
+            <strong>Ґанок</strong> (ganok) = Porch</p>
+
+            <h3>Tips if You Already Know Russian Cyrillic</h3>
+
+            <p>Your existing knowledge gets you roughly 85% of the way there. Here's where to focus the rest:</p>
+
+            <p>Ї is the only completely new sound — practice the "yi" glide until it's automatic. Є looks like a backwards С with an extra curve; visually distinctive and easy to learn. І looks identical to the Latin letter i, which makes it simple to recognize but can cause momentary confusion when reading quickly mixed-script text.</p>
+
+            <p>The trickier adjustment isn't learning the new letters — it's resisting the assumption that similar-looking words mean the same thing. Ukrainian and Russian have substantial vocabulary overlap but also plenty of false friends. The script is the easy part. The words are where the real work is.</p>
+
+            <p>Start with the four unique letters. Read some Ukrainian headlines or menus. The script will click faster than you expect.</p>
+
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('ukrainian-alphabet', 'Ukrainian Cyrillic: The Alphabet That Sets Ukrainian Apart')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('ukrainian-alphabet', 'Ukrainian Cyrillic: The Alphabet That Sets Ukrainian Apart'); return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M12 2.5c-1.66 3.8-5.28 7.26-9.5 8.5 4.22 1.24 7.84 4.7 9.5 8.5 1.66-3.8 5.28-7.26 9.5-8.5-4.22-1.24-7.84-4.7-9.5-8.5z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('ukrainian-alphabet', 'Ukrainian Cyrillic: The Alphabet That Sets Ukrainian Apart'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('ukrainian-alphabet', 'Ukrainian Cyrillic: The Alphabet That Sets Ukrainian Apart')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
         id: 'belarusian-alphabet',
         title: 'Belarusian Alphabet Guide: 32 Letters of Eastern Europe',
         relatedArticles: ['montenegrin-alphabet', 'serbian-cyrillic-vs-latin', 'history-of-cyrillic'],

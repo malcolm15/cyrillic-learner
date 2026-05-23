@@ -220,6 +220,17 @@
     
     <!-- Articles: Regional Alphabets -->
     <url>
+        <loc>https://cyrilica.com/articles/ukrainian-alphabet</loc>
+        <lastmod>2026-05-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/ukrainian-vs-russian-alphabet.png</image:loc>
+            <image:title>Ukrainian vs Russian Cyrillic Alphabet Comparison — Unique Letters Ґ Є І Ї</image:title>
+        </image:image>
+    </url>
+
+    <url>
         <loc>https://cyrilica.com/articles/serbian-cyrillic-vs-latin</loc>
         <lastmod>2026-02-24</lastmod>
         <changefreq>monthly</changefreq>
