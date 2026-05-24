@@ -766,9 +766,6 @@
             color: #666;
             font-size: 0.85rem;
             line-height: 1.4;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         body.dark-mode .article-item p {
