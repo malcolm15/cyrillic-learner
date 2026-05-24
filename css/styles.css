@@ -496,31 +496,30 @@
         }
 
         .subtitle {
-            font-family: 'Merriweather', serif;
-            font-size: 0.9rem;
-            color: var(--red);
-            font-weight: 300;
-            font-style: italic;
-            letter-spacing: 1.5px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            color: #444;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
             transition: color 0.3s ease;
         }
 
         body.dark-mode .subtitle {
-            color: var(--matrix-green-dim);
+            color: #bbb;
         }
 
         .site-description {
             max-width: 600px;
             margin: 12px auto 18px auto;
-            font-size: 0.9rem;
+            font-size: 1rem;
             line-height: 1.4;
-            color: #555;
+            color: #666;
             text-align: center;
             font-family: 'Roboto', sans-serif;
         }
 
         body.dark-mode .site-description {
-            color: #999;
+            color: #888;
         }
 
         .card {
