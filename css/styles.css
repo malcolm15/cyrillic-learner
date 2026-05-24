@@ -786,6 +786,9 @@
             .article-category-desc {
                 grid-column: 1 / -1;
             }
+            .article-category .article-item {
+                min-width: 0; /* allow grid items to shrink below content width */
+            }
             .article-category .article-item:nth-child(odd) {
                 border-right: 1px solid #ddd;
             }
