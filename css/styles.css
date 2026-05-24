@@ -653,19 +653,19 @@
         }
         
         .article-category {
-            margin-top: 40px;
+            margin-top: 24px;
         }
-        
+
         .article-category:first-child {
             margin-top: 0;
         }
-        
+
         .article-category-header {
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--dark);
-            margin-bottom: 8px;
-            padding: 12px 20px;
+            margin-bottom: 4px;
+            padding: 8px 16px;
             background: var(--cream);
             border-left: 4px solid var(--red);
             display: flex;
@@ -687,7 +687,7 @@
         .article-category-desc {
             font-size: 0.9rem;
             color: #666;
-            padding: 0 20px 12px 20px;
+            padding: 0 16px 6px 16px;
             font-style: italic;
         }
         
@@ -696,7 +696,7 @@
         }
 
         .article-item {
-            padding: 16px 20px;
+            padding: 10px 16px;
             border-bottom: 1px solid #ddd;
             background: transparent;
             cursor: pointer;
@@ -766,10 +766,37 @@
             color: #666;
             font-size: 0.85rem;
             line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         body.dark-mode .article-item p {
             color: var(--matrix-text-dim);
+        }
+
+        /* Desktop two-column article grid */
+        @media (min-width: 769px) {
+            .article-category {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 0;
+            }
+            .article-category-header,
+            .article-category-desc {
+                grid-column: 1 / -1;
+            }
+            .article-category .article-item:nth-child(odd) {
+                border-right: 1px solid #ddd;
+            }
+            body.dark-mode .article-category .article-item:nth-child(odd) {
+                border-right-color: var(--matrix-border);
+            }
+        }
+
+        /* Tighter page header on articles index */
+        #articles-page .content-text {
+            margin-bottom: 16px !important;
         }
 
         .article-header {
@@ -2182,6 +2209,11 @@
 
             .article-header h2 {
                 padding-right: 90px; /* Less space on mobile */
+            }
+
+            /* Tighter articles index on mobile */
+            .article-category {
+                margin-top: 16px;
             }
 
             /* Compact article reading experience on mobile */
