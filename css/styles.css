@@ -2183,6 +2183,34 @@
             .article-header h2 {
                 padding-right: 90px; /* Less space on mobile */
             }
+
+            /* Compact article reading experience on mobile */
+            #article-page .card {
+                padding: 16px;
+            }
+
+            .article-header {
+                margin-bottom: 16px;
+                padding-bottom: 14px;
+            }
+
+            .article-content h2 {
+                margin: 20px 0 10px 0;
+            }
+
+            .article-content h3 {
+                margin: 16px 0 8px 0;
+            }
+
+            .article-content p {
+                margin-bottom: 13px;
+                line-height: 1.6;
+            }
+
+            .article-content ul,
+            .article-content ol {
+                line-height: 1.6;
+            }
         }
 
         /* ==================== PAGE-SPECIFIC LAYOUTS ==================== */
