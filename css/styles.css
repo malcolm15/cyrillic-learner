@@ -789,6 +789,9 @@
             .article-category .article-item {
                 min-width: 0; /* allow grid items to shrink below content width */
             }
+            .article-category .article-item-content {
+                min-width: 0; /* allow flex child to shrink so overflow/ellipsis works */
+            }
             .article-category .article-item:nth-child(odd) {
                 border-right: 1px solid #ddd;
             }
