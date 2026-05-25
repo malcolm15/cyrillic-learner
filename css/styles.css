@@ -2850,44 +2850,67 @@ body.dark-mode .mini-stat span:last-child {
     color: var(--matrix-green);
 }
 
-/* Mobile responsiveness */
+/* Mobile responsiveness — compact to fit full quiz in one viewport */
 @media (max-width: 768px) {
     .mini-quiz-container {
-        padding: 12px;
+        padding: 10px;
         max-width: 100%;
     }
-    
+
+    .mini-quiz-header h3 {
+        font-size: 1.1rem;
+        margin-bottom: 2px;
+    }
+
+    .mini-quiz-header p {
+        font-size: 0.82rem;
+        line-height: 1.3;
+    }
+
+    .quiz-content {
+        margin-top: 5px;
+    }
+
     .mini-char-display {
-        font-size: 56px;
-        margin: 8px 0;
+        font-size: 46px;
+        margin: 4px 0;
     }
-    
+
     .quiz-char-lower {
-        font-size: 48px;
+        font-size: 38px;
     }
-    
+
     .mini-input-area {
-        flex-direction: column;
+        flex-direction: row;
         max-width: 100%;
-        margin: 8px auto;
+        margin: 4px auto;
     }
-    
+
     .quiz-answer-input {
         width: 100%;
+        padding: 8px 10px;
+        font-size: 1rem;
     }
-    
+
+    .quiz-feedback {
+        font-size: 0.95rem;
+        margin: 3px 0;
+        min-height: 18px;
+    }
+
     .mini-quiz-stats {
-        gap: 12px;
-        margin: 10px 0;
-        padding: 8px;
+        gap: 10px;
+        margin: 4px 0;
+        padding: 5px;
     }
-    
+
     .mini-quiz-controls {
-        flex-direction: column;
-        margin-top: 8px;
+        flex-direction: row;
+        margin-top: 4px;
     }
-    
+
     .mini-quiz-controls .btn {
-        width: 100%;
+        width: auto;
+        padding: 7px 14px;
     }
 }
