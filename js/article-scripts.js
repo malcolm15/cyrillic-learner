@@ -498,6 +498,17 @@ const QUIZ_CONFIGS = {
             'Ш': { upper: 'Ш', lower: 'ш', roman: 'sh', audio: 'audio/sh.mp3' },
             'Щ': { upper: 'Щ', lower: 'щ', roman: 'shch', audio: 'audio/shch.mp3' }
         }
+    },
+    // Serbian unique letters article
+    'srb': {
+        chars: {
+            'Ђ': { upper: 'Ђ', lower: 'ђ', roman: 'dj',  audio: null },
+            'Ј': { upper: 'Ј', lower: 'ј', roman: 'j',   audio: null },
+            'Љ': { upper: 'Љ', lower: 'љ', roman: 'lj',  audio: null },
+            'Њ': { upper: 'Њ', lower: 'њ', roman: 'nj',  audio: null },
+            'Ћ': { upper: 'Ћ', lower: 'ћ', roman: 'ch',  audio: null },
+            'Џ': { upper: 'Џ', lower: 'џ', roman: 'dzh', audio: null }
+        }
     }
 };
 
@@ -721,6 +732,11 @@ function checkCgAnswer(n)   { quizCheck('cg' + n); }
 function skipCgQuestion(n)  { quizSkip('cg' + n); }
 function resetCgQuiz(n)     { quizReset('cg' + n); }
 
+// --- Wrappers for Serbian unique letters quiz (prefix: srb) ---
+function checkSrbAnswer()   { quizCheck('srb'); }
+function skipSrbQuestion()  { quizSkip('srb'); }
+function resetSrbQuiz()     { quizReset('srb'); }
+
 // Expose all functions globally
 window.startMiniQuiz = startMiniQuiz;
 window.checkMiniAnswer = checkMiniAnswer;
@@ -733,6 +749,9 @@ window.resetMemQuiz = resetMemQuiz;
 window.checkCgAnswer = checkCgAnswer;
 window.skipCgQuestion = skipCgQuestion;
 window.resetCgQuiz = resetCgQuiz;
+window.checkSrbAnswer = checkSrbAnswer;
+window.skipSrbQuestion = skipSrbQuestion;
+window.resetSrbQuiz = resetSrbQuiz;
 window.initArticleQuizzes = initArticleQuizzes;
 
 // ==================== CHART ARTICLE: GROUP QUIZZES ====================
