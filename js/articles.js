@@ -2503,51 +2503,6 @@ const ARTICLES = [
                      loading="lazy">
             </figure>
 
-            <div class="mini-quiz-container">
-                <div class="mini-quiz-header">
-                    <h3 style="margin: 0 0 10px 0;">Quiz: The 6 Unique Serbian Letters</h3>
-                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Type the romanization for each letter. Use: dj, j, lj, nj, ch, dzh</p>
-                </div>
-                <div id="srb-quiz-content" class="quiz-content">
-                    <div id="srb-quiz-active">
-                        <div class="mini-quiz-question">
-                            <div class="mini-char-display">
-                                <span id="srb-current-char"></span>
-                                <span id="srb-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
-                            </div>
-                            <div class="mini-input-area">
-                                <input type="text" id="srb-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
-                                <button class="btn" onclick="checkSrbAnswer()">Submit</button>
-                            </div>
-                            <div id="srb-feedback" class="feedback quiz-feedback"></div>
-                        </div>
-                        <div class="mini-quiz-stats">
-                            <div class="mini-stat">
-                                <span class="mini-stat-label">Progress:</span>
-                                <span id="srb-progress">0/6</span>
-                            </div>
-                            <div class="mini-stat">
-                                <span class="mini-stat-label">Score:</span>
-                                <span id="srb-score">0/0</span>
-                            </div>
-                            <div class="mini-stat">
-                                <span class="mini-stat-label">Streak:</span>
-                                <span id="srb-streak">0</span>
-                            </div>
-                        </div>
-                        <div class="mini-quiz-controls">
-                            <button class="btn btn-secondary" onclick="skipSrbQuestion()">Skip</button>
-                            <button class="btn btn-secondary" onclick="resetSrbQuiz()">Reset</button>
-                        </div>
-                    </div>
-                    <div id="srb-quiz-complete" style="display: none; text-align: center; padding: 15px;">
-                        <h4 style="color: var(--red); margin-bottom: 8px;">🎉 All 6 done!</h4>
-                        <p id="srb-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
-                        <button class="btn" onclick="resetSrbQuiz()">Practice Again</button>
-                    </div>
-                </div>
-            </div>
-
             <h3>Which One Do Serbians Use More?</h3>
 
             <p>This is a surprisingly political question.</p>
@@ -2601,7 +2556,52 @@ const ARTICLES = [
             <p>And some younger Serbians honestly don't care that much. They use whichever alphabet is more convenient at the moment, without overthinking it.</p>
 
             <p>As a learner, you don't have to pick a side in this debate. Just learn both alphabets and appreciate that Serbia managed to keep both alive instead of forcing everyone to choose.</p>
-            
+
+            <div class="mini-quiz-container">
+                <div class="mini-quiz-header">
+                    <h3 style="margin: 0 0 10px 0;">Quiz: The 6 Unique Serbian Letters</h3>
+                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Type the romanization for each letter. Use: dj, j, lj, nj, ch, dzh</p>
+                </div>
+                <div id="srb-quiz-content" class="quiz-content">
+                    <div id="srb-quiz-active">
+                        <div class="mini-quiz-question">
+                            <div class="mini-char-display">
+                                <span id="srb-current-char"></span>
+                                <span id="srb-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
+                            </div>
+                            <div class="mini-input-area">
+                                <input type="text" id="srb-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                                <button class="btn" onclick="checkSrbAnswer()">Submit</button>
+                            </div>
+                            <div id="srb-feedback" class="feedback quiz-feedback"></div>
+                        </div>
+                        <div class="mini-quiz-stats">
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Progress:</span>
+                                <span id="srb-progress">0/6</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Score:</span>
+                                <span id="srb-score">0/0</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Streak:</span>
+                                <span id="srb-streak">0</span>
+                            </div>
+                        </div>
+                        <div class="mini-quiz-controls">
+                            <button class="btn btn-secondary" onclick="skipSrbQuestion()">Skip</button>
+                            <button class="btn btn-secondary" onclick="resetSrbQuiz()">Reset</button>
+                        </div>
+                    </div>
+                    <div id="srb-quiz-complete" style="display: none; text-align: center; padding: 15px;">
+                        <h4 style="color: var(--red); margin-bottom: 8px;">🎉 All 6 done!</h4>
+                        <p id="srb-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
+                        <button class="btn" onclick="resetSrbQuiz()">Practice Again</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
