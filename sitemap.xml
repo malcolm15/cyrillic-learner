@@ -232,9 +232,17 @@
 
     <url>
         <loc>https://cyrilica.com/articles/serbian-cyrillic-vs-latin</loc>
-        <lastmod>2026-02-24</lastmod>
+        <lastmod>2026-05-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/serbian-cyrillic-vs-latin.png</image:loc>
+            <image:title>Serbian Cyrillic vs Latin Script Side-by-Side Word Comparison Chart</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/serbian-unique-letters.png</image:loc>
+            <image:title>6 Letters Unique to Serbian Cyrillic — Ђ Ј Љ Њ Ћ Џ with Latin Equivalents</image:title>
+        </image:image>
     </url>
     
     <url>

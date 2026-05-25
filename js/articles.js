@@ -2461,6 +2461,13 @@ const ARTICLES = [
 
             <p>This isn't like how some countries are bilingual. This is one language, Serbian, written two different ways. And both are considered equally correct.</p>
 
+            <figure class="article-image">
+                <img src="/images/serbian-cyrillic-vs-latin.png"
+                     alt="Serbian Cyrillic and Latin script side-by-side comparison showing common words: Београд/Beograd, Србија/Srbija, добро јутро/dobro jutro, хвала/hvala"
+                     style="max-width: 600px; width: 100%;"
+                     loading="lazy">
+            </figure>
+
             <h3>Why Two Alphabets?</h3>
 
             <p>The short answer: history is messy.</p>
@@ -2488,6 +2495,13 @@ const ARTICLES = [
             <p>The key difference: Serbian doesn't use some of the Russian letters like Ё, Ъ, Ы, and Э. And it has a couple unique letters of its own, like Ј (which makes a "y" sound like in "yes").</p>
 
             <p>Serbian Cyrillic is also more phonetic than Russian. Generally, one letter equals one sound. No complicated spelling rules or silent letters. If you can read it, you can pronounce it.</p>
+
+            <figure class="article-image">
+                <img src="/images/serbian-unique-letters.png"
+                     alt="Chart of the 6 letters unique to Serbian Cyrillic not found in Russian: Ђ (Đ), Ј (J), Љ (Lj), Њ (Nj), Ћ (Ć), Џ (Dž) with pronunciations and example words"
+                     style="max-width: 600px; width: 100%;"
+                     loading="lazy">
+            </figure>
 
             <h3>Which One Do Serbians Use More?</h3>
 
