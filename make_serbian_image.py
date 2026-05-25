@@ -89,9 +89,9 @@ draw.rectangle([(40 * SCALE, HDR_DIV_Y), (W - 40 * SCALE, HDR_DIV_Y + SCALE)], f
 draw.rectangle([(mid_x - SCALE, HDR_DIV_Y), (mid_x + SCALE, ROWS_START_Y + rows_total_h)], fill=DIVIDER)
 
 draw.text((cx("SERBIAN CYRILLIC", font_col_hdr, col_cyr), COL_HDR_Y),
-          "SERBIAN CYRILLIC", font=font_col_hdr, fill=CYR_COL)
+          "SERBIAN CYRILLIC", font=font_col_hdr, fill=GOLD)
 draw.text((cx("SERBIAN LATIN", font_col_hdr, col_lat), COL_HDR_Y),
-          "SERBIAN LATIN", font=font_col_hdr, fill=LAT_COL)
+          "SERBIAN LATIN", font=font_col_hdr, fill=GOLD)
 
 for i, (cyr, lat, meaning) in enumerate(pairs):
     y = ROWS_START_Y + i * (ROW_H + ROW_GAP)
