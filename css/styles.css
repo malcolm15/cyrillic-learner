@@ -2269,9 +2269,10 @@
             #about-page .card,
             #contact-page .card,
             #privacy-page .card,
+            #reference-page .card,
             #settings-page .card {
-                margin-left: 0;
-                margin-right: 0;
+                margin-left: 8px;
+                margin-right: 8px;
             }
         }
 
