@@ -623,7 +623,7 @@ function injectArticleSchema(articleId, article) {
     if (twitterUrl) twitterUrl.setAttribute('content', articleUrl);
 }
 
-const DEFAULT_TITLE = 'Cyrilica — Learn the Cyrillic Alphabet Free';
+const DEFAULT_TITLE = 'Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica';
 const DEFAULT_DESC = 'Free interactive tool to learn the Cyrillic alphabet. Master Russian, Ukrainian, Bulgarian, and Serbian letters with instant feedback. Perfect for beginners.';
 const DEFAULT_URL = 'https://cyrilica.com/';
 
