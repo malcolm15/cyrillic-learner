@@ -315,29 +315,42 @@
                         </div>
                     </div>
 
-                    <!-- Featured Guides Section -->
-                    <div class="card featured-guides">
-                        <h2>Not Sure Where to Start?</h2>
-                        <p class="content-text" style="margin-bottom: 12px; font-size: 0.9rem;">These guides are a good place to begin.</p>
-                        <div class="related-articles-grid">
-                            <div class="related-article-card" onclick="showPage('articles'); setTimeout(() => showArticle('getting-started'), 100);">
-                                <h4>Getting Started with Cyrillic</h4>
-                                <p>Break the alphabet into manageable chunks and learn the smart way — not all 33 at once.</p>
+                    <!-- Quick-start strip -->
+                    <div class="quick-start-strip">
+                        <p class="quick-start-label">New to Cyrillic? Quick starts</p>
+                        <div class="quick-start-grid">
+                            <div class="quick-start-item" onclick="showPage('articles'); setTimeout(() => showArticle('russian-alphabet-chart'), 100);">
+                                <svg class="quick-start-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                                <span class="quick-start-name">Hear all 33 letters</span>
+                                <span class="quick-start-payoff">Click a letter for its sound</span>
                             </div>
-                            <div class="related-article-card" onclick="showPage('articles'); setTimeout(() => showArticle('cyrillic-tier-list'), 100);">
-                                <h4>Cyrillic Tier List: Letters by Difficulty</h4>
-                                <p>From easy wins to final bosses — find out which letters will trip you up and which ones are free.</p>
+                            <div class="quick-start-item" onclick="showPage('articles'); setTimeout(() => showArticle('cyrillic-tier-list'), 100);">
+                                <svg class="quick-start-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                                <span class="quick-start-name">Easy vs brutal letters</span>
+                                <span class="quick-start-payoff">Every letter ranked S to F</span>
                             </div>
-                            <div class="related-article-card" onclick="showPage('articles'); setTimeout(() => showArticle('false-friends'), 100);">
-                                <h4>False Friends: Letters That Fool You</h4>
-                                <p>6 letters that look like English but sound completely different. Includes an interactive quiz.</p>
+                            <div class="quick-start-item" onclick="showPage('articles'); setTimeout(() => showArticle('false-friends'), 100);">
+                                <svg class="quick-start-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                                <span class="quick-start-name">Letters that trick you</span>
+                                <span class="quick-start-payoff">Spot the look-alikes, with a quiz</span>
                             </div>
-                            <div class="related-article-card" onclick="showPage('articles'); setTimeout(() => showArticle('russian-alphabet-chart'), 100);">
-                                <h4>Interactive Alphabet Chart</h4>
-                                <p>All 33 letters with audio, pronunciation guides, and filtering. Your go-to reference.</p>
+                            <div class="quick-start-item" onclick="showPage('articles'); setTimeout(() => showArticle('memory-tricks'), 100);">
+                                <svg class="quick-start-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+                                <span class="quick-start-name">Tricks to remember letters</span>
+                                <span class="quick-start-payoff">A mnemonic for each tough one</span>
+                            </div>
+                            <div class="quick-start-item" onclick="showPage('articles'); setTimeout(() => showArticle('easy-russian-words'), 100);">
+                                <svg class="quick-start-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+                                <span class="quick-start-name">Read real words today</span>
+                                <span class="quick-start-payoff">Start with five easy letters</span>
+                            </div>
+                            <div class="quick-start-item" onclick="showPage('articles'); setTimeout(() => showArticle('cyrillic-copy-paste'), 100);">
+                                <svg class="quick-start-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                <span class="quick-start-name">Grab any character</span>
+                                <span class="quick-start-payoff">One click to your clipboard</span>
                             </div>
                         </div>
-                        <p style="text-align: center; margin: 5px 0 0 0; font-size: 0.9rem;"><a href="#" onclick="showPage('articles'); return false;" style="color: var(--red); font-weight: bold; text-decoration: none;">Browse all articles →</a></p>
+                        <a href="#" class="quick-start-all" onclick="showPage('articles'); return false;">See all articles →</a>
                     </div>
                 </div>
 
