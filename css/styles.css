@@ -2352,6 +2352,14 @@
             .quick-start-strip { padding: 10px 0 4px; }
             .quick-start-label { margin: 0 0 6px 0; }
             .quick-start-all { margin-top: 6px; }
+
+            /* Section C: static pages */
+            #settings-page .card,
+            #about-page .card,
+            #contact-page .card,
+            #privacy-page .card { padding: 16px 24px; }
+            .settings-section { margin-bottom: 20px; }
+            .setting-item { padding: 12px 0; }
         }
 
         /* ==================== CYRILLIC COPY-PASTE BUTTONS ==================== */
