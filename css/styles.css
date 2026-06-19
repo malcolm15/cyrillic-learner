@@ -7,14 +7,14 @@
             --paper: #FDFBF7;
             
             /* Dark Mode Colors */
-            --dark-bg: #0d0d0d;
-            --dark-surface: #1a1a1a;
-            --dark-accent: #00cc33;
-            --dark-accent-dim: #009922;
-            --dark-accent-bright: #00ff44;
-            --dark-text: #d0d0d0;
-            --dark-text-dim: #888888;
-            --dark-border: #1a3a1a;
+            --dark-bg: #000000;
+            --dark-surface: #121214;
+            --dark-accent: #FF5C5C;
+            --dark-accent-dim: #C25A5A;
+            --dark-accent-bright: #FF7A7A;
+            --dark-text: #DCDCDC;
+            --dark-text-dim: #9A9A9C;
+            --dark-border: #262628;
             
             /* Modern Design Tokens */
             --border-radius: 12px;
@@ -75,30 +75,6 @@
             color: var(--dark-text);
         }
 
-        /* Scanline effect for Matrix mode */
-        body.dark-mode::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 255, 65, 0.03) 0px,
-                transparent 1px,
-                transparent 2px,
-                rgba(0, 255, 65, 0.03) 3px
-            );
-            pointer-events: none;
-            z-index: 9999;
-            animation: scanlines 8s linear infinite;
-        }
-
-        @keyframes scanlines {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(10px); }
-        }
 
         /* Cyrillic Rain Effect (Matrix Mode only) */
         .cyrillic-rain {
@@ -558,7 +534,7 @@
 
             body.dark-mode .card:hover {
                 box-shadow: var(--shadow-lg);
-                border-color: var(--dark-accent-bright, #00ff41);
+                border-color: var(--dark-accent-bright, #FF7A7A);
             }
         }
 
@@ -687,7 +663,7 @@
         
         body.dark-mode .article-category-header {
             color: var(--dark-text);
-            background: rgba(0, 255, 0, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             border-left-color: var(--dark-accent);
         }
         
@@ -704,7 +680,7 @@
         }
         
         body.dark-mode .article-category-desc {
-            color: rgba(0, 255, 0, 0.6);
+            color: var(--dark-text-dim);
         }
 
         .article-item {
@@ -736,7 +712,7 @@
         }
 
         body.dark-mode .article-item:hover {
-            background: rgba(0, 255, 65, 0.05);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .article-item::before {
@@ -901,9 +877,9 @@
             color: var(--red);
         }
 
-        /* Matrix Mode TOC */
+        /* Dark Mode TOC */
         body.dark-mode .article-toc {
-            background: rgba(0, 255, 65, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border-left: 4px solid var(--dark-accent);
             box-shadow: none;
         }
@@ -1890,7 +1866,7 @@
         }
 
         body.dark-mode .setting-item {
-            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+            border-bottom: 1px solid var(--dark-border);
         }
 
         .setting-info {
@@ -1924,7 +1900,7 @@
         }
 
         body.dark-mode .settings-tip {
-            background: rgba(0, 255, 65, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             border-left: 3px solid var(--dark-accent);
             color: var(--dark-text);
         }
@@ -2331,7 +2307,7 @@
         }
 
         body.dark-mode .quick-start-item:hover {
-            background: rgba(0, 204, 51, 0.08);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .quick-start-icon {
@@ -2775,7 +2751,7 @@
 
 /* Dark mode support */
 body.dark-mode .tool-cta-banner {
-    background: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, rgba(0, 255, 65, 0.08) 100%);
+    background: linear-gradient(135deg, rgba(255, 92, 92, 0.06) 0%, rgba(255, 92, 92, 0.10) 100%);
     border-left-color: var(--dark-accent);
 }
 
@@ -2939,7 +2915,7 @@ body.dark-mode .tool-cta-content strong {
 
 /* Dark mode support */
 body.dark-mode .mini-quiz-container {
-    background: linear-gradient(135deg, rgba(0, 255, 65, 0.08) 0%, rgba(0, 255, 65, 0.12) 100%);
+    background: linear-gradient(135deg, rgba(255, 92, 92, 0.06) 0%, rgba(255, 92, 92, 0.10) 100%);
     border-color: var(--dark-accent);
 }
 
