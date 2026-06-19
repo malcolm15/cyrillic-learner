@@ -75,52 +75,6 @@
             color: var(--dark-text);
         }
 
-
-        /* Cyrillic Rain Effect (Matrix Mode only) */
-        .cyrillic-rain {
-            position: fixed;
-            top: -100px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.3rem;
-            color: var(--dark-accent);
-            pointer-events: none;
-            z-index: 9998;
-            line-height: 1.4;
-            letter-spacing: 2px;
-            animation: rainFall 2.5s linear forwards;
-            filter: blur(0px);
-        }
-
-        .cyrillic-rain::after {
-            content: attr(data-trail);
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            color: var(--dark-accent-dim);
-            opacity: 0.3;
-            white-space: pre-line;
-        }
-
-        @keyframes rainFall {
-            0% {
-                opacity: 0;
-                transform: translateY(0);
-                filter: blur(0px);
-            }
-            3% {
-                opacity: 1;
-            }
-            97% {
-                opacity: 0.9;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(100vh);
-                filter: blur(1px);
-            }
-        }
-
         /* Navigation */
         nav {
             position: fixed;

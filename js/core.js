@@ -53,8 +53,6 @@ function loadSettings() {
         document.getElementById('darkmode-toggle').checked = darkMode;
         if (darkMode) {
             document.body.classList.add('dark-mode');
-            // Start rain effect after page loads
-            setTimeout(() => startCyrillicRain(), 2000);
         }
     }
     
@@ -134,10 +132,8 @@ function toggleDarkMode() {
     
     if (darkMode) {
         document.body.classList.add('dark-mode');
-        startCyrillicRain();
     } else {
         document.body.classList.remove('dark-mode');
-        stopCyrillicRain();
     }
     
     // Track setting change in Google Analytics
@@ -147,93 +143,6 @@ function toggleDarkMode() {
             'setting_value': darkMode
         });
     }
-}
-
-// Cyrillic Rain Effect
-let rainInterval = null;
-const CYRILLIC_CHARS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
-
-function createRainDrop() {
-    const drop = document.createElement('div');
-    drop.className = 'cyrillic-rain';
-    
-    // Create a trail of 6-10 characters (longer trail)
-    const trailLength = 6 + Math.floor(Math.random() * 5);
-    let chars = [];
-    for (let i = 0; i < trailLength; i++) {
-        chars.push(CYRILLIC_CHARS[Math.floor(Math.random() * CYRILLIC_CHARS.length)]);
-    }
-    
-    // Main visible characters (first 3-4)
-    const visibleChars = chars.slice(0, 3 + Math.floor(Math.random() * 2));
-    drop.innerHTML = visibleChars.join('<br>');
-    
-    // Fading trail characters (rest)
-    const trailChars = chars.slice(visibleChars.length);
-    drop.setAttribute('data-trail', trailChars.join('\n'));
-    
-    // Random horizontal position
-    const randomX = Math.random() * (window.innerWidth - 50);
-    drop.style.left = randomX + 'px';
-    
-    document.body.appendChild(drop);
-    
-    // Morph characters rapidly as it falls
-    let morphInterval = setInterval(() => {
-        if (!document.body.contains(drop)) {
-            clearInterval(morphInterval);
-            return;
-        }
-        
-        // Change 2-3 characters each cycle for more dynamic effect
-        const numChanges = 2 + Math.floor(Math.random() * 2);
-        for (let i = 0; i < numChanges; i++) {
-            const charIndex = Math.floor(Math.random() * chars.length);
-            chars[charIndex] = CYRILLIC_CHARS[Math.floor(Math.random() * CYRILLIC_CHARS.length)];
-        }
-        
-        // Update display
-        const newVisibleChars = chars.slice(0, visibleChars.length);
-        const newTrailChars = chars.slice(visibleChars.length);
-        drop.innerHTML = newVisibleChars.join('<br>');
-        drop.setAttribute('data-trail', newTrailChars.join('\n'));
-    }, 80); // Faster morphing (every 80ms)
-    
-    // Remove after animation completes
-    setTimeout(() => {
-        clearInterval(morphInterval);
-        drop.remove();
-    }, 2500);
-}
-
-function startCyrillicRain() {
-    if (rainInterval) return; // Already running
-    
-    // Create first drop after a short delay
-    setTimeout(createRainDrop, 2000);
-    
-    // Then create drops every 8-15 seconds
-    function scheduleNextDrop() {
-        const delay = 8000 + Math.random() * 7000; // 8-15 seconds
-        rainInterval = setTimeout(() => {
-            if (darkMode) { // Only if still in dark mode
-                createRainDrop();
-                scheduleNextDrop();
-            }
-        }, delay);
-    }
-    
-    scheduleNextDrop();
-}
-
-function stopCyrillicRain() {
-    if (rainInterval) {
-        clearTimeout(rainInterval);
-        rainInterval = null;
-    }
-    
-    // Remove any existing drops
-    document.querySelectorAll('.cyrillic-rain').forEach(drop => drop.remove());
 }
 
 // Confetti burst for correct answers
