@@ -2404,6 +2404,26 @@
             }
         }
 
+        /* ==================== DESKTOP COMPACTION (min-width: 769px) ==================== */
+        @media (min-width: 769px) {
+            /* Section B: shared chrome */
+            .main-content { padding: 12px 20px; }
+            header { margin-bottom: 10px; }
+            .logo-display { font-size: 2.75rem; }
+            .site-description { margin: 8px auto 10px auto; }
+            footer { margin-top: 24px; }
+
+            /* Section A: homepage study card */
+            .card.char-reference { padding: 16px 24px; }
+            .reference-section { padding: 10px; }
+            .section-title { margin-bottom: 4px; }
+
+            /* Section A: quick-start strip */
+            .quick-start-strip { padding: 10px 0 4px; }
+            .quick-start-label { margin: 0 0 6px 0; }
+            .quick-start-all { margin-top: 6px; }
+        }
+
         /* ==================== CYRILLIC COPY-PASTE BUTTONS ==================== */
         .copy-char-btn {
             background: var(--paper);
