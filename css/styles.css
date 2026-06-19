@@ -2311,7 +2311,7 @@
 
         .quick-start-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 4px;
         }
 
@@ -2394,6 +2394,12 @@
         @media (max-width: 480px) {
             .quick-start-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) and (min-width: 481px) {
+            .quick-start-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
