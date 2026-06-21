@@ -693,7 +693,7 @@
         .article-item h3 {
             color: var(--dark-blue);
             margin: 0 0 4px 0;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-family: 'IBM Plex Mono', monospace;
             font-weight: 600;
         }
