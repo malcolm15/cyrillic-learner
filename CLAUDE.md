@@ -1,163 +1,168 @@
-# CYRILICA.COM — Project Context
+# CYRILICA.COM: Project Context
+
+Orientation for Claude Code (CC). Read this at the start of every session.
 
 ## Overview
-**Site:** https://cyrilica.com — A free Cyrillic alphabet learning SPA
-**Repo:** github.com/malcolm15/cyrillic-learner
-**Owner:** Malc (malcolm15)
-**Hosting:** GitHub Pages with custom domain, DNS through Cloudflare
+- **Site:** https://cyrilica.com, a free Cyrillic alphabet learning SPA
+- **Repo:** github.com/malcolm15/cyrillic-learner
+- **Owner:** Malc (malcolm15)
+- **Goal:** organic search growth toward eventual Google AdSense monetization.
+
+## Workflow and who does what
+- Malc directs all strategy and editorial and is the sole decision-maker. He does
+  not write code.
+- Strategy, decision-framing, copywriting, and prompt preparation happen in a
+  separate Claude.ai chat. Those prompts get relayed to CC.
+- CC (you) executes: read the codebase, propose a scoped plan, show a diff, and apply
+  only after Malc approves.
+- Malc tests on the live site and reports back with specifics.
+
+## Operating principles (firm)
+- **Audit-first.** Read before you write. Show findings before changing anything. For
+  structural work, run a read-only Phase 1 audit and stop at a gate for review before
+  any Phase 2 build.
+- **Show the diff before applying.** Never write or commit until approved.
+- **One source of truth.** No duplicated data or functions that can drift. Reuse
+  shared functions, tokens, and data.
+- **Low risk tolerance.** Conservative, well-scoped changes. When in doubt, do less
+  and confirm. Confirm a class or selector is not reused elsewhere before changing it.
+- **No em-dashes anywhere**, including code comments, articles, and any copy. Use
+  commas, periods, or parentheses.
+- **Commit separately, push together.** Logically distinct changes get their own
+  commits with clear messages, pushed as a batch.
+- **Desktop and mobile are separate concerns.** Desktop-only changes go inside
+  @media (min-width: 769px). Mobile uses @media (max-width: 768px). Do not alter
+  mobile when the task is desktop-only.
 
 ## Stack
-Vanilla JavaScript SPA, no frameworks, no build tools. Core files:
-- `index.html` and `404.html` (mirror each other for SPA routing via GitHub Pages' 404 fallback)
-- `css/styles.css` (~2,750+ lines)
-- `js/core.js` (~60KB — navigation, SPA routing, structured data injection, ARTICLE_META, ARTICLE_ORDER, settings)
-- `js/articles.js` (~300KB — all 26 articles as JS objects with HTML content strings)
-- `js/article-scripts.js` (~34KB — quiz engine, copy-paste tool, text builder, interactive features)
-- `images/` folder with 15 images (PNGs, SVGs, JPGs)
-- `audio/` folder for pronunciation files
-- `sitemap.xml` with image entries (xmlns:image namespace)
-- `CNAME` file for custom domain
+Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
+- `index.html`: the SPA shell and all page content (home, about, settings, contact,
+  privacy, the articles list, the reference table). Pages are sections toggled by a
+  `.active` class via `showPage()`.
+- `404.html`: a byte-for-byte mirror of index.html. **It is functionally dead on
+  Netlify** (see Hosting). It is no longer needed for routing and does not need to be
+  updated when adding articles. Flagged for eventual removal.
+- `css/styles.css`: all styles, including the dark mode token system.
+- `js/core.js`: SPA router, settings, study-quiz data (`CYRILLIC_DATA`), article
+  metadata (`ARTICLE_META`, `ARTICLE_ORDER`), dynamic SEO/schema injection, and audio
+  playback (`playPronunciation`).
+- `js/articles.js`: the `ARTICLES` array. Each article is one object: `id` (slug),
+  `title`, `relatedArticles` (3 slugs), `content` (an HTML template literal).
+- `js/article-scripts.js`: article-page interactivity: the quiz engine
+  (`QUIZ_CONFIGS`, `initArticleQuizzes()`), the copy-paste tool, embedded mini
+  quizzes, and a separate audio function (`playAudio`).
+- `images/`, `audio/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
+  namespace), `CNAME` (dead GitHub-era leftover, harmless, removable).
 
-## Workflow
-- Malc directs; Claude writes all code. Malc does NOT write code.
-- Malc tests on live site and reports bugs with specific details
-- Currently deploys via GitHub web UI (uploading files manually)
-- Planning to transition to Claude Code in VS Code for faster iteration
-- **Critical:** Upload all changed files together before testing — partial uploads cause false bug reports due to GitHub Actions canceling intermediate builds
+Two cross-file gotchas:
+- **Audio is triggered in two places:** `playPronunciation()` in core.js (study quiz
+  and chart) and `playAudio()` in article-scripts.js (article pages). Changes to
+  audio behavior usually need to be applied in both.
+- Per-page meta, canonical, Open Graph, Twitter, and Article JSON-LD schema are
+  injected dynamically by core.js based on the active page (`injectArticleSchema()` /
+  `removeArticleSchema()`), plus BreadcrumbList schema.
 
-## Current State (as of May 2026)
+## Hosting and deployment (current: Netlify)
+- Served by **Netlify**, fronted by **Cloudflare for DNS only**.
+- Deploys **automatically on every push to `main`**. A git push is the deploy. It is
+  atomic, so there is no partial-upload problem (this is a change from the old GitHub
+  Pages manual-upload era; ignore any older guidance about uploading files together).
+- Routing: `_redirects` contains `/* /index.html 200`, so every route, including
+  unknown paths, is served `index.html` with a real 200 status. This is why `404.html`
+  is never used for routing and why a single article only needs `index.html` updated.
+- **Cloudflare caches JS and CSS.** After a push, a hard refresh or Cloudflare purge
+  may be needed to see changes. If a code change appears not to have taken effect,
+  suspect cache before suspecting the code, and verify the function actually loaded
+  (check it in the browser console) before re-editing.
 
-### Articles
-- **26 active articles** across categories:
-  - Learning Basics: getting-started, russian-alphabet-chart, cyrillic-alphabet-chart, common-mistakes, memory-tricks, false-friends, cyrillic-vs-latin, first-25-words, easy-russian-words, backwards-r-myth, cyrillic-tier-list
-  - Writing & Typing: cyrillic-handwriting, practice-writing-cyrillic
-  - History & Culture: history-of-cyrillic, lost-letters, glagolitic, cyrillic-pop-culture, cyrillic-vs-greek, letter-yo-story
-  - Regional Alphabets: ukrainian-alphabet, bulgarian-alphabet, serbian-cyrillic-vs-latin, belarusian-alphabet, montenegrin-alphabet, cyrillic-names-europe, kazakhstan-latin-transition, latin-vs-cyrillic-slavic
-  - Learning Tools & Resources: cyrillic-copy-paste, how-to-type-cyrillic, cyrillic-learning-resources
+### Solved history: the SPA 404 problem (do not reintroduce)
+The site was previously on GitHub Pages, which served `404.html` for every non-file
+path and returned a 404 HTTP status to crawlers. Google saw 404s and indexed almost
+nothing for months despite all the content existing. Migrating to Netlify on
+2026-05-22 (the `/* /index.html 200` rule) fixed this; indexed pages jumped from 1 to
+23 within a week. Lesson carried forward: when something is checkable (Search Console,
+config files, live behavior), check it rather than reasoning from general claims like
+"Google handles JavaScript fine." Dead leftovers from that era still in the repo:
+`404.html`, the `CNAME` file, and a dead `sessionStorage.getItem('redirect')` check in
+core.js (around line 1333) whose matching relay script no longer exists. All removable
+as a small cleanup when desired.
 
-### Images (15 across 13 articles)
-All images use absolute paths (`/images/filename`), 2x resolution PNGs for retina sharpness, `style="max-width: 500-650px"` to constrain display size, `loading="lazy"`, and cyrilica.com watermarks.
+## Dark mode (AMOLED)
+Toggled by the `body.dark-mode` class, persisted in localStorage under `darkMode`
+(`'true'`/`'false'`). Semantic tokens in `:root`:
+- `--dark-bg` #000000 (true black page)
+- `--dark-surface` #121214 (cards and tiles)
+- `--dark-text` #DCDCDC (primary text)
+- `--dark-text-dim` #9A9A9C (secondary text)
+- `--dark-border` #262628 (hairline borders)
+- `--dark-accent` #FF5C5C (red accent)
+- `--dark-accent-bright` #FF7A7A (hover/active)
+- `--dark-accent-dim` #C25A5A (dimmed accent)
 
-| Image File | Article | Type |
-|---|---|---|
-| russian-keyboard-layout.svg | how-to-type-cyrillic | SVG |
-| russian-phonetic-keyboard-layout.svg | how-to-type-cyrillic | SVG |
-| yo-letter-word-pairs.svg | letter-yo-story | SVG |
-| yo-monument-ulyanovsk.jpg | letter-yo-story | JPG (CC BY-SA 4.0, Sergey M R) |
-| kiev-missal-glagolitic.jpg | glagolitic | JPG (CC BY-SA 4.0, Zde) |
-| cyrillic-memory-tricks.png | memory-tricks | PNG |
-| cyrillic-false-friends.png | false-friends | PNG |
-| cyrillic-tier-list.png | cyrillic-tier-list | PNG |
-| history-of-cyrillic-timeline.png | history-of-cyrillic | PNG |
-| lost-cyrillic-letters.png | lost-letters | PNG |
-| cyrillic-handwriting-chart.png | practice-writing-cyrillic | PNG |
-| backwards-r-myth.png | backwards-r-myth | PNG |
-| cyrillic-vs-latin-countries.png | latin-vs-cyrillic-slavic | PNG |
-| belarusian-vs-russian-alphabet.png | belarusian-alphabet | PNG |
-| cyrillic-vs-greek-comparison.png | cyrillic-vs-greek | PNG |
+Light-mode brand tokens include `--dark-blue` #1A237E and `--cream` #F5F1E8.
 
-Articles still without images: getting-started, russian-alphabet-chart, cyrillic-alphabet-chart, common-mistakes, cyrillic-vs-latin, first-25-words, easy-russian-words, cyrillic-handwriting, ukrainian-alphabet, bulgarian-alphabet, serbian-cyrillic-vs-latin, montenegrin-alphabet, cyrillic-names-europe, kazakhstan-latin-transition, cyrillic-copy-paste, cyrillic-learning-resources, cyrillic-pop-culture
+History: dark mode was formerly a green "Matrix mode" with a falling-character rain
+animation. It was deliberately replaced with this AMOLED theme. The rain
+implementation is preserved in `docs/matrix-rain.md` if ever wanted again. Do not
+reintroduce the green palette or the rain unless asked.
 
-### Interactive Features
-- **Quiz engine:** Generic prefix-based system in article-scripts.js (QUIZ_CONFIGS). Supports multiple quizzes per article via DOM scanning with `initArticleQuizzes()`.
-- **Copy-paste tool:** Text builder textarea at top of copy-paste article. Buttons append characters. Copy button + Ctrl+C detection with toast notifications. Includes standard Russian, accented vowels (combining acute U+0301), and pre-reform letters.
-- **Mini quizzes:** Embedded in cyrillic-alphabet-chart (5 group quizzes, prefixes cg1-cg5) and memory-tricks article.
-- **Quiz CTAs:** 11 contextual call-to-action boxes embedded mid-article across highest-traffic articles, each with unique copy and button text. Styled as dark blue gradient boxes with red buttons. Dark mode supported. Located in: getting-started, false-friends, memory-tricks, lost-letters, letter-yo-story, cyrillic-tier-list, backwards-r-myth, practice-writing-cyrillic, history-of-cyrillic, how-to-type-cyrillic, cyrillic-vs-greek.
+## Fonts
+Loaded from Google Fonts: IBM Plex Mono (base/body monospace), Bebas Neue (condensed
+all-caps display font for the logo, most headings, and buttons), and Merriweather
+(loaded but effectively unused). Article listing titles on the Articles page
+deliberately use IBM Plex Mono for legibility rather than Bebas Neue.
 
-### SEO & Structured Data
-- Dynamic Article schema (JSON-LD) injection per article via `injectArticleSchema()` / `removeArticleSchema()` in core.js
-- BreadcrumbList schema
-- Dynamic meta tags (title, description, OG, Twitter, canonical) per article
-- `ARTICLE_META` object in core.js with section, published/modified dates, keywords for all 26 articles
-- Sitemap with `xmlns:image` namespace and image entries for all 15 images
-- All articles have `relatedArticles` configured (3 related articles each)
+## Adding an article (checklist)
+A new article touches FOUR places, all using the identical slug (404.html is no longer
+required):
+1. `js/articles.js`: the article object (`id`, `title`, `relatedArticles`, `content`).
+2. `js/core.js`: an `ARTICLE_META` entry (`section`, `published`, `modified`,
+   `keywords`; all four required or schema injection breaks) and the slug placed in
+   `ARTICLE_ORDER` in the correct category group.
+3. `index.html`: an `.article-item` block in the right category group.
+4. `sitemap.xml`: a new `<url>` entry (add an `<image:image>` entry too if the
+   article has an image).
 
-### Security
-- Hash validation: `/^#[a-zA-Z0-9_-]+$/` regex before querySelector
-- VALID_PAGES whitelist for pageName
-- `safeGetNavLink()` helper for nav queries
-- Cloudflare: Bot Fight Mode enabled, DMARC record needs adding
+Categories (exact strings): `Getting Started`, `Alphabet Variants`,
+`History & Culture`, `Learning Tools & Resources`.
 
-### Analytics
-- Google Analytics tracking: quiz_started, question_answered, question_skipped, quiz_reset, setting_changed events
-- Settings interactions tracked including localStorage-persisted preferences
+Conventions: `relatedArticles` is always exactly 3 slugs. Internal links use
+`<a href="#" onclick="showArticle('slug'); return false;">`. In-article section
+headings are `<h3>`. Comparison tables use the `.comparison-table` class with
+`.big-letter` spans for Cyrillic characters (light, dark, and mobile styles exist).
+Articles end with the standard quiz-cta and share-section blocks; copy the
+share-section Bluesky SVG verbatim from an existing article rather than retyping the
+path. Images use absolute paths (`/images/file.png`), not relative (relative paths
+break under SPA URLs like `/articles/name`).
 
-## Traffic & Performance (recent data)
-- ~50-70 daily users baseline, ~600-700 monthly active users
-- ~2,300 monthly page views (estimated)
-- 16K events/week (quiz interactions, settings, clicks)
-- 4-minute average engagement time
-- Traffic sources: Direct (~45%), Organic Social/Reddit (~38%), Organic Search (~5%)
-- Two successful Reddit posts in r/russian (lost letters: 11k views; letter Ё: 12k views, 28 upvotes)
-- r/greek post for cyrillic-vs-greek article received mixed reception (60% upvote ratio) — lesson learned: don't explain a culture's own alphabet back to them
+## Security and analytics
+- Hash validation regex before querySelector, a `VALID_PAGES` whitelist, and a
+  `safeGetNavLink()` helper.
+- Google Analytics events: quiz_started, question_answered, question_skipped,
+  quiz_reset, setting_changed.
 
-## Key Architecture Details
-- SPA routing via hash-based URLs (e.g., cyrilica.com/articles/letter-yo-story)
-- Articles added to FIVE places for each new article: articles.js (content), core.js (ARTICLE_META + ARTICLE_ORDER), index.html (listing), 404.html (listing), sitemap.xml (with image entries if applicable)
-- Images use absolute paths (`/images/filename.png`), not relative paths — relative paths break because SPA URLs like `/articles/name` make the browser look for `articles/images/...`
-- Mobile responsive: `@media (max-width: 768px)` breakpoint used throughout
-- Mobile image fix: `.article-image img { max-width: 100% !important; }` in mobile media query to override inline max-width styles
-- Card hover: uses border-color change + shadow (no transform, which caused border clipping bugs)
-- Related articles: compact on mobile (description hidden, tighter padding, smaller titles)
-- Static pages (About, Settings, Contact, Privacy): have 8px side margins on mobile
+## Monetization status
+AdSense has been rejected roughly four times, all of which happened before the site's
+pages were meaningfully indexed (the GitHub Pages 404 problem above). The site is now
+far stronger (29 articles, indexed, structured data, interactive tools, cleaned-up
+canonicals). Plan: reapply, but deliberately wait until the recent SEO improvements
+have settled and been recrawled rather than reapplying immediately after the prior
+rejections.
 
-## Content Style Preferences
-- Natural, human-sounding copy — not marketing language
-- No em dashes in Reddit posts
-- Honest assessments over optimism
-- Concise explanations with clear file lists
-- When writing articles: ~1,500-2,000 words, strong h3 structure, internal links to related articles, share buttons at bottom, quiz CTA mid-article
-- Images: 2x resolution, max-width constrained, cyrilica.com watermark, detailed alt text, PNG preferred over SVG for Google Image ranking
+## Current state and open threads
+Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode replacing
+Matrix mode, homepage quick-start strip redesign, desktop compaction on home and
+static pages, privacy policy cleanup (AdSense/consent copy removed until ads are
+live), audio fixes for Й (wiring) and Ь (playback rate), a new article on Cyrillic
+letters not in Russian, and noindexing of the contact/privacy/about pages.
 
-## Image Creation Standards
-- 2x resolution (scale=2) for retina sharpness using Pillow (PIL)
-- `style="max-width: 500-650px"` inline to constrain display size on desktop
-- CSS handles mobile: `max-width: 100% !important` override in mobile media query
-- cyrilica.com watermark centered at bottom with breathing room
-- Detailed alt text for Google Image search
-- Add `<image:image>` entries to sitemap.xml for every new image
-- PNG format preferred; SVGs acceptable for keyboard layouts
-- File size target: under 200KB
-- Dark background (#1a1a2e) with colored accents matching site brand
-- Fonts: DejaVu Sans Bold for headings/letters, DejaVu Sans for body, DejaVu Sans Oblique for italics
-- Sourced photos: must be Creative Commons (CC BY-SA 3.0/4.0), include attribution in figcaption with photographer name, Wikimedia link, and license link
+Open or upcoming: one audio file (the letter [?]) is being re-recorded by an external
+contributor. Possible future work: a faux Cyrillic decoder article, a travel-signage
+reference article, audio for non-Russian letters, removing the dead GitHub-era
+artifacts (404.html, CNAME, the dead redirect check), and AdSense reapplication once
+readiness justifies it. The `/articles` page has one remaining benign
+duplicate-canonical entry in Search Console that is intentionally left alone.
 
-## Monetization Status
-- **AdSense:** Rejected twice. Planning to reapply soon — site has improved significantly since last attempt (26 articles, 15 images, interactive tools, structured data, quiz CTAs).
-- **Ezoic:** Requires 250,000+ monthly users as of Feb 2026. Not eligible.
-- **Mediavine:** Requires 50,000 sessions/month. Not eligible.
-- Focus is on growing organic search traffic before monetizing.
-
-## Reddit Marketing Strategy
-- Two viral posts in r/russian (lost letters, letter Ё) — both 11-12k views
-- r/greek post received pushback — lesson: don't explain a culture's own alphabet to native speakers
-- r/languagelearning attempted but automod filtered single-language posts — need multi-script framing in titles
-- Space posts 2-3 weeks apart per subreddit
-- Frame as genuine curiosity/discovery, not promotion
-- End with discussion questions that invite native speakers to share experiences
-- No em dashes in post copy
-- r/learnrussian, r/linguistics still untapped
-
-## YouTube Creator Outreach
-Three creators mentioned positively in cyrillic-learning-resources article. Outreach emails drafted but may not have been sent:
-- **Be Fluent in Russian** (Fedor Shirin) — @befluentinrussian, ~200k subs
-- **Learn Russian with Alfia** — russianwithalfia.com
-- **Russian with Max** — russianwithmax.com, comprehensible input method
-
-## Pending Work (Priority Order)
-1. **More article images** — Ukrainian alphabet and Serbian comparison charts are next. 14 articles still without images.
-2. **AdSense reapplication** — site is significantly improved; reapply within next 1-2 weeks
-3. **New articles** — "Reading Cyrillic Road Signs: A Traveler's Guide" was brainstormed
-4. **Reddit posts** — Cyrillic vs Greek article for r/languagelearning (draft ready, needs multi-script title framing); future posts for r/learnrussian, r/linguistics
-5. **YouTube outreach** — send drafted emails to 3 creators
-6. **DMARC DNS record** — add TXT record `_dmarc.cyrilica.com` with value `v=DMARC1; p=reject; sp=reject;` in Cloudflare
-7. **Cloudflare** — consider enabling Block AI Bots / managed robots.txt
-8. **Transition to Claude Code** — set up local dev environment with VS Code for faster iteration
-
-## Sitemap Management
-- Located at `/sitemap.xml` in repo root
-- Uses `xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"` namespace
-- Every new image must get an `<image:image>` entry inside its article's `<url>` block
-- Resubmit to Google Search Console and Bing Webmaster Tools after updates
-- Watch for duplicates (had issues with russian-alphabet-chart listed 4x and cyrillic-copy-paste listed 3x — cleaned up)
-- Deleted articles must be removed (common-cyrillic-mistakes was removed but lingered in sitemap)
+## Starting a session
+Confirm the current task, read the relevant files before proposing anything, and
+propose a scoped plan with a diff preview. Do not apply or commit until Malc approves.
