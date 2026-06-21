@@ -294,6 +294,12 @@ function showPage(pageName) {
         if (twitterDesc) twitterDesc.setAttribute('content', pm.desc);
         const twitterUrl = document.querySelector('meta[property="twitter:url"]');
         if (twitterUrl) twitterUrl.setAttribute('content', pm.url);
+
+        const robots = document.querySelector('meta[name="robots"]');
+        if (robots) {
+            const noindexPages = ['contact', 'privacy', 'about'];
+            robots.setAttribute('content', noindexPages.includes(pageName) ? 'noindex, follow' : 'index, follow');
+        }
     }
 
     // Update URL without page reload
