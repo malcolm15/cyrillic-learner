@@ -356,6 +356,9 @@ ArticleScripts['russian-alphabet-chart'] = function() {
             const fullPath = audioPath.startsWith('/') ? audioPath : '/' + audioPath;
             var audio = new Audio(fullPath);
             audio.volume = 0.7;
+            if (audioPath && audioPath.endsWith('soft.mp3')) {
+                audio.playbackRate = 0.5;
+            }
             audio.play().then(function() {
                 console.log('Audio playing successfully');
             }).catch(function(err) {
