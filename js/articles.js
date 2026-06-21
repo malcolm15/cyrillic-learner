@@ -1361,6 +1361,134 @@ const ARTICLES = [
         `
     },
     {
+        id: 'cyrillic-letters-not-in-russian',
+        title: 'The Cyrillic Letters That Don\'t Exist in Russian',
+        relatedArticles: ['ukrainian-alphabet', 'serbian-cyrillic-vs-latin', 'belarusian-alphabet'],
+        content: `
+            <p>If you have learned the Russian alphabet, you might assume you can read any Cyrillic. You mostly can, and that is the quiet superpower of learning this script. But cross a border and the alphabet shifts under your feet. Ukrainian has letters Russian threw out. Serbian invented its own. Macedonian carries a letter so rare that natives can go pages without seeing it.</p>
+
+            <p>This is the page I wish existed when I started: every common Cyrillic letter that is missing from Russian, gathered in one place, with what it sounds like and where you will run into it. If you already know Russian Cyrillic, think of this as the patch notes for every other Slavic alphabet.</p>
+
+            <p>A quick note before the list. Russian uses 33 letters. The other Slavic Cyrillic alphabets keep most of them, drop a few, and add a handful of their own. It is those additions, the letters with no Russian equivalent, that trip people up. There are only about a dozen that matter, so this is a short list to learn, not a second alphabet.</p>
+
+            <h3>Ukrainian</h3>
+
+            <p>Ukrainian is the alphabet most Russian readers meet first, often on a map or a news ticker, and it has four letters Russian does not.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="big-letter">Ґ ґ</span></td><td>hard <strong>g</strong>, as in <em>go</em></td><td>Russian has no hard G at all (its Г is closer to an English G already), but Ukrainian's regular Г is a breathy <em>h</em> sound, so Ukrainian needed a separate letter for the hard G. It is just Г with a little hook on top.</td></tr>
+                    <tr><td><span class="big-letter">Є є</span></td><td><strong>ye</strong>, as in <em>yes</em></td><td>This is the mirror image of the Russian Э. Where Russian writes Э for a plain "eh," Ukrainian uses Е for that and saves Є for the "yeh" sound.</td></tr>
+                    <tr><td><span class="big-letter">І і</span></td><td><strong>ee</strong>, as in <em>see</em></td><td>The dotted I. It looks exactly like a Latin "i" and sounds like one too. Ukrainian uses this for the "ee" sound and gives its own job to the letter that looks like Russian's И.</td></tr>
+                    <tr><td><span class="big-letter">Ї ї</span></td><td><strong>yi</strong>, like <em>ye-ee</em> run together</td><td>The I with two dots. It is the only Cyrillic letter with a diaeresis like this, and it shows up in the Ukrainian word for "their," їх.</td></tr>
+                </tbody>
+            </table>
+
+            <p>If you read Russian, the strange part of Ukrainian is not these four new letters. It is that two familiar letters, Г and И, quietly changed their sounds. The new letters above are actually the easy part.</p>
+
+            <h3>Belarusian</h3>
+
+            <p>Belarusian looks the most like Russian of any of these, with one signature letter that gives it away instantly.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="big-letter">Ў ў</span></td><td><strong>w</strong>, like the <em>w</em> in <em>now</em></td><td>Called "short U." It is У wearing the same little curved hat that Й wears, and it does the same trick: it turns a full vowel into a glide. If you spot this letter, you are almost certainly looking at Belarusian. It even has a monument built in its honor in the city of Polatsk.</td></tr>
+                    <tr><td><span class="big-letter">І і</span></td><td><strong>ee</strong>, as in <em>see</em></td><td>The same dotted I as Ukrainian. Belarusian uses it instead of the Russian-style И entirely.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Serbian</h3>
+
+            <p>Serbian is where things get interesting. In the 1800s a reformer named Vuk Karadžić tore the alphabet down to one rule: one letter, one sound, no exceptions. To pull that off he had to invent new letters, and he borrowed the Latin J while he was at it. The result is six letters no Russian reader has ever seen.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="big-letter">Ј ј</span></td><td><strong>y</strong>, as in <em>yes</em></td><td>Yes, that is the Latin J, living inside a Cyrillic alphabet. Serbian uses it for the "y" sound and builds its "ya," "yu," and "yo" sounds by combining it with vowels, instead of using separate letters like Russian's Я, Ю, and Ё.</td></tr>
+                    <tr><td><span class="big-letter">Љ љ</span></td><td><strong>ly</strong>, like the <em>lli</em> in <em>million</em></td><td>A Л and a Ь fused into a single letter. One sound, one symbol.</td></tr>
+                    <tr><td><span class="big-letter">Њ њ</span></td><td><strong>ny</strong>, like the <em>ny</em> in <em>canyon</em></td><td>The same trick as above, this time Н fused with Ь. These two fused letters are pure Karadžić.</td></tr>
+                    <tr><td><span class="big-letter">Ђ ђ</span></td><td>soft <strong>j</strong>, like the <em>j</em> in <em>jeep</em></td><td>A soft "dj" sound with no clean English equivalent. It is the letter in the name Ђоковић, usually spelled Djokovic in English.</td></tr>
+                    <tr><td><span class="big-letter">Ћ ћ</span></td><td>soft <strong>ch</strong>, a gentle <em>ch</em></td><td>The voiceless partner to Ђ. English smears both of these into "ch" and "j," but Serbian keeps them distinct.</td></tr>
+                    <tr><td><span class="big-letter">Џ џ</span></td><td><strong>dzh</strong>, like the <em>j</em> in <em>judge</em></td><td>A hard "j" sound. Handy fact: this is the rare Cyrillic letter that is wider than it is tall.</td></tr>
+                </tbody>
+            </table>
+
+            <p>Here is the thing that surprises Russian readers most about Serbian: it does not just add letters, it also drops ones you would expect. There is no Я, no Ю, no Ё, no Э, no Щ, and no hard or soft sign. Karadžić decided he did not need them, and he was right for Serbian.</p>
+
+            <h3>Macedonian</h3>
+
+            <p>Macedonian was standardized in 1945 and modeled closely on Serbian, so it shares Ј, Љ, Њ, and Џ with its neighbor. It adds three letters of its own.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="big-letter">Ѕ ѕ</span></td><td><strong>dz</strong>, like the <em>ds</em> in <em>kids</em></td><td>This one is a small celebrity. It looks exactly like a Latin "S," but it sounds like "dz," and it is so rare that you can read several pages of Macedonian without meeting it. It turns up in ѕвезда, meaning "star."</td></tr>
+                    <tr><td><span class="big-letter">Ѓ ѓ</span></td><td>soft <strong>g</strong>, a gentle <em>dy</em></td><td>Macedonian's answer to the Serbian Ђ. Same neighborhood of sound, different letter shape, which is partly a way of looking a little less like Serbian.</td></tr>
+                    <tr><td><span class="big-letter">Ќ ќ</span></td><td>soft <strong>k</strong>, a gentle <em>ty</em></td><td>The pair to Ѓ, matching the Serbian Ћ. If you have learned the Serbian letters, these two are just restyled versions.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>The one-screen cheat sheet</h3>
+
+            <p>Here is every letter above in a single table, so you can bookmark this and scan it the next time a sign or a headline stops making sense.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Letter</th><th>Sound</th><th>Where you'll see it</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="big-letter">Ґ</span></td><td>hard g (<em>go</em>)</td><td>Ukrainian</td></tr>
+                    <tr><td><span class="big-letter">Є</span></td><td>ye (<em>yes</em>)</td><td>Ukrainian</td></tr>
+                    <tr><td><span class="big-letter">І</span></td><td>ee (<em>see</em>)</td><td>Ukrainian, Belarusian</td></tr>
+                    <tr><td><span class="big-letter">Ї</span></td><td>yi (<em>ye-ee</em>)</td><td>Ukrainian</td></tr>
+                    <tr><td><span class="big-letter">Ў</span></td><td>w (<em>now</em>)</td><td>Belarusian</td></tr>
+                    <tr><td><span class="big-letter">Ј</span></td><td>y (<em>yes</em>)</td><td>Serbian, Macedonian</td></tr>
+                    <tr><td><span class="big-letter">Љ</span></td><td>ly (<em>million</em>)</td><td>Serbian, Macedonian</td></tr>
+                    <tr><td><span class="big-letter">Њ</span></td><td>ny (<em>canyon</em>)</td><td>Serbian, Macedonian</td></tr>
+                    <tr><td><span class="big-letter">Ђ</span></td><td>soft j (<em>jeep</em>)</td><td>Serbian</td></tr>
+                    <tr><td><span class="big-letter">Ћ</span></td><td>soft ch</td><td>Serbian</td></tr>
+                    <tr><td><span class="big-letter">Џ</span></td><td>dzh (<em>judge</em>)</td><td>Serbian, Macedonian</td></tr>
+                    <tr><td><span class="big-letter">Ѕ</span></td><td>dz (<em>kids</em>)</td><td>Macedonian</td></tr>
+                    <tr><td><span class="big-letter">Ѓ</span></td><td>soft g</td><td>Macedonian</td></tr>
+                    <tr><td><span class="big-letter">Ќ</span></td><td>soft k</td><td>Macedonian</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Why this matters more than it looks</h3>
+
+            <p>Learn these fourteen letters and you go from reading one Slavic language to recognizing five. That is a small amount of work for a big jump in coverage. A Belarusian Ў or a Serbian Ј is no longer a wall, just a letter you happen to know.</p>
+
+            <p>It also explains something you may have wondered about. When people say Cyrillic is not one alphabet but a family of them, this is what they mean. The shared core is huge, the differences are small and specific, and now you have the full list of those differences in front of you.</p>
+
+            <p>If you want the deeper story on any one of these, the guides on the <a href="#" onclick="showArticle('ukrainian-alphabet'); return false;">Ukrainian</a>, <a href="#" onclick="showArticle('serbian-cyrillic-vs-latin'); return false;">Serbian</a>, <a href="#" onclick="showArticle('belarusian-alphabet'); return false;">Belarusian</a>, and <a href="#" onclick="showArticle('bulgarian-alphabet'); return false;">Bulgarian</a> alphabets each go letter by letter. And if any of these new shapes still feel slippery, that is normal. Reading is recognition, and recognition comes from seeing a letter a few times in real words, not from memorizing a chart.</p>
+
+            <div class="quiz-cta">
+                <p>Now you know the full Cyrillic family tree. Test your Russian core with the free interactive quiz.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START PRACTICING</button>
+            </div>
+
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('cyrillic-letters-not-in-russian', 'The Cyrillic Letters That Don\'t Exist in Russian')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('cyrillic-letters-not-in-russian', 'The Cyrillic Letters That Don\'t Exist in Russian'); return false;"><svg width="14" height="14" viewBox="0 0 568 501" fill="currentColor" aria-hidden="true" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M123.121 33.664C188.241 82.553 258.281 181.68 284 234.873c25.719-53.193 95.759-152.32 160.879-201.21C491.866-1.611 568-28.906 568 57.947c0 17.346-9.945 145.713-15.778 166.555-20.275 72.453-94.155 90.933-159.875 79.748C507.222 323.8 536.444 388.56 473.333 453.32c-119.86 122.992-172.272-30.859-185.702-70.281-2.462-7.227-3.614-10.608-3.631-7.733-.017-2.875-1.169.506-3.631 7.733-13.43 39.422-65.842 193.273-185.702 70.281-63.111-64.76-33.89-129.52 80.986-149.071-65.72 11.185-139.6-7.295-159.875-79.748C9.945 203.66 0 75.293 0 57.947 0-28.906 76.135-1.611 123.121 33.664Z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('cyrillic-letters-not-in-russian', 'The Cyrillic Letters That Don\'t Exist in Russian'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('cyrillic-letters-not-in-russian', 'The Cyrillic Letters That Don\'t Exist in Russian')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
         id: 'cyrillic-tier-list',
         title: 'Cyrillic Alphabet Tier List: Ranking Letters by Difficulty',
         relatedArticles: ['easy-russian-words', 'false-friends', 'memory-tricks'],

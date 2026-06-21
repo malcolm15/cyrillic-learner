@@ -354,6 +354,7 @@ const ARTICLE_ORDER = [
     'belarusian-alphabet',
     'bulgarian-alphabet',
     'montenegrin-alphabet',
+    'cyrillic-letters-not-in-russian',
     // 📖 History & Culture
     'history-of-cyrillic',
     'lost-letters',
@@ -391,6 +392,7 @@ const ARTICLE_META = {
     'belarusian-alphabet':      { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['belarusian alphabet', 'belarusian cyrillic', '32 letters', 'eastern europe'] },
     'bulgarian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-05-23', keywords: ['bulgarian alphabet', 'bulgarian cyrillic', '30 letters', 'cyrillic origin', 'bulgarian letters', 'learn bulgarian'] },
     'montenegrin-alphabet':     { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['montenegrin alphabet', 'newest cyrillic', 'montenegrin language', 'balkan alphabet'] },
+    'cyrillic-letters-not-in-russian': { section: 'Alphabet Variants',         published: '2026-06-21', modified: '2026-06-21', keywords: ['cyrillic letters not in russian', 'non-russian cyrillic', 'ukrainian serbian macedonian letters', 'cyrillic alphabet differences'] },
     'serbian-cyrillic-vs-latin':{ section: 'Alphabet Variants',         published: '2026-02-24', modified: '2026-03-10', keywords: ['serbian cyrillic', 'serbian latin', 'digraphia', 'dual script'] },
     // History & Culture
     'lost-letters':             { section: 'History & Culture',         published: '2026-02-16', modified: '2026-03-10', keywords: ['lost letters', 'extinct characters', 'cyrillic history', 'old church slavonic'] },
