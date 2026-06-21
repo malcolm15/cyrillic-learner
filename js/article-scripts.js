@@ -492,7 +492,7 @@ const QUIZ_CONFIGS = {
     'cg5': {
         chars: {
             'Ж': { upper: 'Ж', lower: 'ж', roman: 'zh', audio: 'audio/zh.mp3' },
-            'Й': { upper: 'Й', lower: 'й', roman: 'y', audio: null },
+            'Й': { upper: 'Й', lower: 'й', roman: 'y', audio: 'audio/y.mp3' },
             'Ц': { upper: 'Ц', lower: 'ц', roman: 'ts', audio: 'audio/ts.mp3' },
             'Ч': { upper: 'Ч', lower: 'ч', roman: 'ch', audio: 'audio/ch.mp3' },
             'Ш': { upper: 'Ш', lower: 'ш', roman: 'sh', audio: 'audio/sh.mp3' },

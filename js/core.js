@@ -871,7 +871,8 @@ const CYRILLIC_DATA = {
             'Ш': { upper: 'Ш', lower: 'ш', roman: 'sh', audio: 'audio/sh.mp3' },
             'Щ': { upper: 'Щ', lower: 'щ', roman: 'shch', audio: 'audio/shch.mp3' },
             'Ъ': { upper: 'Ъ', lower: 'ъ', roman: '"', audio: 'audio/hard.mp3' },
-            'Ь': { upper: 'Ь', lower: 'ь', roman: "'", audio: 'audio/soft.mp3' }
+            'Ь': { upper: 'Ь', lower: 'ь', roman: "'", audio: 'audio/soft.mp3' },
+            'Й': { upper: 'Й', lower: 'й', roman: 'y', audio: 'audio/y.mp3' }
         }
     }
 };
