@@ -156,7 +156,7 @@ static pages, privacy policy cleanup (AdSense/consent copy removed until ads are
 live), audio fixes for Й (wiring) and Ь (playback rate), a new article on Cyrillic
 letters not in Russian, and noindexing of the contact/privacy/about pages.
 
-Open or upcoming: one audio file (the letter [?]) is being re-recorded by an external
+Open or upcoming: one audio file (the letter А) is being re-recorded by an external
 contributor. Possible future work: a faux Cyrillic decoder article, a travel-signage
 reference article, audio for non-Russian letters, removing the dead GitHub-era
 artifacts (404.html, CNAME, the dead redirect check), and AdSense reapplication once
