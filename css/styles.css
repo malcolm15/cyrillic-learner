@@ -693,9 +693,8 @@
         .article-item h3 {
             color: var(--dark-blue);
             margin: 0 0 4px 0;
-            font-size: 1.1rem;
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 0.5px;
+            font-size: 1rem;
+            font-family: 'IBM Plex Mono', monospace;
             font-weight: 600;
         }
 
