@@ -882,6 +882,9 @@ function playPronunciation(audioPath) {
     if (!audioPath) return;
     const audio = new Audio(audioPath);
     audio.volume = 0.7;
+    if (audioPath.endsWith('soft.mp3')) {
+        audio.playbackRate = 0.5;
+    }
     audio.play().catch(error => {
         console.log('Audio playback blocked:', error);
     });
