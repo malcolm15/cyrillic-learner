@@ -141,7 +141,7 @@ const ARTICLES = [
 
             <p>This is the big one. You see a letter that looks like a B, and your brain automatically wants to read it as "buh." But in Cyrillic, that letter is actually В, and it sounds like V.</p>
 
-            <p>Same thing with Н (which looks like H but sounds like N), Р (looks like P but sounds like R), and a few others. These false friends will trip you up constantly in the beginning. We've got a <a href="#" onclick="showArticle('false-friends'); return false;">full breakdown of all six false friends</a> with an interactive quiz so you can practice them right here on the site.</p>
+            <p>Same thing with Н (which looks like H but sounds like N), Р (looks like P but sounds like R), and a few others. These false friends will trip you up constantly in the beginning. We've got a <a href="/articles/false-friends" onclick="navTo(event, null, 'false-friends')">full breakdown of all six false friends</a> with an interactive quiz so you can practice them right here on the site.</p>
 
             <p>The solution? You have to actively unlearn the association. Every single time you see В, force yourself to think "vuh, not buh." Say it out loud. Write it down. Drill it until the correct sound becomes automatic.</p>
 
@@ -155,7 +155,7 @@ const ARTICLES = [
 
             <p>But when you're an adult trying to cram all 33 Cyrillic letters into your head in one sitting, it doesn't work. Your brain can only handle so much new information at once before it starts mixing things up.</p>
 
-            <p>What works better: learn 5 to 7 letters at a time. Really nail those letters before moving on to the next batch. Our <a href="#" onclick="showArticle('getting-started'); return false;">getting started guide</a> walks you through a three-group method for breaking the alphabet into manageable chunks. And if you're not sure which letters to tackle first, the <a href="#" onclick="showArticle('cyrillic-tier-list'); return false;">difficulty tier list</a> ranks all 33 from easiest to hardest.</p>
+            <p>What works better: learn 5 to 7 letters at a time. Really nail those letters before moving on to the next batch. Our <a href="/articles/getting-started" onclick="navTo(event, null, 'getting-started')">getting started guide</a> walks you through a three-group method for breaking the alphabet into manageable chunks. And if you're not sure which letters to tackle first, the <a href="/articles/cyrillic-tier-list" onclick="navTo(event, null, 'cyrillic-tier-list')">difficulty tier list</a> ranks all 33 from easiest to hardest.</p>
 
             <p>Think of it like stacking blocks. If you try to stack 33 blocks all at once, they're going to fall over. But if you stack them carefully, 5 or 7 at a time, you can build something solid.</p>
 
@@ -167,7 +167,7 @@ const ARTICLES = [
 
             <p>Writing forces your brain to engage with the shapes in a different way. When you read, you're passively recognizing. When you write, you're actively producing. That makes a huge difference in how well the letters stick.</p>
 
-            <p>You don't need to write pages and pages. Just get a notebook, write out each letter 10 or 15 times, and move on. Do this for all 33 letters once or twice, and you'll notice a difference. If you want a structured approach, our <a href="#" onclick="showArticle('practice-writing-cyrillic'); return false;">guide to practicing Cyrillic by hand</a> covers techniques, materials, and common pitfalls.</p>
+            <p>You don't need to write pages and pages. Just get a notebook, write out each letter 10 or 15 times, and move on. Do this for all 33 letters once or twice, and you'll notice a difference. If you want a structured approach, our <a href="/articles/practice-writing-cyrillic" onclick="navTo(event, null, 'practice-writing-cyrillic')">guide to practicing Cyrillic by hand</a> covers techniques, materials, and common pitfalls.</p>
 
             <p>Also, fun fact: Russian cursive is completely different from print. So if you ever want to read handwritten Russian, you'll need to learn a whole separate set of letter forms. But don't worry about that yet. Just focus on print for now.</p>
 
@@ -179,7 +179,7 @@ const ARTICLES = [
 
             <p>Russian has 10 vowel letters, and they show up in basically every word. If you don't know your vowels cold, you're going to struggle to read anything. Plus, some of the vowels are actually kind of tricky. Ы doesn't exist in English. Ё and Е sound different but look almost identical.</p>
 
-            <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix. The <a href="#" onclick="showArticle('russian-alphabet-chart'); return false;">alphabet chart</a> lets you filter by vowels so you can focus on just those ten.</p>
+            <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix. The <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">alphabet chart</a> lets you filter by vowels so you can focus on just those ten.</p>
 
             <p>Trust me on this one. I've seen people try to learn backwards (consonants first, vowels later), and it never goes well. You end up having to relearn everything because you don't have the foundation you need.</p>
 
@@ -189,7 +189,7 @@ const ARTICLES = [
 
             <p>Why? Because reading letters in isolation is one skill, and reading them in context is another. When you read a word, the letters flow together. You start to recognize patterns. You get faster.</p>
 
-            <p>Start simple. Look for Russian words that are similar to English words. Автобус (bus), метро (metro), банк (bank). Sound them out. Check your pronunciation. Then move on to harder words. Our <a href="#" onclick="showArticle('easy-russian-words'); return false;">easy Russian words guide</a> gives you a bunch of real words built entirely from the simplest letters, and <a href="#" onclick="showArticle('first-25-words'); return false;">Your First 25 Russian Words</a> takes it a step further with reading practice.</p>
+            <p>Start simple. Look for Russian words that are similar to English words. Автобус (bus), метро (metro), банк (bank). Sound them out. Check your pronunciation. Then move on to harder words. Our <a href="/articles/easy-russian-words" onclick="navTo(event, null, 'easy-russian-words')">easy Russian words guide</a> gives you a bunch of real words built entirely from the simplest letters, and <a href="/articles/first-25-words" onclick="navTo(event, null, 'first-25-words')">Your First 25 Russian Words</a> takes it a step further with reading practice.</p>
 
             <p>The internet makes this easy. You can find Russian websites, Russian Wikipedia, Russian social media. Just pick something and start trying to read it. You won't understand most of it at first, but that's okay. You're training your brain to recognize the letters in their natural habitat.</p>
 
@@ -197,7 +197,7 @@ const ARTICLES = [
 
             <p>Learning Cyrillic is frustrating sometimes. There will be days when you mix up letters you thought you knew. Days when it feels like you're not making any progress at all.</p>
 
-            <p>That's normal. Everyone goes through it. The difference between people who succeed and people who give up is just stubbornness. Keep showing up. Keep practicing. Even if it's only 10 minutes a day. If you need help getting unstuck, our <a href="#" onclick="showArticle('memory-tricks'); return false;">memory tricks guide</a> has mnemonics for the trickiest letters, and the <a href="#" onclick="showArticle('cyrillic-learning-resources'); return false;">learning resources page</a> rounds up the best apps, books, and tools to keep you moving forward.</p>
+            <p>That's normal. Everyone goes through it. The difference between people who succeed and people who give up is just stubbornness. Keep showing up. Keep practicing. Even if it's only 10 minutes a day. If you need help getting unstuck, our <a href="/articles/memory-tricks" onclick="navTo(event, null, 'memory-tricks')">memory tricks guide</a> has mnemonics for the trickiest letters, and the <a href="/articles/cyrillic-learning-resources" onclick="navTo(event, null, 'cyrillic-learning-resources')">learning resources page</a> rounds up the best apps, books, and tools to keep you moving forward.</p>
 
             <p>You'll get there.</p>
             
@@ -636,7 +636,7 @@ const ARTICLES = [
 
             <p>The modern Russian alphabet is sleek, efficient, and relatively easy to learn. But lurking beneath it is a vast history of lost letters — characters that served their purpose, outlived their usefulness, and faded into history. They're gone, but they left their mark on the language, the culture, and the endless Cyrillic iceberg memes that language learners love to share.</p>
 
-            <p>Want another letter with a strange history? Check out <a href="#" onclick="showArticle('letter-yo-story'); return false;">the story of Ё</a>, a modern Russian letter that's still fighting for consistent use two centuries after it was invented.</p>
+            <p>Want another letter with a strange history? Check out <a href="/articles/letter-yo-story" onclick="navTo(event, null, 'letter-yo-story')">the story of Ё</a>, a modern Russian letter that's still fighting for consistent use two centuries after it was invented.</p>
         
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
@@ -969,7 +969,7 @@ const ARTICLES = [
             <p>Going the other direction — letters Russian has that Ukrainian dropped:</p>
 
             <p><strong>Ё (ё) — YO sound</strong><br>
-            Ukrainian uses the combination Йо or relies on context instead. The absence of Ё is one reason Ukrainian spelling is considered more phonetically straightforward. You can read more about Ё's complicated history in Russian in our article on <a href="#" onclick="showArticle('letter-yo-story'); return false;">Russia's most controversial letter</a>.</p>
+            Ukrainian uses the combination Йо or relies on context instead. The absence of Ё is one reason Ukrainian spelling is considered more phonetically straightforward. You can read more about Ё's complicated history in Russian in our article on <a href="/articles/letter-yo-story" onclick="navTo(event, null, 'letter-yo-story')">Russia's most controversial letter</a>.</p>
 
             <p><strong>Ъ (ъ) — Hard Sign</strong><br>
             Russian uses this to create a pause or separation between sounds. Ukrainian replaces it entirely with an apostrophe ('). So Russian объект becomes Ukrainian об'єкт — same pronunciation, different notation.</p>
@@ -988,7 +988,7 @@ const ARTICLES = [
 
             <p>For learners of the Cyrillic script, Ukrainian is often described as more phonetic than Russian: what you see is generally what you pronounce, with fewer pronunciation rules to memorize. The apostrophe replacing the hard sign is one example of this streamlining.</p>
 
-            <p>If you're coming from Russian Cyrillic, the script barrier is low — four new letters to learn. Pronunciation takes longer; vocabulary and grammar longer still. But you can start reading Ukrainian text almost immediately. Compare this to the <a href="#" onclick="showArticle('belarusian-alphabet'); return false;">Belarusian alphabet</a>, where the gap from Russian is similarly small.</p>
+            <p>If you're coming from Russian Cyrillic, the script barrier is low — four new letters to learn. Pronunciation takes longer; vocabulary and grammar longer still. But you can start reading Ukrainian text almost immediately. Compare this to the <a href="/articles/belarusian-alphabet" onclick="navTo(event, null, 'belarusian-alphabet')">Belarusian alphabet</a>, where the gap from Russian is similarly small.</p>
 
             <h3>Language as Identity: Post-2014 and 2022</h3>
 
@@ -996,7 +996,7 @@ const ARTICLES = [
 
             <p>After Russia's annexation of Crimea in 2014, and especially after the full-scale invasion in 2022, the language question became acute inside Ukraine itself. Millions of Russian-speaking Ukrainians switched to Ukrainian as a deliberate statement of cultural and national identity. Language schools saw massive enrollment increases. Ukrainian stopped being a regional marker and became a symbol of nationhood.</p>
 
-            <p>For the wider world, this brought a surge of interest in learning Ukrainian — and the alphabet is always the first step. The <a href="#" onclick="showArticle('history-of-cyrillic'); return false;">history of Cyrillic</a> includes many moments where script and political power were intertwined. The Ukrainian case is one of the clearest modern examples.</p>
+            <p>For the wider world, this brought a surge of interest in learning Ukrainian — and the alphabet is always the first step. The <a href="/articles/history-of-cyrillic" onclick="navTo(event, null, 'history-of-cyrillic')">history of Cyrillic</a> includes many moments where script and political power were intertwined. The Ukrainian case is one of the clearest modern examples.</p>
 
             <h3>Common Ukrainian Words to Start With</h3>
 
@@ -1253,7 +1253,7 @@ const ARTICLES = [
             • <strong>Ё, Ы, Э don't exist</strong> — don't look for them<br>
             • <strong>Grammar is completely different</strong> — the script is easy; the language is its own thing</p>
 
-            <p>If you've also studied the <a href="#" onclick="showArticle('ukrainian-alphabet'); return false;">Ukrainian alphabet</a>, you'll notice that Ukrainian and Bulgarian each solved the "letters that Russian has and we don't need" problem in different ways. Ukrainian kept its own distinct letters; Bulgarian simplified and dropped three.</p>
+            <p>If you've also studied the <a href="/articles/ukrainian-alphabet" onclick="navTo(event, null, 'ukrainian-alphabet')">Ukrainian alphabet</a>, you'll notice that Ukrainian and Bulgarian each solved the "letters that Russian has and we don't need" problem in different ways. Ukrainian kept its own distinct letters; Bulgarian simplified and dropped three.</p>
 
             <h3>The Bottom Line</h3>
 
@@ -1470,7 +1470,7 @@ const ARTICLES = [
 
             <p>It also explains something you may have wondered about. When people say Cyrillic is not one alphabet but a family of them, this is what they mean. The shared core is huge, the differences are small and specific, and now you have the full list of those differences in front of you.</p>
 
-            <p>If you want the deeper story on any one of these, the guides on the <a href="#" onclick="showArticle('ukrainian-alphabet'); return false;">Ukrainian</a>, <a href="#" onclick="showArticle('serbian-cyrillic-vs-latin'); return false;">Serbian</a>, <a href="#" onclick="showArticle('belarusian-alphabet'); return false;">Belarusian</a>, and <a href="#" onclick="showArticle('bulgarian-alphabet'); return false;">Bulgarian</a> alphabets each go letter by letter. And if any of these new shapes still feel slippery, that is normal. Reading is recognition, and recognition comes from seeing a letter a few times in real words, not from memorizing a chart.</p>
+            <p>If you want the deeper story on any one of these, the guides on the <a href="/articles/ukrainian-alphabet" onclick="navTo(event, null, 'ukrainian-alphabet')">Ukrainian</a>, <a href="/articles/serbian-cyrillic-vs-latin" onclick="navTo(event, null, 'serbian-cyrillic-vs-latin')">Serbian</a>, <a href="/articles/belarusian-alphabet" onclick="navTo(event, null, 'belarusian-alphabet')">Belarusian</a>, and <a href="/articles/bulgarian-alphabet" onclick="navTo(event, null, 'bulgarian-alphabet')">Bulgarian</a> alphabets each go letter by letter. And if any of these new shapes still feel slippery, that is normal. Reading is recognition, and recognition comes from seeing a letter a few times in real words, not from memorizing a chart.</p>
 
             <div class="quiz-cta">
                 <p>Now you know the full Cyrillic family tree. Test your Russian core with the free interactive quiz.</p>
@@ -1512,7 +1512,7 @@ const ARTICLES = [
             <strong>О (o)</strong> — Looks like O, sounds like O. We love you.<br>
             <strong>Т (t)</strong> — Looks like T, sounds like T. No notes.</p>
             
-            <p><strong>Why S-tier:</strong> These are your gateway drug into Cyrillic. They give you immediate confidence and let you read simple words like "MAMA" (мама) and "KOT" (кот - cat) right away. Zero learning curve. Want more practice? Check out our guide to <a href="#" onclick="showArticle('easy-russian-words'); return false;">common Russian words using only easy letters</a>.</p>
+            <p><strong>Why S-tier:</strong> These are your gateway drug into Cyrillic. They give you immediate confidence and let you read simple words like "MAMA" (мама) and "KOT" (кот - cat) right away. Zero learning curve. Want more practice? Check out our guide to <a href="/articles/easy-russian-words" onclick="navTo(event, null, 'easy-russian-words')">common Russian words using only easy letters</a>.</p>
 
             <h3>A-TIER: Pretty Easy (Minor Adjustments)</h3>
             
@@ -1799,7 +1799,7 @@ const ARTICLES = [
             <strong>What it sounds like:</strong> "f" (like in "fox")<br>
             <strong>This one's actually okay-ish</strong> since both are pronounced "f" in modern Greek</p>
             
-            <p>These letters that look familiar but sound different are what we call "false friends." If you're learning Cyrillic, check out our complete guide to <a href="#" onclick="showArticle('false-friends'); return false;">false friends that fool English speakers</a>.</p>
+            <p>These letters that look familiar but sound different are what we call "false friends." If you're learning Cyrillic, check out our complete guide to <a href="/articles/false-friends" onclick="navTo(event, null, 'false-friends')">false friends that fool English speakers</a>.</p>
 
             <div class="quiz-cta">
                 <p>Я isn't the only letter that surprises English speakers. Learn all 33 Russian letters with instant feedback on every answer.</p>
@@ -1844,7 +1844,7 @@ const ARTICLES = [
             Actually used correct Russian and proper Cyrillic throughout. The attention to detail was impressive.</p>
             
             <p><strong>Some Video Games:</strong><br>
-            Metro 2033 and S.T.A.L.K.E.R. series use actual Russian text and signage, making the environment authentic. For more on how Cyrillic appears in games and movies, see our <a href="#" onclick="showArticle('cyrillic-pop-culture'); return false;">complete guide to Cyrillic in pop culture</a>.</p>
+            Metro 2033 and S.T.A.L.K.E.R. series use actual Russian text and signage, making the environment authentic. For more on how Cyrillic appears in games and movies, see our <a href="/articles/cyrillic-pop-culture" onclick="navTo(event, null, 'cyrillic-pop-culture')">complete guide to Cyrillic in pop culture</a>.</p>
             
             <p><strong>Historical Films:</strong><br>
             Movies like "Child 44" and "The Death of Stalin" used real Russian consultants and avoided faux Cyrillic.</p>
@@ -2779,7 +2779,7 @@ const ARTICLES = [
             • Serbia emphasizes Cyrillic script<br>
             • Bosnia uses both (it's ethnically/religiously mixed)</p>
             
-            <p>Same language, different alphabets, different national identities. The alphabet isn't just a writing system — it's a statement about who you are. Learn more about this unique linguistic situation in our article on <a href="#" onclick="showArticle('serbian-cyrillic-vs-latin'); return false;">Serbian: the only language that writes both ways</a>.</p>
+            <p>Same language, different alphabets, different national identities. The alphabet isn't just a writing system — it's a statement about who you are. Learn more about this unique linguistic situation in our article on <a href="/articles/serbian-cyrillic-vs-latin" onclick="navTo(event, null, 'serbian-cyrillic-vs-latin')">Serbian: the only language that writes both ways</a>.</p>
 
             <h3>Why Not Just Pick One?</h3>
             
@@ -2879,7 +2879,7 @@ const ARTICLES = [
 
             <h3>The S-Tier Letters (Easy Mode)</h3>
             
-            <p>These 5 letters look like English AND sound like English. We call these S-tier because they're the easiest to learn—check out our <a href="#" onclick="showArticle('cyrillic-tier-list'); return false;">complete difficulty ranking</a> to see how all 33 letters compare. Master these first:</p>
+            <p>These 5 letters look like English AND sound like English. We call these S-tier because they're the easiest to learn—check out our <a href="/articles/cyrillic-tier-list" onclick="navTo(event, null, 'cyrillic-tier-list')">complete difficulty ranking</a> to see how all 33 letters compare. Master these first:</p>
             
             <p><strong>А</strong> = "a" (like in "father")<br>
             <strong>К</strong> = "k" (like in "kite")<br>
@@ -3085,7 +3085,7 @@ const ARTICLES = [
             
             <p>Result: DЯAGO instead of proper Cyrillic ДРАГО.</p>
             
-            <p>To anyone who knows Cyrillic, this reads as "DYAAGO" — nonsense. But to Western audiences, it looked Russian enough. We dive deep into this phenomenon in our article about <a href="#" onclick="showArticle('backwards-r-myth'); return false;">the backwards R myth and faux Cyrillic</a>.</p>
+            <p>To anyone who knows Cyrillic, this reads as "DYAAGO" — nonsense. But to Western audiences, it looked Russian enough. We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
             
             <p><strong>Red Dawn (1984):</strong><br>
             Soviet paratroopers invade a small American town. Cyrillic appears on military vehicles and propaganda posters. Again, often incorrect — mixing Cyrillic and Latin letters in ways that make no sense.</p>
@@ -3307,13 +3307,13 @@ const ARTICLES = [
 
             <p>The creators of Cyrillic needed letters for sounds like "zh" (Ж), "ts" (Ц), "ch" (Ч), "sh" (Ш), "shch" (Щ), and the uniquely Slavic "y" sound (Ы). They also needed the hard and soft signs (Ъ and Ь) which modify how preceding consonants are pronounced. And they added Э, Ю, and Я for vowel sounds that Greek couldn't represent.</p>
 
-            <p>Some of these extra letters came from the earlier Glagolitic alphabet (the first Slavic writing system, which predated Cyrillic). Others were invented specifically for the new alphabet. If you're curious about Glagolitic and its relationship to Cyrillic, we have a <a href="#" onclick="showArticle('glagolitic'); return false;">deep dive into the Glagolitic alphabet</a> that covers its bizarre and beautiful letter forms.</p>
+            <p>Some of these extra letters came from the earlier Glagolitic alphabet (the first Slavic writing system, which predated Cyrillic). Others were invented specifically for the new alphabet. If you're curious about Glagolitic and its relationship to Cyrillic, we have a <a href="/articles/glagolitic" onclick="navTo(event, null, 'glagolitic')">deep dive into the Glagolitic alphabet</a> that covers its bizarre and beautiful letter forms.</p>
 
             <h3>What Greek Kept</h3>
 
             <p>Greek has four letters that Cyrillic chose not to adopt: <strong>Θ (Theta)</strong>, <strong>Ξ (Xi)</strong>, <strong>Ψ (Psi)</strong>, and <strong>Ω (Omega)</strong>.</p>
 
-            <p>Theta's "th" sound doesn't exist in Slavic languages. Xi's "ks" and Psi's "ps" sounds can be written with letter combinations in Cyrillic (КС and ПС), so dedicated letters weren't needed. Omega's "o" sound was already covered by О. Interestingly, Cyrillic did originally borrow some of these letters (the early alphabet included variants of Xi and Psi), but they were dropped during later reforms because they were redundant. You can read about those and other <a href="#" onclick="showArticle('lost-letters'); return false;">lost letters of Cyrillic</a> that didn't survive.</p>
+            <p>Theta's "th" sound doesn't exist in Slavic languages. Xi's "ks" and Psi's "ps" sounds can be written with letter combinations in Cyrillic (КС and ПС), so dedicated letters weren't needed. Omega's "o" sound was already covered by О. Interestingly, Cyrillic did originally borrow some of these letters (the early alphabet included variants of Xi and Psi), but they were dropped during later reforms because they were redundant. You can read about those and other <a href="/articles/lost-letters" onclick="navTo(event, null, 'lost-letters')">lost letters of Cyrillic</a> that didn't survive.</p>
 
             <h3>If You Know One, How Much of the Other Can You Read?</h3>
 
@@ -3321,7 +3321,7 @@ const ARTICLES = [
 
             <p>Going the other direction is similar. If you know Cyrillic, you can look at the Greek alphabet and instantly spot the letters you already know. The Greek-only letters (Θ, Ξ, Ψ, Ω) will be new, but there are only four of them.</p>
 
-            <p>The biggest hazard in both directions is the false friends. Your brain will see Н and try to apply whichever sound you learned first. Retraining those automatic associations takes practice, and it's the same challenge English speakers face when learning either alphabet independently. If you want to build that recognition skill, our <a href="#" onclick="showArticle('false-friends'); return false;">false friends guide</a> covers the most confusing letter pairs in detail.</p>
+            <p>The biggest hazard in both directions is the false friends. Your brain will see Н and try to apply whichever sound you learned first. Retraining those automatic associations takes practice, and it's the same challenge English speakers face when learning either alphabet independently. If you want to build that recognition skill, our <a href="/articles/false-friends" onclick="navTo(event, null, 'false-friends')">false friends guide</a> covers the most confusing letter pairs in detail.</p>
 
             <div class="quiz-cta">
                 <p>Ready to learn the Cyrillic side of the family? Our interactive quiz lets you practice all 33 letters at your own pace.</p>
@@ -3332,7 +3332,7 @@ const ARTICLES = [
 
             <p>The relationship between Greek and Cyrillic isn't just a linguistic curiosity. It reflects a thousand years of cultural transmission, from Byzantine missionaries to Slavic kingdoms to modern nation-states. Every time you write a Cyrillic А, you're using a letter that traveled from Phoenician traders to Greek scholars to Slavic monks, accumulating meaning and history at every stop.</p>
 
-            <p>For learners, the practical takeaway is encouraging: these alphabets are more alike than they are different. The shared foundation means that learning one genuinely helps with the other. And understanding where the letters came from makes them easier to remember, because each letter has a story behind it. For the full timeline of how Cyrillic evolved from those Greek roots into the alphabet used by 250 million people today, check out our <a href="#" onclick="showArticle('history-of-cyrillic'); return false;">complete history of Cyrillic</a>.</p>
+            <p>For learners, the practical takeaway is encouraging: these alphabets are more alike than they are different. The shared foundation means that learning one genuinely helps with the other. And understanding where the letters came from makes them easier to remember, because each letter has a story behind it. For the full timeline of how Cyrillic evolved from those Greek roots into the alphabet used by 250 million people today, check out our <a href="/articles/history-of-cyrillic" onclick="navTo(event, null, 'history-of-cyrillic')">complete history of Cyrillic</a>.</p>
         
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
@@ -3437,7 +3437,7 @@ const ARTICLES = [
 
             <p>The English press, for instance, has spent decades misrendering Russian names because of Ё confusion. Khrushchev's name in Russian is actually Хрущёв — pronounced Khrushchyov, not Khrushchev. Gorbachev is Горбачёв — pronounced Gorbachyov. The transliterations we grew up with reflect a stripped-down version of names that Russians themselves often write incorrectly.</p>
 
-            <p>For more on the letters that fool English speakers in general, you might enjoy our guide to <a href="#" onclick="showArticle('memory-tricks'); return false;">memory tricks for confusing Cyrillic letters</a>, which covers Ё alongside other tricky characters. And if you're interested in the deeper history of the alphabet, <a href="#" onclick="showArticle('history-of-cyrillic'); return false;">the full history of Cyrillic</a> puts Ё's strange status in context.</p>
+            <p>For more on the letters that fool English speakers in general, you might enjoy our guide to <a href="/articles/memory-tricks" onclick="navTo(event, null, 'memory-tricks')">memory tricks for confusing Cyrillic letters</a>, which covers Ё alongside other tricky characters. And if you're interested in the deeper history of the alphabet, <a href="/articles/history-of-cyrillic" onclick="navTo(event, null, 'history-of-cyrillic')">the full history of Cyrillic</a> puts Ё's strange status in context.</p>
 
             <h3>The Letter That Won't Quite Settle Down</h3>
 
@@ -3573,13 +3573,13 @@ const ARTICLES = [
 
             <p><strong>Learn the switching hotkey cold.</strong> On Windows it's Windows + Space. On Mac it's Control + Space (customizable). On mobile it's the globe icon. Internalize this so switching becomes reflexive rather than an interruption.</p>
 
-            <p><strong>Remember Ё.</strong> The letter Ё is not where you'd expect it on most layouts. On standard ЙЦУКЕН, it's in the top-left corner where you'd expect the tilde (~) on an English keyboard. On the phonetic layout, it often requires a modifier key. If you're curious why this letter is its own whole situation, we've got a <a href="#" onclick="showArticle('letter-yo-story'); return false;">dedicated article on the strange history of Ё</a>.</p>
+            <p><strong>Remember Ё.</strong> The letter Ё is not where you'd expect it on most layouts. On standard ЙЦУКЕН, it's in the top-left corner where you'd expect the tilde (~) on an English keyboard. On the phonetic layout, it often requires a modifier key. If you're curious why this letter is its own whole situation, we've got a <a href="/articles/letter-yo-story" onclick="navTo(event, null, 'letter-yo-story')">dedicated article on the strange history of Ё</a>.</p>
 
             <h3>When You Just Need One Character Quickly</h3>
 
-            <p>Setting up a keyboard makes sense if you type Russian regularly. If you just need a Cyrillic letter or two for a username, a design project, or to paste into a translator, a keyboard setup is overkill. Our <a href="#" onclick="showArticle('cyrillic-copy-paste'); return false;">Cyrillic copy-and-paste tool</a> gives you every letter in the alphabet — including accented letters and pre-reform characters — with one-click copying. No installation, no configuration, works on any device.</p>
+            <p>Setting up a keyboard makes sense if you type Russian regularly. If you just need a Cyrillic letter or two for a username, a design project, or to paste into a translator, a keyboard setup is overkill. Our <a href="/articles/cyrillic-copy-paste" onclick="navTo(event, null, 'cyrillic-copy-paste')">Cyrillic copy-and-paste tool</a> gives you every letter in the alphabet — including accented letters and pre-reform characters — with one-click copying. No installation, no configuration, works on any device.</p>
 
-            <p>For learning the actual letters and their sounds, the <a href="#" onclick="showArticle('russian-alphabet-chart'); return false;">interactive alphabet chart</a> has pronunciation audio for all 33 Russian letters. Learning the alphabet first makes the keyboard layout way less intimidating.</p>
+            <p>For learning the actual letters and their sounds, the <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">interactive alphabet chart</a> has pronunciation audio for all 33 Russian letters. Learning the alphabet first makes the keyboard layout way less intimidating.</p>
 
             <div class="quiz-cta">
                 <p>Got your keyboard set up? Practice typing the letters you just learned with our interactive quiz.</p>
@@ -3602,7 +3602,7 @@ const ARTICLES = [
 
             <p><strong>My Cyrillic shows up as boxes or question marks.</strong> This is a font issue, not a keyboard issue. The app or website you're using doesn't have a font installed that supports Cyrillic. Try a different app. This is rare on modern systems but occasionally happens in older software.</p>
 
-            <p><strong>I need to type Russian on a shared computer where I can't install anything.</strong> Use an online virtual Russian keyboard. Several free websites let you type Russian via an on-screen layout and copy the result. Our <a href="#" onclick="showArticle('cyrillic-copy-paste'); return false;">copy-and-paste tool</a> works in this scenario too, including the text builder for longer phrases.</p>
+            <p><strong>I need to type Russian on a shared computer where I can't install anything.</strong> Use an online virtual Russian keyboard. Several free websites let you type Russian via an on-screen layout and copy the result. Our <a href="/articles/cyrillic-copy-paste" onclick="navTo(event, null, 'cyrillic-copy-paste')">copy-and-paste tool</a> works in this scenario too, including the text builder for longer phrases.</p>
 
             <p>Most first-time Russian typists get over the initial confusion within a couple of hours of practice. If you stick with it, within a week you'll be switching between keyboards without thinking about it. The setup is the hard part. The typing becomes automatic pretty quickly.</p>
         
@@ -3663,7 +3663,7 @@ const ARTICLES = [
 
             <h3>Who Needs This?</h3>
 
-            <p><strong>Language Learners:</strong> Copy individual letters while you're still getting comfortable with the Cyrillic keyboard layout. If you type Russian often enough that copy-paste gets tedious, our <a href="#" onclick="showArticle('how-to-type-cyrillic'); return false;">complete Cyrillic keyboard setup guide</a> walks through the process for every major platform.</p>
+            <p><strong>Language Learners:</strong> Copy individual letters while you're still getting comfortable with the Cyrillic keyboard layout. If you type Russian often enough that copy-paste gets tedious, our <a href="/articles/how-to-type-cyrillic" onclick="navTo(event, null, 'how-to-type-cyrillic')">complete Cyrillic keyboard setup guide</a> walks through the process for every major platform.</p>
 
             <p><strong>Teachers and Textbook Authors:</strong> The accented vowels are especially useful for creating learning materials with stress marks — something that's surprisingly tedious to type otherwise.</p>
 
