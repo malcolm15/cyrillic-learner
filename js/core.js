@@ -578,6 +578,16 @@ function removeArticleSchema() {
     if (twitterUrl) twitterUrl.setAttribute('content', DEFAULT_URL);
 }
 
+function navTo(event, path, slug) {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1) return;
+    event.preventDefault();
+    if (slug) {
+        showArticle(slug);
+    } else {
+        showPage(path);
+    }
+}
+
 // Article navigation functions
 function showArticle(articleId) {
     const article = ARTICLES.find(a => a.id === articleId);
@@ -1401,6 +1411,7 @@ window.addEventListener('popstate', (event) => {
 window.showArticle = showArticle;
 window.showArticleIndex = showArticleIndex;
 window.showPage = showPage;
+window.navTo = navTo;
 window.navigateArticle = navigateArticle;
 window.burstConfetti = burstConfetti;
 window.toggleMenu = toggleMenu;
