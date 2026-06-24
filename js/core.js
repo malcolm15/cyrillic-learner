@@ -651,9 +651,10 @@ function showArticle(articleId) {
         relatedIds.forEach(relatedId => {
             const relatedArticle = ARTICLES.find(a => a.id === relatedId);
             if (relatedArticle) {
-                const card = document.createElement('div');
+                const card = document.createElement('a');
                 card.className = 'related-article-card';
-                card.onclick = () => showArticle(relatedId);
+                card.href = '/articles/' + relatedId;
+                card.onclick = (e) => navTo(e, null, relatedId);
                 
                 // Extract first sentence or first 120 chars for preview
                 const tempDiv = document.createElement('div');

@@ -2683,6 +2683,9 @@
     background: white;
     cursor: pointer;
     transition: all 0.2s;
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
 .related-article-card:hover {
