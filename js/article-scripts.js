@@ -809,19 +809,3 @@ function generateGroupQuizHTML(prefix, groupNum, count, title, subtitle) {
         </div>`;
 }
 
-ArticleScripts['cyrillic-alphabet-chart'] = function() {
-    const quizGroups = [
-        { num: 1, prefix: 'cg1', count: 4, title: 'Drill: Easy Vowels', subtitle: 'Quick round — 4 letters you already know.' },
-        { num: 2, prefix: 'cg2', count: 6, title: 'Drill: Tricky Vowels', subtitle: '6 vowels that don\'t exist in English. Let\'s see how you do.' },
-        { num: 3, prefix: 'cg3', count: 5, title: 'Drill: False Friend Consonants', subtitle: '5 letters that look familiar but sound different. Watch out.' },
-        { num: 4, prefix: 'cg4', count: 10, title: 'Drill: Easy Consonants', subtitle: 'The big round — 10 consonants. New shapes, familiar sounds.' },
-        { num: 5, prefix: 'cg5', count: 6, title: 'Drill: Weird Unique Letters', subtitle: '6 letters unlike anything in English. The final challenge.' }
-    ];
-
-    quizGroups.forEach(g => {
-        const placeholder = document.getElementById(g.prefix + '-quiz-placeholder');
-        if (placeholder) {
-            placeholder.innerHTML = generateGroupQuizHTML(g.prefix, g.num, g.count, g.title, g.subtitle);
-        }
-    });
-};
