@@ -3697,7 +3697,11 @@ const ARTICLES = [
         title: 'Russian Alphabet Chart: All 33 Letters with Pronunciation',
         relatedArticles: ['getting-started', 'false-friends', 'memory-tricks'],
         content: `
-            <p>Here's every letter in the Russian alphabet, organized so you can actually learn them. Click any letter to hear how it's pronounced. Filter by vowels or consonants. Use this as your reference while you practice.</p>
+            <p>The Russian alphabet has 33 letters, and this interactive chart lets you hear every one of them. Click any letter to play its pronunciation, filter by vowels or consonants, and see how each Russian Cyrillic letter maps to its sound in English.</p>
+
+            <p>If you are just starting out, this is the page to bookmark. Some Russian letters look exactly like English ones and sound the same, a few look familiar but sound completely different, and a handful are brand new shapes. The chart below groups all 33 so you can see those patterns at a glance instead of memorizing a random list.</p>
+
+            <p>Use it however helps most. Tap through the vowels first to get the foundation, drill the consonants, or jump straight to the letters you keep forgetting. Every letter plays real recorded audio, so you are learning how Russian actually sounds, not guessing from a transliteration.</p>
 
             <div id="alphabet-controls" style="margin: 30px 0; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
                 <div style="display: flex; gap: 10px;">
