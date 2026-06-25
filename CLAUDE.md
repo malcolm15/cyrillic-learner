@@ -39,9 +39,6 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
 - `index.html`: the SPA shell and all page content (home, about, settings, contact,
   privacy, the articles list, the reference table). Pages are sections toggled by a
   `.active` class via `showPage()`.
-- `404.html`: a byte-for-byte mirror of index.html. **It is functionally dead on
-  Netlify** (see Hosting). It is no longer needed for routing and does not need to be
-  updated when adding articles. Flagged for eventual removal.
 - `css/styles.css`: all styles, including the dark mode token system.
 - `js/core.js`: SPA router, settings, study-quiz data (`CYRILLIC_DATA`), article
   metadata (`ARTICLE_META`, `ARTICLE_ORDER`), dynamic SEO/schema injection, and audio
@@ -52,7 +49,7 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
   (`QUIZ_CONFIGS`, `initArticleQuizzes()`), the copy-paste tool, embedded mini
   quizzes, and a separate audio function (`playAudio`).
 - `images/`, `audio/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
-  namespace), `CNAME` (dead GitHub-era leftover, harmless, removable).
+  namespace).
 
 Two cross-file gotchas:
 - **Audio is triggered in two places:** `playPronunciation()` in core.js (study quiz
@@ -68,8 +65,8 @@ Two cross-file gotchas:
   atomic, so there is no partial-upload problem (this is a change from the old GitHub
   Pages manual-upload era; ignore any older guidance about uploading files together).
 - Routing: `_redirects` contains `/* /index.html 200`, so every route, including
-  unknown paths, is served `index.html` with a real 200 status. This is why `404.html`
-  is never used for routing and why a single article only needs `index.html` updated.
+  unknown paths, is served `index.html` with a real 200 status. A single article only
+  needs `index.html` updated.
 - **Cloudflare caches JS and CSS.** After a push, a hard refresh or Cloudflare purge
   may be needed to see changes. If a code change appears not to have taken effect,
   suspect cache before suspecting the code, and verify the function actually loaded
@@ -82,10 +79,9 @@ nothing for months despite all the content existing. Migrating to Netlify on
 2026-05-22 (the `/* /index.html 200` rule) fixed this; indexed pages jumped from 1 to
 23 within a week. Lesson carried forward: when something is checkable (Search Console,
 config files, live behavior), check it rather than reasoning from general claims like
-"Google handles JavaScript fine." Dead leftovers from that era still in the repo:
-`404.html`, the `CNAME` file, and a dead `sessionStorage.getItem('redirect')` check in
-core.js (around line 1333) whose matching relay script no longer exists. All removable
-as a small cleanup when desired.
+"Google handles JavaScript fine." Those leftovers have since been cleaned up: `404.html`, the `CNAME` file, and a dead
+`sessionStorage.getItem('redirect')` check in core.js whose matching relay script no
+longer existed. All removed June 2026.
 
 ## Dark mode (AMOLED)
 Toggled by the `body.dark-mode` class, persisted in localStorage under `darkMode`
@@ -113,8 +109,7 @@ all-caps display font for the logo, most headings, and buttons), and Merriweathe
 deliberately use IBM Plex Mono for legibility rather than Bebas Neue.
 
 ## Adding an article (checklist)
-A new article touches FOUR places, all using the identical slug (404.html is no longer
-required):
+A new article touches FOUR places, all using the identical slug:
 1. `js/articles.js`: the article object (`id`, `title`, `relatedArticles`, `content`).
 2. `js/core.js`: an `ARTICLE_META` entry (`section`, `published`, `modified`,
    `keywords`; all four required or schema injection breaks) and the slug placed in
@@ -126,8 +121,15 @@ required):
 Categories (exact strings): `Getting Started`, `Alphabet Variants`,
 `History & Culture`, `Learning Tools & Resources`.
 
-Conventions: `relatedArticles` is always exactly 3 slugs. Internal links use
-`<a href="#" onclick="showArticle('slug'); return false;">`. In-article section
+Conventions: `relatedArticles` is always exactly 3 slugs. Internal navigation links
+use real hrefs, never `href="#"`. Three patterns:
+- Article-to-article links: `<a href="/articles/SLUG" onclick="navTo(event, null, 'SLUG')">text</a>`
+- Homepage quick-start strip (two-step navigation): `<a href="/articles/SLUG" onclick="navToArticle(event, 'SLUG')">text</a>`
+- Page links (about, settings, etc.): `<a href="/PAGE" onclick="navTo(event, 'PAGE', null)">label</a>`
+
+The real href is required so right-click, middle-click, and Cmd/Ctrl-click open in a
+new tab. `navTo` and `navToArticle` intercept plain left-clicks for fast in-app SPA
+navigation; modifier-clicks fall through to the browser. In-article section
 headings are `<h3>`. Comparison tables use the `.comparison-table` class with
 `.big-letter` spans for Cyrillic characters (light, dark, and mobile styles exist).
 Articles end with the standard quiz-cta and share-section blocks; copy the
@@ -154,12 +156,12 @@ Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode rep
 Matrix mode, homepage quick-start strip redesign, desktop compaction on home and
 static pages, privacy policy cleanup (AdSense/consent copy removed until ads are
 live), audio fixes for Й (wiring) and Ь (playback rate), a new article on Cyrillic
-letters not in Russian, and noindexing of the contact/privacy/about pages.
+letters not in Russian, noindexing of the contact/privacy/about pages, and removal of
+dead GitHub-era artifacts (404.html, CNAME, the sessionStorage redirect check).
 
 Open or upcoming: one audio file (the letter А) is being re-recorded by an external
 contributor. Possible future work: a faux Cyrillic decoder article, a travel-signage
-reference article, audio for non-Russian letters, removing the dead GitHub-era
-artifacts (404.html, CNAME, the dead redirect check), and AdSense reapplication once
+reference article, audio for non-Russian letters, and AdSense reapplication once
 readiness justifies it. The `/articles` page has one remaining benign
 duplicate-canonical entry in Search Console that is intentionally left alone.
 
