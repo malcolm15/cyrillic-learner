@@ -2255,6 +2255,8 @@
             border-radius: var(--border-radius-sm);
             cursor: pointer;
             transition: background var(--transition-fast);
+            text-decoration: none;
+            color: inherit;
         }
 
         .quick-start-item:hover {
