@@ -588,6 +588,13 @@ function navTo(event, path, slug) {
     }
 }
 
+function navToArticle(event, slug) {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1) return;
+    event.preventDefault();
+    showPage('articles');
+    setTimeout(() => showArticle(slug), 100);
+}
+
 // Article navigation functions
 function showArticle(articleId) {
     const article = ARTICLES.find(a => a.id === articleId);
@@ -1413,6 +1420,7 @@ window.showArticle = showArticle;
 window.showArticleIndex = showArticleIndex;
 window.showPage = showPage;
 window.navTo = navTo;
+window.navToArticle = navToArticle;
 window.navigateArticle = navigateArticle;
 window.burstConfetti = burstConfetti;
 window.toggleMenu = toggleMenu;
