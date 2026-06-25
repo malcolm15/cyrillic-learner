@@ -1202,7 +1202,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Ready to test your Cyrillic knowledge?</p>
-                <a href="#" onclick="showPage('quiz'); return false;" class="quiz-cta-btn">Take the Free Quiz</a>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null); if(!event.metaKey&&!event.ctrlKey&&!event.shiftKey){ setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100); }">Take the Free Quiz</a>
             </div>
 
             <h3>What's Missing: Ё, Ы, and Э</h3>
