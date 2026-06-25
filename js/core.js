@@ -1346,14 +1346,6 @@ window.addEventListener('popstate', (event) => {
 
 // Load correct page on initial page load based on URL
 (function() {
-    // Check if redirected from 404.html (direct URL visit)
-    const redirect = sessionStorage.getItem('redirect');
-    if (redirect) {
-        sessionStorage.removeItem('redirect');
-        // Use the redirect path
-        window.history.replaceState({}, '', redirect);
-    }
-    
     const path = window.location.pathname;
     let pageName = 'home';
     
