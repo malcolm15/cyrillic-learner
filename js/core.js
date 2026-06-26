@@ -751,28 +751,38 @@ function showArticleIndex() {
 // Share button functions
 function copyArticleLink(articleId, articleTitle) {
     const url = `https://cyrilica.com/articles/${articleId}`;
-    
-    // Copy to clipboard
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(() => {
-            // Show feedback
-            const btn = event.target.closest('.share-btn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '✓ Copied!';
-            btn.classList.add('copied');
-            
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.classList.remove('copied');
-            }, 2000);
-        }).catch(err => {
+    const btn = event.target.closest('.share-btn');
+    const originalText = btn.innerHTML;
+
+    function showCopied() {
+        btn.innerHTML = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.classList.remove('copied');
+        }, 2000);
+    }
+
+    function fallback() {
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+            document.execCommand('copy');
+            showCopied();
+        } catch (err) {
             console.error('Failed to copy:', err);
-            // Fallback: show URL in alert
-            prompt('Copy this link:', url);
-        });
+        }
+        document.body.removeChild(ta);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(showCopied).catch(fallback);
     } else {
-        // Fallback for older browsers
-        prompt('Copy this link:', url);
+        fallback();
     }
 }
 
