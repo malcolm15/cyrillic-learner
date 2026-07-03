@@ -265,64 +265,41 @@ ArticleScripts['russian-alphabet-chart'] = function() {
     
     var currentFilter = 'all';
     
-    // Difficulty colors
-    var difficultyColors = {
-        'easy': '#27ae60',
-        'medium': '#f39c12',
-        'hard': '#e74c3c'
-    };
-    
     function createLetterCard(letter) {
-        var card = document.createElement('div');
-        card.className = 'letter-card';
+        var card = document.createElement('button');
+        card.className = 'letter-card ' + letter.difficulty;
+        card.setAttribute('type', 'button');
         card.setAttribute('data-type', letter.type);
-        card.style.cssText = 'border: 2px solid ' + difficultyColors[letter.difficulty] + '; border-radius: 8px; padding: 15px; background: white; cursor: pointer; transition: all 0.2s;';
-        
-        // Add hover effect
-        card.onmouseenter = function() {
-            this.style.transform = 'translateY(-2px)';
-            this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-        };
-        card.onmouseleave = function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = 'none';
-        };
-        
-        // Character display
-        var charDisplay = document.createElement('div');
-        charDisplay.style.cssText = 'font-size: 48px; font-weight: bold; text-align: center; color: #2c3e50; margin-bottom: 10px;';
-        charDisplay.textContent = letter.char + ' ' + letter.lower;
-        
-        // Sound/pronunciation
-        var soundDisplay = document.createElement('div');
-        soundDisplay.style.cssText = 'font-size: 18px; font-weight: bold; color: ' + difficultyColors[letter.difficulty] + '; text-align: center; margin: 8px 0;';
-        soundDisplay.textContent = letter.sound;
-        
-        // Transliteration
-        var transDisplay = document.createElement('div');
-        transDisplay.style.cssText = 'font-size: 14px; color: #7f8c8d; text-align: center; margin: 5px 0;';
-        transDisplay.textContent = '(' + letter.trans + ')';
-        
-        // Example
-        var exampleDisplay = document.createElement('div');
-        exampleDisplay.style.cssText = 'font-size: 13px; color: #34495e; text-align: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid #ecf0f1;';
-        exampleDisplay.textContent = letter.example;
-        
-        // Audio button (if audio exists)
-        var audioBtn = document.createElement('button');
-        audioBtn.textContent = '🔊 Listen';
-        audioBtn.style.cssText = 'width: 100%; padding: 8px; margin-top: 10px; background: ' + difficultyColors[letter.difficulty] + '; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;';
-        audioBtn.onclick = function(e) {
-            e.stopPropagation();
+        card.setAttribute('aria-label', 'Play pronunciation of ' + letter.char);
+
+        card.onclick = function() {
+            card.classList.add('playing');
+            setTimeout(function() { card.classList.remove('playing'); }, 800);
             playAudio(letter.char);
         };
-        
+
+        var audioIcon = document.createElement('span');
+        audioIcon.className = 'letter-audio-icon';
+        audioIcon.setAttribute('aria-hidden', 'true');
+        audioIcon.textContent = '🔊';
+
+        var charDisplay = document.createElement('div');
+        charDisplay.className = 'letter-chars';
+        charDisplay.textContent = letter.char + ' ' + letter.lower;
+
+        var soundDisplay = document.createElement('div');
+        soundDisplay.className = 'letter-sound';
+        soundDisplay.textContent = letter.sound;
+
+        var exampleDisplay = document.createElement('div');
+        exampleDisplay.className = 'letter-example';
+        exampleDisplay.textContent = letter.example;
+
+        card.appendChild(audioIcon);
         card.appendChild(charDisplay);
         card.appendChild(soundDisplay);
-        card.appendChild(transDisplay);
         card.appendChild(exampleDisplay);
-        card.appendChild(audioBtn);
-        
+
         return card;
     }
     

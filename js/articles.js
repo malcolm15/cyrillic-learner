@@ -3714,7 +3714,7 @@ const ARTICLES = [
                 </div>
             </div>
 
-            <div id="alphabet-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin: 30px 0;">
+            <div id="alphabet-grid" class="alphabet-grid">
                 <!-- Letters will be inserted here by JavaScript -->
             </div>
 
