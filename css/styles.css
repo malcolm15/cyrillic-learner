@@ -2455,6 +2455,7 @@
         body.dark-mode .letter-card .letter-chars { color: var(--dark-text); }
         body.dark-mode .letter-card .letter-example { color: var(--dark-text-dim); }
         body.dark-mode .letter-card.playing { background: rgba(255, 255, 255, 0.06); }
+        body.dark-mode #letter-legend { background: var(--dark-surface); border: 1px solid var(--dark-border); }
 
         /* ==================== DESKTOP COMPACTION (min-width: 769px) ==================== */
         @media (min-width: 769px) {
