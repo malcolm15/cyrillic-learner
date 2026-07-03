@@ -3718,7 +3718,7 @@ const ARTICLES = [
                 <!-- Letters will be inserted here by JavaScript -->
             </div>
 
-            <div id="letter-legend" style="margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+            <div id="letter-legend" style="margin: 30px 0; padding: 20px; border-radius: 8px;">
                 <h4 style="margin-top: 0;">Difficulty Key:</h4>
                 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                     <div><span style="display: inline-block; width: 20px; height: 20px; background: #27ae60; border-radius: 3px; vertical-align: middle;"></span> <strong>Easy</strong> - Similar to English</div>
