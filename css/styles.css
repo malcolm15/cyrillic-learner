@@ -2458,6 +2458,19 @@
         #letter-legend { background: #f8f9fa; }
         body.dark-mode #letter-legend { background: var(--dark-surface); border: 1px solid var(--dark-border); }
 
+        /* ==================== FALSE FRIENDS CARD GRID ==================== */
+        .false-friends-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 24px 0; }
+        @media (max-width: 600px) { .false-friends-grid { grid-template-columns: 1fr; } }
+        .ff-card { background: #ffffff; border: 0.5px solid #ddd; border-radius: 12px; padding: 12px 14px; display: flex; gap: 12px; align-items: center; }
+        .ff-letter { font-size: 34px; font-weight: bold; color: #2c3e50; min-width: 40px; text-align: center; }
+        .ff-body { font-size: 14px; line-height: 1.5; }
+        .ff-wrong { color: #e74c3c; }
+        .ff-right { color: #27ae60; }
+        .ff-example { color: #7f8c8d; margin-top: 2px; }
+        body.dark-mode .ff-card { background: var(--dark-surface); border-color: var(--dark-border); }
+        body.dark-mode .ff-letter { color: var(--dark-text); }
+        body.dark-mode .ff-example { color: var(--dark-text-dim); }
+
         /* ==================== DESKTOP COMPACTION (min-width: 769px) ==================== */
         @media (min-width: 769px) {
             /* Section B: shared chrome */
