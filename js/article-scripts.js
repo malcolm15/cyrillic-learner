@@ -568,7 +568,7 @@ function quizNext(prefix) {
     document.getElementById(prefix + '-current-char-lower').textContent = charData.lower;
     document.getElementById(prefix + '-answer-input').value = '';
     document.getElementById(prefix + '-feedback').textContent = '';
-    document.getElementById(prefix + '-answer-input').focus();
+    document.getElementById(prefix + '-answer-input').focus({ preventScroll: true });
     document.getElementById(prefix + '-progress').textContent = state.questionsAsked + '/' + state.totalCount;
     
     // Setup audio button
