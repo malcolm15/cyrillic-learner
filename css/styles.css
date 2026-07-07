@@ -1133,6 +1133,7 @@
         /* Character Reference Guide */
         .char-reference {
             margin-bottom: 20px;
+            scroll-margin-top: 86px;
         }
 
         .selection-header {
