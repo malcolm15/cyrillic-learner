@@ -3701,7 +3701,7 @@ const ARTICLES = [
 
             <p>If you are just starting out, this is the page to bookmark. Some Russian letters look exactly like English ones and sound the same, a few look familiar but sound completely different, and a handful are brand new shapes. The chart below groups all 33 so you can see those patterns at a glance instead of memorizing a random list.</p>
 
-            <p>Use it however helps most. Tap through the vowels first to get the foundation, drill the consonants, or jump straight to the letters you keep forgetting. Every letter plays real recorded audio, so you are learning how Russian actually sounds, not guessing from a transliteration.</p>
+            <p>Use it however helps most. Tap through the vowels first to get the foundation, drill the consonants, or jump straight to the letters you keep forgetting. Every letter plays real recorded audio, so you are learning how Russian actually sounds, not guessing from a transliteration. When you are ready to make them stick, the <a href="/" onclick="navTo(event, 'home', null)">free study quiz</a> drills you on these exact letters until reading them is automatic.</p>
 
             <div id="alphabet-controls" style="margin: 30px 0; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
                 <div style="display: flex; gap: 10px;">
@@ -3725,6 +3725,11 @@ const ARTICLES = [
                     <div><span style="display: inline-block; width: 20px; height: 20px; background: #f39c12; border-radius: 3px; vertical-align: middle;"></span> <strong>Medium</strong> - False friends or unique shapes</div>
                     <div><span style="display: inline-block; width: 20px; height: 20px; background: #e74c3c; border-radius: 3px; vertical-align: middle;"></span> <strong>Hard</strong> - Completely new sounds</div>
                 </div>
+            </div>
+
+            <div class="quiz-cta">
+                <p>Hearing the letters is step one. Making them stick is step two. Our free study tool quizzes you letter by letter, tracks your streak, and needs no signup.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START PRACTICING</button>
             </div>
 
             <h3>How to Use This Chart</h3>
