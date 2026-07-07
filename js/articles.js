@@ -50,7 +50,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Ready to try the Three-Group Method? Pick your first group and start learning right now.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">PICK YOUR FIRST GROUP</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">PICK YOUR FIRST GROUP</button>
             </div>
 
             <h3>Your First Week (Using This Site)</h3>
@@ -265,7 +265,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Think you can tell these false friends apart? Test yourself with our interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START PRACTICING</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">START PRACTICING</button>
             </div>
             <p>Don't try to learn these mixed in with other letters. Your brain needs to form new, isolated associations. Here's how:</p>
             <ul>
@@ -631,7 +631,7 @@ const ARTICLES = [
             
             <div class="quiz-cta">
                 <p>The lost letters are gone, but the 33 that survived are waiting for you. Learn them all with our free interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">LEARN THE SURVIVORS</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">LEARN THE SURVIVORS</button>
             </div>
 
             <p>The modern Russian alphabet is sleek, efficient, and relatively easy to learn. But lurking beneath it is a vast history of lost letters — characters that served their purpose, outlived their usefulness, and faded into history. They're gone, but they left their mark on the language, the culture, and the endless Cyrillic iceberg memes that language learners love to share.</p>
@@ -725,7 +725,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Ready to put these memory tricks to the test? Our interactive quiz lets you practice each letter until it sticks.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">TEST YOUR MEMORY</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">TEST YOUR MEMORY</button>
             </div>
 
             <h3>Grouping Strategy</h3>
@@ -961,7 +961,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Drilling Cyrillic letters is the fastest way to make them stick. Pick your character groups and start practicing now.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">PRACTICE CYRILLIC NOW</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">PRACTICE CYRILLIC NOW</button>
             </div>
 
             <h3>The Four Russian Letters Ukrainian Doesn't Use</h3>
@@ -1202,7 +1202,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Ready to test your Cyrillic knowledge?</p>
-                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null); if(!event.metaKey&&!event.ctrlKey&&!event.shiftKey){ setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100); }">Take the Free Quiz</a>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">Take the Free Quiz</a>
             </div>
 
             <h3>What's Missing: Ё, Ы, and Э</h3>
@@ -1474,7 +1474,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Now you know the full Cyrillic family tree. Test your Russian core with the free interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START PRACTICING</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">START PRACTICING</button>
             </div>
 
             <div class="share-section">
@@ -1578,7 +1578,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Think you can handle the S-tier letters? Start there and work your way down. Our quiz lets you pick which groups to practice.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START WITH S-TIER</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">START WITH S-TIER</button>
             </div>
 
             <h3>The Learning Journey</h3>
@@ -1803,7 +1803,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Я isn't the only letter that surprises English speakers. Learn all 33 Russian letters with instant feedback on every answer.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">LEARN THE REAL SOUNDS</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">LEARN THE REAL SOUNDS</button>
             </div>
 
             <h3>Why Does This Happen?</h3>
@@ -1989,7 +1989,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Before you write, make sure you can recognize each letter. Our quiz builds letter recognition fast.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">BUILD RECOGNITION FIRST</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">BUILD RECOGNITION FIRST</button>
             </div>
 
             <h3>Practice Method: The Proven System</h3>
@@ -2400,7 +2400,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Inspired by 1,150 years of alphabet history? Learn the modern Cyrillic alphabet with our free interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START LEARNING</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">START LEARNING</button>
             </div>
 
             <h3 id="learning-today">Learning Cyrillic Today</h3>
@@ -3325,7 +3325,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Ready to learn the Cyrillic side of the family? Our interactive quiz lets you practice all 33 letters at your own pace.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">TRY THE QUIZ</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">TRY THE QUIZ</button>
             </div>
 
             <h3>Two Alphabets, One Story</h3>
@@ -3426,7 +3426,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Want to learn all 33 Russian letters, including Ё? Our interactive quiz adapts to your level.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">LEARN THE ALPHABET</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">LEARN THE ALPHABET</button>
             </div>
 
             <h3>What This Means for Learners</h3>
@@ -3583,7 +3583,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Got your keyboard set up? Practice typing the letters you just learned with our interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START TYPING PRACTICE</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">START TYPING PRACTICE</button>
             </div>
 
             <h3>Which Platform Is Easiest?</h3>
@@ -3729,7 +3729,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Hearing the letters is step one. Making them stick is step two. Our free study tool quizzes you letter by letter, tracks your streak, and needs no signup.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home'); setTimeout(function(){ document.querySelector('.card')?.scrollIntoView({behavior:'smooth'}) }, 100);">START PRACTICING</button>
+                <button class="quiz-cta-btn" onclick="showPage('home')">START PRACTICING</button>
             </div>
 
             <h3>How to Use This Chart</h3>
