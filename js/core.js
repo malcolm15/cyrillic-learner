@@ -432,7 +432,15 @@ function injectArticleSchema(articleId, article) {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = article.content;
     const firstPara = tempDiv.querySelector('p');
-    const description = firstPara ? firstPara.textContent.substring(0, 200).trim() + '...' : '';
+    let description = '';
+    if (firstPara) {
+        const firstParaText = firstPara.textContent.trim();
+        let desc = firstParaText.substring(0, 155);
+        if (firstParaText.length > 155) {
+            desc = desc.substring(0, desc.lastIndexOf(' ')) + '...';
+        }
+        description = desc;
+    }
 
     // Estimate word count from text content
     const wordCount = tempDiv.textContent.replace(/\s+/g, ' ').trim().split(' ').length;
