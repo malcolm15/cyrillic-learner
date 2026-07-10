@@ -21,13 +21,30 @@ Orientation for Claude Code (CC). Read this at the start of every session.
 - **Audit-first.** Read before you write. Show findings before changing anything. For
   structural work, run a read-only Phase 1 audit and stop at a gate for review before
   any Phase 2 build.
+- **Exhaustive verification for structural or destructive changes.** For any
+  change that deletes code, removes a function, or claims a complete inventory
+  (e.g. "every occurrence of X", "all N instances", "this class is used nowhere
+  else"), do not trust a reasoned scan. Use an exhaustive search (grep the whole
+  file/repo for the literal string) and report the raw count. Before deleting any
+  function or file, prove that whatever replaces or supersedes it actually covers
+  every case the deleted code handled, case by case. This applies regardless of
+  which model is running. (Context: audits have come back incomplete more than
+  once when relying on a reasoned pass instead of an exhaustive one, and a "just
+  delete it" recommendation would have broken direct article loading if not
+  verified first.)
 - **Show the diff before applying.** Never write or commit until approved.
 - **One source of truth.** No duplicated data or functions that can drift. Reuse
   shared functions, tokens, and data.
 - **Low risk tolerance.** Conservative, well-scoped changes. When in doubt, do less
   and confirm. Confirm a class or selector is not reused elsewhere before changing it.
 - **No em-dashes anywhere**, including code comments, articles, and any copy. Use
-  commas, periods, or parentheses.
+  commas, periods, or parentheses. This applies to ALL article body prose, not
+  only code and examples; approximately 300 em-dashes in article prose were
+  removed in commit f03a815. Exception: five em-dashes are intentionally kept in
+  how-to-type-cyrillic (lines approximately 3482 and 3530), where the OS keyboard
+  layout names "Russian — Phonetic", "Russian — Mnemonic", and "Russian — PC"
+  contain em-dashes as displayed in the Windows and macOS UI. Changing them would
+  make the typing instructions inaccurate. Do not "fix" these.
 - **Commit separately, push together.** Logically distinct changes get their own
   commits with clear messages, pushed as a batch.
 - **Desktop and mobile are separate concerns.** Desktop-only changes go inside
