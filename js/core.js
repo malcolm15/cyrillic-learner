@@ -1296,7 +1296,19 @@ initReference();
         // Article detail page
         const articleId = path.substring(10); // Remove '/articles/'
         if (articleId && articleId !== '') {
-            showPage('articles');
+            // Activate the articles page without going through showPage(), which
+            // calls removeArticleSchema() (resetting the canonical the inline
+            // <head> script already set correctly) and pushState('/articles')
+            // (corrupting the URL before the article loads).
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.getElementById('articles-page').classList.add('active');
+            document.getElementById('articles-index').style.display = 'none';
+            document.getElementById('article-view').style.display = 'none';
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            const articlesNavLink = safeGetNavLink('articles');
+            if (articlesNavLink) articlesNavLink.classList.add('active');
+            document.getElementById('nav-links').classList.remove('active');
+            window.scrollTo(0, 0);
             setTimeout(() => {
                 showArticle(articleId);
             }, 100);
