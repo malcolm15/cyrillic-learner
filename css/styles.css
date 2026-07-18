@@ -3112,6 +3112,171 @@ body.dark-mode .mini-stat span:last-child {
     }
 }
 
+/* ==================== CURSIVE STROKE ORDER ==================== */
+
+.cursive-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.cursive-letter-btn {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    line-height: 1;
+    min-width: 56px;
+    min-height: 56px;
+    padding: 8px 12px;
+    border: 2px solid var(--charcoal);
+    background: var(--paper);
+    color: var(--charcoal);
+    cursor: pointer;
+    border-radius: var(--border-radius-sm);
+    transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cursive-letter-btn:hover {
+    background: var(--charcoal);
+    color: white;
+}
+
+.cursive-letter-btn--active {
+    background: var(--dark-blue);
+    color: white;
+    border-color: var(--dark-blue);
+}
+
+body.dark-mode .cursive-letter-btn {
+    background: var(--dark-surface);
+    border-color: var(--dark-accent);
+    color: var(--dark-text);
+}
+
+body.dark-mode .cursive-letter-btn:hover,
+body.dark-mode .cursive-letter-btn--active {
+    background: var(--dark-accent);
+    color: var(--dark-bg);
+    border-color: var(--dark-accent);
+}
+
+.cursive-stage-wrap {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.cursive-stage {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    background: var(--paper);
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius-sm);
+}
+
+body.dark-mode .cursive-stage {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+.cursive-guide {
+    stroke: #d8d8d8;
+    stroke-width: 1;
+    fill: none;
+}
+
+body.dark-mode .cursive-guide {
+    stroke: #303030;
+}
+
+.cursive-stroke {
+    fill: none;
+    stroke: var(--charcoal);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.cursive-stroke--opt {
+    stroke-width: 5;
+    opacity: 0.75;
+}
+
+body.dark-mode .cursive-stroke {
+    stroke: var(--dark-text);
+}
+
+.cursive-dot-start,
+.cursive-dot-tip {
+    fill: #c00;
+}
+
+body.dark-mode .cursive-dot-start,
+body.dark-mode .cursive-dot-tip {
+    fill: var(--dark-accent-bright);
+}
+
+.cursive-stage-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.cursive-ctrl-btn {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    padding: 8px 20px;
+    min-height: 44px;
+    border: 2px solid var(--charcoal);
+    background: var(--paper);
+    color: var(--charcoal);
+    cursor: pointer;
+    border-radius: var(--border-radius-sm);
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.cursive-ctrl-btn:hover {
+    background: var(--charcoal);
+    color: white;
+}
+
+.cursive-slow--active {
+    background: var(--dark-blue);
+    color: white;
+    border-color: var(--dark-blue);
+}
+
+body.dark-mode .cursive-ctrl-btn {
+    background: var(--dark-bg);
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+
+body.dark-mode .cursive-ctrl-btn:hover,
+body.dark-mode .cursive-slow--active {
+    background: var(--dark-accent);
+    color: var(--dark-bg);
+    border-color: var(--dark-accent);
+}
+
+.cursive-caption {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0 0 20px;
+    min-height: 1.4em;
+    font-style: italic;
+}
+
+body.dark-mode .cursive-caption {
+    color: var(--dark-text-dim);
+}
+
 /* ==================== PRINTABLE CHART ==================== */
 #print-controls {
     display: flex;

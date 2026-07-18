@@ -852,3 +852,243 @@ function generateGroupQuizHTML(prefix, groupNum, count, title, subtitle) {
         </div>`;
 }
 
+// ==================== CURSIVE STROKE ORDER ====================
+// Single source of truth for cursive letterform paths.
+// Coordinate system: viewBox 0 0 240 200, baseline y=145, x-height y=45.
+// Paths are designed in straight coordinates; the engine applies skewX(-10)
+// to the letter group at render time for a natural rightward cursive slant.
+// Each arch uses two cubics (rise + fall) with horizontal tangents at the
+// peak, producing rounded tops rather than pointed ones.
+
+var CURSIVE_STROKES = {
+    // t: three rounded arches (like Latin m). Stroke 2 is the optional bar.
+    'т': [
+        { d: 'M 20,145 C 20,85 30,45 45,45 C 60,45 65,85 65,145 C 65,85 75,45 90,45 C 105,45 110,85 110,145 C 110,85 120,45 135,45 C 150,45 155,85 155,145 L 170,145', optional: false, label: null },
+        { d: 'M 15,30 L 165,30',                                                                                                                                                          optional: true,  label: 'optional bar' }
+    ],
+    // i: two cups rounded on the bottom (like a double u)
+    'и': [
+        { d: 'M 20,45 C 20,100 22,145 40,145 C 58,145 60,100 60,45 C 60,100 62,145 80,145 L 100,145', optional: false, label: null }
+    ],
+    // sh: three cups rounded on the bottom
+    'ш': [
+        { d: 'M 20,45 C 20,100 22,145 40,145 C 58,145 60,100 60,45 C 60,100 62,145 80,145 C 98,145 100,100 100,45 C 100,100 102,145 120,145 L 140,145', optional: false, label: null }
+    ],
+    // l: lead-in hook then one arch
+    'л': [
+        { d: 'M 22,130 C 10,110 10,145 28,140 C 40,137 44,88 48,45 C 62,45 64,85 64,145 L 82,145', optional: false, label: null }
+    ],
+    // m: lead-in hook then two arches
+    'м': [
+        { d: 'M 22,130 C 10,110 10,145 28,140 C 40,137 44,88 48,45 C 62,45 64,85 64,145 C 64,85 74,45 84,45 C 98,45 100,85 100,145 L 115,145', optional: false, label: null }
+    ],
+    // d: counterclockwise oval body, then descender looping below the baseline
+    'д': [
+        { d: 'M 62,145 C 68,85 55,45 38,45 C 18,45 16,100 38,145 C 50,152 62,160 62,178 C 60,190 42,194 26,184 C 12,172 14,145 44,145 L 90,145', optional: false, label: null }
+    ]
+};
+
+ArticleScripts['practice-writing-cyrillic'] = function () {
+    var pickerEl  = document.getElementById('cursive-picker');
+    var stageEl   = document.getElementById('cursive-stage');
+    var groupEl   = document.getElementById('cursive-letter-group');
+    var captionEl = document.getElementById('cursive-caption');
+    var replayBtn = document.getElementById('cursive-replay');
+    var slowBtn   = document.getElementById('cursive-slow');
+    var descGuide = document.getElementById('cursive-guide-descender');
+
+    if (!pickerEl || !stageEl || !groupEl || !captionEl) return;
+
+    var currentLetter = 'т';
+    var slow          = false;
+    var rafId         = null;
+    var timeouts      = [];
+
+    var STROKE_MS = 2000;
+    var SLOW_MULT = 2.5;
+    var PAUSE_MS  = 650;
+    var DOT_HOLD  = 360;
+    var SVG_NS    = 'http://www.w3.org/2000/svg';
+
+    function prefersReduced() {
+        return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function stopAll() {
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        timeouts.forEach(clearTimeout);
+        timeouts = [];
+    }
+
+    function parseFirstPoint(d) {
+        var m = d.match(/M\s*([\d.]+)[,\s]+([\d.]+)/);
+        return m ? { x: parseFloat(m[1]), y: parseFloat(m[2]) } : { x: 0, y: 0 };
+    }
+
+    function makeSvgEl(tag, attrs) {
+        var el = document.createElementNS(SVG_NS, tag);
+        Object.keys(attrs).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+        return el;
+    }
+
+    function buildGroup(letter) {
+        while (groupEl.firstChild) groupEl.removeChild(groupEl.firstChild);
+
+        var strokes = CURSIVE_STROKES[letter];
+        if (!strokes) return;
+
+        var pt0 = parseFirstPoint(strokes[0].d);
+        groupEl.appendChild(makeSvgEl('circle', {
+            id: 'cursive-dot-start', class: 'cursive-dot-start',
+            cx: pt0.x, cy: pt0.y, r: '5', opacity: '0'
+        }));
+
+        strokes.forEach(function (stroke, i) {
+            groupEl.appendChild(makeSvgEl('path', {
+                id: 'cursive-path-' + i,
+                class: stroke.optional ? 'cursive-stroke cursive-stroke--opt' : 'cursive-stroke',
+                d: stroke.d,
+                fill: 'none'
+            }));
+            var pt = parseFirstPoint(stroke.d);
+            groupEl.appendChild(makeSvgEl('circle', {
+                id: 'cursive-dot-tip-' + i, class: 'cursive-dot-tip',
+                cx: pt.x, cy: pt.y, r: '5.5', opacity: '0'
+            }));
+        });
+
+        if (descGuide) descGuide.style.display = (letter === 'д') ? '' : 'none';
+    }
+
+    function setDashState(letter, complete) {
+        var strokes = CURSIVE_STROKES[letter] || [];
+        strokes.forEach(function (s, i) {
+            var p = document.getElementById('cursive-path-' + i);
+            if (!p) return;
+            var len = p.getTotalLength();
+            p.style.strokeDasharray  = len;
+            p.style.strokeDashoffset = complete ? 0 : len;
+        });
+    }
+
+    function animateStroke(index, duration, pause, strokes, letter) {
+        if (index >= strokes.length) {
+            // Restore letter caption after all strokes finish
+            var btn = pickerEl.querySelector('[data-letter="' + letter + '"]');
+            if (btn && captionEl) captionEl.textContent = btn.dataset.caption || '';
+            return;
+        }
+
+        var path     = document.getElementById('cursive-path-' + index);
+        var tipDot   = document.getElementById('cursive-dot-tip-' + index);
+        var startDot = (index === 0) ? document.getElementById('cursive-dot-start') : null;
+
+        if (!path || !tipDot) {
+            animateStroke(index + 1, duration, pause, strokes, letter);
+            return;
+        }
+
+        var totalLen = path.getTotalLength();
+        path.style.strokeDashoffset = totalLen;
+
+        if (startDot) startDot.setAttribute('opacity', '1');
+
+        var t1 = setTimeout(function () {
+            if (startDot) startDot.setAttribute('opacity', '0');
+
+            // Show stroke label in caption if present (e.g. optional bar)
+            if (strokes[index].label && captionEl) captionEl.textContent = strokes[index].label;
+
+            // Snap tip to path start before revealing it
+            var pt0 = parseFirstPoint(strokes[index].d);
+            tipDot.setAttribute('cx', pt0.x);
+            tipDot.setAttribute('cy', pt0.y);
+            tipDot.setAttribute('opacity', '1');
+
+            var t0 = null;
+            rafId = requestAnimationFrame(function tick(ts) {
+                if (!t0) t0 = ts;
+                var progress = Math.min((ts - t0) / duration, 1);
+                path.style.strokeDashoffset = totalLen * (1 - progress);
+                var pt = path.getPointAtLength(progress * totalLen);
+                tipDot.setAttribute('cx', pt.x);
+                tipDot.setAttribute('cy', pt.y);
+                if (progress < 1) {
+                    rafId = requestAnimationFrame(tick);
+                } else {
+                    tipDot.setAttribute('opacity', '0');
+                    rafId = null;
+                    var t2 = setTimeout(function () {
+                        animateStroke(index + 1, duration, pause, strokes, letter);
+                    }, pause);
+                    timeouts.push(t2);
+                }
+            });
+        }, DOT_HOLD);
+        timeouts.push(t1);
+    }
+
+    function play(letter) {
+        stopAll();
+        buildGroup(letter);
+        setDashState(letter, false);
+
+        var strokes  = CURSIVE_STROKES[letter] || [];
+        var duration = slow ? STROKE_MS * SLOW_MULT : STROKE_MS;
+        var pause    = slow ? PAUSE_MS * 2 : PAUSE_MS;
+
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'cursive_animation_played', {
+                'letter': letter, 'speed': slow ? 'slow' : 'normal'
+            });
+        }
+
+        animateStroke(0, duration, pause, strokes, letter);
+    }
+
+    function showStatic(letter) {
+        buildGroup(letter);
+        setDashState(letter, true);
+    }
+
+    function selectLetter(letter, doAnimate) {
+        if (!CURSIVE_STROKES[letter]) return;
+        currentLetter = letter;
+
+        pickerEl.querySelectorAll('.cursive-letter-btn').forEach(function (btn) {
+            var active = btn.dataset.letter === letter;
+            btn.classList.toggle('cursive-letter-btn--active', active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+
+        // Only update caption on user interaction; preserve initial placeholder on init
+        if (doAnimate) {
+            var activeBtn = pickerEl.querySelector('[data-letter="' + letter + '"]');
+            if (activeBtn && captionEl) captionEl.textContent = activeBtn.dataset.caption || '';
+        }
+
+        stopAll();
+
+        if (doAnimate) {
+            prefersReduced() ? showStatic(letter) : play(letter);
+        } else {
+            showStatic(letter);
+        }
+    }
+
+    pickerEl.addEventListener('click', function (e) {
+        var btn = e.target.closest('.cursive-letter-btn');
+        if (btn && btn.dataset.letter) selectLetter(btn.dataset.letter, true);
+    });
+
+    if (replayBtn) replayBtn.addEventListener('click', function () { play(currentLetter); });
+
+    if (slowBtn) slowBtn.addEventListener('click', function () {
+        slow = !slow;
+        slowBtn.classList.toggle('cursive-slow--active', slow);
+    });
+
+    // Preselect t without autoplay; caption stays as the HTML placeholder
+    selectLetter('т', false);
+};
+
