@@ -3111,3 +3111,159 @@ body.dark-mode .mini-stat span:last-child {
         padding: 7px 14px;
     }
 }
+
+/* ==================== PRINTABLE CHART ==================== */
+#print-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0 0 20px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+}
+
+#print-controls .print-intro {
+    color: #666;
+    margin: 0;
+    flex: 1 1 200px;
+}
+
+#print-controls .print-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#print-controls label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #555;
+}
+
+#print-controls .btn-print {
+    padding: 10px 20px;
+    border: 2px solid #e74c3c;
+    background: transparent;
+    color: #e74c3c;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: inherit;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+#print-controls .btn-print:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+body.dark-mode #print-controls .print-intro,
+body.dark-mode #print-controls label {
+    color: var(--dark-text-dim);
+}
+
+body.dark-mode #print-controls .btn-print {
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+
+body.dark-mode #print-controls .btn-print:hover {
+    background: var(--dark-accent);
+    color: white;
+}
+
+/* Hidden on screen; built and shown only at print time */
+#print-chart {
+    display: none;
+}
+
+@media print {
+    @page {
+        size: portrait;
+        margin: 15mm;
+    }
+
+    /* Guard dark-mode body background when background graphics are enabled */
+    html, body {
+        background: white !important;
+    }
+
+    /* Hide the SPA shell; show only the generated print chart */
+    body > *:not(#print-chart) {
+        display: none !important;
+    }
+
+    #print-chart {
+        display: block !important;
+        font-family: Arial, Helvetica, sans-serif;
+        background: white !important;
+        color: #111 !important;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    #print-chart .print-header {
+        text-align: center;
+        margin-bottom: 10mm;
+    }
+
+    #print-chart .print-header h1 {
+        font-size: 22pt;
+        font-weight: bold;
+        margin: 0 0 4pt;
+        color: #000 !important;
+    }
+
+    #print-chart .print-header p {
+        font-size: 11pt;
+        margin: 0;
+        color: #444 !important;
+    }
+
+    #print-chart .print-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 6mm;
+    }
+
+    #print-chart .print-cell {
+        border: 0.5pt solid #ccc !important;
+        border-radius: 2pt;
+        padding: 9pt 4pt;
+        text-align: center;
+        break-inside: avoid;
+        background: white !important;
+    }
+
+    #print-chart .print-chars {
+        display: block;
+        font-size: 24pt;
+        font-weight: bold;
+        line-height: 1.1;
+        color: #000 !important;
+    }
+
+    #print-chart .print-sound {
+        display: block;
+        font-size: 10pt;
+        color: #333 !important;
+        margin-top: 2pt;
+    }
+
+    #print-chart .print-example {
+        display: block;
+        font-size: 8pt;
+        color: #555 !important;
+        margin-top: 3pt;
+    }
+
+    #print-chart .print-footer {
+        text-align: center;
+        font-size: 9pt;
+        color: #888 !important;
+        margin-top: 10mm;
+    }
+}

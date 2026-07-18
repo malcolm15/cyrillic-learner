@@ -389,6 +389,72 @@ ArticleScripts['russian-alphabet-chart'] = function() {
     
     // Initial render
     renderAlphabet('all');
+
+    // Reads russianAlphabet (closed over from this scope) and builds a print-only
+    // DOM subtree appended to body. Called fresh on each print so checkbox state
+    // is always honored.
+    function buildPrintChart(includeExamples) {
+        var existing = document.getElementById('print-chart');
+        if (existing) existing.parentNode.removeChild(existing);
+
+        var container = document.createElement('div');
+        container.id = 'print-chart';
+
+        var header = document.createElement('div');
+        header.className = 'print-header';
+        var title = document.createElement('h1');
+        title.textContent = 'Russian Alphabet Chart';
+        var subtitle = document.createElement('p');
+        subtitle.textContent = 'All 33 letters with pronunciation';
+        header.appendChild(title);
+        header.appendChild(subtitle);
+        container.appendChild(header);
+
+        var grid = document.createElement('div');
+        grid.className = 'print-grid';
+        for (var i = 0; i < russianAlphabet.length; i++) {
+            var letter = russianAlphabet[i];
+            var cell = document.createElement('div');
+            cell.className = 'print-cell';
+            var chars = document.createElement('div');
+            chars.className = 'print-chars';
+            chars.textContent = letter.char + ' ' + letter.lower;
+            var sound = document.createElement('div');
+            sound.className = 'print-sound';
+            sound.textContent = letter.sound;
+            cell.appendChild(chars);
+            cell.appendChild(sound);
+            if (includeExamples) {
+                var example = document.createElement('div');
+                example.className = 'print-example';
+                example.textContent = letter.example;
+                cell.appendChild(example);
+            }
+            grid.appendChild(cell);
+        }
+        container.appendChild(grid);
+
+        var footer = document.createElement('div');
+        footer.className = 'print-footer';
+        footer.textContent = 'cyrilica.com';
+        container.appendChild(footer);
+
+        document.body.appendChild(container);
+    }
+
+    function printChart() {
+        var checkbox = document.getElementById('print-examples-checkbox');
+        var includeExamples = checkbox ? checkbox.checked : true;
+        buildPrintChart(includeExamples);
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'chart_printed', {
+                'include_examples': includeExamples
+            });
+        }
+        window.print();
+    }
+
+    window.printChart = printChart;
 };
 
 // ==================== GENERIC MINI QUIZ ENGINE ====================
