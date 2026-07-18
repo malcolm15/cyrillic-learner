@@ -1998,6 +1998,36 @@ const ARTICLES = [
                 <button class="quiz-cta-btn" onclick="showPage('home')">BUILD RECOGNITION FIRST</button>
             </div>
 
+            <h3>Watch the Tricky Letters Being Written</h3>
+
+            <p>Reading about cursive only gets you so far. The six letters below cause most of the confusion, and the fastest way to make sense of them is to watch the pen. Tap a letter to see it drawn stroke by stroke, the way it is taught in Russian school copybooks, and slow it down if you want to follow the direction.</p>
+
+            <div id="cursive-picker" class="cursive-picker">
+                <button class="cursive-letter-btn" data-letter="т" data-caption="Three humps, rounded on top, like a Latin m. The bar above is optional but common." aria-pressed="false">т</button>
+                <button class="cursive-letter-btn" data-letter="и" data-caption="Two cups, rounded on the bottom, like a Latin u." aria-pressed="false">и</button>
+                <button class="cursive-letter-btn" data-letter="ш" data-caption="Three cups, rounded on the bottom. Some writers add a line underneath." aria-pressed="false">ш</button>
+                <button class="cursive-letter-btn" data-letter="л" data-caption="A small hook, then one peak. The hook is what makes it л." aria-pressed="false">л</button>
+                <button class="cursive-letter-btn" data-letter="м" data-caption="A small hook, then two humps. Like л with one more." aria-pressed="false">м</button>
+                <button class="cursive-letter-btn" data-letter="д" data-caption="A round body with a loop below the line, like a Latin g." aria-pressed="false">д</button>
+            </div>
+
+            <div class="cursive-stage-wrap">
+                <svg id="cursive-stage" class="cursive-stage" viewBox="0 0 240 200" aria-label="Animated cursive letter">
+                    <line class="cursive-guide" x1="0" y1="45" x2="240" y2="45"/>
+                    <line class="cursive-guide" x1="0" y1="145" x2="240" y2="145"/>
+                    <line class="cursive-guide" id="cursive-guide-descender" x1="0" y1="185" x2="240" y2="185" style="display:none"/>
+                    <g id="cursive-letter-group" transform="translate(25, 0) skewX(-10)"></g>
+                </svg>
+                <div class="cursive-stage-controls">
+                    <button id="cursive-replay" class="cursive-ctrl-btn">Replay</button>
+                    <button id="cursive-slow" class="cursive-ctrl-btn">Slow</button>
+                </div>
+            </div>
+
+            <p id="cursive-caption" class="cursive-caption">Tap a letter above to watch it being written.</p>
+
+            <p>The pattern worth noticing: т is rounded on top, three humps like a Latin m. и and ш are rounded on the bottom, two cups and three. л and м lean in with a small hook before their first stroke, and that hook is what separates them from the hump letters around them. д drops a loop below the line like a Latin g. Many writers also add a small bar above т and a line below ш to keep them apart in fast writing. Once you can spot humps, cups, hooks, and tails, words like лишишься stop being a wall of identical bumps.</p>
+
             <h3>Practice Method: The Proven System</h3>
             
             <p><strong>Step 1: Learn Stroke Order (Week 1)</strong><br>
