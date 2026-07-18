@@ -173,11 +173,11 @@ Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode rep
 Matrix mode, homepage quick-start strip redesign, desktop compaction on home and
 static pages, privacy policy cleanup (AdSense/consent copy removed until ads are
 live), audio fixes for Й (wiring) and Ь (playback rate), a new article on Cyrillic
-letters not in Russian, noindexing of the contact/privacy/about pages, and removal of
-dead GitHub-era artifacts (404.html, CNAME, the sessionStorage redirect check).
+letters not in Russian, noindexing of the contact/privacy/about pages, removal of
+dead GitHub-era artifacts (404.html, CNAME, the sessionStorage redirect check), and
+re-recorded letter А pronunciation audio.
 
-Open or upcoming: one audio file (the letter А) is being re-recorded by an external
-contributor. Possible future work: a faux Cyrillic decoder article, a travel-signage
+Open or upcoming: Possible future work: a faux Cyrillic decoder article, a travel-signage
 reference article, audio for non-Russian letters, and AdSense reapplication once
 readiness justifies it. The `/articles` page has one remaining benign
 duplicate-canonical entry in Search Console that is intentionally left alone.
