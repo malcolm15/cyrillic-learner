@@ -314,8 +314,16 @@ function showPage(pageName) {
     // Scroll to top
     window.scrollTo(0, 0);
     
-    // Reset quiz if navigating away from home
-    if (pageName !== 'home') {
+    // Clicking Home or the logo mid-quiz on the home page should restore the
+    // character-selection view. newSession() is the same mechanism as the
+    // in-panel Home button. The contains('active') guard makes this a no-op
+    // when arriving from another page (quiz was cleared on the way out).
+    if (pageName === 'home') {
+        const quizContainer = document.getElementById('quiz-container');
+        if (quizContainer && quizContainer.classList.contains('active')) {
+            newSession();
+        }
+    } else {
         const refCard = document.querySelector('.char-reference');
         if (refCard) refCard.style.display = 'block';
         const quizContainer = document.getElementById('quiz-container');
