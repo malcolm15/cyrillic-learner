@@ -3720,6 +3720,17 @@ const ARTICLES = [
                 </div>
             </div>
 
+            <div id="print-controls">
+                <p class="print-intro">Need a paper copy? A printable one-page version of the full chart is one click away, or save it as a PDF.</p>
+                <div class="print-actions">
+                    <label>
+                        <input type="checkbox" id="print-examples-checkbox" checked>
+                        Include example words
+                    </label>
+                    <button class="btn-print" onclick="printChart()">Print / Save as PDF</button>
+                </div>
+            </div>
+
             <div id="alphabet-grid" class="alphabet-grid">
                 <!-- Letters will be inserted here by JavaScript -->
             </div>
