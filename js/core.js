@@ -617,6 +617,8 @@ function showArticle(articleId) {
     if (!article) {
         document.getElementById('articles-index').style.display = 'none';
         document.getElementById('article-view').style.display = 'block';
+        document.querySelector('.article-navigation').style.display = 'none';
+        document.getElementById('related-articles-section').style.display = 'none';
         document.getElementById('article-title').textContent = 'Article not found';
         document.getElementById('article-content').innerHTML =
             '<p>This article no longer exists or may have moved.</p>' +
@@ -626,10 +628,11 @@ function showArticle(articleId) {
         if (canonical) canonical.setAttribute('href', 'https://cyrilica.com/articles');
         return;
     }
-    
+
     // Hide article index, show article view
     document.getElementById('articles-index').style.display = 'none';
     document.getElementById('article-view').style.display = 'block';
+    document.querySelector('.article-navigation').style.display = '';
     
     // Load article content
     document.getElementById('article-title').textContent = article.title;
