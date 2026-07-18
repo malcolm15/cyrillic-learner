@@ -614,7 +614,18 @@ function navToArticle(event, slug) {
 // Article navigation functions
 function showArticle(articleId) {
     const article = ARTICLES.find(a => a.id === articleId);
-    if (!article) return;
+    if (!article) {
+        document.getElementById('articles-index').style.display = 'none';
+        document.getElementById('article-view').style.display = 'block';
+        document.getElementById('article-title').textContent = 'Article not found';
+        document.getElementById('article-content').innerHTML =
+            '<p>This article no longer exists or may have moved.</p>' +
+            '<p><a href="/articles" onclick="navTo(event, \'articles\', null)">Browse all articles</a></p>';
+        document.title = 'Article not found | Cyrilica';
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) canonical.setAttribute('href', 'https://cyrilica.com/articles');
+        return;
+    }
     
     // Hide article index, show article view
     document.getElementById('articles-index').style.display = 'none';
