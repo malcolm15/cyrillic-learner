@@ -257,11 +257,10 @@ home/logo mid-quiz fix (newSession restores character selection), canonical
 direct-load fix (handleInitialURL bypasses showPage), meta description truncation
 (155 chars at word boundary), dead-slug 301s and graceful not-found state, printable
 chart generator, cursive stroke-order section (six letters, rAF engine), edge
-function for per-route canonical and robots in raw HTML.
+function for per-route canonical and robots in raw HTML, /reference page retired
+with a 301 to russian-alphabet-chart and homepage link re-pointed to the chart.
 
-Open: /reference page: re-point the homepage link to russian-alphabet-chart (likely
-win), and decide whether to retire /reference with a 301 to the chart page after
-checking its Search Console numbers. AdSense reapplication: deliberate wait for
+Open: AdSense reapplication: deliberate wait for
 recent SEO improvements to settle and be recrawled. Possible cursive phase B (more
 letters or a tracing mode) if engagement data justifies it. Audio for non-Russian
 letters is deferred and viable. Explicitly ruled out (do not re-propose): a faux
