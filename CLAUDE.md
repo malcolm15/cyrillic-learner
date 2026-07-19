@@ -64,7 +64,10 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
   `title`, `relatedArticles` (3 slugs), `content` (an HTML template literal).
 - `js/article-scripts.js`: article-page interactivity: the quiz engine
   (`QUIZ_CONFIGS`, `initArticleQuizzes()`), the copy-paste tool, embedded mini
-  quizzes, and a separate audio function (`playAudio`).
+  quizzes, a separate audio function (`playAudio`), and all per-article interactive
+  feature logic (printable chart, cursive engine).
+- `netlify/edge-functions/`: server-side Deno edge functions. Currently one function,
+  `head-rewrite.ts`. Deployed automatically with each push.
 - `images/`, `audio/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
   namespace).
 
@@ -84,10 +87,11 @@ Two cross-file gotchas:
 - Routing: `_redirects` contains `/* /index.html 200`, so every route, including
   unknown paths, is served `index.html` with a real 200 status. A single article only
   needs `index.html` updated.
-- **Cloudflare caches JS and CSS.** After a push, a hard refresh or Cloudflare purge
-  may be needed to see changes. If a code change appears not to have taken effect,
-  suspect cache before suspecting the code, and verify the function actually loaded
-  (check it in the browser console) before re-editing.
+- **Cloudflare caches JS, CSS, and media files (the А audio swap required a purge).**
+  After a push, a hard refresh or Cloudflare purge may be needed to see changes. If a
+  code change appears not to have taken effect, suspect cache before suspecting the
+  code, and verify the function actually loaded (check it in the browser console)
+  before re-editing.
 
 ### Solved history: the SPA 404 problem (do not reintroduce)
 The site was previously on GitHub Pages, which served `404.html` for every non-file
@@ -99,6 +103,53 @@ config files, live behavior), check it rather than reasoning from general claims
 "Google handles JavaScript fine." Those leftovers have since been cleaned up: `404.html`, the `CNAME` file, and a dead
 `sessionStorage.getItem('redirect')` check in core.js whose matching relay script no
 longer existed. All removed June 2026.
+
+## Edge function (first server-side logic)
+
+`netlify/edge-functions/head-rewrite.ts` intercepts every 200 text/html response
+and rewrites two head tags before they reach the client: the canonical (set to the
+actual request path) and the robots meta (switched to `noindex, follow` for
+`/contact`, `/privacy`, `/about`). 301 responses and non-HTML assets pass through
+untransformed. Fail-open: if transformation errors, the original response is returned.
+
+Why it exists: non-rendering crawlers (Bing confirmed 2026-07-14) index raw HTML
+before JavaScript runs. The static canonical at index.html line 28 said
+`https://cyrilica.com` for every URL. The inline script at line 29 corrects it for
+rendering browsers but is invisible to raw-HTML crawlers.
+
+Three canonical layers that must stay consistent:
+1. Edge function -- rewrites raw HTML per request (non-rendering crawlers).
+2. Inline head script at index.html line 29 -- corrects on page load (rendering
+   browsers).
+3. `core.js` dynamic injection -- updates on SPA navigation within a session.
+
+CRITICAL COUPLING: the function string-replaces lines 27-28 of index.html
+byte-for-byte. If those lines ever change, update the match strings in
+`head-rewrite.ts` or the function silently stops working.
+
+## SPA routing and canonicals
+
+Direct-load routing: `handleInitialURL()` in core.js, for article paths, no longer
+routes through `showPage()`. That was resetting the canonical to the homepage
+mid-init. It now activates the articles DOM directly, then calls `showArticle()`
+after 100ms. That delay compensates for ARTICLES array load order; do not remove it.
+
+Not-found state: when `showArticle()` receives a slug not in ARTICLES, it renders a
+friendly error, resets the canonical to `/articles`, hides the prev/next bar and
+related-articles section, and returns without injecting schema. The success path
+explicitly restores the prev/next display in case a prior not-found visit hid it.
+
+`_redirects` 301s for retired slugs (beyond the catch-all):
+- `/articles/cyrillic-alphabet-chart` -> `/articles/russian-alphabet-chart`
+- `/articles/cyrillic-handwriting` -> `/articles/practice-writing-cyrillic`
+- `/articles/common-cyrillic-mistakes` -> `/articles/common-mistakes`
+- `/articles/cyrillic-vs-latin` -> `/articles/false-friends`
+
+Navigation behaviors:
+- Quiz-CTA buttons call `showPage('home')` and land at the top of the page (no
+  `scrollIntoView`).
+- `showPage('home')` while a quiz is mid-session on home calls `newSession()` to
+  restore the character-selection view rather than leaving a broken mid-quiz state.
 
 ## Dark mode (AMOLED)
 Toggled by the `body.dark-mode` class, persisted in localStorage under `darkMode`
@@ -130,7 +181,8 @@ A new article touches FOUR places, all using the identical slug:
 1. `js/articles.js`: the article object (`id`, `title`, `relatedArticles`, `content`).
 2. `js/core.js`: an `ARTICLE_META` entry (`section`, `published`, `modified`,
    `keywords`; all four required or schema injection breaks) and the slug placed in
-   `ARTICLE_ORDER` in the correct category group.
+   `ARTICLE_ORDER` in the correct category group. Bump `modified` whenever you
+   meaningfully change an article's content.
 3. `index.html`: an `.article-item` block in the right category group.
 4. `sitemap.xml`: a new `<url>` entry (add an `<image:image>` entry too if the
    article has an image).
@@ -149,38 +201,75 @@ new tab. `navTo` and `navToArticle` intercept plain left-clicks for fast in-app 
 navigation; modifier-clicks fall through to the browser. In-article section
 headings are `<h3>`. Comparison tables use the `.comparison-table` class with
 `.big-letter` spans for Cyrillic characters (light, dark, and mobile styles exist).
+Prefer crisp HTML card grids over raster images for text-heavy graphics; the pattern
+lives in `.false-friends-grid` / `.ff-card` (false-friends article).
 Articles end with the standard quiz-cta and share-section blocks; copy the
 share-section Bluesky SVG verbatim from an existing article rather than retyping the
 path. Images use absolute paths (`/images/file.png`), not relative (relative paths
 break under SPA URLs like `/articles/name`).
 
+Meta descriptions auto-generate from the article's first `<p>`, truncated to 155
+characters at a word boundary. The opening paragraph of every article is its search
+snippet; edit it with care.
+
+## Interactive features
+
+**Printable chart generator** (russian-alphabet-chart): `buildPrintChart()` and
+`printChart()` in article-scripts.js. The `@media print` block in styles.css is the
+only print CSS in the project. Output is one page; forces light-mode rendering even
+in dark mode. GA event: `chart_printed`.
+
+**Cursive stroke-order** (practice-writing-cyrillic): `CURSIVE_STROKES` in
+article-scripts.js is the single source of truth for the six letterform paths
+(т и ш л м д). Engine uses rAF stroke-dashoffset animation with a moving pen-tip
+dot, applied to SVG paths in a `skewX(-10)` group for cursive slant. Respects
+`prefers-reduced-motion`. GA event: `cursive_animation_played`. The letterforms were
+drafted from published propisi descriptions and are not yet verified by a native
+speaker; corrections are deliberate one-path edits in `CURSIVE_STROKES`.
+
+**Alphabet chart cards** (russian-alphabet-chart): the full card is the audio tap
+target (`button` elements, `.letter-card` class, dark mode handled). No separate
+Listen buttons.
+
 ## Security and analytics
 - Hash validation regex before querySelector, a `VALID_PAGES` whitelist, and a
   `safeGetNavLink()` helper.
 - Google Analytics events: quiz_started, question_answered, question_skipped,
-  quiz_reset, setting_changed.
+  quiz_reset, setting_changed, chart_printed, cursive_animation_played.
 
 ## Monetization status
 AdSense has been rejected roughly four times, all of which happened before the site's
 pages were meaningfully indexed (the GitHub Pages 404 problem above). The site is now
-far stronger (29 articles, indexed, structured data, interactive tools, cleaned-up
+far stronger (28 articles, indexed, structured data, interactive tools, cleaned-up
 canonicals). Plan: reapply, but deliberately wait until the recent SEO improvements
 have settled and been recrawled rather than reapplying immediately after the prior
 rejections.
 
 ## Current state and open threads
-Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode replacing
-Matrix mode, homepage quick-start strip redesign, desktop compaction on home and
-static pages, privacy policy cleanup (AdSense/consent copy removed until ads are
-live), audio fixes for Й (wiring) and Ь (playback rate), a new article on Cyrillic
-letters not in Russian, noindexing of the contact/privacy/about pages, removal of
-dead GitHub-era artifacts (404.html, CNAME, the sessionStorage redirect check), and
-re-recorded letter А pronunciation audio.
+Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode
+replacing Matrix mode, homepage quick-start strip redesign, desktop compaction on
+home and static pages, privacy policy cleanup (AdSense/consent copy removed until
+ads are live), audio fixes for Й (wiring) and Ь (playback rate), new article on
+Cyrillic letters not in Russian, noindexing contact/privacy/about, removal of dead
+GitHub-era artifacts, re-recorded letter А audio, alphabet chart card redesign
+(whole-card audio tap target, no Listen buttons), quiz-CTA scroll fix (land at top),
+home/logo mid-quiz fix (newSession restores character selection), canonical
+direct-load fix (handleInitialURL bypasses showPage), meta description truncation
+(155 chars at word boundary), dead-slug 301s and graceful not-found state, printable
+chart generator, cursive stroke-order section (six letters, rAF engine), edge
+function for per-route canonical and robots in raw HTML.
 
-Open or upcoming: Possible future work: a faux Cyrillic decoder article, a travel-signage
-reference article, audio for non-Russian letters, and AdSense reapplication once
-readiness justifies it. The `/articles` page has one remaining benign
-duplicate-canonical entry in Search Console that is intentionally left alone.
+Open: /reference page: re-point the homepage link to russian-alphabet-chart (likely
+win), and decide whether to retire /reference with a 301 to the chart page after
+checking its Search Console numbers. AdSense reapplication: deliberate wait for
+recent SEO improvements to settle and be recrawled. Possible cursive phase B (more
+letters or a tracing mode) if engagement data justifies it. Audio for non-Russian
+letters is deferred and viable. Explicitly ruled out (do not re-propose): a faux
+Cyrillic decoder (brand risk, alienates the educator audience, entrenched
+competition) and travel-signage or vocabulary content (crosses from teaching the
+script into teaching the language, outside the site's lane). The /articles page has
+one remaining benign duplicate-canonical entry in Search Console, intentionally left
+alone.
 
 ## Starting a session
 Confirm the current task, read the relevant files before proposing anything, and
