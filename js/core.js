@@ -1,6 +1,6 @@
 
 // Valid page names (whitelist for URL routing)
-const VALID_PAGES = ['home', 'articles', 'reference', 'settings', 'about', 'contact', 'privacy'];
+const VALID_PAGES = ['home', 'articles', 'settings', 'about', 'contact', 'privacy'];
 
 function safeGetNavLink(pageName) {
     if (!VALID_PAGES.includes(pageName)) return null;
@@ -564,7 +564,6 @@ const PAGE_META = {
     contact:   { title: 'Contact — Cyrilica',                                   desc: 'Have feedback, found a bug, or want to suggest a feature? Get in touch with the team behind Cyrilica.',                                         url: 'https://cyrilica.com/contact' },
     privacy:   { title: 'Privacy Policy — Cyrilica',                            desc: 'Cyrilica privacy policy. Learn what data is collected, how it is used, and your choices regarding Google Analytics.',               url: 'https://cyrilica.com/privacy' },
     settings:  { title: 'Settings — Cyrilica',                                  desc: 'Customize your Cyrillic learning experience. Toggle lowercase display, auto-submit, continuous play, audio, and dark mode.',                    url: 'https://cyrilica.com/settings' },
-    reference: { title: 'Complete Cyrillic Alphabet Reference — Cyrilica',      desc: 'All 33 Russian Cyrillic letters with uppercase, lowercase, pronunciation guides, and example words in one easy reference table.',              url: 'https://cyrilica.com/reference' },
     articles:  { title: 'Cyrillic Alphabet Articles — Cyrilica',                desc: 'In-depth articles on the Cyrillic alphabet: history, regional variants, writing tips, memory tricks, and cultural curiosities.',               url: 'https://cyrilica.com/articles' },
 };
 

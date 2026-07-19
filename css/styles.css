@@ -2125,33 +2125,6 @@
                 padding: 5px 3px;
             }
 
-            /* Mobile-optimized reference tables - compress to avoid horizontal scroll */
-            #reference-page table {
-                font-size: 0.85rem;
-            }
-
-            #reference-page th {
-                padding: 8px 4px !important;
-                font-size: 0.75rem;
-                line-height: 1.2;
-                white-space: normal;
-                word-wrap: break-word;
-            }
-
-            #reference-page td {
-                padding: 8px 4px !important;
-                font-size: 0.85rem;
-            }
-
-            /* Shrink the letter column on mobile */
-            #reference-page td:first-child span {
-                font-size: 1.3rem !important;
-            }
-
-            #reference-page td:first-child span:last-child {
-                font-size: 1rem !important;
-            }
-
             /* Mobile article back button - make smaller */
             .article-back-btn {
                 padding: 6px 12px;
@@ -2201,7 +2174,6 @@
         #about-page .card,
         #contact-page .card,
         #privacy-page .card,
-        #reference-page .card,
         #settings-page .card {
             max-width: 800px;
             margin-left: auto;
@@ -2212,7 +2184,6 @@
             #about-page .card,
             #contact-page .card,
             #privacy-page .card,
-            #reference-page .card,
             #settings-page .card {
                 margin-left: 8px;
                 margin-right: 8px;
