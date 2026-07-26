@@ -107,10 +107,13 @@ longer existed. All removed June 2026.
 ## Edge function (first server-side logic)
 
 `netlify/edge-functions/head-rewrite.ts` intercepts every 200 text/html response
-and rewrites two head tags before they reach the client: the canonical (set to the
-actual request path) and the robots meta (switched to `noindex, follow` for
-`/contact`, `/privacy`, `/about`). 301 responses and non-HTML assets pass through
-untransformed. Fail-open: if transformation errors, the original response is returned.
+and rewrites head tags before they reach the client: the canonical (set to the
+actual request path), the robots meta (switched to `noindex, follow` for
+`/contact`, `/privacy`, `/about`), and, for `/articles/<slug>` paths, the `<title>`
+and `<meta name="description">` (set to the per-article values so each article has
+unique raw-HTML head content instead of the identical shell head). 301 responses
+and non-HTML assets pass through untransformed. Fail-open: if transformation errors,
+or an article slug is not found, the original response is returned unchanged.
 
 Why it exists: non-rendering crawlers (Bing confirmed 2026-07-14) index raw HTML
 before JavaScript runs. The static canonical at index.html line 28 said
@@ -123,9 +126,23 @@ Three canonical layers that must stay consistent:
    browsers).
 3. `core.js` dynamic injection -- updates on SPA navigation within a session.
 
-CRITICAL COUPLING: the function string-replaces lines 27-28 of index.html
-byte-for-byte. If those lines ever change, update the match strings in
+CRITICAL COUPLING 1: the function string-replaces lines 27, 28, 21, and 24 of
+index.html byte-for-byte (canonical, robots, title, description; the title constant
+includes a U+2014 em-dash). If those lines change, update the match strings in
 `head-rewrite.ts` or the function silently stops working.
+
+CRITICAL COUPLING 2: the per-article title and description come from
+`netlify/edge-functions/article-heads.ts`, generated from js/articles.js by
+`scripts/generate-article-heads.js`. Regenerate it (`node
+scripts/generate-article-heads.js`) whenever any article title or opening paragraph
+changes, or crawlers get stale head content. Same coupling class as COUPLING 1. The
+generator derives title and description with the identical logic core.js uses on
+render, so raw HTML and rendered agree exactly; it HTML-escapes the values and skips
+(with a loud warning) any article whose first paragraph could diverge from the
+browser (block-level tag or unknown entity), leaving that article on the shell head.
+The data is a TypeScript module imported normally by head-rewrite.ts (not a JSON
+import), so a data-file problem cannot fail the module load and regress the
+canonical / robots rewrites.
 
 ## SPA routing and canonicals
 
@@ -177,7 +194,7 @@ all-caps display font for the logo, most headings, and buttons), and Merriweathe
 deliberately use IBM Plex Mono for legibility rather than Bebas Neue.
 
 ## Adding an article (checklist)
-A new article touches FOUR places, all using the identical slug:
+A new article touches FIVE places, all using the identical slug:
 1. `js/articles.js`: the article object (`id`, `title`, `relatedArticles`, `content`).
 2. `js/core.js`: an `ARTICLE_META` entry (`section`, `published`, `modified`,
    `keywords`; all four required or schema injection breaks) and the slug placed in
@@ -186,6 +203,10 @@ A new article touches FOUR places, all using the identical slug:
 3. `index.html`: an `.article-item` block in the right category group.
 4. `sitemap.xml`: a new `<url>` entry (add an `<image:image>` entry too if the
    article has an image).
+5. Regenerate `netlify/edge-functions/article-heads.ts` (`node
+   scripts/generate-article-heads.js`) so the new article gets per-route raw-HTML
+   title and description. Also required when an existing title or opening paragraph
+   changes. See the edge function section for the coupling.
 
 Categories (exact strings): `Getting Started`, `Alphabet Variants`,
 `History & Culture`, `Learning Tools & Resources`.

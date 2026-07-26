@@ -1,13 +1,26 @@
 import type { Config, Context } from "@netlify/edge-functions";
+import articleHeads from "./article-heads.ts";
 
 // This function exists because non-rendering crawlers (Bing confirmed 2026-07-14)
-// index the raw HTML before any JavaScript runs. The static canonical at line 28
-// of index.html reads https://cyrilica.com for every URL; the inline script at
-// line 29 fixes that for rendering browsers and stays as-is. This function
-// covers raw-HTML crawlers by rewriting canonical per request path.
+// index the raw HTML before any JavaScript runs. The static shell serves the same
+// canonical, robots, title, and meta description for every URL; the JS in core.js
+// fixes those on render but is invisible to raw-HTML crawlers. This function makes
+// the raw HTML per-route: correct canonical, noindex on the utility pages, and
+// per-article <title> and <meta name="description"> so each article has unique
+// head content instead of the identical shell head.
 //
-// Dependency: STATIC_CANONICAL and STATIC_ROBOTS below must match lines 27-28
-// of index.html byte-for-byte. If those lines ever change, update these too.
+// COUPLING 1: STATIC_CANONICAL, STATIC_ROBOTS, STATIC_TITLE, and STATIC_DESC below
+// must match index.html lines 27, 28, 21, and 24 byte-for-byte (STATIC_TITLE
+// includes a U+2014 em-dash). If those lines change, update these constants.
+//
+// COUPLING 2: article-heads.ts is generated from js/articles.js by
+// scripts/generate-article-heads.js. It must be regenerated whenever any article
+// title or opening paragraph changes, or crawlers get stale head content. Same
+// coupling class as COUPLING 1. The generator guarantees the injected title and
+// description are byte-identical (at the decoded-attribute level) to what the JS
+// meta injection produces on render. It is imported as a standard ES module (not
+// a JSON import), so a data-file problem can never fail the module load and
+// regress the canonical / robots rewrites.
 
 export const config: Config = { path: "/*" };
 
@@ -16,7 +29,12 @@ const SITE_ORIGIN = "https://cyrilica.com";
 const STATIC_CANONICAL = '<link rel="canonical" href="https://cyrilica.com">';
 const STATIC_ROBOTS    = '<meta name="robots" content="index, follow">';
 const NOINDEX_ROBOTS   = '<meta name="robots" content="noindex, follow">';
+const STATIC_TITLE     = '<title>Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica</title>';
+const STATIC_DESC      = '<meta name="description" content="Free interactive tool to learn the Russian alphabet. Practice all 33 Cyrillic letters with instant feedback, pronunciation audio, and progress tracking. No signup required.">';
 const NOINDEX_PATHS    = new Set(["/contact", "/privacy", "/about"]);
+
+const HEADS = articleHeads as Record<string, { title: string; description: string }>;
+const ARTICLE_PREFIX = "/articles/";
 
 export default async function headRewrite(
   request: Request,
@@ -49,6 +67,24 @@ export default async function headRewrite(
 
     if (NOINDEX_PATHS.has(path)) {
       body = body.replace(STATIC_ROBOTS, NOINDEX_ROBOTS);
+    }
+
+    // Per-article title and meta description. Only for /articles/<slug> paths
+    // whose slug is in the generated map; non-article routes, the /articles
+    // listing, and the homepage keep the static shell head. Values in HEADS are
+    // pre-HTML-escaped by the generator, so they drop in directly. Fail open on
+    // any miss: the article simply keeps the shell head.
+    if (path.startsWith(ARTICLE_PREFIX)) {
+      const slug = path.slice(ARTICLE_PREFIX.length);
+      const head = HEADS[slug];
+      if (head) {
+        body = body
+          .replace(STATIC_TITLE, `<title>${head.title}</title>`)
+          .replace(
+            STATIC_DESC,
+            `<meta name="description" content="${head.description}">`,
+          );
+      }
     }
 
     const headers = new Headers(response.headers);
