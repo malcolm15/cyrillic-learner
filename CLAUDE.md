@@ -132,7 +132,7 @@ includes a U+2014 em-dash). If those lines change, update the match strings in
 `head-rewrite.ts` or the function silently stops working.
 
 CRITICAL COUPLING 2: the per-article title and description come from
-`netlify/edge-functions/article-heads.ts`, generated from js/articles.js by
+`netlify/lib/article-heads.ts`, generated from js/articles.js by
 `scripts/generate-article-heads.js`. Regenerate it (`node
 scripts/generate-article-heads.js`) whenever any article title or opening paragraph
 changes, or crawlers get stale head content. Same coupling class as COUPLING 1. The
@@ -142,7 +142,9 @@ render, so raw HTML and rendered agree exactly; it HTML-escapes the values and s
 browser (block-level tag or unknown entity), leaving that article on the shell head.
 The data is a TypeScript module imported normally by head-rewrite.ts (not a JSON
 import), so a data-file problem cannot fail the module load and regress the
-canonical / robots rewrites.
+canonical / robots rewrites. It lives in netlify/lib/, not netlify/edge-functions/,
+because Netlify treats every file in the edge-functions directory as its own
+function entry point (this is the mistake that broke the first b4cf079 deploy).
 
 ## SPA routing and canonicals
 
@@ -203,7 +205,7 @@ A new article touches FIVE places, all using the identical slug:
 3. `index.html`: an `.article-item` block in the right category group.
 4. `sitemap.xml`: a new `<url>` entry (add an `<image:image>` entry too if the
    article has an image).
-5. Regenerate `netlify/edge-functions/article-heads.ts` (`node
+5. Regenerate `netlify/lib/article-heads.ts` (`node
    scripts/generate-article-heads.js`) so the new article gets per-route raw-HTML
    title and description. Also required when an existing title or opening paragraph
    changes. See the edge function section for the coupling.

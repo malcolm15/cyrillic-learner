@@ -1,5 +1,5 @@
 import type { Config, Context } from "@netlify/edge-functions";
-import articleHeads from "./article-heads.ts";
+import articleHeads from "../lib/article-heads.ts";
 
 // This function exists because non-rendering crawlers (Bing confirmed 2026-07-14)
 // index the raw HTML before any JavaScript runs. The static shell serves the same
@@ -13,14 +13,16 @@ import articleHeads from "./article-heads.ts";
 // must match index.html lines 27, 28, 21, and 24 byte-for-byte (STATIC_TITLE
 // includes a U+2014 em-dash). If those lines change, update these constants.
 //
-// COUPLING 2: article-heads.ts is generated from js/articles.js by
+// COUPLING 2: ../lib/article-heads.ts is generated from js/articles.js by
 // scripts/generate-article-heads.js. It must be regenerated whenever any article
 // title or opening paragraph changes, or crawlers get stale head content. Same
 // coupling class as COUPLING 1. The generator guarantees the injected title and
 // description are byte-identical (at the decoded-attribute level) to what the JS
 // meta injection produces on render. It is imported as a standard ES module (not
 // a JSON import), so a data-file problem can never fail the module load and
-// regress the canonical / robots rewrites.
+// regress the canonical / robots rewrites. It lives in netlify/lib/, not in
+// netlify/edge-functions/, because Netlify treats every file in the edge-functions
+// directory as its own function entry point.
 
 export const config: Config = { path: "/*" };
 

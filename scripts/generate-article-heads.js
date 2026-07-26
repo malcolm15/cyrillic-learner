@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 //
-// Generates netlify/edge-functions/article-heads.ts: a per-slug map of the
+// Generates netlify/lib/article-heads.ts: a per-slug map of the
 // { title, description } that the edge function injects into raw HTML for
 // non-rendering crawlers. Values are pre-HTML-escaped and ready to drop into
 // <title>...</title> and content="...".
@@ -10,6 +10,10 @@
 // (with { type: "json" }) that failed would take down the whole function,
 // regressing the canonical and robots rewrites too; a standard ES import removes
 // that import-time failure mode entirely.
+//
+// It lives in netlify/lib/, NOT netlify/edge-functions/. Netlify treats every
+// file in the edge-functions directory as its own function entry point, so a
+// shared data module must sit outside it and be imported (../lib/article-heads.ts).
 //
 // The title and description MUST match exactly what the JS meta injection in
 // core.js (injectArticleSchema) produces on render, or a crawler would see one
@@ -33,7 +37,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const ARTICLES_SRC = path.join(ROOT, 'js', 'articles.js');
-const OUT_FILE = path.join(ROOT, 'netlify', 'edge-functions', 'article-heads.ts');
+const OUT_FILE = path.join(ROOT, 'netlify', 'lib', 'article-heads.ts');
 
 const TITLE_SUFFIX = ' | Cyrilica';
 
