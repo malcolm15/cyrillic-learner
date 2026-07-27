@@ -33,7 +33,7 @@ const STATIC_ROBOTS    = '<meta name="robots" content="index, follow">';
 const NOINDEX_ROBOTS   = '<meta name="robots" content="noindex, follow">';
 const STATIC_TITLE     = '<title>Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica</title>';
 const STATIC_DESC      = '<meta name="description" content="Free interactive tool to learn the Russian alphabet. Practice all 33 Cyrillic letters with instant feedback, pronunciation audio, and progress tracking. No signup required.">';
-const NOINDEX_PATHS    = new Set(["/contact", "/privacy", "/about"]);
+const NOINDEX_PATHS    = new Set(["/contact", "/privacy", "/about", "/terms"]);
 
 const HEADS = articleHeads as Record<string, { title: string; description: string }>;
 const ARTICLE_PREFIX = "/articles/";

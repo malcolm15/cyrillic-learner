@@ -1,6 +1,6 @@
 
 // Valid page names (whitelist for URL routing)
-const VALID_PAGES = ['home', 'articles', 'settings', 'about', 'contact', 'privacy'];
+const VALID_PAGES = ['home', 'articles', 'settings', 'about', 'contact', 'privacy', 'terms'];
 
 function safeGetNavLink(pageName) {
     if (!VALID_PAGES.includes(pageName)) return null;
@@ -297,7 +297,7 @@ function showPage(pageName) {
 
         const robots = document.querySelector('meta[name="robots"]');
         if (robots) {
-            const noindexPages = ['contact', 'privacy', 'about'];
+            const noindexPages = ['contact', 'privacy', 'about', 'terms'];
             robots.setAttribute('content', noindexPages.includes(pageName) ? 'noindex, follow' : 'index, follow');
         }
     }
@@ -565,6 +565,7 @@ const PAGE_META = {
     privacy:   { title: 'Privacy Policy — Cyrilica',                            desc: 'Cyrilica privacy policy. Learn what data is collected, how it is used, and your choices regarding Google Analytics.',               url: 'https://cyrilica.com/privacy' },
     settings:  { title: 'Settings — Cyrilica',                                  desc: 'Customize your Cyrillic learning experience. Toggle lowercase display, auto-submit, continuous play, audio, and dark mode.',                    url: 'https://cyrilica.com/settings' },
     articles:  { title: 'Cyrillic Alphabet Articles — Cyrilica',                desc: 'In-depth articles on the Cyrillic alphabet: history, regional variants, writing tips, memory tricks, and cultural curiosities.',               url: 'https://cyrilica.com/articles' },
+    terms:     { title: 'Terms of Service | Cyrilica',                          desc: 'Terms of service for Cyrilica, the free Cyrillic alphabet learning tool. No account, nothing to buy, personal and classroom use.',              url: 'https://cyrilica.com/terms' },
 };
 
 function removeArticleSchema() {
