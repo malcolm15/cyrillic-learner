@@ -297,7 +297,7 @@ function showPage(pageName) {
 
         const robots = document.querySelector('meta[name="robots"]');
         if (robots) {
-            const noindexPages = ['contact', 'privacy', 'about', 'terms'];
+            const noindexPages = ['contact', 'privacy', 'about', 'terms', 'settings'];
             robots.setAttribute('content', noindexPages.includes(pageName) ? 'noindex, follow' : 'index, follow');
         }
     }
