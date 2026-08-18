@@ -42,6 +42,53 @@ function showCopiedFeedback(button) {
     }, 1500);
 }
 
+// Helper: Play a letter's pronunciation audio (looked up in CYRILLIC_DATA).
+// Shared by article pages (alphabet chart, lookalike strip). Note: study quiz
+// and chart audio in core.js uses playPronunciation; this is the article-side
+// counterpart per the CLAUDE.md two-audio-functions note.
+function playAudio(char) {
+    console.log('playAudio called for:', char);
+
+    // Look up the character in CYRILLIC_DATA to get the correct audio path
+    if (typeof CYRILLIC_DATA === 'undefined') {
+        console.log('CYRILLIC_DATA is undefined');
+        return;
+    }
+
+    console.log('CYRILLIC_DATA exists');
+
+    var audioPath = null;
+    var groupKeys = Object.keys(CYRILLIC_DATA);
+
+    // Search through all character groups to find this character
+    for (var i = 0; i < groupKeys.length; i++) {
+        var group = CYRILLIC_DATA[groupKeys[i]];
+        if (group.chars && group.chars[char]) {
+            audioPath = group.chars[char].audio;
+            console.log('Found audio path:', audioPath);
+            break;
+        }
+    }
+
+    if (audioPath) {
+        console.log('Attempting to play:', audioPath);
+        // Make path absolute if it's not already
+        const fullPath = audioPath.startsWith('/') ? audioPath : '/' + audioPath;
+        var audio = new Audio(fullPath);
+        audio.volume = 0.7;
+        if (audioPath && audioPath.endsWith('soft.mp3')) {
+            audio.playbackRate = 0.79;
+        }
+        audio.play().then(function() {
+            console.log('Audio playing successfully');
+        }).catch(function(err) {
+            console.log('Audio playback failed for ' + char + ':', err);
+        });
+    } else {
+        console.log('No audio file found for ' + char);
+    }
+}
+
 // ==================== ARTICLE SCRIPTS ====================
 
 // Cyrillic Copy-Paste Interactive Functionality
@@ -334,49 +381,6 @@ ArticleScripts['russian-alphabet-chart'] = function() {
         card.appendChild(exampleDisplay);
 
         return card;
-    }
-    
-    function playAudio(char) {
-        console.log('playAudio called for:', char);
-        
-        // Look up the character in CYRILLIC_DATA to get the correct audio path
-        if (typeof CYRILLIC_DATA === 'undefined') {
-            console.log('CYRILLIC_DATA is undefined');
-            return;
-        }
-        
-        console.log('CYRILLIC_DATA exists');
-        
-        var audioPath = null;
-        var groupKeys = Object.keys(CYRILLIC_DATA);
-        
-        // Search through all character groups to find this character
-        for (var i = 0; i < groupKeys.length; i++) {
-            var group = CYRILLIC_DATA[groupKeys[i]];
-            if (group.chars && group.chars[char]) {
-                audioPath = group.chars[char].audio;
-                console.log('Found audio path:', audioPath);
-                break;
-            }
-        }
-        
-        if (audioPath) {
-            console.log('Attempting to play:', audioPath);
-            // Make path absolute if it's not already
-            const fullPath = audioPath.startsWith('/') ? audioPath : '/' + audioPath;
-            var audio = new Audio(fullPath);
-            audio.volume = 0.7;
-            if (audioPath && audioPath.endsWith('soft.mp3')) {
-                audio.playbackRate = 0.79;
-            }
-            audio.play().then(function() {
-                console.log('Audio playing successfully');
-            }).catch(function(err) {
-                console.log('Audio playback failed for ' + char + ':', err);
-            });
-        } else {
-            console.log('No audio file found for ' + char);
-        }
     }
     
     function renderAlphabet(filter) {
