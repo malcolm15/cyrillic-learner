@@ -1757,17 +1757,15 @@ const ARTICLES = [
     },
     {
         id: 'backwards-r-myth',
-        title: 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong',
+        title: 'Backwards R (Я): The Real Letter Hollywood Gets Wrong',
         relatedArticles: ['cyrillic-pop-culture', 'false-friends', 'cyrillic-tier-list'],
         content: `
-            <p>You've seen it in movies, video games, and graphic design: English text with random Cyrillic letters thrown in to look "Russian." ҎЦSSЇАИ becomes "RUSSIAN" with Я as a backwards R, И as N, and Ц for U. It's everywhere, it's wrong, and it drives people who actually know Cyrillic absolutely insane.</p>
+            <p>The backwards R is a real letter: Cyrillic Я, pronounced yah. Hear it, copy it to your clipboard, and see why ЯUSSIAN makes Russian speakers laugh. Hollywood has been using this letter wrong for decades, and once you know what Я actually is, you will never unsee it.</p>
             
             <p>Welcome to "faux Cyrillic," the Western world's favorite way to make something look Russian without actually using Russian.</p>
 
-            <figure class="article-image">
-                <img src="/images/backwards-r-myth.png" alt="Infographic debunking the backwards R myth: the Cyrillic letter Я is not a backwards R but a unique letter pronounced YA, with example word Язык meaning Language" loading="lazy" width="1600" height="1240" style="max-width: 550px;">
-                <figcaption>Я is not a backwards R. It's pronounced "ya" and has nothing to do with the letter R.</figcaption>
-            </figure>
+            <p>Tap any letter to hear what it really sounds like, or copy it to your clipboard:</p>
+            <div class="false-friends-grid lookalike-strip" id="lookalike-strip"></div>
 
             <h3>The Most Famous False Friend: Я ≠ R</h3>
             
@@ -1900,10 +1898,10 @@ const ARTICLES = [
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
-                    <button class="share-btn" onclick="copyArticleLink('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')"><i class="fas fa-link"></i> Copy Link</button>
-                    <a href="#" class="share-btn" onclick="shareToBluesky('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;"><svg width="14" height="14" viewBox="0 0 568 501" fill="currentColor" aria-hidden="true" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M123.121 33.664C188.241 82.553 258.281 181.68 284 234.873c25.719-53.193 95.759-152.32 160.879-201.21C491.866-1.611 568-28.906 568 57.947c0 17.346-9.945 145.713-15.778 166.555-20.275 72.453-94.155 90.933-159.875 79.748C507.222 323.8 536.444 388.56 473.333 453.32c-119.86 122.992-172.272-30.859-185.702-70.281-2.462-7.227-3.614-10.608-3.631-7.733-.017-2.875-1.169.506-3.631 7.733-13.43 39.422-65.842 193.273-185.702 70.281-63.111-64.76-33.89-129.52 80.986-149.071-65.72 11.185-139.6-7.295-159.875-79.748C9.945 203.66 0 75.293 0 57.947 0-28.906 76.135-1.611 123.121 33.664Z"/></svg> Bluesky</a>
-                    <a href="#" class="share-btn" onclick="shareToReddit('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
-                    <button class="share-btn" onclick="nativeShare('backwards-r-myth', 'The Cyrillic "Backwards R" Myth: Why Hollywood Gets It Wrong')"><i class="fas fa-share-nodes"></i> Share</button>
+                    <button class="share-btn" onclick="copyArticleLink('backwards-r-myth', 'Backwards R (Я): The Real Letter Hollywood Gets Wrong')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('backwards-r-myth', 'Backwards R (Я): The Real Letter Hollywood Gets Wrong'); return false;"><svg width="14" height="14" viewBox="0 0 568 501" fill="currentColor" aria-hidden="true" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M123.121 33.664C188.241 82.553 258.281 181.68 284 234.873c25.719-53.193 95.759-152.32 160.879-201.21C491.866-1.611 568-28.906 568 57.947c0 17.346-9.945 145.713-15.778 166.555-20.275 72.453-94.155 90.933-159.875 79.748C507.222 323.8 536.444 388.56 473.333 453.32c-119.86 122.992-172.272-30.859-185.702-70.281-2.462-7.227-3.614-10.608-3.631-7.733-.017-2.875-1.169.506-3.631 7.733-13.43 39.422-65.842 193.273-185.702 70.281-63.111-64.76-33.89-129.52 80.986-149.071-65.72 11.185-139.6-7.295-159.875-79.748C9.945 203.66 0 75.293 0 57.947 0-28.906 76.135-1.611 123.121 33.664Z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('backwards-r-myth', 'Backwards R (Я): The Real Letter Hollywood Gets Wrong'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('backwards-r-myth', 'Backwards R (Я): The Real Letter Hollywood Gets Wrong')"><i class="fas fa-share-nodes"></i> Share</button>
                 </div>
             </div>
         `

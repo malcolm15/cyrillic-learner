@@ -291,6 +291,97 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
     }
 };
 
+// ==================== BACKWARDS R MYTH: LOOKALIKE STRIP ====================
+ArticleScripts['backwards-r-myth'] = function() {
+    var strip = document.getElementById('lookalike-strip');
+    if (!strip) return;
+
+    var lookalikes = [
+        { letter: 'Я', looks: 'R', says: 'ya' },
+        { letter: 'И', looks: 'N', says: 'ee' },
+        { letter: 'Д', looks: 'A', says: 'd' },
+        { letter: 'Ш', looks: 'W', says: 'sh' },
+        { letter: 'Ц', looks: 'U', says: 'ts' },
+        { letter: 'Г', looks: 'r', says: 'g' },
+        { letter: 'Ф', looks: 'O', says: 'f' },
+        { letter: 'Ё', looks: 'E', says: 'yo' }
+    ];
+
+    function track(letter, action) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'lookalike_used', {
+                'letter': letter,
+                'action': action
+            });
+        }
+    }
+
+    function createLookalikeCard(item) {
+        var card = document.createElement('div');
+        card.className = 'ff-card lookalike-card';
+
+        var letterEl = document.createElement('div');
+        letterEl.className = 'ff-letter';
+        letterEl.textContent = item.letter;
+
+        var body = document.createElement('div');
+        body.className = 'ff-body';
+
+        var wrong = document.createElement('div');
+        wrong.className = 'ff-wrong';
+        wrong.textContent = '\u2715 looks like "' + item.looks + '"';
+
+        var right = document.createElement('div');
+        right.className = 'ff-right';
+        right.textContent = '\u2713 actually says "' + item.says + '"';
+
+        body.appendChild(wrong);
+        body.appendChild(right);
+
+        var actions = document.createElement('div');
+        actions.className = 'lookalike-actions';
+
+        var listenBtn = document.createElement('button');
+        listenBtn.type = 'button';
+        listenBtn.className = 'copy-char-btn lookalike-btn';
+        listenBtn.textContent = 'Listen';
+        listenBtn.setAttribute('aria-label', 'Listen to ' + item.letter);
+        listenBtn.onclick = function() {
+            playAudio(item.letter);
+            track(item.letter, 'listen');
+        };
+
+        var copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-char-btn lookalike-btn';
+        copyBtn.textContent = 'Copy';
+        copyBtn.setAttribute('aria-label', 'Copy ' + item.letter);
+
+        var feedback = document.createElement('span');
+        feedback.className = 'copy-feedback';
+        feedback.textContent = 'Copied!';
+        copyBtn.appendChild(feedback);
+
+        copyBtn.onclick = function() {
+            copyToClipboard(item.letter, copyBtn);
+            track(item.letter, 'copy');
+        };
+
+        actions.appendChild(listenBtn);
+        actions.appendChild(copyBtn);
+
+        card.appendChild(letterEl);
+        card.appendChild(body);
+        card.appendChild(actions);
+
+        return card;
+    }
+
+    for (var i = 0; i < lookalikes.length; i++) {
+        strip.appendChild(createLookalikeCard(lookalikes[i]));
+    }
+};
+
 // ==================== RUSSIAN ALPHABET CHART ====================
 ArticleScripts['russian-alphabet-chart'] = function() {
     if (typeof CYRILLIC_DATA === 'undefined') return;

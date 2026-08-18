@@ -60,8 +60,8 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
     "description": "One of the best ways to reinforce your Cyrillic learning is to start reading actual Russian words as soon as possible. You don't need to understand..."
   },
   "backwards-r-myth": {
-    "title": "The Cyrillic &quot;Backwards R&quot; Myth: Why Hollywood Gets It Wrong | Cyrilica",
-    "description": "You've seen it in movies, video games, and graphic design: English text with random Cyrillic letters thrown in to look &quot;Russian.&quot; ҎЦSSЇАИ becomes..."
+    "title": "Backwards R (Я): The Real Letter Hollywood Gets Wrong | Cyrilica",
+    "description": "The backwards R is a real letter: Cyrillic Я, pronounced yah. Hear it, copy it to your clipboard, and see why ЯUSSIAN makes Russian speakers laugh...."
   },
   "practice-writing-cyrillic": {
     "title": "How to Practice Writing Cyrillic by Hand | Cyrilica",
