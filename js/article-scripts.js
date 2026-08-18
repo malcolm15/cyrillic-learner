@@ -99,6 +99,15 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
         }, 1500);
     }
 
+    // Caret-aware insert into the text builder. Shared by the letter buttons
+    // and the space buttons. Same logic the letter buttons always used.
+    function insertAtCaret(char) {
+        if (!textArea) return;
+        var pos = textArea.selectionStart || textArea.value.length;
+        textArea.value = textArea.value.substring(0, pos) + char + textArea.value.substring(pos);
+        textArea.selectionStart = textArea.selectionEnd = pos + char.length;
+    }
+
     function createCopyButton(char) {
         var btn = document.createElement('button');
         btn.className = 'copy-char-btn';
@@ -111,15 +120,25 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
         
         btn.onclick = function() {
             // Append to text builder
-            if (textArea) {
-                var pos = textArea.selectionStart || textArea.value.length;
-                textArea.value = textArea.value.substring(0, pos) + char + textArea.value.substring(pos);
-                textArea.selectionStart = textArea.selectionEnd = pos + char.length;
-            }
+            insertAtCaret(char);
             // Also copy individual character
             copyToClipboard(char, btn);
         };
         
+        return btn;
+    }
+
+    // Space tile: inserts a space at the caret only. No clipboard write and no
+    // copied feedback; a lone space on the clipboard would be useless.
+    function createSpaceButton() {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-char-btn copy-space-tile';
+        btn.textContent = 'Space';
+        btn.setAttribute('aria-label', 'Insert space');
+        btn.onclick = function() {
+            insertAtCaret(' ');
+        };
         return btn;
     }
 
@@ -129,6 +148,7 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
             uppercaseContainer.appendChild(createCopyButton(uniqueUpper[i]));
         }
     }
+    uppercaseContainer.appendChild(createSpaceButton());
 
     // Build lowercase buttons
     for (var i = 0; i < uniqueLower.length; i++) {
@@ -136,11 +156,13 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
             lowercaseContainer.appendChild(createCopyButton(uniqueLower[i]));
         }
     }
+    lowercaseContainer.appendChild(createSpaceButton());
 
     // Build special character buttons
     for (var i = 0; i < special.length; i++) {
         specialContainer.appendChild(createCopyButton(special[i]));
     }
+    specialContainer.appendChild(createSpaceButton());
 
     // Build accented vowel buttons (combining acute accent U+0301)
     var accentMark = '\u0301';
@@ -151,12 +173,14 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
         for (var i = 0; i < vowelsUpper.length; i++) {
             accentedUpperContainer.appendChild(createCopyButton(vowelsUpper[i] + accentMark));
         }
+        accentedUpperContainer.appendChild(createSpaceButton());
     }
 
     if (accentedLowerContainer) {
         for (var i = 0; i < vowelsLower.length; i++) {
             accentedLowerContainer.appendChild(createCopyButton(vowelsLower[i] + accentMark));
         }
+        accentedLowerContainer.appendChild(createSpaceButton());
     }
 
     // Build pre-reform letter buttons
@@ -171,6 +195,7 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
         for (var i = 0; i < prereformLetters.length; i++) {
             prereformContainer.appendChild(createCopyButton(prereformLetters[i]));
         }
+        prereformContainer.appendChild(createSpaceButton());
     }
 
     // Wire up Copy button
@@ -200,6 +225,14 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
         clearBtn.onclick = function() {
             textArea.value = '';
             textArea.focus();
+        };
+    }
+
+    // Wire up the spacebar under the textarea
+    var spacebarBtn = document.getElementById('copy-spacebar');
+    if (spacebarBtn) {
+        spacebarBtn.onclick = function() {
+            insertAtCaret(' ');
         };
     }
 

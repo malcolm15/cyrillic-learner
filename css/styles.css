@@ -2528,6 +2528,21 @@
             gap: 6px;
             margin: 12px 0;
         }
+        /* Space buttons: layout and type-size modifiers only. Colors, borders,
+           hover, and dark mode all inherit from .copy-char-btn. */
+        .copy-space-tile {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .copy-spacebar {
+            display: block;
+            margin: 8px auto 0;
+            width: 60%;
+            max-width: 320px;
+            min-height: 44px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
         .copy-section-label {
             font-size: 0.8rem;
             color: #888;

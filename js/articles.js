@@ -3669,6 +3669,7 @@ const ARTICLES = [
                     </div>
                 </div>
                 <textarea id="text-builder-area" placeholder="Click letters below to build text here..." rows="2"></textarea>
+                <button type="button" id="copy-spacebar" class="copy-char-btn copy-spacebar" aria-label="Insert space">Space</button>
                 <div id="text-builder-toast" class="text-builder-toast">Copied to clipboard!</div>
             </div>
 
