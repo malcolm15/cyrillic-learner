@@ -341,7 +341,11 @@ ArticleScripts['backwards-r-myth'] = function() {
         wrong.textContent = item.looks;
         line.appendChild(wrong);
 
-        line.appendChild(document.createTextNode(' \u00b7 says '));
+        line.appendChild(document.createTextNode(' \u00b7 '));
+        var says = document.createElement('span');
+        says.className = 'lookalike-says';
+        says.textContent = 'says ';
+        line.appendChild(says);
         var right = document.createElement('span');
         right.className = 'ff-right';
         right.textContent = item.says;

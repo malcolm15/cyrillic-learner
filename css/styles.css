@@ -2452,6 +2452,9 @@
         @media (max-width: 479px) {
             .lookalike-verbose, .lookalike-hint { display: none; }
         }
+        @media (max-width: 359px) {
+            .lookalike-says { display: none; }
+        }
         body.dark-mode .ff-card { background: var(--dark-surface); border-color: var(--dark-border); }
         body.dark-mode .ff-letter { color: var(--dark-text); }
         body.dark-mode .ff-example { color: var(--dark-text-dim); }
