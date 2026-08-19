@@ -2141,7 +2141,7 @@
             }
 
             /* Compact article reading experience on mobile */
-            #article-page .card {
+            #article-view .card {
                 padding: 16px;
             }
 
