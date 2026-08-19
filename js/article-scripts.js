@@ -297,14 +297,14 @@ ArticleScripts['backwards-r-myth'] = function() {
     if (!strip) return;
 
     var lookalikes = [
-        { letter: 'Я', looks: 'R', says: 'ya' },
-        { letter: 'И', looks: 'N', says: 'ee' },
-        { letter: 'Д', looks: 'A', says: 'd' },
-        { letter: 'Ш', looks: 'W', says: 'sh' },
-        { letter: 'Ц', looks: 'U', says: 'ts' },
-        { letter: 'Г', looks: 'r', says: 'g' },
-        { letter: 'Ф', looks: 'O', says: 'f' },
-        { letter: 'Ё', looks: 'E', says: 'yo' }
+        { letter: 'Я', looks: 'R', says: 'ya', hint: 'yard' },
+        { letter: 'И', looks: 'N', says: 'ee', hint: 'see' },
+        { letter: 'Д', looks: 'A', says: 'd', hint: 'dog' },
+        { letter: 'Ш', looks: 'W', says: 'sh', hint: 'shop' },
+        { letter: 'Ц', looks: 'U', says: 'ts', hint: 'cats' },
+        { letter: 'Г', looks: 'r', says: 'g', hint: 'go' },
+        { letter: 'Ф', looks: 'O', says: 'f', hint: 'fox' },
+        { letter: 'Ё', looks: 'E', says: 'yo', hint: 'yolk' }
     ];
 
     function track(letter, action) {
@@ -324,19 +324,33 @@ ArticleScripts['backwards-r-myth'] = function() {
         letterEl.className = 'ff-letter';
         letterEl.textContent = item.letter;
 
-        var body = document.createElement('div');
-        body.className = 'ff-body';
+        // Single explainer line: looks like R \u00b7 says ya (yard).
+        // The verbose and hint spans hide below 480px so the core
+        // "like R \u00b7 says ya" fits phones without clipping.
+        var line = document.createElement('div');
+        line.className = 'lookalike-line';
 
-        var wrong = document.createElement('div');
+        var verbose = document.createElement('span');
+        verbose.className = 'lookalike-verbose';
+        verbose.textContent = 'looks ';
+        line.appendChild(verbose);
+
+        line.appendChild(document.createTextNode('like '));
+        var wrong = document.createElement('span');
         wrong.className = 'ff-wrong';
-        wrong.textContent = '\u2715 looks like "' + item.looks + '"';
+        wrong.textContent = item.looks;
+        line.appendChild(wrong);
 
-        var right = document.createElement('div');
+        line.appendChild(document.createTextNode(' \u00b7 says '));
+        var right = document.createElement('span');
         right.className = 'ff-right';
-        right.textContent = '\u2713 actually says "' + item.says + '"';
+        right.textContent = item.says;
+        line.appendChild(right);
 
-        body.appendChild(wrong);
-        body.appendChild(right);
+        var hint = document.createElement('span');
+        hint.className = 'lookalike-hint';
+        hint.textContent = ' (' + item.hint + ')';
+        line.appendChild(hint);
 
         var actions = document.createElement('div');
         actions.className = 'lookalike-actions';
@@ -344,26 +358,27 @@ ArticleScripts['backwards-r-myth'] = function() {
         var listenBtn = document.createElement('button');
         listenBtn.type = 'button';
         listenBtn.className = 'copy-char-btn lookalike-btn';
-        listenBtn.textContent = 'Listen';
+        listenBtn.textContent = '\ud83d\udd0a';
         listenBtn.setAttribute('aria-label', 'Listen to ' + item.letter);
         listenBtn.onclick = function() {
             playAudio(item.letter);
+            listenBtn.classList.add('playing');
+            setTimeout(function() { listenBtn.classList.remove('playing'); }, 800);
             track(item.letter, 'listen');
         };
 
         var copyBtn = document.createElement('button');
         copyBtn.type = 'button';
         copyBtn.className = 'copy-char-btn lookalike-btn';
-        copyBtn.textContent = 'Copy';
+        copyBtn.textContent = '\ud83d\udccb';
         copyBtn.setAttribute('aria-label', 'Copy ' + item.letter);
-
-        var feedback = document.createElement('span');
-        feedback.className = 'copy-feedback';
-        feedback.textContent = 'Copied!';
-        copyBtn.appendChild(feedback);
 
         copyBtn.onclick = function() {
             copyToClipboard(item.letter, copyBtn);
+            // Icon swap feedback: the .copied colors come from the shared
+            // helper; the 1500ms revert matches its showCopiedFeedback timing.
+            copyBtn.textContent = '\u2713';
+            setTimeout(function() { copyBtn.textContent = '\ud83d\udccb'; }, 1500);
             track(item.letter, 'copy');
         };
 
@@ -371,7 +386,7 @@ ArticleScripts['backwards-r-myth'] = function() {
         actions.appendChild(copyBtn);
 
         card.appendChild(letterEl);
-        card.appendChild(body);
+        card.appendChild(line);
         card.appendChild(actions);
 
         return card;

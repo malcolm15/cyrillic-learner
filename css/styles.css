@@ -2443,9 +2443,15 @@
         /* Lookalike strip (backwards-r-myth): layout-only modifiers. The grid
            comes from .false-friends-grid; card colors from .ff-card; button
            colors, hover, copied state, and dark mode from .copy-char-btn. */
-        .lookalike-card { flex-wrap: wrap; }
-        .lookalike-actions { display: flex; gap: 8px; width: 100%; margin-top: 8px; }
-        .lookalike-btn { flex: 1; min-height: 44px; font-size: 0.9rem; letter-spacing: 1px; padding: 6px 10px; }
+        .lookalike-card { gap: 8px; padding: 8px 10px; }
+        .lookalike-card .ff-letter { font-size: 1.7rem; min-width: 28px; }
+        .lookalike-line { flex: 1; min-width: 0; font-size: 0.85rem; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .lookalike-actions { display: flex; gap: 8px; flex: none; }
+        .lookalike-btn { width: 44px; height: 44px; min-height: 44px; flex: none; padding: 0; font-size: 1.15rem; line-height: 1; }
+        .lookalike-btn.playing { transform: scale(0.92); }
+        @media (max-width: 479px) {
+            .lookalike-verbose, .lookalike-hint { display: none; }
+        }
         body.dark-mode .ff-card { background: var(--dark-surface); border-color: var(--dark-border); }
         body.dark-mode .ff-letter { color: var(--dark-text); }
         body.dark-mode .ff-example { color: var(--dark-text-dim); }
