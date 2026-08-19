@@ -2449,6 +2449,13 @@
         .lookalike-actions { display: flex; gap: 8px; flex: none; }
         .lookalike-btn { width: 44px; height: 44px; min-height: 44px; flex: none; padding: 0; font-size: 1.15rem; line-height: 1; }
         .lookalike-btn.playing { transform: scale(0.92); }
+        /* Strip-specific breakpoint: one column until a 2-col column can hold
+           the full sentence (needs ~237px of line width, true from ~930px).
+           The shared .false-friends-grid rules are untouched. */
+        .lookalike-strip { grid-template-columns: 1fr; }
+        @media (min-width: 930px) {
+            .lookalike-strip { grid-template-columns: 1fr 1fr; }
+        }
         @media (max-width: 479px) {
             .lookalike-verbose, .lookalike-hint { display: none; }
         }
