@@ -165,7 +165,7 @@ function main() {
         twTitle: '<meta property="twitter:title" content="Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica">',
         twDesc: '<meta property="twitter:description" content="Free interactive tool to learn the Russian alphabet. Practice all 33 Cyrillic letters with instant feedback, pronunciation audio, and progress tracking. No signup required.">',
         headClose: '</head>',
-        body: '<body>',
+        body: '<body>',  // replaced with the data-prerendered marker
         homePage: '<div id="home-page" class="page-content active">',
         articlesPage: '<div id="articles-page" class="page-content">',
         articlesIndex: '<div id="articles-index" class="articles-view active">',
@@ -295,6 +295,7 @@ function main() {
             slug + '/article content');
         page = replaceOnce(page, T.relatedOpen, '<div class="related-articles" id="related-articles-section" style="display: block;">', slug + '/related section state');
         page = replaceOnce(page, T.relatedPlaceholder, relatedCards, slug + '/related cards');
+        page = replaceOnce(page, T.body, '<body data-prerendered="' + slug + '">', slug + '/body marker');
         page = replaceOnce(page, T.prevBtn, '<button class="btn nav-btn" id="prev-article" onclick="navigateArticle(\'prev\')" data-article-id="' + ARTICLE_ORDER[prevIndex] + '">', slug + '/prev button');
         page = replaceOnce(page, T.nextBtn, '<button class="btn nav-btn" id="next-article" onclick="navigateArticle(\'next\')" data-article-id="' + ARTICLE_ORDER[nextIndex] + '">', slug + '/next button');
         page = replaceOnce(page, T.prevTitle, '<span class="nav-title" id="prev-article-title">' + escapeHtml(prevArticle.title) + '</span>', slug + '/prev title');

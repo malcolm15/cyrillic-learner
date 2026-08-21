@@ -1325,7 +1325,13 @@ initReference();
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById('articles-page').classList.add('active');
             document.getElementById('articles-index').style.display = 'none';
-            document.getElementById('article-view').style.display = 'none';
+            // Pre-rendered pages ship with this article already painted in
+            // #article-view; hiding it here would blank the content for the
+            // 100ms until showArticle repaints it. Everything else, including
+            // the full re-render, stays the same.
+            if (document.body.dataset.prerendered !== articleId) {
+                document.getElementById('article-view').style.display = 'none';
+            }
             document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
             const articlesNavLink = safeGetNavLink('articles');
             if (articlesNavLink) articlesNavLink.classList.add('active');
