@@ -3,7 +3,10 @@
 // Deploy-time pre-rendering of article pages (Option B).
 //
 // Reads index.html as the template and, for each article in js/articles.js,
-// emits articles/SLUG/index.html with the per-article head, the article body
+// emits articles/SLUG.html (flat files, not SLUG/index.html: Netlify serves
+// the extensionless /articles/SLUG from SLUG.html directly, while a directory
+// index triggers a 301 to the trailing-slash form, which would put a redirect
+// hop on every indexed article URL) with the per-article head, the article body
 // already in the DOM, prev/next navigation, the related-articles grid, and
 // Article plus BreadcrumbList JSON-LD. Netlify serves these real files ahead
 // of the non-forced /* /index.html 200 catch-all, so non-rendering crawlers
@@ -191,6 +194,7 @@ function main() {
     });
 
     // ---- emit each article ----
+    fs.mkdirSync(OUT_ROOT, { recursive: true });
     let emitted = 0;
     ARTICLE_ORDER.forEach(function (slug, i) {
         const article = byId[slug];
@@ -301,9 +305,7 @@ function main() {
         page = replaceOnce(page, T.prevTitle, '<span class="nav-title" id="prev-article-title">' + escapeHtml(prevArticle.title) + '</span>', slug + '/prev title');
         page = replaceOnce(page, T.nextTitle, '<span class="nav-title" id="next-article-title">' + escapeHtml(nextArticle.title) + '</span>', slug + '/next title');
 
-        const outDir = path.join(OUT_ROOT, slug);
-        fs.mkdirSync(outDir, { recursive: true });
-        fs.writeFileSync(path.join(outDir, 'index.html'), page, 'utf8');
+        fs.writeFileSync(path.join(OUT_ROOT, slug + '.html'), page, 'utf8');
         emitted += 1;
     });
 

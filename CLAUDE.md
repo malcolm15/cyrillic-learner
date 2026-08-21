@@ -156,8 +156,10 @@ function entry point (this is the mistake that broke the first b4cf079 deploy).
 
 Every push, the Netlify build command (netlify.toml) runs
 scripts/generate-article-heads.js then scripts/pre-render.js. The pre-renderer
-reads index.html as the template and emits articles/SLUG/index.html for all 28
-articles: per-article head (title, description, canonical, og and twitter),
+reads index.html as the template and emits articles/SLUG.html (flat files: a
+SLUG/index.html directory layout makes Netlify 301 the extensionless URL to the
+trailing-slash form, adding a redirect hop on every indexed article URL) for all
+28 articles: per-article head (title, description, canonical, og and twitter),
 article body in the DOM, prev/next, related-articles grid, and Article plus
 BreadcrumbList JSON-LD with id="article-schema" / id="breadcrumb-schema" so the
 JS render replaces them instead of duplicating. Netlify serves these real files
