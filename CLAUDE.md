@@ -68,6 +68,9 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
   feature logic (printable chart, cursive engine).
 - `netlify/edge-functions/`: server-side Deno edge functions. Currently one function,
   `head-rewrite.ts`. Deployed automatically with each push.
+- `scripts/`: dependency-free node generators run by the Netlify build command
+  (netlify.toml): generate-article-heads.js then pre-render.js. The articles/
+  output directory is a gitignored deploy artifact, never committed.
 - `images/`, `audio/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
   namespace).
 
@@ -133,9 +136,12 @@ includes a U+2014 em-dash). If those lines change, update the match strings in
 
 CRITICAL COUPLING 2: the per-article title and description come from
 `netlify/lib/article-heads.ts`, generated from js/articles.js by
-`scripts/generate-article-heads.js`. Regenerate it (`node
-scripts/generate-article-heads.js`) whenever any article title or opening paragraph
-changes, or crawlers get stale head content. Same coupling class as COUPLING 1. The
+`scripts/generate-article-heads.js`. The manual regeneration step is RETIRED:
+the Netlify build command regenerates it on every deploy (and pre-render.js
+cross-asserts it against a fresh derivation, failing the build on drift).
+Regenerating locally after editing an article title or opening paragraph is
+still good hygiene so the committed copy stays truthful, but deploys no longer
+depend on it. Same coupling class as COUPLING 1. The
 generator derives title and description with the identical logic core.js uses on
 render, so raw HTML and rendered agree exactly; it HTML-escapes the values and skips
 (with a loud warning) any article whose first paragraph could diverge from the
@@ -145,6 +151,34 @@ import), so a data-file problem cannot fail the module load and regress the
 canonical / robots rewrites. It lives in netlify/lib/, not netlify/edge-functions/,
 because Netlify treats every file in the edge-functions directory as its own
 function entry point (this is the mistake that broke the first b4cf079 deploy).
+
+## Article pre-rendering (deploy-time)
+
+Every push, the Netlify build command (netlify.toml) runs
+scripts/generate-article-heads.js then scripts/pre-render.js. The pre-renderer
+reads index.html as the template and emits articles/SLUG/index.html for all 28
+articles: per-article head (title, description, canonical, og and twitter),
+article body in the DOM, prev/next, related-articles grid, and Article plus
+BreadcrumbList JSON-LD with id="article-schema" / id="breadcrumb-schema" so the
+JS render replaces them instead of duplicating. Netlify serves these real files
+ahead of the non-forced /* catch-all, so crawlers get full article content in
+raw HTML. The /articles listing, homepage, and utility pages stay SPA-shell
+(their content is already static in index.html).
+
+Fail-loud by design: every template replacement is an exact-match assertion and
+any mismatch fails the build, which keeps the last good deploy live. This is a
+deliberate coupling to index.html markup structure: shell changes that touch the
+generator's needles break the build loudly and the needles must be updated.
+
+Each emitted page carries data-prerendered="SLUG" on body. handleInitialURL in
+core.js checks it and skips hiding the article view on boot (no flash);
+everything else, including the full showArticle re-render and ArticleScripts
+init, runs exactly as on a shell page.
+
+The edge function is unchanged and verified no-op on pre-rendered pages: their
+heads no longer contain its byte-for-byte match targets, so every replace
+misses safely. It still does real work for the homepage, /articles, utility
+noindex, and any path that falls through to the shell.
 
 ## SPA routing and canonicals
 
@@ -205,10 +239,10 @@ A new article touches FIVE places, all using the identical slug:
 3. `index.html`: an `.article-item` block in the right category group.
 4. `sitemap.xml`: a new `<url>` entry (add an `<image:image>` entry too if the
    article has an image).
-5. Regenerate `netlify/lib/article-heads.ts` (`node
-   scripts/generate-article-heads.js`) so the new article gets per-route raw-HTML
-   title and description. Also required when an existing title or opening paragraph
-   changes. See the edge function section for the coupling.
+5. Nothing manual for heads or pre-rendering: the deploy build regenerates
+   `netlify/lib/article-heads.ts` and pre-renders the article automatically.
+   Optionally run `node scripts/generate-article-heads.js` locally to keep the
+   committed artifact current.
 
 Categories (exact strings): `Getting Started`, `Alphabet Variants`,
 `History & Culture`, `Learning Tools & Resources`.
