@@ -1,0 +1,3 @@
+[build]
+  command = "node scripts/generate-article-heads.js && node scripts/pre-render.js"
+  publish = "."
