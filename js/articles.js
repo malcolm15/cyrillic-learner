@@ -3525,7 +3525,9 @@ const ARTICLES = [
 
             <p><strong>Standard Russian (ЙЦУКЕН):</strong> This is the layout used in Russia. The letters are arranged the way native Russians expect them. If you bought a keyboard in Moscow, this is what the labels on the keys would show. The problem? It has almost nothing in common with QWERTY. The Russian letter Й is where English Q is, Ц is where W is, and so on. If you learn this layout, you're essentially learning to type from scratch.</p>
 
-            <p><strong>Russian Phonetic (sometimes called "Russian — Phonetic" or "Russian — Mnemonic"):</strong> This layout maps Cyrillic letters to the QWERTY key that produces a similar sound. Press A and you get А. Press K and you get К. Press V and you get В (which sounds like V in Russian even though it looks like B). This is much easier if you're coming from an English keyboard and aren't planning to become a Russian typist.</p>
+            <p><strong>Russian Phonetic:</strong> This layout maps Cyrillic letters to the QWERTY key that produces a similar sound. Press A and you get А. Press K and you get К. Press V and you get В (which sounds like V in Russian even though it looks like B). This is much easier if you're coming from an English keyboard and aren't planning to become a Russian typist.</p>
+            
+            <p>One catch: "phonetic" means different things on different systems. On a Mac (where the layout is called "Russian — Phonetic") and on Linux, every Russian letter sits on a single key. Windows works differently. Its version, called Russian Mnemonic, builds several letters from key sequences instead: you type c then h for ч, y then o for ё, y then a for я, and y followed by anything other than o or a for ы. That last one is the one that bites, because it makes typing ы followed by о awkward.</p>
 
             <p>For most English speakers learning Russian, the phonetic layout is the right choice. You can start typing immediately without retraining your muscle memory. If you're serious about eventually working in Russia or typing long documents in Russian daily, the standard layout is worth learning, but you can always add it later.</p>
 
@@ -3555,7 +3557,7 @@ const ARTICLES = [
 
             <p><strong>Step 5:</strong> On the optional language features screen, you can uncheck "Set as my Windows display language" unless you want your entire operating system in Russian. Click Install.</p>
 
-            <p><strong>Step 6:</strong> Windows will download and install the language pack. When it's done, you'll have the standard Russian ЙЦУКЕН keyboard available. If you want the phonetic layout instead, click on the Russian language you just added, click Options, then click "Add a keyboard" and choose Russian Mnemonic.</p>
+            <p><strong>Step 6:</strong> Windows will download and install the language pack. When it's done, you'll have the standard Russian ЙЦУКЕН keyboard available. If you want the phonetic layout instead, click on the Russian language you just added, click Options, then click "Add a keyboard" and choose Russian Mnemonic. It types several letters as key sequences rather than single keys, as described in the layout section above.</p>
 
             <p><strong>Step 7:</strong> To switch to Russian typing, press Windows Key + Space. You'll see a language indicator appear showing EN or RU. You can also click the language indicator in the bottom-right corner of your taskbar to switch.</p>
 
@@ -3625,7 +3627,7 @@ const ARTICLES = [
 
             <p><strong>Learn the switching hotkey cold.</strong> On Windows it's Windows + Space. On Mac it's Control + Space (customizable). On mobile it's the globe icon. Internalize this so switching becomes reflexive rather than an interruption.</p>
 
-            <p><strong>Remember Ё.</strong> The letter Ё is not where you'd expect it on most layouts. On standard ЙЦУКЕН, it's in the top-left corner where you'd expect the tilde (~) on an English keyboard. On the phonetic layout, it often requires a modifier key. If you're curious why this letter is its own whole situation, we've got a <a href="/articles/letter-yo-story" onclick="navTo(event, null, 'letter-yo-story')">dedicated article on the strange history of Ё</a>.</p>
+            <p><strong>Remember Ё.</strong> The letter Ё is not where you'd expect it on most layouts. On standard ЙЦУКЕН, it's in the top-left corner where you'd expect the tilde (~) on an English keyboard. On the phonetic layouts it varies: Windows Russian Mnemonic types it as y then o, while other phonetic layouts often put it behind a modifier key. If you're curious why this letter is its own whole situation, we've got a <a href="/articles/letter-yo-story" onclick="navTo(event, null, 'letter-yo-story')">dedicated article on the strange history of Ё</a>.</p>
 
             <h3>When You Just Need One Character Quickly</h3>
 
@@ -3640,7 +3642,7 @@ const ARTICLES = [
 
             <h3>Which Platform Is Easiest?</h3>
 
-            <p>Ranking from easiest to hardest for first-time Cyrillic typists: Mac, then Windows, then iPhone and iPad tied, then Android. Mac wins because it offers a phonetic layout out of the box with zero friction. Windows requires adding a separate mnemonic layout but supports it well. iOS is simple but only offers the standard ЙЦУКЕН layout, which is harder for beginners. Android's setup varies by keyboard app, which makes the process a little inconsistent.</p>
+            <p>Ranking from easiest to hardest for first-time Cyrillic typists: Mac, then Windows, then iPhone and iPad tied, then Android. Mac wins because its phonetic layout is built in and puts every Russian letter on a single key. Windows requires adding its Russian Mnemonic layout, which types several letters as key sequences. iOS is simple but only offers the standard ЙЦУКЕН layout, which is harder for beginners. Android's setup varies by keyboard app, which makes the process a little inconsistent.</p>
 
             <p>The good news is that once you set it up on one device, you rarely touch the settings again. Five minutes of configuration buys you months of convenient Russian typing. And if you're planning to learn the language seriously, you might as well tackle the standard ЙЦУКЕН layout eventually. Muscle memory builds faster than you'd think, and Russian keyboards in Russia will all use that layout.</p>
 
