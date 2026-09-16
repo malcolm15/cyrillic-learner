@@ -3696,7 +3696,7 @@ const ARTICLES = [
 
             <h3>How to Use</h3>
 
-            <p>Click any letter and it's on your clipboard. Paste with Ctrl+V (Windows/Linux) or Cmd+V (Mac). The accented letters use a Unicode combining accent, so they work in any modern text field.</p>
+            <p>Click any letter and two things happen: it goes onto your clipboard, and it is added to the text builder above. Paste with Ctrl+V (Windows/Linux) or Cmd+V (Mac). The Space tiles are the one exception. They add a space in the builder only, so when you are assembling a phrase use the builder's own Copy button. The accented letters use a Unicode combining accent, so they work in any modern text field.</p>
 
             <h3>Who Needs This?</h3>
 
