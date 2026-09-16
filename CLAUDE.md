@@ -40,11 +40,15 @@ Orientation for Claude Code (CC). Read this at the start of every session.
 - **No em-dashes anywhere**, including code comments, articles, and any copy. Use
   commas, periods, or parentheses. This applies to ALL article body prose, not
   only code and examples; approximately 300 em-dashes in article prose were
-  removed in commit f03a815. Exception: five em-dashes are intentionally kept in
-  how-to-type-cyrillic (lines approximately 3482 and 3530), where the OS keyboard
-  layout names "Russian — Phonetic", "Russian — Mnemonic", and "Russian — PC"
-  contain em-dashes as displayed in the Windows and macOS UI. Changing them would
-  make the typing instructions inaccurate. Do not "fix" these.
+  removed in commit f03a815. Exception: four em-dashes are intentionally kept in
+  how-to-type-cyrillic (in the layout-choice section and macOS Step 5), where the
+  macOS keyboard layout names "Russian — Phonetic" and "Russian — PC" contain
+  em-dashes as displayed in the macOS UI. Changing them would make the typing
+  instructions inaccurate. Do not "fix" these. This count was five until
+  September 2026: the fifth was "Russian — Mnemonic", which was never a real
+  layout name (Microsoft calls the Windows layout "Russian Mnemonic", no dash), so
+  it was an error rather than a deliberate exception and was removed. A grep that
+  finds four, not five, is correct and is not a missed cleanup.
 - **Commit separately, push together.** Logically distinct changes get their own
   commits with clear messages, pushed as a batch.
 - **Desktop and mobile are separate concerns.** Desktop-only changes go inside
