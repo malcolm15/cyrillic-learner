@@ -49,8 +49,8 @@ const ARTICLES = [
             <p>These take more practice because you don't have any visual reference point. But in some ways they're easier than the false friends because there's no confusion. You just have to learn them from scratch.</p>
 
             <div class="quiz-cta">
-                <p>Ready to try the Three-Group Method? Pick your first group and start learning right now.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">PICK YOUR FIRST GROUP</button>
+                <p>One thing to know before you start: the study tool does not sort letters into these three groups. It splits the alphabet into six groups of vowels and consonants instead, and the seven-day plan below tells you which of them to pick first.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home')">CHOOSE YOUR LETTER GROUPS</button>
             </div>
 
             <h3>Your First Week (Using This Site)</h3>
@@ -67,7 +67,7 @@ const ARTICLES = [
 
             <p>Add Consonants 1 to your practice. This group is Б, В, Г, Д, Ж and З. Б looks like a 6, Д looks like a little house, and З looks like a 3. В is your first false friend: it looks like a B but sounds like V. Ж is your first genuinely new sound, the "zh" in the middle of "measure."</p>
 
-            <p>Now you're combining vowels and consonants. Try sounding out the practice words the quiz gives you. You won't know what they mean yet, but you're training your brain to recognize the patterns.</p>
+            <p>Now you're combining vowels and consonants. The quiz shows you one letter at a time, not whole words, so once a few letters feel solid, try sounding out short Russian words you come across. You won't know what they mean yet, but you're training your brain to recognize the patterns.</p>
 
             <p><strong>Day 5 and 6: Consonants 2</strong></p>
 
@@ -77,7 +77,7 @@ const ARTICLES = [
 
             <p><strong>Day 7: Review Mode</strong></p>
 
-            <p>Don't add any new groups. Just drill what you've learned so far. Use the quiz in Repeat Problems mode (turn it on in Settings) to focus on letters you keep missing.</p>
+            <p>Don't add any new groups. Just drill what you've learned so far. Turn on Repeat Problem Questions in Settings, and the quiz will keep bringing back the letters you miss.</p>
 
             <p>If you're feeling confident, try adding Vowels 2 to see the remaining vowel letters like Ы and Э. But if you're still struggling with the basics, stick with what you know and get faster.</p>
 
@@ -268,8 +268,8 @@ const ARTICLES = [
             <h3>Practice Strategy: Isolation and Repetition</h3>
 
             <div class="quiz-cta">
-                <p>Think you can tell these false friends apart? Test yourself with our interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">START PRACTICING</button>
+                <p>Think you can tell these false friends apart? The quiz further down this page drills just these six. When you are ready for the rest of the alphabet, the full study tool covers all 33 letters.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home')">OPEN THE FULL STUDY TOOL</button>
             </div>
             <p>Don't try to learn these mixed in with other letters. Your brain needs to form new, isolated associations. Here's how:</p>
             <ul>
@@ -283,7 +283,7 @@ const ARTICLES = [
             <div class="mini-quiz-container">
                 <div class="mini-quiz-header">
                     <h3 style="margin: 0 0 10px 0;">Practice These False Friends Right Now</h3>
-                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Test yourself on all 6 letters. Your settings apply here too!</p>
+                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Test yourself on all 6 letters. Your Include Lowercase, Auto-Submit and Auto-play Audio settings apply here too.</p>
                 </div>
                 
                 <div id="mini-quiz-content" class="quiz-content">
@@ -966,8 +966,8 @@ const ARTICLES = [
             This one has no direct Russian equivalent. It's a two-sound letter, "y" + "i" combined, like saying "yee" quickly. It's always pronounced with that initial "y" glide, never as a plain "i." Examples: їжа (food), їхати (to travel), Україна (Ukraine, the і in Украї is this letter).</p>
 
             <div class="quiz-cta">
-                <p>Drilling Cyrillic letters is the fastest way to make them stick. Pick your character groups and start practicing now.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">PRACTICE CYRILLIC NOW</button>
+                <p>The study tool drills the 33 letters of the Russian alphabet, which share most of their shapes with Ukrainian. It does not include Ґ, Є, І or Ї, so use it for the shared letters and this page for the four Ukrainian ones. Pick your character groups and start practicing.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home')">PRACTICE THE SHARED LETTERS</button>
             </div>
 
             <h3>The Four Russian Letters Ukrainian Doesn't Use</h3>
@@ -1583,8 +1583,8 @@ const ARTICLES = [
             <p><strong>Why F-tier:</strong> Р is the false friend that never stops being a false friend. Ы is a sound your mouth doesn't want to make. Ь is conceptually weird. Ъ barely exists. These are your final bosses in the Cyrillic learning journey.</p>
 
             <div class="quiz-cta">
-                <p>Think you can handle the S-tier letters? Start there and work your way down. Our quiz lets you pick which groups to practice.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">START WITH S-TIER</button>
+                <p>Think you can handle the S-tier letters? The study tool does not sort letters by tier. It uses six groups of vowels and consonants, and the five S-tier letters sit in three of them: А and О in Vowels 1, К and М in Consonants 2, and Т in Consonants 3. Select those three groups and you will practice all five, alongside 12 other letters.</p>
+                <button class="quiz-cta-btn" onclick="showPage('home')">CHOOSE YOUR LETTER GROUPS</button>
             </div>
 
             <h3>The Learning Journey</h3>
@@ -3459,7 +3459,7 @@ const ARTICLES = [
             <p>The third is cultural. Russians largely agree that you <em>should</em> use Ё when it matters for meaning, but "when it matters" turns out to be a judgment call. Some writers see it as pedantic to demand Ё everywhere. Others see dropping Ё as lazy and disrespectful to the language. There's a whole essay's worth of literary snobbery in this fight.</p>
 
             <div class="quiz-cta">
-                <p>Want to learn all 33 Russian letters, including Ё? Our interactive quiz adapts to your level.</p>
+                <p>Want to learn all 33 Russian letters, including Ё? The study tool quizzes you one letter at a time, and if you turn on Repeat Problem Questions in Settings, it keeps bringing back the letters you miss.</p>
                 <button class="quiz-cta-btn" onclick="showPage('home')">LEARN THE ALPHABET</button>
             </div>
 
@@ -3616,8 +3616,8 @@ const ARTICLES = [
             <p>For learning the actual letters and their sounds, the <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">interactive alphabet chart</a> has pronunciation audio for all 33 Russian letters. Learning the alphabet first makes the keyboard layout way less intimidating.</p>
 
             <div class="quiz-cta">
-                <p>Got your keyboard set up? Practice typing the letters you just learned with our interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">START TYPING PRACTICE</button>
+                <p>Got your keyboard set up? Try it out in the text builder on our copy-and-paste page. Switch to your Russian layout, type a few words straight into the box, and click any letter tile for a character you cannot find yet.</p>
+                <a href="/articles/cyrillic-copy-paste" class="quiz-cta-btn" onclick="navTo(event, null, 'cyrillic-copy-paste')">TRY YOUR NEW KEYBOARD</a>
             </div>
 
             <h3>Which Platform Is Easiest?</h3>
