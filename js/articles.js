@@ -1388,10 +1388,10 @@ const ARTICLES = [
                     <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><span class="big-letter">Ґ ґ</span></td><td>hard <strong>g</strong>, as in <em>go</em></td><td>Russian has no hard G at all (its Г is closer to an English G already), but Ukrainian's regular Г is a breathy <em>h</em> sound, so Ukrainian needed a separate letter for the hard G. It is just Г with a little hook on top.</td></tr>
+                    <tr><td><span class="big-letter">Ґ ґ</span></td><td>hard <strong>g</strong>, as in <em>go</em></td><td>Russian does not need a letter like this, because its own Г is already a hard G. Ukrainian's regular Г is a breathy <em>h</em> sound instead, so Ukrainian needed a separate letter for the hard one. It is just Г with a little hook on top.</td></tr>
                     <tr><td><span class="big-letter">Є є</span></td><td><strong>ye</strong>, as in <em>yes</em></td><td>This is the mirror image of the Russian Э. Where Russian writes Э for a plain "eh," Ukrainian uses Е for that and saves Є for the "yeh" sound.</td></tr>
                     <tr><td><span class="big-letter">І і</span></td><td><strong>ee</strong>, as in <em>see</em></td><td>The dotted I. It looks exactly like a Latin "i" and sounds like one too. Ukrainian uses this for the "ee" sound and gives its own job to the letter that looks like Russian's И.</td></tr>
-                    <tr><td><span class="big-letter">Ї ї</span></td><td><strong>yi</strong>, like <em>ye-ee</em> run together</td><td>The I with two dots. It is the only Cyrillic letter with a diaeresis like this, and it shows up in the Ukrainian word for "their," їх.</td></tr>
+                    <tr><td><span class="big-letter">Ї ї</span></td><td><strong>yi</strong>, like <em>ye-ee</em> run together</td><td>The I with two dots. It is the only letter in the Ukrainian alphabet with two dots like this, though Russian has Ё, and it shows up in the Ukrainian word for "their," їх.</td></tr>
                 </tbody>
             </table>
 
