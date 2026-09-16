@@ -3339,7 +3339,7 @@ const ARTICLES = [
 
             <h3>What Cyrillic Added</h3>
 
-            <p>The Greek alphabet has 24 letters. Russian Cyrillic has 33. Those extra 9 letters exist because Slavic languages have sounds that Greek doesn't.</p>
+            <p>The Greek alphabet has 24 letters. Russian Cyrillic has 33. That is not a simple matter of adding nine, though. Cyrillic dropped some Greek letters and added eleven of its own, for Slavic sounds that Greek had no way to write.</p>
 
             <p>The creators of Cyrillic needed letters for sounds like "zh" (Ж), "ts" (Ц), "ch" (Ч), "sh" (Ш), "shch" (Щ), and the uniquely Slavic "y" sound (Ы). They also needed the hard and soft signs (Ъ and Ь) which modify how preceding consonants are pronounced. And they added Э, Ю, and Я for vowel sounds that Greek couldn't represent.</p>
 
@@ -3347,9 +3347,9 @@ const ARTICLES = [
 
             <h3>What Greek Kept</h3>
 
-            <p>Greek has four letters that Cyrillic chose not to adopt: <strong>Θ (Theta)</strong>, <strong>Ξ (Xi)</strong>, <strong>Ψ (Psi)</strong>, and <strong>Ω (Omega)</strong>.</p>
+            <p>Greek has four letters that modern Cyrillic no longer uses: <strong>Θ (Theta)</strong>, <strong>Ξ (Xi)</strong>, <strong>Ψ (Psi)</strong>, and <strong>Ω (Omega)</strong>.</p>
 
-            <p>Theta's "th" sound doesn't exist in Slavic languages. Xi's "ks" and Psi's "ps" sounds can be written with letter combinations in Cyrillic (КС and ПС), so dedicated letters weren't needed. Omega's "o" sound was already covered by О. Interestingly, Cyrillic did originally borrow some of these letters (the early alphabet included variants of Xi and Psi), but they were dropped during later reforms because they were redundant. You can read about those and other <a href="/articles/lost-letters" onclick="navTo(event, null, 'lost-letters')">lost letters of Cyrillic</a> that didn't survive.</p>
+            <p>Theta's "th" sound doesn't exist in Slavic languages. Xi's "ks" and Psi's "ps" sounds can be written with letter combinations in Cyrillic (КС and ПС), so dedicated letters weren't needed. Omega's "o" sound was already covered by О. Early Cyrillic actually borrowed all four: Ѳ from Theta, Ѯ from Xi, Ѱ from Psi, and Ѡ from Omega. Every one of them was dropped in later reforms because it was redundant. You can read about those and other <a href="/articles/lost-letters" onclick="navTo(event, null, 'lost-letters')">lost letters of Cyrillic</a> that didn't survive.</p>
 
             <h3>If You Know One, How Much of the Other Can You Read?</h3>
 
