@@ -7,6 +7,23 @@ function safeGetNavLink(pageName) {
     return document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
 }
 
+// Pre-rendered article documents (articles/SLUG.html) contain only the
+// article, not the other route sections. These helpers let boot-time code
+// and navigation tolerate a missing element instead of throwing. On the
+// shell every element exists, so on shell routes they are plain no-ops.
+function on(id, eventName, handler) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(eventName, handler);
+}
+function setToggle(id, checked) {
+    const el = document.getElementById(id);
+    if (el) el.checked = checked;
+}
+function setDisplay(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = value;
+}
+
 // Settings
 let includeLowercase = true; // Default ON - users learn both cases from the start
 let autoSubmit = false;
@@ -26,31 +43,31 @@ function loadSettings() {
     
     if (savedLowercase !== null) {
         includeLowercase = savedLowercase === 'true';
-        document.getElementById('lowercase-toggle').checked = includeLowercase;
+        setToggle('lowercase-toggle', includeLowercase);
     } else {
         // First time user - set toggle to match default (true)
-        document.getElementById('lowercase-toggle').checked = true;
+        setToggle('lowercase-toggle', true);
     }
     if (savedAutoSubmit !== null) {
         autoSubmit = savedAutoSubmit === 'true';
-        document.getElementById('autosubmit-toggle').checked = autoSubmit;
+        setToggle('autosubmit-toggle', autoSubmit);
     }
     if (savedContinuous !== null) {
         continuousPlay = savedContinuous === 'true';
-        document.getElementById('continuous-toggle').checked = continuousPlay;
+        setToggle('continuous-toggle', continuousPlay);
     }
     if (savedRepeat !== null) {
         repeatProblems = savedRepeat === 'true';
-        document.getElementById('repeat-toggle').checked = repeatProblems;
+        setToggle('repeat-toggle', repeatProblems);
     }
     const savedAutoAudio = localStorage.getItem('autoPlayAudio');
     if (savedAutoAudio !== null) {
         autoPlayAudio = savedAutoAudio === 'true';
-        document.getElementById('autoaudio-toggle').checked = autoPlayAudio;
+        setToggle('autoaudio-toggle', autoPlayAudio);
     }
     if (savedDarkMode !== null) {
         darkMode = savedDarkMode === 'true';
-        document.getElementById('darkmode-toggle').checked = darkMode;
+        setToggle('darkmode-toggle', darkMode);
         if (darkMode) {
             document.body.classList.add('dark-mode');
         }
@@ -237,6 +254,16 @@ function updateLowercaseDisplay() {
 
 // Page navigation
 function showPage(pageName) {
+    // Pre-rendered article documents contain only the article. Any other
+    // route lives on the shell, so if its section is not in this document
+    // (or the articles listing is not), navigate to it for real.
+    const targetPage = document.getElementById(pageName + '-page');
+    const listingMissing = pageName === 'articles' && !document.getElementById('articles-index');
+    if (!targetPage || listingMissing) {
+        window.location.assign(pageName === 'home' ? '/' : '/' + pageName);
+        return;
+    }
+
     // Remove article-specific structured data when leaving articles
     removeArticleSchema();
     
@@ -615,7 +642,7 @@ function navToArticle(event, slug) {
 function showArticle(articleId) {
     const article = ARTICLES.find(a => a.id === articleId);
     if (!article) {
-        document.getElementById('articles-index').style.display = 'none';
+        setDisplay('articles-index', 'none');
         document.getElementById('article-view').style.display = 'block';
         document.querySelector('.article-navigation').style.display = 'none';
         document.getElementById('related-articles-section').style.display = 'none';
@@ -630,7 +657,7 @@ function showArticle(articleId) {
     }
 
     // Hide article index, show article view
-    document.getElementById('articles-index').style.display = 'none';
+    setDisplay('articles-index', 'none');
     document.getElementById('article-view').style.display = 'block';
     document.querySelector('.article-navigation').style.display = '';
     
@@ -765,7 +792,13 @@ function showArticle(articleId) {
 }
 
 function showArticleIndex() {
-    document.getElementById('articles-index').style.display = 'block';
+    // Same fallback as showPage: the listing is not in pre-rendered article
+    // documents, so go to the real /articles page.
+    if (!document.getElementById('articles-index')) {
+        window.location.assign('/articles');
+        return;
+    }
+    setDisplay('articles-index', 'block');
     document.getElementById('article-view').style.display = 'none';
     
     // Remove article-specific structured data
@@ -967,6 +1000,7 @@ let answered = false;
 // Initialize character reference guide (now also handles selection)
 function initReference() {
     const container = document.getElementById('reference-container');
+    if (!container) return;
     
     Object.entries(CYRILLIC_DATA).forEach(([key, group]) => {
         const section = document.createElement('div');
@@ -1281,18 +1315,18 @@ function resumeLearning() {
 }
 
 // Event listeners
-document.getElementById('start-btn').addEventListener('click', startQuiz);
-document.getElementById('answer-input').addEventListener('keypress', (e) => {
+on('start-btn', 'click', startQuiz);
+on('answer-input', 'keypress', (e) => {
     if (e.key === 'Enter') {
         checkAnswer();
     }
 });
-document.getElementById('skip-btn').addEventListener('click', skipQuestion);
-document.getElementById('reset-btn').addEventListener('click', resetStats);
-document.getElementById('home-btn').addEventListener('click', newSession);
+on('skip-btn', 'click', skipQuestion);
+on('reset-btn', 'click', resetStats);
+on('home-btn', 'click', newSession);
 
 // Add input listener for auto-submit
-document.getElementById('answer-input').addEventListener('input', (e) => {
+on('answer-input', 'input', (e) => {
     // Auto-submit if enabled and answer is correct
     if (autoSubmit && !answered) {
         const input = e.target.value.trim().toLowerCase();
@@ -1324,7 +1358,7 @@ initReference();
             // (corrupting the URL before the article loads).
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById('articles-page').classList.add('active');
-            document.getElementById('articles-index').style.display = 'none';
+            setDisplay('articles-index', 'none');
             // Pre-rendered pages ship with this article already painted in
             // #article-view; hiding it here would blank the content for the
             // 100ms until showArticle repaints it. Everything else, including
@@ -1364,7 +1398,9 @@ window.addEventListener('popstate', (event) => {
     } else if (path.startsWith('/articles/')) {
         // Article detail page
         const articleId = path.substring(10); // Remove '/articles/'
-        showPage('articles');
+        // On a pre-rendered article document the listing is absent and
+        // showPage('articles') would navigate away; showArticle alone is enough.
+        if (document.getElementById('articles-index')) showPage('articles');
         showArticle(articleId);
         return;
     } else if (path.startsWith('/')) {
@@ -1382,7 +1418,7 @@ window.addEventListener('popstate', (event) => {
         
         // If articles page, show index
         if (pageName === 'articles') {
-            document.getElementById('articles-index').style.display = 'block';
+            setDisplay('articles-index', 'block');
             document.getElementById('article-view').style.display = 'none';
         }
         
@@ -1450,7 +1486,7 @@ window.addEventListener('popstate', (event) => {
         
         // If articles page, show index
         if (pageName === 'articles') {
-            document.getElementById('articles-index').style.display = 'block';
+            setDisplay('articles-index', 'block');
             document.getElementById('article-view').style.display = 'none';
         }
         
