@@ -683,6 +683,8 @@ const ARTICLES = [
 
             <p><strong>У (sounds like OO):</strong> Looks like a drinking cup. When you drink something good, you say "ooooh." U for oo.</p>
 
+            <p><strong>Х (sounds like KH):</strong> Not an X. It is the raspy sound at the end of "loch" or "Bach," made at the back of your throat. Think of ХОРОШО (khorosho, good) and picture clearing your throat to say it.</p>
+
             <h3>Visual Associations for Unique Letters</h3>
 
             <p>These letters don't look like anything in English, which is actually good. No false associations to unlearn. You just need to create new ones.</p>
@@ -717,7 +719,7 @@ const ARTICLES = [
 
             <p><strong>Л (sounds like L):</strong> Looks like a teepee or a lambda if you know Greek. L for Lambda. Or just remember: it's the Л in CyriЛica.</p>
 
-            <p><strong>П (sounds like P):</strong> Looks like a doorway or goal posts. P for Posts. Two vertical posts with a horizontal top.</p>
+            <p><strong>П (sounds like P):</strong> This is the Greek letter pi. Pi starts with P, and so does П. If you have ever seen π in a math class, you already know the shape.</p>
 
             <h3>The Soft and Hard Signs</h3>
 
