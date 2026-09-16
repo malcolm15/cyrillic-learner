@@ -365,13 +365,14 @@ const ARTICLES = [
             <p>Looking at the distribution across Europe, you'll notice that Cyrillic is the official writing system in several countries:</p>
 
             <ul>
-            <li><strong>Russian alphabet</strong> (33 letters): Russia, Belarus, and Kazakhstan</li>
+            <li><strong>Russian alphabet</strong> (33 letters): Russia (also used for Russian in Kazakhstan)</li>
             <li><strong>Ukrainian alphabet</strong> (33 letters): Ukraine, with unique letters like Ґ, Є, І, Ї</li>
             <li><strong>Bulgarian alphabet</strong> (30 letters): Bulgaria, the birthplace of Cyrillic</li>
             <li><strong>Serbian Cyrillic</strong> (30 letters): Serbia, used alongside Latin script</li>
             <li><strong>Macedonian alphabet</strong> (31 letters): North Macedonia, with unique characters Ѓ and Ќ</li>
             <li><strong>Montenegrin alphabet</strong> (32 letters): Montenegro, the newest variant (adds С́ and З́)</li>
             <li><strong>Belarusian alphabet</strong> (32 letters): Belarus, with its own letters Ў and І</li>
+            <li><strong>Kazakh alphabet</strong> (42 letters): Kazakhstan, which plans to switch to Latin script by 2031</li>
             </ul>
 
             <p>Each colored region on the map represents a different version of Cyrillic, though they're similar enough to be mutually readable, and each has been adapted to fit the specific sounds of its language.</p>
