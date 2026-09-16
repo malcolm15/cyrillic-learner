@@ -959,7 +959,7 @@ const ARTICLES = [
             Pronounced like the "g" in "get," a hard, voiced stop. Russian uses Г for a softer fricative "g" sound. Ukrainian has both: Г for the softer sound and Ґ for the hard stop. Examples: ґанок (porch), ґрунт (soil). This letter was suppressed during the Soviet period and only formally restored to the Ukrainian alphabet in 1990.</p>
 
             <p><strong>Є (є): YE sound</strong><br>
-            Sounds like "ye" in "yes." Russian has Е for a similar sound, but Ukrainian's Є is visually distinct. It looks like a backwards Russian numeral 3 with a hook. It's one of the first letters that marks a text as unmistakably Ukrainian. Examples: єдність (unity), Європа (Europe).</p>
+            Sounds like "ye" in "yes." Russian has Е for a similar sound, but Ukrainian's Є is visually distinct. It is the mirror image of the Russian Э. It's one of the first letters that marks a text as unmistakably Ukrainian. Examples: єдність (unity), Європа (Europe).</p>
 
             <p><strong>І (і): Pure I sound</strong><br>
             The clean "ee" sound, like in "see." Russian eliminated this letter in the 1918 spelling reform, replacing it with И. Ukrainian kept it, and it appears far more frequently than И does. Historically called "і десяткове" (decimal i). Examples: іти (to go), місто (city), він (he).</p>
@@ -1025,7 +1025,7 @@ const ARTICLES = [
 
             <p>Your existing knowledge gets you roughly 85% of the way there. Here's where to focus the rest:</p>
 
-            <p>Ї is the only completely new sound. Practice the "yi" glide until it's automatic. Є looks like a backwards С with an extra curve; visually distinctive and easy to learn. І looks identical to the Latin letter i, which makes it simple to recognize but can cause momentary confusion when reading quickly mixed-script text.</p>
+            <p>Ї is the only completely new sound. Practice the "yi" glide until it's automatic. Є is the mirror image of the Russian Э; visually distinctive and easy to learn. І looks identical to the Latin letter i, which makes it simple to recognize but can cause momentary confusion when reading quickly mixed-script text.</p>
 
             <p>The trickier adjustment isn't learning the new letters. It's resisting the assumption that similar-looking words mean the same thing. Ukrainian and Russian have substantial vocabulary overlap but also plenty of false friends. The script is the easy part. The words are where the real work is.</p>
 
