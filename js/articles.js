@@ -1284,31 +1284,31 @@ const ARTICLES = [
         title: 'Montenegrin Alphabet: The Newest Cyrillic (2009)',
         relatedArticles: ['belarusian-alphabet', 'serbian-cyrillic-vs-latin', 'latin-vs-cyrillic-slavic'],
         content: `
-            <p>In 2009, Montenegro did something almost unheard of in modern linguistics: it officially added two brand new letters to its Cyrillic alphabet. While most alphabets are losing letters or staying the same, Montenegro went the opposite direction, expanding from 30 to 32 letters. Meet the newest additions to the Cyrillic family: Ś and Ź.</p>
+            <p>In 2009, Montenegro did something almost unheard of in modern linguistics: it officially added two brand new letters to its Cyrillic alphabet. While most alphabets are losing letters or staying the same, Montenegro went the opposite direction, expanding from 30 to 32 letters. Meet the newest additions to the Cyrillic family: С́ and З́.</p>
 
             <h3>The 32-Letter Montenegrin Alphabet</h3>
             
-            <p>The Montenegrin alphabet contains all the letters of Serbian Cyrillic plus two extras:</p>
+            <p>The Montenegrin Cyrillic alphabet takes all 30 letters of Serbian Cyrillic and adds two, which makes 32. The change was formalized in 2009 by Education Minister Sreten Škuletić. (You will sometimes see a different total quoted, because the Latin version of the alphabet writes some sounds with two-letter combinations and sources count those differently.)</p>
             
             <p><strong>The two new letters:</strong><br>
-            • <strong>Ś ś</strong> (S with acute accent)<br>
-            • <strong>Ź ź</strong> (Z with acute accent)</p>
+            • <strong>С́ с́</strong> (С with an acute accent, written Ś ś in the Latin alphabet)<br>
+            • <strong>З́ з́</strong> (З with an acute accent, written Ź ź in the Latin alphabet)</p>
             
-            <p>These letters represent softer, palatalized versions of S and Z, sounds that existed in spoken Montenegrin but previously had no dedicated letters. Before 2009, these sounds were just written as regular С and З.</p>
+            <p>These letters represent softer, palatalized versions of S and Z, sounds that existed in spoken Montenegrin but previously had no dedicated letters. Before 2009, these sounds were written with two letters, as сј and зј.</p>
 
-            <h3>What Do Ś and Ź Sound Like?</h3>
+            <h3>What Do С́ and З́ Sound Like?</h3>
             
-            <p><strong>Ś (soft S):</strong> Like the "sh" in "sheep" but softer and more forward in the mouth. Similar to Polish "ś" or the "s" in "sugar."</p>
+            <p><strong>С́ (soft S):</strong> Like the "sh" in "sheep" but softer and more forward in the mouth. Similar to Polish "ś" or the "s" in "sugar."</p>
             
-            <p><strong>Ź (soft Z):</strong> The voiced equivalent of Ś. Like "zh" in "measure" but softer. Similar to the "s" in "vision" or Polish "ź."</p>
+            <p><strong>З́ (soft Z):</strong> The voiced equivalent of С́. Like "zh" in "measure" but softer. Similar to the "s" in "vision" or Polish "ź."</p>
             
-            <p>If you speak Polish, you'll recognize these sounds immediately. They're nearly identical to Polish palatalized consonants. In fact, the whole idea likely came from Polish orthographic influence.</p>
+            <p>If you speak Polish, you'll recognize these sounds immediately. They're nearly identical to Polish palatalized consonants, and the Latin forms of the new letters, Ś and Ź, are the very same characters Polish uses. That matters for a practical reason rather than a historical one: Ś and Ź already existed as ready-made characters, while the Cyrillic С́ and З́ have no ready-made character of their own. They have to be built from a plain С or З followed by a separate combining accent mark.</p>
 
             <h3>Why Add New Letters in 2009?</h3>
             
             <p>Montenegro declared independence from Serbia in 2006. Part of building national identity involved distinguishing Montenegrin from Serbian more clearly. The language was already distinct in pronunciation (these sounds existed in speech) but the writing system was identical to Serbian.</p>
             
-            <p>Adding Ś and Ź accomplished several things: phonetic accuracy in representing sounds that were actually spoken, creation of a visibly distinct written language, cultural assertion establishing Montenegrin as its own language not a Serbian dialect, and historical restoration as some argue these sounds existed in older Montenegrin dialects.</p>
+            <p>Adding С́ and З́ accomplished several things: phonetic accuracy in representing sounds that were actually spoken, creation of a visibly distinct written language, cultural assertion establishing Montenegrin as its own language not a Serbian dialect, and historical restoration as some argue these sounds existed in older Montenegrin dialects.</p>
 
             <h3>The Controversy</h3>
             
@@ -1316,27 +1316,29 @@ const ARTICLES = [
             
             <p>The debate reflects broader questions about the relationship between language, politics, and national identity in the Balkans.</p>
 
-            <h3>How Common Are Ś and Ź Actually?</h3>
+            <h3>How Common Are С́ and З́ Actually?</h3>
             
             <p>Here's the reality: these letters appear in Montenegrin texts, but not as frequently as you might expect for "essential" letters. They're used in specific dialectal words, certain regional pronunciation patterns, official standardized Montenegrin texts, and words where palatalization is clear.</p>
             
             <p>Many Montenegrins, especially those in areas close to Serbia or those educated before 2009, don't consistently use these letters. You'll see variation even in official contexts.</p>
+            
+            <p>That is because using them is not mandatory. The traditional spellings with сј and зј remain standard alongside the new letters, and most Montenegrin publications, education materials, and digital media still use them. The new letters appear mainly in normative texts, the documents that set out the official standard.</p>
 
-            <h3>Montenegrin vs. Serbian: Side by Side</h3>
+            <h3>Old Spelling vs. New Letter: Side by Side</h3>
             
-            <p><strong>Example with Ś:</strong><br>
-            Montenegrin: сјећање (śećanje) = memory<br>
-            Serbian: сећање (sećanje) = memory</p>
+            <p><strong>Example with С́:</strong><br>
+            Traditional spelling: сјутра (sjutra) = tomorrow<br>
+            With the new letter: с́утра (śutra) = tomorrow</p>
             
-            <p><strong>Example with Ź:</strong><br>
-            Montenegrin: зјеница (źenica) = pupil (of eye)<br>
-            Serbian: зеница (zenica) = pupil (of eye)</p>
+            <p><strong>Example with З́:</strong><br>
+            Traditional spelling: зјеница (zjenica) = pupil (of eye)<br>
+            With the new letter: з́еница (źenica) = pupil (of eye)</p>
             
-            <p>Notice that the difference is subtle, often just marking a pronunciation that Serbian leaves implicit.</p>
+            <p>Notice that the new letter replaces a two-letter spelling, сј or зј, rather than changing the word itself. Both spellings of each word are correct Montenegrin.</p>
 
             <h3>Will These Letters Stick?</h3>
             
-            <p>It's still early to tell. As of 2026, the letters are officially part of the Montenegrin alphabet and appear in government documents, official signage, standardized educational materials, and Montenegrin language publications.</p>
+            <p>It's still early to tell. As of 2026, the letters are officially part of the Montenegrin alphabet, but official status has not turned into everyday use. They appear mainly in normative texts, while most publications, education materials, and digital media still write сј and зј.</p>
             
             <p>But usage in informal contexts (social media, texting, casual writing) is inconsistent. Older Montenegrins and those who identify more with Serbian cultural ties may not use them at all.</p>
             
@@ -1344,13 +1346,13 @@ const ARTICLES = [
 
             <h3>A Unique Moment in Linguistic History</h3>
             
-            <p>The 2009 addition of Ś and Ź makes Montenegrin genuinely unique in the modern world. When was the last time a major national language added completely new letters to its alphabet? Typically, languages simplify their writing systems over time, dropping letters that seem redundant.</p>
+            <p>The 2009 addition of С́ and З́ makes Montenegrin genuinely unique in the modern world. When was the last time a major national language added completely new letters to its alphabet? Typically, languages simplify their writing systems over time, dropping letters that seem redundant.</p>
             
             <p>Montenegro went against this trend, making its alphabet more complex to better represent its phonetic reality. Whether you see this as nationalist posturing or legitimate linguistic reform depends partly on your politics, but it's undeniably fascinating from a language evolution perspective.</p>
 
             <h3>The Bottom Line</h3>
             
-            <p>The Montenegrin alphabet stands as the newest addition to the Cyrillic family, a 32-letter system born in the 21st century from a mix of phonetic precision, national pride, and political independence. Whether Ś and Ź become permanent fixtures of South Slavic orthography or fade into historical footnotes remains to be seen.</p>
+            <p>The Montenegrin alphabet stands as the newest addition to the Cyrillic family, a 32-letter system born in the 21st century from a mix of phonetic precision, national pride, and political independence. Whether С́ and З́ become permanent fixtures of South Slavic orthography or fade into historical footnotes remains to be seen.</p>
             
             <p>For learners of Cyrillic, Montenegrin offers a glimpse into how writing systems continue to evolve even in the modern era. Languages aren't dead museum pieces. They're living, changing, politically charged systems that reflect the communities that use them.</p>
             
