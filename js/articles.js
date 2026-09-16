@@ -2737,7 +2737,7 @@ const ARTICLES = [
 
             <h3>The Great Schism: The Root of the Split</h3>
             
-            <p>In 1054 AD, Christianity split into two branches: Roman Catholicism (based in Rome) and Eastern Orthodoxy (based in Constantinople). This wasn't just a theological disagreement. It created a cultural fault line that runs through Europe to this day.</p>
+            <p>In 1054 AD, Christianity split into two branches: Roman Catholicism (based in Rome) and Eastern Orthodoxy (based in Constantinople). This wasn't just a theological disagreement. It created a cultural fault line that runs through Europe to this day. The dividing line was older than the schism itself. Cyrillic's ancestor was already in Moravia in the 9th century, and Poland had chosen Rome in 966, so 1054 hardened a split that was already forming rather than creating it.</p>
             
             <p><strong>The alphabet followed the religion:</strong></p>
             
@@ -2874,7 +2874,7 @@ const ARTICLES = [
             Latin alphabet countries integrate more easily with Western tech standards (URLs, programming, keyboards). Cyrillic countries need special keyboard layouts and Unicode support.</p>
             
             <p><strong>EU Integration:</strong><br>
-            Latin-alphabet Slavic countries (Poland, Czech Republic, Slovakia, Slovenia, Croatia) joined the EU earlier and more smoothly than Cyrillic countries. The alphabet signals Western vs Eastern orientation.</p>
+            Several Latin-alphabet Slavic countries (Poland, Czech Republic, Slovakia, Slovenia) joined the EU in the first eastern enlargement. The pattern is not clean, though. Croatia also uses the Latin alphabet and joined years later than Bulgaria, which uses Cyrillic. The alphabet tracks Western versus Eastern orientation loosely, not reliably.</p>
             
             <p><strong>Cultural Identity:</strong><br>
             The alphabet you use still signals your cultural-political alignment. Latin = Western, democratic, European. Cyrillic = Eastern, Orthodox, Russian-sphere.</p>
@@ -2883,7 +2883,7 @@ const ARTICLES = [
 
             <h3>The Bottom Line</h3>
             
-            <p>Slavic languages split into Latin and Cyrillic not because one alphabet is better, but because a religious schism in 1054 AD created two different cultural worlds.</p>
+            <p>Slavic languages split into Latin and Cyrillic not because one alphabet is better, but because two religious spheres had been pulling in opposite directions for well over a century before 1054, and the schism then hardened the divide for good.</p>
             
             <p>Catholic Slavs ended up in the Western/Latin sphere. Orthodox Slavs ended up in the Eastern/Cyrillic sphere. A thousand years later, we're still living with that division.</p>
             
