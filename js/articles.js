@@ -1502,6 +1502,8 @@ const ARTICLES = [
             <p>Not all Cyrillic letters are created equal. Some are intuitive, friendly, and easy to remember. Others are soul-crushing nightmares that haunt your learning journey for weeks. Let's rank all 33 letters of the Russian alphabet by difficulty, from S-tier (easiest) to F-tier (why does this letter exist?).</p>
             
             <p>This tier list is based on difficulty for English speakers learning to read Russian. We're considering: visual similarity to English, pronunciation difficulty, false friend potential, and overall brain-breaking capacity. The tiers rank how long a letter takes to become automatic, which is a different question from what kind of letter it is.</p>
+            
+            <p>Not every false friend fools you equally, though. The damage is worst when the wrong reading still looks like it could be a word, because nothing flags the mistake: read Р as "P" and you keep getting words that seem like words, so the error survives for weeks. Read С as "C" or Х as "X" and you usually get obvious nonsense, which your brain catches and fixes fast.</p>
 
             <figure class="article-image">
                 <img src="/images/cyrillic-tier-list.png" alt="Cyrillic alphabet tier list ranking all 33 Russian letters by difficulty for English speakers, from S-tier easiest letters like А К М О Т to F-tier hardest letters like Р Ы Ь Ъ" loading="lazy" width="1100" height="811">
@@ -1552,6 +1554,7 @@ const ARTICLES = [
             
             <p><strong>Г (g)</strong>: Looks like an upside-down L, sounds like G. Not intuitive.<br>
             <strong>Ж (zh)</strong>: Looks like a bug, sounds like "zh" in "measure." Exotic sound.<br>
+            <strong>Х (kh)</strong>: Looks like X, sounds like the throaty "kh" in "Bach." A false friend, but a weak one. English just doesn't have this sound.<br>
             <strong>Ц (ts)</strong>: Looks like a squiggly U, sounds like "ts" in "cats." Combo sound is hard.<br>
             <strong>Ч (ch)</strong>: Looks like a 4, sounds like "ch." Takes practice.<br>
             <strong>Ш (sh)</strong>: Looks like Ш, sounds like "sh" in "shoe." Fine once memorized.<br>
@@ -1593,9 +1596,9 @@ const ARTICLES = [
             
             <p><strong>Week 2:</strong> Conquer B-tier. Still making good progress. (17 letters!)</p>
             
-            <p><strong>Week 3:</strong> Battle through C-tier. Progress slows but you're committed. (24 letters!)</p>
+            <p><strong>Week 3:</strong> Battle through C-tier. Progress slows but you're committed. (25 letters!)</p>
             
-            <p><strong>Week 4:</strong> D-tier makes you question your life choices. The false friends are winning. (28 letters...)</p>
+            <p><strong>Week 4:</strong> D-tier makes you question your life choices. The false friends are winning. (29 letters...)</p>
             
             <p><strong>Week 5-∞:</strong> F-tier. You thought you learned Р three weeks ago. You were wrong. Ы still sounds weird when you say it. Ь remains conceptually frustrating. But slowly, painfully, you're getting there.</p>
 
