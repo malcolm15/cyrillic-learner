@@ -1811,20 +1811,21 @@ const ARTICLES = [
             <strong>What it sounds like:</strong> "ee" (like in "see")<br>
             <strong>Example fail:</strong> "ЯUSSЇА" for "Russia" reads as "YAUSSEEA"</p>
             
-            <p><strong>Г used for backwards L or Γ:</strong><br>
-            <strong>What it looks like:</strong> Upside down L<br>
-            <strong>What it sounds like:</strong> "g" (like in "go")<br>
-            <strong>Example fail:</strong> Using Г for Greek gamma in fraternity names</p>
+            <p><strong>Г used for R:</strong><br>
+            <strong>What it looks like:</strong> A lowercase r<br>
+            <strong>What it sounds like:</strong> "g" (like in "go")</p>
             
             <p><strong>Ш used for W:</strong><br>
             <strong>What it looks like:</strong> Looks like three vertical lines<br>
             <strong>What it sounds like:</strong> "sh" (like in "shop")<br>
             <strong>Example fail:</strong> "ШЕ" for "WE" actually says "SHE"</p>
             
-            <p><strong>Ф used for Φ (phi):</strong><br>
-            <strong>What it looks like:</strong> Looks like Greek phi<br>
+            <p><strong>Ф used for O:</strong><br>
+            <strong>What it looks like:</strong> An O with a line through it<br>
             <strong>What it sounds like:</strong> "f" (like in "fox")<br>
-            <strong>This one's actually okay-ish</strong> since both are pronounced "f" in modern Greek</p>
+            <strong>Example fail:</strong> Spandau Ballet's album <em>Journeys to Glory</em> (1981) used Д and Ф in place of A and O</p>
+            
+            <p>A side note on the shape: Ф also resembles the Greek letter phi, and the two even share an "f" sound. That resemblance has nothing to do with the trope, though. Faux Cyrillic uses Ф purely because it looks like an O.</p>
             
             <p>These letters that look familiar but sound different are what we call "false friends." If you're learning Cyrillic, check out our complete guide to <a href="/articles/false-friends" onclick="navTo(event, null, 'false-friends')">false friends that fool English speakers</a>.</p>
 
@@ -1857,9 +1858,7 @@ const ARTICLES = [
             <p><strong>Red Alert Video Game Series:</strong><br>
             The Soviet faction uses faux Cyrillic in all its graphics. It looks cool but reads like nonsense.</p>
             
-            <p><strong>Chernobyl TV Series:</strong><br>
-            Even HBO's critically acclaimed series occasionally used faux Cyrillic in graphics and signage, despite otherwise being extremely detail-oriented.</p>
-            
+                        
             <p><strong>Vodka Branding:</strong><br>
             Countless vodka bottles use Я and И to look Russian. None of them would make sense to an actual Russian reader.</p>
 
