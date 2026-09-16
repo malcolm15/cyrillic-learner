@@ -370,8 +370,8 @@ const ARTICLES = [
             <li><strong>Bulgarian alphabet</strong> (30 letters): Bulgaria, the birthplace of Cyrillic</li>
             <li><strong>Serbian Cyrillic</strong> (30 letters): Serbia, used alongside Latin script</li>
             <li><strong>Macedonian alphabet</strong> (31 letters): North Macedonia, with unique characters Ѓ and Ќ</li>
-            <li><strong>Montenegrin alphabet</strong> (32 letters): Montenegro, the newest variant (adds Ś and Ź)</li>
-            <li><strong>Belarusian alphabet</strong> (32 letters): Belarus, with unique soft sign combinations</li>
+            <li><strong>Montenegrin alphabet</strong> (32 letters): Montenegro, the newest variant (adds С́ and З́)</li>
+            <li><strong>Belarusian alphabet</strong> (32 letters): Belarus, with its own letters Ў and І</li>
             </ul>
 
             <p>Each colored region on the map represents a different version of Cyrillic, though they're similar enough to be mutually readable, and each has been adapted to fit the specific sounds of its language.</p>
