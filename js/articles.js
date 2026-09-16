@@ -3706,7 +3706,7 @@ const ARTICLES = [
             <div id="accented-lower-container" class="copy-grid"></div>
 
             <h3>Pre-Reform Letters (Pre-1918)</h3>
-            <p>These letters were removed during the 1918 Russian spelling reform. You'll still encounter them in pre-revolutionary texts, historical documents, and academic publications.</p>
+            <p>These letters dropped out of Russian with the 1918 spelling reform. Three were removed by decree, and the fourth, izhitsa, had already fallen out of use. You'll still encounter them in pre-revolutionary texts, historical documents, and academic publications.</p>
             <div id="prereform-container" class="copy-grid"></div>
 
             <h3>How to Use</h3>
@@ -3731,7 +3731,7 @@ const ARTICLES = [
 
             <p><strong>І (decimal i):</strong> Functioned identically to И but was used before vowels and Й. Still survives in Ukrainian as І.</p>
 
-            <p><strong>Ѵ (izhitsa):</strong> The rarest of the bunch, borrowed from Greek upsilon, used in a handful of church and scientific terms. Had largely fallen out of use even before the reform made it official.</p>
+            <p><strong>Ѵ (izhitsa):</strong> The rarest of the bunch, borrowed from Greek upsilon, used in a handful of church and scientific terms. Had largely fallen out of use before the reform, which did not even mention it.</p>
         
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
