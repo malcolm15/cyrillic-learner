@@ -429,7 +429,7 @@ const ARTICLE_META = {
     'easy-russian-words':       { section: 'Getting Started',           published: '2026-03-01', modified: '2026-09-16', keywords: ['easy russian', 'simple words', 'beginner vocabulary', 's-tier letters'] },
     // Alphabet Variants
     'ukrainian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-09-16', keywords: ['ukrainian alphabet', 'ukrainian cyrillic', 'ukrainian letters', 'cyrillic vs russian', 'ukrainian language', 'Ґ Є І Ї letters', 'learn ukrainian script'] },
-    'belarusian-alphabet':      { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['belarusian alphabet', 'belarusian cyrillic', '32 letters', 'eastern europe'] },
+    'belarusian-alphabet':      { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-09-16', keywords: ['belarusian alphabet', 'belarusian cyrillic', '32 letters', 'eastern europe'] },
     'bulgarian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-05-23', keywords: ['bulgarian alphabet', 'bulgarian cyrillic', '30 letters', 'cyrillic origin', 'bulgarian letters', 'learn bulgarian'] },
     'montenegrin-alphabet':     { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['montenegrin alphabet', 'newest cyrillic', 'montenegrin language', 'balkan alphabet'] },
     'cyrillic-letters-not-in-russian': { section: 'Alphabet Variants',         published: '2026-06-21', modified: '2026-09-15', keywords: ['cyrillic letters not in russian', 'non-russian cyrillic', 'ukrainian serbian macedonian letters', 'cyrillic alphabet differences'] },

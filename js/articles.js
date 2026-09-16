@@ -1048,21 +1048,22 @@ const ARTICLES = [
             <p>Nestled between Russia, Ukraine, Poland, Latvia, and Lithuania, Belarus uses a Cyrillic alphabet that's distinct from its neighbors, a 32-letter system that reflects both Russian influence and uniquely Belarusian sounds. If you've learned Russian, Belarusian will feel familiar yet intriguingly different.</p>
 
             <figure class="article-image">
-                <img src="/images/belarusian-vs-russian-alphabet.png" alt="Belarusian vs Russian alphabet comparison showing 32 vs 33 letters: Belarusian has unique letters Ў (short U) and І (decimal I), while Russian has Ё and Ъ which Belarusian does not use" loading="lazy" width="1700" height="1320" style="max-width: 600px;">
+                <img src="/images/belarusian-vs-russian-alphabet.png" alt="Belarusian vs Russian alphabet comparison showing 32 vs 33 letters: Belarusian adds Ў (short U) and І (decimal I), drops the Russian letters И, Щ and Ъ, and uses an apostrophe where Russian writes Ъ" loading="lazy" width="1700" height="1320" style="max-width: 600px;">
                 <figcaption>The key differences between Belarusian and Russian alphabets at a glance.</figcaption>
             </figure>
 
             <h3>The Belarusian Alphabet: 32 Letters</h3>
             
-            <p>Belarusian uses 32 letters compared to Russian's 33. The key difference? Belarusian doesn't have the Russian letter Ё (yo). But it has letters Russian doesn't use regularly:</p>
+            <p>Belarusian uses 32 letters compared to Russian's 33, and here is the surprise: Belarusian does have Ё, and it takes the letter more seriously than Russian does. Russian treats the two dots as optional and usually leaves them out, so readers have to guess. Belarusian writes Ё every time. The count comes out one lower because Belarusian drops three Russian letters and adds two of its own: Russian's 33, minus И, Щ and Ъ, plus І and Ў, makes 32.</p>
             
             <p><strong>Unique to Belarusian (not in standard Russian):</strong></p>
             <p>• <strong>Ў (short U)</strong>: Represents a "w" sound, like the "w" in "now"<br>
             • <strong>І (decimal I)</strong>: The hard "i" sound (Russian replaced this with И in 1918)</p>
             
             <p><strong>Missing from Belarusian (that Russian has):</strong></p>
-            <p>• <strong>Ё (yo)</strong>: Belarusian just uses Е for this sound<br>
-            • <strong>Ъ (hard sign)</strong>: Used very sparingly in Belarusian</p>
+            <p>• <strong>И (i)</strong>: Belarusian writes this sound with І instead<br>
+            • <strong>Щ (shch)</strong>: not part of the Belarusian alphabet<br>
+            • <strong>Ъ (hard sign)</strong>: not used at all. Where Russian writes Ъ to separate a consonant from the vowel after it, Belarusian uses an apostrophe: аб'ект (object), where Russian has объект</p>
 
             <h3>The Most Important Letter: Ў</h3>
             
@@ -1071,7 +1072,7 @@ const ARTICLES = [
             <p>It sounds like the "w" in English "cow" or "how," a short, gliding sound that follows a vowel. In Russian, this sound is typically written as "в" but in Belarusian, it gets its own letter.</p>
             
             <p><strong>Examples:</strong><br>
-            Belarusian: праўда (pravda) = truth<br>
+            Belarusian: праўда (praŭda) = truth<br>
             Russian: правда (pravda) = truth</p>
             
             <p>Notice how Belarusian uses Ў where Russian uses В? That's the Ў in action.</p>
@@ -1084,14 +1085,14 @@ const ARTICLES = [
             • <strong>Ы</strong>: the difficult "y" sound (same as Russian)</p>
             
             <p><strong>Example:</strong><br>
-            Belarusian: гісторыя (historya) = history<br>
+            Belarusian: гісторыя (historyja) = history<br>
             Russian: история (istoriya) = history</p>
             
             <p>The use of І instead of И is one of the most visible differences between Belarusian and Russian texts.</p>
 
             <h3>How Different Is It From Russian?</h3>
             
-            <p>If you know Russian, Belarusian is highly comprehensible, probably 70-80% mutually intelligible. The alphabet differences are minimal (just 2-3 letters), but pronunciation and vocabulary differ more significantly.</p>
+            <p>If you know Russian, Belarusian is highly comprehensible, probably 70-80% mutually intelligible. The alphabet differences are small (two letters added, three dropped), but pronunciation and vocabulary differ more significantly.</p>
             
             <p><strong>Key differences:</strong></p>
             
