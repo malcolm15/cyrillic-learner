@@ -227,14 +227,12 @@ const ARTICLES = [
             <p>Here are the letters that trip up nearly every English speaker. Master these, and you're halfway to fluent reading.</p>
 
             <div class="false-friends-grid">
-                <div class="ff-card"><div class="ff-letter">Р р</div><div class="ff-body"><div class="ff-wrong">✕ you think "P"</div><div class="ff-right">✓ actually "R"</div><div class="ff-example">Россия, Rossiya (Russia)</div></div></div>
-                <div class="ff-card"><div class="ff-letter">Н н</div><div class="ff-body"><div class="ff-wrong">✕ you think "H"</div><div class="ff-right">✓ actually "N"</div><div class="ff-example">Нет, Nyet (No)</div></div></div>
                 <div class="ff-card"><div class="ff-letter">В в</div><div class="ff-body"><div class="ff-wrong">✕ you think "B"</div><div class="ff-right">✓ actually "V"</div><div class="ff-example">Вода, Voda (Water)</div></div></div>
+                <div class="ff-card"><div class="ff-letter">Н н</div><div class="ff-body"><div class="ff-wrong">✕ you think "H"</div><div class="ff-right">✓ actually "N"</div><div class="ff-example">Нет, Nyet (No)</div></div></div>
+                <div class="ff-card"><div class="ff-letter">Р р</div><div class="ff-body"><div class="ff-wrong">✕ you think "P"</div><div class="ff-right">✓ actually "R"</div><div class="ff-example">Россия, Rossiya (Russia)</div></div></div>
                 <div class="ff-card"><div class="ff-letter">С с</div><div class="ff-body"><div class="ff-wrong">✕ you think "C"</div><div class="ff-right">✓ actually "S"</div><div class="ff-example">Спасибо, Spasibo (Thanks)</div></div></div>
                 <div class="ff-card"><div class="ff-letter">У у</div><div class="ff-body"><div class="ff-wrong">✕ you think "Y"</div><div class="ff-right">✓ actually "OO"</div><div class="ff-example">Утро, Utro (Morning)</div></div></div>
                 <div class="ff-card"><div class="ff-letter">Х х</div><div class="ff-body"><div class="ff-wrong">✕ you think "X"</div><div class="ff-right">✓ actually "KH"</div><div class="ff-example">Хорошо, Khorosho (Good)</div></div></div>
-                <div class="ff-card"><div class="ff-letter">Е е</div><div class="ff-body"><div class="ff-wrong">✕ you think "E"</div><div class="ff-right">✓ actually "YE"</div><div class="ff-example">Еда, Yeda (Food)</div></div></div>
-                <div class="ff-card"><div class="ff-letter">Ё ё</div><div class="ff-body"><div class="ff-wrong">✕ you think "E"</div><div class="ff-right">✓ actually "YO"</div><div class="ff-example">Ёлка, Yolka (Fir tree)</div></div></div>
             </div>
             
             <p><strong>В (Ve): Sounds like "V"</strong></p>
