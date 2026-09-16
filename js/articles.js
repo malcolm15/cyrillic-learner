@@ -3416,7 +3416,7 @@ const ARTICLES = [
 
             <h3>When Skipping a Letter Actually Matters</h3>
 
-            <p>You might wonder why any of this matters. If Russians can read перше (perhaps) and все (everyone) without Ё, what's the problem?</p>
+            <p>You might wonder why any of this matters. Russians read всё and нёбо perfectly well when they are printed as все and небо, so what's the problem?</p>
 
             <p>The problem is that sometimes context isn't enough. Consider these pairs:</p>
 
