@@ -3808,7 +3808,7 @@ const ARTICLES = [
 
             <p><strong>Category 3: New Letters (Red)</strong></p>
 
-            <p>Letters like Ж, Ш, Щ, and Ы don't look like anything in English. They represent sounds that might be new to you. Ж makes a "zh" sound like the "s" in "measure." Ш makes a "sh" sound. Щ is like "shch" mashed together.</p>
+            <p>Letters like Ж, Ш, Щ, and Ы don't look like anything in English. They represent sounds that might be new to you. Ж makes a "zh" sound like the "s" in "measure." Ш makes a "sh" sound. Щ makes a long, soft sound, roughly "shch" or a prolonged soft "sh," depending on the speaker's dialect.</p>
 
             <p>These take practice because you're learning from scratch. But in some ways they're easier than the false friends because there's no confusion. You just have to memorize new shapes and sounds.</p>
 
@@ -3816,7 +3816,7 @@ const ARTICLES = [
 
             <p>Russian has 10 vowel letters. That seems like a lot compared to English's 5, but it makes sense once you understand the pattern.</p>
 
-            <p>Some vowels are "hard" (А, О, У, Э, Ы) and some are "soft" (Я, Ё, Ю, Е, И). The soft vowels have a "y" sound at the beginning. Я is "ya," Ю is "yoo," Е is "yeh," and so on. This soft/hard distinction is important for Russian pronunciation and grammar, but don't worry about that yet. Just learn the sounds.</p>
+            <p>Some vowels are "hard" (А, О, У, Э, Ы) and some are "soft" (Я, Ё, Ю, Е, И). Most of the soft vowels have a "y" sound at the beginning. Я is "ya," Ю is "yoo," Ё is "yo," and Е is "yeh." И is the exception. It belongs to the soft set but it is simply "ee," with no y in front of it. This soft/hard distinction is important for Russian pronunciation and grammar, but don't worry about that yet. Just learn the sounds.</p>
 
             <p>The 21 consonants work more or less like English consonants, with a few exceptions. Russian has sounds like Ж (zh) and Ч (ch) that English writes with two letters. Russian just gives them their own characters.</p>
 
@@ -3834,7 +3834,7 @@ const ARTICLES = [
 
             <p><strong>Letters with hooks or tails tend to make "soft" sounds.</strong> Я has that hook on the left. Ю has a curved section. These visual cues can help you remember which letters are soft.</p>
 
-            <p><strong>Three vertical lines usually means "sh."</strong> Ш is "sh" and Щ is "shch" (just "sh" but longer). Both have three vertical strokes.</p>
+            <p><strong>Three vertical lines usually means "sh."</strong> Ш is "sh" and Щ is the longer, softer version described above. Both have three vertical strokes.</p>
 
             <p><strong>The backwards letters aren't random.</strong> Я is a backwards R but sounds like "ya." Э is a backwards E but makes a different E sound than Е. There's a logic to it, even if it's not always obvious at first.</p>
 
