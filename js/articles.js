@@ -848,7 +848,7 @@ const ARTICLES = [
             
             <p><strong>Cyrillic:</strong> Based heavily on Greek letterforms. 43 original letters (later reduced). Looks more familiar due to Greek influence.</p>
             
-            <p>The relationship between the two is fascinating. Cyrillic was developed by Cyril's students (particularly Saint Clement of Ohrid) after Cyril's death, probably around 890-900 AD. They kept Glagolitic's phonetic system but replaced the exotic letterforms with shapes borrowed from Greek, making it easier to write and more familiar to Greek-literate clergy.</p>
+            <p>The relationship between the two is fascinating. Cyrillic was developed after Cyril's death by the students of Cyril and Methodius in Bulgaria, most likely at the Preslav Literary School in the 890s. They kept Glagolitic's phonetic system but replaced the exotic letterforms with shapes borrowed from Greek, making it easier to write and more familiar to Greek-literate clergy. No contemporary source names a single inventor. An older tradition credits Saint Clement of Ohrid, but the school at Ohrid went on using Glagolitic for centuries, which is why most scholars now point to Preslav instead.</p>
             
             <p>Think of it this way: Glagolitic was the revolutionary prototype, Cyrillic was the refined production model.</p>
 
@@ -896,7 +896,7 @@ const ARTICLES = [
             
             <p>Here's the beautiful irony: the alphabet is called "Cyrillic," but Cyril himself probably never wrote in what we call Cyrillic. He wrote in Glagolitic. The alphabet named after him was actually created by his students after his death, based on his phonetic system but with different letters.</p>
             
-            <p>So technically, if we were being historically accurate, we might call Glagolitic "Cyrillic" and what we now call Cyrillic something else, maybe "Clementine" after Saint Clement who likely developed it.</p>
+            <p>So technically, if we were being historically accurate, we might call Glagolitic "Cyrillic" and what we now call Cyrillic something else, maybe naming it after Preslav, where it most likely took shape.</p>
             
             <p>But history isn't always logical, and names stick based on tradition, not technical accuracy.</p>
 
