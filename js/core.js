@@ -439,7 +439,7 @@ const ARTICLE_META = {
     'glagolitic':               { section: 'History & Culture',         published: '2026-02-16', modified: '2026-03-10', keywords: ['glagolitic', 'old alphabet', 'saints cyril methodius', 'slavic writing'] },
     'cyrillic-names-europe':    { section: 'History & Culture',         published: '2026-02-18', modified: '2026-03-10', keywords: ['cyrillic names', 'european languages', 'alphabet names', 'azbuka'] },
     'backwards-r-myth':         { section: 'History & Culture',         published: '2026-02-26', modified: '2026-08-17', keywords: ['backwards R', 'reverse R', 'Cyrillic Я letter', 'faux Cyrillic'] },
-    'kazakhstan-latin-transition':{ section: 'History & Culture',       published: '2026-02-28', modified: '2026-03-10', keywords: ['kazakhstan', 'latin transition', 'alphabet reform', 'cyrillic to latin'] },
+    'kazakhstan-latin-transition':{ section: 'History & Culture',       published: '2026-02-28', modified: '2026-09-16', keywords: ['kazakhstan', 'latin transition', 'alphabet reform', 'cyrillic to latin'] },
     'history-of-cyrillic':      { section: 'History & Culture',         published: '2026-03-02', modified: '2026-03-10', keywords: ['cyrillic history', 'saints to superpower', 'slavic alphabet', 'writing history'] },
     'latin-vs-cyrillic-slavic': { section: 'History & Culture',         published: '2026-03-04', modified: '2026-09-15', keywords: ['latin vs cyrillic', 'slavic countries', 'alphabet choice', 'religion and script'] },
     'cyrillic-pop-culture':     { section: 'History & Culture',         published: '2026-03-06', modified: '2026-03-10', keywords: ['cyrillic movies', 'pop culture', 'rocky iv', 'call of duty', 'faux cyrillic'] },

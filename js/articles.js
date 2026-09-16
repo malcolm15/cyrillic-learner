@@ -2122,7 +2122,7 @@ const ARTICLES = [
         title: 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031',
         relatedArticles: ['latin-vs-cyrillic-slavic', 'history-of-cyrillic', 'serbian-cyrillic-vs-latin'],
         content: `
-            <p>In one of the most ambitious language reforms of the 21st century, Kazakhstan is in the process of switching its entire writing system from Cyrillic to Latin alphabet. By 2031, Kazakh (currently written in Cyrillic) will officially use Latin script. This affects signage, education, government documents, and the daily lives of 19 million people.</p>
+            <p>In one of the most ambitious language reforms of the 21st century, Kazakhstan is in the process of switching its entire writing system from Cyrillic to Latin alphabet. By 2031, Kazakh (currently written in Cyrillic) will officially use Latin script. This affects signage, education, government documents, and the daily lives of about 20.5 million people, the national statistics bureau's count as of December 2025.</p>
             
             <p>Why would a country abandon an alphabet it's used for decades? And what does this tell us about the relationship between writing systems, politics, and national identity?</p>
 
@@ -2178,11 +2178,9 @@ const ARTICLES = [
 
             <h3>The New Kazakh Latin Alphabet</h3>
             
-            <p>The proposed Latin alphabet has 32 letters and uses some special characters:</p>
+            <p>There is no single "new alphabet" yet, and that is the real story. The first version, announced in October 2017, marked Kazakh-specific sounds with apostrophes and was scrapped within months. A 2018 revision swapped the apostrophes for acute accents, and that version was abandoned too. Both drew heavy public criticism.</p>
             
-            <p><strong>A, Ä, B, C, Ç, D, E, F, G, Ğ, H, I, İ, J, K, L, M, N, Ñ, O, Ö, P, Q, R, S, Ş, T, U, Ü, V, Y, Z</strong></p>
-            
-            <p>Note the use of diacritics (dots, accents) on some letters: Ä, Ğ, Ñ, Ö, Ş, Ü. These represent sounds specific to Kazakh.</p>
+            <p>The current version was presented on January 28, 2021 and refined that April. It has 31 letters and follows one rule, one letter per sound, marking Kazakh-specific sounds with diacritics, including <strong>Ä</strong> for Ә, <strong>Ö</strong> for Ө, <strong>Ü</strong> for Ү, <strong>Ū</strong> for Ұ, <strong>Ğ</strong> for Ғ, <strong>Ş</strong> for Ш, and <strong>Ñ</strong> for Ң. Even this version has still not been formally adopted.</p>
             
             <p>This follows the Turkish model, which also uses Latin with diacritics for Turkic sounds.</p>
 
@@ -2224,13 +2222,13 @@ const ARTICLES = [
             <p>Not everyone in Kazakhstan supports this change:</p>
             
             <p><strong>Russian-Speaking Citizens:</strong><br>
-            Kazakhstan has a large ethnic Russian minority (~18% of population). They see this as marginalizing Russian language and culture.</p>
+            Kazakhstan has a large ethnic Russian minority, about 14 percent of the population in 2026 figures, down from 15.5 percent in 2021 and roughly 18 percent a decade earlier. They see this as marginalizing Russian language and culture.</p>
             
             <p><strong>Older Kazakhs:</strong><br>
             People educated in Cyrillic don't want to relearn an alphabet in middle age or old age.</p>
             
             <p><strong>Cost Concerns:</strong><br>
-            The transition is expensive, estimated in billions of dollars. Critics say this money could be better spent on healthcare, education quality, or infrastructure.</p>
+            The transition is expensive. The government's 2018 estimate was about $664 million (roughly 218 billion tenge) over a seven-year transition, about half of it for teacher training. Critics say this money could be better spent on healthcare, education quality, or infrastructure.</p>
             
             <p><strong>Cultural Loss:</strong><br>
             Switching alphabets means future generations may struggle to read Kazakh literature, historical documents, and family letters written in Cyrillic.</p>
@@ -2289,7 +2287,7 @@ const ARTICLES = [
             
             <p>Kazakhstan's alphabet transition is as much political as practical. It's about asserting independence, realigning geopolitically, and defining national identity in the post-Soviet era.</p>
             
-            <p>Whether it succeeds depends on political will, economic resources, and how well the government manages the transition. Turkey proved it can be done. Uzbekistan shows it can stall. Kazakhstan is betting billions of dollars and its linguistic future on getting it right.</p>
+            <p>Whether it succeeds depends on political will, economic resources, and how well the government manages the transition. Turkey proved it can be done. Uzbekistan shows it can stall. Kazakhstan is betting hundreds of millions of dollars and its linguistic future on getting it right.</p>
             
             <p>By 2031, we'll know if this was a bold success or an expensive mistake. Either way, it's one of the most fascinating real-time language experiments happening in the world today.</p>
         
