@@ -65,15 +65,15 @@ const ARTICLES = [
 
             <p><strong>Day 3 and 4: Consonants 1</strong></p>
 
-            <p>Add Consonants 1 to your practice. These are the most common consonants you'll see: М, Т, К, Н, and others. Some are easy (М, Т look and sound familiar). Some are false friends (Н looks like H but sounds like N).</p>
+            <p>Add Consonants 1 to your practice. This group is Б, В, Г, Д, Ж and З. Б looks like a 6, Д looks like a little house, and З looks like a 3. В is your first false friend: it looks like a B but sounds like V. Ж is your first genuinely new sound, the "zh" in the middle of "measure."</p>
 
             <p>Now you're combining vowels and consonants. Try sounding out the practice words the quiz gives you. You won't know what they mean yet, but you're training your brain to recognize the patterns.</p>
 
             <p><strong>Day 5 and 6: Consonants 2</strong></p>
 
-            <p>Time to add Consonants 2. This group includes trickier letters like Р (looks like P, sounds like R) and some of the weirder ones like Ж and Ш. These take more mental effort because they're totally new.</p>
+            <p>Time to add Consonants 2. This group is К, Л, М, Н, П and Р. К and М are free, they look and sound like English. П is the Greek pi and makes a P sound. Then come the two false friends that cause the most trouble: Н looks like an H but sounds like N, and Р looks like a P but sounds like R.</p>
 
-            <p>Practice both groups together now (Vowels 1, Consonants 1, and Consonants 2). The quiz will mix them up, which is exactly what you need. Real Russian words don't conveniently separate easy letters from hard ones.</p>
+            <p>Practice all three groups together now (Vowels 1, Consonants 1, and Consonants 2). The quiz will mix them up, which is exactly what you need. Real Russian words don't conveniently separate easy letters from hard ones.</p>
 
             <p><strong>Day 7: Review Mode</strong></p>
 
