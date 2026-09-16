@@ -177,6 +177,18 @@ core.js checks it and skips hiding the article view on boot (no flash);
 everything else, including the full showArticle re-render and ArticleScripts
 init, runs exactly as on a shell page.
 
+Emitted articles are self-contained documents: the generator strips every other
+route's section (home, the articles listing, about, settings, contact, privacy,
+terms), wraps the article in a <main> landmark, and makes the article title the
+document's only <h1>. Rationale: each URL should return a document that
+represents that URL; before this, all 28 files shared a byte-identical block
+that was 60% of their text under a heading structure whose only h1 was the
+homepage's. Consequence for the SPA: core.js boot code is null-guarded (the
+on / setToggle / setDisplay helpers), and showPage / showArticleIndex fall back
+to a real page load (window.location.assign) when a route's section is absent.
+On shell routes every element exists, so those guards are no-ops there.
+Article-to-article navigation on a pre-rendered page stays client-side.
+
 The edge function is unchanged and verified no-op on pre-rendered pages: their
 heads no longer contain its byte-for-byte match targets, so every replace
 misses safely. It still does real work for the homepage, /articles, utility

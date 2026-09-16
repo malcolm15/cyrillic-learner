@@ -12,6 +12,16 @@
 // of the non-forced /* /index.html 200 catch-all, so non-rendering crawlers
 // see full article content in raw HTML.
 //
+// SELF-CONTAINED DOCUMENTS: every other route's section (home, the articles
+// listing, about, settings, contact, privacy, terms) is stripped from each
+// emitted file, the article is wrapped in a <main> landmark, and its title is
+// the document's only <h1>. Each URL then returns a document that represents
+// that URL alone; without this, all 28 files shared a byte-identical block
+// that was 60% of their text, under a heading structure that identified the
+// homepage as the page. Cross-route navigation from these documents is a real
+// page load: core.js showPage / showArticleIndex fall back to
+// window.location.assign when a route's section is absent.
+//
 // PARITY RULES (all fail-loud):
 // - Head title and description come from netlify/lib/article-heads.ts, the
 //   same artifact the edge function imports, so the static file, the edge
@@ -60,6 +70,19 @@ function replaceOnce(haystack, needle, replacement, label) {
              '. Needle starts: ' + JSON.stringify(needle.slice(0, 80)));
     }
     return haystack.replace(needle, replacement);
+}
+
+// Remove everything from startMarker (inclusive) to endMarker (exclusive).
+// Both markers must occur exactly once and in order, else the build fails.
+function cutBetween(haystack, startMarker, endMarker, label) {
+    const ns = countOccurrences(haystack, startMarker);
+    const ne = countOccurrences(haystack, endMarker);
+    if (ns !== 1) fail(label + ': start marker expected once, found ' + ns);
+    if (ne !== 1) fail(label + ': end marker expected once, found ' + ne);
+    const s = haystack.indexOf(startMarker);
+    const e = haystack.indexOf(endMarker);
+    if (e <= s) fail(label + ': markers out of order');
+    return haystack.slice(0, s) + haystack.slice(e);
 }
 
 // textContent semantics for emitted text nodes and attribute values.
@@ -293,7 +316,7 @@ function main() {
         page = replaceOnce(page, T.articleView, '<div id="article-view" class="articles-view" style="display: block;">', slug + '/article-view state');
         page = replaceOnce(page, T.navHome, '<li><a href="/" onclick="navTo(event, \'home\', null)">Home</a></li>', slug + '/nav home');
         page = replaceOnce(page, T.navArticles, '<li><a href="/articles" class="active" onclick="navTo(event, \'articles\', null)">Articles</a></li>', slug + '/nav articles');
-        page = replaceOnce(page, T.articleTitle, '<h2 id="article-title">' + escapeHtml(article.title) + '</h2>', slug + '/article title');
+        page = replaceOnce(page, T.articleTitle, '<h1 id="article-title">' + escapeHtml(article.title) + '</h1>', slug + '/article title');
         page = replaceOnce(page, T.contentBlock,
             '<div class="article-content content-text" id="article-content">' + article.content + '</div>',
             slug + '/article content');
@@ -304,6 +327,36 @@ function main() {
         page = replaceOnce(page, T.nextBtn, '<button class="btn nav-btn" id="next-article" onclick="navigateArticle(\'next\')" data-article-id="' + ARTICLE_ORDER[nextIndex] + '">', slug + '/next button');
         page = replaceOnce(page, T.prevTitle, '<span class="nav-title" id="prev-article-title">' + escapeHtml(prevArticle.title) + '</span>', slug + '/prev title');
         page = replaceOnce(page, T.nextTitle, '<span class="nav-title" id="next-article-title">' + escapeHtml(nextArticle.title) + '</span>', slug + '/next title');
+
+        // ---- self-contained document: drop every other route's section ----
+        const FOOTER_TAIL = '\n            </div>\n        </div>\n\n    <!-- Footer -->';
+        page = cutBetween(page,
+            '                <!-- HOME PAGE -->',
+            '                <!-- ARTICLES PAGE -->',
+            slug + '/strip home');
+        page = cutBetween(page,
+            '                    <!-- Articles Index -->',
+            '<div id="article-view" class="articles-view" style="display: block;">',
+            slug + '/strip listing');
+        page = cutBetween(page,
+            '                <!-- ABOUT PAGE -->',
+            FOOTER_TAIL,
+            slug + '/strip about through terms');
+
+        // <main> wraps the articles page, which now holds only the article.
+        page = replaceOnce(page,
+            '                <!-- ARTICLES PAGE -->\n                <div id="articles-page" class="page-content active">',
+            '                <main>\n                <div id="articles-page" class="page-content active">',
+            slug + '/main open');
+        page = replaceOnce(page, FOOTER_TAIL, '\n                </main>' + FOOTER_TAIL, slug + '/main close');
+
+        // Structural assertions on the finished document.
+        ['home-page', 'articles-index', 'about-page', 'settings-page', 'contact-page', 'privacy-page', 'terms-page'].forEach(function (id) {
+            if (page.indexOf('id="' + id + '"') !== -1) fail(slug + ': stripped section #' + id + ' still present');
+        });
+        const h1s = countOccurrences(page, '<h1');
+        if (h1s !== 1) fail(slug + ': expected exactly one <h1>, found ' + h1s);
+        if (countOccurrences(page, '<main>') !== 1 || countOccurrences(page, '</main>') !== 1) fail(slug + ': expected exactly one <main> element');
 
         fs.writeFileSync(path.join(OUT_ROOT, slug + '.html'), page, 'utf8');
         emitted += 1;
