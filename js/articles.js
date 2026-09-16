@@ -378,7 +378,7 @@ const ARTICLES = [
 
             <h3>What It's Called in Cyrillic-Using Countries</h3>
 
-            <p>In the countries that actually use Cyrillic script, the alphabet is called variations of "Kirillitsa," named after Saint Cyril, one of its legendary creators. Here's how each country writes and says it:</p>
+            <p>In the countries that actually use Cyrillic script, the alphabet is called variations of "Kirillitsa," named after Saint Cyril in honor of his mission, though it was his and Methodius's students who actually developed it. Here's how each country writes and says it:</p>
 
             <p><strong>Russian:</strong> Кириллица (Kirillitsa)<br>
             <strong>Bulgarian:</strong> Кирилица (Kirilica)<br>
@@ -440,7 +440,7 @@ const ARTICLES = [
 
             <h3>The Southeast Exception: Greece</h3>
 
-            <p>Greece, sitting at the southeastern edge of the map, has a special connection to Cyrillic: the Greek alphabet was one of the primary sources Saints Cyril and Methodius used when creating Cyrillic in the 9th century!</p>
+            <p>Greece, sitting at the southeastern edge of the map, has a special connection to Cyrillic: the Greek alphabet was one of the primary sources used by the students of Saints Cyril and Methodius when they developed Cyrillic in the 9th century!</p>
 
             <p><strong>Greek:</strong> Κυριλλικό αλφάβητο (Kyrilliko alfavito)</p>
 
