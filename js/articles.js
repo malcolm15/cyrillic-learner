@@ -1501,7 +1501,7 @@ const ARTICLES = [
         content: `
             <p>Not all Cyrillic letters are created equal. Some are intuitive, friendly, and easy to remember. Others are soul-crushing nightmares that haunt your learning journey for weeks. Let's rank all 33 letters of the Russian alphabet by difficulty, from S-tier (easiest) to F-tier (why does this letter exist?).</p>
             
-            <p>This tier list is based on difficulty for English speakers learning to read Russian. We're considering: visual similarity to English, pronunciation difficulty, false friend potential, and overall brain-breaking capacity.</p>
+            <p>This tier list is based on difficulty for English speakers learning to read Russian. We're considering: visual similarity to English, pronunciation difficulty, false friend potential, and overall brain-breaking capacity. The tiers rank how long a letter takes to become automatic, which is a different question from what kind of letter it is.</p>
 
             <figure class="article-image">
                 <img src="/images/cyrillic-tier-list.png" alt="Cyrillic alphabet tier list ranking all 33 Russian letters by difficulty for English speakers, from S-tier easiest letters like А К М О Т to F-tier hardest letters like Р Ы Ь Ъ" loading="lazy" width="1100" height="811">
@@ -3055,11 +3055,7 @@ const ARTICLES = [
 
             <h3>Next Steps</h3>
             
-            <p>After you're comfortable with these easy-letter words:</p>
-            
-            <p><strong>Add B-tier letters:</strong> В, Г, П, Л (looks-like-letters with different sounds)<br>
-            <strong>Then C-tier:</strong> У, И, Е (easy sounds, unfamiliar shapes)<br>
-            <strong>Finally D/F-tier:</strong> Р, Ы, Ь, Ъ (the nightmare letters)</p>
+            <p>After you're comfortable with these easy-letter words, pick up the other 24 letters in whatever order suits you. Our <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">alphabet chart</a> shows what makes each one tricky: a familiar sound, a tricky shape, or a tricky sound. The <a href="/articles/cyrillic-tier-list" onclick="navTo(event, null, 'cyrillic-tier-list')">tier list</a> ranks them by how long each one takes to become automatic.</p>
             
             <p>But there's no rush. If you master just these 9 letters (А, К, М, О, Т, Е, Д, С, Н), you can already read hundreds of Russian words.</p>
 
@@ -3765,11 +3761,11 @@ const ARTICLES = [
             </div>
 
             <div id="letter-legend" style="margin: 30px 0; padding: 20px; border-radius: 8px;">
-                <h4 style="margin-top: 0;">Difficulty Key:</h4>
+                <h4 style="margin-top: 0;">What makes each letter tricky:</h4>
                 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #27ae60; border-radius: 3px; vertical-align: middle;"></span> <strong>Easy</strong> - Similar to English</div>
-                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #f39c12; border-radius: 3px; vertical-align: middle;"></span> <strong>Medium</strong> - False friends or unique shapes</div>
-                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #e74c3c; border-radius: 3px; vertical-align: middle;"></span> <strong>Hard</strong> - Completely new sounds</div>
+                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #27ae60; border-radius: 3px; vertical-align: middle;"></span> <strong>Familiar sound</strong> - Makes a sound English already has, even if the shape is new</div>
+                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #f39c12; border-radius: 3px; vertical-align: middle;"></span> <strong>Tricky shape</strong> - Looks like a different English letter, or like nothing in English</div>
+                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #e74c3c; border-radius: 3px; vertical-align: middle;"></span> <strong>Tricky sound</strong> - A sound that is unusual in English, or no sound of its own</div>
                 </div>
             </div>
 
@@ -3796,19 +3792,19 @@ const ARTICLES = [
 
             <h3>The Three Categories</h3>
 
-            <p><strong>Category 1: Easy Letters (Green)</strong></p>
+            <p><strong>Category 1: Familiar Sound (Green)</strong></p>
 
-            <p>These letters look and sound similar to English letters. When you see А, you can just think "ah" like in "father." Same with К (k), М (m), О (oh), and Т (t). These are your anchor points. Learn these first and you'll have a foundation to build on.</p>
+            <p>These letters make sounds English already has. Some look familiar too: when you see А, you can just think "ah" like in "father," and the same goes for К (k), М (m), О (oh), and Т (t). Others, like Б (b), Д (d), and П (p), have new shapes but sounds you already know. These are your anchor points. Learn these first and you'll have a foundation to build on.</p>
 
-            <p><strong>Category 2: False Friends (Orange)</strong></p>
+            <p><strong>Category 2: Tricky Shape (Orange)</strong></p>
 
-            <p>These are the troublemakers. В looks like B but sounds like V. Н looks like H but sounds like N. Р looks like P but sounds like R. Your brain will fight you on these for weeks. Every time you see В, you'll want to say "buh" instead of "vuh." That's normal. Just keep correcting yourself until the right sound becomes automatic.</p>
+            <p>These are the troublemakers, and they come in two kinds. Some are false friends: В looks like B but sounds like V. Н looks like H but sounds like N. Р looks like P but sounds like R. Your brain will fight you on these for weeks. Every time you see В, you'll want to say "buh" instead of "vuh." That's normal. Just keep correcting yourself until the right sound becomes automatic. Others in this group, like Ю and Ч, have shapes that don't match any English letter at all.</p>
 
             <p>The good news? There are only about 6 major false friends. Once you've retrained your brain on those specific letters, the confusion stops.</p>
 
-            <p><strong>Category 3: New Letters (Red)</strong></p>
+            <p><strong>Category 3: Tricky Sound (Red)</strong></p>
 
-            <p>Letters like Ж, Ш, Щ, and Ы don't look like anything in English. They represent sounds that might be new to you. Ж makes a "zh" sound like the "s" in "measure." Ш makes a "sh" sound. Щ makes a long, soft sound, roughly "shch" or a prolonged soft "sh," depending on the speaker's dialect.</p>
+            <p>Letters like Ж, Ц, Щ, and Ы make sounds that are unusual in English. Ж makes a "zh" sound like the "s" in "measure." Ц makes a "ts" sound like the end of "cats." Щ makes a long, soft sound, roughly "shch" or a prolonged soft "sh," depending on the speaker's dialect.</p>
 
             <p>These take practice because you're learning from scratch. But in some ways they're easier than the false friends because there's no confusion. You just have to memorize new shapes and sounds.</p>
 

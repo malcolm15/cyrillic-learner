@@ -426,7 +426,7 @@ const ARTICLE_META = {
     'memory-tricks':            { section: 'Getting Started',           published: '2026-02-14', modified: '2026-09-15', keywords: ['memory tricks', 'mnemonics', 'cyrillic memorization', 'confusing letters'] },
     'cyrillic-tier-list':       { section: 'Getting Started',           published: '2026-02-18', modified: '2026-09-16', keywords: ['cyrillic difficulty', 'letter ranking', 'tier list', 'hardest letters'] },
     'first-25-words':           { section: 'Getting Started',           published: '2026-02-20', modified: '2026-03-10', keywords: ['russian words', 'reading practice', 'first words', 'beginner russian'] },
-    'easy-russian-words':       { section: 'Getting Started',           published: '2026-03-01', modified: '2026-09-15', keywords: ['easy russian', 'simple words', 'beginner vocabulary', 's-tier letters'] },
+    'easy-russian-words':       { section: 'Getting Started',           published: '2026-03-01', modified: '2026-09-16', keywords: ['easy russian', 'simple words', 'beginner vocabulary', 's-tier letters'] },
     // Alphabet Variants
     'ukrainian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-09-16', keywords: ['ukrainian alphabet', 'ukrainian cyrillic', 'ukrainian letters', 'cyrillic vs russian', 'ukrainian language', 'Ґ Є І Ї letters', 'learn ukrainian script'] },
     'belarusian-alphabet':      { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-03-10', keywords: ['belarusian alphabet', 'belarusian cyrillic', '32 letters', 'eastern europe'] },
@@ -448,7 +448,7 @@ const ARTICLE_META = {
     // Learning Tools & Resources
     'cyrillic-copy-paste':      { section: 'Learning Tools & Resources', published: '2026-03-01', modified: '2026-09-15', keywords: ['cyrillic copy paste', 'russian letters clipboard', 'cyrillic characters', 'accented cyrillic vowels', 'russian stress marks', 'pre-reform russian letters', 'yat letter', 'copy tool'] },
     'how-to-type-cyrillic':     { section: 'Learning Tools & Resources', published: '2026-04-15', modified: '2026-09-16', keywords: ['how to type russian', 'russian keyboard setup', 'cyrillic keyboard windows', 'cyrillic keyboard mac', 'russian keyboard iphone', 'russian keyboard android', 'phonetic russian keyboard', 'type cyrillic letters'] },
-    'russian-alphabet-chart':   { section: 'Learning Tools & Resources', published: '2026-02-12', modified: '2026-09-15', keywords: ['russian alphabet chart', '33 letters', 'pronunciation guide', 'interactive chart', 'printable russian alphabet chart', 'russian alphabet chart pdf'] },
+    'russian-alphabet-chart':   { section: 'Learning Tools & Resources', published: '2026-02-12', modified: '2026-09-16', keywords: ['russian alphabet chart', '33 letters', 'pronunciation guide', 'interactive chart', 'printable russian alphabet chart', 'russian alphabet chart pdf'] },
     'practice-writing-cyrillic':{ section: 'Learning Tools & Resources', published: '2026-02-28', modified: '2026-07-18', keywords: ['write cyrillic', 'handwriting practice', 'cyrillic cursive', 'penmanship', 'russian cursive stroke order', 'how to write russian cursive letters'] },
     'cyrillic-learning-resources':{ section: 'Learning Tools & Resources', published: '2026-03-04', modified: '2026-03-10', keywords: ['learning resources', 'best apps', 'cyrillic tools', 'study materials'] }
 };
