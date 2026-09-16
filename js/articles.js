@@ -2983,11 +2983,11 @@ const ARTICLES = [
             
             <p><strong>ДОМ</strong> (dom) = house<br>
             Letter by letter: Д-О-М<br>
-            Sounds like: "dome" (without the final "e" sound)</p>
+            Sounds like: "dohm," the o as in "or"</p>
             
             <p><strong>ДАМ</strong> (dam) = I will give<br>
             Letter by letter: Д-А-М<br>
-            Sounds like: "Dom" (as in the name)</p>
+            Sounds like: "dahm," the a as in "father." This is the pair that turns on the vowel: ДОМ has the o, ДАМ has the a</p>
             
             <p><strong>ДАМА</strong> (dama) = lady<br>
             Letter by letter: Д-А-М-А<br>
@@ -3006,19 +3006,19 @@ const ARTICLES = [
             
             <p><strong>СОМ</strong> (som) = catfish<br>
             Letter by letter: С-О-М<br>
-            Sounds like: "sewn" (without the W)</p>
+            Sounds like: "sohm," the same o as in ДОМ, with an s on the front</p>
             
             <p><strong>СОН</strong> (son) = dream<br>
             Letter by letter: С-О-Н<br>
-            Sounds like: "sewn"</p>
+            Sounds like: "sohn," the same vowel as СОМ, ending in n instead of m</p>
             
             <p><strong>НОС</strong> (nos) = nose<br>
             Letter by letter: Н-О-С<br>
             Sounds like: "noce" (rhymes with "dose")</p>
             
-            <p><strong>СТОП</strong> (stop) = stop<br>
-            Letter by letter: С-Т-О-П<br>
-            Sounds like: "stop" (exactly!)</p>
+            <p><strong>НЕТ</strong> (nyet) = no<br>
+            Letter by letter: Н-Е-Т<br>
+            Sounds like: "nyet," and note the Н is an n, not an h</p>
 
             <h3>Common Words You Can Now Read</h3>
             
@@ -3027,12 +3027,12 @@ const ARTICLES = [
             <p><strong>КАТОК</strong> (katok) = ice rink<br>
             <strong>КАССА</strong> (kassa) = cashier<br>
             <strong>КАНАТ</strong> (kanat) = rope<br>
-            <strong>КНОПКА</strong> (knopka) = button<br>
+            <strong>КОМНАТА</strong> (komnata) = room<br>
             <strong>КОМАНДА</strong> (komanda) = team/command<br>
             <strong>МОМЕНТ</strong> (moment) = moment<br>
             <strong>КОМЕТА</strong> (kometa) = comet<br>
             <strong>СОДА</strong> (soda) = soda<br>
-            <strong>САЛАТ</strong> (salat) = salad<br>
+            <strong>ТОМАТ</strong> (tomat) = tomato<br>
             <strong>НОТА</strong> (nota) = note (musical)</p>
 
             <h3>Real-World Practice: Signs You'll See</h3>
@@ -3041,7 +3041,7 @@ const ARTICLES = [
             
             <p><strong>КАССА</strong>: You'll see this at ticket booths, cashiers<br>
             <strong>МЕТРО</strong>: Metro/subway (though Р looks like P!)<br>
-            <strong>СТОП</strong>: Stop signs<br>
+            <strong>СТОП</strong>: Stop signs (the П is not in your nine yet)<br>
             <strong>ТУАЛЕТ</strong>: Toilet/restroom<br>
             <strong>АВТОМАТ</strong>: Vending machine/automatic</p>
 
@@ -3070,12 +3070,12 @@ const ARTICLES = [
             <p>1. МАМА<br>
             2. ДОМ<br>
             3. КОТ<br>
-            4. СТОП<br>
+            4. НЕТ<br>
             5. КАТОК<br>
             6. МОМЕНТ<br>
             7. КОМАНДА<br>
             8. СОДА<br>
-            9. САЛАТ<br>
+            9. ТОМАТ<br>
             10. ДАТА</p>
             
             <p>If you got at least 7/10 correct, you're already reading Russian! 🎉</p>
@@ -3084,7 +3084,7 @@ const ARTICLES = [
             
             <p>Learning Cyrillic doesn't mean memorizing all 33 letters in one sitting. Start small. Master the easy letters first. Read simple words. Build confidence. Then add more letters gradually.</p>
             
-            <p>With just 5 letters (А, К, М, О, Т), you can read real Russian words today. With 9 letters, you can read hundreds of words. With all 33, you're fluent.</p>
+            <p>With just 5 letters (А, К, М, О, Т), you can read real Russian words today. With 9 letters, you can read hundreds of words. With all 33, you can sound out any Russian word you see. That is reading, not fluency. Knowing what the words mean is a separate job, and a much longer one.</p>
             
             <p>But the journey starts with КОТ and ДОМ. Master the basics, enjoy the small wins, and before you know it, you'll be reading Russian menus, signs, and social media posts with ease.</p>
             
