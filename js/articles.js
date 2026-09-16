@@ -3788,7 +3788,7 @@ const ARTICLES = [
 
             <h3>Understanding the Russian Alphabet</h3>
 
-            <p>Russian uses the Cyrillic alphabet, which was created in the 9th century by Saints Cyril and Methodius. The modern Russian version has 33 letters, compared to English's 26.</p>
+            <p>Russian uses the Cyrillic alphabet, which was developed in the 9th century by the students of Saints Cyril and Methodius and named in Cyril's honor. The modern Russian version has 33 letters, compared to English's 26.</p>
 
             <p>But here's the thing: learning 7 extra letters isn't the hard part. The hard part is that some Cyrillic letters look exactly like English letters but make completely different sounds. Your brain sees a familiar shape and wants to take a shortcut. You have to actively fight that instinct.</p>
 
