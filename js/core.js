@@ -1145,7 +1145,6 @@ function nextQuestion() {
     answered = false;
     document.getElementById('current-char').textContent = studyChars[currentChar].upper;
     document.getElementById('current-char-lower').textContent = studyChars[currentChar].lower;
-    document.getElementById('progress').textContent = `Question ${questionCount}`;
     document.getElementById('answer-input').value = '';
     document.getElementById('feedback').textContent = '';
     document.getElementById('answer-input').focus();
@@ -1245,6 +1244,7 @@ function updateStats() {
     document.getElementById('correct-count').textContent = correctCount;
     document.getElementById('incorrect-count').textContent = incorrectCount;
     document.getElementById('streak-count').textContent = currentStreak;
+    document.getElementById('progress').textContent = `Question ${questionCount}`;
 }
 
 function skipQuestion() {
@@ -1280,6 +1280,9 @@ function resetStats() {
     correctCount = 0;
     incorrectCount = 0;
     currentStreak = 0;
+    // The question on screen stays and becomes question 1 of the reset run
+    // (questionCount always equals the number of the displayed question).
+    questionCount = 1;
     
     // Track reset in Google Analytics
     if (typeof gtag !== 'undefined') {
