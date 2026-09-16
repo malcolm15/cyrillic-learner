@@ -2632,8 +2632,7 @@ const ARTICLES = [
 
             <p><strong>This Site (CyriЛica)</strong> - Obviously I'm biased, but I built this because I couldn't find a simple, focused alphabet learning tool. It's designed for one thing: drilling Cyrillic letters until they stick. No fluff, no distractions.</p>
 
-            <p><strong>Memrise Cyrillic Courses</strong> - Memrise has user-created courses specifically for the Russian alphabet. Some are better than others. Look for ones with lots of reviews. The spaced repetition system works well for alphabet learning.</p>
-
+            
             <p><strong>Duolingo Russian</strong> - Duolingo teaches Cyrillic in the first few lessons of the Russian course. It's not perfect, but it's free and gamified, which keeps some people motivated. Just don't rely on it alone. Use it as supplementary practice.</p>
 
             <h3>YouTube Channels</h3>
@@ -2670,7 +2669,7 @@ const ARTICLES = [
 
             <p><strong>Russian children's books</strong> - Seriously. Kids' books use simple vocabulary and often have pictures, which helps. You can find free PDFs online or buy physical copies on Amazon.</p>
 
-            <p><strong>Russian news sites</strong> - RT, TASS, Kommersant. Browse the headlines. See how many words you can sound out. You'll start recognizing common words even if you don't know what they mean yet.</p>
+            <p><strong>Russian news sites</strong> - BBC News Russian, Kommersant. Browse the headlines. See how many words you can sound out. You'll start recognizing common words even if you don't know what they mean yet.</p>
 
             <p><strong>VK (Russian social media)</strong> - Like Russian Facebook. Create an account, follow some pages, and practice reading posts. Real, casual Russian. Not textbook perfect, but that's the point.</p>
 
@@ -2696,7 +2695,7 @@ const ARTICLES = [
 
             <p>Week 2: Add writing practice. Get a notebook, write each letter multiple times. Start reading simple Russian words on Wikipedia or kids' books.</p>
 
-            <p>Week 3: Continue daily practice, but start using Anki or Memrise for spaced repetition. Add some real reading (news headlines, social media).</p>
+            <p>Week 3: Continue daily practice, but start using Anki for spaced repetition. Add some real reading (news headlines, social media).</p>
 
             <p>Week 4: By now you should be able to read most Cyrillic, even if slowly. Start learning actual Russian vocabulary while continuing to practice reading.</p>
 

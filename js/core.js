@@ -450,7 +450,7 @@ const ARTICLE_META = {
     'how-to-type-cyrillic':     { section: 'Learning Tools & Resources', published: '2026-04-15', modified: '2026-09-16', keywords: ['how to type russian', 'russian keyboard setup', 'cyrillic keyboard windows', 'cyrillic keyboard mac', 'russian keyboard iphone', 'russian keyboard android', 'phonetic russian keyboard', 'type cyrillic letters'] },
     'russian-alphabet-chart':   { section: 'Learning Tools & Resources', published: '2026-02-12', modified: '2026-09-16', keywords: ['russian alphabet chart', '33 letters', 'pronunciation guide', 'interactive chart', 'printable russian alphabet chart', 'russian alphabet chart pdf'] },
     'practice-writing-cyrillic':{ section: 'Learning Tools & Resources', published: '2026-02-28', modified: '2026-07-18', keywords: ['write cyrillic', 'handwriting practice', 'cyrillic cursive', 'penmanship', 'russian cursive stroke order', 'how to write russian cursive letters'] },
-    'cyrillic-learning-resources':{ section: 'Learning Tools & Resources', published: '2026-03-04', modified: '2026-03-10', keywords: ['learning resources', 'best apps', 'cyrillic tools', 'study materials'] }
+    'cyrillic-learning-resources':{ section: 'Learning Tools & Resources', published: '2026-03-04', modified: '2026-09-16', keywords: ['learning resources', 'best apps', 'cyrillic tools', 'study materials'] }
 };
 
 function injectArticleSchema(articleId, article) {
