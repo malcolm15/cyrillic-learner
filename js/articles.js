@@ -499,7 +499,7 @@ const ARTICLES = [
 
             <h3>The Famous Four: Killed in 1918</h3>
             
-            <p>The most recent extinction event in Cyrillic history happened on January 10, 1918, when the new Soviet government issued a decree eliminating four letters from the Russian alphabet. If you're reading pre-revolutionary Russian literature in the original, you'll encounter these constantly:</p>
+            <p>The most recent extinction event in Cyrillic history was the spelling reform of 1917 and 1918. It was drafted by an academic commission years before the revolution and promulgated by the Provisional Government in 1917. The new Soviet government then enforced it with two decrees: one dated 23 December 1917 (5 January 1918 in the new calendar) for state publications, and one on 10 October 1918 that made it binding on all state editions and documents. The decree named three letters, yat, fita, and the decimal І. The fourth, izhitsa, had already fallen out of use and was not even mentioned, but it vanished with them. If you're reading pre-revolutionary Russian literature in the original, you'll encounter these constantly:</p>
             
             <p><strong>Ѣ: Yat (sounds like "ye")</strong><br>
             This letter looked like a fancy backwards "Ь" and represented a sound that had already merged with Е (ye) in pronunciation by the 1700s. By 1918, people were spelling it out of pure tradition: everyone said "ye" but some words were written with Е and others with Ѣ, with no phonetic difference.</p>
@@ -523,7 +523,7 @@ const ARTICLES = [
             
             <p>Example: МѴРО (sacred oil) became МИРО</p>
             
-            <p>These four letters disappeared from standard Russian on January 10, 1918, though you'll still see them in reproductions of old texts, church literature, and deliberately archaic writings.</p>
+            <p>These four letters disappeared from standard Russian with the 1918 reform, though you'll still see them in reproductions of old texts, church literature, and deliberately archaic writings.</p>
 
             <h3>The Earlier Casualties</h3>
             
@@ -586,7 +586,7 @@ const ARTICLES = [
             <p>These lost letters aren't completely gone. You can still encounter them in:</p>
             
             <p><strong>Pre-1918 Literature</strong><br>
-            Any Russian book printed before 1918 will have Ѣ, Ѳ, І, and Ѵ. This includes original editions of Tolstoy, Dostoevsky, Pushkin, and Chekhov.</p>
+            Any Russian book printed before 1918 will have Ѣ, Ѳ, and І. Only a few will have Ѵ, which was already rare by then. This includes original editions of Tolstoy, Dostoevsky, Pushkin, and Chekhov.</p>
             
             <p><strong>Church Texts</strong><br>
             The Russian Orthodox Church still uses pre-reform spelling in liturgical books, so you'll see all four 1918 casualties plus some older letters in church Slavonic texts.</p>

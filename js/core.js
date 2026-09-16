@@ -435,7 +435,7 @@ const ARTICLE_META = {
     'cyrillic-letters-not-in-russian': { section: 'Alphabet Variants',         published: '2026-06-21', modified: '2026-09-16', keywords: ['cyrillic letters not in russian', 'non-russian cyrillic', 'ukrainian serbian macedonian letters', 'cyrillic alphabet differences'] },
     'serbian-cyrillic-vs-latin':{ section: 'Alphabet Variants',         published: '2026-02-24', modified: '2026-03-10', keywords: ['serbian cyrillic', 'serbian latin', 'digraphia', 'dual script'] },
     // History & Culture
-    'lost-letters':             { section: 'History & Culture',         published: '2026-02-16', modified: '2026-03-10', keywords: ['lost letters', 'extinct characters', 'cyrillic history', 'old church slavonic'] },
+    'lost-letters':             { section: 'History & Culture',         published: '2026-02-16', modified: '2026-09-16', keywords: ['lost letters', 'extinct characters', 'cyrillic history', 'old church slavonic'] },
     'glagolitic':               { section: 'History & Culture',         published: '2026-02-16', modified: '2026-09-16', keywords: ['glagolitic', 'old alphabet', 'saints cyril methodius', 'slavic writing'] },
     'cyrillic-names-europe':    { section: 'History & Culture',         published: '2026-02-18', modified: '2026-09-16', keywords: ['cyrillic names', 'european languages', 'alphabet names', 'azbuka'] },
     'backwards-r-myth':         { section: 'History & Culture',         published: '2026-02-26', modified: '2026-08-17', keywords: ['backwards R', 'reverse R', 'Cyrillic Я letter', 'faux Cyrillic'] },
