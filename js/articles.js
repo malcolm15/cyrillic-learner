@@ -1447,6 +1447,20 @@ const ARTICLES = [
                 </tbody>
             </table>
 
+            <h3>Montenegrin</h3>
+
+            <p>Montenegrin uses Serbian Cyrillic plus two letters added in 2009 for soft versions of S and Z. They are official but optional, and most Montenegrin writing still spells these sounds the traditional way, as сј and зј.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="big-letter">С́ с́</span></td><td>soft <strong>s</strong>, like the <em>sh</em> in <em>sheep</em> but softer</td><td>An С with an acute accent. It replaces the two-letter spelling сј, so сјутра (tomorrow) can also be written с́утра. There is no ready-made character for it: it is built from С plus a combining accent mark.</td></tr>
+                    <tr><td><span class="big-letter">З́ з́</span></td><td>soft <strong>z</strong>, like the <em>s</em> in <em>vision</em></td><td>The voiced partner to С́. It replaces зј, so зјеница (pupil of the eye) can also be written з́еница.</td></tr>
+                </tbody>
+            </table>
+
             <h3>The one-screen cheat sheet</h3>
 
             <p>Here is every letter above in a single table, so you can bookmark this and scan it the next time a sign or a headline stops making sense.</p>
@@ -1470,12 +1484,14 @@ const ARTICLES = [
                     <tr><td><span class="big-letter">Ѕ</span></td><td>dz (<em>kids</em>)</td><td>Macedonian</td></tr>
                     <tr><td><span class="big-letter">Ѓ</span></td><td>soft g</td><td>Macedonian</td></tr>
                     <tr><td><span class="big-letter">Ќ</span></td><td>soft k</td><td>Macedonian</td></tr>
+                    <tr><td><span class="big-letter">С́</span></td><td>soft s (<em>sheep</em>)</td><td>Montenegrin</td></tr>
+                    <tr><td><span class="big-letter">З́</span></td><td>soft z (<em>vision</em>)</td><td>Montenegrin</td></tr>
                 </tbody>
             </table>
 
             <h3>Why this matters more than it looks</h3>
 
-            <p>Learn these fourteen letters and you go from reading one Slavic language to recognizing five. That is a small amount of work for a big jump in coverage. A Belarusian Ў or a Serbian Ј is no longer a wall, just a letter you happen to know.</p>
+            <p>Learn these sixteen letters and you go from reading one Slavic language to recognizing six. That is a small amount of work for a big jump in coverage. A Belarusian Ў or a Serbian Ј is no longer a wall, just a letter you happen to know.</p>
 
             <p>It also explains something you may have wondered about. When people say Cyrillic is not one alphabet but a family of them, this is what they mean. The shared core is huge, the differences are small and specific, and now you have the full list of those differences in front of you.</p>
 
