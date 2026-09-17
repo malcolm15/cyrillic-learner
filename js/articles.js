@@ -3130,11 +3130,9 @@ const ARTICLES = [
             <p>During the Cold War (1947-1991), Cyrillic in Western media meant one thing: <strong>the enemy</strong>.</p>
             
             <p><strong>Rocky IV (1985):</strong><br>
-            The quintessential example. Sylvester Stallone fights Soviet boxer Ivan Drago in a match billed as "East vs. West." The movie is filled with faux Cyrillic, using Я (which sounds like "ya") as a backwards R.</p>
+            The quintessential example. Sylvester Stallone fights Soviet boxer Ivan Drago in a match billed as "East vs. West," and the film's Soviet iconography did more than any other single production to fix Cyrillic in Western minds as the visual shorthand for the enemy.</p>
             
-            <p>Result: DЯAGO instead of proper Cyrillic ДРАГО.</p>
-            
-            <p>To anyone who knows Cyrillic, this reads as "DYAAGO," nonsense. But to Western audiences, it looked Russian enough. We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
+            <p>That shorthand is what later produced faux Cyrillic, the habit of borrowing Cyrillic letter shapes for their look rather than their sound. TETЯIS is the best-documented example: the Я reads as "ya", so the name comes out as "tetyais". We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
             
             <p><strong>Red Dawn (1984):</strong><br>
             Soviet paratroopers invade a small American town. Cyrillic appears on military vehicles and propaganda posters. Again, often incorrect, mixing Cyrillic and Latin letters in ways that make no sense.</p>
