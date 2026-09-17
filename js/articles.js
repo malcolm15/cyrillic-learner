@@ -2481,9 +2481,9 @@ const ARTICLES = [
         title: 'Serbian: Cyrillic vs Latin Scripts',
         relatedArticles: ['montenegrin-alphabet', 'latin-vs-cyrillic-slavic', 'belarusian-alphabet'],
         content: `
-            <p>Serbia is kind of unique. It's one of the only countries in the world that officially uses two completely different alphabets for the same language. Walk down a street in Belgrade and you'll see signs in Cyrillic right next to signs in Latin. Sometimes the same word written both ways on the same sign.</p>
+            <p>Serbia is kind of unique. It's one of the only countries in the world that uses two completely different alphabets for the same language, side by side and in everyday life. Walk down a street in Belgrade and you'll see signs in Cyrillic right next to signs in Latin. Sometimes the same word written both ways on the same sign.</p>
 
-            <p>This isn't like how some countries are bilingual. This is one language, Serbian, written two different ways. And both are considered equally correct.</p>
+            <p>This isn't like how some countries are bilingual. This is one language, Serbian, written two different ways. And in practice both are treated as equally correct.</p>
 
             <figure class="article-image">
                 <img src="/images/serbian-cyrillic-vs-latin.png"
@@ -2500,7 +2500,7 @@ const ARTICLES = [
 
             <p>But Serbia also spent time under Austro-Hungarian influence, where Latin script dominated. And when Yugoslavia formed in the 20th century, there was a push to standardize across different South Slavic languages, some of which used Latin (like Croatian).</p>
 
-            <p>Instead of picking one alphabet and making everyone switch, Serbia just said: we'll use both. And that's been the official policy ever since.</p>
+            <p>Instead of picking one alphabet and making everyone switch, Serbia just said: we'll use both. That has held ever since, even though the two scripts have never had quite the same legal footing.</p>
 
             <h3>The Latin Alphabet (Latinica)</h3>
 
@@ -2531,7 +2531,7 @@ const ARTICLES = [
 
             <p>This is a surprisingly political question.</p>
 
-            <p>Officially, both alphabets are equal. Government documents, street signs, and official communications are supposed to be available in both. Schools teach both. Everyone is expected to be literate in both.</p>
+            <p>In law, the two are not equal. Article 10 of the constitution puts only the Serbian language and the Cyrillic script into official use, and leaves other scripts, Latin included, to ordinary legislation. In daily life, though, they work as interchangeable. Schools teach both, everyone is expected to read both, and Serbian is one of the few languages in the world where the same text can appear in either script without anyone blinking. Cyrillic dominates official communication, and Latin dominates business and the marketplace.</p>
 
             <p>But in practice? It depends on context and sometimes personal preference.</p>
 
