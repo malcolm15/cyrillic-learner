@@ -421,10 +421,10 @@ const ARTICLES = [
             <p><strong>Swedish:</strong> Kyrilliska alfabetet<br>
             <strong>Norwegian:</strong> Det kyrilliske alfabetet<br>
             <strong>Danish:</strong> Det kyrilliske alfabet<br>
-            <strong>Finnish:</strong> Kyrillinen aakkoset<br>
-            <strong>Icelandic:</strong> Kýrillískt letur</p>
+            <strong>Finnish:</strong> Kyrilliset aakkoset<br>
+            <strong>Icelandic:</strong> Kýrillískt stafróf</p>
 
-            <p>The Nordic pattern uses "K" instead of "C" (following German conventions) and adds their characteristic grammatical structures ("det kyrilliske" = "the Cyrillic" in Norwegian/Danish).</p>
+            <p>The Nordic pattern writes the name with "K" rather than "C", the same spelling convention German uses, and adds their characteristic grammatical structures ("det kyrilliske" = "the Cyrillic" in Norwegian/Danish).</p>
 
             <h3>Why So Many Variations?</h3>
 
