@@ -1850,11 +1850,11 @@ const ARTICLES = [
 
             <h3>Famous Examples of Faux Cyrillic Fails</h3>
             
-            <p><strong>Rocky IV (1985):</strong><br>
-            The movie poster and merchandise used faux Cyrillic extensively. "DЯAGO" for "Drago" reads as "DYAAGO" in Russian.</p>
+            <p><strong>TETЯIS:</strong><br>
+            The best-known example of the lot. Western branding for the puzzle game spells the name with Я, so a Russian reader gets "tetyais" rather than "tetris".</p>
             
-            <p><strong>Red Alert Video Game Series:</strong><br>
-            The Soviet faction uses faux Cyrillic in all its graphics. It looks cool but reads like nonsense.</p>
+            <p><strong>BORДT:</strong><br>
+            The film's title treatment swaps Д in for A. Д makes a "d" sound, so the word reads as "bordt".</p>
             
                         
             <p><strong>Vodka Branding:</strong><br>
