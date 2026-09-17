@@ -563,8 +563,8 @@ const ARTICLES = [
             <p><strong>Ѥ: Iotified E</strong><br>
             Represented "ye" at the start of words, eventually merged with regular Е.</p>
             
-            <p><strong>Ꙟ: Iotified A-Big Yus</strong><br>
-            One of the most complex letters, representing a iotified nasal "a" sound. Used in Old Church Slavonic texts, gone by the 1200s in most places.</p>
+            <p><strong>Ѭ: Iotified Big Yus</strong><br>
+            One of the most complex letters, a ligature of big yus with decimal i, representing a iotified nasal "o" sound. Used in Old Church Slavonic texts, gone by the 1200s in most places.</p>
 
             <h3>Why Did They Disappear?</h3>
             
