@@ -873,21 +873,19 @@ const ARTICLES = [
             
             <p>But Glagolitic didn't disappear entirely. It survived in Croatia, particularly along the Dalmatian coast and on the islands, where it was used in Catholic liturgy. While the Eastern Orthodox churches adopted Cyrillic, the Croatian Catholic Church kept Glagolitic alive as a distinctly Croatian script.</p>
             
-            <p>Croatian Glagolitic was used continuously from the 11th century until the early 20th century (over 900 years)! The last Glagolitic manuscripts were produced in the 1960s, and some Croatian Catholic churches still use Glagolitic in ceremonial contexts today.</p>
+            <p>Croatian Glagolitic was used continuously from the 11th century into the 20th century, over 900 years, and some Croatian Catholic churches still use Glagolitic in ceremonial contexts today.</p>
 
             <h3>Glagolitic's Modern Legacy</h3>
             
             <p>Though no longer in active daily use, Glagolitic has left its mark:</p>
             
-            <p><strong>Croatian Pride:</strong> Many Croatians view Glagolitic as a symbol of their distinct cultural heritage. You'll find Glagolitic letters on monuments, street signs (particularly on the island of Krk), and Croatian euro coins.</p>
+            <p><strong>Croatian Pride:</strong> Many Croatians view Glagolitic as a symbol of their distinct cultural heritage. You'll find Glagolitic letters on monuments, street signs (particularly on the island of Krk), and Croatian euro coins: the 2 and 5 cent coins carry the angular Glagolitic letters ⰘⰓ, standing for HR, on the obverse.</p>
             
             <p><strong>Academic Interest:</strong> Medieval Slavic studies still require knowledge of Glagolitic to read the oldest Slavic manuscripts.</p>
             
             <p><strong>Artistic Inspiration:</strong> The ornate letters appear in modern art, tattoos, and design as a way to reference Slavic heritage or create a mysterious aesthetic.</p>
             
-            <p><strong>UNESCO Recognition:</strong> Glagolitic manuscripts are recognized as part of the world's cultural heritage.</p>
-
-            <h3>Can You Still Learn Glagolitic?</h3>
+                        <h3>Can You Still Learn Glagolitic?</h3>
             
             <p>Yes! While it's not practical for everyday use, learning Glagolitic can be a fascinating journey, especially if you study medieval Slavic literature, have Croatian heritage, want to read the oldest Slavic texts in their original form, enjoy the challenge of exotic writing systems, or want to impress fellow language enthusiasts.</p>
             
@@ -911,7 +909,7 @@ const ARTICLES = [
             
             <p><strong>Religious Sites:</strong> Some Croatian Catholic churches still display Glagolitic inscriptions.</p>
             
-            <p><strong>Croatian Currency:</strong> Before the euro, Croatian kuna coins featured Glagolitic letters. Some Croatian euro coins maintain this tradition.</p>
+            <p><strong>Croatian Currency:</strong> The 100-kuna banknote carried the Glagolitic text of the Baška tablet. Since the switch to the euro, the tradition lives on in coin form: the 2 and 5 cent pieces carry the Glagolitic letters ⰘⰓ for Hrvatska.</p>
 
             <h3>Why Glagolitic Matters</h3>
             
