@@ -442,7 +442,7 @@ const ARTICLE_META = {
     'kazakhstan-latin-transition':{ section: 'History & Culture',       published: '2026-02-28', modified: '2026-09-16', keywords: ['kazakhstan', 'latin transition', 'alphabet reform', 'cyrillic to latin'] },
     'history-of-cyrillic':      { section: 'History & Culture',         published: '2026-03-02', modified: '2026-09-16', keywords: ['cyrillic history', 'saints to superpower', 'slavic alphabet', 'writing history'] },
     'latin-vs-cyrillic-slavic': { section: 'History & Culture',         published: '2026-03-04', modified: '2026-09-15', keywords: ['latin vs cyrillic', 'slavic countries', 'alphabet choice', 'religion and script'] },
-    'cyrillic-pop-culture':     { section: 'History & Culture',         published: '2026-03-06', modified: '2026-03-10', keywords: ['cyrillic movies', 'pop culture', 'rocky iv', 'call of duty', 'faux cyrillic'] },
+    'cyrillic-pop-culture':     { section: 'History & Culture',         published: '2026-03-06', modified: '2026-09-16', keywords: ['cyrillic movies', 'pop culture', 'rocky iv', 'call of duty', 'faux cyrillic'] },
     'cyrillic-vs-greek':        { section: 'History & Culture',         published: '2026-05-15', modified: '2026-09-15', keywords: ['cyrillic vs greek alphabet', 'greek and cyrillic comparison', 'cyrillic greek similarities', 'cyrillic greek differences', 'cyrillic origin greek'] },
     'letter-yo-story':          { section: 'History & Culture',         published: '2026-04-15', modified: '2026-09-16', keywords: ['letter yo russian', 'russian letter ё', 'karamzin letter yo', 'princess dashkova', 'russian spelling', 'yofikator', 'optional russian letter', 'cyrillic letter ё history'] },
     // Learning Tools & Resources

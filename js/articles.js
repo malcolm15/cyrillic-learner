@@ -3177,7 +3177,7 @@ const ARTICLES = [
             <p>In the 2010s, Cyrillic became a fashion trend, especially in streetwear.</p>
             
             <p><strong>Gosha Rubchinskiy:</strong><br>
-            Russian designer Gosha Rubchinskiy made Cyrillic trendy in high fashion. His clothing features Cyrillic text, Soviet imagery, and post-Soviet aesthetics. Brands like Supreme, Adidas, and others collaborated with him.</p>
+            Russian designer Gosha Rubchinskiy made Cyrillic trendy in high fashion. His clothing features Cyrillic text, Soviet imagery, and post-Soviet aesthetics. Brands like Adidas, Burberry, and Levi's collaborated with him.</p>
             
             <p>Result: Western teens wearing shirts with Cyrillic text they can't read. Sometimes it's meaningful Russian words. Sometimes it's gibberish. Often they have no idea which.</p>
             
