@@ -2980,9 +2980,9 @@ const ARTICLES = [
             Letter by letter: К-О-М-А<br>
             Sounds like: "coma"</p>
             
-            <p><strong>ТАКА</strong> (taka) = this way (informal)<br>
-            Letter by letter: Т-А-К-А<br>
-            Sounds like: "tah-kah"</p>
+            <p><strong>ТАК</strong> (tak) = so, like this<br>
+            Letter by letter: Т-А-К<br>
+            Sounds like: "tahk"</p>
 
             <h3>Adding One More Letter: Е</h3>
             
@@ -2992,9 +2992,9 @@ const ARTICLES = [
             
             <p>Now you can read even more words:</p>
             
-            <p><strong>МЕТЕ</strong> (mete) = you sweep<br>
-            Letter by letter: М-Е-Т-Е<br>
-            Sounds like: "meh-teh"</p>
+            <p><strong>ТЕМА</strong> (tema) = theme, topic<br>
+            Letter by letter: Т-Е-М-А<br>
+            Sounds like: "tyeh-ma"</p>
 
             <h3>Adding Another: Д</h3>
             
@@ -3046,7 +3046,7 @@ const ARTICLES = [
             <p>With just these 9 letters (А, К, М, О, Т, Е, Д, С, Н), you can read:</p>
             
             <p><strong>КАТОК</strong> (katok) = ice rink<br>
-            <strong>КАССА</strong> (kassa) = cashier<br>
+            <strong>КАССА</strong> (kassa) = cash desk<br>
             <strong>КАНАТ</strong> (kanat) = rope<br>
             <strong>КОМНАТА</strong> (komnata) = room<br>
             <strong>КОМАНДА</strong> (komanda) = team/command<br>
@@ -3060,7 +3060,7 @@ const ARTICLES = [
             
             <p>These easy-letter words appear on signs in Russian cities:</p>
             
-            <p><strong>КАССА</strong>: You'll see this at ticket booths, cashiers<br>
+            <p><strong>КАССА</strong>: The cash desk, at ticket offices and shop checkouts<br>
             <strong>МЕТРО</strong>: Metro/subway (though Р looks like P!)<br>
             <strong>СТОП</strong>: Stop signs (the П is not in your nine yet)<br>
             <strong>ТУАЛЕТ</strong>: Toilet/restroom<br>
