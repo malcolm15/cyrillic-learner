@@ -3444,9 +3444,9 @@ const ARTICLES = [
                 <figcaption>Three word pairs where dropping the dots on Ё produces an entirely different word.</figcaption>
             </figure>
 
-            <p>Linguists estimate Russian has around 12,500 words containing Ё, plus roughly 2,750 surnames and 1,650 given names. More than 300 Russian surnames are distinguished from other surnames only by the presence or absence of this single letter: Lezhnev versus Lezhnyov, Demin versus Dyomin.</p>
+            <p>Ё turns up in a great many Russian words, and in plenty of surnames and given names. A number of Russian surnames are distinguished from other surnames only by the presence or absence of this single letter: Lezhnev versus Lezhnyov, Demin versus Dyomin.</p>
 
-            <p>The real-world consequences of this can be genuinely absurd. Russian bureaucracy takes spelling extremely seriously, and people with Ё in their legal name regularly discover that their birth certificate, passport, and marriage certificate all spell their name slightly differently depending on which clerk typed which document. There was a court case in 2018 involving a Russian mother of three who was denied state benefits because her surname was written with Е on some documents and Ё on others, meaning, legally, the state wasn't sure she was the same person on her children's birth certificates.</p>
+            <p>The real-world consequences of this can be genuinely absurd. Russian bureaucracy takes spelling extremely seriously, and people with Ё in their legal name regularly discover that their birth certificate, passport, and marriage certificate all spell their name slightly differently depending on which clerk typed which document.</p>
 
             <h3>The Campaigners and the Monument</h3>
 
@@ -3454,14 +3454,14 @@ const ARTICLES = [
 
             <p>Their efforts have had occasional wins. Several Russian newspapers (<em>Sovetskaya Rossiya</em>, <em>Literaturnaya Gazeta</em>, and <em>Argumenty i Fakty</em> among them) have officially reintroduced consistent use of Ё. The Russian Language Institute issued recommendations in 2006 asking that Ё be used in proper nouns to prevent mispronunciation.</p>
 
-            <p>And in 2005, the letter got a monument. The city of Ulyanovsk (the hometown of Karamzin, Ё's most famous champion) installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from its first printed appearance in Karamzin's 1797 almanac. It reportedly took three tons of stone. The unveiling actually triggered protests, because even a monument to a letter couldn't escape the argument.</p>
+            <p>And in 2005, the letter got a monument. The city of Ulyanovsk (the hometown of Karamzin, Ё's most famous champion) installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from its first printed appearance in Karamzin's 1797 almanac. It weighs over three tons. The unveiling actually triggered protests, because even a monument to a letter couldn't escape the argument.</p>
 
             <figure class="article-image">
                 <img src="/images/yo-monument-ulyanovsk.jpg" alt="Monument to the letter Ё in Ulyanovsk, Russia: a two-meter triangular granite stele with the letter Ё carved into it, located on Novy Venets Boulevard" loading="lazy" style="max-width: 500px;">
                 <figcaption>The monument to Ё in Ulyanovsk, unveiled in 2005. Photo by Vadim Indeikin via <a href="https://commons.wikimedia.org/wiki/Category:Yo-monument_in_Ulyanovsk" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</figcaption>
             </figure>
 
-            <p>There's a delightful detail here: the governor of Ulyanovsk Oblast has been known to refuse to sign state documents if Ё appears as Е in the text. The letter has a literal state defender.</p>
+            <p>There's a delightful piece of local lore attached to it, too: people say the governor of Ulyanovsk Oblast refuses to sign state documents if Ё appears as Е in the text. Whether or not that is literally true, the fact that the story circulates says something on its own.</p>
 
             <h3>Why the Argument Continues</h3>
 
