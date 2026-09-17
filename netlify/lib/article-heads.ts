@@ -77,7 +77,7 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
   },
   "serbian-cyrillic-vs-latin": {
     "title": "Serbian: Cyrillic vs Latin Scripts | Cyrilica",
-    "description": "Serbia is kind of unique. It's one of the only countries in the world that officially uses two completely different alphabets for the same language. Walk..."
+    "description": "Serbia is kind of unique. It's one of the only countries in the world that uses two completely different alphabets for the same language, side by side and..."
   },
   "cyrillic-learning-resources": {
     "title": "Best Resources for Learning Cyrillic | Cyrilica",
