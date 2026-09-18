@@ -81,7 +81,7 @@ const ARTICLES = [
 
             <p>If you're feeling confident, try adding Vowels 2 to see the remaining vowel letters like Ы and Э. But if you're still struggling with the basics, stick with what you know and get faster.</p>
 
-            <p>By the end of week one, you should be able to recognize most of the core alphabet. You won't be fast, and you'll make mistakes, but that's fine. You're building the foundation.</p>
+            <p>Work through the plan and most of the core alphabet will start to look familiar. You won't be fast, and you'll make mistakes, but that's fine. You're building the foundation.</p>
 
             <p><strong>Pro tip:</strong> The character group system on this site is designed to match how your brain actually learns. Start with one group, get comfortable, then add the next. Don't try to learn all groups at once or you'll just confuse yourself.</p>
 
