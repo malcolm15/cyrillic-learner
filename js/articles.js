@@ -3838,7 +3838,7 @@ const ARTICLES = [
 
             <p><strong>Three vertical lines usually means "sh."</strong> Ш is "sh" and Щ is the longer, softer version described above. Both have three vertical strokes.</p>
 
-            <p><strong>The backwards letters aren't random.</strong> Я is a backwards R but sounds like "ya." Э is a backwards E but makes a different E sound than Е. There's a logic to it, even if it's not always obvious at first.</p>
+            <p><strong>The backwards letters aren't random.</strong> Я mirrors an R, which is exactly why Western designers misuse it, but it says "ya." Э is a backwards E but makes a different E sound than Е. There's a logic to it, even if it's not always obvious at first.</p>
 
             <h3>How to Practice with This Chart</h3>
 
@@ -3870,9 +3870,9 @@ const ARTICLES = [
 
             <p>In the beginning, you'll reference this chart constantly. That's fine. Look up letters as many times as you need.</p>
 
-            <p>After a week or two, you'll find yourself needing it less often. Maybe you only check a few letters you keep forgetting.</p>
+            <p>Before long, you'll find yourself needing it less often. Maybe you only check a few letters you keep forgetting.</p>
 
-            <p>After a month of consistent practice, you should rarely need the chart at all. At that point, you're not just recognizing letters anymore - you're reading them automatically.</p>
+            <p>With consistent practice, you'll eventually rarely need the chart at all. At that point, you're not just recognizing letters anymore - you're reading them automatically.</p>
 
             <p>But even experienced learners keep alphabet charts bookmarked as a quick reference. There's no shame in double-checking a letter you haven't seen in a while.</p>
 
