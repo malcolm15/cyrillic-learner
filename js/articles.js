@@ -1862,16 +1862,16 @@ const ARTICLES = [
 
             <h3>When It's Done Right</h3>
             
-            <p>Occasionally, Western media gets it right:</p>
+            <p>Occasionally, Western productions work from the real thing:</p>
             
             <p><strong>The Americans (TV Show):</strong><br>
-            Actually used correct Russian and proper Cyrillic throughout. The attention to detail was impressive.</p>
+            Its creators, Joe Weisberg and Joel Fields, set a rule that characters speak whichever language they really would, so the Soviet characters speak Russian, subtitled, played by Russian-speaking actors.</p>
             
             <p><strong>Some Video Games:</strong><br>
-            Metro 2033 and S.T.A.L.K.E.R. series use actual Russian text and signage, making the environment authentic. For more on how Cyrillic appears in games and movies, see our <a href="/articles/cyrillic-pop-culture" onclick="navTo(event, null, 'cyrillic-pop-culture')">complete guide to Cyrillic in pop culture</a>.</p>
+            Metro 2033 comes from 4A Games, founded in Kyiv by developers who left the Ukrainian studio GSC Game World, and adapts Dmitry Glukhovsky's Russian novel, with Glukhovsky credited as a writer. S.T.A.L.K.E.R. is GSC's own. For more on how Cyrillic appears in games and movies, see our <a href="/articles/cyrillic-pop-culture" onclick="navTo(event, null, 'cyrillic-pop-culture')">complete guide to Cyrillic in pop culture</a>.</p>
             
             <p><strong>Historical Films:</strong><br>
-            Movies like "Child 44" and "The Death of Stalin" used real Russian consultants and avoided faux Cyrillic.</p>
+            The Death of Stalin brought in Polly Jones, an Oxford specialist in Russian culture, as a consultant, and Armando Iannucci has described researching the Kremlin, Stalin's dacha and his bunker for the production.</p>
 
             <h3>The Flip Side: Fake English in Russia</h3>
             
