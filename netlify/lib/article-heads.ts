@@ -9,7 +9,7 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
   },
   "common-mistakes": {
     "title": "5 Common Mistakes When Learning Cyrillic | Cyrilica",
-    "description": "I've watched a lot of people learn the Cyrillic alphabet over the years. And I've noticed that almost everyone makes the same handful of mistakes. The..."
+    "description": "The same handful of mistakes comes up again and again in learner forums. The good news? These are all totally avoidable if you know what to watch out for."
   },
   "false-friends": {
     "title": "False Friends: Cyrillic Letters That Fool English Speakers | Cyrilica",
