@@ -135,7 +135,7 @@ const ARTICLES = [
         title: '5 Common Mistakes When Learning Cyrillic',
         relatedArticles: ['false-friends', 'getting-started', 'memory-tricks'],
         content: `
-            <p>I've watched a lot of people learn the Cyrillic alphabet over the years. And I've noticed that almost everyone makes the same handful of mistakes. The good news? These are all totally avoidable if you know what to watch out for.</p>
+            <p>The same handful of mistakes comes up again and again in learner forums. The good news? These are all totally avoidable if you know what to watch out for.</p>
 
             <h3>Mistake 1: Treating False Friends Like Real Friends</h3>
 
@@ -147,7 +147,7 @@ const ARTICLES = [
 
             <p>I know this sounds tedious. And it is. But it's also the only way to rewire your brain. There's no shortcut here. You just have to put in the reps.</p>
 
-            <p>One trick that helps: write the false friends on flashcards with the correct sound in big letters on the back. Then quiz yourself repeatedly. Within a few days, your brain will start to make the switch.</p>
+            <p>One trick that helps: write the false friends on flashcards with the correct sound in big letters on the back. Then quiz yourself repeatedly. With steady practice, your brain will start to make the switch.</p>
 
             <h3>Mistake 2: Trying to Learn Everything at Once</h3>
 
@@ -181,7 +181,7 @@ const ARTICLES = [
 
             <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix. The <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">alphabet chart</a> lets you filter by vowels so you can focus on just those ten.</p>
 
-            <p>Trust me on this one. I've seen people try to learn backwards (consonants first, vowels later), and it never goes well. You end up having to relearn everything because you don't have the foundation you need.</p>
+            <p>Trust me on this one. Learning backwards (consonants first, vowels later) is a common trap, and it rarely goes well. You end up having to relearn everything because you don't have the foundation you need.</p>
 
             <h3>Mistake 5: Not Practicing with Real Words</h3>
 

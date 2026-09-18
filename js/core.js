@@ -421,7 +421,7 @@ const ARTICLE_ORDER = [
 const ARTICLE_META = {
     // Getting Started
     'getting-started':          { section: 'Getting Started',           published: '2026-02-10', modified: '2026-09-16', keywords: ['cyrillic alphabet', 'learn cyrillic', 'beginner guide', 'russian letters'] },
-    'common-mistakes':          { section: 'Getting Started',           published: '2026-02-10', modified: '2026-03-20', keywords: ['cyrillic mistakes', 'learning tips', 'false friends', 'beginner errors'] },
+    'common-mistakes':          { section: 'Getting Started',           published: '2026-02-10', modified: '2026-09-16', keywords: ['cyrillic mistakes', 'learning tips', 'false friends', 'beginner errors'] },
     'false-friends':            { section: 'Getting Started',           published: '2026-02-12', modified: '2026-09-16', keywords: ['false friends', 'cyrillic letters', 'confusing letters', 'look-alike letters'] },
     'memory-tricks':            { section: 'Getting Started',           published: '2026-02-14', modified: '2026-09-16', keywords: ['memory tricks', 'mnemonics', 'cyrillic memorization', 'confusing letters'] },
     'cyrillic-tier-list':       { section: 'Getting Started',           published: '2026-02-18', modified: '2026-09-16', keywords: ['cyrillic difficulty', 'letter ranking', 'tier list', 'hardest letters'] },
