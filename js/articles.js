@@ -481,7 +481,7 @@ const ARTICLES = [
         title: 'The Lost Letters of Cyrillic: A Journey Through Extinct Characters',
         relatedArticles: ['glagolitic', 'history-of-cyrillic', 'cyrillic-names-europe'],
         content: `
-            <p>You've mastered the 33 letters of the modern Russian alphabet. Congratulations! But here's a secret: you've only scratched the surface. Throughout its 1,150-year history, the Cyrillic alphabet has had over 100 different letters, and most of them have vanished into the mists of time.</p>
+            <p>You've mastered the 33 letters of the modern Russian alphabet. Congratulations! But here's a secret: you've only scratched the surface. Throughout its 1,150-year history, the Cyrillic alphabet has shed letters: the earliest version had somewhere between 43 and 46, depending on the source, against the 33 of modern Russian, and most of the ones that dropped out have vanished into the mists of time.</p>
             
             <p>This is the story of the lost letters: the characters that once filled medieval manuscripts, adorned church texts, and puzzled scribes across Eastern Europe. Some disappeared centuries ago. Others survived until your great-grandparents' generation. All of them tell a fascinating story about how writing systems evolve.</p>
 
@@ -503,7 +503,7 @@ const ARTICLES = [
             <p>The most recent extinction event in Cyrillic history was the spelling reform of 1917 and 1918. It was drafted by an academic commission years before the revolution and promulgated by the Provisional Government in 1917. The new Soviet government then enforced it with two decrees: one dated 23 December 1917 (5 January 1918 in the new calendar) for state publications, and one on 10 October 1918 that made it binding on all state editions and documents. The decree named three letters, yat, fita, and the decimal І. The fourth, izhitsa, had already fallen out of use and was not even mentioned, but it vanished with them. If you're reading pre-revolutionary Russian literature in the original, you'll encounter these constantly:</p>
             
             <p><strong>Ѣ: Yat (sounds like "ye")</strong><br>
-            This letter looked like a fancy backwards "Ь" and represented a sound that had already merged with Е (ye) in pronunciation by the 1700s. By 1918, people were spelling it out of pure tradition: everyone said "ye" but some words were written with Е and others with Ѣ, with no phonetic difference.</p>
+            This letter looked like a Ь with a tall stem and a crossbar through it, and represented a sound that had already merged with Е (ye) in pronunciation by the 1700s. By 1918, people were spelling it out of pure tradition: everyone said "ye" but some words were written with Е and others with Ѣ, with no phonetic difference.</p>
             
             <p>The letter was so notorious for being difficult to learn that "знать на ять" (to know yat) became a Russian idiom meaning "to know something perfectly." Students had to memorize long lists of which words used Ѣ versus Е.</p>
             
