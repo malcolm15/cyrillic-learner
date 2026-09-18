@@ -333,7 +333,7 @@ const ARTICLES = [
             </div>
             
             <h3>The Moment It Clicks</h3>
-            <p>Most learners report a sudden breakthrough after about a week of focused practice. You'll be reading a word, see "Р" and without thinking, your brain will supply "r" instead of "p." That's when you know the retraining has worked.</p>
+            <p>The breakthrough tends to arrive all at once. One day you'll be reading a word, see "Р" and without thinking, your brain will supply "r" instead of "p." That's when you know the retraining has worked.</p>
             <p>Until then, expect to make mistakes. Everyone does. The key is catching yourself, correcting the association, and moving on. With consistent practice, these false friends become true allies in your journey to reading Russian.</p>
             
             <h3>Beyond the Big Six</h3>
