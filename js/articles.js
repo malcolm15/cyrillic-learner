@@ -935,7 +935,7 @@ const ARTICLES = [
         title: 'Ukrainian Cyrillic: The Alphabet That Sets Ukrainian Apart',
         relatedArticles: ['belarusian-alphabet', 'latin-vs-cyrillic-slavic', 'history-of-cyrillic'],
         content: `
-            <p>Ukrainian is the third most-spoken Slavic language, with around 40 million speakers, and it uses Cyrillic, but not the same Cyrillic as Russian. The two alphabets share 29 letters. Four letters exist only in Ukrainian. Four Russian letters don't appear in Ukrainian at all. Those eight characters are where the whole story lives.</p>
+            <p>Ukrainian is the third most-spoken Slavic language, and it uses Cyrillic, but not the same Cyrillic as Russian. About 32 million people speak it natively, closer to 39 million counting second-language speakers. The two alphabets share 29 letters. Four letters exist only in Ukrainian. Four Russian letters don't appear in Ukrainian at all. Those eight characters are where the whole story lives.</p>
 
             <figure class="article-image">
                 <img src="/images/ukrainian-vs-russian-alphabet.png" alt="Side-by-side comparison of Ukrainian-only Cyrillic letters Ґ, Є, І, Ї versus Russian-only letters Ё, Ъ, Ы, Э, with pronunciation guides and example words for each" loading="lazy" width="1400" height="960" style="max-width: 600px;">
