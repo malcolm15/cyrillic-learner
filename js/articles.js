@@ -2709,13 +2709,15 @@ const ARTICLES = [
 
             <h3>My Recommended Learning Path</h3>
 
+            <p>Treat the weeks as a sequence, not a deadline: if one needs longer, give it longer.</p>
+            
             <p>Week 1: Use this site (or similar) to drill the alphabet. 15 minutes a day. Supplement with YouTube videos for pronunciation.</p>
 
             <p>Week 2: Add writing practice. Get a notebook, write each letter multiple times. Start reading simple Russian words on Wikipedia or kids' books.</p>
 
             <p>Week 3: Continue daily practice, but start using Anki for spaced repetition. Add some real reading (news headlines, social media).</p>
 
-            <p>Week 4: By now you should be able to read most Cyrillic, even if slowly. Start learning actual Russian vocabulary while continuing to practice reading.</p>
+            <p>Week 4: Once you can read most Cyrillic, even slowly, start learning actual Russian vocabulary while continuing to practice reading.</p>
 
             <p>After that, it's just consistency. Keep reading Russian text every day. The more you see the letters in context, the faster and more automatic your reading becomes.</p>
 
