@@ -1091,7 +1091,7 @@ const ARTICLES = [
 
             <h3>How Different Is It From Russian?</h3>
             
-            <p>If you know Russian, Belarusian is highly comprehensible, probably 70-80% mutually intelligible. The alphabet differences are small (two letters added, three dropped), but pronunciation and vocabulary differ more significantly.</p>
+            <p>If you know Russian, a lot of Belarusian will be comprehensible. Russian, Ukrainian and Belarusian retain a degree of mutual intelligibility, though putting a percentage on that is more precision than the evidence supports. The alphabet differences are small (two letters added, three dropped), but pronunciation and vocabulary differ more significantly.</p>
             
             <p><strong>Key differences:</strong></p>
             
@@ -1126,7 +1126,7 @@ const ARTICLES = [
 
             <h3>The Political Dimension</h3>
             
-            <p>Language in Belarus is politically complex. While Belarusian is one of two official languages (along with Russian), Russian dominates in daily life, especially in cities. Only about 10-15% of the population uses Belarusian as their primary language.</p>
+            <p>Language in Belarus is politically complex. While Belarusian is one of two official languages (along with Russian), Russian dominates in daily life, especially in cities. How many people actually use it depends on what you count, and the gap between the measures is the real story. In the 1999 census, 85.6 percent of the population declared Belarusian their mother tongue, while 36.7 percent said it was the language they spoke at home. The 2019 census counted 5.09 million native speakers.</p>
             
             <p>This has made Belarusian language a symbol of national identity and independence. Learning and using Belarusian is sometimes seen as a political statement supporting Belarusian independence from Russian influence.</p>
 
