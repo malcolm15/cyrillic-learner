@@ -1425,7 +1425,7 @@ const ARTICLES = [
                     <tr><td><span class="big-letter">Њ њ</span></td><td><strong>ny</strong>, like the <em>ny</em> in <em>canyon</em></td><td>The same trick as above, this time Н fused with Ь. These two fused letters are pure Karadžić.</td></tr>
                     <tr><td><span class="big-letter">Ђ ђ</span></td><td>soft <strong>j</strong>, like the <em>j</em> in <em>jeep</em></td><td>A soft "dj" sound with no clean English equivalent. It is the letter in the name Ђоковић, usually spelled Djokovic in English.</td></tr>
                     <tr><td><span class="big-letter">Ћ ћ</span></td><td>soft <strong>ch</strong>, a gentle <em>ch</em></td><td>The voiceless partner to Ђ. English smears both of these into "ch" and "j," but Serbian keeps them distinct.</td></tr>
-                    <tr><td><span class="big-letter">Џ џ</span></td><td><strong>dzh</strong>, like the <em>j</em> in <em>judge</em></td><td>A hard "j" sound. Handy fact: this is the rare Cyrillic letter that is wider than it is tall.</td></tr>
+                    <tr><td><span class="big-letter">Џ џ</span></td><td><strong>dzh</strong>, like the <em>j</em> in <em>judge</em></td><td>A hard "j" sound. Its shape is Ц with the little descender moved from the right-hand corner to the middle.</td></tr>
                 </tbody>
             </table>
 
