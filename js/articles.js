@@ -1704,7 +1704,7 @@ const ARTICLES = [
             <p>Short and simple. Pronounced like "dome" without the final "e."</p>
             
             <p><strong>КОТ</strong> (kot): Cat</p>
-            <p>Pronounced like "coat" without the final sound.</p>
+            <p>Pronounced like "coat" but with a hard T at the end.</p>
             
             <p><strong>СТОП</strong> (stop): Stop</p>
             <p>You'll see this on stop signs. Exactly like English.</p>

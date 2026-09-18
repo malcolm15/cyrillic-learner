@@ -425,7 +425,7 @@ const ARTICLE_META = {
     'false-friends':            { section: 'Getting Started',           published: '2026-02-12', modified: '2026-09-16', keywords: ['false friends', 'cyrillic letters', 'confusing letters', 'look-alike letters'] },
     'memory-tricks':            { section: 'Getting Started',           published: '2026-02-14', modified: '2026-09-16', keywords: ['memory tricks', 'mnemonics', 'cyrillic memorization', 'confusing letters'] },
     'cyrillic-tier-list':       { section: 'Getting Started',           published: '2026-02-18', modified: '2026-09-16', keywords: ['cyrillic difficulty', 'letter ranking', 'tier list', 'hardest letters'] },
-    'first-25-words':           { section: 'Getting Started',           published: '2026-02-20', modified: '2026-03-10', keywords: ['russian words', 'reading practice', 'first words', 'beginner russian'] },
+    'first-25-words':           { section: 'Getting Started',           published: '2026-02-20', modified: '2026-09-16', keywords: ['russian words', 'reading practice', 'first words', 'beginner russian'] },
     'easy-russian-words':       { section: 'Getting Started',           published: '2026-03-01', modified: '2026-09-16', keywords: ['easy russian', 'simple words', 'beginner vocabulary', 's-tier letters'] },
     // Alphabet Variants
     'ukrainian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-09-16', keywords: ['ukrainian alphabet', 'ukrainian cyrillic', 'ukrainian letters', 'cyrillic vs russian', 'ukrainian language', 'Ґ Є І Ї letters', 'learn ukrainian script'] },
