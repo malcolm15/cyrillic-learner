@@ -287,6 +287,20 @@ Meta descriptions auto-generate from the article's first `<p>`, truncated to 155
 characters at a word boundary. The opening paragraph of every article is its search
 snippet; edit it with care.
 
+**The snippet-change test.** When editing anywhere near the start of an article's
+opening paragraph, the question is whether ANY character inside the first 155
+changes, not whether the claim being corrected sits there. An edit that starts at
+character 136 moves the snippet even if the error it fixes is at character 200.
+(This was learned the hard way in September 2026: a fix to lost-letters corrected
+a claim well past the cutoff, but the rewritten sentence began inside it.)
+
+**The guard.** Compare the md5 of `netlify/lib/article-heads.ts` before and after
+regenerating it, on every content change. That byte comparison is what actually
+catches an unintended snippet change; the reasoning check above is a convenience,
+not the protection. If the heads change and you did not intend it, rework the edit
+so the first 155 characters survive. If the change is intended, record the before
+and after description text so a later click-through shift can be traced to it.
+
 ## Interactive features
 
 **Printable chart generator** (russian-alphabet-chart): `buildPrintChart()` and
