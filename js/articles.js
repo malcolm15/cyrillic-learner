@@ -700,7 +700,7 @@ const ARTICLES = [
 
             <p><strong>Ю (sounds like YU):</strong> Looks like "I" and "O" attached. Say them fast: "I-O" becomes "YOO." Like "you" in English. Picture someone saying "Hey YOU!" and pointing.</p>
 
-            <p><strong>Я (sounds like YA):</strong> The backwards R. Not to be confused with the regular Р. This one looks lazy, leaning back. When you lean back, you say "ahhhhh." Add a Y in front: "yahhh."</p>
+            <p><strong>Я (sounds like YA):</strong> It mirrors an R, which is exactly why people misuse it, but it has nothing to do with R. This one looks lazy, leaning back. When you lean back, you say "ahhhhh." Add a Y in front: "yahhh."</p>
 
             <h3>Sound-Alike Tricks</h3>
 
