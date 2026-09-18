@@ -3135,9 +3135,9 @@ const ARTICLES = [
             <p>That shorthand is what later produced faux Cyrillic, the habit of borrowing Cyrillic letter shapes for their look rather than their sound. TETЯIS is the best-documented example: the Я reads as "ya", so the name comes out as "tetyais". We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
             
             <p><strong>Red Dawn (1984):</strong><br>
-            Soviet paratroopers invade a small American town. Cyrillic appears on military vehicles and propaganda posters. Again, often incorrect, mixing Cyrillic and Latin letters in ways that make no sense.</p>
+            Soviet paratroopers invade a small American town. Cyrillic appears on military vehicles and propaganda posters.</p>
             
-            <p>The message: Cyrillic = Soviet threat. The accuracy: questionable at best.</p>
+            <p>The message, in both films: Cyrillic means Soviet threat.</p>
             
             <p><strong>The Hunt for Red October (1990):</strong><br>
             One of the few Cold War films that actually got Russian language details right. The submarine's instruments, documents, and signage use proper Cyrillic. Sean Connery's Russian accent is terrible, but at least the written text is accurate.</p>
@@ -3157,18 +3157,17 @@ const ARTICLES = [
             <p>For English-speaking players, the Cyrillic adds to the foreign, dangerous atmosphere. For Russian/Ukrainian players, it's just... normal signage.</p>
             
             <p><strong>Call of Duty: Modern Warfare Series:</strong><br>
-            Features Russian antagonists and plenty of Cyrillic text. Quality varies:</p>
+            Features Russian antagonists and plenty of Cyrillic text:</p>
             
             <p>• Some mission briefings use proper Russian<br>
-            • Environmental details (signs, graffiti) are often accurate<br>
-            • Occasionally uses faux Cyrillic for effect</p>
+            • Environmental details (signs, graffiti) are often accurate</p>
             
-            <p>The developers clearly consulted Russian speakers for some content but leaned on stereotypes for others.</p>
+            <p>The developers clearly consulted Russian speakers for at least some of the content.</p>
             
             <p><strong>Counter-Strike / CS:GO:</strong><br>
-            Several maps set in Eastern Europe feature Cyrillic signage. Accuracy is hit-or-miss, with some signs being proper Russian and others being gibberish or faux Cyrillic.</p>
+            Several maps set in Eastern Europe feature Cyrillic signage.</p>
             
-            <p>Players who know Cyrillic can spot the difference immediately. For everyone else, it just looks "Russian."</p>
+            <p>Players who read Cyrillic get a layer of those maps that everyone else just registers as "Russian."</p>
 
             <h3>Fashion: Cyrillic as Aesthetic</h3>
             
@@ -3212,8 +3211,7 @@ const ARTICLES = [
             <p><strong>Western Artists Using Cyrillic:</strong><br>
             Some Western musicians use Cyrillic in album art or merchandise for aesthetic purposes:</p>
             
-            <p>• The Beatles' "Back in the U.S.S.R." (1968): no Cyrillic in the original, but later merchandise often added it<br>
-            • Depeche Mode toured Russia extensively and released Cyrillic-branded merch<br>
+            <p>• Depeche Mode toured Russia extensively and released Cyrillic-branded merch<br>
             • Various EDM and techno artists use Cyrillic in visual branding to look "exotic" or "underground"</p>
 
             <h3>Movies and TV: Beyond the Cold War</h3>
@@ -3224,10 +3222,10 @@ const ARTICLES = [
             <p>Russian viewers praised the show for its linguistic authenticity, a rarity in Western media.</p>
             
             <p><strong>Stranger Things (2016-present):</strong><br>
-            Season 3 featured a Soviet conspiracy subplot. Cyrillic appears on documents, equipment, and signage. Quality is mixed, with some accurate and some faux Cyrillic for visual effect.</p>
+            Season 3 featured a Soviet conspiracy subplot. Cyrillic appears on documents, equipment, and signage.</p>
             
             <p><strong>James Bond Films:</strong><br>
-            Multiple Bond films feature Russian antagonists and Cyrillic text. GoldenEye (1995) had Russian computer interfaces with mostly accurate Cyrillic. Other films are less careful.</p>
+            Multiple Bond films feature Russian antagonists and Cyrillic text. GoldenEye (1995) had Russian computer interfaces with mostly accurate Cyrillic.</p>
 
             <h3>Corporate Branding: Fake Cyrillic</h3>
             
