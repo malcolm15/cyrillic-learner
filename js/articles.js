@@ -1525,7 +1525,7 @@ const ARTICLES = [
 
             <figure class="article-image">
                 <img src="/images/cyrillic-tier-list.png" alt="Cyrillic alphabet tier list ranking all 33 Russian letters by difficulty for English speakers, from S-tier easiest letters like А К М О Т to F-tier hardest letters like Р Ы Ь Ъ" loading="lazy" width="1100" height="811">
-                <figcaption>All 33 Russian letters ranked by difficulty. S-tier takes minutes to learn, F-tier takes months.</figcaption>
+                <figcaption>All 33 Russian letters ranked by difficulty. S-tier letters come almost free; F-tier letters take the longest.</figcaption>
             </figure>
 
             <h3>S-TIER: Welcome Gifts (Basically Free)</h3>
@@ -1550,7 +1550,7 @@ const ARTICLES = [
             <strong>Ф (f)</strong>: Looks like Φ (Greek phi), sounds like F. Easy if you know Greek.<br>
             <strong>Э (e)</strong>: Backwards E, sounds like "eh." Memorable shape.</p>
             
-            <p><strong>Why A-tier:</strong> These require one mental hop (looks like X, sounds like Y) but the jump is small. You'll have them down in a day or two.</p>
+            <p><strong>Why A-tier:</strong> These require one mental hop (looks like X, sounds like Y) but the jump is small.</p>
 
             <h3>B-TIER: Moderate Challenge (New Territory)</h3>
             
@@ -1577,7 +1577,7 @@ const ARTICLES = [
             <strong>Ч (ch)</strong>: Looks like a 4, sounds like "ch." Takes practice.<br>
             <strong>Ш (sh)</strong>: Looks like Ш, sounds like "sh" in "shoe." Fine once memorized.<br>
             <strong>Ю (yu)</strong>: Looks like a sideways lollipop, sounds like "yoo." Visually weird.<br>
-            <strong>Я (ya)</strong>: Backwards R, sounds like "ya." Common source of memes.</p>
+            <strong>Я (ya)</strong>: Mirrors an R, sounds like "ya." Common source of memes.</p>
             
             <p><strong>Why C-tier:</strong> These require real effort. The shapes don't hint at the sounds, and some sounds don't exist in English. You'll get there, but it takes deliberate practice.</p>
 
@@ -1610,6 +1610,8 @@ const ARTICLES = [
 
             <h3>The Learning Journey</h3>
             
+            <p>Treat the weeks as a sequence, not a deadline: if one needs longer, give it longer.</p>
+            
             <p><strong>Week 1:</strong> Master S-tier and A-tier. Feel good about yourself. (10 letters down!)</p>
             
             <p><strong>Week 2:</strong> Conquer B-tier. Still making good progress. (17 letters!)</p>
@@ -1624,7 +1626,7 @@ const ARTICLES = [
             
             <p>Here's the thing: even the F-tier letters eventually click. One day you'll see РЫБА (fish) and just read it as "RYBA" without your brain screaming "PYBA!" at you. One day Ы will come out of your mouth naturally. One day you'll understand what Ь actually does.</p>
             
-            <p>The tier list tells you the difficulty, but not the timeline. S-tier letters take minutes. F-tier letters take months. But they all become automatic eventually.</p>
+            <p>The tier list tells you the order of difficulty, not a timeline. S-tier letters come almost free. F-tier letters take the longest. But they all become automatic eventually.</p>
             
             <p>And then you can make tier lists for other Cyrillic alphabets and discover that Ukrainian's Ґ is somehow even weirder than anything Russian has. But that's a problem for future you.</p>
             
