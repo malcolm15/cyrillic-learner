@@ -3140,31 +3140,26 @@ const ARTICLES = [
             <p>The message, in both films: Cyrillic means Soviet threat.</p>
             
             <p><strong>The Hunt for Red October (1990):</strong><br>
-            One of the few Cold War films that actually got Russian language details right. The submarine's instruments, documents, and signage use proper Cyrillic. Sean Connery's Russian accent is terrible, but at least the written text is accurate.</p>
+            A Cold War thriller told largely from the Soviet crew's side, and the source of one of cinema's best-known language devices: the film opens in Russian and slides into English mid-scene.</p>
 
             <h3>Video Games: Cyrillic as Atmosphere</h3>
             
             <p>Modern video games use Cyrillic to create atmosphere, especially in post-apocalyptic, military, or Eastern European settings.</p>
             
             <p><strong>Metro 2033 / Metro: Last Light (2010, 2013):</strong><br>
-            Set in post-apocalyptic Moscow, these games use Cyrillic <strong>correctly</strong>. Station signs, graffiti, and in-game documents are in proper Russian. The developers (Ukrainian studio 4A Games) are native speakers, so the Cyrillic is authentic.</p>
+            Set in post-apocalyptic Moscow. The games come from 4A Games, founded in Kyiv in 2006 by three developers who left the Ukrainian studio GSC Game World, and they adapt Dmitry Glukhovsky's Russian novel, with Glukhovsky credited as a writer on the game.</p>
             
-            <p>Playing Metro feels like navigating a real Russian metro system, because the signs are actually readable if you know Cyrillic.</p>
+            <p>Playing Metro feels like navigating a real Russian metro system. If you read Cyrillic, expect to spend time reading the walls.</p>
             
             <p><strong>S.T.A.L.K.E.R. Series (2007-2009):</strong><br>
-            Another Ukrainian-developed game set in the Chernobyl Exclusion Zone. Like Metro, the Cyrillic is accurate. Road signs, warning labels, and environmental text are in real Russian/Ukrainian.</p>
+            Another Ukrainian-developed game, from GSC Game World, set in the Chernobyl Exclusion Zone.</p>
             
-            <p>For English-speaking players, the Cyrillic adds to the foreign, dangerous atmosphere. For Russian/Ukrainian players, it's just... normal signage.</p>
+            <p>For English-speaking players, the Cyrillic adds to the foreign, dangerous atmosphere.</p>
             
             <p><strong>Call of Duty: Modern Warfare Series:</strong><br>
             Features Russian antagonists and plenty of Cyrillic text:</p>
             
-            <p>• Some mission briefings use proper Russian<br>
-            • Environmental details (signs, graffiti) are often accurate</p>
-            
-            <p>The developers clearly consulted Russian speakers for at least some of the content.</p>
-            
-            <p><strong>Counter-Strike / CS:GO:</strong><br>
+                        <p><strong>Counter-Strike / CS:GO:</strong><br>
             Several maps set in Eastern Europe feature Cyrillic signage.</p>
             
             <p>Players who read Cyrillic get a layer of those maps that everyone else just registers as "Russian."</p>
@@ -3211,21 +3206,18 @@ const ARTICLES = [
             <p><strong>Western Artists Using Cyrillic:</strong><br>
             Some Western musicians use Cyrillic in album art or merchandise for aesthetic purposes:</p>
             
-            <p>• Depeche Mode toured Russia extensively and released Cyrillic-branded merch<br>
-            • Various EDM and techno artists use Cyrillic in visual branding to look "exotic" or "underground"</p>
+            <p>• Various EDM and techno artists use Cyrillic in visual branding to look "exotic" or "underground"</p>
 
             <h3>Movies and TV: Beyond the Cold War</h3>
             
             <p><strong>The Americans (2013-2018):</strong><br>
-            A TV show about Soviet spies in 1980s America. Unlike most Hollywood productions, The Americans used <strong>correct Russian</strong> and proper Cyrillic throughout. Russian dialogue was subtitled, and Cyrillic documents/props were accurate.</p>
+            A TV show about Soviet spies in 1980s America. Its creators, Joe Weisberg and Joel Fields, set a rule that characters speak whichever language they really would, so the Soviet characters speak Russian, subtitled, played by Russian-speaking actors.</p>
             
-            <p>Russian viewers praised the show for its linguistic authenticity, a rarity in Western media.</p>
-            
-            <p><strong>Stranger Things (2016-present):</strong><br>
+                        <p><strong>Stranger Things (2016-present):</strong><br>
             Season 3 featured a Soviet conspiracy subplot. Cyrillic appears on documents, equipment, and signage.</p>
             
             <p><strong>James Bond Films:</strong><br>
-            Multiple Bond films feature Russian antagonists and Cyrillic text. GoldenEye (1995) had Russian computer interfaces with mostly accurate Cyrillic.</p>
+            Multiple Bond films feature Russian antagonists and Cyrillic text.</p>
 
             <h3>Corporate Branding: Fake Cyrillic</h3>
             
@@ -3249,17 +3241,16 @@ const ARTICLES = [
             
             <p><strong>4. Visual Aesthetics:</strong> Cyrillic letters are visually striking. The mix of familiar shapes (А, К, М) and unfamiliar ones (Ж, Щ, Ы) creates interesting typography.</p>
 
-            <h3>When Pop Culture Gets It Right</h3>
+            <h3>Where the Russian Comes From the Source</h3>
             
-            <p>Some productions put in the effort to use Cyrillic correctly:</p>
+            <p>Some productions work from Russian-language material or Russian-speaking people:</p>
             
-            <p><strong>Metro Series:</strong> Authentic Russian environment<br>
-            <strong>S.T.A.L.K.E.R.:</strong> Real Ukrainian/Russian signage<br>
-            <strong>The Americans:</strong> Accurate Russian dialogue and text<br>
-            <strong>Child 44 (2015):</strong> Consulted Russian speakers for accuracy<br>
-            <strong>The Death of Stalin (2017):</strong> Mixed English dialogue with proper Cyrillic props</p>
+            <p><strong>Metro series:</strong> made by 4A Games in Kyiv, adapting Glukhovsky's novel<br>
+            <strong>S.T.A.L.K.E.R.:</strong> made by GSC Game World in Kyiv<br>
+            <strong>The Americans:</strong> Soviet characters played by Russian-speaking actors, speaking Russian with subtitles<br>
+            <strong>The Death of Stalin:</strong> Polly Jones, an Oxford specialist in Russian culture, consulted on the production</p>
             
-            <p>These productions understand that authenticity enhances immersion. Viewers who know Russian appreciate the effort. Viewers who don't still benefit from the realistic atmosphere.</p>
+            <p>Working from the source shows. Viewers who know Russian notice, and viewers who don't still get an environment that hangs together.</p>
 
             <h3>The Faux Cyrillic Problem</h3>
             
