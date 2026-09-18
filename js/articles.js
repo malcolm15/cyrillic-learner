@@ -6,7 +6,7 @@ const ARTICLES = [
         content: `
             <p>So you want to learn the Cyrillic alphabet. Maybe you're planning a trip to Russia. Maybe you're tired of not being able to read street signs in Eastern Europe. Or maybe you just think it looks cool and want to decode those mysterious letters you see in movies.</p>
 
-            <p>Whatever your reason, I've got good news. Cyrillic isn't nearly as hard as it looks. In fact, if you can spare 15 minutes a day for the next week or two, you can learn to read it. Not fluently, but well enough to sound out words and start recognizing patterns.</p>
+            <p>Whatever your reason, I've got good news. Cyrillic isn't nearly as hard as it looks. In fact, with 15 minutes a day of steady practice, you can learn to read it. Not fluently, but well enough to sound out words and start recognizing patterns.</p>
 
             <p>I'm not going to lie and say it's effortless. But it's also not some impossible task that requires years of study. It's just a different set of symbols for sounds you already know how to make.</p>
 
@@ -55,7 +55,7 @@ const ARTICLES = [
 
             <h3>Your First Week (Using This Site)</h3>
 
-            <p>Here's a practical 7-day plan using the character groups available on this site. You can click "Begin Learning" on the home page and select exactly the groups mentioned below.</p>
+            <p>Here's a practical 7-day plan using the character groups available on this site. You can click "Begin Learning" on the home page and select exactly the groups mentioned below. Treat the days as a sequence, not a deadline: if one needs longer, give it longer.</p>
 
             <p><strong>Day 1 and 2: Vowels 1</strong></p>
 
@@ -105,7 +105,7 @@ const ARTICLES = [
 
             <h3>When You Get Frustrated</h3>
 
-            <p>You will get frustrated. Probably around day 4 or 5 when your brain is tired of trying to remember which weird squiggle makes which sound.</p>
+            <p>You will get frustrated. Probably partway through, when your brain is tired of trying to remember which weird squiggle makes which sound.</p>
 
             <p>When that happens, take a break. Go watch a Russian movie with subtitles. Listen to some Russian music. Browse a Russian website and see how many words you can sound out.</p>
 
@@ -113,7 +113,7 @@ const ARTICLES = [
 
             <h3>The Goal Isn't Perfection</h3>
 
-            <p>After one week, you will not be perfect. You'll still mix up letters. You'll still read slowly. You might only recognize 25 out of 33 letters with confidence.</p>
+            <p>At the end of the plan, you will not be perfect. You'll still mix up letters. You'll still read slowly. Some letters will still need a second look.</p>
 
             <p>That's totally fine. You're learning a new writing system. Give yourself credit for the progress you make, not grief for the progress you haven't made yet.</p>
 
