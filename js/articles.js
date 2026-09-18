@@ -3396,7 +3396,7 @@ const ARTICLES = [
 
             <p>Everyone present wrote it the standard way: <strong>іолка</strong>. Two letters to represent what was clearly one sound. Dashkova pointed out the absurdity of it. Why use a clunky two-letter combination when a single letter would do? She proposed a new character, the familiar E with two dots placed above it, borrowing the form from French and German typography. The new letter would represent the distinct "yo" sound that Russians were already making but had no clean way to write.</p>
 
-            <p>The room agreed. Ё was born.</p>
+            <p>Accounts differ on how the room responded. Some say the academicians took the idea up on the spot; others that they, and Metropolitan Gavriil, turned it down. Either way, the letter existed from that evening on.</p>
 
             <h3>The Slow Climb to Respectability</h3>
 
@@ -3404,7 +3404,7 @@ const ARTICLES = [
 
             <p>The real champion of the letter came a few years later. Nikolay Karamzin, one of the most influential Russian writers of the late 18th century, used Ё prominently in his 1797 almanac <em>Aonida</em>, printing words like слёзы (tears), орёл (eagle), and мотылёк (moth). Because Karamzin carried so much literary weight, Ё started to feel respectable. For a long time, Karamzin was credited as the letter's inventor, though the real credit belongs to Dashkova.</p>
 
-            <p>Even with Karamzin's backing, Ё didn't make it into the official Russian alphabet until the 1860s. And "official" is a flexible word here, because the letter remained optional in practice. Writers used it when they felt like it. Printers skipped it when convenient. A great many Russian books and newspapers simply didn't include it at all.</p>
+            <p>Even with Karamzin's backing, Ё had no official standing at all for the next century and a half. Writers used it when they felt like it. Printers skipped it when convenient. A great many Russian books and newspapers simply didn't include it at all.</p>
 
             <h3>Stalin, a Typo, and a Decree</h3>
 
