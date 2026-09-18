@@ -301,6 +301,17 @@ not the protection. If the heads change and you did not intend it, rework the ed
 so the first 155 characters survive. If the change is intended, record the before
 and after description text so a later click-through shift can be traced to it.
 
+**The modified-date check.** After any content edit, confirm the edited article's
+`ARTICLE_META.modified` in `js/core.js` and its `<lastmod>` in `sitemap.xml` both
+equal the date of the commit. The two fields move together. If one changes and the
+other does not, or if either shows an older date, stop and find out why before
+pushing. A commit that leaves both files unexpectedly unchanged is the warning sign.
+
+**Why.** Nothing else verifies a date field. In September 2026 the date-bump helper
+silently wrote a hardcoded 2026-09-16 for two days across 22 articles, and it only
+surfaced because a commit came back with those files unexpectedly unchanged. That
+was luck, not a check.
+
 ## Interactive features
 
 **Printable chart generator** (russian-alphabet-chart): `buildPrintChart()` and
