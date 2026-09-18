@@ -221,10 +221,10 @@ const ARTICLES = [
             
             <h3>Why False Friends Are So Tricky</h3>
             <p>The problem is hardwired into how our brains work. After years of reading English, your visual cortex has built powerful associations between letter shapes and sounds. When you see "P," your brain instantly thinks "p" sound. Breaking these associations requires conscious effort and repetition.</p>
-            <p>The good news? Once you've retrained your brain on these six letters, reading Cyrillic becomes dramatically easier. Most learners report this as the breakthrough moment when everything starts to click.</p>
+            <p>The good news? Once you've retrained your brain on these six letters, reading Cyrillic becomes dramatically easier. It can feel like the moment everything starts to click.</p>
             
             <h3>The Confusing Six</h3>
-            <p>Here are the letters that trip up nearly every English speaker. Master these, and you're halfway to fluent reading.</p>
+            <p>Here are the letters that trip up nearly every English speaker. Master these, and you've cleared one of the main obstacles to reading Cyrillic.</p>
 
             <div class="false-friends-grid">
                 <div class="ff-card"><div class="ff-letter">В в</div><div class="ff-body"><div class="ff-wrong">✕ you think "B"</div><div class="ff-right">✓ actually "V"</div><div class="ff-example">Вода, Voda (Water)</div></div></div>
