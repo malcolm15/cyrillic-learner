@@ -2150,10 +2150,10 @@ const ARTICLES = [
             Kazakh was traditionally written in a modified Arabic alphabet, reflecting Central Asia's Islamic heritage.</p>
             
             <p><strong>1929-1940: Latin Alphabet</strong><br>
-            The Soviet Union forced a switch to Latin as part of a broader Latinization campaign across Soviet republics.</p>
+            The Soviet Union forced a switch to Latin as part of a broader campaign that gave 50 of the country's 72 written languages Latin alphabets between 1923 and 1939.</p>
             
             <p><strong>1940-Present: Cyrillic Alphabet</strong><br>
-            Stalin reversed course and imposed Cyrillic on all Soviet republics, including Kazakhstan. This is the alphabet most Kazakhs alive today learned.</p>
+            From 1936 Stalin reversed course, moving the Latinized minority languages over to Cyrillic, and Kazakh switched in 1940. Not every republic was affected: Armenian and Georgian kept their own alphabets throughout. Cyrillic is the alphabet most Kazakhs alive today learned.</p>
             
             <p><strong>2017-2031: Transition to Latin</strong><br>
             Independent Kazakhstan announced plans to switch back to Latin, with full implementation by 2031.</p>
@@ -2264,7 +2264,7 @@ const ARTICLES = [
             <p>Kazakhstan isn't the first to attempt this:</p>
             
             <p><strong>Turkey (1928):</strong><br>
-            Successfully switched from Arabic to Latin under Atatürk. Probably the most successful alphabet transition in modern history. Took about 5 years of intense effort.</p>
+            Successfully switched from Arabic to Latin under Atatürk. Probably the most successful alphabet transition in modern history, and a fast one: the law passed on 1 November 1928, and the new letters were compulsory in all public communications by 1929, a changeover of roughly a year. Literacy rose from 10.5 percent in 1927 to 20.4 percent in 1935.</p>
             
             <p><strong>Uzbekistan (1990s):</strong><br>
             Announced Latin alphabet transition. Progress has been slow and inconsistent. Cyrillic is still widely used alongside Latin.</p>
