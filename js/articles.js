@@ -2646,6 +2646,8 @@ const ARTICLES = [
 
             <p>I've tried a lot of resources over the years. Some are great. Some are terrible. Some are somewhere in between. Here's my honest take on what's worth your time.</p>
 
+            <p><em>Last checked September 2026: the links here were checked, and prices were confirmed where they are mentioned. Apps and channels change often, so treat this as a starting point.</em></p>
+
             <h3>Interactive Tools (Best for Beginners)</h3>
 
             <p><strong>This Site (CyriЛica)</strong> - Obviously I'm biased, but I built this because I couldn't find a simple, focused alphabet learning tool. It's designed for one thing: drilling Cyrillic letters until they stick. No fluff, no distractions.</p>
@@ -2657,9 +2659,9 @@ const ARTICLES = [
 
             <p><strong>Be Fluent in Russian</strong> - Fedor has a great video breaking down the Cyrillic alphabet for beginners. He explains each letter clearly and gives good examples. Watch it, then practice.</p>
 
-            <p><strong>Learn Russian with Alfia</strong> - Alfia's channel has multiple Cyrillic lessons, including pronunciation guides and writing practice. She speaks clearly and explains things well.</p>
+            <p><strong>Russian with Alfia</strong> - Alfia explains in English, which suits beginners. Start with her pronunciation and reading practice videos.</p>
 
-            <p><strong>Russian with Max</strong> - Max has a comprehensive alphabet series. He goes deep into pronunciation and shows you how native speakers actually form the sounds.</p>
+            <p><strong>Russian with Max</strong> - Max's channel includes a pronunciation and dictation series, plus conversation and reading practice.</p>
 
             <p>Don't just watch these videos passively. Actually repeat the sounds out loud. Write the letters down. Pause and practice.</p>
 
@@ -2667,9 +2669,7 @@ const ARTICLES = [
 
             <p><strong>Drops</strong> - Beautiful design, short 5-minute lessons. Good for learning new vocabulary in Cyrillic once you know the basics. Not great for initial alphabet learning, but useful after.</p>
 
-            <p><strong>AnkiDroid (Android) / AnkiMobile (iOS)</strong> - Anki is the king of spaced repetition flashcard apps. You can download pre-made Cyrillic decks or create your own. Warning: the interface is ugly and confusing at first. But it works.</p>
-
-            <p><strong>Russian Alphabet Mastery (iOS)</strong> - Simple app, does one thing well: teaches you the Russian alphabet through quizzes and flashcards. Worth the small price if you're on iPhone.</p>
+            <p><strong>AnkiDroid (Android) / AnkiMobile (iOS)</strong> - Anki is the king of spaced repetition flashcard apps. AnkiDroid on Android is free; AnkiMobile on iPhone is a one-time purchase (US$24.99 at the time of writing). You can download pre-made Cyrillic decks or create your own. Warning: the interface is ugly and confusing at first. But it works.</p>
 
             <h3>Physical Resources</h3>
 
@@ -2688,8 +2688,6 @@ const ARTICLES = [
             <p><strong>Russian children's books</strong> - Seriously. Kids' books use simple vocabulary and often have pictures, which helps. You can find free PDFs online or buy physical copies on Amazon.</p>
 
             <p><strong>Russian news sites</strong> - BBC News Russian, Kommersant. Browse the headlines. See how many words you can sound out. You'll start recognizing common words even if you don't know what they mean yet.</p>
-
-            <p><strong>VK (Russian social media)</strong> - Like Russian Facebook. Create an account, follow some pages, and practice reading posts. Real, casual Russian. Not textbook perfect, but that's the point.</p>
 
             <h3>Pronunciation Resources</h3>
 
