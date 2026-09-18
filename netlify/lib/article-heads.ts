@@ -33,7 +33,7 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
   },
   "ukrainian-alphabet": {
     "title": "Ukrainian Cyrillic: The Alphabet That Sets Ukrainian Apart | Cyrilica",
-    "description": "Ukrainian is the third most-spoken Slavic language, with around 40 million speakers, and it uses Cyrillic, but not the same Cyrillic as Russian. The two..."
+    "description": "Ukrainian is the third most-spoken Slavic language, and it uses Cyrillic, but not the same Cyrillic as Russian. About 32 million people speak it natively,..."
   },
   "belarusian-alphabet": {
     "title": "Belarusian Alphabet Guide: 32 Letters of Eastern Europe | Cyrilica",
