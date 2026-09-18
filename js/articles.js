@@ -3808,7 +3808,7 @@ const ARTICLES = [
 
             <p><strong>Category 2: Tricky Shape (Orange)</strong></p>
 
-            <p>These are the troublemakers, and they come in two kinds. Some are false friends: В looks like B but sounds like V. Н looks like H but sounds like N. Р looks like P but sounds like R. Your brain will fight you on these for weeks. Every time you see В, you'll want to say "buh" instead of "vuh." That's normal. Just keep correcting yourself until the right sound becomes automatic. Others in this group, like Ю and Ч, have shapes that don't match any English letter at all.</p>
+            <p>These are the troublemakers, and they come in two kinds. Some are false friends: В looks like B but sounds like V. Н looks like H but sounds like N. Р looks like P but sounds like R. Your brain will fight you on these for a while. Every time you see В, you'll want to say "buh" instead of "vuh." That's normal. Just keep correcting yourself until the right sound becomes automatic. Others in this group, like Ю and Ч, have shapes that don't match any English letter at all.</p>
 
             <p>The good news? There are only about 6 major false friends. Once you've retrained your brain on those specific letters, the confusion stops.</p>
 
