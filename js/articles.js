@@ -3132,9 +3132,9 @@ const ARTICLES = [
             <p>During the Cold War (1947-1991), Cyrillic in Western media meant one thing: <strong>the enemy</strong>.</p>
             
             <p><strong>Rocky IV (1985):</strong><br>
-            The quintessential example. Sylvester Stallone fights Soviet boxer Ivan Drago in a match billed as "East vs. West," and the film's Soviet iconography did more than any other single production to fix Cyrillic in Western minds as the visual shorthand for the enemy.</p>
+            The quintessential example. Sylvester Stallone fights Soviet boxer Ivan Drago in a match billed as "East vs. West," and the film leans on Soviet iconography as visual shorthand for the enemy.</p>
             
-            <p>That shorthand is what later produced faux Cyrillic, the habit of borrowing Cyrillic letter shapes for their look rather than their sound. TETЯIS is the best-documented example: the Я reads as "ya", so the name comes out as "tetyais". We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
+            <p>Faux Cyrillic plays on the same shorthand: the habit of borrowing Cyrillic letter shapes for their look rather than their sound. TETЯIS is the best-known example: the Я reads as "ya", so the name comes out as "tetyais". We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
             
             <p><strong>Red Dawn (1984):</strong><br>
             Soviet paratroopers invade a small American town. Cyrillic appears on military vehicles and propaganda posters.</p>
@@ -3142,7 +3142,7 @@ const ARTICLES = [
             <p>The message, in both films: Cyrillic means Soviet threat.</p>
             
             <p><strong>The Hunt for Red October (1990):</strong><br>
-            A Cold War thriller told largely from the Soviet crew's side, and the source of one of cinema's best-known language devices: the film opens in Russian and slides into English mid-scene.</p>
+            A Cold War thriller told largely from the Soviet crew's side, with a memorable language device: the film opens in Russian and slides into English mid-scene.</p>
 
             <h3>Video Games: Cyrillic as Atmosphere</h3>
             
