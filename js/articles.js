@@ -1865,7 +1865,7 @@ const ARTICLES = [
             Metro 2033 comes from 4A Games, founded in Kyiv by developers who left the Ukrainian studio GSC Game World, and adapts Dmitry Glukhovsky's Russian novel, with Glukhovsky credited as a writer. For more on how Cyrillic appears in games and movies, see our <a href="/articles/cyrillic-pop-culture" onclick="navTo(event, null, 'cyrillic-pop-culture')">complete guide to Cyrillic in pop culture</a>.</p>
             
             <p><strong>Historical Films:</strong><br>
-            The Death of Stalin brought in Polly Jones, an Oxford specialist in Russian culture, as a consultant, and Armando Iannucci has described researching the Kremlin, Stalin's dacha and his bunker for the production.</p>
+            The Death of Stalin brought in Polly Jones, an Oxford specialist in Russian culture, as a consultant.</p>
 
             <h3>The Flip Side: Fake English in Russia</h3>
             
