@@ -2891,7 +2891,7 @@ const ARTICLES = [
             Latin alphabet countries integrate more easily with Western tech standards (URLs, programming, keyboards). Cyrillic countries need special keyboard layouts and Unicode support.</p>
             
             <p><strong>EU Integration:</strong><br>
-            Several Latin-alphabet Slavic countries (Poland, Czech Republic, Slovakia, Slovenia) joined the EU in the first eastern enlargement. The pattern is not clean, though. Croatia also uses the Latin alphabet and joined years later than Bulgaria, which uses Cyrillic. The alphabet tracks Western versus Eastern orientation loosely, not reliably.</p>
+            Several Latin-alphabet Slavic countries (Poland, Czech Republic, Slovakia, Slovenia) joined the EU together on 1 May 2004. The pattern is not clean, though. Croatia also uses the Latin alphabet and joined years later than Bulgaria, which uses Cyrillic. The alphabet tracks Western versus Eastern orientation loosely, not reliably.</p>
             
             <p><strong>Cultural Identity:</strong><br>
             The alphabet you use still signals your cultural-political alignment. Latin = Western, democratic, European. Cyrillic = Eastern, Orthodox, Russian-sphere.</p>
