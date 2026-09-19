@@ -589,6 +589,9 @@ function injectArticleSchema(articleId, article) {
     if (twitterDesc) twitterDesc.setAttribute('content', description);
     const twitterUrl = document.querySelector('meta[property="twitter:url"]');
     if (twitterUrl) twitterUrl.setAttribute('content', articleUrl);
+    // Articles are indexable; reset robots in case the previous page was noindex.
+    const robots = document.querySelector('meta[name="robots"]');
+    if (robots) robots.setAttribute('content', 'index, follow');
 }
 
 const DEFAULT_TITLE = 'Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica';
