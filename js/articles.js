@@ -2894,7 +2894,7 @@ const ARTICLES = [
 
             <h3>The Bottom Line</h3>
             
-            <p>Slavic languages split into Latin and Cyrillic not because one alphabet is better, but because two religious spheres had been pulling in opposite directions for well over a century before 1054, and the schism then hardened the divide for good.</p>
+            <p>Slavic languages split into Latin and Cyrillic not because one alphabet is better, but because they followed different churches, Catholic Rome and the Orthodox Church, a division that began before the 1054 schism.</p>
             
             <p>Catholic Slavs ended up in the Western/Latin sphere. Orthodox Slavs ended up in the Eastern/Cyrillic sphere. A thousand years later, we're still living with that division.</p>
             
