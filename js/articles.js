@@ -221,7 +221,7 @@ const ARTICLES = [
             
             <h3>Why False Friends Are So Tricky</h3>
             <p>The problem is hardwired into how our brains work. After years of reading English, your visual cortex has built powerful associations between letter shapes and sounds. When you see "P," your brain instantly thinks "p" sound. Breaking these associations requires conscious effort and repetition.</p>
-            <p>The good news? Once you've retrained your brain on these six letters, reading Cyrillic becomes dramatically easier.</p>
+            <p>The good news? There are only six false friends to retrain.</p>
             
             <h3>The Confusing Six</h3>
             <p>Here are the six letters that look like English letters but make different sounds. Learn these six first.</p>
@@ -333,12 +333,12 @@ const ARTICLES = [
             </div>
             
             <h3>The Moment It Clicks</h3>
-            <p>The breakthrough tends to arrive all at once. One day you'll be reading a word, see "Р" and without thinking, your brain will supply "r" instead of "p." That's when you know the retraining has worked.</p>
+            <p>You'll know the retraining has worked when you see "Р" and your brain supplies "r" instead of "p" without thinking.</p>
             <p>Until then, expect to make mistakes. Everyone does. The key is catching yourself, correcting the association, and moving on. With consistent practice, these false friends become true allies in your journey to reading Russian.</p>
             
             <h3>Beyond the Big Six</h3>
             <p>These aren't the only letters that might confuse you. Others include Э (backwards E, sounds like "eh") and Б (looks like a 6, sounds like "b").</p>
-            <p>The false friends are your hazing ritual into Cyrillic literacy. Get through them, and everything else is downhill.</p>
+            <p>The false friends are your hazing ritual into Cyrillic literacy.</p>
         
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
