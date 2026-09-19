@@ -366,7 +366,7 @@ const ARTICLES = [
 
             <ul>
             <li><strong>Russian alphabet</strong> (33 letters): Russia (also used for Russian in Kazakhstan)</li>
-            <li><strong>Ukrainian alphabet</strong> (33 letters): Ukraine, with unique letters like Ґ, Є, І, Ї</li>
+            <li><strong>Ukrainian alphabet</strong> (33 letters): Ukraine, with four letters Russian doesn't have: Ґ, Є, І, Ї</li>
             <li><strong>Bulgarian alphabet</strong> (30 letters): Bulgaria, the birthplace of Cyrillic</li>
             <li><strong>Serbian Cyrillic</strong> (30 letters): Serbia, used alongside Latin script</li>
             <li><strong>Macedonian alphabet</strong> (31 letters): North Macedonia, with unique characters Ѓ and Ќ</li>
