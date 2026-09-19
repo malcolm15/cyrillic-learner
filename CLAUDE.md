@@ -236,10 +236,7 @@ Toggled by the `body.dark-mode` class, persisted in localStorage under `darkMode
 
 Light-mode brand tokens include `--dark-blue` #1A237E and `--cream` #F5F1E8.
 
-History: dark mode was formerly a green "Matrix mode" with a falling-character rain
-animation. It was deliberately replaced with this AMOLED theme. The rain
-implementation is preserved in `docs/matrix-rain.md` if ever wanted again. Do not
-reintroduce the green palette or the rain unless asked.
+History: the green "Matrix mode" and its rain animation are archived in git (`git show 61e2368:docs/matrix-rain.md`). Do not reintroduce the green palette or the rain unless asked.
 
 ## Fonts
 Loaded from Google Fonts: IBM Plex Mono (base/body monospace), Bebas Neue (condensed
@@ -378,8 +375,8 @@ have settled and been recrawled rather than reapplying immediately after the pri
 rejections.
 
 ## Current state and open threads
-Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode
-replacing Matrix mode, homepage quick-start strip redesign, desktop compaction on
+Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode,
+homepage quick-start strip redesign, desktop compaction on
 home and static pages, privacy policy cleanup (AdSense/consent copy removed until
 ads are live), audio fixes for Й (wiring) and Ь (playback rate), new article on
 Cyrillic letters not in Russian, noindexing contact/privacy/about, removal of dead
