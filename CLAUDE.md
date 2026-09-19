@@ -377,8 +377,8 @@ rejections.
 ## Current state and open threads
 Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode,
 homepage quick-start strip redesign, desktop compaction on
-home and static pages, privacy policy cleanup (AdSense/consent copy removed until
-ads are live), audio fixes for Й (wiring) and Ь (playback rate), new article on
+home and static pages, privacy policy cleanup (AdSense and consent copy removed;
+the AdSense script was removed in batch 20, ads.txt kept), audio fixes for Й (wiring) and Ь (playback rate), new article on
 Cyrillic letters not in Russian, noindexing contact/privacy/about, removal of dead
 GitHub-era artifacts, re-recorded letter А audio, alphabet chart card redesign
 (whole-card audio tap target, no Listen buttons), quiz-CTA scroll fix (land at top),
@@ -389,8 +389,11 @@ chart generator, cursive stroke-order section (six letters, rAF engine), edge
 function for per-route canonical and robots in raw HTML, /reference page retired
 with a 301 to russian-alphabet-chart and homepage link re-pointed to the chart.
 
-Open: AdSense reapplication: deliberate wait for
-recent SEO improvements to settle and be recrawled. Possible cursive phase B (more
+Open: AdSense reapplication. Reapplying requires re-adding the adsbygoogle script
+AND restoring an ad-cookie disclosure on the privacy page first, because the script
+sets third-party advertising cookies (IDE on .doubleclick.net, measured
+2026-09-18). Deliberate wait for recent SEO improvements to settle and be
+recrawled. Possible cursive phase B (more
 letters or a tracing mode) if engagement data justifies it. Audio for non-Russian
 letters is deferred and viable. Explicitly ruled out (do not re-propose): a faux
 Cyrillic decoder (brand risk, alienates the educator audience, entrenched
