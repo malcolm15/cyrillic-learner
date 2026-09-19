@@ -869,7 +869,7 @@ const ARTICLES = [
 
             <h3>Where Did Glagolitic Go?</h3>
             
-            <p>Within a couple of centuries, Cyrillic largely replaced Glagolitic across most of the Slavic world. Why? Cyrillic was simpler to write, more familiar to educated Greeks, and easier to carve into stone or stamp into metal type later on.</p>
+            <p>Within a couple of centuries, Cyrillic largely replaced Glagolitic across most of the Slavic world. Most scholars agree that Cyrillic was created at the Preslav Literary School in the 890s as a more suitable script for church books.</p>
             
             <p>But Glagolitic didn't disappear entirely. It survived in Croatia, particularly along the Dalmatian coast and on the islands, where it was used in Catholic liturgy. While the Eastern Orthodox churches adopted Cyrillic, the Croatian Catholic Church kept Glagolitic alive as a distinctly Croatian script.</p>
             
