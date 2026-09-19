@@ -1195,7 +1195,7 @@ const ARTICLES = [
 
             <h3>Щ: A Different Sound Than You'd Expect</h3>
 
-            <p>Both Russian and Bulgarian have the letter Щ, but they pronounce it differently, and this trips up Russian speakers learning Bulgarian regularly.</p>
+            <p>Both Russian and Bulgarian have the letter Щ, but they pronounce it differently.</p>
 
             <p>In Russian, Щ makes a long, soft sound, roughly "shch" or a prolonged soft "sh," depending on the speaker's dialect. In Bulgarian, Щ is simply "sht," like the "sht" in "shtick."</p>
 
