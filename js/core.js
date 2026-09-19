@@ -1433,69 +1433,6 @@ window.addEventListener('popstate', (event) => {
     }
 });
 
-// Load correct page on initial page load based on URL
-(function() {
-    const path = window.location.pathname;
-    let pageName = 'home';
-    
-    if (path === '/' || path === '/home' || path === '') {
-        pageName = 'home';
-    } else if (path.startsWith('/articles/')) {
-        // Article detail page - load article
-        const articleId = path.substring(10);
-        pageName = 'articles';
-        
-        // Show articles page first
-        document.querySelectorAll('.page-content').forEach(page => {
-            page.classList.remove('active');
-        });
-        document.getElementById('articles-page').classList.add('active');
-        
-        // Then show the specific article
-        showArticle(articleId);
-        
-        // Upd          
-        // Update nav
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.classList.remove('active');
-        });
-        const activeLink = document.querySelector(`.nav-links a[onclick*="'articles'"]`);
-        if (activeLink) {
-            activeLink.classList.add('active');
-        }
-        return;
-    } else if (path.startsWith('/')) {
-        const pathName = path.substring(1);
-        // Check if page exists
-        if (document.getElementById(pathName + '-page')) {
-            pageName = pathName;
-        }
-    }
-    
-    // Show the correct page on load
-    if (pageName !== 'home') {
-        document.querySelectorAll('.page-content').forEach(page => {
-            page.classList.remove('active');
-        });
-        document.getElementById(pageName + '-page').classList.add('active');
-        
-        // If articles page, show index
-        if (pageName === 'articles') {
-            setDisplay('articles-index', 'block');
-            document.getElementById('article-view').style.display = 'none';
-        }
-        
-        // Update nav
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.classList.remove('active');
-        });
-        const activeLink = safeGetNavLink(pageName);
-        if (activeLink) {
-            activeLink.classList.add('active');
-        }
-    }
-});
-
 // Ensure key functions are accessible globally from inline event handlers
 window.showArticle = showArticle;
 window.showArticleIndex = showArticleIndex;
