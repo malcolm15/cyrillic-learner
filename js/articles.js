@@ -3402,7 +3402,7 @@ const ARTICLES = [
 
             <h3>The Slow Climb to Respectability</h3>
 
-            <p>Being invented at a dinner party doesn't automatically get a letter into the alphabet. Ё spent its first few decades as a curiosity. The poet Gavrila Derzhavin used it in personal correspondence. The first book to feature the letter in print was Ivan Dmitriev's poetry collection "My Trinkets" in 1795. The first surname ever printed with Ё was Потёмкин (Potyomkin), the famous general and favorite of Catherine the Great.</p>
+            <p>Being invented at a dinner party doesn't automatically get a letter into the alphabet. Ё spent its first few decades as a curiosity. The poet Gavrila Derzhavin used it in personal correspondence. The first book to feature the letter in print was Ivan Dmitriev's poetry collection "My Trinkets" in 1795. The first surname printed with Ё was Потёмкинъ (Potyomkin), which appeared in 1798 in the work of Derzhavin.</p>
 
             <p>The real champion of the letter came a few years later. Nikolay Karamzin, one of the most influential Russian writers of the late 18th century, used Ё prominently in his 1797 almanac <em>Aonida</em>, printing words like слёзы (tears), орёл (eagle), and мотылёк (moth). Because Karamzin carried so much literary weight, Ё started to feel respectable. For a long time, Karamzin was credited as the letter's inventor, though the real credit belongs to Dashkova.</p>
 
@@ -3443,7 +3443,7 @@ const ARTICLES = [
 
             <p>Their efforts have had occasional wins. Several Russian newspapers (<em>Sovetskaya Rossiya</em>, <em>Literaturnaya Gazeta</em>, and <em>Argumenty i Fakty</em> among them) have officially reintroduced consistent use of Ё. The Russian Language Institute issued recommendations in 2006 asking that Ё be used in proper nouns to prevent mispronunciation.</p>
 
-            <p>And in 2005, the letter got a monument. The city of Ulyanovsk (the hometown of Karamzin, Ё's most famous champion) installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from its first printed appearance in Karamzin's 1797 almanac. It weighs over three tons. The unveiling actually triggered protests, because even a monument to a letter couldn't escape the argument.</p>
+            <p>And in 2005, the letter got a monument. The city of Ulyanovsk (the hometown of Karamzin, Ё's most famous champion) installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from Karamzin's 1797 almanac. It weighs over three tons. The unveiling actually triggered protests, because even a monument to a letter couldn't escape the argument.</p>
 
             <figure class="article-image">
                 <img src="/images/yo-monument-ulyanovsk.jpg" alt="Monument to the letter Ё in Ulyanovsk, Russia: a two-meter triangular granite stele with the letter Ё carved into it, located on Novy Venets Boulevard" loading="lazy" style="max-width: 500px;">
