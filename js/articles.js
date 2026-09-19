@@ -3353,7 +3353,7 @@ const ARTICLES = [
 
             <p>Going the other direction is similar. If you know Cyrillic, you can look at the Greek alphabet and instantly spot the letters you already know. The Greek-only letters (Θ, Ξ, Ψ, Ω) will be new, but there are only four of them.</p>
 
-            <p>The biggest hazard in both directions is the false friends. Your brain will see Н and try to apply whichever sound you learned first. Retraining those automatic associations takes practice, and it's the same challenge English speakers face when learning either alphabet independently. If you want to build that recognition skill, our <a href="/articles/false-friends" onclick="navTo(event, null, 'false-friends')">false friends guide</a> covers the most confusing letter pairs in detail.</p>
+            <p>False friends work in both directions: Н is "n" in Cyrillic, but its twin Η (Eta) is "ee" in Greek. Our <a href="/articles/false-friends" onclick="navTo(event, null, 'false-friends')">false friends guide</a> covers the Cyrillic letters that look like English ones.</p>
 
             <div class="quiz-cta">
                 <p>Ready to learn the Cyrillic side of the family? Our interactive quiz lets you practice all 33 letters at your own pace.</p>
