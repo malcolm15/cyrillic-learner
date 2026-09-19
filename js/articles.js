@@ -1225,7 +1225,7 @@ const ARTICLES = [
 
             <h3>Bulgarian Grammar: A Slavic Outlier</h3>
 
-            <p>The alphabet differences are interesting, but the grammar differences are more dramatic. Bulgarian breaks almost every rule you'd expect of a Slavic language.</p>
+            <p>The alphabet differences are interesting, but the grammar differences are more dramatic. Bulgarian and Macedonian share features that set them apart from all other Slavic languages, including the loss of noun cases, a suffixed definite article and no verb infinitive.</p>
 
             <p><strong>No grammatical cases.</strong> Russian has six cases; Ukrainian has seven. Bulgarian has zero. You don't change word endings depending on grammatical role. Word order does that work instead. This makes Bulgarian grammar closer to English or French than to Russian.</p>
 
