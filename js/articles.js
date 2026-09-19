@@ -6,7 +6,7 @@ const ARTICLES = [
         content: `
             <p>So you want to learn the Cyrillic alphabet. Maybe you're planning a trip to Russia. Maybe you're tired of not being able to read street signs in Eastern Europe. Or maybe you just think it looks cool and want to decode those mysterious letters you see in movies.</p>
 
-            <p>Whatever your reason, I've got good news. Cyrillic isn't nearly as hard as it looks. In fact, with 15 minutes a day of steady practice, you can learn to read it. Not fluently, but well enough to sound out words and start recognizing patterns.</p>
+            <p>Whatever your reason, start here. This guide's plan is built on 15 minutes of practice a day. The aim is reading, not fluency: sounding out words and starting to recognize patterns.</p>
 
             <p>I'm not going to lie and say it's effortless. But it's also not some impossible task that requires years of study. It's just a different set of symbols for sounds you already know how to make.</p>
 
@@ -105,15 +105,15 @@ const ARTICLES = [
 
             <h3>When You Get Frustrated</h3>
 
-            <p>You will get frustrated. Probably partway through, when your brain is tired of trying to remember which weird squiggle makes which sound.</p>
+            <p>If you get frustrated partway through, when your brain is tired of trying to remember which weird squiggle makes which sound, don't quit.</p>
 
             <p>When that happens, take a break. Go watch a Russian movie with subtitles. Listen to some Russian music. Browse a Russian website and see how many words you can sound out.</p>
 
-            <p>Sometimes the best way to learn is to remind yourself why you wanted to learn in the first place.</p>
+            <p>Remind yourself why you wanted to learn in the first place.</p>
 
             <h3>The Goal Isn't Perfection</h3>
 
-            <p>At the end of the plan, you will not be perfect. You'll still mix up letters. You'll still read slowly. Some letters will still need a second look.</p>
+            <p>Don't expect to be perfect at the end of the plan, to stop mixing up letters, or to read quickly.</p>
 
             <p>That's totally fine. You're learning a new writing system. Give yourself credit for the progress you make, not grief for the progress you haven't made yet.</p>
 
