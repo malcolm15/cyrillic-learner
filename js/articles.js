@@ -3638,7 +3638,6 @@ const ARTICLES = [
 
             <p><strong>I need to type Russian on a shared computer where I can't install anything.</strong> Use an online virtual Russian keyboard. Several free websites let you type Russian via an on-screen layout and copy the result. Our <a href="/articles/cyrillic-copy-paste" onclick="navTo(event, null, 'cyrillic-copy-paste')">copy-and-paste tool</a> works in this scenario too, including the text builder for longer phrases.</p>
 
-            <p>The initial confusion passes quickly for most first-time Russian typists. If you stick with it, you'll soon be switching between keyboards without thinking about it. The setup is the hard part. The typing becomes automatic pretty quickly.</p>
         
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
