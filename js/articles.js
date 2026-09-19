@@ -71,7 +71,7 @@ const ARTICLES = [
 
             <p><strong>Day 5 and 6: Consonants 2</strong></p>
 
-            <p>Time to add Consonants 2. This group is К, Л, М, Н, П and Р. К and М are free, they look and sound like English. П is the Greek pi and makes a P sound. Then come the two false friends that cause the most trouble: Н looks like an H but sounds like N, and Р looks like a P but sounds like R.</p>
+            <p>Time to add Consonants 2. This group is К, Л, М, Н, П and Р. К and М are free, they look and sound like English. П is the Greek pi and makes a P sound. Then come two false friends: Н looks like an H but sounds like N, and Р looks like a P but sounds like R.</p>
 
             <p>Practice all three groups together now (Vowels 1, Consonants 1, and Consonants 2). The quiz will mix them up, which is exactly what you need. Real Russian words don't conveniently separate easy letters from hard ones.</p>
 
