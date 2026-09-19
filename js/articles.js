@@ -1221,7 +1221,7 @@ const ARTICLES = [
 
             <p><strong>Э (/e/)</strong>: Bulgarian uses Е for the "e" sound that Russian sometimes writes as Э. This simplification makes Bulgarian slightly more phonetically consistent.</p>
 
-            <p>The absence of Ы alone is welcome news for learners coming from Bulgarian. Ы is one of the sounds Russian teachers spend the most time on with English speakers. Bulgarian sidesteps the problem entirely.</p>
+            <p>The absence of Ы is welcome news for anyone learning Bulgarian: it is one less letter to learn.</p>
 
             <h3>Bulgarian Grammar: A Slavic Outlier</h3>
 
