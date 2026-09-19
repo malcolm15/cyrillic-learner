@@ -443,7 +443,7 @@ const ARTICLE_META = {
     'serbian-cyrillic-vs-latin':{ section: 'Alphabet Variants',         published: '2026-02-24', modified: '2026-09-18', keywords: ['serbian cyrillic', 'serbian latin', 'digraphia', 'dual script'] },
     // History & Culture
     'lost-letters':             { section: 'History & Culture',         published: '2026-02-16', modified: '2026-09-18', keywords: ['lost letters', 'extinct characters', 'cyrillic history', 'old church slavonic'] },
-    'glagolitic':               { section: 'History & Culture',         published: '2026-02-16', modified: '2026-09-17', keywords: ['glagolitic', 'old alphabet', 'saints cyril methodius', 'slavic writing'] },
+    'glagolitic':               { section: 'History & Culture',         published: '2026-02-16', modified: '2026-09-18', keywords: ['glagolitic', 'old alphabet', 'saints cyril methodius', 'slavic writing'] },
     'cyrillic-names-europe':    { section: 'History & Culture',         published: '2026-02-18', modified: '2026-09-18', keywords: ['cyrillic names', 'european languages', 'alphabet names', 'azbuka'] },
     'backwards-r-myth':         { section: 'History & Culture',         published: '2026-02-26', modified: '2026-09-18', keywords: ['backwards R', 'reverse R', 'Cyrillic Я letter', 'faux Cyrillic'] },
     'kazakhstan-latin-transition':{ section: 'History & Culture',       published: '2026-02-28', modified: '2026-09-17', keywords: ['kazakhstan', 'latin transition', 'alphabet reform', 'cyrillic to latin'] },

@@ -830,7 +830,7 @@ const ARTICLES = [
 
             <figure class="article-image">
                 <img src="/images/kiev-missal-glagolitic.jpg" alt="The Kiev Missal, a 10th century Glagolitic manuscript showing ornate handwritten text in the oldest known Slavic alphabet on aged parchment" loading="lazy" style="max-width: 600px;">
-                <figcaption>The Kiev Missal (10th century), the oldest known Old Church Slavonic manuscript, written in Glagolitic script. Photo by Zde via <a href="https://commons.wikimedia.org/wiki/Category:Kiev_Missal" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</figcaption>
+                <figcaption>The Kiev Missal (10th century), usually held to be the oldest Old Church Slavonic manuscript, written in Glagolitic script. Photo by Zde via <a href="https://commons.wikimedia.org/wiki/Category:Kiev_Missal" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</figcaption>
             </figure>
 
             <h3>Why Was Glagolitic Created?</h3>
