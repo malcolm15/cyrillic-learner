@@ -2518,7 +2518,7 @@ const ARTICLES = [
 
             <p>Serbian Cyrillic and Russian Cyrillic are cousins rather than parent and child: both descend from Early Cyrillic. Serbian's modern shape comes from Vuk Karadžić's reform, adopted in 1868, which deliberately moved the alphabet away from Russian Church Slavonic and towards everyday speech. He discarded 18 letters, took Ј from the Latin alphabet, Ћ from old Serbian manuscripts and Џ from old Romanian ones. It has 30 letters, compared to Russian's 33.</p>
 
-            <p>The key difference: Serbian doesn't use some of the Russian letters like Ё, Ъ, Ы, and Э. And it has a couple unique letters of its own, like Ј (which makes a "y" sound like in "yes").</p>
+            <p>The key difference: Serbian doesn't use some of the Russian letters like Ё, Ъ, Ы, and Э. And it has six letters Russian doesn't: Ђ and Ћ, which Macedonian lacks, and Ј, Љ, Њ and Џ, which it shares with Macedonian. Ј makes a "y" sound like in "yes".</p>
 
             <p>Serbian Cyrillic is also more phonetic than Russian. Generally, one letter equals one sound. No complicated spelling rules or silent letters. If you can read it, you can pronounce it.</p>
 
