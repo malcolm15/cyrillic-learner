@@ -1588,7 +1588,7 @@ const ARTICLES = [
             <p><strong>В (v)</strong>: <strong>FALSE FRIEND ALERT.</strong> Looks exactly like B, sounds like V. Your brain will fight this for weeks. Every. Single. Time.<br>
             <strong>Н (n)</strong>: <strong>FALSE FRIEND ALERT.</strong> Looks exactly like H, sounds like N. You'll misread it as H approximately one million times.<br>
             <strong>Щ (shch)</strong>: Looks like a longer Ш, sounds like "sh-ch" mashed together. Hard to pronounce for English speakers. Why is this one letter?<br>
-            <strong>Ё (yo)</strong>: E with dots, sounds like "yo." Easy except nobody uses the dots in normal writing, so you have to guess when it's Ё vs Е.</p>
+            <strong>Ё (yo)</strong>: E with dots, sounds like "yo." Easy except written Russian often leaves the dots off, so you have to guess when it's Ё vs Е.</p>
             
             <p><strong>Why D-tier:</strong> False friends are brutal. Your brain sees В and instantly thinks "B" even though you KNOW it's V. Щ is just phonetically annoying for English speakers. Ё is fine except for the "dots are optional" chaos.</p>
 
@@ -1599,7 +1599,7 @@ const ARTICLES = [
             <p><strong>Р (r)</strong>: <strong>THE ULTIMATE FALSE FRIEND.</strong> Looks EXACTLY like P, sounds like R. This is the letter that breaks people. You'll be reading along fine, see РЕСТОРАН (restaurant), and your brain will scream "PECTOPAH!" even though you've practiced this a thousand times. It never stops being annoying.<br>
             <strong>Ы (y)</strong>: <strong>THE NIGHTMARE VOWEL.</strong> Looks like a weird Ь + I combo, sounds like... nothing in English. It's like "i" but with your throat positioned wrong. English speakers physically can't make this sound without practice. Russians can hear when you get it wrong. This letter haunts dreams.<br>
             <strong>Ь (soft sign)</strong>: <strong>THE INVISIBLE VILLAIN.</strong> Doesn't make a sound. Just... softens the previous consonant. What does that even mean? How do you soften a consonant? Why is this a letter? It's a phonetic modifier masquerading as a letter and it's confusing as hell.<br>
-            <strong>Ъ (hard sign)</strong>: <strong>THE USELESS ONE.</strong> One of the rarest letters in the alphabet. Supposedly marks a hard consonant but in practice barely exists in modern Russian. Why is it still here? What did we do to deserve this?</p>
+            <strong>Ъ (hard sign)</strong>: <strong>THE RARE ONE.</strong> One of the rarest letters in the alphabet. In modern Russian it separates a prefix ending in a consonant from a following я, е, ё or ю. What did we do to deserve this?</p>
             
             <p><strong>Why F-tier:</strong> Р is the false friend that never stops being a false friend. Ы is a sound your mouth doesn't want to make. Ь is conceptually weird. Ъ barely exists. These are your final bosses in the Cyrillic learning journey.</p>
 
