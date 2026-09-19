@@ -221,10 +221,10 @@ const ARTICLES = [
             
             <h3>Why False Friends Are So Tricky</h3>
             <p>The problem is hardwired into how our brains work. After years of reading English, your visual cortex has built powerful associations between letter shapes and sounds. When you see "P," your brain instantly thinks "p" sound. Breaking these associations requires conscious effort and repetition.</p>
-            <p>The good news? Once you've retrained your brain on these six letters, reading Cyrillic becomes dramatically easier. It can feel like the moment everything starts to click.</p>
+            <p>The good news? Once you've retrained your brain on these six letters, reading Cyrillic becomes dramatically easier.</p>
             
             <h3>The Confusing Six</h3>
-            <p>Here are the letters that trip up nearly every English speaker. Master these, and you've cleared one of the main obstacles to reading Cyrillic.</p>
+            <p>Here are the six letters that look like English letters but make different sounds. Learn these six first.</p>
 
             <div class="false-friends-grid">
                 <div class="ff-card"><div class="ff-letter">В в</div><div class="ff-body"><div class="ff-wrong">✕ you think "B"</div><div class="ff-right">✓ actually "V"</div><div class="ff-example">Вода, Voda (Water)</div></div></div>
@@ -337,7 +337,7 @@ const ARTICLES = [
             <p>Until then, expect to make mistakes. Everyone does. The key is catching yourself, correcting the association, and moving on. With consistent practice, these false friends become true allies in your journey to reading Russian.</p>
             
             <h3>Beyond the Big Six</h3>
-            <p>These aren't the only letters that might confuse you, but they're the most problematic. Once you've mastered them, other potential confusions like Э (backwards E, sounds like "eh") or Б (looks like a 6, sounds like "b") will feel much more manageable.</p>
+            <p>These aren't the only letters that might confuse you. Others include Э (backwards E, sounds like "eh") and Б (looks like a 6, sounds like "b").</p>
             <p>The false friends are your hazing ritual into Cyrillic literacy. Get through them, and everything else is downhill.</p>
         
             <div class="share-section">
