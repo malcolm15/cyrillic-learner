@@ -2834,7 +2834,7 @@ const ARTICLES = [
             • Serbia emphasizes Cyrillic script<br>
             • Bosnia uses both (it's ethnically/religiously mixed)</p>
             
-            <p>Same language, different alphabets, different national identities. The alphabet isn't just a writing system. It's a statement about who you are. Learn more about this unique linguistic situation in our article on <a href="/articles/serbian-cyrillic-vs-latin" onclick="navTo(event, null, 'serbian-cyrillic-vs-latin')">Serbian: the only language that writes both ways</a>.</p>
+            <p>Same language, different alphabets, different national identities. The alphabet isn't just a writing system. It's a statement about who you are. Learn more about this unique linguistic situation in our article on <a href="/articles/serbian-cyrillic-vs-latin" onclick="navTo(event, null, 'serbian-cyrillic-vs-latin')">Serbian: one of the few languages written in both scripts</a>.</p>
 
             <h3>Why Not Just Pick One?</h3>
             
