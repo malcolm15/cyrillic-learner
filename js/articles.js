@@ -1853,7 +1853,7 @@ const ARTICLES = [
             <h3>Famous Examples of Faux Cyrillic Fails</h3>
             
             <p><strong>TETЯIS:</strong><br>
-            The best-known example of the lot. Western branding for the puzzle game spells the name with Я, so a Russian reader gets "tetyais" rather than "tetris".</p>
+            Western branding for the puzzle game spells the name with Я, so a Russian reader gets "tetyais" rather than "tetris".</p>
             
             <p><strong>BORДT:</strong><br>
             The film's title treatment swaps Д in for A. Д makes a "d" sound, so the word reads as "bordt".</p>
@@ -1862,15 +1862,13 @@ const ARTICLES = [
             <p><strong>Vodka Branding:</strong><br>
             Countless vodka bottles use Я and И to look Russian. None of them would make sense to an actual Russian reader.</p>
 
-            <h3>When It's Done Right</h3>
-            
-            <p>Occasionally, Western productions work from the real thing:</p>
+            <h3>Where the Russian Comes From</h3>
             
             <p><strong>The Americans (TV Show):</strong><br>
-            Its creators, Joe Weisberg and Joel Fields, set a rule that characters speak whichever language they really would, so the Soviet characters speak Russian, subtitled, played by Russian-speaking actors.</p>
+            Its creators, Joe Weisberg and Joel Fields, set a rule that characters speak whatever language they would speak in reality: two Russian speakers speak Russian, with subtitles.</p>
             
-            <p><strong>Some Video Games:</strong><br>
-            Metro 2033 comes from 4A Games, founded in Kyiv by developers who left the Ukrainian studio GSC Game World, and adapts Dmitry Glukhovsky's Russian novel, with Glukhovsky credited as a writer. S.T.A.L.K.E.R. is GSC's own. For more on how Cyrillic appears in games and movies, see our <a href="/articles/cyrillic-pop-culture" onclick="navTo(event, null, 'cyrillic-pop-culture')">complete guide to Cyrillic in pop culture</a>.</p>
+            <p><strong>Video Games:</strong><br>
+            Metro 2033 comes from 4A Games, founded in Kyiv by developers who left the Ukrainian studio GSC Game World, and adapts Dmitry Glukhovsky's Russian novel, with Glukhovsky credited as a writer. For more on how Cyrillic appears in games and movies, see our <a href="/articles/cyrillic-pop-culture" onclick="navTo(event, null, 'cyrillic-pop-culture')">complete guide to Cyrillic in pop culture</a>.</p>
             
             <p><strong>Historical Films:</strong><br>
             The Death of Stalin brought in Polly Jones, an Oxford specialist in Russian culture, as a consultant, and Armando Iannucci has described researching the Kremlin, Stalin's dacha and his bunker for the production.</p>
