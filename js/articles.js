@@ -1648,7 +1648,7 @@ const ARTICLES = [
             <h3>Words That Sound Like English</h3>
             <p>These eight words sound like their English counterparts, so once you sound them out, you can guess the meaning. Most of them came into Russian from French, not English: ресторан, кафе, метро, такси and телефон.</p>
             
-            <p><strong>ИНТЕРНЕТ</strong> (internet): Pronounced "internet"</p>
+            <p><strong>ИНТЕРНЕТ</strong> (internet): Sounds like "internet"</p>
             <p>Letter by letter: И-Н-Т-Е-Р-Н-Е-Т</p>
             
             <p><strong>КОМПЬЮТЕР</strong> (kompyuter): Sounds like "computer"</p>
@@ -1662,9 +1662,8 @@ const ARTICLES = [
             <p><strong>КАФЕ</strong> (kafe): Sounds like "cafe"</p>
             <p>Letter by letter: К-А-Ф-Е</p>
             
-            <p><strong>МЕТРО</strong> (metro): Pronounced "metro"</p>
+            <p><strong>МЕТРО</strong> (metro): Sounds like "metro"</p>
             <p>Letter by letter: М-Е-Т-Р-О</p>
-            <p>This one you'll see all over Moscow and other Russian cities.</p>
             
             <p><strong>ТАКСИ</strong> (taksi): Sounds like "taxi"</p>
             <p>Letter by letter: Т-А-К-С-И</p>
@@ -1672,7 +1671,7 @@ const ARTICLES = [
             <p><strong>ТЕЛЕФОН</strong> (telefon): Sounds like "telephone"</p>
             <p>Letter by letter: Т-Е-Л-Е-Ф-О-Н</p>
             
-            <p><strong>ПАРК</strong> (park): Pronounced "park"</p>
+            <p><strong>ПАРК</strong> (park): Sounds like "park"</p>
             <p>Letter by letter: П-А-Р-К</p>
             
             <h3>Simple Words: Russian Basics</h3>
