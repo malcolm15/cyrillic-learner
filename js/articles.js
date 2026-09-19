@@ -1707,7 +1707,7 @@ const ARTICLES = [
             <p>Pronounced like "coat" but with a hard T at the end.</p>
             
             <p><strong>СТОП</strong> (stop): Stop</p>
-            <p>You'll see this on stop signs. Exactly like English.</p>
+            <p>You'll see this on white rectangular signs marking where vehicles wait at traffic lights. It reads just like the English word.</p>
             
             <h3>Food Words: Essential for Menus</h3>
             <p>These words appear on restaurant menus and food packaging. Knowing them makes travel much easier.</p>
@@ -3060,7 +3060,7 @@ const ARTICLES = [
             
             <p><strong>КАССА</strong>: The cash desk, at ticket offices and shop checkouts<br>
             <strong>МЕТРО</strong>: Metro/subway (though Р looks like P!)<br>
-            <strong>СТОП</strong>: Stop signs (the П is not in your nine yet)<br>
+            <strong>СТОП</strong>: on white rectangular signs marking where vehicles wait at traffic lights (the П is not in your nine yet)<br>
             <strong>ТУАЛЕТ</strong>: Toilet/restroom<br>
             <strong>АВТОМАТ</strong>: Vending machine/automatic</p>
 
