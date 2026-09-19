@@ -3123,60 +3123,29 @@ const ARTICLES = [
         content: `
             <p>For most Westerners, Cyrillic isn't something you learn in school. It's something you encounter in movies, video games, and internet memes. From Cold War thrillers to modern gaming, Cyrillic has become visual shorthand for "Russian," "Soviet," or "Eastern European."</p>
             
-            <p>But Hollywood's Cyrillic is often hilariously wrong. Let's explore how Cyrillic appears in pop culture: the good, the bad, and the absolutely ridiculous.</p>
+            <p>This article looks at where Cyrillic turns up: in films, video games, memes, television and branding.</p>
 
-            <h3>The Cold War Era: Cyrillic as the Enemy</h3>
-            
-            <p>During the Cold War (1947-1991), Cyrillic in Western media meant one thing: <strong>the enemy</strong>.</p>
+            <h3>Cold War Films</h3>
             
             <p><strong>Rocky IV (1985):</strong><br>
             Sylvester Stallone fights Soviet boxer Ivan Drago in a film known for its strong Cold War themes.</p>
             
-            <p>Faux Cyrillic borrows Cyrillic letter shapes for their look rather than their sound, usually to evoke Russia or the Soviet Union. Many versions of Tetris spelled the name TETЯIS: the Я reads as "ya", so the name comes out as "tetyais". We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
-            
             <p><strong>Red Dawn (1984):</strong><br>
-            Soviet paratroopers invade a small American town. Cyrillic appears on military vehicles and propaganda posters.</p>
-            
-            <p>The message, in both films: Cyrillic means Soviet threat.</p>
+            High school students in Calumet, Colorado, witness a Soviet-led invasion of their town. The film's poster gives the title in Russian, Красный рассвет, above the English.</p>
             
             <p><strong>The Hunt for Red October (1990):</strong><br>
             A Cold War thriller about a Soviet submarine captain attempting to defect, with a memorable language device: the Soviet dialogue starts in Russian with subtitles and switches to English in mid-sentence, on the word "Armageddon".</p>
 
-            <h3>Video Games: Cyrillic as Atmosphere</h3>
-            
-            <p>Modern video games use Cyrillic to create atmosphere, especially in post-apocalyptic, military, or Eastern European settings.</p>
+            <h3>Video Games</h3>
             
             <p><strong>Metro 2033 / Metro: Last Light (2010, 2013):</strong><br>
             Set in post-apocalyptic Moscow. The games come from 4A Games, founded in Kyiv in 2006 by three developers who left the Ukrainian studio GSC Game World, and they adapt Dmitry Glukhovsky's Russian novel, with Glukhovsky credited as a writer on the game.</p>
             
-            <p>Playing Metro feels like navigating a real Russian metro system.</p>
-            
             <p><strong>S.T.A.L.K.E.R. Series (2007-2009):</strong><br>
             Another Ukrainian-developed game, from GSC Game World, set in the Chernobyl Exclusion Zone.</p>
             
-            <p>For English-speaking players, the Cyrillic adds to the foreign, dangerous atmosphere.</p>
-            
-            <p><strong>Call of Duty: Modern Warfare Series:</strong><br>
-            Features Russian antagonists and plenty of Cyrillic text:</p>
-            
-                        <p><strong>Counter-Strike / CS:GO:</strong><br>
-            Several maps set in Eastern Europe feature Cyrillic signage.</p>
-            
-            <p>Players who read Cyrillic get a layer of those maps that everyone else just registers as "Russian."</p>
-
-            <h3>Fashion: Cyrillic as Aesthetic</h3>
-            
-            <p>In the 2010s, Cyrillic became a fashion trend, especially in streetwear.</p>
-            
-            <p><strong>Gosha Rubchinskiy:</strong><br>
-            Russian designer Gosha Rubchinskiy made Cyrillic trendy in high fashion. His clothing features Cyrillic text, Soviet imagery, and post-Soviet aesthetics. Brands like Adidas, Burberry, and Levi's collaborated with him.</p>
-            
-            <p>Result: Western teens wearing shirts with Cyrillic text they can't read. Sometimes it's meaningful Russian words. Sometimes it's gibberish. Often they have no idea which.</p>
-            
-            <p><strong>Vetements, Balenciaga, etc.:</strong><br>
-            Other designers followed Rubchinskiy's lead, incorporating Cyrillic into logos and prints. Cyrillic became associated with "post-Soviet cool," a gritty, Eastern European aesthetic that contrasted with Western luxury brands.</p>
-            
-            <p><strong>The irony:</strong> In Russia, wearing clothing with English text is considered trendy/Western. In the West, wearing clothing with Cyrillic text is considered edgy/Eastern. Everyone wants what the other has.</p>
+            <p><strong>Call of Duty 4: Modern Warfare:</strong><br>
+            Its antagonists are Russian Ultranationalists who seek to restore the country's Soviet-era influence, and one mission is set in the abandoned city of Pripyat, Ukraine.</p>
 
             <h3>Memes and Internet Culture</h3>
             
@@ -3196,30 +3165,20 @@ const ARTICLES = [
             <p><strong>Cyrillic Keyboard Spam:</strong><br>
             In online gaming, Russian players typing in Cyrillic chat became a stereotype. To non-Cyrillic readers, it looks like random symbols. Memes about "Russian hackers" or "toxic Russian teammates" often feature walls of Cyrillic text.</p>
 
-            <h3>Music: Cyrillic in Album Art and Lyrics</h3>
-            
-            <p><strong>Hardbass and Russian Techno:</strong><br>
-            Hardbass (a genre of electronic music popular in Russia) went viral in the West around 2015-2018. Music videos featured Slavic stereotypes: tracksuits, squatting, sunflower seeds, and Cyrillic text overlays.</p>
-            
-            <p>Artists like DJ Blyatman, XS Project, and others used Cyrillic prominently in branding.</p>
-            
-            <p><strong>Western Artists Using Cyrillic:</strong><br>
-            Some Western musicians use Cyrillic in album art or merchandise for aesthetic purposes:</p>
-            
-            <p>• Various EDM and techno artists use Cyrillic in visual branding to look "exotic" or "underground"</p>
-
-            <h3>Movies and TV: Beyond the Cold War</h3>
+            <h3>Movies and TV</h3>
             
             <p><strong>The Americans (2013-2018):</strong><br>
             A TV show about Soviet spies in 1980s America. Its creators, Joe Weisberg and Joel Fields, set a rule that characters speak whatever language they would speak in reality: two Russian speakers speak Russian, with subtitles.</p>
             
-                        <p><strong>Stranger Things (2016-present):</strong><br>
-            Season 3 featured a Soviet conspiracy subplot. Cyrillic appears on documents, equipment, and signage.</p>
+                        <p><strong>Stranger Things (2016-2025):</strong><br>
+            Season 3 has a Russian lab beneath the Starcourt mall.</p>
             
-            <p><strong>James Bond Films:</strong><br>
-            Multiple Bond films feature Russian antagonists and Cyrillic text.</p>
+            <p><strong>GoldenEye (1995):</strong><br>
+            It features General Arkady Ourumov, commander of Russia's Space Division, and scenes set in Arkhangelsk, Severnaya in Siberia, and Saint Petersburg.</p>
 
             <h3>Corporate Branding: Fake Cyrillic</h3>
+            
+            <p>Faux Cyrillic borrows Cyrillic letter shapes for their look rather than their sound, usually to evoke Russia or the Soviet Union. Many versions of Tetris spelled the name TETЯIS: the Я reads as "ya", so the name comes out as "tetyais". We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
             
             <p>Brands occasionally use faux Cyrillic to evoke "Russian-ness."</p>
             
@@ -3264,16 +3223,10 @@ const ARTICLES = [
             
             <p>The trend is slowly shifting toward accuracy, especially in big-budget productions that can afford consultants. But faux Cyrillic isn't going away anytime soon.</p>
 
-            <h3>The Bottom Line</h3>
+            <h3>Reading the Real Letters</h3>
             
-            <p>Cyrillic in pop culture walks a line between authenticity and stereotype. At its best, it creates immersive, realistic environments (Metro, S.T.A.L.K.E.R., The Americans). At its worst, it's lazy visual shorthand that perpetuates "Russian = backwards R" nonsense.</p>
-            
-            <p>But whether accurate or not, Cyrillic's presence in pop culture has made it one of the most recognizable non-Latin scripts in the world. Millions of people who can't read a word of Russian still recognize Я, И, and Д on sight.</p>
-            
-            <p>That cultural penetration is both Cyrillic's strength and its curse, widely known, often misunderstood, forever associated with Cold War villains, post-Soviet grit, and hardbass memes.</p>
-            
-            <p>And honestly? That's kind of perfect. Cyrillic deserves to be a little bit mysterious, a little bit dangerous, and a whole lot cooler than just another alphabet.</p>
-        
+            <p>To read the real letters behind these examples, start with our <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">Russian alphabet chart</a>. For the letters faux Cyrillic borrows and what they actually say, see our <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">backwards R guide</a>.</p>
+
             <div class="share-section">
                 <p>Found this helpful? Share it:</p>
                 <div class="share-buttons">
