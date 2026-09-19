@@ -428,7 +428,7 @@ const ARTICLE_META = {
     'first-25-words':           { section: 'Getting Started',           published: '2026-02-20', modified: '2026-09-18', keywords: ['russian words', 'reading practice', 'first words', 'beginner russian'] },
     'easy-russian-words':       { section: 'Getting Started',           published: '2026-03-01', modified: '2026-09-17', keywords: ['easy russian', 'simple words', 'beginner vocabulary', 's-tier letters'] },
     // Alphabet Variants
-    'ukrainian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-09-17', keywords: ['ukrainian alphabet', 'ukrainian cyrillic', 'ukrainian letters', 'cyrillic vs russian', 'ukrainian language', 'Ґ Є І Ї letters', 'learn ukrainian script'] },
+    'ukrainian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-09-18', keywords: ['ukrainian alphabet', 'ukrainian cyrillic', 'ukrainian letters', 'cyrillic vs russian', 'ukrainian language', 'Ґ Є І Ї letters', 'learn ukrainian script'] },
     'belarusian-alphabet':      { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-09-17', keywords: ['belarusian alphabet', 'belarusian cyrillic', '32 letters', 'eastern europe'] },
     'bulgarian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-05-23', keywords: ['bulgarian alphabet', 'bulgarian cyrillic', '30 letters', 'cyrillic origin', 'bulgarian letters', 'learn bulgarian'] },
     'montenegrin-alphabet':     { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-09-16', keywords: ['montenegrin alphabet', 'newest cyrillic', 'montenegrin language', 'balkan alphabet'] },
