@@ -94,6 +94,15 @@ Two cross-file gotchas:
 - Routing: `_redirects` contains `/* /index.html 200`, so every route, including
   unknown paths, is served `index.html` with a real 200 status. A single article only
   needs `index.html` updated.
+- **Served files.** Netlify publishes the repo root (`publish = "."`), so every
+  committed file is public unless blocked. Any new file at the repo root, and any new
+  top-level folder, must be classified SITE (needed by visitors or crawlers) or
+  INTERNAL (docs, scripts, build inputs, generated data). INTERNAL paths are added to
+  the 404 block at the top of `_redirects` in the same commit. Netlify splats only
+  work at the end of a path, so a new root file needs its own named rule. Blocking is
+  case-sensitive while static files are served case-insensitively; case variants are
+  an accepted residual risk because the repo is public and only the committed
+  spelling is discoverable.
 - **Cloudflare caches JS, CSS, and media files (the А audio swap required a purge).**
   After a push, a hard refresh or Cloudflare purge may be needed to see changes. If a
   code change appears not to have taken effect, suspect cache before suspecting the
