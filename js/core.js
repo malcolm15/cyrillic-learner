@@ -24,6 +24,13 @@ function setDisplay(id, value) {
     if (el) el.style.display = value;
 }
 
+// Smooth scrolling unless the visitor has asked the OS for reduced motion.
+// core.js loads before article-scripts.js, whose prefersReduced() is local to the
+// cursive feature, so this check stands on its own.
+function scrollBehavior() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+}
+
 // Settings
 let includeLowercase = true; // Default ON - users learn both cases from the start
 let autoSubmit = false;
@@ -746,7 +753,7 @@ function showArticle(articleId) {
         setTimeout(() => {
             const target = document.getElementById(hash.substring(1));
             if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                target.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
             }
         }, 100);
     } else {
@@ -767,7 +774,7 @@ function showArticle(articleId) {
                     if (/^#[a-zA-Z0-9_-]+$/.test(targetId)) {
                         const targetElement = document.getElementById(targetId.substring(1));
                         if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            targetElement.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
                             history.replaceState(null, null, targetId);
                         }
                     }

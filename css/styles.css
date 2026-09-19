@@ -3448,3 +3448,17 @@ body.dark-mode #print-controls .btn-print:hover {
         margin-top: 10mm;
     }
 }
+
+/* Reduced motion: finish every CSS animation and transition at once for visitors
+   who ask the OS for less motion. The cursive stroke animation is driven by
+   requestAnimationFrame and has its own matchMedia check in article-scripts.js. */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
+        scroll-behavior: auto !important;
+    }
+}
