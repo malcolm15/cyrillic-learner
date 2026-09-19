@@ -260,7 +260,10 @@ function updateLowercaseDisplay() {
 }
 
 // Page navigation
-function showPage(pageName) {
+function showPage(pageName, opts) {
+    // opts.push === false: show the page without adding a history entry
+    // (Back/Forward, where the browser has already changed the URL).
+    const push = !(opts && opts.push === false);
     // Pre-rendered article documents contain only the article. Any other
     // route lives on the shell, so if its section is not in this document
     // (or the articles listing is not), navigate to it for real.
@@ -338,7 +341,7 @@ function showPage(pageName) {
 
     // Update URL without page reload
     const urlPath = pageName === 'home' ? '/' : `/${pageName}`;
-    if (window.location.pathname !== urlPath) {
+    if (push && window.location.pathname !== urlPath) {
         window.history.pushState({ page: pageName }, '', urlPath);
     }
     
@@ -641,12 +644,13 @@ function navTo(event, path, slug) {
 function navToArticle(event, slug) {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1) return;
     event.preventDefault();
-    showPage('articles');
+    showPage('articles', { push: false });
     setTimeout(() => showArticle(slug), 100);
 }
 
 // Article navigation functions
-function showArticle(articleId) {
+function showArticle(articleId, opts) {
+    const push = !(opts && opts.push === false);
     const article = ARTICLES.find(a => a.id === articleId);
     if (!article) {
         setDisplay('articles-index', 'none');
@@ -677,7 +681,7 @@ function showArticle(articleId) {
     
     // Update URL (only if different)
     const articleUrl = `/articles/${articleId}`;
-    if (window.location.pathname !== articleUrl) {
+    if (push && window.location.pathname !== articleUrl) {
         window.history.pushState({ page: 'articles', article: articleId }, '', articleUrl);
     }
     
@@ -798,7 +802,8 @@ function showArticle(articleId) {
     }, 200);
 }
 
-function showArticleIndex() {
+function showArticleIndex(opts) {
+    const push = !(opts && opts.push === false);
     // Same fallback as showPage: the listing is not in pre-rendered article
     // documents, so go to the real /articles page.
     if (!document.getElementById('articles-index')) {
@@ -812,7 +817,7 @@ function showArticleIndex() {
     removeArticleSchema();
     
     // Update URL
-    window.history.pushState({ page: 'articles' }, '', '/articles');
+    if (push) window.history.pushState({ page: 'articles' }, '', '/articles');
     
     // Scroll to top
     window.scrollTo(0, 0);
@@ -1410,8 +1415,8 @@ window.addEventListener('popstate', (event) => {
         const articleId = path.substring(10); // Remove '/articles/'
         // On a pre-rendered article document the listing is absent and
         // showPage('articles') would navigate away; showArticle alone is enough.
-        if (document.getElementById('articles-index')) showPage('articles');
-        showArticle(articleId);
+        if (document.getElementById('articles-index')) showPage('articles', { push: false });
+        showArticle(articleId, { push: false });
         return;
     } else if (path.startsWith('/')) {
         pageName = path.substring(1); // Remove leading slash
@@ -1420,28 +1425,8 @@ window.addEventListener('popstate', (event) => {
     // Check if page exists
     const pageElement = document.getElementById(pageName + '-page');
     if (pageElement) {
-        // Temporarily show without updating URL (to avoid loop)
-        document.querySelectorAll('.page-content').forEach(page => {
-            page.classList.remove('active');
-        });
-        pageElement.classList.add('active');
-        
-        // If articles page, show index
-        if (pageName === 'articles') {
-            setDisplay('articles-index', 'block');
-            document.getElementById('article-view').style.display = 'none';
-        }
-        
-        // Update nav active state
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.classList.remove('active');
-        });
-        const activeLink = safeGetNavLink(pageName);
-        if (activeLink) {
-            activeLink.classList.add('active');
-        }
-        
-        window.scrollTo(0, 0);
+        // The browser has already changed the URL: show the page, no new entry.
+        showPage(pageName, { push: false });
     } else {
         // Invalid page, go to home
         showPage('home');
