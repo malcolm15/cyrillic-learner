@@ -103,6 +103,12 @@ Two cross-file gotchas:
   case-sensitive while static files are served case-insensitively; case variants are
   an accepted residual risk because the repo is public and only the committed
   spelling is discoverable.
+- **History entries.** showPage, showArticle and showArticleIndex push a history
+  entry by default. Any code reacting to a URL the browser has already changed
+  (popstate) must pass { push: false }. Intermediate steps that are not
+  destinations (navToArticle's listing step) also pass { push: false }. Pushing on
+  Back/Forward erases forward history and records page views the visitor never
+  chose.
 - **Cloudflare caches JS, CSS, and media files (the А audio swap required a purge).**
   After a push, a hard refresh or Cloudflare purge may be needed to see changes. If a
   code change appears not to have taken effect, suspect cache before suspecting the
