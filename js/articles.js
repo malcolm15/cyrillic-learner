@@ -3132,9 +3132,9 @@ const ARTICLES = [
             <p>During the Cold War (1947-1991), Cyrillic in Western media meant one thing: <strong>the enemy</strong>.</p>
             
             <p><strong>Rocky IV (1985):</strong><br>
-            The quintessential example. Sylvester Stallone fights Soviet boxer Ivan Drago in a match billed as "East vs. West," and the film leans on Soviet iconography as visual shorthand for the enemy.</p>
+            Sylvester Stallone fights Soviet boxer Ivan Drago in a film known for its strong Cold War themes.</p>
             
-            <p>Faux Cyrillic plays on the same shorthand: the habit of borrowing Cyrillic letter shapes for their look rather than their sound. TETЯIS is the best-known example: the Я reads as "ya", so the name comes out as "tetyais". We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
+            <p>Faux Cyrillic borrows Cyrillic letter shapes for their look rather than their sound, usually to evoke Russia or the Soviet Union. Many versions of Tetris spelled the name TETЯIS: the Я reads as "ya", so the name comes out as "tetyais". We dive deep into this phenomenon in our article about <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">the backwards R myth and faux Cyrillic</a>.</p>
             
             <p><strong>Red Dawn (1984):</strong><br>
             Soviet paratroopers invade a small American town. Cyrillic appears on military vehicles and propaganda posters.</p>
@@ -3142,7 +3142,7 @@ const ARTICLES = [
             <p>The message, in both films: Cyrillic means Soviet threat.</p>
             
             <p><strong>The Hunt for Red October (1990):</strong><br>
-            A Cold War thriller told largely from the Soviet crew's side, with a memorable language device: the film opens in Russian and slides into English mid-scene.</p>
+            A Cold War thriller about a Soviet submarine captain attempting to defect, with a memorable language device: the Soviet dialogue starts in Russian with subtitles and switches to English in mid-sentence, on the word "Armageddon".</p>
 
             <h3>Video Games: Cyrillic as Atmosphere</h3>
             
@@ -3151,7 +3151,7 @@ const ARTICLES = [
             <p><strong>Metro 2033 / Metro: Last Light (2010, 2013):</strong><br>
             Set in post-apocalyptic Moscow. The games come from 4A Games, founded in Kyiv in 2006 by three developers who left the Ukrainian studio GSC Game World, and they adapt Dmitry Glukhovsky's Russian novel, with Glukhovsky credited as a writer on the game.</p>
             
-            <p>Playing Metro feels like navigating a real Russian metro system. If you read Cyrillic, expect to spend time reading the walls.</p>
+            <p>Playing Metro feels like navigating a real Russian metro system.</p>
             
             <p><strong>S.T.A.L.K.E.R. Series (2007-2009):</strong><br>
             Another Ukrainian-developed game, from GSC Game World, set in the Chernobyl Exclusion Zone.</p>
@@ -3213,7 +3213,7 @@ const ARTICLES = [
             <h3>Movies and TV: Beyond the Cold War</h3>
             
             <p><strong>The Americans (2013-2018):</strong><br>
-            A TV show about Soviet spies in 1980s America. Its creators, Joe Weisberg and Joel Fields, set a rule that characters speak whichever language they really would, so the Soviet characters speak Russian, subtitled, played by Russian-speaking actors.</p>
+            A TV show about Soviet spies in 1980s America. Its creators, Joe Weisberg and Joel Fields, set a rule that characters speak whatever language they would speak in reality: two Russian speakers speak Russian, with subtitles.</p>
             
                         <p><strong>Stranger Things (2016-present):</strong><br>
             Season 3 featured a Soviet conspiracy subplot. Cyrillic appears on documents, equipment, and signage.</p>
@@ -3243,16 +3243,12 @@ const ARTICLES = [
             
             <p><strong>4. Visual Aesthetics:</strong> Cyrillic letters are visually striking. The mix of familiar shapes (А, К, М) and unfamiliar ones (Ж, Щ, Ы) creates interesting typography.</p>
 
-            <h3>Where the Russian Comes From the Source</h3>
-            
-            <p>Some productions work from Russian-language material or Russian-speaking people:</p>
+            <h3>Where the Russian Comes From</h3>
             
             <p><strong>Metro series:</strong> made by 4A Games in Kyiv, adapting Glukhovsky's novel<br>
-            <strong>S.T.A.L.K.E.R.:</strong> made by GSC Game World in Kyiv<br>
-            <strong>The Americans:</strong> Soviet characters played by Russian-speaking actors, speaking Russian with subtitles<br>
+            <strong>The Americans:</strong> characters speak whatever language they would in reality, so Russian speakers talk to each other in Russian, with subtitles<br>
             <strong>The Death of Stalin:</strong> Polly Jones, an Oxford specialist in Russian culture, consulted on the production</p>
             
-            <p>Working from the source shows. Viewers who know Russian notice, and viewers who don't still get an environment that hangs together.</p>
 
             <h3>The Faux Cyrillic Problem</h3>
             
