@@ -3099,7 +3099,7 @@ const ARTICLES = [
             
             <p>Learning Cyrillic doesn't mean memorizing all 33 letters in one sitting. Start small. Master the easy letters first. Read simple words. Build confidence. Then add more letters gradually.</p>
             
-            <p>With just 5 letters (А, К, М, О, Т), you can read real Russian words today. With 9 letters, you can read hundreds of words. With all 33, you can sound out any Russian word you see. That is reading, not fluency. Knowing what the words mean is a separate job, and a much longer one.</p>
+            <p>With just 5 letters (А, К, М, О, Т), you can read real Russian words today. With 9 letters, you can read 28 real words from this article alone. With all 33, you can sound out Russian words, because Russian spelling is mostly phonemic. That is reading, not fluency. Knowing what the words mean is a separate job.</p>
             
             <p>But the journey starts with КОТ and ДОМ. Master the basics, enjoy the small wins, and before you know it, you'll be reading Russian menus, signs, and social media posts with ease.</p>
             
