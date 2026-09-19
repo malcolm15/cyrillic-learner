@@ -312,8 +312,10 @@ silently wrote a hardcoded 2026-09-16 for two days across 22 articles, and it on
 surfaced because a commit came back with those files unexpectedly unchanged. That
 was luck, not a check.
 
-**Homepage lastmod.** Bump the home `<lastmod>` in sitemap.xml whenever visible
-homepage body copy changes, in the same push.
+**Homepage and /articles lastmod.** Bump the home `<lastmod>` in sitemap.xml
+whenever visible homepage body copy changes, and the `/articles` `<lastmod>`
+whenever visible listing copy on /articles changes, in the same push. Both live in
+index.html: the homepage is `#home-page`, the listing is `#articles-page`.
 
 **The ledger.** Audit findings, fixes and their sources are tracked in the
 audit ledger at https://claude.ai/artifact/M46nX3e969NgxikPqtVWQD. "A source
