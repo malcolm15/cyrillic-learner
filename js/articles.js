@@ -3824,7 +3824,7 @@ const ARTICLES = [
 
             <p>Once you know all 33 letters, you're ready to start reading real Russian. Not understanding it yet - just reading it, sounding out the words.</p>
 
-            <p>Start with Russian words that are borrowed from English. Words like "компьютер" (computer), "интернет" (internet), "кофе" (coffee). You can sound these out and recognize them.</p>
+            <p>Start with Russian words that sound like their English counterparts, such as "компьютер" (computer), "интернет" (internet) and "кофе" (coffee). You can sound these out and recognize them.</p>
 
             <p>Then move on to simple Russian words. "мама" (mama), "да" (yes), "нет" (no). Build up your vocabulary while practicing your letter recognition.</p>
 
