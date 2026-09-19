@@ -145,7 +145,7 @@ const ARTICLES = [
 
             <p>The solution? You have to actively unlearn the association. Every single time you see В, force yourself to think "vuh, not buh." Say it out loud. Write it down. Drill it until the correct sound becomes automatic.</p>
 
-            <p>I know this sounds tedious. And it is. But it's also the only way to rewire your brain. There's no shortcut here. You just have to put in the reps.</p>
+            <p>I know this sounds tedious. And it is. Put in the reps anyway.</p>
 
             <p>One trick that helps: write the false friends on flashcards with the correct sound in big letters on the back. Then quiz yourself repeatedly. With steady practice, your brain will start to make the switch.</p>
 
