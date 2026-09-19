@@ -10,8 +10,9 @@ import articleHeads from "../lib/article-heads.ts";
 // head content instead of the identical shell head.
 //
 // COUPLING 1: STATIC_CANONICAL, STATIC_ROBOTS, STATIC_TITLE, and STATIC_DESC below
-// must match index.html lines 27, 28, 21, and 24 byte-for-byte (STATIC_TITLE
-// includes a U+2014 em-dash). If those lines change, update these constants.
+// must match index.html's canonical link, robots meta, title and description tags
+// byte-for-byte (STATIC_TITLE includes a U+2014 em-dash). If those tags change,
+// update these constants.
 //
 // COUPLING 2: ../lib/article-heads.ts is generated from js/articles.js by
 // scripts/generate-article-heads.js. It must be regenerated whenever any article

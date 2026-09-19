@@ -123,20 +123,20 @@ and non-HTML assets pass through untransformed. Fail-open: if transformation err
 or an article slug is not found, the original response is returned unchanged.
 
 Why it exists: non-rendering crawlers (Bing confirmed 2026-07-14) index raw HTML
-before JavaScript runs. The static canonical at index.html line 28 said
-`https://cyrilica.com` for every URL. The inline script at line 29 corrects it for
-rendering browsers but is invisible to raw-HTML crawlers.
+before JavaScript runs. The static canonical link in index.html's head said
+`https://cyrilica.com` for every URL. The inline script right after it corrects it
+for rendering browsers but is invisible to raw-HTML crawlers.
 
 Three canonical layers that must stay consistent:
 1. Edge function -- rewrites raw HTML per request (non-rendering crawlers).
-2. Inline head script at index.html line 29 -- corrects on page load (rendering
-   browsers).
+2. Inline head script, right after the canonical link in index.html -- corrects on
+   page load (rendering browsers).
 3. `core.js` dynamic injection -- updates on SPA navigation within a session.
 
-CRITICAL COUPLING 1: the function string-replaces lines 27, 28, 21, and 24 of
-index.html byte-for-byte (canonical, robots, title, description; the title constant
-includes a U+2014 em-dash). If those lines change, update the match strings in
-`head-rewrite.ts` or the function silently stops working.
+CRITICAL COUPLING 1: the function string-replaces four tags in index.html's head
+byte-for-byte: the canonical link, the robots meta, the title and the description
+(the title constant includes a U+2014 em-dash). If those tags change, update the
+match strings in `head-rewrite.ts` or the function silently stops working.
 
 CRITICAL COUPLING 2: the per-article title and description come from
 `netlify/lib/article-heads.ts`, generated from js/articles.js by

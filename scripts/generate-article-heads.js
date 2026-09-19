@@ -26,7 +26,8 @@
 // REGENERATION COUPLING: this module is derived from js/articles.js. It must be
 // regenerated (node scripts/generate-article-heads.js) whenever any article
 // title or opening paragraph changes. This is the same coupling class as the
-// STATIC_CANONICAL / STATIC_ROBOTS dependency on index.html lines 27-28 that is
+// STATIC_CANONICAL / STATIC_ROBOTS dependency on index.html's canonical link and
+// robots meta that is
 // documented in head-rewrite.ts. A stale module silently serves old head content
 // to crawlers.
 //
