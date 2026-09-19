@@ -3094,7 +3094,7 @@ const ARTICLES = [
             
             <p>With just 5 letters (А, К, М, О, Т), you can read real Russian words today. With 9 letters, you can read 28 real words from this article alone. With all 33, you can sound out Russian words, because Russian spelling is mostly phonemic. That is reading, not fluency. Knowing what the words mean is a separate job.</p>
             
-            <p>But the journey starts with КОТ and ДОМ. Master the basics, enjoy the small wins, and before you know it, you'll be reading Russian menus, signs, and social media posts with ease.</p>
+            <p>But the journey starts with КОТ and ДОМ. Master the basics, enjoy the small wins, and then try your letters on real Russian menus, signs, and social media posts.</p>
             
             <p><strong>Remember:</strong> Every expert was once a beginner who could barely read КОТ. You're on the same path. Keep going.</p>
         
