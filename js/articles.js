@@ -1643,33 +1643,33 @@ const ARTICLES = [
         relatedArticles: ['easy-russian-words', 'getting-started', 'russian-alphabet-chart'],
         content: `
             <p>One of the best ways to reinforce your Cyrillic learning is to start reading actual Russian words as soon as possible. You don't need to understand everything to get value from reading practice. Just sounding out the letters builds crucial muscle memory.</p>
-            <p>This guide focuses on 25 words that are either cognates (borrowed from other languages), simple enough for beginners, or so common you'll see them everywhere. By the end, you'll be able to read basic Russian signs, menus, and social media posts.</p>
+            <p>This guide focuses on 25 words that sound like their English counterparts, are simple enough for beginners, or are basic everyday words. The aim is to help you read basic Russian signs and menus.</p>
             
-            <h3>Easy Cognates: Words You Already Know</h3>
-            <p>Russian has borrowed thousands of words from English and other European languages, especially for modern technology and international concepts. These are perfect for beginners because you can guess the meaning.</p>
+            <h3>Words That Sound Like English</h3>
+            <p>These eight words sound like their English counterparts, so once you sound them out, you can guess the meaning. Most of them came into Russian from French, not English: ресторан, кафе, метро, такси and телефон.</p>
             
             <p><strong>ИНТЕРНЕТ</strong> (internet): Pronounced "internet"</p>
             <p>Letter by letter: И-Н-Т-Е-Р-Н-Е-Т</p>
             
-            <p><strong>КОМПЬЮТЕР</strong> (kompyuter): Pronounced "computer"</p>
+            <p><strong>КОМПЬЮТЕР</strong> (kompyuter): Sounds like "computer"</p>
             <p>Letter by letter: К-О-М-П-Ь-Ю-Т-Е-Р</p>
             <p><em>Note:</em> The soft sign Ь modifies the П to make it softer.</p>
             
-            <p><strong>РЕСТОРАН</strong> (restoran): Pronounced "restaurant"</p>
+            <p><strong>РЕСТОРАН</strong> (restoran): Sounds like "restaurant"</p>
             <p>Letter by letter: Р-Е-С-Т-О-Р-А-Н</p>
             <p><em>Watch out:</em> Р sounds like "r," not "p"!</p>
             
-            <p><strong>КАФЕ</strong> (kafe): Pronounced "cafe"</p>
+            <p><strong>КАФЕ</strong> (kafe): Sounds like "cafe"</p>
             <p>Letter by letter: К-А-Ф-Е</p>
             
             <p><strong>МЕТРО</strong> (metro): Pronounced "metro"</p>
             <p>Letter by letter: М-Е-Т-Р-О</p>
             <p>This one you'll see all over Moscow and other Russian cities.</p>
             
-            <p><strong>ТАКСИ</strong> (taksi): Pronounced "taxi"</p>
+            <p><strong>ТАКСИ</strong> (taksi): Sounds like "taxi"</p>
             <p>Letter by letter: Т-А-К-С-И</p>
             
-            <p><strong>ТЕЛЕФОН</strong> (telefon): Pronounced "telephone"</p>
+            <p><strong>ТЕЛЕФОН</strong> (telefon): Sounds like "telephone"</p>
             <p>Letter by letter: Т-Е-Л-Е-Ф-О-Н</p>
             
             <p><strong>ПАРК</strong> (park): Pronounced "park"</p>
@@ -1688,7 +1688,7 @@ const ARTICLES = [
             <p>Exactly what you'd expect. Perfect beginner word.</p>
             
             <p><strong>ПАПА</strong> (papa): Dad</p>
-            <p>Another easy one. Same in many languages.</p>
+            <p>Another easy one: papa also means father in English and French.</p>
             
             <p><strong>ВОДА</strong> (voda): Water</p>
             <p>Letter by letter: В-О-Д-А</p>
@@ -1711,7 +1711,7 @@ const ARTICLES = [
             <p>Remember: С sounds like "s," and У sounds like "oo."</p>
             
             <p><strong>ЧАЙ</strong> (chai): Tea</p>
-            <p>Pronounced like "chai." This is where the word "chai tea" comes from!</p>
+            <p>Pronounced like "chai." English "chai" is a separate borrowing, from Hindi and Urdu.</p>
             
             <p><strong>СОК</strong> (sok): Juice</p>
             <p>Pronounced like "sock."</p>
