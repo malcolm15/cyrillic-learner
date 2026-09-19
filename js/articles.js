@@ -3400,7 +3400,7 @@ const ARTICLES = [
 
             <p>The real champion of the letter came a few years later. Nikolay Karamzin, one of the most influential Russian writers of the late 18th century, used Ё prominently in his 1797 almanac <em>Aonida</em>, printing words like слёзы (tears), орёл (eagle), and мотылёк (moth). Because Karamzin carried so much literary weight, Ё started to feel respectable. For a long time, Karamzin was credited as the letter's inventor, though the real credit belongs to Dashkova.</p>
 
-            <p>Even with Karamzin's backing, Ё had no official standing at all for the next century and a half. Writers used it when they felt like it. Printers skipped it when convenient. A great many Russian books and newspapers simply didn't include it at all.</p>
+            <p>Even after its appearance in Karamzin's almanac, Ё had no official standing at all for the next century and a half. Writers used it when they felt like it. Printers skipped it when convenient. A great many Russian books and newspapers simply didn't include it at all.</p>
 
             <h3>Stalin, a Typo, and a Decree</h3>
 
@@ -3427,7 +3427,7 @@ const ARTICLES = [
                 <figcaption>Three word pairs where dropping the dots on Ё produces an entirely different word.</figcaption>
             </figure>
 
-            <p>Ё turns up in a great many Russian words, and in plenty of surnames and given names. A number of Russian surnames are distinguished from other surnames only by the presence or absence of this single letter: Lezhnev versus Lezhnyov, Demin versus Dyomin.</p>
+            <p>It is thought that Ё appears in at least 2,500 surnames used in Russia and other former Soviet states. A number of Russian surnames are distinguished from other surnames only by the presence or absence of this single letter: Lezhnev versus Lezhnyov, Demin versus Dyomin.</p>
 
             <p>The real-world consequences of this can be genuinely absurd. Russian bureaucracy takes spelling extremely seriously, and people with Ё in their legal name regularly discover that their birth certificate, passport, and marriage certificate all spell their name slightly differently depending on which clerk typed which document.</p>
 
@@ -3437,7 +3437,7 @@ const ARTICLES = [
 
             <p>Their efforts have had occasional wins. Several Russian newspapers (<em>Sovetskaya Rossiya</em>, <em>Literaturnaya Gazeta</em>, and <em>Argumenty i Fakty</em> among them) have officially reintroduced consistent use of Ё. The Russian Language Institute issued recommendations in 2006 asking that Ё be used in proper nouns to prevent mispronunciation.</p>
 
-            <p>And in 2005, the letter got a monument. The city of Ulyanovsk (the hometown of Karamzin, Ё's most famous champion) installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from Karamzin's 1797 almanac. It weighs over three tons. The unveiling actually triggered protests, because even a monument to a letter couldn't escape the argument.</p>
+            <p>And in 2005, the letter got a monument. The city of Ulyanovsk (formerly Simbirsk, where a monument to Karamzin was erected in 1845) installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from Karamzin's 1797 almanac. It weighs over three tons. The unveiling actually triggered protests, because even a monument to a letter couldn't escape the argument.</p>
 
             <figure class="article-image">
                 <img src="/images/yo-monument-ulyanovsk.jpg" alt="Monument to the letter Ё in Ulyanovsk, Russia: a two-meter triangular granite stele with the letter Ё carved into it, located on Novy Venets Boulevard" loading="lazy" style="max-width: 500px;">
