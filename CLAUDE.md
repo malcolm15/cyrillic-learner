@@ -315,6 +315,33 @@ was luck, not a check.
 **Homepage lastmod.** Bump the home `<lastmod>` in sitemap.xml whenever visible
 homepage body copy changes, in the same push.
 
+**The ledger.** Audit findings, fixes and their sources are tracked in the
+audit ledger at https://claude.ai/artifact/M46nX3e969NgxikPqtVWQD. "A source
+cited in the ledger" below means a source named in one of its rows.
+
+**The claim guard.** A CLAIM is anything a reader could check and find false:
+facts, rankings, causes, dates, counts, statements about what people do, feel or
+notice, and interpretations of a work stated as fact ("the film uses X as Y").
+Every claim added or reworded by a commit needs a source in that commit or an
+existing source cited in the ledger. OPINION is an evaluative word in the site's
+own voice ("memorable", "worth a look") that is not presented as consensus. It
+needs no source and is logged as OPINION. A commit that removes or replaces an
+unsourced claim must not add any new claim without a source in the same commit.
+Attributing a view more widely than the source does is a claim error: "scholars
+say" when the source says "others", or "known for" when the source describes a
+criticism. Standard dictionary glosses of common words are covered by
+Wiktionary, cited once in the ledger. A statement about where or how a word is
+used still needs its own source.
+
+**The claim table.** Every Phase 2 report includes a claim table: each sentence
+the draft adds or rewords, classified as SOURCED (cite it), TRUE BY
+CONSTRUCTION, OPINION, NOT A CLAIM or UNSOURCED. A draft with any UNSOURCED row
+does not ship. This applies to wording Claude.ai suggests, not only to wording
+you write.
+
+**Gates.** If an instruction says to show something before doing it, treat it as
+a STOP and wait for approval. When unsure whether something is a gate, stop.
+
 ## Interactive features
 
 **Printable chart generator** (russian-alphabet-chart): `buildPrintChart()` and
