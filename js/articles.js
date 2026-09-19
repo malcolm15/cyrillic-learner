@@ -3867,11 +3867,11 @@ const ARTICLES = [
 
             <p>In the beginning, you'll reference this chart constantly. That's fine. Look up letters as many times as you need.</p>
 
-            <p>Before long, you'll find yourself needing it less often. Maybe you only check a few letters you keep forgetting.</p>
+            <p>As you practice, try checking only the letters you keep forgetting.</p>
 
-            <p>With consistent practice, you'll eventually rarely need the chart at all. At that point, you're not just recognizing letters anymore - you're reading them automatically.</p>
+            <p>The goal is to stop needing the chart at all: that's when you're reading letters automatically rather than looking them up.</p>
 
-            <p>But even experienced learners keep alphabet charts bookmarked as a quick reference. There's no shame in double-checking a letter you haven't seen in a while.</p>
+            <p>Keep it bookmarked as a quick reference anyway: there's no shame in double-checking a letter you haven't seen in a while.</p>
 
             <h3>Next Steps After Learning the Alphabet</h3>
 
