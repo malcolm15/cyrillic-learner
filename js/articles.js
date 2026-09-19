@@ -2440,7 +2440,7 @@ const ARTICLES = [
 
             <h3 id="european-union">Cyrillic's Place in the European Union</h3>
             <p>A footnote worth noting: when Bulgaria joined the European Union in 2007, Cyrillic became an official script of the EU, joining Latin and Greek as the union's three writing systems. Bulgarian-language EU documents, regulations, and official communications are produced in Cyrillic. That is also why euro banknotes carry "ЕВРО" (EVRO) in Cyrillic alongside the Latin and Greek spellings. The Europa series of notes, introduced from 2013, added it because Bulgaria had joined the EU, years before Bulgaria itself adopted the euro on 1 January 2026.</p>
-            <p>This status as an EU official script represents a remarkable institutional legitimization. Cyrillic is not just the alphabet of the post-Soviet world but of modern Europe, with legal standing in the world's largest economic bloc.</p>
+            <p>This status as an EU official script represents a remarkable institutional legitimization. Cyrillic is not just the alphabet of the post-Soviet world but of modern Europe, with legal standing in the European Union.</p>
 
             <h3 id="cultural-impact">Contemporary Cultural Impact: Cyrillic Beyond Language</h3>
             <p>In the 21st century, Cyrillic has taken on new cultural meanings beyond its linguistic function. Western brands sometimes use faux-Cyrillic typography for "Russian" aesthetics, replacing Latin letters with similar-looking Cyrillic ones to create words like "ЯUSSIAИ" (combining backwards R for Я, which sounds like "ya"). This practice, sometimes called "faux Cyrillic" or "pseudo-Russian," is graphically striking but linguistically nonsensical, often annoying to actual Cyrillic readers.</p>
