@@ -1283,7 +1283,7 @@ const ARTICLES = [
         title: 'Montenegrin Alphabet: The Newest Cyrillic (2009)',
         relatedArticles: ['belarusian-alphabet', 'serbian-cyrillic-vs-latin', 'latin-vs-cyrillic-slavic'],
         content: `
-            <p>In 2009, Montenegro did something almost unheard of in modern linguistics: it officially added two brand new letters to its Cyrillic alphabet. While most alphabets are losing letters or staying the same, Montenegro went the opposite direction, expanding from 30 to 32 letters. Meet the newest additions to the Cyrillic family: С́ and З́.</p>
+            <p>In 2009, Montenegro officially introduced two letters into its Cyrillic alphabet: С́ and З́. Apart from these two, it matches the Serbian Cyrillic alphabet, for a total of 32 letters.</p>
 
             <h3>The 32-Letter Montenegrin Alphabet</h3>
             
@@ -1342,12 +1342,6 @@ const ARTICLES = [
             <p>But usage in informal contexts (social media, texting, casual writing) is inconsistent. Older Montenegrins and those who identify more with Serbian cultural ties may not use them at all.</p>
             
             <p>The letters' long-term success depends on generational shift (kids learning them in school), political stability of Montenegrin independence, cultural reinforcement through media and literature, and practical adoption in everyday writing.</p>
-
-            <h3>A Unique Moment in Linguistic History</h3>
-            
-            <p>The 2009 addition of С́ and З́ makes Montenegrin genuinely unique in the modern world. When was the last time a major national language added completely new letters to its alphabet? Typically, languages simplify their writing systems over time, dropping letters that seem redundant.</p>
-            
-            <p>Montenegro went against this trend, making its alphabet more complex to better represent its phonetic reality. Whether you see this as nationalist posturing or legitimate linguistic reform depends partly on your politics, but it's undeniably fascinating from a language evolution perspective.</p>
 
             <h3>The Bottom Line</h3>
             

@@ -45,7 +45,7 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
   },
   "montenegrin-alphabet": {
     "title": "Montenegrin Alphabet: The Newest Cyrillic (2009) | Cyrilica",
-    "description": "In 2009, Montenegro did something almost unheard of in modern linguistics: it officially added two brand new letters to its Cyrillic alphabet. While most..."
+    "description": "In 2009, Montenegro officially introduced two letters into its Cyrillic alphabet: С́ and З́. Apart from these two, it matches the Serbian Cyrillic..."
   },
   "cyrillic-letters-not-in-russian": {
     "title": "The Cyrillic Letters That Don't Exist in Russian | Cyrilica",
