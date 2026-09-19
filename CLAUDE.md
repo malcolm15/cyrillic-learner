@@ -312,6 +312,9 @@ silently wrote a hardcoded 2026-09-16 for two days across 22 articles, and it on
 surfaced because a commit came back with those files unexpectedly unchanged. That
 was luck, not a check.
 
+**Homepage lastmod.** Bump the home `<lastmod>` in sitemap.xml whenever visible
+homepage body copy changes, in the same push.
+
 ## Interactive features
 
 **Printable chart generator** (russian-alphabet-chart): `buildPrintChart()` and
