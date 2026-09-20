@@ -178,7 +178,7 @@ scripts/generate-article-heads.js then scripts/pre-render.js. The pre-renderer
 reads index.html as the template and emits articles/SLUG.html (flat files: a
 SLUG/index.html directory layout makes Netlify 301 the extensionless URL to the
 trailing-slash form, adding a redirect hop on every indexed article URL) for all
-28 articles: per-article head (title, description, canonical, og and twitter),
+27 articles: per-article head (title, description, canonical, og and twitter),
 article body in the DOM, prev/next, related-articles grid, and Article plus
 BreadcrumbList JSON-LD with id="article-schema" / id="breadcrumb-schema" so the
 JS render replaces them instead of duplicating. Netlify serves these real files
@@ -384,7 +384,7 @@ Listen buttons.
 ## Monetization status
 AdSense has been rejected roughly four times, all of which happened before the site's
 pages were meaningfully indexed (the GitHub Pages 404 problem above). The site is now
-far stronger (28 articles, indexed, structured data, interactive tools, cleaned-up
+far stronger (27 articles, indexed, structured data, interactive tools, cleaned-up
 canonicals). Plan: reapply, but deliberately wait until the recent SEO improvements
 have settled and been recrawled rather than reapplying immediately after the prior
 rejections.
