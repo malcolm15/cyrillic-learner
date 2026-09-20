@@ -417,6 +417,12 @@ script into teaching the language, outside the site's lane). The /articles page 
 one remaining benign duplicate-canonical entry in Search Console, intentionally left
 alone.
 
+2026-10-11: compare backwards-r-myth click-through rate against ledger row 284's
+baseline. Row 284 records the query "backwards r" at 5,093 impressions, 0 clicks,
+position ~8 for the three months to 2026-09-19; the page total over the same window
+was 18,573 impressions, 14 clicks, position 8.2. Compare like with like: query
+against query, page against page.
+
 ## Starting a session
 Confirm the current task, read the relevant files before proposing anything, and
 propose a scoped plan with a diff preview. Do not apply or commit until Malc approves.
