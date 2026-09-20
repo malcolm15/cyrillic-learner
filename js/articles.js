@@ -3601,8 +3601,205 @@ const ARTICLES = [
             </div>
 
             <div id="alphabet-grid" class="alphabet-grid">
-                <!-- Letters will be inserted here by JavaScript -->
-            </div>
+                    <button type="button" class="letter-card easy" data-letter="А" data-type="vowel" aria-label="Play pronunciation of А">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">А а</div>
+                        <div class="letter-sound">ah</div>
+                        <div class="letter-example">автобус (bus)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="Е" data-type="vowel" aria-label="Play pronunciation of Е">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Е е</div>
+                        <div class="letter-sound">yeh</div>
+                        <div class="letter-example">есть (to eat)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Ё" data-type="vowel" aria-label="Play pronunciation of Ё">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ё ё</div>
+                        <div class="letter-sound">yo</div>
+                        <div class="letter-example">ёлка (tree)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="И" data-type="vowel" aria-label="Play pronunciation of И">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">И и</div>
+                        <div class="letter-sound">ee</div>
+                        <div class="letter-example">имя (name)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="О" data-type="vowel" aria-label="Play pronunciation of О">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">О о</div>
+                        <div class="letter-sound">oh</div>
+                        <div class="letter-example">окно (window)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="У" data-type="vowel" aria-label="Play pronunciation of У">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">У у</div>
+                        <div class="letter-sound">oo</div>
+                        <div class="letter-example">утро (morning)</div>
+                    </button>
+                    <button type="button" class="letter-card hard" data-letter="Ы" data-type="vowel" aria-label="Play pronunciation of Ы">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ы ы</div>
+                        <div class="letter-sound">ih</div>
+                        <div class="letter-example">мы (we)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Э" data-type="vowel" aria-label="Play pronunciation of Э">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Э э</div>
+                        <div class="letter-sound">eh</div>
+                        <div class="letter-example">это (this)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Ю" data-type="vowel" aria-label="Play pronunciation of Ю">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ю ю</div>
+                        <div class="letter-sound">yoo</div>
+                        <div class="letter-example">юг (south)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Я" data-type="vowel" aria-label="Play pronunciation of Я">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Я я</div>
+                        <div class="letter-sound">ya</div>
+                        <div class="letter-example">яблоко (apple)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="Б" data-type="consonant" aria-label="Play pronunciation of Б">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Б б</div>
+                        <div class="letter-sound">b</div>
+                        <div class="letter-example">банк (bank)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="В" data-type="consonant" aria-label="Play pronunciation of В">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">В в</div>
+                        <div class="letter-sound">v</div>
+                        <div class="letter-example">вода (water)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="Г" data-type="consonant" aria-label="Play pronunciation of Г">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Г г</div>
+                        <div class="letter-sound">g</div>
+                        <div class="letter-example">город (city)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="Д" data-type="consonant" aria-label="Play pronunciation of Д">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Д д</div>
+                        <div class="letter-sound">d</div>
+                        <div class="letter-example">дом (house)</div>
+                    </button>
+                    <button type="button" class="letter-card hard" data-letter="Ж" data-type="consonant" aria-label="Play pronunciation of Ж">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ж ж</div>
+                        <div class="letter-sound">zh</div>
+                        <div class="letter-example">жизнь (life)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="З" data-type="consonant" aria-label="Play pronunciation of З">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">З з</div>
+                        <div class="letter-sound">z</div>
+                        <div class="letter-example">зима (winter)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Й" data-type="consonant" aria-label="Play pronunciation of Й">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Й й</div>
+                        <div class="letter-sound">y</div>
+                        <div class="letter-example">мой (my)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="К" data-type="consonant" aria-label="Play pronunciation of К">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">К к</div>
+                        <div class="letter-sound">k</div>
+                        <div class="letter-example">кот (cat)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="Л" data-type="consonant" aria-label="Play pronunciation of Л">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Л л</div>
+                        <div class="letter-sound">l</div>
+                        <div class="letter-example">лес (forest)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="М" data-type="consonant" aria-label="Play pronunciation of М">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">М м</div>
+                        <div class="letter-sound">m</div>
+                        <div class="letter-example">мама (mom)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Н" data-type="consonant" aria-label="Play pronunciation of Н">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Н н</div>
+                        <div class="letter-sound">n</div>
+                        <div class="letter-example">нет (no)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="П" data-type="consonant" aria-label="Play pronunciation of П">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">П п</div>
+                        <div class="letter-sound">p</div>
+                        <div class="letter-example">папа (dad)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Р" data-type="consonant" aria-label="Play pronunciation of Р">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Р р</div>
+                        <div class="letter-sound">r</div>
+                        <div class="letter-example">рука (hand)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="С" data-type="consonant" aria-label="Play pronunciation of С">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">С с</div>
+                        <div class="letter-sound">s</div>
+                        <div class="letter-example">слово (word)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="Т" data-type="consonant" aria-label="Play pronunciation of Т">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Т т</div>
+                        <div class="letter-sound">t</div>
+                        <div class="letter-example">там (there)</div>
+                    </button>
+                    <button type="button" class="letter-card easy" data-letter="Ф" data-type="consonant" aria-label="Play pronunciation of Ф">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ф ф</div>
+                        <div class="letter-sound">f</div>
+                        <div class="letter-example">фото (photo)</div>
+                    </button>
+                    <button type="button" class="letter-card hard" data-letter="Х" data-type="consonant" aria-label="Play pronunciation of Х">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Х х</div>
+                        <div class="letter-sound">kh</div>
+                        <div class="letter-example">хлеб (bread)</div>
+                    </button>
+                    <button type="button" class="letter-card hard" data-letter="Ц" data-type="consonant" aria-label="Play pronunciation of Ц">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ц ц</div>
+                        <div class="letter-sound">ts</div>
+                        <div class="letter-example">цена (price)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Ч" data-type="consonant" aria-label="Play pronunciation of Ч">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ч ч</div>
+                        <div class="letter-sound">ch</div>
+                        <div class="letter-example">час (hour)</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Ш" data-type="consonant" aria-label="Play pronunciation of Ш">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ш ш</div>
+                        <div class="letter-sound">sh</div>
+                        <div class="letter-example">школа (school)</div>
+                    </button>
+                    <button type="button" class="letter-card hard" data-letter="Щ" data-type="consonant" aria-label="Play pronunciation of Щ">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Щ щ</div>
+                        <div class="letter-sound">shch</div>
+                        <div class="letter-example">щи (soup)</div>
+                    </button>
+                    <button type="button" class="letter-card hard" data-letter="Ъ" data-type="sign" aria-label="Play pronunciation of Ъ">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ъ ъ</div>
+                        <div class="letter-sound">hard sign</div>
+                        <div class="letter-example">объект (object)</div>
+                    </button>
+                    <button type="button" class="letter-card hard" data-letter="Ь" data-type="sign" aria-label="Play pronunciation of Ь">
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars">Ь ь</div>
+                        <div class="letter-sound">soft sign</div>
+                        <div class="letter-example">день (day)</div>
+                    </button>
+                </div>
 
             <div id="letter-legend" style="margin: 30px 0; padding: 20px; border-radius: 8px;">
                 <h4 style="margin-top: 0;">What makes each letter tricky:</h4>

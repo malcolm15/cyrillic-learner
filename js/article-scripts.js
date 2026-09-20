@@ -402,122 +402,46 @@ ArticleScripts['backwards-r-myth'] = function() {
 };
 
 // ==================== RUSSIAN ALPHABET CHART ====================
+// The 33 cards are static HTML in the article body (js/articles.js), so they are
+// in the served document and readable without JavaScript. This script only
+// enhances what is already there: audio on click, filtering, the count, and the
+// printable chart. Card data is read from the DOM; audio paths come from
+// CYRILLIC_DATA, keyed by the card's data-letter. There is no second copy of the
+// alphabet in JS. scripts/pre-render.js asserts the card set at build time.
 ArticleScripts['russian-alphabet-chart'] = function() {
-    if (typeof CYRILLIC_DATA === 'undefined') return;
-    
     var alphabetGrid = document.getElementById('alphabet-grid');
+    if (!alphabetGrid) return;
+
+    var cards = alphabetGrid.querySelectorAll('.letter-card');
     var filterBtns = document.querySelectorAll('.filter-btn');
     var letterCount = document.getElementById('letter-count');
-    
-    if (!alphabetGrid) return;
-    
-    // Complete Russian alphabet with metadata
-    var russianAlphabet = [
-        // Vowels
-        {char: 'А', lower: 'а', sound: 'ah', trans: 'a', example: 'автобус (bus)', type: 'vowel', difficulty: 'easy'},
-        {char: 'Е', lower: 'е', sound: 'yeh', trans: 'ye/e', example: 'есть (to eat)', type: 'vowel', difficulty: 'easy'},
-        {char: 'Ё', lower: 'ё', sound: 'yo', trans: 'yo', example: 'ёлка (tree)', type: 'vowel', difficulty: 'medium'},
-        {char: 'И', lower: 'и', sound: 'ee', trans: 'i', example: 'имя (name)', type: 'vowel', difficulty: 'medium'},
-        {char: 'О', lower: 'о', sound: 'oh', trans: 'o', example: 'окно (window)', type: 'vowel', difficulty: 'easy'},
-        {char: 'У', lower: 'у', sound: 'oo', trans: 'u', example: 'утро (morning)', type: 'vowel', difficulty: 'medium'},
-        {char: 'Ы', lower: 'ы', sound: 'ih', trans: 'y', example: 'мы (we)', type: 'vowel', difficulty: 'hard'},
-        {char: 'Э', lower: 'э', sound: 'eh', trans: 'e', example: 'это (this)', type: 'vowel', difficulty: 'medium'},
-        {char: 'Ю', lower: 'ю', sound: 'yoo', trans: 'yu', example: 'юг (south)', type: 'vowel', difficulty: 'medium'},
-        {char: 'Я', lower: 'я', sound: 'ya', trans: 'ya', example: 'яблоко (apple)', type: 'vowel', difficulty: 'medium'},
-        
-        // Consonants
-        {char: 'Б', lower: 'б', sound: 'b', trans: 'b', example: 'банк (bank)', type: 'consonant', difficulty: 'easy'},
-        {char: 'В', lower: 'в', sound: 'v', trans: 'v', example: 'вода (water)', type: 'consonant', difficulty: 'medium'},
-        {char: 'Г', lower: 'г', sound: 'g', trans: 'g', example: 'город (city)', type: 'consonant', difficulty: 'easy'},
-        {char: 'Д', lower: 'д', sound: 'd', trans: 'd', example: 'дом (house)', type: 'consonant', difficulty: 'easy'},
-        {char: 'Ж', lower: 'ж', sound: 'zh', trans: 'zh', example: 'жизнь (life)', type: 'consonant', difficulty: 'hard'},
-        {char: 'З', lower: 'з', sound: 'z', trans: 'z', example: 'зима (winter)', type: 'consonant', difficulty: 'easy'},
-        {char: 'Й', lower: 'й', sound: 'y', trans: 'y', example: 'мой (my)', type: 'consonant', difficulty: 'medium'},
-        {char: 'К', lower: 'к', sound: 'k', trans: 'k', example: 'кот (cat)', type: 'consonant', difficulty: 'easy'},
-        {char: 'Л', lower: 'л', sound: 'l', trans: 'l', example: 'лес (forest)', type: 'consonant', difficulty: 'easy'},
-        {char: 'М', lower: 'м', sound: 'm', trans: 'm', example: 'мама (mom)', type: 'consonant', difficulty: 'easy'},
-        {char: 'Н', lower: 'н', sound: 'n', trans: 'n', example: 'нет (no)', type: 'consonant', difficulty: 'medium'},
-        {char: 'П', lower: 'п', sound: 'p', trans: 'p', example: 'папа (dad)', type: 'consonant', difficulty: 'easy'},
-        {char: 'Р', lower: 'р', sound: 'r', trans: 'r', example: 'рука (hand)', type: 'consonant', difficulty: 'medium'},
-        {char: 'С', lower: 'с', sound: 's', trans: 's', example: 'слово (word)', type: 'consonant', difficulty: 'medium'},
-        {char: 'Т', lower: 'т', sound: 't', trans: 't', example: 'там (there)', type: 'consonant', difficulty: 'easy'},
-        {char: 'Ф', lower: 'ф', sound: 'f', trans: 'f', example: 'фото (photo)', type: 'consonant', difficulty: 'easy'},
-        {char: 'Х', lower: 'х', sound: 'kh', trans: 'kh', example: 'хлеб (bread)', type: 'consonant', difficulty: 'hard'},
-        {char: 'Ц', lower: 'ц', sound: 'ts', trans: 'ts', example: 'цена (price)', type: 'consonant', difficulty: 'hard'},
-        {char: 'Ч', lower: 'ч', sound: 'ch', trans: 'ch', example: 'час (hour)', type: 'consonant', difficulty: 'medium'},
-        {char: 'Ш', lower: 'ш', sound: 'sh', trans: 'sh', example: 'школа (school)', type: 'consonant', difficulty: 'medium'},
-        {char: 'Щ', lower: 'щ', sound: 'shch', trans: 'shch', example: 'щи (soup)', type: 'consonant', difficulty: 'hard'},
-        
-        // Signs
-        {char: 'Ъ', lower: 'ъ', sound: 'hard sign', trans: '(none)', example: 'объект (object)', type: 'sign', difficulty: 'hard'},
-        {char: 'Ь', lower: 'ь', sound: 'soft sign', trans: '(none)', example: 'день (day)', type: 'sign', difficulty: 'hard'}
-    ];
-    
-    var currentFilter = 'all';
-    
-    function createLetterCard(letter) {
-        var card = document.createElement('button');
-        card.className = 'letter-card ' + letter.difficulty;
-        card.setAttribute('type', 'button');
-        card.setAttribute('data-type', letter.type);
-        card.setAttribute('aria-label', 'Play pronunciation of ' + letter.char);
+    if (!cards.length) return;
 
+    function bindCard(card) {
         card.onclick = function() {
             card.classList.add('playing');
             setTimeout(function() { card.classList.remove('playing'); }, 800);
-            playAudio(letter.char);
+            playAudio(card.getAttribute('data-letter'));
         };
-
-        var audioIcon = document.createElement('span');
-        audioIcon.className = 'letter-audio-icon';
-        audioIcon.setAttribute('aria-hidden', 'true');
-        audioIcon.textContent = '🔊';
-
-        var charDisplay = document.createElement('div');
-        charDisplay.className = 'letter-chars';
-        charDisplay.textContent = letter.char + ' ' + letter.lower;
-
-        var soundDisplay = document.createElement('div');
-        soundDisplay.className = 'letter-sound';
-        soundDisplay.textContent = letter.sound;
-
-        var exampleDisplay = document.createElement('div');
-        exampleDisplay.className = 'letter-example';
-        exampleDisplay.textContent = letter.example;
-
-        card.appendChild(audioIcon);
-        card.appendChild(charDisplay);
-        card.appendChild(soundDisplay);
-        card.appendChild(exampleDisplay);
-
-        return card;
     }
-    
-    function renderAlphabet(filter) {
-        alphabetGrid.innerHTML = '';
+
+    for (var i = 0; i < cards.length; i++) bindCard(cards[i]);
+
+    function applyFilter(filter) {
         var count = 0;
-        
-        for (var i = 0; i < russianAlphabet.length; i++) {
-            var letter = russianAlphabet[i];
-            
-            // Apply filter
-            if (filter === 'all' || 
-                (filter === 'vowels' && letter.type === 'vowel') ||
-                (filter === 'consonants' && letter.type === 'consonant')) {
-                
-                alphabetGrid.appendChild(createLetterCard(letter));
-                count++;
-            }
+        for (var i = 0; i < cards.length; i++) {
+            var type = cards[i].getAttribute('data-type');
+            var show = filter === 'all' ||
+                (filter === 'vowels' && type === 'vowel') ||
+                (filter === 'consonants' && type === 'consonant');
+            cards[i].style.display = show ? '' : 'none';
+            if (show) count++;
         }
-        
-        // Update count
-        letterCount.textContent = count + ' letter' + (count !== 1 ? 's' : '');
+        if (letterCount) letterCount.textContent = count + ' letter' + (count !== 1 ? 's' : '');
     }
-    
-    // Setup filter buttons
-    for (var i = 0; i < filterBtns.length; i++) {
-        filterBtns[i].onclick = function() {
-            // Update active state
+
+    for (var b = 0; b < filterBtns.length; b++) {
+        filterBtns[b].onclick = function() {
             for (var j = 0; j < filterBtns.length; j++) {
                 filterBtns[j].classList.remove('active');
                 filterBtns[j].style.background = 'transparent';
@@ -526,20 +450,17 @@ ArticleScripts['russian-alphabet-chart'] = function() {
             this.classList.add('active');
             this.style.background = '#e74c3c';
             this.style.color = 'white';
-            
-            // Apply filter
-            var filter = this.getAttribute('data-filter');
-            currentFilter = filter;
-            renderAlphabet(filter);
+            applyFilter(this.getAttribute('data-filter'));
         };
     }
-    
-    // Initial render
-    renderAlphabet('all');
 
-    // Reads russianAlphabet (closed over from this scope) and builds a print-only
-    // DOM subtree appended to body. Called fresh on each print so checkbox state
-    // is always honored.
+    // Sets the count to match the markup on load. The cards themselves are
+    // already visible, so this does not re-render anything.
+    applyFilter('all');
+
+    // Builds a print-only DOM subtree from the cards in the document, appended to
+    // body. Called fresh on each print so checkbox state is always honored. Every
+    // letter prints regardless of the current filter, as it always has.
     function buildPrintChart(includeExamples) {
         var existing = document.getElementById('print-chart');
         if (existing) existing.parentNode.removeChild(existing);
@@ -559,22 +480,25 @@ ArticleScripts['russian-alphabet-chart'] = function() {
 
         var grid = document.createElement('div');
         grid.className = 'print-grid';
-        for (var i = 0; i < russianAlphabet.length; i++) {
-            var letter = russianAlphabet[i];
+        function textOf(card, cls) {
+            var el = card.querySelector('.' + cls);
+            return el ? el.textContent : '';
+        }
+        for (var i = 0; i < cards.length; i++) {
             var cell = document.createElement('div');
             cell.className = 'print-cell';
             var chars = document.createElement('div');
             chars.className = 'print-chars';
-            chars.textContent = letter.char + ' ' + letter.lower;
+            chars.textContent = textOf(cards[i], 'letter-chars');
             var sound = document.createElement('div');
             sound.className = 'print-sound';
-            sound.textContent = letter.sound;
+            sound.textContent = textOf(cards[i], 'letter-sound');
             cell.appendChild(chars);
             cell.appendChild(sound);
             if (includeExamples) {
                 var example = document.createElement('div');
                 example.className = 'print-example';
-                example.textContent = letter.example;
+                example.textContent = textOf(cards[i], 'letter-example');
                 cell.appendChild(example);
             }
             grid.appendChild(cell);

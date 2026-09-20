@@ -31,6 +31,9 @@
 // - #article-content is article.content verbatim: showArticle assigns
 //   article.content to innerHTML with no transformation, so emitting the same
 //   string byte-for-byte gives the same DOM.
+// - The russian-alphabet-chart cards live in article.content as static HTML, so
+//   the rule above puts all 33 letters in the served document and in the in-app
+//   render, with no second render and no JS-built grid. Asserted below.
 // - Schema scripts are emitted with id="article-schema" and
 //   id="breadcrumb-schema" so injectArticleSchema REPLACES them on hydration
 //   instead of duplicating them.
@@ -178,6 +181,44 @@ function main() {
     if (ARTICLE_ORDER.length !== articles.length) {
         fail('ARTICLE_ORDER has ' + ARTICLE_ORDER.length + ' slugs but ' + articles.length + ' articles were parsed');
     }
+
+    // ---- chart parity: the 33 letter cards are static HTML, not built by JS ----
+    // js/articles.js carries the cards so they reach the served document; the
+    // client script only enhances them. Nothing else checks that the markup and
+    // CYRILLIC_DATA still describe the same alphabet, so assert it here and fail
+    // the build loudly rather than shipping a chart with a letter missing.
+    const RUSSIAN_LETTERS = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('');
+    const dataMatch = coreSrc.match(/const CYRILLIC_DATA = \{[\s\S]*?\n\};/);
+    if (!dataMatch) fail('could not extract CYRILLIC_DATA from core.js');
+    const CYRILLIC_DATA = eval('(' + dataMatch[0].replace('const CYRILLIC_DATA = ', '').replace(/;$/, '') + ')');
+    const audioLetters = new Set();
+    Object.keys(CYRILLIC_DATA).forEach(function (groupKey) {
+        Object.keys(CYRILLIC_DATA[groupKey].chars).forEach(function (ch) { audioLetters.add(ch); });
+    });
+
+    const chart = byId['russian-alphabet-chart'];
+    if (!chart) fail('russian-alphabet-chart article not found; the static chart assertion cannot run');
+    const cardLetters = [];
+    const cardRe = /<button[^>]*class="letter-card[^"]*"[^>]*data-letter="([^"]+)"[^>]*>/g;
+    let cardMatch;
+    while ((cardMatch = cardRe.exec(chart.content)) !== null) cardLetters.push(cardMatch[1]);
+
+    if (cardLetters.length !== 33) {
+        fail('russian-alphabet-chart: expected 33 .letter-card elements in the article HTML, found ' + cardLetters.length);
+    }
+    const seen = new Set();
+    const dupes = cardLetters.filter(function (ch) {
+        if (seen.has(ch)) return true;
+        seen.add(ch);
+        return false;
+    });
+    if (dupes.length) fail('russian-alphabet-chart: duplicate data-letter values: ' + dupes.join(' '));
+    const missing = RUSSIAN_LETTERS.filter(function (ch) { return !seen.has(ch); });
+    const extra = [...seen].filter(function (ch) { return RUSSIAN_LETTERS.indexOf(ch) === -1; });
+    if (missing.length) fail('russian-alphabet-chart: letters missing from the chart: ' + missing.join(' '));
+    if (extra.length) fail('russian-alphabet-chart: letters in the chart that are not Russian: ' + extra.join(' '));
+    const noAudio = cardLetters.filter(function (ch) { return !audioLetters.has(ch); });
+    if (noAudio.length) fail('russian-alphabet-chart: card letters absent from CYRILLIC_DATA (no audio): ' + noAudio.join(' '));
 
     // ---- static template needles (byte-for-byte from index.html) ----
     const T = {
