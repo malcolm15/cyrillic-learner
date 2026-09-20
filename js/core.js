@@ -593,7 +593,7 @@ function injectArticleSchema(articleId, article) {
 }
 
 const DEFAULT_TITLE = 'Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica';
-const DEFAULT_DESC = 'Free interactive tool to learn the Cyrillic alphabet. Master Russian, Ukrainian, Bulgarian, and Serbian letters with instant feedback. Perfect for beginners.';
+const DEFAULT_DESC = 'Free interactive tool to learn the Russian alphabet. Practice all 33 Cyrillic letters with instant feedback, pronunciation audio, and progress tracking. No signup required.';
 const DEFAULT_URL = 'https://cyrilica.com/';
 
 const PAGE_META = {
