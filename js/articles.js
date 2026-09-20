@@ -50,7 +50,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>One thing to know before you start: the study tool does not sort letters into these three groups. It splits the alphabet into six groups of vowels and consonants instead, and the seven-day plan below tells you which of them to pick first.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">CHOOSE YOUR LETTER GROUPS</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">CHOOSE YOUR LETTER GROUPS</a>
             </div>
 
             <h3>Your First Week (Using This Site)</h3>
@@ -269,7 +269,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Think you can tell these false friends apart? The quiz further down this page drills just these six. When you are ready for the rest of the alphabet, the full study tool covers all 33 letters.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">OPEN THE FULL STUDY TOOL</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">OPEN THE FULL STUDY TOOL</a>
             </div>
             <p>Don't try to learn these mixed in with other letters. Your brain needs to form new, isolated associations. Here's how:</p>
             <ul>
@@ -636,7 +636,7 @@ const ARTICLES = [
             
             <div class="quiz-cta">
                 <p>The lost letters are gone, but the 33 that survived are waiting for you. Learn them all with our free interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">LEARN THE SURVIVORS</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">LEARN THE SURVIVORS</a>
             </div>
 
             <p>The modern Russian alphabet is sleek, efficient, and relatively easy to learn. But lurking beneath it is a vast history of lost letters, characters that served their purpose, outlived their usefulness, and faded into history. They're gone, but they left their mark on the language, the culture, and the endless Cyrillic iceberg memes that language learners love to share.</p>
@@ -732,7 +732,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Ready to put these memory tricks to the test? Our interactive quiz lets you practice each letter until it sticks.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">TEST YOUR MEMORY</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">TEST YOUR MEMORY</a>
             </div>
 
             <h3>Grouping Strategy</h3>
@@ -966,7 +966,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>The study tool drills the 33 letters of the Russian alphabet, which share most of their shapes with Ukrainian. It does not include Ґ, Є, І or Ї, so use it for the shared letters and this page for the four Ukrainian ones. Pick your character groups and start practicing.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">PRACTICE THE SHARED LETTERS</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">PRACTICE THE SHARED LETTERS</a>
             </div>
 
             <h3>The Four Russian Letters Ukrainian Doesn't Use</h3>
@@ -1492,7 +1492,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Now you know the full Cyrillic family tree. Test your Russian core with the free interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">START PRACTICING</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">START PRACTICING</a>
             </div>
 
             <div class="share-section">
@@ -1599,7 +1599,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Think you can handle the S-tier letters? The study tool does not sort letters by tier. It uses six groups of vowels and consonants, and the five S-tier letters sit in three of them: А and О in Vowels 1, К and М in Consonants 2, and Т in Consonants 3. Select those three groups and you will practice all five, alongside 12 other letters.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">CHOOSE YOUR LETTER GROUPS</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">CHOOSE YOUR LETTER GROUPS</a>
             </div>
 
             <h3>The Learning Journey</h3>
@@ -1889,7 +1889,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Я isn't the only letter that surprises English speakers. Learn all 33 Russian letters with instant feedback on every answer.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">LEARN THE REAL SOUNDS</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">LEARN THE REAL SOUNDS</a>
             </div>
 
             <h3>Why Does This Happen?</h3>
@@ -2089,7 +2089,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Before you write, make sure you can recognize each letter. Our quiz builds letter recognition fast.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">BUILD RECOGNITION FIRST</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">BUILD RECOGNITION FIRST</a>
             </div>
 
             <h3>Watch the Tricky Letters Being Written</h3>
@@ -2529,7 +2529,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Inspired by 1,150 years of alphabet history? Learn the modern Cyrillic alphabet with our free interactive quiz.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">START LEARNING</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">START LEARNING</a>
             </div>
 
             <h3 id="learning-today">Learning Cyrillic Today</h3>
@@ -3263,7 +3263,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Ready to learn the Cyrillic side of the family? Our interactive quiz lets you practice all 33 letters at your own pace.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">TRY THE QUIZ</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">TRY THE QUIZ</a>
             </div>
 
             <h3>Two Alphabets, One Story</h3>
@@ -3364,7 +3364,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Want to learn all 33 Russian letters, including Ё? The study tool quizzes you one letter at a time, and if you turn on Repeat Problem Questions in Settings, it keeps bringing back the letters you miss.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">LEARN THE ALPHABET</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">LEARN THE ALPHABET</a>
             </div>
 
             <h3>What This Means for Learners</h3>
@@ -4047,7 +4047,7 @@ const ARTICLES = [
 
             <div class="quiz-cta">
                 <p>Hearing the letters is step one. Making them stick is step two. Our free study tool quizzes you letter by letter, tracks your streak, and needs no signup.</p>
-                <button class="quiz-cta-btn" onclick="showPage('home')">START PRACTICING</button>
+                <a href="/" class="quiz-cta-btn" onclick="navTo(event, 'home', null)">START PRACTICING</a>
             </div>
 
             <h3>How to Use This Chart</h3>
