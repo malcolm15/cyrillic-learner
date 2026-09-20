@@ -2380,6 +2380,8 @@
         .letter-card .letter-sound { font-size: 15px; font-weight: bold; margin-top: 2px; }
         .letter-card .letter-example { font-size: 12px; color: #7f8c8d; margin-top: 3px; }
         .letter-card .letter-audio-icon { position: absolute; top: 6px; right: 8px; font-size: 11px; opacity: 0.45; }
+        .letter-card .letter-name { font-size: 12px; color: #7f8c8d; margin-top: 1px; }
+        .letter-card .letter-ipa { font-size: 11px; color: #95a5a6; margin-top: 2px; font-family: 'IBM Plex Mono', monospace; }
 
         .letter-card.easy   { border-color: #27ae60; } .letter-card.easy .letter-sound   { color: #27ae60; }
         .letter-card.medium { border-color: #f39c12; } .letter-card.medium .letter-sound { color: #f39c12; }
@@ -2388,6 +2390,8 @@
         body.dark-mode .letter-card { background: var(--dark-surface); }
         body.dark-mode .letter-card .letter-chars { color: var(--dark-text); }
         body.dark-mode .letter-card .letter-example { color: var(--dark-text-dim); }
+        body.dark-mode .letter-card .letter-name,
+        body.dark-mode .letter-card .letter-ipa { color: var(--dark-text-dim); }
         body.dark-mode .letter-card.playing { background: rgba(255, 255, 255, 0.06); }
         #letter-legend { background: #f8f9fa; }
         body.dark-mode #letter-legend { background: var(--dark-surface); border: 1px solid var(--dark-border); }

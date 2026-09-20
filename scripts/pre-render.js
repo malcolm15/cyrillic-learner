@@ -200,6 +200,47 @@ function main() {
         Object.keys(CYRILLIC_DATA[groupKey].chars).forEach(function (ch) { audioLetters.add(ch); });
     });
 
+    // Letter names and IPA shown on each card. Source: Wikipedia "Russian alphabet",
+    // Letters table, Name column; where it offers two respellings the first is used,
+    // and a respelling appears only where the source gives one. О's IPA comes from
+    // Wikipedia "O (Cyrillic)" ("In Russian and Serbo-Croatian, it represents the
+    // sound /o/"), because the Letters table's own IPA for О is a Cyrillic о typo.
+    const LETTER_NAMES = [
+        { letter: 'А', name: 'а (ah)', ipa: 'a' },
+        { letter: 'Е', name: 'е', ipa: 'je' },
+        { letter: 'Ё', name: 'ё', ipa: 'jo' },
+        { letter: 'И', name: 'и (ee)', ipa: 'i' },
+        { letter: 'О', name: 'о', ipa: 'o' },
+        { letter: 'У', name: 'у (oo)', ipa: 'u' },
+        { letter: 'Ы', name: 'ы', ipa: 'ɨ' },
+        { letter: 'Э', name: 'э (e)', ipa: 'ɛ' },
+        { letter: 'Ю', name: 'ю (ew)', ipa: 'ju' },
+        { letter: 'Я', name: 'я', ipa: 'ja' },
+        { letter: 'Б', name: 'бэ (be)', ipa: 'bɛ' },
+        { letter: 'В', name: 'вэ (ve)', ipa: 'vɛ' },
+        { letter: 'Г', name: 'гэ (ghe)', ipa: 'ɡɛ' },
+        { letter: 'Д', name: 'дэ (de)', ipa: 'dɛ' },
+        { letter: 'Ж', name: 'жэ', ipa: 'ʐɛ' },
+        { letter: 'З', name: 'зэ (ze)', ipa: 'zɛ' },
+        { letter: 'Й', name: 'и краткое', ipa: 'ˈi ˈkratkəjə' },
+        { letter: 'К', name: 'ка', ipa: 'ka' },
+        { letter: 'Л', name: 'эль', ipa: 'ɛlʲ' },
+        { letter: 'М', name: 'эм (em)', ipa: 'ɛm' },
+        { letter: 'Н', name: 'эн (en)', ipa: 'ɛn' },
+        { letter: 'П', name: 'пэ (pe)', ipa: 'pɛ' },
+        { letter: 'Р', name: 'эр (err)', ipa: 'ɛr' },
+        { letter: 'С', name: 'эс (es)', ipa: 'ɛs' },
+        { letter: 'Т', name: 'тэ (te)', ipa: 'tɛ' },
+        { letter: 'Ф', name: 'эф (ef)', ipa: 'ɛf' },
+        { letter: 'Х', name: 'ха', ipa: 'xa' },
+        { letter: 'Ц', name: 'цэ (tse)', ipa: 'tsɛ' },
+        { letter: 'Ч', name: 'че', ipa: 'tɕe' },
+        { letter: 'Ш', name: 'ша', ipa: 'ʂa' },
+        { letter: 'Щ', name: 'ща', ipa: 'ɕːa' },
+        { letter: 'Ъ', name: 'твёрдый знак', ipa: 'ˈtvʲɵrdɨj znak' },
+        { letter: 'Ь', name: 'мягкий знак', ipa: 'ˈmʲæxʲkʲɪj znak' },
+    ];
+
     const chart = byId['russian-alphabet-chart'];
     if (!chart) fail('russian-alphabet-chart article not found; the static chart assertion cannot run');
     const cardLetters = [];
@@ -223,6 +264,38 @@ function main() {
     if (extra.length) fail('russian-alphabet-chart: letters in the chart that are not Russian: ' + extra.join(' '));
     const noAudio = cardLetters.filter(function (ch) { return !audioLetters.has(ch); });
     if (noAudio.length) fail('russian-alphabet-chart: card letters absent from CYRILLIC_DATA (no audio): ' + noAudio.join(' '));
+
+    // Every card carries exactly one name line and one IPA line, with the expected text.
+    const nameById = {};
+    LETTER_NAMES.forEach(function (entry) { nameById[entry.letter] = entry; });
+    if (LETTER_NAMES.length !== 33) fail('LETTER_NAMES has ' + LETTER_NAMES.length + ' entries, expected 33');
+    const chartCardRe = /<button[^>]*class="letter-card[^"]*"[^>]*data-letter="([^"]+)"[^>]*>([\s\S]*?)<\/button>/g;
+    let chartCard;
+    let checkedNames = 0;
+    while ((chartCard = chartCardRe.exec(chart.content)) !== null) {
+        const letter = chartCard[1];
+        const html = chartCard[2];
+        const want = nameById[letter];
+        if (!want) fail('russian-alphabet-chart: no expected name for card ' + letter);
+        function lineText(cls) {
+            const m = html.match(new RegExp('<div class="' + cls + '">([^<]*)</div>'));
+            return m ? m[1] : null;
+        }
+        if (countOccurrences(html, 'class="letter-name"') !== 1) {
+            fail('russian-alphabet-chart: ' + letter + ' does not have exactly one letter-name line');
+        }
+        if (countOccurrences(html, 'class="letter-ipa"') !== 1) {
+            fail('russian-alphabet-chart: ' + letter + ' does not have exactly one letter-ipa line');
+        }
+        if (lineText('letter-name') !== want.name) {
+            fail('russian-alphabet-chart: ' + letter + ' name is "' + lineText('letter-name') + '", expected "' + want.name + '"');
+        }
+        if (lineText('letter-ipa') !== '/' + want.ipa + '/') {
+            fail('russian-alphabet-chart: ' + letter + ' IPA is "' + lineText('letter-ipa') + '", expected "/' + want.ipa + '/"');
+        }
+        checkedNames += 1;
+    }
+    if (checkedNames !== 33) fail('russian-alphabet-chart: checked ' + checkedNames + ' cards for names, expected 33');
 
     // ---- copy tiles: the cyrillic-copy-paste grids are static HTML too ----
     // Same rule as the chart above. The expected sets live here because the build

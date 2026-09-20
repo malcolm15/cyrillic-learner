@@ -296,6 +296,8 @@ ArticleScripts['russian-alphabet-chart'] = function() {
     // already visible, so this does not re-render anything.
     applyFilter('all');
 
+    // The printable chart deliberately omits the letter name and IPA lines: it is a
+    // one-page reference, and two more lines across 33 cells would push it to two.
     // Builds a print-only DOM subtree from the cards in the document, appended to
     // body. Called fresh on each print so checkbox state is always honored. Every
     // letter prints regardless of the current filter, as it always has.
