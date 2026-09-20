@@ -1778,7 +1778,7 @@ const ARTICLES = [
         content: `
             <p>The backwards R is a real letter: Cyrillic Я, pronounced yah. Hear it, copy it to your clipboard, and see why ЯUSSIAN makes Russian speakers laugh. Hollywood has been using this letter wrong for decades, and once you know what Я actually is, you will never unsee it.</p>
             
-            <p>Welcome to "faux Cyrillic," the Western world's favorite way to make something look Russian without actually using Russian.</p>
+            <p>Using Я for R is an example of faux Cyrillic, which borrows Cyrillic letter shapes for their look rather than their sound, usually to evoke Russia or the Soviet Union.</p>
 
             <p>Tap any letter to hear what it really sounds like, or copy it to your clipboard:</p>
             <div class="false-friends-grid lookalike-strip" id="lookalike-strip"></div>
@@ -1852,19 +1852,37 @@ const ARTICLES = [
             The film's title treatment swaps Д in for A. Д makes a "d" sound, so the word reads as "bordt".</p>
             
                         
-            <p><strong>Vodka Branding:</strong><br>
-            Countless vodka bottles use Я and И to look Russian. None of them would make sense to an actual Russian reader.</p>
-
-            <h3>Where the Russian Comes From</h3>
+            <h3>On Screen: Films, TV and Games</h3>
             
-            <p><strong>The Americans (TV Show):</strong><br>
-            Its creators, Joe Weisberg and Joel Fields, set a rule that characters speak whatever language they would speak in reality: two Russian speakers speak Russian, with subtitles.</p>
+            <p><strong>Red Dawn (1984):</strong><br>
+            High school students in Calumet, Colorado, witness a Soviet-led invasion of their town. The film's poster gives the title in Russian, Красный рассвет, above the English.</p>
             
-            <p><strong>Video Games:</strong><br>
-            Metro 2033 comes from 4A Games, founded in Kyiv by developers who left the Ukrainian studio GSC Game World, and adapts Dmitry Glukhovsky's Russian novel, with Glukhovsky credited as a writer. For more on how Cyrillic appears in games and movies, see our <a href="/articles/cyrillic-pop-culture" onclick="navTo(event, null, 'cyrillic-pop-culture')">complete guide to Cyrillic in pop culture</a>.</p>
+            <p><strong>Rocky IV (1985):</strong><br>
+            Sylvester Stallone fights Soviet boxer Ivan Drago in a film known for its strong Cold War themes.</p>
             
-            <p><strong>Historical Films:</strong><br>
-            The Death of Stalin brought in Polly Jones, an Oxford specialist in Russian culture, as a consultant.</p>
+            <p><strong>The Hunt for Red October (1990):</strong><br>
+            A Cold War thriller about a Soviet submarine captain attempting to defect, with a memorable language device: the Soviet dialogue starts in Russian with subtitles and switches to English in mid-sentence, on the word "Armageddon".</p>
+            
+            <p><strong>GoldenEye (1995):</strong><br>
+            It features General Arkady Ourumov, commander of Russia's Space Division, and scenes set in Arkhangelsk, Severnaya in Siberia, and Saint Petersburg.</p>
+            
+            <p><strong>The Americans (2013-2018):</strong><br>
+            A TV show about Soviet spies in 1980s America. Its creators, Joe Weisberg and Joel Fields, set a rule that characters speak whatever language they would speak in reality: two Russian speakers speak Russian, with subtitles.</p>
+            
+            <p><strong>Stranger Things (2016-2025):</strong><br>
+            Season 3 has a Russian lab beneath the Starcourt mall.</p>
+            
+            <p><strong>The Death of Stalin:</strong><br>
+            The production brought in Polly Jones, an Oxford specialist in Russian culture, as a consultant.</p>
+            
+            <p><strong>Metro 2033 / Metro: Last Light (2010, 2013):</strong><br>
+            Set in post-apocalyptic Moscow. The games come from 4A Games, founded in Kyiv in 2006 by three developers who left the Ukrainian studio GSC Game World, and they adapt Dmitry Glukhovsky's Russian novel, with Glukhovsky credited as a writer on the game.</p>
+            
+            <p><strong>S.T.A.L.K.E.R. series (2007-2024):</strong><br>
+            Another Ukrainian-developed series, from GSC Game World, set in an alternate version of the Chernobyl exclusion zone.</p>
+            
+            <p><strong>Call of Duty 4: Modern Warfare:</strong><br>
+            Its antagonists are Russian Ultranationalists who seek to restore the country's Soviet-era influence, and one mission is set in the abandoned city of Pripyat, Ukraine.</p>
 
             <h3>The Flip Side: Fake English in Russia</h3>
             
@@ -2435,7 +2453,7 @@ const ARTICLES = [
 
             <h3 id="cultural-impact">Contemporary Cultural Impact: Cyrillic Beyond Language</h3>
             <p>In the 21st century, Cyrillic has taken on new cultural meanings beyond its linguistic function. Western brands sometimes use faux-Cyrillic typography for "Russian" aesthetics, replacing Latin letters with similar-looking Cyrillic ones to create words like "ЯUSSIAИ" (combining backwards R for Я, which sounds like "ya"). This practice, sometimes called "faux Cyrillic" or "pseudo-Russian," is graphically striking but linguistically nonsensical.</p>
-            <p>For how Cyrillic appears in films, games and branding, see our <a href="/articles/cyrillic-pop-culture" onclick="navTo(event, null, 'cyrillic-pop-culture')">guide to Cyrillic in pop culture</a>.</p>
+            <p>For what Я and the other borrowed letters actually say, see our <a href="/articles/backwards-r-myth" onclick="navTo(event, null, 'backwards-r-myth')">guide to the backwards R</a>.</p>
 
             <h3 id="why-survives">Why Cyrillic Survives</h3>
             <p>Alphabets don't survive for 1,150 years by accident. Cyrillic has outlasted the Byzantine Empire that inspired it, the First Bulgarian Empire that adopted it, the Mongol Empire that temporarily disrupted it, the Russian Empire that reformed it, the Soviet Union that weaponized it, and the Cold War that made it a geopolitical symbol. Several factors explain this extraordinary durability.</p>
