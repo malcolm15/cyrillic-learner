@@ -179,7 +179,7 @@ const ARTICLES = [
 
             <p>Russian has 10 vowel letters, and they show up in basically every word. If you don't know your vowels cold, you're going to struggle to read anything. Plus, some of the vowels are actually kind of tricky. Ы doesn't exist in English. Ё and Е sound different but look almost identical.</p>
 
-            <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix. The <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">alphabet chart</a> lets you filter by vowels so you can focus on just those ten.</p>
+            <p>Start with the vowels. Learn them first. Get comfortable with them before you add consonants into the mix. The <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">Russian alphabet chart</a> lets you filter by vowels so you can focus on just those ten.</p>
 
             <p>Trust me on this one. Learning backwards (consonants first, vowels later) is a common trap, and it rarely goes well. You end up having to relearn everything because you don't have the foundation you need.</p>
 
@@ -3519,7 +3519,7 @@ const ARTICLES = [
 
             <p>Setting up a keyboard makes sense if you type Russian regularly. If you just need a Cyrillic letter or two for a username, a design project, or to paste into a translator, a keyboard setup is overkill. Our <a href="/articles/cyrillic-copy-paste" onclick="navTo(event, null, 'cyrillic-copy-paste')">Cyrillic copy-and-paste tool</a> gives you every letter in the alphabet (including accented letters and pre-reform characters) with one-click copying. No installation, no configuration, works on any device.</p>
 
-            <p>For learning the actual letters and their sounds, the <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">interactive alphabet chart</a> has pronunciation audio for all 33 Russian letters. Learning the alphabet first makes the keyboard layout way less intimidating.</p>
+            <p>For learning the actual letters and their sounds, the <a href="/articles/russian-alphabet-chart" onclick="navTo(event, null, 'russian-alphabet-chart')">Russian alphabet chart with audio</a> has all 33 letters and example words. Learning the alphabet first makes the keyboard layout way less intimidating.</p>
 
             <div class="quiz-cta">
                 <p>Got your keyboard set up? Try it out in the text builder on our copy-and-paste page. Switch to your Russian layout, type a few words straight into the box, and click any letter tile for a character you cannot find yet.</p>

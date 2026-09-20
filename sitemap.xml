@@ -4,7 +4,7 @@
     <!-- Homepage -->
     <url>
         <loc>https://cyrilica.com/</loc>
-        <lastmod>2026-09-18</lastmod>
+        <lastmod>2026-09-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -34,7 +34,7 @@
     
     <url>
         <loc>https://cyrilica.com/articles/common-mistakes</loc>
-        <lastmod>2026-09-18</lastmod>
+        <lastmod>2026-09-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -259,7 +259,7 @@
     
     <url>
         <loc>https://cyrilica.com/articles/how-to-type-cyrillic</loc>
-        <lastmod>2026-09-18</lastmod>
+        <lastmod>2026-09-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         <image:image>

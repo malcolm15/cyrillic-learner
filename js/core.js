@@ -430,7 +430,7 @@ const ARTICLE_ORDER = [
 const ARTICLE_META = {
     // Getting Started
     'getting-started':          { section: 'Getting Started',           published: '2026-02-10', modified: '2026-09-20', keywords: ['cyrillic alphabet', 'learn cyrillic', 'beginner guide', 'russian letters'] },
-    'common-mistakes':          { section: 'Getting Started',           published: '2026-02-10', modified: '2026-09-18', keywords: ['cyrillic mistakes', 'learning tips', 'false friends', 'beginner errors'] },
+    'common-mistakes':          { section: 'Getting Started',           published: '2026-02-10', modified: '2026-09-20', keywords: ['cyrillic mistakes', 'learning tips', 'false friends', 'beginner errors'] },
     'false-friends':            { section: 'Getting Started',           published: '2026-02-12', modified: '2026-09-20', keywords: ['false friends', 'cyrillic letters', 'confusing letters', 'look-alike letters'] },
     'memory-tricks':            { section: 'Getting Started',           published: '2026-02-14', modified: '2026-09-20', keywords: ['memory tricks', 'mnemonics', 'cyrillic memorization', 'confusing letters'] },
     'cyrillic-tier-list':       { section: 'Getting Started',           published: '2026-02-18', modified: '2026-09-20', keywords: ['cyrillic difficulty', 'letter ranking', 'tier list', 'hardest letters'] },
@@ -455,7 +455,7 @@ const ARTICLE_META = {
     'letter-yo-story':          { section: 'History & Culture',         published: '2026-04-15', modified: '2026-09-20', keywords: ['letter yo russian', 'russian letter ё', 'karamzin letter yo', 'princess dashkova', 'russian spelling', 'yofikator', 'optional russian letter', 'cyrillic letter ё history'] },
     // Learning Tools & Resources
     'cyrillic-copy-paste':      { section: 'Learning Tools & Resources', published: '2026-03-01', modified: '2026-09-20', keywords: ['cyrillic copy paste', 'russian letters clipboard', 'cyrillic characters', 'accented cyrillic vowels', 'russian stress marks', 'pre-reform russian letters', 'yat letter', 'copy tool'] },
-    'how-to-type-cyrillic':     { section: 'Learning Tools & Resources', published: '2026-04-15', modified: '2026-09-18', keywords: ['how to type russian', 'russian keyboard setup', 'cyrillic keyboard windows', 'cyrillic keyboard mac', 'russian keyboard iphone', 'russian keyboard android', 'phonetic russian keyboard', 'type cyrillic letters'] },
+    'how-to-type-cyrillic':     { section: 'Learning Tools & Resources', published: '2026-04-15', modified: '2026-09-20', keywords: ['how to type russian', 'russian keyboard setup', 'cyrillic keyboard windows', 'cyrillic keyboard mac', 'russian keyboard iphone', 'russian keyboard android', 'phonetic russian keyboard', 'type cyrillic letters'] },
     'russian-alphabet-chart':   { section: 'Learning Tools & Resources', published: '2026-02-12', modified: '2026-09-20', keywords: ['russian alphabet chart', '33 letters', 'pronunciation guide', 'interactive chart', 'printable russian alphabet chart', 'russian alphabet chart pdf'] },
     'practice-writing-cyrillic':{ section: 'Learning Tools & Resources', published: '2026-02-28', modified: '2026-09-20', keywords: ['write cyrillic', 'handwriting practice', 'cyrillic cursive', 'penmanship', 'russian cursive stroke order', 'how to write russian cursive letters'] },
     'cyrillic-learning-resources':{ section: 'Learning Tools & Resources', published: '2026-03-04', modified: '2026-09-18', keywords: ['learning resources', 'best apps', 'cyrillic tools', 'study materials'] }
