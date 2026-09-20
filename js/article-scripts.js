@@ -92,48 +92,16 @@ function playAudio(char) {
 // ==================== ARTICLE SCRIPTS ====================
 
 // Cyrillic Copy-Paste Interactive Functionality
+// The copy tiles are static HTML in the article body (js/articles.js), so every
+// character is in the served document and readable without JavaScript. This
+// script only attaches behaviour: clipboard copy, insertion into the text
+// builder, and the toast. Each tile carries its character in data-char, which is
+// read instead of textContent because the tile also contains the "Copied!" span,
+// and because an accented tile is two code points. scripts/pre-render.js asserts
+// the tile set of every container at build time.
 ArticleScripts['cyrillic-copy-paste'] = function() {
-    if (typeof CYRILLIC_DATA === 'undefined') return;
-    
-    var uppercaseContainer = document.getElementById('uppercase-container');
-    var lowercaseContainer = document.getElementById('lowercase-container');
-    var specialContainer = document.getElementById('special-container');
-    var accentedUpperContainer = document.getElementById('accented-upper-container');
-    var accentedLowerContainer = document.getElementById('accented-lower-container');
-    var prereformContainer = document.getElementById('prereform-container');
     var textArea = document.getElementById('text-builder-area');
     var toast = document.getElementById('text-builder-toast');
-    
-    if (!uppercaseContainer || !lowercaseContainer || !specialContainer) return;
-
-    var uppercase = [];
-    var lowercase = [];
-    var special = ['Ё', 'ё', 'Ъ', 'ъ', 'Ь', 'ь', 'Ы', 'ы', 'Э', 'э', 'Ю', 'ю', 'Я', 'я'];
-
-    // Collect all letters from CYRILLIC_DATA
-    var groupKeys = Object.keys(CYRILLIC_DATA);
-    for (var i = 0; i < groupKeys.length; i++) {
-        var group = CYRILLIC_DATA[groupKeys[i]];
-        var charKeys = Object.keys(group.chars);
-        for (var j = 0; j < charKeys.length; j++) {
-            var data = group.chars[charKeys[j]];
-            uppercase.push(data.upper);
-            lowercase.push(data.lower);
-        }
-    }
-
-    function removeDuplicates(arr) {
-        var unique = [];
-        for (var i = 0; i < arr.length; i++) {
-            if (unique.indexOf(arr[i]) === -1) {
-                unique.push(arr[i]);
-            }
-        }
-        return unique.sort();
-    }
-
-    var uniqueUpper = removeDuplicates(uppercase);
-    var uniqueLower = removeDuplicates(lowercase);
 
     // Toast helper
     var toastTimeout = null;
@@ -146,8 +114,8 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
         }, 1500);
     }
 
-    // Caret-aware insert into the text builder. Shared by the letter buttons
-    // and the space buttons. Same logic the letter buttons always used.
+    // Caret-aware insert into the text builder. Shared by the letter tiles and
+    // the space tiles. Same logic the letter buttons always used.
     function insertAtCaret(char) {
         if (!textArea) return;
         var pos = textArea.selectionStart || textArea.value.length;
@@ -155,94 +123,25 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
         textArea.selectionStart = textArea.selectionEnd = pos + char.length;
     }
 
-    function createCopyButton(char) {
-        var btn = document.createElement('button');
-        btn.className = 'copy-char-btn';
-        btn.textContent = char;
-        
-        var feedback = document.createElement('span');
-        feedback.className = 'copy-feedback';
-        feedback.textContent = 'Copied!';
-        btn.appendChild(feedback);
-        
-        btn.onclick = function() {
-            // Append to text builder
-            insertAtCaret(char);
-            // Also copy individual character
-            copyToClipboard(char, btn);
-        };
-        
-        return btn;
+    // Character tiles: insert at the caret, then copy the character on its own.
+    var charTiles = document.querySelectorAll('.copy-grid .copy-char-btn[data-char]');
+    for (var i = 0; i < charTiles.length; i++) {
+        (function(btn) {
+            var char = btn.getAttribute('data-char');
+            btn.onclick = function() {
+                insertAtCaret(char);
+                copyToClipboard(char, btn);
+            };
+        })(charTiles[i]);
     }
 
-    // Space tile: inserts a space at the caret only. No clipboard write and no
+    // Space tiles: insert a space at the caret only. No clipboard write and no
     // copied feedback; a lone space on the clipboard would be useless.
-    function createSpaceButton() {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'copy-char-btn copy-space-tile';
-        btn.textContent = 'Space';
-        btn.setAttribute('aria-label', 'Insert space');
-        btn.onclick = function() {
+    var spaceTiles = document.querySelectorAll('.copy-space-tile');
+    for (var j = 0; j < spaceTiles.length; j++) {
+        spaceTiles[j].onclick = function() {
             insertAtCaret(' ');
         };
-        return btn;
-    }
-
-    // Build uppercase buttons
-    for (var i = 0; i < uniqueUpper.length; i++) {
-        if (special.indexOf(uniqueUpper[i]) === -1) {
-            uppercaseContainer.appendChild(createCopyButton(uniqueUpper[i]));
-        }
-    }
-    uppercaseContainer.appendChild(createSpaceButton());
-
-    // Build lowercase buttons
-    for (var i = 0; i < uniqueLower.length; i++) {
-        if (special.indexOf(uniqueLower[i]) === -1) {
-            lowercaseContainer.appendChild(createCopyButton(uniqueLower[i]));
-        }
-    }
-    lowercaseContainer.appendChild(createSpaceButton());
-
-    // Build special character buttons
-    for (var i = 0; i < special.length; i++) {
-        specialContainer.appendChild(createCopyButton(special[i]));
-    }
-    specialContainer.appendChild(createSpaceButton());
-
-    // Build accented vowel buttons (combining acute accent U+0301)
-    var accentMark = '\u0301';
-    var vowelsUpper = ['А', 'Е', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я', 'Ё'];
-    var vowelsLower = ['а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я', 'ё'];
-
-    if (accentedUpperContainer) {
-        for (var i = 0; i < vowelsUpper.length; i++) {
-            accentedUpperContainer.appendChild(createCopyButton(vowelsUpper[i] + accentMark));
-        }
-        accentedUpperContainer.appendChild(createSpaceButton());
-    }
-
-    if (accentedLowerContainer) {
-        for (var i = 0; i < vowelsLower.length; i++) {
-            accentedLowerContainer.appendChild(createCopyButton(vowelsLower[i] + accentMark));
-        }
-        accentedLowerContainer.appendChild(createSpaceButton());
-    }
-
-    // Build pre-reform letter buttons
-    var prereformLetters = [
-        'Ѣ', 'ѣ',  // yat
-        'Ѳ', 'ѳ',  // fita
-        'І', 'і',   // decimal i
-        'Ѵ', 'ѵ'   // izhitsa
-    ];
-
-    if (prereformContainer) {
-        for (var i = 0; i < prereformLetters.length; i++) {
-            prereformContainer.appendChild(createCopyButton(prereformLetters[i]));
-        }
-        prereformContainer.appendChild(createSpaceButton());
     }
 
     // Wire up Copy button

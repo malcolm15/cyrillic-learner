@@ -3513,24 +3513,128 @@ const ARTICLES = [
 
             <h3>Standard Russian Alphabet</h3>
             <p class="copy-section-label">Uppercase</p>
-            <div id="uppercase-container" class="copy-grid"></div>
+            <div id="uppercase-container" class="copy-grid">
+                <button type="button" class="copy-char-btn" data-char="А">А<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Б">Б<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="В">В<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Г">Г<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Д">Д<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Е">Е<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ж">Ж<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="З">З<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="И">И<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Й">Й<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="К">К<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Л">Л<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="М">М<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Н">Н<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="О">О<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="П">П<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Р">Р<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="С">С<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Т">Т<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="У">У<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ф">Ф<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Х">Х<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ц">Ц<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ч">Ч<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ш">Ш<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Щ">Щ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
+            </div>
 
             <p class="copy-section-label">Lowercase</p>
-            <div id="lowercase-container" class="copy-grid"></div>
+            <div id="lowercase-container" class="copy-grid">
+                <button type="button" class="copy-char-btn" data-char="а">а<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="б">б<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="в">в<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="г">г<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="д">д<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="е">е<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ж">ж<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="з">з<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="и">и<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="й">й<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="к">к<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="л">л<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="м">м<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="н">н<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="о">о<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="п">п<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="р">р<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="с">с<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="т">т<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="у">у<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ф">ф<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="х">х<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ц">ц<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ч">ч<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ш">ш<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="щ">щ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
+            </div>
 
             <p class="copy-section-label">Special Characters (Ё, Signs, Ы, Э, Ю, Я)</p>
-            <div id="special-container" class="copy-grid"></div>
+            <div id="special-container" class="copy-grid">
+                <button type="button" class="copy-char-btn" data-char="Ё">Ё<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ё">ё<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ъ">Ъ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ъ">ъ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ь">Ь<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ь">ь<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ы">Ы<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ы">ы<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Э">Э<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="э">э<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ю">Ю<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ю">ю<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Я">Я<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="я">я<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
+            </div>
 
             <h3>Accented Letters (Stress Marks)</h3>
             <p>Russian dictionaries and textbooks use acute accents to mark stressed syllables. These are hard to type. Here they are ready to copy.</p>
             <p class="copy-section-label">Uppercase Accented</p>
-            <div id="accented-upper-container" class="copy-grid"></div>
+            <div id="accented-upper-container" class="copy-grid">
+                <button type="button" class="copy-char-btn" data-char="А́">А́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Е́">Е́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="И́">И́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="О́">О́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="У́">У́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ы́">Ы́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Э́">Э́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ю́">Ю́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Я́">Я́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
+            </div>
             <p class="copy-section-label">Lowercase Accented</p>
-            <div id="accented-lower-container" class="copy-grid"></div>
+            <div id="accented-lower-container" class="copy-grid">
+                <button type="button" class="copy-char-btn" data-char="а́">а́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="е́">е́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="и́">и́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="о́">о́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="у́">у́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ы́">ы́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="э́">э́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ю́">ю́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="я́">я́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
+            </div>
 
             <h3>Pre-Reform Letters (Pre-1918)</h3>
             <p>These letters dropped out of Russian with the 1918 spelling reform. Three were removed by decree, and the fourth, izhitsa, had already fallen out of use. You'll still encounter them in pre-revolutionary texts, historical documents, and academic publications.</p>
-            <div id="prereform-container" class="copy-grid"></div>
+            <div id="prereform-container" class="copy-grid">
+                <button type="button" class="copy-char-btn" data-char="Ѣ">Ѣ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ѣ">ѣ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ѳ">Ѳ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ѳ">ѳ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="І">І<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="і">і<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ѵ">Ѵ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ѵ">ѵ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
+            </div>
 
             <h3>How to Use</h3>
 

@@ -34,6 +34,8 @@
 // - The russian-alphabet-chart cards live in article.content as static HTML, so
 //   the rule above puts all 33 letters in the served document and in the in-app
 //   render, with no second render and no JS-built grid. Asserted below.
+// - The cyrillic-copy-paste tiles work the same way, per container. Asserted
+//   below against CYRILLIC_DATA and the COPY_* lists kept in this file.
 // - Schema scripts are emitted with id="article-schema" and
 //   id="breadcrumb-schema" so injectArticleSchema REPLACES them on hydration
 //   instead of duplicating them.
@@ -219,6 +221,76 @@ function main() {
     if (extra.length) fail('russian-alphabet-chart: letters in the chart that are not Russian: ' + extra.join(' '));
     const noAudio = cardLetters.filter(function (ch) { return !audioLetters.has(ch); });
     if (noAudio.length) fail('russian-alphabet-chart: card letters absent from CYRILLIC_DATA (no audio): ' + noAudio.join(' '));
+
+    // ---- copy tiles: the cyrillic-copy-paste grids are static HTML too ----
+    // Same rule as the chart above. The expected sets live here because the build
+    // is their only consumer: the markup is what ships, and these lists are the
+    // guard that it still says what we intend. COPY_SPECIAL, COPY_ACCENT_VOWELS
+    // and COPY_PREREFORM are not derivable from CYRILLIC_DATA. Ё is deliberately
+    // absent from the accented vowels: it is always stressed, so a stress-marked
+    // Ё would contradict the letter-yo-story article.
+    const COMBINING_ACUTE = '\u0301';
+    const COPY_SPECIAL = ['Ё', 'ё', 'Ъ', 'ъ', 'Ь', 'ь', 'Ы', 'ы', 'Э', 'э', 'Ю', 'ю', 'Я', 'я'];
+    const COPY_ACCENT_UPPER = ['А', 'Е', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я'];
+    const COPY_ACCENT_LOWER = ['а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'];
+    const COPY_PREREFORM = ['Ѣ', 'ѣ', 'Ѳ', 'ѳ', 'І', 'і', 'Ѵ', 'ѵ'];
+
+    const copyPaste = byId['cyrillic-copy-paste'];
+    if (!copyPaste) fail('cyrillic-copy-paste article not found; the copy tile assertion cannot run');
+
+    const upperAll = [];
+    const lowerAll = [];
+    Object.keys(CYRILLIC_DATA).forEach(function (groupKey) {
+        const chars = CYRILLIC_DATA[groupKey].chars;
+        Object.keys(chars).forEach(function (ch) {
+            upperAll.push(chars[ch].upper);
+            lowerAll.push(chars[ch].lower);
+        });
+    });
+    function sortedUnique(arr) {
+        return [...new Set(arr)].sort();
+    }
+    const notSpecial = function (ch) { return COPY_SPECIAL.indexOf(ch) === -1; };
+
+    const expectedTiles = {
+        'uppercase-container': sortedUnique(upperAll).filter(notSpecial),
+        'lowercase-container': sortedUnique(lowerAll).filter(notSpecial),
+        'special-container': COPY_SPECIAL,
+        'accented-upper-container': COPY_ACCENT_UPPER.map(function (ch) { return ch + COMBINING_ACUTE; }),
+        'accented-lower-container': COPY_ACCENT_LOWER.map(function (ch) { return ch + COMBINING_ACUTE; }),
+        'prereform-container': COPY_PREREFORM,
+    };
+
+    Object.keys(expectedTiles).forEach(function (containerId) {
+        const expected = expectedTiles[containerId];
+        const open = '<div id="' + containerId + '" class="copy-grid">';
+        const at = copyPaste.content.indexOf(open);
+        if (at === -1) fail('cyrillic-copy-paste: container "' + containerId + '" not found in the article HTML');
+        const closeAt = copyPaste.content.indexOf('</div>', at);
+        if (closeAt === -1) fail('cyrillic-copy-paste: container "' + containerId + '" is not closed');
+        const inner = copyPaste.content.slice(at + open.length, closeAt);
+
+        const chars = [];
+        const tileRe = /<button[^>]*class="copy-char-btn"[^>]*data-char="([^"]+)"[^>]*>/g;
+        let tile;
+        while ((tile = tileRe.exec(inner)) !== null) chars.push(tile[1]);
+
+        if (chars.length !== expected.length) {
+            fail('cyrillic-copy-paste: ' + containerId + ' has ' + chars.length +
+                 ' character tiles, expected ' + expected.length);
+        }
+        const dupes = chars.filter(function (ch, i) { return chars.indexOf(ch) !== i; });
+        if (dupes.length) fail('cyrillic-copy-paste: ' + containerId + ' has duplicate tiles: ' + dupes.join(' '));
+        const wrong = chars.filter(function (ch, i) { return ch !== expected[i]; });
+        if (wrong.length) {
+            fail('cyrillic-copy-paste: ' + containerId + ' tiles do not match the expected set.' +
+                 ' Expected: ' + expected.join(' ') + ' | found: ' + chars.join(' '));
+        }
+        const spaces = countOccurrences(inner, 'class="copy-char-btn copy-space-tile"');
+        if (spaces !== 1) {
+            fail('cyrillic-copy-paste: ' + containerId + ' has ' + spaces + ' space tiles, expected exactly 1');
+        }
+    });
 
     // ---- static template needles (byte-for-byte from index.html) ----
     const T = {
