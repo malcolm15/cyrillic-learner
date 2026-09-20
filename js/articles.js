@@ -1781,7 +1781,72 @@ const ARTICLES = [
             <p>Using Я for R is an example of faux Cyrillic, which borrows Cyrillic letter shapes for their look rather than their sound, usually to evoke Russia or the Soviet Union.</p>
 
             <p>Tap any letter to hear what it really sounds like, or copy it to your clipboard:</p>
-            <div class="false-friends-grid lookalike-strip" id="lookalike-strip"></div>
+            <div class="false-friends-grid lookalike-strip" id="lookalike-strip">
+                <div class="ff-card lookalike-card" data-letter="Я">
+                    <div class="ff-letter">Я</div>
+                    <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">R</span> · <span class="lookalike-says">says </span><span class="ff-right">ya</span><span class="lookalike-hint"> (yard)</span></div>
+                    <div class="lookalike-actions">
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Я">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Я">📋</button>
+                    </div>
+                </div>
+                <div class="ff-card lookalike-card" data-letter="И">
+                    <div class="ff-letter">И</div>
+                    <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">N</span> · <span class="lookalike-says">says </span><span class="ff-right">ee</span><span class="lookalike-hint"> (see)</span></div>
+                    <div class="lookalike-actions">
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to И">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy И">📋</button>
+                    </div>
+                </div>
+                <div class="ff-card lookalike-card" data-letter="Д">
+                    <div class="ff-letter">Д</div>
+                    <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">A</span> · <span class="lookalike-says">says </span><span class="ff-right">d</span><span class="lookalike-hint"> (dog)</span></div>
+                    <div class="lookalike-actions">
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Д">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Д">📋</button>
+                    </div>
+                </div>
+                <div class="ff-card lookalike-card" data-letter="Ш">
+                    <div class="ff-letter">Ш</div>
+                    <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">W</span> · <span class="lookalike-says">says </span><span class="ff-right">sh</span><span class="lookalike-hint"> (shop)</span></div>
+                    <div class="lookalike-actions">
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ш">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Ш">📋</button>
+                    </div>
+                </div>
+                <div class="ff-card lookalike-card" data-letter="Ц">
+                    <div class="ff-letter">Ц</div>
+                    <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">U</span> · <span class="lookalike-says">says </span><span class="ff-right">ts</span><span class="lookalike-hint"> (cats)</span></div>
+                    <div class="lookalike-actions">
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ц">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Ц">📋</button>
+                    </div>
+                </div>
+                <div class="ff-card lookalike-card" data-letter="Г">
+                    <div class="ff-letter">Г</div>
+                    <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">r</span> · <span class="lookalike-says">says </span><span class="ff-right">g</span><span class="lookalike-hint"> (go)</span></div>
+                    <div class="lookalike-actions">
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Г">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Г">📋</button>
+                    </div>
+                </div>
+                <div class="ff-card lookalike-card" data-letter="Ф">
+                    <div class="ff-letter">Ф</div>
+                    <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">O</span> · <span class="lookalike-says">says </span><span class="ff-right">f</span><span class="lookalike-hint"> (fox)</span></div>
+                    <div class="lookalike-actions">
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ф">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Ф">📋</button>
+                    </div>
+                </div>
+                <div class="ff-card lookalike-card" data-letter="Ё">
+                    <div class="ff-letter">Ё</div>
+                    <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">E</span> · <span class="lookalike-says">says </span><span class="ff-right">yo</span><span class="lookalike-hint"> (yolk)</span></div>
+                    <div class="lookalike-actions">
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ё">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Ё">📋</button>
+                    </div>
+                </div>
+            </div>
 
             <h3>The Most Famous False Friend: Я ≠ R</h3>
             

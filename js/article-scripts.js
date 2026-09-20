@@ -191,20 +191,14 @@ ArticleScripts['cyrillic-copy-paste'] = function() {
 };
 
 // ==================== BACKWARDS R MYTH: LOOKALIKE STRIP ====================
+// The lookalike cards are static HTML in the article body (js/articles.js), so
+// the eight letters and their explainer lines are in the served document and
+// readable without JavaScript. This script only attaches behaviour: audio,
+// clipboard copy and the GA event. Each card carries its letter in data-letter.
+// scripts/pre-render.js asserts the card set and the explainer text at build time.
 ArticleScripts['backwards-r-myth'] = function() {
     var strip = document.getElementById('lookalike-strip');
     if (!strip) return;
-
-    var lookalikes = [
-        { letter: 'Я', looks: 'R', says: 'ya', hint: 'yard' },
-        { letter: 'И', looks: 'N', says: 'ee', hint: 'see' },
-        { letter: 'Д', looks: 'A', says: 'd', hint: 'dog' },
-        { letter: 'Ш', looks: 'W', says: 'sh', hint: 'shop' },
-        { letter: 'Ц', looks: 'U', says: 'ts', hint: 'cats' },
-        { letter: 'Г', looks: 'r', says: 'g', hint: 'go' },
-        { letter: 'Ф', looks: 'O', says: 'f', hint: 'fox' },
-        { letter: 'Ё', looks: 'E', says: 'yo', hint: 'yolk' }
-    ];
 
     function track(letter, action) {
         if (typeof gtag !== 'undefined') {
@@ -215,88 +209,33 @@ ArticleScripts['backwards-r-myth'] = function() {
         }
     }
 
-    function createLookalikeCard(item) {
-        var card = document.createElement('div');
-        card.className = 'ff-card lookalike-card';
+    var cards = strip.querySelectorAll('.lookalike-card');
+    for (var i = 0; i < cards.length; i++) {
+        (function(card) {
+            var letter = card.getAttribute('data-letter');
+            var listenBtn = card.querySelector('.lookalike-listen');
+            var copyBtn = card.querySelector('.lookalike-copy');
 
-        var letterEl = document.createElement('div');
-        letterEl.className = 'ff-letter';
-        letterEl.textContent = item.letter;
+            if (listenBtn) {
+                listenBtn.onclick = function() {
+                    playAudio(letter);
+                    listenBtn.classList.add('playing');
+                    setTimeout(function() { listenBtn.classList.remove('playing'); }, 800);
+                    track(letter, 'listen');
+                };
+            }
 
-        // Single explainer line: looks like R \u00b7 says ya (yard).
-        // The verbose and hint spans hide below 480px so the core
-        // "like R \u00b7 says ya" fits phones without clipping.
-        var line = document.createElement('div');
-        line.className = 'lookalike-line';
-
-        var verbose = document.createElement('span');
-        verbose.className = 'lookalike-verbose';
-        verbose.textContent = 'looks ';
-        line.appendChild(verbose);
-
-        line.appendChild(document.createTextNode('like '));
-        var wrong = document.createElement('span');
-        wrong.className = 'ff-wrong';
-        wrong.textContent = item.looks;
-        line.appendChild(wrong);
-
-        line.appendChild(document.createTextNode(' \u00b7 '));
-        var says = document.createElement('span');
-        says.className = 'lookalike-says';
-        says.textContent = 'says ';
-        line.appendChild(says);
-        var right = document.createElement('span');
-        right.className = 'ff-right';
-        right.textContent = item.says;
-        line.appendChild(right);
-
-        var hint = document.createElement('span');
-        hint.className = 'lookalike-hint';
-        hint.textContent = ' (' + item.hint + ')';
-        line.appendChild(hint);
-
-        var actions = document.createElement('div');
-        actions.className = 'lookalike-actions';
-
-        var listenBtn = document.createElement('button');
-        listenBtn.type = 'button';
-        listenBtn.className = 'copy-char-btn lookalike-btn';
-        listenBtn.textContent = '\ud83d\udd0a';
-        listenBtn.setAttribute('aria-label', 'Listen to ' + item.letter);
-        listenBtn.onclick = function() {
-            playAudio(item.letter);
-            listenBtn.classList.add('playing');
-            setTimeout(function() { listenBtn.classList.remove('playing'); }, 800);
-            track(item.letter, 'listen');
-        };
-
-        var copyBtn = document.createElement('button');
-        copyBtn.type = 'button';
-        copyBtn.className = 'copy-char-btn lookalike-btn';
-        copyBtn.textContent = '\ud83d\udccb';
-        copyBtn.setAttribute('aria-label', 'Copy ' + item.letter);
-
-        copyBtn.onclick = function() {
-            copyToClipboard(item.letter, copyBtn);
-            // Icon swap feedback: the .copied colors come from the shared
-            // helper; the 1500ms revert matches its showCopiedFeedback timing.
-            copyBtn.textContent = '\u2713';
-            setTimeout(function() { copyBtn.textContent = '\ud83d\udccb'; }, 1500);
-            track(item.letter, 'copy');
-        };
-
-        actions.appendChild(listenBtn);
-        actions.appendChild(copyBtn);
-
-        card.appendChild(letterEl);
-        card.appendChild(line);
-        card.appendChild(actions);
-
-        return card;
-    }
-
-    for (var i = 0; i < lookalikes.length; i++) {
-        strip.appendChild(createLookalikeCard(lookalikes[i]));
+            if (copyBtn) {
+                copyBtn.onclick = function() {
+                    copyToClipboard(letter, copyBtn);
+                    // Icon swap feedback: the .copied colors come from the shared
+                    // helper; the 1500ms revert matches its showCopiedFeedback timing.
+                    copyBtn.textContent = '\u2713';
+                    setTimeout(function() { copyBtn.textContent = '\ud83d\udccb'; }, 1500);
+                    track(letter, 'copy');
+                };
+            }
+        })(cards[i]);
     }
 };
 

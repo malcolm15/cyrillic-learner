@@ -103,6 +103,9 @@ Two cross-file gotchas:
   case-sensitive while static files are served case-insensitively; case variants are
   an accepted residual risk because the repo is public and only the committed
   spelling is discoverable.
+- **Content containers.** Any list or table a reader should see must be static HTML
+  in articles.js, guarded by a pre-render assertion. Scripts attach to existing
+  markup; they do not build readable content into empty containers.
 - **History entries.** showPage, showArticle and showArticleIndex push a history
   entry by default. Any code reacting to a URL the browser has already changed
   (popstate) must pass { push: false }. Intermediate steps that are not

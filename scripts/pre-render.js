@@ -36,6 +36,8 @@
 //   render, with no second render and no JS-built grid. Asserted below.
 // - The cyrillic-copy-paste tiles work the same way, per container. Asserted
 //   below against CYRILLIC_DATA and the COPY_* lists kept in this file.
+// - The backwards-r-myth lookalike cards work the same way, with their
+//   explainer text asserted against LOOKALIKES below.
 // - Schema scripts are emitted with id="article-schema" and
 //   id="breadcrumb-schema" so injectArticleSchema REPLACES them on hydration
 //   instead of duplicating them.
@@ -289,6 +291,73 @@ function main() {
         const spaces = countOccurrences(inner, 'class="copy-char-btn copy-space-tile"');
         if (spaces !== 1) {
             fail('cyrillic-copy-paste: ' + containerId + ' has ' + spaces + ' space tiles, expected exactly 1');
+        }
+    });
+
+    // ---- lookalike strip: static cards in backwards-r-myth ----
+    // Same rule as the chart and the copy tiles. The explainer text is asserted
+    // too, not just the letters: a count-only check would let the visible
+    // "like R . says ya" drift away from the letter it describes.
+    const LOOKALIKES = [
+        { letter: 'Я', looks: 'R', says: 'ya', hint: 'yard' },
+        { letter: 'И', looks: 'N', says: 'ee', hint: 'see' },
+        { letter: 'Д', looks: 'A', says: 'd', hint: 'dog' },
+        { letter: 'Ш', looks: 'W', says: 'sh', hint: 'shop' },
+        { letter: 'Ц', looks: 'U', says: 'ts', hint: 'cats' },
+        { letter: 'Г', looks: 'r', says: 'g', hint: 'go' },
+        { letter: 'Ф', looks: 'O', says: 'f', hint: 'fox' },
+        { letter: 'Ё', looks: 'E', says: 'yo', hint: 'yolk' },
+    ];
+
+    const backwardsR = byId['backwards-r-myth'];
+    if (!backwardsR) fail('backwards-r-myth article not found; the lookalike assertion cannot run');
+    const stripOpen = '<div class="false-friends-grid lookalike-strip" id="lookalike-strip">';
+    const stripAt = backwardsR.content.indexOf(stripOpen);
+    if (stripAt === -1) fail('backwards-r-myth: the lookalike strip container was not found');
+    const stripInner = backwardsR.content.slice(stripAt + stripOpen.length);
+
+    const lookalikeRe = /<div class="ff-card lookalike-card" data-letter="([^"]+)">([\s\S]*?)<\/div>\s*<\/div>/g;
+    const lookalikeCards = [];
+    const cards = lookalikeCards;
+    let lookalikeMatch;
+    while ((lookalikeMatch = lookalikeRe.exec(stripInner)) !== null && cards.length <= LOOKALIKES.length) {
+        cards.push({ letter: lookalikeMatch[1], html: lookalikeMatch[2] });
+    }
+
+    if (cards.length !== LOOKALIKES.length) {
+        fail('backwards-r-myth: expected ' + LOOKALIKES.length + ' lookalike cards, found ' + cards.length);
+    }
+    const seenLetters = new Set();
+    cards.forEach(function (card) {
+        if (seenLetters.has(card.letter)) fail('backwards-r-myth: duplicate lookalike card for ' + card.letter);
+        seenLetters.add(card.letter);
+    });
+    LOOKALIKES.forEach(function (want, i) {
+        const card = cards[i];
+        if (card.letter !== want.letter) {
+            fail('backwards-r-myth: lookalike card ' + (i + 1) + ' is "' + card.letter + '", expected "' + want.letter + '"');
+        }
+        if (!audioLetters.has(want.letter)) {
+            fail('backwards-r-myth: lookalike letter ' + want.letter + ' is absent from CYRILLIC_DATA (no audio)');
+        }
+        function textOf(cls) {
+            const m = card.html.match(new RegExp('<span class="' + cls + '">([^<]*)</span>'));
+            return m ? m[1] : null;
+        }
+        if (textOf('ff-wrong') !== want.looks) {
+            fail('backwards-r-myth: ' + want.letter + ' says it looks like "' + textOf('ff-wrong') + '", expected "' + want.looks + '"');
+        }
+        if (textOf('ff-right') !== want.says) {
+            fail('backwards-r-myth: ' + want.letter + ' says it sounds like "' + textOf('ff-right') + '", expected "' + want.says + '"');
+        }
+        if (textOf('lookalike-hint') !== ' (' + want.hint + ')') {
+            fail('backwards-r-myth: ' + want.letter + ' hint is "' + textOf('lookalike-hint') + '", expected " (' + want.hint + ')"');
+        }
+        if (countOccurrences(card.html, 'lookalike-listen') !== 1) {
+            fail('backwards-r-myth: ' + want.letter + ' does not have exactly one listen button');
+        }
+        if (countOccurrences(card.html, 'lookalike-copy') !== 1) {
+            fail('backwards-r-myth: ' + want.letter + ' does not have exactly one copy button');
         }
     });
 
