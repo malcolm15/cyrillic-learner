@@ -60,8 +60,8 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
     "description": "One of the best ways to reinforce your Cyrillic learning is to start reading actual Russian words as soon as possible. You don't need to understand..."
   },
   "backwards-r-myth": {
-    "title": "Backwards R (Я): The Real Letter Hollywood Gets Wrong | Cyrilica",
-    "description": "The backwards R is a real letter: Cyrillic Я, pronounced yah. Hear it, copy it to your clipboard, and see why ЯUSSIAN makes Russian speakers laugh...."
+    "title": "Backwards R (Я): The Russian Letter Ya, Not an R | Cyrilica",
+    "description": "The &quot;backwards R&quot; is Я, a Cyrillic letter pronounced &quot;ya&quot;, as in &quot;yard&quot;. Russian writes R as Р. Hear Я or copy it from the strip below, along with the..."
   },
   "practice-writing-cyrillic": {
     "title": "How to Practice Writing Cyrillic by Hand | Cyrilica",
@@ -90,10 +90,6 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
   "easy-russian-words": {
     "title": "Common Russian Words Using Only Easy Letters | Cyrilica",
     "description": "When you're learning Cyrillic, the first few days feel overwhelming. 33 new letters, half of which look familiar but sound different. It's tempting to..."
-  },
-  "cyrillic-pop-culture": {
-    "title": "Cyrillic in Pop Culture: From Rocky IV to Call of Duty | Cyrilica",
-    "description": "For most Westerners, Cyrillic isn't something you learn in school. It's something you encounter in movies, video games, and internet memes. From Cold War..."
   },
   "cyrillic-vs-greek": {
     "title": "Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor | Cyrilica",

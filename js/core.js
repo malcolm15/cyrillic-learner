@@ -414,7 +414,6 @@ const ARTICLE_ORDER = [
     'backwards-r-myth',
     'kazakhstan-latin-transition',
     'latin-vs-cyrillic-slavic',
-    'cyrillic-pop-culture',
     'cyrillic-vs-greek',
     'letter-yo-story',
     // 🛠️ Learning Tools & Resources
@@ -452,7 +451,6 @@ const ARTICLE_META = {
     'kazakhstan-latin-transition':{ section: 'History & Culture',       published: '2026-02-28', modified: '2026-09-17', keywords: ['kazakhstan', 'latin transition', 'alphabet reform', 'cyrillic to latin'] },
     'history-of-cyrillic':      { section: 'History & Culture',         published: '2026-03-02', modified: '2026-09-20', keywords: ['cyrillic history', 'saints to superpower', 'slavic alphabet', 'writing history'] },
     'latin-vs-cyrillic-slavic': { section: 'History & Culture',         published: '2026-03-04', modified: '2026-09-18', keywords: ['latin vs cyrillic', 'slavic countries', 'alphabet choice', 'religion and script'] },
-    'cyrillic-pop-culture':     { section: 'History & Culture',         published: '2026-03-06', modified: '2026-09-18', keywords: ['cyrillic movies', 'pop culture', 'rocky iv', 'call of duty', 'faux cyrillic'] },
     'cyrillic-vs-greek':        { section: 'History & Culture',         published: '2026-05-15', modified: '2026-09-18', keywords: ['cyrillic vs greek alphabet', 'greek and cyrillic comparison', 'cyrillic greek similarities', 'cyrillic greek differences', 'cyrillic origin greek'] },
     'letter-yo-story':          { section: 'History & Culture',         published: '2026-04-15', modified: '2026-09-18', keywords: ['letter yo russian', 'russian letter ё', 'karamzin letter yo', 'princess dashkova', 'russian spelling', 'yofikator', 'optional russian letter', 'cyrillic letter ё history'] },
     // Learning Tools & Resources
@@ -879,7 +877,6 @@ function shareToReddit(articleId, articleTitle) {
     
     // Map specific articles to relevant subreddits
     const subredditMap = {
-        'cyrillic-pop-culture': 'gaming', // or movies
         'cyrillic-tier-list': 'languagelearning',
         'backwards-r-myth': 'movies',
         'latin-vs-cyrillic-slavic': 'history',
