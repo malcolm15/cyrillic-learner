@@ -265,6 +265,15 @@
             flex: 1 0 auto;
         }
 
+        /* The three filter buttons sit in an inline-styled flex row that does not
+           wrap, so at 320px they need 318px in a 268px box and .container clips the
+           last one. Let that row wrap below 360px only; 360 and up are untouched. */
+        @media (max-width: 359px) {
+            #alphabet-controls > div:first-child {
+                flex-wrap: wrap;
+            }
+        }
+
         /* Share buttons */
         .share-section {
             margin: 40px 0 30px 0;
