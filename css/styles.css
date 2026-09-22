@@ -19,6 +19,8 @@
             /* Modern Design Tokens */
             --border-radius: 12px;
             --border-radius-sm: 6px;
+            /* Single source of truth for the mobile page gutter. */
+            --gutter-mobile: 16px;
             --border-radius-lg: 16px;
             
             --shadow-sm: 0 1px 3px rgba(44, 44, 44, 0.12), 0 1px 2px rgba(44, 44, 44, 0.08);
@@ -1970,8 +1972,8 @@
             }
 
             .main-content {
-                padding-left: 8px;
-                padding-right: 8px;
+                padding-left: var(--gutter-mobile);
+                padding-right: var(--gutter-mobile);
             }
 
             .logo-display {
@@ -2127,8 +2129,10 @@
             }
 
             /* Compact article reading experience on mobile */
+            /* The page gutter grew by 8px; take those 8px off the card's sides so
+               article text keeps the inset it has today. Top and bottom unchanged. */
             #article-view .card {
-                padding: 16px;
+                padding: 16px 8px;
             }
 
             .article-header {
