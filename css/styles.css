@@ -57,11 +57,14 @@
             font-family: 'IBM Plex Mono', monospace;
             background: linear-gradient(135deg, var(--cream) 0%, #E8E4D9 100%);
             color: var(--charcoal);
+            /* 100vh first so browsers without svh keep the old behaviour. On iOS
+               100vh is the toolbar-retracted height, so it overshoots the visible
+               viewport; 100svh is the small viewport and does not. */
             min-height: 100vh;
+            min-height: 100svh;
             padding: 0;
             padding-top: 80px;
             position: relative;
-            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -249,6 +252,17 @@
             width: 100%;
             margin: 0 auto;
             padding: 20px;
+        }
+
+        /* body is a column flex container with min-height: 100svh, so on a page
+           shorter than the viewport the slack has to go somewhere. Give it to
+           whichever box holds the active page, and it lands above the footer
+           instead of below it. home and articles live inside .main-content; about,
+           settings, contact, privacy and terms are body-level siblings, so both
+           cases need covering. Browsers without :has() keep today's behaviour. */
+        .main-content:has(.page-content.active),
+        body > .page-content.active {
+            flex: 1 0 auto;
         }
 
         /* Share buttons */
