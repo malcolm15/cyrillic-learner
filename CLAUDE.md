@@ -407,11 +407,17 @@ chart generator, cursive stroke-order section (six letters, rAF engine), edge
 function for per-route canonical and robots in raw HTML, /reference page retired
 with a 301 to russian-alphabet-chart and homepage link re-pointed to the chart.
 
-Open: AdSense reapplication. Reapplying requires re-adding the adsbygoogle script
-AND restoring an ad-cookie disclosure on the privacy page first, because the script
-sets third-party advertising cookies (IDE on .doubleclick.net, measured
-2026-09-18). Deliberate wait for recent SEO improvements to settle and be
-recrawled. Possible cursive phase B (more
+Open: AdSense reapplication. Two commits, privacy page first: disclose the
+AdSense cookie use, then restore the adsbygoogle script (client
+ca-pub-5821564771189825, ads.txt already matches). The script sets third-party
+advertising cookies (IDE on .doubleclick.net, measured 2026-09-18), which is why
+the disclosure ships first. Requirement quoted in the ledger row for batch 35,
+from support.google.com/adsense/answer/1348695. A Google certified consent
+message for EEA, UK and Switzerland is already published in AdSense (Privacy and
+messaging, European regulations, cyrilica.com, published 2026-02-10). It is
+delivered by the adsbygoogle tag, so it only runs while that tag is on the site.
+If the tag is ever removed again, EEA traffic loses its consent prompt with it.
+Possible cursive phase B (more
 letters or a tracing mode) if engagement data justifies it. Audio for non-Russian
 letters is deferred and viable. Explicitly ruled out (do not re-propose): a faux
 Cyrillic decoder (brand risk, alienates the educator audience, entrenched
