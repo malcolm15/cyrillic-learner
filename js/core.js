@@ -1009,41 +1009,20 @@ let incorrectCount = 0;
 let currentStreak = 0;
 let answered = false;
 
-// Initialize character reference guide (now also handles selection)
+// The six study groups are static HTML in index.html, so they are in the served
+// document and readable without JavaScript. This only attaches selection to the
+// markup that is already there. scripts/pre-render.js asserts the group set.
 function initReference() {
     const container = document.getElementById('reference-container');
     if (!container) return;
-    
-    Object.entries(CYRILLIC_DATA).forEach(([key, group]) => {
-        const section = document.createElement('div');
-        section.className = 'reference-section';
-        section.dataset.group = key;
-        
-        const title = document.createElement('div');
-        title.className = 'section-title';
-        title.textContent = group.title;
-        section.appendChild(title);
-        
-        const grid = document.createElement('div');
-        grid.className = 'reference-grid';
-        
-        Object.entries(group.chars).forEach(([letter, data]) => {
-            const item = document.createElement('div');
-            item.className = 'char-ref-item';
-            item.innerHTML = `
-                <span class="char-ref-cyrillic">${data.upper}</span>
-                <span class="char-ref-roman">${data.roman}</span>
-            `;
-            grid.appendChild(item);
-        });
-        
-        section.appendChild(grid);
-        
-        // Add click handler for group selection
+
+    container.querySelectorAll('.reference-section').forEach(section => {
+        const key = section.dataset.group;
+        if (!key) return;
         section.addEventListener('click', () => toggleGroup(key, section));
-        
-        container.appendChild(section);
     });
+
+    updateStartButton();
 }
 
 function toggleGroup(groupKey, element) {

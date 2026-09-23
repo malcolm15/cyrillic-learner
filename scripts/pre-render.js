@@ -434,6 +434,70 @@ function main() {
         }
     });
 
+    // ---- study groups: the six selectable groups are static HTML in index.html ----
+    // Same rule as the chart, the copy tiles and the lookalike strip, but this one
+    // lives in the shell rather than an article. The romans are asserted against
+    // CYRILLIC_DATA as well as against this list, because a drifted romanization
+    // would show a visitor one answer while the quiz marks another one correct.
+    const STUDY_GROUPS = [
+        { key: 'vowels_1', title: 'Vowels 1', letters: ['А', 'Е', 'И', 'О', 'У'], romans: ['a', 'ye', 'i', 'o', 'u'] },
+        { key: 'vowels_2', title: 'Vowels 2', letters: ['Ё', 'Ы', 'Э', 'Ю', 'Я'], romans: ['yo', 'y', 'e', 'yu', 'ya'] },
+        { key: 'consonants_1', title: 'Consonants 1', letters: ['Б', 'В', 'Г', 'Д', 'Ж', 'З'], romans: ['b', 'v', 'g', 'd', 'zh', 'z'] },
+        { key: 'consonants_2', title: 'Consonants 2', letters: ['К', 'Л', 'М', 'Н', 'П', 'Р'], romans: ['k', 'l', 'm', 'n', 'p', 'r'] },
+        { key: 'consonants_3', title: 'Consonants 3', letters: ['С', 'Т', 'Ф', 'Х', 'Ц', 'Ч'], romans: ['s', 't', 'f', 'kh', 'ts', 'ch'] },
+        { key: 'consonants_4', title: 'Consonants 4', letters: ['Ш', 'Щ', 'Ъ', 'Ь', 'Й'], romans: ['sh', 'shch', '"', '\'', 'y'] },
+    ];
+
+    const shellGroupsOpen = '<div id="reference-container">';
+    const sgAt = template.indexOf(shellGroupsOpen);
+    if (sgAt === -1) fail('index.html: #reference-container not found');
+    const sgInner = template.slice(sgAt);
+    const sectionRe = /<div class="reference-section" data-group="([^"]+)">([\s\S]*?)<\/div>\s*<\/div>/g;
+    const sections = [];
+    let sgMatch;
+    while ((sgMatch = sectionRe.exec(sgInner)) !== null && sections.length <= STUDY_GROUPS.length) {
+        sections.push({ key: sgMatch[1], html: sgMatch[2] });
+    }
+    if (sections.length !== STUDY_GROUPS.length) {
+        fail('index.html: expected ' + STUDY_GROUPS.length + ' study groups, found ' + sections.length);
+    }
+    const sgSeenGroups = new Set();
+    const sgSeenLetters = new Set();
+    STUDY_GROUPS.forEach(function (want, i) {
+        const got = sections[i];
+        if (got.key !== want.key) fail('index.html: study group ' + (i + 1) + ' is "' + got.key + '", expected "' + want.key + '"');
+        if (sgSeenGroups.has(got.key)) fail('index.html: duplicate study group ' + got.key);
+        sgSeenGroups.add(got.key);
+        const titleMatch = got.html.match(/<div class="section-title">([^<]*)<\/div>/);
+        if (!titleMatch || titleMatch[1] !== want.title) {
+            fail('index.html: ' + want.key + ' title is "' + (titleMatch ? titleMatch[1] : 'missing') + '", expected "' + want.title + '"');
+        }
+        const letters = [];
+        const romans = [];
+        const itemRe = /<span class="char-ref-cyrillic">([^<]*)<\/span><span class="char-ref-roman">([^<]*)<\/span>/g;
+        let item;
+        while ((item = itemRe.exec(got.html)) !== null) { letters.push(item[1]); romans.push(item[2]); }
+        if (letters.join(' ') !== want.letters.join(' ')) {
+            fail('index.html: ' + want.key + ' letters are "' + letters.join(' ') + '", expected "' + want.letters.join(' ') + '"');
+        }
+        if (romans.join(' ') !== want.romans.join(' ')) {
+            fail('index.html: ' + want.key + ' romans are "' + romans.join(' ') + '", expected "' + want.romans.join(' ') + '"');
+        }
+        letters.forEach(function (ch, j) {
+            if (sgSeenLetters.has(ch)) fail('index.html: letter ' + ch + ' appears in more than one study group');
+            sgSeenLetters.add(ch);
+            const data = CYRILLIC_DATA[want.key] && CYRILLIC_DATA[want.key].chars[ch];
+            if (!data) fail('index.html: ' + ch + ' is not in CYRILLIC_DATA group ' + want.key);
+            if (data.roman !== romans[j]) {
+                fail('index.html: ' + ch + ' shows roman "' + romans[j] + '" but CYRILLIC_DATA says "' + data.roman + '"');
+            }
+        });
+    });
+    if (sgSeenLetters.size !== 33) fail('index.html: study groups cover ' + sgSeenLetters.size + ' letters, expected 33');
+    RUSSIAN_LETTERS.forEach(function (ch) {
+        if (!sgSeenLetters.has(ch)) fail('index.html: letter ' + ch + ' is missing from the study groups');
+    });
+
     // ---- static template needles (byte-for-byte from index.html) ----
     const T = {
         title: '<title>Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica</title>',
