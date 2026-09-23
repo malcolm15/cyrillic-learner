@@ -19,8 +19,9 @@
             /* Modern Design Tokens */
             --border-radius: 12px;
             --border-radius-sm: 6px;
-            /* Single source of truth for the mobile page gutter. */
-            --gutter-mobile: 16px;
+            /* Distance from the screen edge to bare text on mobile. Card frames keep
+               their own 8px inset and supply the rest through their padding. */
+            --text-gutter-mobile: 20px;
             --border-radius-lg: 16px;
             
             --shadow-sm: 0 1px 3px rgba(44, 44, 44, 0.12), 0 1px 2px rgba(44, 44, 44, 0.08);
@@ -1972,8 +1973,20 @@
             }
 
             .main-content {
-                padding-left: var(--gutter-mobile);
-                padding-right: var(--gutter-mobile);
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            /* The homepage is the only page whose prose sits outside a card, so it
+               is the only one that needs the text gutter. .main-content already
+               provides 8px; add the difference here. Margin, not padding: the h2
+               carries the red rule as a border-bottom and the strip has a border,
+               so the box itself has to move, not just the text inside it. */
+            #home-page > h2,
+            #home-page > .content-text,
+            #home-page > .quick-start-strip {
+                margin-left: calc(var(--text-gutter-mobile) - 8px);
+                margin-right: calc(var(--text-gutter-mobile) - 8px);
             }
 
             .logo-display {
@@ -2129,10 +2142,8 @@
             }
 
             /* Compact article reading experience on mobile */
-            /* The page gutter grew by 8px; take those 8px off the card's sides so
-               article text keeps the inset it has today. Top and bottom unchanged. */
             #article-view .card {
-                padding: 16px 8px;
+                padding: 16px;
             }
 
             .article-header {
