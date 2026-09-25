@@ -24,7 +24,8 @@ Alphabet Variants, History & Culture, and Learning Tools & Resources.
 - `css/styles.css`: all styles, including dark mode
 - `scripts/`, `netlify/`: build scripts, edge function, generated heads
 - `images/`, `audio/`: article images and letter audio
-- `make_*_image.py`: Pillow scripts for four of the comparison images
+- `scripts/images/make_*_image.py`: Pillow scripts for four of the comparison
+  images, run by hand, not by the build
 
 ## Running locally
 

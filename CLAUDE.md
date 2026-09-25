@@ -75,6 +75,11 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
 - `scripts/`: dependency-free node generators run by the Netlify build command
   (netlify.toml): generate-article-heads.js then pre-render.js. The articles/
   output directory is a gitignored deploy artifact, never committed.
+- `scripts/images/`: Pillow (Python) generators for four comparison images
+  (Ukrainian, Bulgarian, and the two Serbian ones). Run by hand, never by the
+  build. Each resolves the repo root from its own path and writes into images/,
+  so it can be run from any directory. The `/scripts/*` 404 rule in _redirects
+  keeps them off the live site.
 - `images/`, `audio/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
   namespace).
 

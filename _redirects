@@ -4,10 +4,6 @@ https://dapper-axolotl-1f65df.netlify.app/* https://cyrilica.com/:splat 301
 /CLAUDE.md                      /index.html  404!
 /README.md                      /index.html  404!
 /SECURITY.md                    /index.html  404!
-/make_bulgarian_image.py        /index.html  404!
-/make_serbian_image.py          /index.html  404!
-/make_serbian_letters_image.py  /index.html  404!
-/make_ukrainian_image.py        /index.html  404!
 /articles/cyrillic-alphabet-chart /articles/russian-alphabet-chart 301
 /articles/cyrillic-handwriting /articles/practice-writing-cyrillic 301
 /articles/common-cyrillic-mistakes /articles/common-mistakes 301

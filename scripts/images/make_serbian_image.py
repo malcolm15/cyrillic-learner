@@ -1,4 +1,9 @@
+import os
+
 from PIL import Image, ImageDraw, ImageFont
+
+# Repo root, resolved from this file so the script runs from any directory.
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 SCALE = 2
 W_DISP = 700
@@ -105,6 +110,6 @@ note = "Serbia's constitution puts Cyrillic into official use. Latin is used alo
 draw.text((cx(note, font_meaning, W // 2), NOTE_Y), note, font=font_meaning, fill=SUBTEXT)
 draw.text((cx("cyrilica.com", font_wm, W // 2), WM_Y), "cyrilica.com", font=font_wm, fill=WATERMARK)
 
-out = "images/serbian-cyrillic-vs-latin.png"
+out = os.path.join(ROOT, "images", "serbian-cyrillic-vs-latin.png")
 img.save(out, "PNG", optimize=True)
 print(f"Saved {out}  ({W}x{H} px → displays at {W//SCALE}x{H//SCALE})")
