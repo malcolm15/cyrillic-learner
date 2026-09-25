@@ -25,7 +25,7 @@ font_example = ImageFont.truetype(UNI,                       11 * SCALE)
 font_note    = ImageFont.truetype(SUPP + "Arial.ttf",        10 * SCALE)
 font_wm      = ImageFont.truetype(SUPP + "Arial.ttf",        10 * SCALE)
 
-# Left side (UNIQUE IN BULGARIAN): 2 rows, single column at W//4
+# Left side (DIFFERENT IN BULGARIAN): 2 rows, single column at W//4
 # Right side (NOT IN BULGARIAN): row 0 = Ё at 5W//8, Ы at 7W//8; row 1 = Э centered at 3W//4
 left = [
     ("Ъ", "/ǎ/",   "ъгъл = corner"),
@@ -84,14 +84,14 @@ mid_x = W // 2
 draw.text((cx("Bulgarian Cyrillic vs Russian Cyrillic", font_title, W // 2), TITLE_Y),
           "Bulgarian Cyrillic vs Russian Cyrillic", font=font_title, fill=GOLD)
 
-draw.text((cx("30 letters vs 33 — what sounds different and what's missing", font_sub, W // 2), SUB_Y),
-          "30 letters vs 33 — what sounds different and what's missing", font=font_sub, fill=SUBTEXT)
+draw.text((cx("30 letters vs 33. What sounds different and what's missing.", font_sub, W // 2), SUB_Y),
+          "30 letters vs 33. What sounds different and what's missing.", font=font_sub, fill=SUBTEXT)
 
 draw.rectangle([(40 * SCALE, HDR_DIV_Y), (W - 40 * SCALE, HDR_DIV_Y + SCALE)], fill=DIVIDER)
 draw.rectangle([(mid_x - SCALE, HDR_DIV_Y), (mid_x + SCALE, NOTE_Y - 8 * SCALE)], fill=DIVIDER)
 
-draw.text((cx("UNIQUE IN BULGARIAN", font_col_hdr, W // 4),     COL_HDR_Y),
-          "UNIQUE IN BULGARIAN", font=font_col_hdr, fill=BG_COL)
+draw.text((cx("DIFFERENT IN BULGARIAN", font_col_hdr, W // 4),     COL_HDR_Y),
+          "DIFFERENT IN BULGARIAN", font=font_col_hdr, fill=BG_COL)
 draw.text((cx("NOT IN BULGARIAN",    font_col_hdr, 3 * W // 4), COL_HDR_Y),
           "NOT IN BULGARIAN",    font=font_col_hdr, fill=RU_COL)
 

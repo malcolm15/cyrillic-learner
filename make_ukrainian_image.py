@@ -32,7 +32,7 @@ ua = [
     [("І", "/i/",   "іти = to go"),      ("Ї", "/yi/",  "їжа = food")],
 ]
 ru = [
-    [("Ё", "/yo/",      "Russian: ёж"),  ("Ъ", "hard sign", "Russian: об'єкт")],
+    [("Ё", "/yo/",      "Russian: ёж"),  ("Ъ", "hard sign", "Russian: объект")],
     [("Ы", "/y/",       "Russian: мы"),  ("Э", "/e/",       "Russian: это")],
 ]
 
@@ -93,8 +93,8 @@ mid_x = W // 2
 draw.text((cx("Ukrainian Cyrillic vs Russian Cyrillic", font_title, W // 2), TITLE_Y),
           "Ukrainian Cyrillic vs Russian Cyrillic", font=font_title, fill=GOLD)
 
-draw.text((cx("Letters that make Ukrainian unique", font_sub, W // 2), SUB_Y),
-          "Letters that make Ukrainian unique", font=font_sub, fill=SUBTEXT)
+draw.text((cx("The four letters each alphabet has that the other doesn't", font_sub, W // 2), SUB_Y),
+          "The four letters each alphabet has that the other doesn't", font=font_sub, fill=SUBTEXT)
 
 # Horizontal rule
 draw.rectangle([(40 * SCALE, HDR_DIV_Y), (W - 40 * SCALE, HDR_DIV_Y + SCALE)], fill=DIVIDER)
@@ -103,8 +103,8 @@ draw.rectangle([(40 * SCALE, HDR_DIV_Y), (W - 40 * SCALE, HDR_DIV_Y + SCALE)], f
 draw.rectangle([(mid_x - SCALE, HDR_DIV_Y), (mid_x + SCALE, NOTE_Y - 8 * SCALE)], fill=DIVIDER)
 
 # Section headers
-draw.text((cx("ONLY IN UKRAINIAN", font_col_hdr, W // 4),     COL_HDR_Y),
-          "ONLY IN UKRAINIAN", font=font_col_hdr, fill=UA_COL)
+draw.text((cx("NOT IN RUSSIAN", font_col_hdr, W // 4),     COL_HDR_Y),
+          "NOT IN RUSSIAN", font=font_col_hdr, fill=UA_COL)
 draw.text((cx("NOT IN UKRAINIAN",  font_col_hdr, 3 * W // 4), COL_HDR_Y),
           "NOT IN UKRAINIAN",  font=font_col_hdr, fill=RU_COL)
 
@@ -127,7 +127,7 @@ for col_i, q_x in enumerate([Q[2], Q[3]]):
     draw_cell(*ru[1][col_i], q_x, ROW_1_Y, RU_COL)
 
 # Note + watermark
-note = "Ukrainian = 33 letters  ·  Russian = 33 letters  ·  4 letters differ"
+note = "Ukrainian = 33 letters  ·  Russian = 33 letters  ·  4 letters differ each way"
 draw.text((cx(note, font_note, W // 2), NOTE_Y), note, font=font_note, fill=SUBTEXT)
 draw.text((cx("cyrilica.com", font_wm, W // 2), WM_Y), "cyrilica.com", font=font_wm, fill=WATERMARK)
 

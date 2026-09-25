@@ -84,11 +84,11 @@ div1_x = W // 3
 div2_x = 2 * W // 3
 
 # ── draw ───────────────────────────────────────────────────────────
-draw.text((cx("6 Letters Unique to Serbian Cyrillic", font_title, W // 2), TITLE_Y),
-          "6 Letters Unique to Serbian Cyrillic", font=font_title, fill=GOLD)
+draw.text((cx("6 Serbian Letters Russian Doesn't Have", font_title, W // 2), TITLE_Y),
+          "6 Serbian Letters Russian Doesn't Have", font=font_title, fill=GOLD)
 
-draw.text((cx("Not found in Russian — each maps perfectly to a Latin equivalent", font_sub, W // 2), SUB_Y),
-          "Not found in Russian — each maps perfectly to a Latin equivalent", font=font_sub, fill=SUBTEXT)
+draw.text((cx("Not in Russian. Each one has a fixed Serbian Latin equivalent.", font_sub, W // 2), SUB_Y),
+          "Not in Russian. Each one has a fixed Serbian Latin equivalent.", font=font_sub, fill=SUBTEXT)
 
 draw.rectangle([(40 * SCALE, HDR_DIV_Y), (W - 40 * SCALE, HDR_DIV_Y + SCALE)], fill=DIVIDER)
 

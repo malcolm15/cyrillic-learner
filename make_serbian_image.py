@@ -26,7 +26,7 @@ font_wm      = ImageFont.truetype(SUPP + "Arial.ttf",       10 * SCALE)
 
 # (Cyrillic, Latin, English meaning)
 pairs = [
-    ("Београд",      "Beograd",      "Belgrade — capital city"),
+    ("Београд",      "Beograd",      "Belgrade · capital city"),
     ("Србија",       "Srbija",       "Serbia"),
     ("добро јутро",  "dobro jutro",  "good morning"),
     ("хвала",        "hvala",        "thank you"),
@@ -101,7 +101,7 @@ for i, (cyr, lat, meaning) in enumerate(pairs):
     draw.text((cx(meaning, font_meaning, W // 2), y + WORD_H + 4 * SCALE),
               meaning, font=font_meaning, fill=SUBTEXT)
 
-note = "Serbia officially recognizes both scripts — the only country to do so"
+note = "Serbia's constitution puts Cyrillic into official use. Latin is used alongside it every day."
 draw.text((cx(note, font_meaning, W // 2), NOTE_Y), note, font=font_meaning, fill=SUBTEXT)
 draw.text((cx("cyrilica.com", font_wm, W // 2), WM_Y), "cyrilica.com", font=font_wm, fill=WATERMARK)
 

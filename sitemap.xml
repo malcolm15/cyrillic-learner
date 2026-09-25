@@ -164,18 +164,18 @@
     <!-- Articles: Regional Alphabets -->
     <url>
         <loc>https://cyrilica.com/articles/ukrainian-alphabet</loc>
-        <lastmod>2026-09-20</lastmod>
+        <lastmod>2026-09-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         <image:image>
             <image:loc>https://cyrilica.com/images/ukrainian-vs-russian-alphabet.png</image:loc>
-            <image:title>Ukrainian vs Russian Cyrillic Alphabet Comparison — Unique Letters Ґ Є І Ї</image:title>
+            <image:title>Ukrainian vs Russian Cyrillic Alphabet Comparison - Letters Ґ Є І Ї Not in Russian</image:title>
         </image:image>
     </url>
 
     <url>
         <loc>https://cyrilica.com/articles/serbian-cyrillic-vs-latin</loc>
-        <lastmod>2026-09-18</lastmod>
+        <lastmod>2026-09-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
         <image:image>
@@ -184,7 +184,7 @@
         </image:image>
         <image:image>
             <image:loc>https://cyrilica.com/images/serbian-unique-letters.png</image:loc>
-            <image:title>6 Letters Unique to Serbian Cyrillic — Ђ Ј Љ Њ Ћ Џ with Latin Equivalents</image:title>
+            <image:title>6 Serbian Cyrillic Letters Not in Russian - Ђ Ј Љ Њ Ћ Џ with Latin Equivalents</image:title>
         </image:image>
     </url>
     
@@ -201,12 +201,12 @@
     
     <url>
         <loc>https://cyrilica.com/articles/bulgarian-alphabet</loc>
-        <lastmod>2026-09-18</lastmod>
+        <lastmod>2026-09-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         <image:image>
             <image:loc>https://cyrilica.com/images/bulgarian-vs-russian-alphabet.png</image:loc>
-            <image:title>Bulgarian vs Russian Cyrillic Alphabet Comparison — 30 Letters vs 33, Unique Ъ Vowel</image:title>
+            <image:title>Bulgarian vs Russian Cyrillic Alphabet Comparison - 30 Letters vs 33, Ъ as a Vowel</image:title>
         </image:image>
     </url>
 

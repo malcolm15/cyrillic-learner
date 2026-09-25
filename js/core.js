@@ -437,12 +437,12 @@ const ARTICLE_META = {
     'first-25-words':           { section: 'Getting Started',           published: '2026-02-20', modified: '2026-09-19', keywords: ['russian words', 'reading practice', 'first words', 'beginner russian'] },
     'easy-russian-words':       { section: 'Getting Started',           published: '2026-03-01', modified: '2026-09-19', keywords: ['easy russian', 'simple words', 'beginner vocabulary', 's-tier letters'] },
     // Alphabet Variants
-    'ukrainian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-09-20', keywords: ['ukrainian alphabet', 'ukrainian cyrillic', 'ukrainian letters', 'cyrillic vs russian', 'ukrainian language', 'Ґ Є І Ї letters', 'learn ukrainian script'] },
+    'ukrainian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-09-25', keywords: ['ukrainian alphabet', 'ukrainian cyrillic', 'ukrainian letters', 'cyrillic vs russian', 'ukrainian language', 'Ґ Є І Ї letters', 'learn ukrainian script'] },
     'belarusian-alphabet':      { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-09-17', keywords: ['belarusian alphabet', 'belarusian cyrillic', '32 letters', 'eastern europe'] },
-    'bulgarian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-09-18', keywords: ['bulgarian alphabet', 'bulgarian cyrillic', '30 letters', 'cyrillic origin', 'bulgarian letters', 'learn bulgarian'] },
+    'bulgarian-alphabet':       { section: 'Alphabet Variants',         published: '2026-05-23', modified: '2026-09-25', keywords: ['bulgarian alphabet', 'bulgarian cyrillic', '30 letters', 'cyrillic origin', 'bulgarian letters', 'learn bulgarian'] },
     'montenegrin-alphabet':     { section: 'Alphabet Variants',         published: '2026-02-22', modified: '2026-09-18', keywords: ['montenegrin alphabet', 'newest cyrillic', 'montenegrin language', 'balkan alphabet'] },
     'cyrillic-letters-not-in-russian': { section: 'Alphabet Variants',         published: '2026-06-21', modified: '2026-09-20', keywords: ['cyrillic letters not in russian', 'non-russian cyrillic', 'ukrainian serbian macedonian letters', 'cyrillic alphabet differences'] },
-    'serbian-cyrillic-vs-latin':{ section: 'Alphabet Variants',         published: '2026-02-24', modified: '2026-09-18', keywords: ['serbian cyrillic', 'serbian latin', 'digraphia', 'dual script'] },
+    'serbian-cyrillic-vs-latin':{ section: 'Alphabet Variants',         published: '2026-02-24', modified: '2026-09-25', keywords: ['serbian cyrillic', 'serbian latin', 'digraphia', 'dual script'] },
     // History & Culture
     'lost-letters':             { section: 'History & Culture',         published: '2026-02-16', modified: '2026-09-20', keywords: ['lost letters', 'extinct characters', 'cyrillic history', 'old church slavonic'] },
     'glagolitic':               { section: 'History & Culture',         published: '2026-02-16', modified: '2026-09-18', keywords: ['glagolitic', 'old alphabet', 'saints cyril methodius', 'slavic writing'] },

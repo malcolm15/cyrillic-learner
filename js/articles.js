@@ -948,7 +948,7 @@ const ARTICLES = [
 
             <p>If you already know Russian Cyrillic, you can read most Ukrainian text. You'll recognize the majority of letters and can sound out words, even if you don't understand them. But four letters will stop you immediately, specifically the ones Russian doesn't have.</p>
 
-            <h3>The Four Letters Only Ukrainian Has</h3>
+            <h3>The Four Letters Russian Doesn't Have</h3>
 
             <p>These are the letters that mark a text as Ukrainian, not Russian:</p>
 
@@ -2597,7 +2597,7 @@ const ARTICLES = [
 
             <figure class="article-image">
                 <img src="/images/serbian-unique-letters.png"
-                     alt="Chart of the 6 letters unique to Serbian Cyrillic not found in Russian: Ђ (Đ), Ј (J), Љ (Lj), Њ (Nj), Ћ (Ć), Џ (Dž) with pronunciations and example words"
+                     alt="Chart of the 6 Serbian Cyrillic letters not found in Russian: Ђ (Đ), Ј (J), Љ (Lj), Њ (Nj), Ћ (Ć), Џ (Dž) with pronunciations and example words"
                      style="max-width: 600px; width: 100%;"
                      loading="lazy">
             </figure>
