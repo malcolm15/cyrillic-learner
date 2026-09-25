@@ -829,7 +829,7 @@ const ARTICLES = [
             <p>While Cyrillic borrowed heavily from Greek (making it somewhat recognizable to those who know the Greek alphabet), Glagolitic appears to have been designed from scratch or from multiple sources, creating something entirely unique. This gives it a mysterious quality that has fascinated scholars for centuries.</p>
 
             <figure class="article-image">
-                <img src="/images/kiev-missal-glagolitic.jpg" alt="The Kiev Missal, a 10th century Glagolitic manuscript showing ornate handwritten text in the oldest known Slavic alphabet on aged parchment" loading="lazy" style="max-width: 600px;">
+                <img src="/images/kiev-missal-glagolitic.jpg" alt="The Kiev Missal, a 10th century Glagolitic manuscript showing ornate handwritten text in the oldest known Slavic alphabet on aged parchment" loading="lazy" width="960" height="640" style="max-width: 600px;">
                 <figcaption>The Kiev Missal (10th century), usually held to be the oldest Old Church Slavonic manuscript, written in Glagolitic script. Photo by Zde via <a href="https://commons.wikimedia.org/wiki/Category:Kiev_Missal" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</figcaption>
             </figure>
 
@@ -938,7 +938,7 @@ const ARTICLES = [
             <p>Ukrainian is the third most-spoken Slavic language, and it uses Cyrillic, but not the same Cyrillic as Russian. About 32 million people speak it natively, closer to 39 million counting second-language speakers. The two alphabets share 29 letters. Four letters exist only in Ukrainian. Four Russian letters don't appear in Ukrainian at all. Those eight characters are where the whole story lives.</p>
 
             <figure class="article-image">
-                <img src="/images/ukrainian-vs-russian-alphabet.png" alt="Side-by-side comparison of Ukrainian Cyrillic letters not found in Russian (Ґ, Є, І, Ї) versus Russian letters not found in Ukrainian (Ё, Ъ, Ы, Э), with pronunciation guides and example words for each" loading="lazy" width="1400" height="960" style="max-width: 600px;">
+                <img src="/images/ukrainian-vs-russian-alphabet.png" alt="Side-by-side comparison of Ukrainian Cyrillic letters not found in Russian (Ґ, Є, І, Ї) versus Russian letters not found in Ukrainian (Ё, Ъ, Ы, Э), with pronunciation guides and example words for each" loading="lazy" width="1400" height="819" style="max-width: 600px;">
                 <figcaption>The eight letters that separate Ukrainian Cyrillic from Russian Cyrillic.</figcaption>
             </figure>
 
@@ -2564,6 +2564,7 @@ const ARTICLES = [
                 <img src="/images/serbian-cyrillic-vs-latin.png"
                      alt="Serbian Cyrillic and Latin script side-by-side comparison showing common words: Београд/Beograd, Србија/Srbija, добро јутро/dobro jutro, хвала/hvala"
                      style="max-width: 600px; width: 100%;"
+                     width="1400" height="675"
                      loading="lazy">
             </figure>
 
@@ -2599,6 +2600,7 @@ const ARTICLES = [
                 <img src="/images/serbian-unique-letters.png"
                      alt="Chart of the 6 Serbian Cyrillic letters not found in Russian: Ђ (Đ), Ј (J), Љ (Lj), Њ (Nj), Ћ (Ć), Џ (Dž) with pronunciations and example words"
                      style="max-width: 600px; width: 100%;"
+                     width="1400" height="758"
                      loading="lazy">
             </figure>
 
@@ -3207,7 +3209,7 @@ const ARTICLES = [
             <p>This means Cyrillic and Latin are siblings, both descended from Greek. And Greek itself descends from Phoenician. When you look at the letter A in English, А in Russian, and Α in Greek, you're seeing the same letter three times, passed down through three thousand years of continuous use.</p>
 
             <figure class="article-image">
-                <img src="/images/cyrillic-vs-greek-comparison.png" alt="Comparison chart of Cyrillic and Greek alphabets showing identical letters, similar letters, false friends, and letters unique to each alphabet" loading="lazy" width="1900" height="1400" style="max-width: 650px;">
+                <img src="/images/cyrillic-vs-greek-comparison.png" alt="Comparison chart of Cyrillic and Greek alphabets showing identical letters, similar letters, false friends, and letters unique to each alphabet" loading="lazy" width="1900" height="1580" style="max-width: 650px;">
                 <figcaption>How the two alphabets compare: shared letters, recognizable cousins, false friends, and unique characters.</figcaption>
             </figure>
 
@@ -3346,7 +3348,7 @@ const ARTICLES = [
             <p>And in 2005, the letter got a monument. The city of Ulyanovsk (formerly Simbirsk, where a monument to Karamzin was erected in 1845) installed a two-meter granite sculpture of the letter on Novy Venets Boulevard. The design replicates the typography of Ё from Karamzin's 1797 almanac. It weighs over three tons. The unveiling actually triggered protests, because even a monument to a letter couldn't escape the argument.</p>
 
             <figure class="article-image">
-                <img src="/images/yo-monument-ulyanovsk.jpg" alt="Monument to the letter Ё in Ulyanovsk, Russia: a two-meter triangular granite stele with the letter Ё carved into it, located on Novy Venets Boulevard" loading="lazy" style="max-width: 500px;">
+                <img src="/images/yo-monument-ulyanovsk.jpg" alt="Monument to the letter Ё in Ulyanovsk, Russia: a two-meter triangular granite stele with the letter Ё carved into it, located on Novy Venets Boulevard" loading="lazy" width="500" height="667" style="max-width: 500px;">
                 <figcaption>The monument to Ё in Ulyanovsk, unveiled in 2005. Photo by Vadim Indeikin via <a href="https://commons.wikimedia.org/wiki/Category:Yo-monument_in_Ulyanovsk" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</figcaption>
             </figure>
 
