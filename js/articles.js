@@ -2005,7 +2005,7 @@ const ARTICLES = [
     {
         id: 'practice-writing-cyrillic',
         title: 'How to Practice Writing Cyrillic by Hand',
-        relatedArticles: ['russian-alphabet-chart', 'memory-tricks', 'getting-started'],
+        relatedArticles: ['russian-alphabet-chart', 'how-to-type-cyrillic', 'getting-started'],
         content: `
             <p>Learning to read Cyrillic is one thing. Learning to write it by hand (especially in cursive) is a completely different challenge. While digital typing dominates modern communication, handwriting Cyrillic helps cement the letters in your memory and opens up the ability to take notes, write letters, or simply understand handwritten Russian text.</p>
 
@@ -3561,7 +3561,7 @@ const ARTICLES = [
     {
         id: 'cyrillic-copy-paste',
         title: 'Cyrillic Alphabet Copy and Paste',
-        relatedArticles: ['russian-alphabet-chart', 'getting-started', 'cyrillic-learning-resources'],
+        relatedArticles: ['russian-alphabet-chart', 'getting-started', 'how-to-type-cyrillic'],
         content: `
             <p>Copy any Cyrillic character to your clipboard with one click: standard Russian letters, accented vowels with stress marks, and pre-reform characters from before 1918. Click a letter to copy it individually, or use the text builder to assemble full words and phrases.</p>
 
