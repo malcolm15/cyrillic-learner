@@ -1167,7 +1167,7 @@ const ARTICLES = [
             <p>So what does modern Bulgarian Cyrillic look like, and how does it differ from Russian?</p>
 
             <figure class="article-image">
-                <img src="/images/bulgarian-vs-russian-alphabet.png" alt="Bulgarian vs Russian Cyrillic alphabet comparison: Bulgarian has 30 letters, uses Ъ as a real vowel and Щ sounds like sht, while Russian letters Ё Ы Э are absent from Bulgarian" loading="lazy" width="1400" height="767" style="max-width: 600px;">
+                <img src="/images/bulgarian-vs-russian-alphabet.png" alt="Bulgarian vs Russian Cyrillic alphabet comparison: Bulgarian has 30 letters, uses Ъ as a real vowel and Щ sounds like sht, while Russian letters Ё Ы Э are absent from Bulgarian" loading="lazy" width="1400" height="832" style="max-width: 600px;">
                 <figcaption>The key differences between Bulgarian and Russian Cyrillic at a glance.</figcaption>
             </figure>
 
