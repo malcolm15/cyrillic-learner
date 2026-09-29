@@ -80,6 +80,11 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
   build. Each resolves the repo root from its own path and writes into images/,
   so it can be run from any directory. The `/scripts/*` 404 rule in _redirects
   keeps them off the live site.
+  `scripts/images/layout.py` is the shared layout helper: `baseline_row()` draws
+  mixed fonts on one baseline using Pillow's `anchor="ls"`, and
+  `stacked_row_lines()` implements the row-308 rule, where every band in a row
+  shares one ink-top line set below the deepest ink in that row. New or rebuilt
+  image scripts import from it and must not reimplement either rule.
 - `images/`, `audio/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
   namespace).
 
