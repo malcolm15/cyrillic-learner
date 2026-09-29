@@ -836,6 +836,23 @@ function showArticleIndex(opts) {
     window.scrollTo(0, 0);
 }
 
+// The "Back" controls and the tool CTA are real links so crawlers can follow
+// them. On an ordinary click the SPA takes over and runs exactly what the
+// buttons ran before; isModifiedClick lets every browser-native behaviour
+// through to the href.
+function backToArticles(event) {
+    if (isModifiedClick(event)) return;
+    event.preventDefault();
+    showArticleIndex();
+}
+
+function goHome(event) {
+    if (isModifiedClick(event)) return;
+    event.preventDefault();
+    showPage('home');
+    window.scrollTo(0, 0);
+}
+
 // Share button functions
 function copyArticleLink(articleId, articleTitle) {
     const url = `https://cyrilica.com/articles/${articleId}`;
@@ -1433,6 +1450,8 @@ window.showPage = showPage;
 window.navTo = navTo;
 window.navToArticle = navToArticle;
 window.navigateArticle = navigateArticle;
+window.backToArticles = backToArticles;
+window.goHome = goHome;
 window.burstConfetti = burstConfetti;
 window.toggleMenu = toggleMenu;
 window.selectAllGroups = selectAllGroups;

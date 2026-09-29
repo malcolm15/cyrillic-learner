@@ -744,6 +744,8 @@
         }
 
         .article-back-btn {
+            /* Now an <a href="/articles"> so crawlers can follow it. */
+            text-decoration: none;
             position: absolute;
             top: -10px;
             right: 0;
@@ -2711,7 +2713,21 @@
     margin-right: 6px;
 }
 
+/* Chrome's UA sheet gives an anchor outline-offset: 1px and a button 0, so the
+   focus ring sat 1px further out once these three became links. */
+.article-back-btn:focus-visible,
+.back-to-articles:focus-visible,
+.tool-cta-btn:focus-visible {
+    outline-offset: 0;
+}
+
 /* Article Navigation with Titles */
+.back-to-articles {
+    /* Now an <a href="/articles">; matches the button it replaced. */
+    color: #000;
+    text-decoration: none;
+}
+
 .nav-btn {
     /* The bar is <a> so crawlers see real links; these two keep it looking
        exactly like the button it replaced. */
@@ -2856,6 +2872,11 @@
 }
 
 .tool-cta-btn {
+    /* Now an <a href="/"> so crawlers can follow it; an anchor defaults to
+       display:inline, which collapsed the button's box. */
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
     background: var(--red) !important;
     color: white !important;
     font-size: 0.9rem !important;

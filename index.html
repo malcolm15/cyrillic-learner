@@ -684,7 +684,7 @@
                         <div class="card">
                             <div class="article-header">
                                 <h2 id="article-title"></h2>
-                                <button class="article-back-btn" onclick="showArticleIndex()" title="Back to Articles">← Back</button>
+                                <a class="article-back-btn" href="/articles" onclick="backToArticles(event)" title="Back to Articles">← Back</a>
                             </div>
                             
                             <div class="article-content content-text" id="article-content">
@@ -695,9 +695,9 @@
                             <div class="tool-cta-banner">
                                 <div class="tool-cta-content">
                                     <p><strong>Cyrilica is a free interactive learning tool</strong> that thousands use to master the Cyrillic alphabet. Select your character groups, practice with instant feedback, and build your skills one letter at a time.</p>
-                                    <button class="btn tool-cta-btn" onclick="showPage('home'); window.scrollTo(0, 0);">
+                                    <a class="btn tool-cta-btn" href="/" onclick="goHome(event)">
                                         <span style="margin-right: 8px;">🎯</span> Give it a try
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                             
@@ -714,7 +714,7 @@
                                     <span class="nav-direction">← PREVIOUS</span>
                                     <span class="nav-title" id="prev-article-title"></span>
                                 </a>
-                                <button class="btn" onclick="showArticleIndex()">Back to Articles</button>
+                                <a class="btn back-to-articles" href="/articles" onclick="backToArticles(event)">Back to Articles</a>
                                 <a class="btn nav-btn" id="next-article" onclick="navigateArticle(event, 'next')">
                                     <span class="nav-direction">NEXT →</span>
                                     <span class="nav-title" id="next-article-title"></span>

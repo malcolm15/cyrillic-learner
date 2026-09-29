@@ -666,6 +666,27 @@ function main() {
             }
         });
 
+        // ---- the other three navigation controls in every article: the two
+        // Back links and the tool CTA. Same rule as the bar: a control whose
+        // job is reaching a URL ships as <a href>, never a <button>.
+        [
+            ['back link (header)', '<a class="article-back-btn" href="/articles"',
+                                   '<button class="article-back-btn"'],
+            ['back link (bar)',    '<a class="btn back-to-articles" href="/articles"',
+                                   '<button class="btn" onclick="showArticleIndex()">Back to Articles</button>'],
+            ['tool CTA',           '<a class="btn tool-cta-btn" href="/"',
+                                   '<button class="btn tool-cta-btn"'],
+        ].forEach(function (control) {
+            const label = control[0], link = control[1], button = control[2];
+            const n = countOccurrences(page, link);
+            if (n !== 1) {
+                fail(slug + '/' + label + ': expected exactly 1 occurrence of ' + link + ', found ' + n);
+            }
+            if (countOccurrences(page, button) !== 0) {
+                fail(slug + '/' + label + ': still emits a <button>, which gives crawlers no link');
+            }
+        });
+
         // ---- self-contained document: drop every other route's section ----
         const FOOTER_TAIL = '\n            </div>\n        </div>\n\n    <!-- Footer -->';
         page = cutBetween(page,
