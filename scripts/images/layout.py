@@ -46,6 +46,16 @@ def centred_on_baseline(draw, text, font, x_center, baseline_y):
     return x_center - (bb[0] + bb[2]) // 2, baseline_y
 
 
+def centred_x(draw, text, font, x_center):
+    """The draw x that centres a string's ink on x_center, for a top-anchored draw.
+
+    New and rebuilt image scripts call this. The older generators keep their own
+    local cx() until each is next rebuilt; nothing is retrofitted here.
+    """
+    bb = draw.textbbox((0, 0), text, font=font)
+    return x_center - (bb[2] - bb[0]) // 2
+
+
 def baseline_row(draw, baseline_y, items):
     """Draw several strings on one shared baseline.
 
