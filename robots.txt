@@ -6,7 +6,6 @@ User-agent: *
 Allow: /
 
 # Explicitly allow key pages
-Allow: /index.html
 Allow: /about
 Allow: /contact
 Allow: /settings
