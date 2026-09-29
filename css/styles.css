@@ -2713,6 +2713,10 @@
 
 /* Article Navigation with Titles */
 .nav-btn {
+    /* The bar is <a> so crawlers see real links; these two keep it looking
+       exactly like the button it replaced. */
+    color: #000;
+    text-decoration: none;
     display: flex !important;
     flex-direction: column;
     align-items: center;

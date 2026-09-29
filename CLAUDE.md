@@ -116,6 +116,12 @@ Two cross-file gotchas:
 - **Content containers.** Any list or table a reader should see must be static HTML
   in articles.js, guarded by a pre-render assertion. Scripts attach to existing
   markup; they do not build readable content into empty containers.
+- **Navigation controls are links.** Controls whose purpose is navigating to a
+  crawlable page or URL are real `<a href>` elements in the served HTML. Actions
+  (opening settings, starting a quiz round, toggling state) stay `<button>`. Any
+  in-app link handler returns early through `isModifiedClick()` so browser-native
+  link behaviours pass through. The article prev/next bar is asserted in
+  pre-render.
 - **History entries.** showPage, showArticle and showArticleIndex push a history
   entry by default. Any code reacting to a URL the browser has already changed
   (popstate) must pass { push: false }. Intermediate steps that are not

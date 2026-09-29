@@ -710,15 +710,15 @@
                             </div>
                             
                             <div class="article-navigation">
-                                <button class="btn nav-btn" id="prev-article" onclick="navigateArticle('prev')">
+                                <a class="btn nav-btn" id="prev-article" onclick="navigateArticle(event, 'prev')">
                                     <span class="nav-direction">← PREVIOUS</span>
                                     <span class="nav-title" id="prev-article-title"></span>
-                                </button>
+                                </a>
                                 <button class="btn" onclick="showArticleIndex()">Back to Articles</button>
-                                <button class="btn nav-btn" id="next-article" onclick="navigateArticle('next')">
+                                <a class="btn nav-btn" id="next-article" onclick="navigateArticle(event, 'next')">
                                     <span class="nav-direction">NEXT →</span>
                                     <span class="nav-title" id="next-article-title"></span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

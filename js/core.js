@@ -704,10 +704,12 @@ function showArticle(articleId, opts) {
     // Previous button (loop to end if on first article)
     const prevIndex = currentIndex > 0 ? currentIndex - 1 : ARTICLE_ORDER.length - 1;
     prevBtn.setAttribute('data-article-id', ARTICLE_ORDER[prevIndex]);
+    prevBtn.setAttribute('href', '/articles/' + ARTICLE_ORDER[prevIndex]);
     
     // Next button (loop to beginning if on last article)
     const nextIndex = currentIndex < ARTICLE_ORDER.length - 1 ? currentIndex + 1 : 0;
     nextBtn.setAttribute('data-article-id', ARTICLE_ORDER[nextIndex]);
+    nextBtn.setAttribute('href', '/articles/' + ARTICLE_ORDER[nextIndex]);
     
     // Populate navigation button titles
     const prevArticle = ARTICLES.find(a => a.id === ARTICLE_ORDER[prevIndex]);
@@ -921,9 +923,11 @@ function nativeShare(articleId, articleTitle) {
     }
 }
 
-function navigateArticle(direction) {
-    const btn = direction === 'prev' ? document.getElementById('prev-article') : document.getElementById('next-article');
-    const articleId = btn.getAttribute('data-article-id');
+function navigateArticle(event, direction) {
+    if (isModifiedClick(event)) return;
+    event.preventDefault();
+    const link = direction === 'prev' ? document.getElementById('prev-article') : document.getElementById('next-article');
+    const articleId = link.getAttribute('data-article-id');
     if (articleId) {
         showArticle(articleId);
     }

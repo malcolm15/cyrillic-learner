@@ -523,8 +523,8 @@ function main() {
             '                            </div>',
         relatedOpen: '<div class="related-articles" id="related-articles-section" style="display: none;">',
         relatedPlaceholder: '<!-- Related articles loaded here by JavaScript -->',
-        prevBtn: '<button class="btn nav-btn" id="prev-article" onclick="navigateArticle(\'prev\')">',
-        nextBtn: '<button class="btn nav-btn" id="next-article" onclick="navigateArticle(\'next\')">',
+        prevBtn: '<a class="btn nav-btn" id="prev-article" onclick="navigateArticle(event, \'prev\')">',
+        nextBtn: '<a class="btn nav-btn" id="next-article" onclick="navigateArticle(event, \'next\')">',
         prevTitle: '<span class="nav-title" id="prev-article-title"></span>',
         nextTitle: '<span class="nav-title" id="next-article-title"></span>',
     };
@@ -642,10 +642,29 @@ function main() {
         page = replaceOnce(page, T.relatedOpen, '<div class="related-articles" id="related-articles-section" style="display: block;">', slug + '/related section state');
         page = replaceOnce(page, T.relatedPlaceholder, relatedCards, slug + '/related cards');
         page = replaceOnce(page, T.body, '<body data-prerendered="' + slug + '">', slug + '/body marker');
-        page = replaceOnce(page, T.prevBtn, '<button class="btn nav-btn" id="prev-article" onclick="navigateArticle(\'prev\')" data-article-id="' + ARTICLE_ORDER[prevIndex] + '">', slug + '/prev button');
-        page = replaceOnce(page, T.nextBtn, '<button class="btn nav-btn" id="next-article" onclick="navigateArticle(\'next\')" data-article-id="' + ARTICLE_ORDER[nextIndex] + '">', slug + '/next button');
+        page = replaceOnce(page, T.prevBtn, '<a class="btn nav-btn" id="prev-article" href="/articles/' + ARTICLE_ORDER[prevIndex] + '" onclick="navigateArticle(event, \'prev\')" data-article-id="' + ARTICLE_ORDER[prevIndex] + '">', slug + '/prev link');
+        page = replaceOnce(page, T.nextBtn, '<a class="btn nav-btn" id="next-article" href="/articles/' + ARTICLE_ORDER[nextIndex] + '" onclick="navigateArticle(event, \'next\')" data-article-id="' + ARTICLE_ORDER[nextIndex] + '">', slug + '/next link');
         page = replaceOnce(page, T.prevTitle, '<span class="nav-title" id="prev-article-title">' + escapeHtml(prevArticle.title) + '</span>', slug + '/prev title');
         page = replaceOnce(page, T.nextTitle, '<span class="nav-title" id="next-article-title">' + escapeHtml(nextArticle.title) + '</span>', slug + '/next title');
+
+        // ---- the prev/next bar must be crawlable, and must point where
+        // ARTICLE_ORDER says. Buttons gave crawlers no links between articles;
+        // if the bar ever regresses to a button, or an href drifts from the
+        // order, fail the build rather than ship a dead end.
+        const prevHref = '/articles/' + ARTICLE_ORDER[prevIndex];
+        const nextHref = '/articles/' + ARTICLE_ORDER[nextIndex];
+        [['prev', 'prev-article', prevHref], ['next', 'next-article', nextHref]].forEach(function (pair) {
+            const dir = pair[0], id = pair[1], href = pair[2];
+            const tag = '<a class="btn nav-btn" id="' + id + '" href="' + href + '"';
+            const n = countOccurrences(page, tag);
+            if (n !== 1) {
+                fail(slug + '/' + dir + ' link: expected exactly 1 occurrence of ' + tag +
+                    ', found ' + n + '. ARTICLE_ORDER says ' + dir + ' is ' + href);
+            }
+            if (countOccurrences(page, '<button class="btn nav-btn" id="' + id + '"') !== 0) {
+                fail(slug + '/' + dir + ' link: the bar still emits a <button>, which gives crawlers no link');
+            }
+        });
 
         // ---- self-contained document: drop every other route's section ----
         const FOOTER_TAIL = '\n            </div>\n        </div>\n\n    <!-- Footer -->';
