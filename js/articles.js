@@ -2564,7 +2564,7 @@ const ARTICLES = [
                 <img src="/images/serbian-cyrillic-vs-latin.png"
                      alt="Serbian Cyrillic and Latin script side-by-side comparison showing common words: Београд/Beograd, Србија/Srbija, добро јутро/dobro jutro, хвала/hvala"
                      style="max-width: 600px; width: 100%;"
-                     width="1400" height="675"
+                     width="1400" height="645"
                      loading="lazy">
             </figure>
 

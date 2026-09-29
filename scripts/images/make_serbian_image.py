@@ -2,6 +2,8 @@ import os
 
 from PIL import Image, ImageDraw, ImageFont
 
+import layout
+
 # Repo root, resolved from this file so the script runs from any directory.
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -13,21 +15,21 @@ BG        = (26, 26, 46)
 GOLD      = (255, 196, 37)
 CYR_COL   = (90, 160, 255)
 LAT_COL   = (60, 200, 120)
-WHITE     = (255, 255, 255)
 SUBTEXT   = (160, 160, 195)
 DIVIDER   = (55, 55, 85)
+ROW_RULE  = (40, 40, 66)     # fainter than DIVIDER, sits in the gap between rows
 WATERMARK = (85, 85, 115)
 
 SUPP = "/System/Library/Fonts/Supplemental/"
-UNI  = "/Library/Fonts/Arial Unicode.ttf"
 
-font_title   = ImageFont.truetype(SUPP + "Arial Bold.ttf",  20 * SCALE)
-font_sub     = ImageFont.truetype(SUPP + "Arial.ttf",       11 * SCALE)
-font_col_hdr = ImageFont.truetype(SUPP + "Arial Bold.ttf",  11 * SCALE)
-font_cyril   = ImageFont.truetype(UNI,                       18 * SCALE)
-font_latin   = ImageFont.truetype(SUPP + "Arial Bold.ttf",  16 * SCALE)
-font_meaning = ImageFont.truetype(SUPP + "Arial.ttf",       10 * SCALE)
-font_wm      = ImageFont.truetype(SUPP + "Arial.ttf",       10 * SCALE)
+font_title   = ImageFont.truetype(SUPP + "Arial Bold.ttf", 20 * SCALE)
+font_sub     = ImageFont.truetype(SUPP + "Arial.ttf",      11 * SCALE)
+font_col_hdr = ImageFont.truetype(SUPP + "Arial Bold.ttf", 11 * SCALE)
+# One font file for both word columns, so the two scripts share metrics exactly
+# instead of being reconciled by an offset, which is what drifted before.
+font_word    = ImageFont.truetype(SUPP + "Arial Bold.ttf", 16 * SCALE)
+font_meaning = ImageFont.truetype(SUPP + "Arial.ttf",      10 * SCALE)
+font_wm      = ImageFont.truetype(SUPP + "Arial.ttf",      10 * SCALE)
 
 # (Cyrillic, Latin, English meaning)
 pairs = [
@@ -46,29 +48,25 @@ def text_h(text, font):
     bb = _d.textbbox((0, 0), text, font=font)
     return bb[3] - bb[1]
 
-def text_w(text, font):
-    bb = _d.textbbox((0, 0), text, font=font)
-    return bb[2] - bb[0]
-
 # ── vertical layout ────────────────────────────────────────────────
-PAD          = 20 * SCALE
-TITLE_Y      = PAD
-title_h      = text_h("Serbian", font_title)
-SUB_Y        = TITLE_Y + title_h + 10 * SCALE   # 10px breathing room
-sub_h        = text_h("sub", font_sub)
-HDR_DIV_Y    = SUB_Y + sub_h + 12 * SCALE
-COL_HDR_Y    = HDR_DIV_Y + 10 * SCALE
-col_hdr_h    = text_h("CYRILLIC", font_col_hdr)
+PAD       = 20 * SCALE
+TITLE_Y   = PAD
+SUB_Y     = TITLE_Y + text_h("Serbian", font_title) + 10 * SCALE
+HDR_DIV_Y = SUB_Y + text_h("sub", font_sub) + 12 * SCALE
+COL_HDR_Y = HDR_DIV_Y + 10 * SCALE
 
-WORD_H       = text_h("Београд", font_cyril)
-MEAN_H       = text_h("meaning", font_meaning)
-ROW_H        = WORD_H + 4 * SCALE + MEAN_H   # word + gap + meaning
-ROW_GAP      = 10 * SCALE
-ROWS_START_Y = COL_HDR_Y + col_hdr_h + 14 * SCALE
+# Rows sit on shared baselines, so the pitch comes from how far the row's ink
+# actually reaches either side of the baseline, not from a sample string.
+ROW_ITEMS = ([(c, font_word) for c, _, _ in pairs]
+             + [(l, font_word) for _, l, _ in pairs]
+             + [(m, font_meaning) for _, _, m in pairs])
+ABOVE, BELOW = layout.row_extent(_d, ROW_ITEMS)
 
-rows_total_h = len(pairs) * ROW_H + (len(pairs) - 1) * ROW_GAP
+PITCH        = 40 * SCALE
+FIRST_BASE_Y = COL_HDR_Y + text_h("CYRILLIC", font_col_hdr) + 14 * SCALE + ABOVE
+LAST_BASE_Y  = FIRST_BASE_Y + (len(pairs) - 1) * PITCH
 
-NOTE_Y = ROWS_START_Y + rows_total_h + 14 * SCALE
+NOTE_Y = LAST_BASE_Y + BELOW + 14 * SCALE
 WM_Y   = NOTE_Y + text_h("note", font_meaning) + 6 * SCALE
 H      = WM_Y + text_h("cyrilica.com", font_wm) + 14 * SCALE
 
@@ -79,9 +77,7 @@ def cx(text, font, x_center):
     bb = draw.textbbox((0, 0), text, font=font)
     return x_center - (bb[2] - bb[0]) // 2
 
-mid_x   = W // 2
-col_cyr = W // 4
-col_lat = 3 * W // 4
+col_cyr, col_lat, col_mean = W // 6, W // 2, 5 * W // 6
 
 # ── draw ───────────────────────────────────────────────────────────
 draw.text((cx("Serbian: One Language, Two Scripts", font_title, W // 2), TITLE_Y),
@@ -91,20 +87,20 @@ draw.text((cx("Every Cyrillic letter maps 1-to-1 to a Latin equivalent", font_su
           "Every Cyrillic letter maps 1-to-1 to a Latin equivalent", font=font_sub, fill=SUBTEXT)
 
 draw.rectangle([(40 * SCALE, HDR_DIV_Y), (W - 40 * SCALE, HDR_DIV_Y + SCALE)], fill=DIVIDER)
-draw.rectangle([(mid_x - SCALE, HDR_DIV_Y), (mid_x + SCALE, ROWS_START_Y + rows_total_h)], fill=DIVIDER)
 
-draw.text((cx("SERBIAN CYRILLIC", font_col_hdr, col_cyr), COL_HDR_Y),
-          "SERBIAN CYRILLIC", font=font_col_hdr, fill=GOLD)
-draw.text((cx("SERBIAN LATIN", font_col_hdr, col_lat), COL_HDR_Y),
-          "SERBIAN LATIN", font=font_col_hdr, fill=GOLD)
+for label, x in [("SERBIAN CYRILLIC", col_cyr), ("SERBIAN LATIN", col_lat), ("MEANING", col_mean)]:
+    draw.text((cx(label, font_col_hdr, x), COL_HDR_Y), label, font=font_col_hdr, fill=GOLD)
 
 for i, (cyr, lat, meaning) in enumerate(pairs):
-    y = ROWS_START_Y + i * (ROW_H + ROW_GAP)
-    draw.text((cx(cyr, font_cyril, col_cyr), y), cyr, font=font_cyril, fill=CYR_COL)
-    draw.text((cx(lat, font_latin, col_lat), y + (WORD_H - text_h(lat, font_latin)) // 2),
-              lat, font=font_latin, fill=LAT_COL)
-    draw.text((cx(meaning, font_meaning, W // 2), y + WORD_H + 4 * SCALE),
-              meaning, font=font_meaning, fill=SUBTEXT)
+    baseline = FIRST_BASE_Y + i * PITCH
+    if i:   # a faint rule in the gap above this row, never through any text
+        rule_y = baseline - ABOVE - (PITCH - ABOVE - BELOW) // 2
+        draw.rectangle([(40 * SCALE, rule_y), (W - 40 * SCALE, rule_y + SCALE - 1)], fill=ROW_RULE)
+    layout.baseline_row(draw, baseline, [
+        (cyr,     font_word,    CYR_COL, col_cyr),
+        (lat,     font_word,    LAT_COL, col_lat),
+        (meaning, font_meaning, SUBTEXT, col_mean),
+    ])
 
 note = "Serbia's constitution puts Cyrillic into official use. Latin is used alongside it every day."
 draw.text((cx(note, font_meaning, W // 2), NOTE_Y), note, font=font_meaning, fill=SUBTEXT)
