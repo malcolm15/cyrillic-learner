@@ -632,8 +632,18 @@ function removeArticleSchema() {
     if (twitterUrl) twitterUrl.setAttribute('content', DEFAULT_URL);
 }
 
+// A click the browser should handle itself rather than the SPA: any modifier
+// key, or any button other than the primary one. Cmd/Ctrl opens a new tab,
+// Shift a new window, Alt/Option downloads the target, middle-click opens a
+// background tab. Every in-app link handler goes through this one guard so the
+// list cannot drift between them.
+function isModifiedClick(event) {
+    return !!(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
+        (typeof event.button === 'number' && event.button !== 0));
+}
+
 function navTo(event, path, slug) {
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1) return;
+    if (isModifiedClick(event)) return;
     event.preventDefault();
     if (slug) {
         showArticle(slug);
@@ -643,7 +653,7 @@ function navTo(event, path, slug) {
 }
 
 function navToArticle(event, slug) {
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1) return;
+    if (isModifiedClick(event)) return;
     event.preventDefault();
     showPage('articles', { push: false });
     setTimeout(() => showArticle(slug), 100);
