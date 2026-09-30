@@ -54,6 +54,13 @@ Orientation for Claude Code (CC). Read this at the start of every session.
 - **Desktop and mobile are separate concerns.** Desktop-only changes go inside
   @media (min-width: 769px). Mobile uses @media (max-width: 768px). Do not alter
   mobile when the task is desktop-only.
+- **Edit CSS a whole block at a time.** When editing an existing CSS rule, replace
+  the complete selector block (old block to new block). Never substitute a bare
+  declaration such as `color: inherit` or `vertical-align: top`, even with a count
+  limit. Every batch that touches the stylesheet prints the full CSS diff before
+  commit. This rule exists because unanchored declaration substitutions silently
+  changed the wrong rule twice: `.related-article-card` in Batch 41 and
+  `.comparison-table td` in Batch 42.
 
 ## Stack
 Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
@@ -256,21 +263,62 @@ Navigation behaviors:
 - `showPage('home')` while a quiz is mid-session on home calls `newSession()` to
   restore the character-selection view rather than leaving a broken mid-quiz state.
 
-## Dark mode (AMOLED)
+## Theme architecture (dark mode)
 Toggled by the `body.dark-mode` class, persisted in localStorage under `darkMode`
-(`'true'`/`'false'`). Semantic tokens in `:root`:
-- `--dark-bg` #000000 (true black page)
-- `--dark-surface` #121214 (cards and tiles)
-- `--dark-text` #DCDCDC (primary text)
-- `--dark-text-dim` #9A9A9C (secondary text)
-- `--dark-border` #262628 (hairline borders)
-- `--dark-accent` #FF5C5C (red accent)
-- `--dark-accent-bright` #FF7A7A (hover/active)
-- `--dark-accent-dim` #C25A5A (dimmed accent)
+(`'true'`/`'false'`). The key name is load-bearing: existing visitors' saved
+preferences depend on it.
 
-Light-mode brand tokens include `--dark-blue` #1A237E and `--cream` #F5F1E8.
+**Role tokens.** Every dark-mode rule references a token from `:root`; no
+dark-mode rule carries a literal colour. Tokens are named for what a colour is
+*for*, not what it looks like, so the palette can change without re-triaging 150
+rules. The roles:
+- surfaces, back to front: `--dark-bg`, `--dark-surface`, `--dark-raised`, `--dark-border`
+- text: `--dark-text`, `--dark-text-dim`, `--dark-text-muted`, `--dark-heading`, `--dark-heading-sub`
+- links: `--dark-link`, `--dark-link-hover`
+- accents: `--dark-accent` (red, small accents only), `--dark-accent-2` (brand gold)
+- calls to action: `--dark-cta-bg`, `--dark-cta-bg-hover`, `--dark-cta-text`
+- states: `--dark-focus`, `--dark-ok`, `--dark-warn`, `--dark-bad`
+- one-offs: `--dark-quiz-bg`, `--dark-shadow`, `--dark-scrim`
 
-History: the green "Matrix mode" and its rain animation are archived in git (`git show 61e2368:docs/matrix-rain.md`). Do not reintroduce the green palette or the rain unless asked.
+Light-mode brand tokens include `--dark-blue` #1A237E and `--cream` #F5F1E8. The
+`--dark-` prefix on `--dark-blue` is historical: it is the brand navy, and it has
+nothing to do with the dark theme.
+
+Two rules keep the theme from drifting back: **red never fills a large area**
+(it is for CTA fills, small accents and error states), and **headings take the
+text colour, links take the link colour**. Before this split one token was the
+heading colour, the link colour, the logo, the nav fill, the button text and the
+focus ring all at once, which is what made the theme read as "red on black".
+
+**Applied before first paint.** An inline script is the first element inside the
+opening body tag in `index.html`. It has to stay there: `document.body` already
+exists at that point and nothing has painted, so a saved dark preference never
+shows a flash of the light theme. Putting it in `<head>` instead would mean
+moving the class to `<html>` and rewriting all 150 `body.dark-mode` selectors.
+Two constraints on that script: its comment must not spell the opening body tag,
+because `scripts/pre-render.js` asserts exactly one occurrence of it in the file;
+and the pre-render also asserts the snippet and the header toggle survive into
+every emitted article, because the no-flash guarantee depends on both.
+
+**`FOLLOW_SYSTEM_THEME`** is defined once, in that snippet, and read by
+`js/core.js`. `false` (current) means a visitor with no saved preference gets the
+light theme, exactly as the site has always behaved. `true` hands that decision
+to `prefers-color-scheme`. Turning it on is a one-line change; the Settings
+checkbox sync and the `setting_source: 'system'` analytics path are already built
+and tested for it.
+
+**One entry point.** `setTheme(dark, source)` in `js/core.js` is the only thing
+that changes the theme. Both controls call it (the header button and the Settings
+checkbox), so they cannot drift apart, and every change is recorded in GA as
+`setting_changed` / `setting_name: 'dark_mode'` with `setting_source` naming the
+control. `loadSettings()` reads the theme back off the body rather than
+recomputing it, so the controls can never disagree with what is on screen.
+
+History: the green "Matrix mode" and its rain animation are archived in git
+(`git show 61e2368:docs/matrix-rain.md`). Do not reintroduce the green palette or
+the rain unless asked. The palette before the Batch 45 overhaul was an AMOLED
+true-black background with a single bright red accent (`#FF5C5C`); it is in git
+at `5ce633d`.
 
 ## Fonts
 Loaded from Google Fonts: IBM Plex Mono (base/body monospace), Bebas Neue (condensed
