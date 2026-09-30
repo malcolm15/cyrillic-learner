@@ -6,15 +6,48 @@
             --charcoal: #2C2C2C;
             --paper: #FDFBF7;
             
-            /* Dark Mode Colors */
-            --dark-bg: #000000;
-            --dark-surface: #121214;
-            --dark-accent: #FF5C5C;
-            --dark-accent-dim: #C25A5A;
-            --dark-accent-bright: #FF7A7A;
-            --dark-text: #DCDCDC;
-            --dark-text-dim: #9A9A9C;
-            --dark-border: #262628;
+            /* Dark theme, role-based. Every dark-mode rule references one of
+               these tokens; no dark-mode rule carries a literal colour. A role
+               token says what a colour is for, not what it looks like, so the
+               palette can change without re-triaging 150 rules. See CLAUDE.md,
+               "Theme architecture". */
+
+            /* surfaces, back to front */
+            --dark-bg: #16151A;
+            --dark-surface: #201F26;
+            --dark-raised: #2A2932;
+            --dark-border: #373643;
+
+            /* text */
+            --dark-text: #EDE8DC;
+            --dark-text-dim: #C3BEB2;
+            --dark-text-muted: #A09C92;
+            --dark-heading: #EDE8DC;
+            --dark-heading-sub: #DED8C9;
+
+            /* links */
+            --dark-link: #93BAF5;
+            --dark-link-hover: #B8D2FA;
+
+            /* accents: red is for small accents only, never a large fill */
+            --dark-accent: #FF8F8F;
+            --dark-accent-2: #FFC94D;
+
+            /* calls to action: the only place red fills an area */
+            --dark-cta-bg: #B3261E;
+            --dark-cta-bg-hover: #C9342B;
+            --dark-cta-text: #FFFFFF;
+
+            /* states */
+            --dark-focus: #93BAF5;
+            --dark-ok: #5BD68A;
+            --dark-warn: #F0B429;
+            --dark-bad: #FF8F8F;
+
+            /* one-off surfaces and overlays */
+            --dark-quiz-bg: #1C2A20;
+            --dark-shadow: rgba(0, 0, 0, 0.5);
+            --dark-scrim: rgba(0, 0, 0, 0.3);
             
             /* Modern Design Tokens */
             --border-radius: 12px;
@@ -95,9 +128,9 @@
         }
 
         body.dark-mode nav {
-            background: var(--dark-bg);
-            border-bottom: 4px solid var(--dark-accent);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            background: var(--dark-surface);
+            border-bottom: 4px solid var(--dark-border);
+            box-shadow: 0 4px 12px var(--dark-shadow);
         }
 
         .nav-container {
@@ -121,7 +154,7 @@
         }
 
         body.dark-mode .nav-logo {
-            color: var(--dark-accent);
+            color: var(--dark-text);
         }
 
         .nav-logo .letter-l,
@@ -136,7 +169,7 @@
 
         body.dark-mode .nav-logo .letter-l,
         body.dark-mode .logo-display .letter-l {
-            color: var(--dark-accent-bright);
+            color: var(--dark-accent-2);
         }
 
         /* Confetti container - hidden by default */
@@ -188,8 +221,8 @@
 
         body.dark-mode .nav-links a:hover,
         body.dark-mode .nav-links a.active {
-            background: var(--dark-accent);
-            color: var(--dark-bg);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
         }
 
         /* Mobile menu toggle */
@@ -223,7 +256,7 @@
 
             body.dark-mode .nav-links {
                 background: var(--dark-surface);
-                border-top: 2px solid var(--dark-accent);
+                border-top: 2px solid var(--dark-border);
             }
 
             .nav-links.active {
@@ -298,7 +331,7 @@
         }
 
         body.dark-mode .share-section p {
-            color: #888;
+            color: var(--dark-text-muted);
         }
 
         .share-buttons {
@@ -332,14 +365,14 @@
         }
 
         body.dark-mode .share-btn {
-            background: var(--dark-bg);
-            border-color: var(--dark-accent);
-            color: var(--dark-accent);
+            background: var(--dark-raised);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
         }
 
         body.dark-mode .share-btn:hover {
-            background: var(--dark-accent);
-            color: var(--dark-bg);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
         }
 
         .share-btn.copied {
@@ -349,9 +382,9 @@
         }
 
         body.dark-mode .share-btn.copied {
-            background: var(--dark-accent);
-            color: var(--dark-bg);
-            border-color: var(--dark-accent);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
+            border-color: var(--dark-cta-bg);
         }
 
         /* Decorative background pattern */
@@ -417,7 +450,7 @@
         }
 
         body.dark-mode .logo-display {
-            color: var(--dark-accent);
+            color: var(--dark-text);
         }
 
         .subtitle {
@@ -430,7 +463,7 @@
         }
 
         body.dark-mode .subtitle {
-            color: #bbb;
+            color: var(--dark-text-dim);
         }
 
         .site-description {
@@ -444,7 +477,7 @@
         }
 
         body.dark-mode .site-description {
-            color: #888;
+            color: var(--dark-text-muted);
         }
 
         .card {
@@ -471,13 +504,13 @@
 
             body.dark-mode .card:hover {
                 box-shadow: var(--shadow-lg);
-                border-color: var(--dark-accent-bright, #FF7A7A);
+                border-color: var(--dark-link);
             }
         }
 
         body.dark-mode .card {
             background: var(--dark-surface);
-            border: 2px solid var(--dark-accent);
+            border: 2px solid var(--dark-border);
             box-shadow: var(--shadow-md);
         }
 
@@ -507,7 +540,7 @@
 
         body.dark-mode .article-header h1,
         body.dark-mode h2 {
-            color: var(--dark-accent);
+            color: var(--dark-heading);
             border-bottom: 3px solid var(--dark-accent);
         }
 
@@ -522,7 +555,7 @@
         }
 
         body.dark-mode h3 {
-            color: var(--dark-accent);
+            color: var(--dark-heading-sub);
         }
 
         .content-text {
@@ -539,8 +572,8 @@
         }
 
         body.dark-mode .content-text a {
-            color: var(--dark-accent);
-            border-bottom: 2px solid var(--dark-accent);
+            color: var(--dark-link);
+            border-bottom: 2px solid var(--dark-link);
         }
 
         .reference-link {
@@ -554,12 +587,12 @@
         }
 
         body.dark-mode .reference-link {
-            color: var(--dark-text);
+            color: var(--dark-link);
             font-weight: 600;
         }
 
         body.dark-mode .reference-link:hover {
-            color: var(--dark-accent);
+            color: var(--dark-link-hover);
         }
 
         .content-text a:hover {
@@ -568,8 +601,8 @@
         }
 
         body.dark-mode .content-text a:hover {
-            color: var(--dark-accent-bright);
-            border-bottom-color: var(--dark-accent-bright);
+            color: var(--dark-link-hover);
+            border-bottom-color: var(--dark-link-hover);
         }
 
         /* Articles Styles */
@@ -602,7 +635,7 @@
         
         body.dark-mode .article-category-header {
             color: var(--dark-text);
-            background: rgba(255, 255, 255, 0.04);
+            background: var(--dark-raised);
             border-left-color: var(--dark-accent);
         }
         
@@ -653,7 +686,7 @@
         }
 
         body.dark-mode .article-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--dark-raised);
         }
 
         .article-item::before {
@@ -686,7 +719,7 @@
         }
 
         body.dark-mode .article-item h3 {
-            color: var(--dark-accent);
+            color: var(--dark-heading);
         }
 
         .article-item p {
@@ -768,19 +801,19 @@
         }
 
         body.dark-mode .article-back-btn {
-            background: var(--dark-surface);
-            color: var(--dark-accent);
-            border: 1px solid var(--dark-accent);
+            background: var(--dark-raised);
+            color: var(--dark-link);
+            border: 1px solid var(--dark-border);
         }
 
         body.dark-mode .article-back-btn:hover {
-            background: var(--dark-accent);
-            color: var(--dark-blue);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
             box-shadow: none;
         }
 
         body.dark-mode .article-header {
-            border-bottom-color: var(--dark-accent);
+            border-bottom-color: var(--dark-border);
         }
 
         /* Table of Contents styling */
@@ -822,21 +855,21 @@
 
         /* Dark Mode TOC */
         body.dark-mode .article-toc {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--dark-raised);
             border-left: 4px solid var(--dark-accent);
             box-shadow: none;
         }
 
         body.dark-mode .article-toc h4 {
-            color: var(--dark-accent);
+            color: var(--dark-heading);
         }
 
         body.dark-mode .article-toc a {
-            color: var(--dark-accent);
+            color: var(--dark-link);
         }
 
         body.dark-mode .article-toc a:hover {
-            color: var(--dark-accent-bright);
+            color: var(--dark-link-hover);
         }
 
         .article-content {
@@ -855,7 +888,7 @@
         }
 
         body.dark-mode .article-content h3 {
-            color: var(--dark-accent);
+            color: var(--dark-heading-sub);
         }
 
         .article-content ul, .article-content ol {
@@ -927,8 +960,8 @@
         }
 
         body.dark-mode .article-list a {
-            color: var(--dark-accent);
-            border-bottom-color: var(--dark-accent);
+            color: var(--dark-link);
+            border-bottom-color: var(--dark-link);
         }
 
         .article-list a:hover {
@@ -938,7 +971,7 @@
         }
 
         body.dark-mode .article-list a:hover {
-            color: var(--dark-accent-bright);
+            color: var(--dark-link-hover);
         }
 
         /* Article Content */
@@ -951,7 +984,7 @@
         }
 
         body.dark-mode .article-content h2 {
-            color: var(--dark-accent);
+            color: var(--dark-heading);
         }
 
         .article-content h3 {
@@ -962,7 +995,7 @@
         }
 
         body.dark-mode .article-content h3 {
-            color: var(--dark-accent-dim);
+            color: var(--dark-heading-sub);
         }
 
         .article-content p {
@@ -1007,12 +1040,12 @@
         }
 
         body.dark-mode .article-image img {
-            border-color: var(--dark-border);
+            border-color: var(--dark-text-muted);
         }
 
         body.dark-mode .article-image figcaption {
-            color: var(--dark-text);
-            opacity: 0.7;
+            color: var(--dark-text-dim);
+            opacity: 1;
         }
 
         /* Quiz CTA Box */
@@ -1066,7 +1099,7 @@
         }
 
         body.dark-mode .quiz-cta {
-            background: linear-gradient(135deg, #0a1a0a 0%, #112211 100%);
+            background: var(--dark-quiz-bg);
             border: 1px solid var(--dark-border);
         }
 
@@ -1075,8 +1108,8 @@
         }
 
         body.dark-mode .quiz-cta .quiz-cta-btn {
-            background: var(--dark-accent);
-            color: var(--dark-bg);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
             border: none;
         }
 
@@ -1107,7 +1140,7 @@
         }
 
         body.dark-mode .article-nav {
-            border-top-color: var(--dark-accent);
+            border-top-color: var(--dark-border);
         }
 
         .article-nav .btn {
@@ -1191,7 +1224,7 @@
         }
 
         body.dark-mode .reference-section::after {
-            background: var(--dark-accent);
+            background: var(--dark-cta-bg);
         }
 
         /* Hover effects - only on devices that support hover (desktop/trackpad) */
@@ -1216,13 +1249,13 @@
 
             body.dark-mode .reference-section:hover .section-title,
             body.dark-mode .reference-section:hover .char-ref-item {
-                color: var(--dark-bg);
+                color: var(--dark-cta-text);
             }
 
             /* Make the actual Cyrillic letters and roman text visible on green hover background */
             body.dark-mode .reference-section:hover .char-ref-cyrillic,
             body.dark-mode .reference-section:hover .char-ref-roman {
-                color: var(--dark-bg) !important;
+                color: var(--dark-cta-text) !important;
                 position: relative;
                 z-index: 1;
             }
@@ -1236,8 +1269,8 @@
         }
 
         body.dark-mode .reference-section.selected {
-            background: var(--dark-accent);
-            border-color: var(--dark-accent-bright);
+            background: var(--dark-cta-bg);
+            border-color: var(--dark-cta-bg-hover);
             box-shadow: var(--shadow-lg);
         }
 
@@ -1250,7 +1283,7 @@
         }
 
         body.dark-mode .reference-section.selected .section-title {
-            color: var(--dark-bg);
+            color: var(--dark-cta-text);
         }
 
         .reference-section.selected .char-ref-item {
@@ -1259,8 +1292,8 @@
         }
 
         body.dark-mode .reference-section.selected .char-ref-item {
-            color: var(--dark-bg);
-            border-color: rgba(10, 10, 10, 0.3);
+            color: var(--dark-cta-text);
+            border-color: var(--dark-scrim);
         }
 
         .reference-section.selected .char-ref-cyrillic {
@@ -1268,7 +1301,7 @@
         }
 
         body.dark-mode .reference-section.selected .char-ref-cyrillic {
-            color: var(--dark-bg);
+            color: var(--dark-cta-text);
         }
 
         .reference-section.selected .char-ref-roman {
@@ -1276,7 +1309,7 @@
         }
 
         body.dark-mode .reference-section.selected .char-ref-roman {
-            color: var(--dark-bg);
+            color: var(--dark-cta-text);
         }
 
         .section-title {
@@ -1292,7 +1325,7 @@
         }
 
         body.dark-mode .section-title {
-            color: var(--dark-accent);
+            color: var(--dark-heading);
         }
 
         .reference-grid {
@@ -1327,7 +1360,7 @@
         }
 
         body.dark-mode .char-ref-cyrillic {
-            color: var(--dark-accent);
+            color: var(--dark-text);
         }
 
         .char-ref-roman {
@@ -1375,15 +1408,15 @@
         }
 
         body.dark-mode .start-btn {
-            background: var(--dark-bg);
-            color: var(--dark-accent);
-            border: 4px solid var(--dark-accent);
+            background: var(--dark-raised);
+            color: var(--dark-text);
+            border: 4px solid var(--dark-border);
             box-shadow: 5px 5px 0 var(--dark-border);
         }
 
         body.dark-mode .start-btn:not(:disabled):hover {
-            background: var(--dark-accent);
-            color: var(--dark-bg);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
             box-shadow: 3px 7px 0 var(--dark-border);
         }
 
@@ -1416,8 +1449,8 @@
 
         body.dark-mode .score {
             background: var(--dark-surface);
-            border: 2px solid var(--dark-accent);
-            color: var(--dark-accent);
+            border: 2px solid var(--dark-border);
+            color: var(--dark-text);
         }
 
         .progress {
@@ -1428,7 +1461,7 @@
         }
 
         body.dark-mode .progress {
-            color: var(--dark-accent);
+            color: var(--dark-text-dim);
         }
 
         .character-display {
@@ -1474,12 +1507,12 @@
         }
 
         body.dark-mode .audio-btn {
-            background: var(--dark-accent);
-            color: var(--dark-bg);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
         }
 
         body.dark-mode .audio-btn:hover {
-            background: var(--dark-accent-bright);
+            background: var(--dark-cta-bg-hover);
         }
 
         .cyrillic-char {
@@ -1494,8 +1527,8 @@
         }
 
         body.dark-mode .cyrillic-char {
-            color: var(--dark-accent);
-            text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
+            color: var(--dark-text);
+            text-shadow: 5px 5px 0 var(--dark-shadow);
         }
 
         .cyrillic-char-lowercase {
@@ -1507,7 +1540,7 @@
         }
 
         body.dark-mode .cyrillic-char-lowercase {
-            color: var(--dark-accent-dim);
+            color: var(--dark-text-dim);
             text-shadow: none;
         }
 
@@ -1557,10 +1590,10 @@
         }
 
         body.dark-mode input[type="text"] {
-            background: var(--dark-bg);
-            border: 2px solid var(--dark-accent);
-            color: var(--dark-accent);
-            caret-color: var(--dark-accent);
+            background: var(--dark-raised);
+            border: 2px solid var(--dark-border);
+            color: var(--dark-text);
+            caret-color: var(--dark-text);
         }
 
         input[type="text"]:focus {
@@ -1571,8 +1604,8 @@
         }
 
         body.dark-mode input[type="text"]:focus {
-            border-color: var(--dark-accent-bright);
-            box-shadow: 0 0 0 2px var(--dark-accent);
+            border-color: var(--dark-focus);
+            box-shadow: 0 0 0 2px var(--dark-focus);
         }
 
         .feedback {
@@ -1604,7 +1637,7 @@
         }
 
         body.dark-mode .feedback.correct {
-            color: var(--dark-accent);
+            color: var(--dark-ok);
         }
 
         /* Confetti for correct answers */
@@ -1682,8 +1715,8 @@
             }
 
             body.dark-mode .btn:hover {
-                background: var(--dark-accent);
-                color: var(--dark-bg);
+                background: var(--dark-cta-bg);
+                color: var(--dark-cta-text);
                 box-shadow: var(--shadow-md);
             }
 
@@ -1693,8 +1726,8 @@
             }
 
             body.dark-mode .btn-settings:hover {
-                background: var(--dark-accent-bright);
-                color: var(--dark-bg);
+                background: var(--dark-cta-bg-hover);
+                color: var(--dark-cta-text);
                 box-shadow: none;
             }
         }
@@ -1705,9 +1738,9 @@
         }
 
         body.dark-mode .btn {
-            background: var(--dark-bg);
-            border: 2px solid var(--dark-accent);
-            color: var(--dark-accent);
+            background: var(--dark-raised);
+            border: 2px solid var(--dark-border);
+            color: var(--dark-text);
         }
 
         /* Settings button - unique style */
@@ -1720,9 +1753,9 @@
         }
 
         body.dark-mode .btn-settings {
-            background: var(--dark-accent);
-            color: var(--dark-bg);
-            border: 2px solid var(--dark-accent-bright);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
+            border: 2px solid var(--dark-cta-bg);
             box-shadow: none;
         }
 
@@ -1743,7 +1776,7 @@
 
         body.dark-mode .stat-item {
             background: var(--dark-surface);
-            border: 3px solid var(--dark-accent);
+            border: 3px solid var(--dark-border);
         }
 
         .stat-value {
@@ -1757,7 +1790,7 @@
         }
 
         body.dark-mode .stat-value {
-            color: var(--dark-accent);
+            color: var(--dark-heading);
         }
 
         .stat-label {
@@ -1788,8 +1821,8 @@
         }
 
         body.dark-mode .settings-section-title {
-            color: var(--dark-text);
-            opacity: 0.5;
+            color: var(--dark-text-dim);
+            opacity: 1;
         }
 
         .setting-item {
@@ -1845,7 +1878,7 @@
         }
 
         body.dark-mode .settings-tip {
-            background: rgba(255, 255, 255, 0.04);
+            background: var(--dark-raised);
             border-left: 3px solid var(--dark-accent);
             color: var(--dark-text);
         }
@@ -1877,7 +1910,7 @@
         }
 
         body.dark-mode .toggle-slider {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--dark-raised);
         }
 
         .toggle-slider:before {
@@ -1894,7 +1927,7 @@
         }
 
         body.dark-mode .toggle-slider:before {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: var(--dark-text);
         }
 
         input:checked + .toggle-slider {
@@ -1902,7 +1935,7 @@
         }
 
         body.dark-mode input:checked + .toggle-slider {
-            background-color: var(--dark-accent);
+            background-color: var(--dark-cta-bg);
         }
 
         input:checked + .toggle-slider:before {
@@ -1910,7 +1943,7 @@
         }
 
         body.dark-mode input:checked + .toggle-slider:before {
-            background-color: var(--dark-bg);
+            background-color: var(--dark-cta-text);
         }
 
         /* Footer */
@@ -1926,7 +1959,7 @@
 
         body.dark-mode footer {
             background: var(--dark-surface);
-            border-top: 4px solid var(--dark-accent);
+            border-top: 4px solid var(--dark-border);
             color: var(--dark-text);
         }
 
@@ -1958,7 +1991,7 @@
         }
 
         body.dark-mode .footer-links a {
-            color: var(--dark-accent);
+            color: var(--dark-link);
         }
 
         .footer-links a:hover {
@@ -1966,7 +1999,7 @@
         }
 
         body.dark-mode .footer-links a:hover {
-            color: var(--dark-accent-bright);
+            color: var(--dark-link-hover);
         }
 
         @media (max-width: 768px) {
@@ -2014,7 +2047,7 @@
             }
 
             body.dark-mode .score {
-                border: 2px solid var(--dark-accent);
+                border: 2px solid var(--dark-border);
             }
 
             .progress {
@@ -2240,7 +2273,7 @@
         }
 
         body.dark-mode .quick-start-item:hover {
-            background: rgba(255, 255, 255, 0.06);
+            background: var(--dark-raised);
         }
 
         .quick-start-icon {
@@ -2294,11 +2327,11 @@
         }
 
         body.dark-mode .quick-start-all {
-            color: var(--dark-accent);
+            color: var(--dark-link);
         }
 
         body.dark-mode .quick-start-all:hover {
-            color: var(--dark-accent);
+            color: var(--dark-link-hover);
         }
 
         @media (max-width: 480px) {
@@ -2353,8 +2386,8 @@
         }
 
         body.dark-mode .comparison-table th {
-            background: var(--dark-surface);
-            color: var(--dark-text);
+            background: var(--dark-raised);
+            color: var(--dark-heading);
             border-bottom: 1px solid var(--dark-border);
         }
 
@@ -2364,11 +2397,11 @@
         }
 
         body.dark-mode .comparison-table tr:nth-child(even) td {
-            background: rgba(255, 255, 255, 0.04);
+            background: var(--dark-raised);
         }
 
         body.dark-mode .big-letter {
-            color: var(--dark-accent-bright);
+            color: var(--dark-heading);
         }
 
         @media (max-width: 768px) {
@@ -2429,14 +2462,27 @@
         .letter-card.medium { border-color: #f39c12; } .letter-card.medium .letter-sound { color: #f39c12; }
         .letter-card.hard   { border-color: #e74c3c; } .letter-card.hard .letter-sound   { color: #e74c3c; }
 
-        body.dark-mode .letter-card { background: var(--dark-surface); }
-        body.dark-mode .letter-card .letter-chars { color: var(--dark-text); }
-        body.dark-mode .letter-card .letter-example { color: var(--dark-text-dim); }
+        body.dark-mode .letter-card {
+            background: var(--dark-surface);
+        }
+        body.dark-mode .letter-card .letter-chars {
+            color: var(--dark-text);
+        }
+        body.dark-mode .letter-card .letter-example {
+            color: var(--dark-text-dim);
+        }
         body.dark-mode .letter-card .letter-name,
-        body.dark-mode .letter-card .letter-ipa { color: var(--dark-text-dim); }
-        body.dark-mode .letter-card.playing { background: rgba(255, 255, 255, 0.06); }
+        body.dark-mode .letter-card .letter-ipa {
+            color: var(--dark-text-dim);
+        }
+        body.dark-mode .letter-card.playing {
+            background: var(--dark-raised);
+        }
         #letter-legend { background: #f8f9fa; }
-        body.dark-mode #letter-legend { background: var(--dark-surface); border: 1px solid var(--dark-border); }
+        body.dark-mode #letter-legend {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+        }
 
         /* ==================== FALSE FRIENDS CARD GRID ==================== */
         .false-friends-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 24px 0; }
@@ -2469,9 +2515,16 @@
         @media (max-width: 359px) {
             .lookalike-says { display: none; }
         }
-        body.dark-mode .ff-card { background: var(--dark-surface); border-color: var(--dark-border); }
-        body.dark-mode .ff-letter { color: var(--dark-text); }
-        body.dark-mode .ff-example { color: var(--dark-text-dim); }
+        body.dark-mode .ff-card {
+            background: var(--dark-surface);
+            border-color: var(--dark-border);
+        }
+        body.dark-mode .ff-letter {
+            color: var(--dark-text);
+        }
+        body.dark-mode .ff-example {
+            color: var(--dark-text-dim);
+        }
 
         /* ==================== DESKTOP COMPACTION (min-width: 769px) ==================== */
         @media (min-width: 769px) {
@@ -2528,17 +2581,17 @@
             border-color: var(--red);
         }
         body.dark-mode .copy-char-btn {
-            background: var(--dark-bg);
-            border-color: var(--dark-accent);
-            color: var(--dark-accent);
+            background: var(--dark-raised);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
         }
         body.dark-mode .copy-char-btn:hover {
-            background: var(--dark-accent);
-            color: var(--dark-bg);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
         }
         body.dark-mode .copy-char-btn.copied {
-            background: var(--dark-accent-bright);
-            border-color: var(--dark-accent-bright);
+            background: var(--dark-cta-bg-hover);
+            border-color: var(--dark-cta-bg-hover);
         }
         .copy-feedback {
             font-size: 0.6rem;
@@ -2676,36 +2729,36 @@
             opacity: 1;
         }
         body.dark-mode #copy-text-builder {
-            background: rgba(0, 0, 0, 0.3);
-            border-color: var(--dark-accent);
+            background: var(--dark-raised);
+            border-color: var(--dark-border);
         }
         body.dark-mode .text-builder-label {
             color: var(--dark-text);
         }
         body.dark-mode .text-builder-btn {
-            background: var(--dark-accent);
-            border-color: var(--dark-accent);
-            color: var(--dark-bg);
+            background: var(--dark-cta-bg);
+            border-color: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
         }
         body.dark-mode .text-builder-btn:hover {
-            background: var(--dark-accent-bright);
-            border-color: var(--dark-accent-bright);
+            background: var(--dark-cta-bg-hover);
+            border-color: var(--dark-cta-bg-hover);
         }
         body.dark-mode .text-builder-btn-clear {
             background: transparent;
-            color: var(--dark-accent);
+            color: var(--dark-link);
         }
         body.dark-mode #text-builder-area {
-            background: rgba(0, 0, 0, 0.4);
+            background: var(--dark-raised);
             border-color: var(--dark-border);
             color: var(--dark-text);
         }
         body.dark-mode #text-builder-area:focus {
-            border-color: var(--dark-accent);
+            border-color: var(--dark-focus);
         }
         body.dark-mode .text-builder-toast {
-            background: var(--dark-accent);
-            color: var(--dark-bg);
+            background: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
         }
 
 /* Font Awesome icon spacing in share buttons */
@@ -2895,7 +2948,7 @@
 
 /* Dark mode support */
 body.dark-mode .tool-cta-banner {
-    background: linear-gradient(135deg, rgba(255, 92, 92, 0.06) 0%, rgba(255, 92, 92, 0.10) 100%);
+    background: var(--dark-raised);
     border-left-color: var(--dark-accent);
 }
 
@@ -3059,12 +3112,12 @@ body.dark-mode .tool-cta-content strong {
 
 /* Dark mode support */
 body.dark-mode .mini-quiz-container {
-    background: linear-gradient(135deg, rgba(255, 92, 92, 0.06) 0%, rgba(255, 92, 92, 0.10) 100%);
-    border-color: var(--dark-accent);
+    background: var(--dark-raised);
+    border-color: var(--dark-border);
 }
 
 body.dark-mode .mini-quiz-header h3 {
-    color: var(--dark-accent);
+    color: var(--dark-heading-sub);
 }
 
 body.dark-mode .mini-char-display {
@@ -3072,21 +3125,21 @@ body.dark-mode .mini-char-display {
 }
 
 body.dark-mode .quiz-char-lower {
-    color: var(--dark-accent);
+    color: var(--dark-text-dim);
 }
 
 body.dark-mode .quiz-answer-input {
-    background: rgba(0, 0, 0, 0.3);
-    border-color: var(--dark-accent);
+    background: var(--dark-raised);
+    border-color: var(--dark-border);
     color: var(--dark-text);
 }
 
 body.dark-mode .mini-quiz-stats {
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--dark-raised);
 }
 
 body.dark-mode .mini-stat span:last-child {
-    color: var(--dark-accent);
+    color: var(--dark-text);
 }
 
 /* Mobile responsiveness — compact to fit full quiz in one viewport */
@@ -3193,16 +3246,16 @@ body.dark-mode .mini-stat span:last-child {
 }
 
 body.dark-mode .cursive-letter-btn {
-    background: var(--dark-surface);
-    border-color: var(--dark-accent);
+    background: var(--dark-raised);
+    border-color: var(--dark-border);
     color: var(--dark-text);
 }
 
 body.dark-mode .cursive-letter-btn:hover,
 body.dark-mode .cursive-letter-btn--active {
-    background: var(--dark-accent);
-    color: var(--dark-bg);
-    border-color: var(--dark-accent);
+    background: var(--dark-cta-bg);
+    color: var(--dark-cta-text);
+    border-color: var(--dark-cta-bg);
 }
 
 .cursive-stage-wrap {
@@ -3234,7 +3287,7 @@ body.dark-mode .cursive-stage {
 }
 
 body.dark-mode .cursive-guide {
-    stroke: #303030;
+    stroke: var(--dark-border);
 }
 
 .cursive-stroke {
@@ -3261,7 +3314,7 @@ body.dark-mode .cursive-stroke {
 
 body.dark-mode .cursive-dot-start,
 body.dark-mode .cursive-dot-tip {
-    fill: var(--dark-accent-bright);
+    fill: var(--dark-accent-2);
 }
 
 .cursive-stage-controls {
@@ -3295,16 +3348,16 @@ body.dark-mode .cursive-dot-tip {
 }
 
 body.dark-mode .cursive-ctrl-btn {
-    background: var(--dark-bg);
-    border-color: var(--dark-accent);
-    color: var(--dark-accent);
+    background: var(--dark-raised);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
 }
 
 body.dark-mode .cursive-ctrl-btn:hover,
 body.dark-mode .cursive-slow--active {
-    background: var(--dark-accent);
-    color: var(--dark-bg);
-    border-color: var(--dark-accent);
+    background: var(--dark-cta-bg);
+    color: var(--dark-cta-text);
+    border-color: var(--dark-cta-bg);
 }
 
 .cursive-caption {
@@ -3373,13 +3426,13 @@ body.dark-mode #print-controls label {
 }
 
 body.dark-mode #print-controls .btn-print {
-    border-color: var(--dark-accent);
-    color: var(--dark-accent);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
 }
 
 body.dark-mode #print-controls .btn-print:hover {
-    background: var(--dark-accent);
-    color: white;
+    background: var(--dark-cta-bg);
+    color: var(--dark-cta-text);
 }
 
 /* Hidden on screen; built and shown only at print time */
