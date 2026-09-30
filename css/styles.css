@@ -114,6 +114,17 @@
             color: var(--dark-text);
         }
 
+        /* Set by the pre-paint snippet in index.html and removed on the first animation
+           frame. Without it the saved theme is applied after the body element's style
+           has already resolved as light, so the 0.3s colour transitions run and the page
+           visibly fades in from the light theme on every cold load. */
+        body.theme-booting,
+        body.theme-booting *,
+        body.theme-booting *::before,
+        body.theme-booting *::after {
+            transition: none !important;
+        }
+
         /* Navigation */
         nav {
             position: fixed;

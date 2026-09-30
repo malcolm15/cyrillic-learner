@@ -72,12 +72,23 @@ function loadSettings() {
         autoPlayAudio = savedAutoAudio === 'true';
         setToggle('autoaudio-toggle', autoPlayAudio);
     }
-    if (savedDarkMode !== null) {
-        darkMode = savedDarkMode === 'true';
-        setToggle('darkmode-toggle', darkMode);
-        if (darkMode) {
-            document.body.classList.add('dark-mode');
-        }
+    // The pre-paint snippet in index.html has already applied the theme. Read it
+    // back off the body rather than recomputing it, so the Settings checkbox and
+    // the header button can never disagree with what is on screen. This also
+    // covers the case the old code missed: with no saved preference and
+    // FOLLOW_SYSTEM_THEME on, the page is dark but nothing synced the checkbox.
+    darkMode = document.body.classList.contains('dark-mode');
+    setToggle('darkmode-toggle', darkMode);
+    syncThemeToggle();
+
+    // Record a theme that the operating system chose, not the visitor. Only
+    // reachable while FOLLOW_SYSTEM_THEME is on.
+    if (savedDarkMode === null && window.FOLLOW_SYSTEM_THEME && typeof gtag !== 'undefined') {
+        gtag('event', 'setting_changed', {
+            'setting_name': 'dark_mode',
+            'setting_value': darkMode,
+            'setting_source': 'system'
+        });
     }
     
     updateLowercaseDisplay();
@@ -150,23 +161,46 @@ function toggleAutoAudio() {
     }
 }
 
-function toggleDarkMode() {
-    darkMode = document.getElementById('darkmode-toggle').checked;
-    localStorage.setItem('darkMode', darkMode);
-    
-    if (darkMode) {
-        document.body.classList.add('dark-mode');
-    } else {
-        document.body.classList.remove('dark-mode');
+// The one place the theme changes. Every control calls it, so they cannot drift
+// apart, and every change is recorded with the control that caused it.
+function setTheme(dark, source) {
+    darkMode = dark;
+
+    // Paint first, persist second: if storage is blocked the toggle still works
+    // for the rest of the visit instead of failing before it applies.
+    document.body.classList.toggle('dark-mode', darkMode);
+    setToggle('darkmode-toggle', darkMode);
+    syncThemeToggle();
+
+    try {
+        localStorage.setItem('darkMode', darkMode);
+    } catch (e) {
+        // Storage blocked (private browsing): the theme holds for this page only.
     }
-    
+
     // Track setting change in Google Analytics
     if (typeof gtag !== 'undefined') {
         gtag('event', 'setting_changed', {
             'setting_name': 'dark_mode',
-            'setting_value': darkMode
+            'setting_value': darkMode,
+            'setting_source': source
         });
     }
+}
+
+// Keeps the header button's icon, label and pressed state on the real theme.
+// It is a no-op until that button exists.
+function syncThemeToggle() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    btn.setAttribute('aria-pressed', String(darkMode));
+    btn.setAttribute('aria-label', darkMode ? 'Switch to the light theme' : 'Switch to the dark theme');
+    const icon = btn.querySelector('.theme-toggle-icon');
+    if (icon) icon.textContent = darkMode ? '\u2600' : '\u263E';
+}
+
+function toggleDarkMode() {
+    setTheme(document.getElementById('darkmode-toggle').checked, 'settings_page');
 }
 
 // Confetti burst for correct answers

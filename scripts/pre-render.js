@@ -687,6 +687,13 @@ function main() {
             }
         });
 
+        // The theme has to be applied before anything is laid out, or a visitor
+        // with a saved dark preference sees the light theme painted first. That
+        // depends on the pre-paint snippet surviving into every emitted article.
+        if (countOccurrences(page, 'window.FOLLOW_SYSTEM_THEME = ') !== 1) {
+            fail(slug + ': the pre-paint theme snippet is missing from the emitted page');
+        }
+
         // ---- self-contained document: drop every other route's section ----
         const FOOTER_TAIL = '\n            </div>\n        </div>\n\n    <!-- Footer -->';
         page = cutBetween(page,
