@@ -280,14 +280,13 @@ ArticleScripts['russian-alphabet-chart'] = function() {
 
     for (var b = 0; b < filterBtns.length; b++) {
         filterBtns[b].onclick = function() {
+            // The active look comes from .filter-btn.active in the stylesheet.
+            // This used to set inline colours, which no dark-mode rule could
+            // override once a filter had been clicked.
             for (var j = 0; j < filterBtns.length; j++) {
                 filterBtns[j].classList.remove('active');
-                filterBtns[j].style.background = 'transparent';
-                filterBtns[j].style.color = '#e74c3c';
             }
             this.classList.add('active');
-            this.style.background = '#e74c3c';
-            this.style.color = 'white';
             applyFilter(this.getAttribute('data-filter'));
         };
     }

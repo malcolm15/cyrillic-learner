@@ -236,6 +236,10 @@
             padding: 10px;
         }
 
+        body.dark-mode .menu-toggle {
+            color: var(--dark-text);
+        }
+
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
@@ -1667,6 +1671,10 @@
             color: var(--red);
         }
 
+        body.dark-mode .feedback.incorrect {
+            color: var(--dark-bad);
+        }
+
         .action-buttons {
             display: flex;
             gap: 12px;
@@ -2455,12 +2463,21 @@
         .letter-card .letter-sound { font-size: 15px; font-weight: bold; margin-top: 2px; }
         .letter-card .letter-example { font-size: 12px; color: #7f8c8d; margin-top: 3px; }
         .letter-card .letter-audio-icon { position: absolute; top: 6px; right: 8px; font-size: 11px; opacity: 0.45; }
+
+        body.dark-mode .letter-card .letter-audio-icon { color: var(--dark-text-dim); opacity: 0.85; }
         .letter-card .letter-name { font-size: 12px; color: #7f8c8d; margin-top: 1px; }
         .letter-card .letter-ipa { font-size: 11px; color: #95a5a6; margin-top: 2px; font-family: 'IBM Plex Mono', monospace; }
 
         .letter-card.easy   { border-color: #27ae60; } .letter-card.easy .letter-sound   { color: #27ae60; }
         .letter-card.medium { border-color: #f39c12; } .letter-card.medium .letter-sound { color: #f39c12; }
         .letter-card.hard   { border-color: #e74c3c; } .letter-card.hard .letter-sound   { color: #e74c3c; }
+
+        body.dark-mode .letter-card.easy   { border-color: var(--dark-ok); }
+        body.dark-mode .letter-card.easy .letter-sound   { color: var(--dark-ok); }
+        body.dark-mode .letter-card.medium { border-color: var(--dark-warn); }
+        body.dark-mode .letter-card.medium .letter-sound { color: var(--dark-warn); }
+        body.dark-mode .letter-card.hard   { border-color: var(--dark-bad); }
+        body.dark-mode .letter-card.hard .letter-sound   { color: var(--dark-bad); }
 
         body.dark-mode .letter-card {
             background: var(--dark-surface);
@@ -2479,6 +2496,65 @@
             background: var(--dark-raised);
         }
         #letter-legend { background: #f8f9fa; }
+
+        /* Filter controls, the letter count and the legend swatches were inline style
+           attributes in js/articles.js. Inline styles beat every stylesheet rule,
+           so the theme could not reach them. */
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e74c3c;
+            background: transparent;
+            color: #e74c3c;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .filter-btn.active {
+            /* Exactly the inline values these buttons carried before, so light
+               mode is unchanged. White on #e74c3c is 3.82:1, which fails AA, but
+               that is a light-mode question and is deliberately left alone here. */
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        body.dark-mode .filter-btn {
+            background: var(--dark-raised);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .filter-btn.active {
+            background: var(--dark-cta-bg);
+            border-color: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
+        }
+
+        .letter-count {
+            margin-left: auto;
+            color: #666;
+        }
+
+        body.dark-mode .letter-count {
+            color: var(--dark-text-dim);
+        }
+
+        .legend-swatch {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            vertical-align: middle;
+        }
+
+        .legend-swatch--easy   { background: #27ae60; }
+        .legend-swatch--medium { background: #f39c12; }
+        .legend-swatch--hard   { background: #e74c3c; }
+
+        body.dark-mode .legend-swatch--easy   { background: var(--dark-ok); }
+        body.dark-mode .legend-swatch--medium { background: var(--dark-warn); }
+        body.dark-mode .legend-swatch--hard   { background: var(--dark-bad); }
         body.dark-mode #letter-legend {
             background: var(--dark-surface);
             border: 1px solid var(--dark-border);
@@ -2492,6 +2568,9 @@
         .ff-body { font-size: 14px; line-height: 1.5; }
         .ff-wrong { color: #e74c3c; }
         .ff-right { color: #27ae60; }
+
+        body.dark-mode .ff-wrong { color: var(--dark-bad); }
+        body.dark-mode .ff-right { color: var(--dark-ok); }
         .ff-example { color: #7f8c8d; margin-top: 2px; }
         /* Lookalike strip (backwards-r-myth): layout-only modifiers. The grid
            comes from .false-friends-grid; card colors from .ff-card; button
@@ -2633,6 +2712,10 @@
             letter-spacing: 0.5px;
             margin: 20px 0 4px 0;
             font-weight: bold;
+        }
+
+        body.dark-mode .copy-section-label {
+            color: var(--dark-text-dim);
         }
         .copy-section-label:first-of-type {
             margin-top: 0;
@@ -2781,6 +2864,10 @@
     text-decoration: none;
 }
 
+body.dark-mode .back-to-articles {
+    color: var(--dark-text);
+}
+
 .nav-btn {
     /* The bar is <a> so crawlers see real links; these two keep it looking
        exactly like the button it replaced. */
@@ -2793,6 +2880,10 @@
     min-height: 60px;
     max-width: 300px;  /* Prevent stretching */
     padding: 12px 20px !important;
+}
+
+body.dark-mode .nav-btn {
+    color: var(--dark-text);
 }
 
 .nav-direction {
@@ -2818,7 +2909,23 @@
     overflow: hidden;
 }
 
+body.dark-mode .nav-title {
+    color: var(--dark-text-dim);
+}
+
 /* Related Articles Grid */
+/* The heading carried an inline style attribute in index.html, so no stylesheet
+   rule could reach it and it rendered at 1.34:1 on every article. */
+.related-articles-title {
+    margin: 40px 0 20px 0;
+    font-size: 1.5rem;
+    color: var(--charcoal);
+}
+
+body.dark-mode .related-articles-title {
+    color: var(--dark-heading);
+}
+
 .related-articles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -2838,10 +2945,20 @@
     color: inherit;
 }
 
+body.dark-mode .related-article-card {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
 .related-article-card:hover {
     border-color: var(--red);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .related-article-card:hover {
+    border-color: var(--dark-link);
 }
 
 .related-article-card h4 {
@@ -2850,11 +2967,19 @@
     color: var(--charcoal);
 }
 
+body.dark-mode .related-article-card h4 {
+    color: var(--dark-heading);
+}
+
 .related-article-card p {
     margin: 0;
     font-size: 0.9rem;
     color: #666;
     line-height: 1.4;
+}
+
+body.dark-mode .related-article-card p {
+    color: var(--dark-text-dim);
 }
 
 /* Mobile responsiveness for navigation */
@@ -2893,7 +3018,7 @@
         display: none;
     }
 
-    #related-articles-section h3 {
+    .related-articles-title {
         font-size: 1.1rem !important;
         margin: 25px 0 12px 0 !important;
     }
@@ -2938,6 +3063,11 @@
     border-radius: 5px;
     box-shadow: 0 2px 6px rgba(231, 76, 60, 0.2);
     transition: all 0.2s ease;
+}
+
+body.dark-mode .tool-cta-btn {
+    background: var(--dark-cta-bg) !important;
+    color: var(--dark-cta-text) !important;
 }
 
 .tool-cta-btn:hover {
@@ -3011,6 +3141,27 @@ body.dark-mode .tool-cta-content strong {
 
 .mini-quiz-header p {
     margin: 0;
+}
+
+/* Both were inline style attributes in js/articles.js, which no stylesheet
+   rule could override. */
+.mini-quiz-intro {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+body.dark-mode .mini-quiz-intro {
+    color: var(--dark-text-dim);
+}
+
+.mini-quiz-done {
+    color: var(--red);
+    margin-bottom: 8px;
+}
+
+body.dark-mode .mini-quiz-done {
+    color: var(--dark-ok);
 }
 
 #mini-quiz-content, .quiz-content {
@@ -3089,6 +3240,10 @@ body.dark-mode .tool-cta-content strong {
     letter-spacing: 0.5px;
 }
 
+body.dark-mode .mini-stat-label {
+    color: var(--dark-text-dim);
+}
+
 .mini-stat span:last-child {
     font-size: 1.2rem;
     font-weight: bold;
@@ -3106,8 +3261,17 @@ body.dark-mode .tool-cta-content strong {
     background: #6c757d !important;
 }
 
+body.dark-mode .btn-secondary {
+    background: var(--dark-raised) !important;
+    color: var(--dark-text);
+}
+
 .btn-secondary:hover {
     background: #5a6268 !important;
+}
+
+body.dark-mode .btn-secondary:hover {
+    background: var(--dark-border) !important;
 }
 
 /* Dark mode support */

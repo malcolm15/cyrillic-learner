@@ -283,7 +283,7 @@ const ARTICLES = [
             <div class="mini-quiz-container">
                 <div class="mini-quiz-header">
                     <h3 style="margin: 0 0 10px 0;">Practice These False Friends Right Now</h3>
-                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Test yourself on all 6 letters. Your Include Lowercase, Auto-Submit and Auto-play Audio settings apply here too.</p>
+                    <p class="mini-quiz-intro">Test yourself on all 6 letters. Your Include Lowercase, Auto-Submit and Auto-play Audio settings apply here too.</p>
                 </div>
                 
                 <div id="mini-quiz-content" class="quiz-content">
@@ -325,7 +325,7 @@ const ARTICLES = [
                     </div>
                     
                     <div id="mini-quiz-complete" style="display: none; text-align: center; padding: 15px;">
-                        <h4 style="color: var(--red); margin-bottom: 8px;">🎉 Great work!</h4>
+                        <h4 class="mini-quiz-done">🎉 Great work!</h4>
                         <p id="mini-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
                         <button class="btn" onclick="resetMiniQuiz()">Practice Again</button>
                     </div>
@@ -753,7 +753,7 @@ const ARTICLES = [
             <div class="mini-quiz-container">
                 <div class="mini-quiz-header">
                     <h3 style="margin: 0 0 10px 0;">Test Your Memory Tricks</h3>
-                    <p style="margin: 0; color: #666; font-size: 0.95rem;">You just learned the mnemonics. Now see if they stick. All 7 unique letters!</p>
+                    <p class="mini-quiz-intro">You just learned the mnemonics. Now see if they stick. All 7 unique letters!</p>
                 </div>
                 
                 <div id="mem-quiz-content" class="quiz-content">
@@ -795,7 +795,7 @@ const ARTICLES = [
                     </div>
                     
                     <div id="mem-quiz-complete" style="display: none; text-align: center; padding: 15px;">
-                        <h4 style="color: var(--red); margin-bottom: 8px;">🎉 Great work!</h4>
+                        <h4 class="mini-quiz-done">🎉 Great work!</h4>
                         <p id="mem-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
                         <button class="btn" onclick="resetMemQuiz()">Practice Again</button>
                     </div>
@@ -2661,7 +2661,7 @@ const ARTICLES = [
             <div class="mini-quiz-container">
                 <div class="mini-quiz-header">
                     <h3 style="margin: 0 0 10px 0;">Quiz: The 6 Unique Serbian Letters</h3>
-                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Type the romanization for each letter. Use: dj, j, lj, nj, ch, dzh</p>
+                    <p class="mini-quiz-intro">Type the romanization for each letter. Use: dj, j, lj, nj, ch, dzh</p>
                 </div>
                 <div id="srb-quiz-content" class="quiz-content">
                     <div id="srb-quiz-active">
@@ -2696,7 +2696,7 @@ const ARTICLES = [
                         </div>
                     </div>
                     <div id="srb-quiz-complete" style="display: none; text-align: center; padding: 15px;">
-                        <h4 style="color: var(--red); margin-bottom: 8px;">🎉 All 6 done!</h4>
+                        <h4 class="mini-quiz-done">🎉 All 6 done!</h4>
                         <p id="srb-final-score" style="font-size: 1.1rem; margin-bottom: 12px;"></p>
                         <button class="btn" onclick="resetSrbQuiz()">Practice Again</button>
                     </div>
@@ -3751,11 +3751,11 @@ const ARTICLES = [
 
             <div id="alphabet-controls" style="margin: 30px 0; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
                 <div style="display: flex; gap: 10px;">
-                    <button class="filter-btn active" data-filter="all" style="padding: 10px 20px; border: 2px solid #e74c3c; background: #e74c3c; color: white; border-radius: 5px; cursor: pointer; font-weight: bold;">All Letters</button>
-                    <button class="filter-btn" data-filter="vowels" style="padding: 10px 20px; border: 2px solid #e74c3c; background: transparent; color: #e74c3c; border-radius: 5px; cursor: pointer; font-weight: bold;">Vowels Only</button>
-                    <button class="filter-btn" data-filter="consonants" style="padding: 10px 20px; border: 2px solid #e74c3c; background: transparent; color: #e74c3c; border-radius: 5px; cursor: pointer; font-weight: bold;">Consonants Only</button>
+                    <button class="filter-btn active" data-filter="all">All Letters</button>
+                    <button class="filter-btn" data-filter="vowels">Vowels Only</button>
+                    <button class="filter-btn" data-filter="consonants">Consonants Only</button>
                 </div>
-                <div style="margin-left: auto; color: #666;">
+                <div class="letter-count">
                     <span id="letter-count">33 letters</span>
                 </div>
             </div>
@@ -4041,9 +4041,9 @@ const ARTICLES = [
             <div id="letter-legend" style="margin: 30px 0; padding: 20px; border-radius: 8px;">
                 <p style="margin-top: 0;"><strong>What makes each letter tricky:</strong></p>
                 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #27ae60; border-radius: 3px; vertical-align: middle;"></span> <strong>Familiar sound</strong> - Makes a sound English already has, even if the shape is new</div>
-                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #f39c12; border-radius: 3px; vertical-align: middle;"></span> <strong>Tricky shape</strong> - Looks like a different English letter, or like nothing in English</div>
-                    <div><span style="display: inline-block; width: 20px; height: 20px; background: #e74c3c; border-radius: 3px; vertical-align: middle;"></span> <strong>Tricky sound</strong> - A sound that is unusual in English, or no sound of its own</div>
+                    <div><span class="legend-swatch legend-swatch--easy"></span> <strong>Familiar sound</strong> - Makes a sound English already has, even if the shape is new</div>
+                    <div><span class="legend-swatch legend-swatch--medium"></span> <strong>Tricky shape</strong> - Looks like a different English letter, or like nothing in English</div>
+                    <div><span class="legend-swatch legend-swatch--hard"></span> <strong>Tricky sound</strong> - A sound that is unusual in English, or no sound of its own</div>
                 </div>
             </div>
 
