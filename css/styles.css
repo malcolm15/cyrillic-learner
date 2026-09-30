@@ -333,6 +333,20 @@
                 transition: max-height 0.3s, background 0.3s, visibility 0s;
             }
 
+            /* The links inherit visibility from the menu, but .nav-links a has
+               transition: all, which makes that inherited flip take 150ms. Focus
+               moved into the menu on open would then land on a link that is still
+               hidden, and browsers drop it. Visibility follows the menu instead of
+               animating on its own: immediate on open, and on close held until the
+               collapse finishes, matching the menu's own timing. */
+            .nav-links a {
+                transition: all 0.3s, visibility 0s linear 0.3s;
+            }
+
+            .nav-links.active a {
+                transition: all 0.3s, visibility 0s;
+            }
+
             .nav-links li {
                 width: 100%;
             }

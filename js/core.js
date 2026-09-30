@@ -384,7 +384,7 @@ function showPage(pageName, opts) {
     }
     
     // Close mobile menu if open
-    document.getElementById('nav-links').classList.remove('active');
+    setMenuOpen(false);
     
     // Scroll to top
     window.scrollTo(0, 0);
@@ -406,9 +406,49 @@ function showPage(pageName, opts) {
     }
 }
 
-function toggleMenu() {
-    document.getElementById('nav-links').classList.toggle('active');
+// The one place the mobile menu opens and closes, so aria-expanded and focus
+// can never drift from what is on screen. There are four callers: the hamburger,
+// Escape, showPage and showArticle when a link navigates, and the scroll handler.
+function setMenuOpen(open) {
+    const links = document.getElementById('nav-links');
+    if (!links) return;
+    const btn = document.querySelector('.menu-toggle');
+    const wasOpen = links.classList.contains('active');
+    links.classList.toggle('active', open);
+    if (btn) btn.setAttribute('aria-expanded', String(open));
+
+    if (open && !wasOpen) {
+        const first = links.querySelector('a');
+        if (first) {
+            // The closed menu is visibility:hidden, and a hidden element cannot
+            // take focus. Adding .active does not recompute style on its own, so
+            // read a layout property first to force the flush; without it this
+            // focus call silently does nothing whenever nothing else happens to
+            // trigger a recalc in between. preventScroll keeps the page still
+            // while max-height is still animating open.
+            void links.offsetHeight;
+            first.focus({ preventScroll: true });
+        }
+    } else if (!open && wasOpen && btn && links.contains(document.activeElement)) {
+        // Closing hides the menu, which would drop focus on the document body.
+        // Send it back to the control that opens the menu. Focus that is already
+        // outside the menu, including on the hamburger itself, is left alone.
+        btn.focus();
+    }
 }
+
+function toggleMenu() {
+    setMenuOpen(!document.getElementById('nav-links').classList.contains('active'));
+}
+
+// Escape closes the menu from anywhere. Focus is inside the menu whenever it is
+// open, so setMenuOpen returns it to the hamburger. No focus trap: Tab still
+// leaves the menu and continues into the page.
+document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    const links = document.getElementById('nav-links');
+    if (links && links.classList.contains('active')) setMenuOpen(false);
+});
 
 // Close mobile menu on scroll
 let lastScrollTop = 0;
@@ -419,7 +459,7 @@ window.addEventListener('scroll', function() {
         
         // Close menu if user scrolls more than 50px
         if (Math.abs(scrollTop - lastScrollTop) > 50) {
-            navLinks.classList.remove('active');
+            setMenuOpen(false);
         }
         lastScrollTop = scrollTop;
     }
@@ -1432,7 +1472,7 @@ initReference();
             document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
             const articlesNavLink = safeGetNavLink('articles');
             if (articlesNavLink) articlesNavLink.classList.add('active');
-            document.getElementById('nav-links').classList.remove('active');
+            setMenuOpen(false);
             window.scrollTo(0, 0);
             setTimeout(() => {
                 showArticle(articleId);
