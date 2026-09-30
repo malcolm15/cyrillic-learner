@@ -200,6 +200,9 @@
             display: flex;
             gap: 0;
             list-style: none;
+            /* Keeps the links next to the theme toggle at the right-hand end,
+               instead of letting space-between push them to the middle. */
+            margin-left: auto;
         }
 
         .nav-links a {
@@ -251,9 +254,54 @@
             color: var(--dark-text);
         }
 
+        /* Theme toggle. Changing the theme is an action, so it is a button, not a
+           link. It sits after the links and before the hamburger in the markup,
+           which is both the visual order and the focus order at every width: the
+           links and the toggle on desktop, the toggle and the hamburger on
+           mobile, where the links are an absolutely positioned dropdown. */
+        .theme-toggle {
+            flex: none;
+            width: 44px;
+            height: 44px;
+            min-height: 44px;
+            margin-left: 12px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 2px solid rgba(255, 255, 255, 0.28);
+            border-radius: 8px;
+            color: white;
+            font-size: 1.15rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        body.dark-mode .theme-toggle {
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background: var(--dark-raised);
+        }
+
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
+            }
+
+            /* The links become an absolutely positioned dropdown here, so the
+               flex line is logo, theme toggle, hamburger: DOM order, visual order
+               and focus order all agree. This pushes the two buttons right. */
+            .theme-toggle {
+                margin-left: auto;
             }
 
             .nav-links {
@@ -266,7 +314,12 @@
                 gap: 0;
                 max-height: 0;
                 overflow: hidden;
-                transition: max-height 0.3s, background 0.3s;
+                /* A closed menu must not be reachable by Tab. max-height and
+                   overflow hide it visually but leave all six links focusable,
+                   so keyboard users used to tab through an invisible menu. The
+                   delay keeps them hidden only once the close animation ends. */
+                visibility: hidden;
+                transition: max-height 0.3s, background 0.3s, visibility 0s linear 0.3s;
             }
 
             body.dark-mode .nav-links {
@@ -276,6 +329,8 @@
 
             .nav-links.active {
                 max-height: 400px;
+                visibility: visible;
+                transition: max-height 0.3s, background 0.3s, visibility 0s;
             }
 
             .nav-links li {

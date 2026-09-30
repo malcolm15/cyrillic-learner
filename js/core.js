@@ -203,6 +203,10 @@ function toggleDarkMode() {
     setTheme(document.getElementById('darkmode-toggle').checked, 'settings_page');
 }
 
+function toggleTheme() {
+    setTheme(!darkMode, 'header_toggle');
+}
+
 // Confetti burst for correct answers
 function createConfetti() {
     const colors = ['#FFC107', '#FF9800', '#4CAF50', '#2196F3', '#9C27B0'];

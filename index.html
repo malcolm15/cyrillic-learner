@@ -244,7 +244,6 @@
     <nav>
         <div class="nav-container">
             <a href="/" class="nav-logo" onclick="navTo(event, 'home', null)">CYRI<span class="letter-l" onclick="if(!event.metaKey&&!event.ctrlKey&&!event.shiftKey) burstConfetti(event, this)">Л<span class="confetti-burst"></span></span>ICA</a>
-            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="/" class="active" onclick="navTo(event, 'home', null)">Home</a></li>
                 <li><a href="/settings" onclick="navTo(event, 'settings', null)">Settings</a></li>
@@ -253,6 +252,8 @@
                 <li><a href="/contact" onclick="navTo(event, 'contact', null)">Contact</a></li>
                 <li><a href="/privacy" onclick="navTo(event, 'privacy', null)">Privacy</a></li>
             </ul>
+            <button class="theme-toggle" id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Switch to the dark theme" aria-pressed="false"><span class="theme-toggle-icon" aria-hidden="true">☾</span></button>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
 
