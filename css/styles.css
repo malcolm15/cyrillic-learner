@@ -2567,22 +2567,24 @@
            attributes in js/articles.js. Inline styles beat every stylesheet rule,
            so the theme could not reach them. */
         .filter-btn {
+            /* #c0392b, not the #e74c3c the inline style used: bold 13.3px of
+               #e74c3c on the card is 3.70:1 and fails AA. #c0392b is 5.26:1 and
+               is already in the stylesheet, as .tool-cta-btn:hover. */
             padding: 10px 20px;
-            border: 2px solid #e74c3c;
+            border: 2px solid #c0392b;
             background: transparent;
-            color: #e74c3c;
+            color: #c0392b;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
         }
 
         .filter-btn.active {
-            /* Exactly the inline values these buttons carried before, so light
-               mode is unchanged. White on #e74c3c is 3.82:1, which fails AA, but
-               that is a light-mode question and is deliberately left alone here. */
-            background: #e74c3c;
+            /* White on #e74c3c, the inline style's fill, is 3.82:1 and fails AA.
+               On #c0392b it is 5.44:1. */
+            background: #c0392b;
             color: white;
-            border-color: #e74c3c;
+            border-color: #c0392b;
         }
 
         body.dark-mode .filter-btn {
