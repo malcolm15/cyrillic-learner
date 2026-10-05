@@ -610,6 +610,7 @@
         }
 
         .article-header h1,
+        h1,
         h2 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2rem;
@@ -623,6 +624,7 @@
         }
 
         body.dark-mode .article-header h1,
+        body.dark-mode h1,
         body.dark-mode h2 {
             color: var(--dark-heading);
             border-bottom: 3px solid var(--dark-accent);
