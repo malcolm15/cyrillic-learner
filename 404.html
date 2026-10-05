@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found | Cyrilica</title>
+
+    <!-- No canonical: this page stands for no URL of its own, and the paths that
+         reach it do not exist. No AdSense script either: Google's publisher policy
+         does not allow Google-served ads on error or dead-end screens. -->
+    <meta name="robots" content="noindex, follow">
+
+    <!-- Analytics only. This is how broken inbound links become visible; it is
+         not an ad network and makes no ad request. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZ9MYG6HGE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WZ9MYG6HGE');
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Merriweather:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <script>
+    // Theme, applied before any content is laid out, so a saved dark preference
+    // never shows a flash of the light theme. Byte-identical to the copy in
+    // index.html; scripts/pre-render.js asserts the two match, so this cannot
+    // drift. It is inline rather than a shared file on purpose: a blocking
+    // external script here would cost every page on the site a round trip.
+    window.FOLLOW_SYSTEM_THEME = false;
+    (function () {
+        try {
+            var saved = localStorage.getItem('darkMode');
+            var dark = saved === null
+                ? (window.FOLLOW_SYSTEM_THEME &&
+                   window.matchMedia('(prefers-color-scheme: dark)').matches)
+                : saved === 'true';
+            if (dark) document.body.classList.add('dark-mode');
+        } catch (e) {
+            // Storage blocked (private browsing): fall through to the light theme.
+        }
+        // The body element's style was already resolved as light before this ran,
+        // so adding the class here would animate the 0.3s colour transition and
+        // the page would visibly fade in from the light theme on every cold load.
+        // Suppress transitions until the first frame has been painted.
+        document.body.classList.add('theme-booting');
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                document.body.classList.remove('theme-booting');
+            });
+        });
+    })();
+    </script>
+
+    <!-- Navigation. The logo only: every control in the site header needs
+         js/core.js, and this page deliberately works with no JavaScript at all.
+         The way out of here is the links in the card below, which are larger
+         and easier to hit than a nav bar. -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-logo">CYRI<span class="letter-l">Л</span>ICA</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <main>
+                <div class="card">
+                    <h2>Page not found</h2>
+                    <div class="content-text">
+                        <p>This page doesn't exist or may have moved.</p>
+                        <p>
+                            <a href="/">Go to the homepage</a> to practise the alphabet,
+                            or <a href="/articles">browse the articles</a>.
+                        </p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Cyrilica. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/settings">Settings</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
