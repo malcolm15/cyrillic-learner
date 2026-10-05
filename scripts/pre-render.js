@@ -732,7 +732,77 @@ function main() {
         emitted += 1;
     });
 
+    // ---- routing: _redirects must agree with the router and with disk ----
+    //
+    // There is no /* catch-all any more, so a route missing from _redirects is
+    // a real 404, not a silent fallback to the shell. That is the failure mode
+    // that cost this site its indexing on GitHub Pages, so it fails the build
+    // here instead of reaching production. VALID_PAGES in js/core.js is the one
+    // source of truth; this asserts against it rather than keeping a second list.
+    const redirectsSrc = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
+    const validMatch = coreSrc.match(/const VALID_PAGES = \[([^\]]*)\]/);
+    if (!validMatch) fail('could not read VALID_PAGES from js/core.js');
+    const validPages = validMatch[1].split(',')
+        .map(function (x) { return x.trim().replace(/^'|'$/g, ''); })
+        .filter(Boolean);
+    const expectedRoutes = validPages.map(function (p) { return p === 'home' ? '/' : '/' + p; }).sort();
+
+    const shellRewrites = redirectsSrc.split('\n')
+        .map(function (l) { return l.trim(); })
+        .filter(function (l) { return l && l.charAt(0) !== '#'; })
+        .map(function (l) { return l.split(/\s+/); })
+        .filter(function (f) { return f[1] === '/index.html' && f[2] === '200'; })
+        .map(function (f) { return f[0]; })
+        .sort();
+
+    if (shellRewrites.join(' ') !== expectedRoutes.join(' ')) {
+        fail('_redirects SPA rewrites do not match VALID_PAGES in js/core.js.\n' +
+             '  _redirects: ' + shellRewrites.join(' ') + '\n' +
+             '  VALID_PAGES: ' + expectedRoutes.join(' '));
+    }
+    // A catch-all is a rule whose SOURCE path is exactly /*. Checking for the
+    // substring would also match /scripts/* and /netlify/*, which are fine.
+    const ruleSources = redirectsSrc.split('\n')
+        .map(function (l) { return l.trim(); })
+        .filter(function (l) { return l && l.charAt(0) !== '#'; })
+        .map(function (l) { return l.split(/\s+/)[0]; });
+    if (ruleSources.indexOf('/*') !== -1) {
+        fail('_redirects still contains a /* catch-all; unknown paths must reach 404.html');
+    }
+
+    // Every article the router can reach must exist as a file, or its clean URL
+    // 404s now that nothing catches it.
+    ARTICLE_ORDER.forEach(function (slug) {
+        if (!fs.existsSync(path.join(OUT_ROOT, slug + '.html'))) {
+            fail('article "' + slug + '" is in ARTICLE_ORDER but no file was emitted for it');
+        }
+    });
+
+    // ---- the 404 page ----
+    const notFound = fs.readFileSync(path.join(ROOT, '404.html'), 'utf8');
+    if (countOccurrences(notFound, 'adsbygoogle') !== 0) {
+        fail('404.html carries the AdSense script; Google does not allow ads on error screens');
+    }
+    if (countOccurrences(notFound, '<link rel="canonical"') !== 0) {
+        fail('404.html declares a canonical; it stands for no URL of its own');
+    }
+    if (countOccurrences(notFound, '<meta name="robots" content="noindex, follow">') !== 1) {
+        fail('404.html is missing its noindex robots meta');
+    }
+    // The theme snippet is inline in both files on purpose (a blocking external
+    // script would cost every page a round trip). This is what stops the two
+    // copies drifting.
+    const snippet = /window\.FOLLOW_SYSTEM_THEME[\s\S]*?\}\)\(\);/;
+    const inIndex = template.match(snippet);
+    const in404 = notFound.match(snippet);
+    if (!inIndex || !in404) fail('could not find the pre-paint theme snippet in index.html and 404.html');
+    if (inIndex[0] !== in404[0]) {
+        fail('the pre-paint theme snippet in 404.html does not match index.html byte for byte');
+    }
+
     console.log('Pre-rendered ' + emitted + ' article pages into articles/');
+    console.log('Routing checks passed: ' + expectedRoutes.length + ' SPA routes match VALID_PAGES, ' +
+                ARTICLE_ORDER.length + ' article files on disk, 404.html clean.');
 }
 
 main();

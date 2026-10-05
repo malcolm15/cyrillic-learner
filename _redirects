@@ -1,9 +1,25 @@
+# Rule order matters: Netlify takes the first match, top to bottom.
+#
+# 1. the apex redirect, forced, so it beats the real files on the netlify.app host
+# 2. internal files, forced, so they lose to nothing
+# 3. retired URLs, 301
+# 4. the seven SPA routes, rewritten to the shell
+#
+# There is deliberately no /* catch-all. Anything that matches no rule and no
+# file on disk now falls through to 404.html with a real 404 status, which is
+# what Netlify does automatically for a 404.html at the site root. Articles are
+# NOT listed here: articles/<slug>.html is a real file, and Netlify serves an
+# HTML file for its extensionless path by default, so /articles/<slug> resolves
+# without a rule. scripts/pre-render.js asserts both halves of that.
+
 https://dapper-axolotl-1f65df.netlify.app/* https://cyrilica.com/:splat 301!
-/scripts/*                      /index.html  404!
-/netlify/*                      /index.html  404!
-/CLAUDE.md                      /index.html  404!
-/README.md                      /index.html  404!
-/SECURITY.md                    /index.html  404!
+
+/scripts/*                      /404.html  404!
+/netlify/*                      /404.html  404!
+/CLAUDE.md                      /404.html  404!
+/README.md                      /404.html  404!
+/SECURITY.md                    /404.html  404!
+
 /articles/cyrillic-alphabet-chart /articles/russian-alphabet-chart 301
 /articles/cyrillic-handwriting /articles/practice-writing-cyrillic 301
 /articles/common-cyrillic-mistakes /articles/common-mistakes 301
@@ -13,4 +29,13 @@ https://dapper-axolotl-1f65df.netlify.app/* https://cyrilica.com/:splat 301!
 /articles/cyrillic-pop-culture /articles/backwards-r-myth 301!
 /home /  301
 /index.html /  301!
-/* /index.html 200
+
+# The seven SPA routes. Generated from VALID_PAGES in js/core.js and asserted
+# against it at build time, so this list cannot drift from the router.
+/            /index.html  200
+/articles    /index.html  200
+/settings    /index.html  200
+/about       /index.html  200
+/contact     /index.html  200
+/privacy     /index.html  200
+/terms       /index.html  200
