@@ -82,6 +82,7 @@ const VALID_PAGES = new Set([
 
 const HEADS = articleHeads as Record<string, { title: string; description: string }>;
 const ARTICLE_PREFIX = "/articles/";
+const HTML_SUFFIX    = ".html";
 
 // hasOwnProperty, never a bare lookup. HEADS["constructor"] resolves up the
 // prototype chain to Object, which is truthy, and served <title>undefined</title>
@@ -100,6 +101,27 @@ export default async function headRewrite(
   request: Request,
   context: Context,
 ): Promise<Response> {
+  const requestUrl = new URL(request.url);
+  // Strip trailing slash, then lowercase (slugs are all lowercase; odd-case
+  // requests like /Articles/Foo would otherwise mint a mixed-case canonical).
+  const path = requestUrl.pathname.replace(/\/$/, "").toLowerCase() || "";
+
+  // articles/<slug>.html is a real file on disk, so without this it would serve
+  // a byte-for-byte duplicate of the clean URL at 200. Redirect the slugs we
+  // know; an unknown one has no file behind it and falls through to the 404.
+  // This runs before context.next() so no body is fetched to be thrown away,
+  // and it uses the same generated HEADS map as the head rewriting below, so
+  // the redirect set cannot drift from the article set.
+  if (path.startsWith(ARTICLE_PREFIX) && path.endsWith(HTML_SUFFIX)) {
+    const slug = path.slice(ARTICLE_PREFIX.length, -HTML_SUFFIX.length);
+    if (hasHead(slug)) {
+      return Response.redirect(
+        `${SITE_ORIGIN}${ARTICLE_PREFIX}${slug}${requestUrl.search}`,
+        301,
+      );
+    }
+  }
+
   // Deliberately outside the try below. If the request chain itself fails there
   // is no upstream response to fall back to, and inventing one would serve a
   // blank page at a real URL. Let that surface.
@@ -119,10 +141,6 @@ export default async function headRewrite(
     fallback = response.clone();
     const html = await response.text();
 
-    const url  = new URL(request.url);
-    // Strip trailing slash, then lowercase (slugs are all lowercase; odd-case
-    // requests like /Articles/Foo would otherwise mint a mixed-case canonical).
-    const path = url.pathname.replace(/\/$/, "").toLowerCase() || "";
     const known = isKnownPath(path);
     const canonicalHref = path === "" ? SITE_ORIGIN : `${SITE_ORIGIN}${path}`;
 
