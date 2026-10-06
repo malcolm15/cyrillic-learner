@@ -111,7 +111,7 @@ Two cross-file gotchas:
 - **Routing. There is no `/*` catch-all.** `_redirects` has an explicit
   `/<route> /index.html 200` rewrite for each of the seven SPA routes, and
   `scripts/pre-render.js` fails the build if that set does not match `VALID_PAGES`
-  in `js/core.js` exactly, so the file cannot drift from the router. Articles are
+  in `js/core.js` exactly, so the two cannot disagree without failing the build. Articles are
   not listed: `articles/<slug>.html` is a real file and Netlify serves an HTML file
   at its extensionless path by default, so `/articles/<slug>` resolves with no rule.
   Everything matching no rule and no file gets a real 404 from `404.html`, which
@@ -124,6 +124,13 @@ Two cross-file gotchas:
   `/<name> /index.html 200` line to `_redirects`. The build fails if the two
   disagree, so a forgotten rewrite is caught before deploy rather than becoming a
   404 on a real route.
+- **Why the `.html` article redirect lives in the edge function.** Both places
+  could do it: `_redirects` would need 27 forced rules, one per slug, generated at
+  build time. The edge function needs none, because it already imports the
+  generated `HEADS` map and can test a slug against it, so the redirect set tracks
+  the article set with no second list to keep in step. That is a maintenance
+  argument, not a capability one: no measurement in Batch 50 showed `_redirects`
+  unable to do the job.
 - **`404.html` rules.** No AdSense script (policy: no Google-served ads on error
   screens), no canonical, `noindex, follow`, and its pre-paint theme snippet
   byte-identical to the one in `index.html`. All four are asserted by the build.
@@ -169,14 +176,14 @@ path and returned a 404 HTTP status to crawlers. Google saw 404s and indexed alm
 nothing for months despite all the content existing. Migrating to Netlify on
 2026-05-22 (the `/* /index.html 200` rule) fixed this; indexed pages jumped from 1 to
 23 within a week. That catch-all was retired in Batch 50 and replaced with explicit
-route rewrites plus a real 404 page, with build assertions so a genuine route can
-never silently start returning 404 the way it did then. Lesson carried forward: when something is checkable (Search Console,
+route rewrites plus a real 404 page, with build assertions that fail if a declared
+SPA route loses its rewrite or an article loses its emitted file. Lesson carried forward: when something is checkable (Search Console,
 config files, live behavior), check it rather than reasoning from general claims like
 "Google handles JavaScript fine." Those leftovers have since been cleaned up: the GitHub-era `404.html`, the `CNAME`
 file, and a dead `sessionStorage.getItem('redirect')` check in core.js whose matching
 relay script no longer existed. All removed June 2026. The `404.html` at the repo root
-today is not that file: it was written in Batch 50 and is served only for paths that
-genuinely do not exist, never for a real route.
+today is not that file: it was written in Batch 50 and is served for paths that match
+no rule and no file on disk.
 
 ## Edge function (first server-side logic)
 
