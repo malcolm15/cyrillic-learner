@@ -115,10 +115,13 @@ export default async function headRewrite(
   if (path.startsWith(ARTICLE_PREFIX) && path.endsWith(HTML_SUFFIX)) {
     const slug = path.slice(ARTICLE_PREFIX.length, -HTML_SUFFIX.length);
     if (hasHead(slug)) {
-      return Response.redirect(
-        `${SITE_ORIGIN}${ARTICLE_PREFIX}${slug}${requestUrl.search}`,
-        301,
-      );
+      // Redirect within the origin the request arrived on. Hardcoding the
+      // production origin sent anyone testing a Deploy Preview to the live
+      // site instead. Only the pathname changes; the URL object carries the
+      // query string across on its own.
+      const target = new URL(request.url);
+      target.pathname = `${ARTICLE_PREFIX}${slug}`;
+      return Response.redirect(target.toString(), 301);
     }
   }
 
