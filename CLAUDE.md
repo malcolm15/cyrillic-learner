@@ -101,7 +101,16 @@ Two cross-file gotchas:
   audio behavior usually need to be applied in both.
 - Per-page meta, canonical, Open Graph, Twitter, and Article JSON-LD schema are
   injected dynamically by core.js based on the active page (`injectArticleSchema()` /
-  `removeArticleSchema()`), plus BreadcrumbList schema.
+  `removeArticleSchema()`), plus the article BreadcrumbList. Both removal paths look
+  the blocks up by `id` (`article-schema`, `breadcrumb-schema`), so any JSON-LD
+  without one of those ids can never be removed or replaced on render.
+- **The shell carries no BreadcrumbList.** One `index.html` serves all seven SPA
+  routes, so any trail baked into it is wrong for at least six of them. Articles
+  carry exactly one, with `id="breadcrumb-schema"`, emitted by
+  `scripts/pre-render.js` and replaced one for one by `injectArticleSchema()`.
+  The build asserts both: zero BreadcrumbList objects in `index.html`, exactly one
+  per emitted article and inside that id. The site-wide SoftwareApplication,
+  WebSite and Organization blocks in the shell are separate and unaffected.
 
 ## Hosting and deployment (current: Netlify)
 - Served by **Netlify**, fronted by **Cloudflare for DNS only**.
@@ -185,6 +194,21 @@ relay script no longer existed. All removed June 2026. The `404.html` at the rep
 today is not that file: it was written in Batch 50 and is served for paths that match
 no rule and no file on disk.
 
+### Solved history: the shell breadcrumb Google displayed (do not reintroduce)
+
+A BreadcrumbList listing Home, About, Contact was added to `index.html` on
+2026-02-13 in `df27e39` ("Further SEO optimization") and never edited again. It
+had no `id`, so neither removal path in core.js could see it, and because
+pre-render.js uses index.html as its template every one of the 27 article pages
+shipped it alongside the correct `id="breadcrumb-schema"` trail. Both blocks were
+present and valid in the static HTML and in the rendered DOM on all 27, with the
+generic one first in document order, and Google displayed "cyrilica.com > About >
+Contact" on live result pages for at least two articles. Found 2026-10-06 and
+removed in Batch 54. Why Google chose that block over the correct one was not
+verified; only that it was present and first. Nothing in the codebase read or
+depended on the generic shell block: no build needle, shell constant or
+edge-function match targeted it or its distinctive Home, About, Contact content.
+
 ## Edge function (first server-side logic)
 
 `netlify/edge-functions/head-rewrite.ts` intercepts every 200 text/html response
@@ -240,10 +264,14 @@ trailing-slash form, adding a redirect hop on every indexed article URL) for all
 27 articles: per-article head (title, description, canonical, og and twitter),
 article body in the DOM, prev/next, related-articles grid, and Article plus
 BreadcrumbList JSON-LD with id="article-schema" / id="breadcrumb-schema" so the
-JS render replaces them instead of duplicating. Netlify serves these real files
-ahead of the non-forced /* catch-all, so crawlers get full article content in
-raw HTML. The /articles listing, homepage, and utility pages stay SPA-shell
-(their content is already static in index.html).
+JS render replaces them instead of duplicating. Those ids are load-bearing: a
+block without one is never replaced. The pre-renderer parses the emitted JSON-LD
+and fails the build unless each article has exactly one BreadcrumbList object and
+it sits inside id="breadcrumb-schema", and unless index.html has none. Netlify
+serves these real files at their extensionless paths (there has been no /*
+catch-all since Batch 50), so crawlers get full article content in raw HTML. The
+/articles listing, homepage, and utility pages stay SPA-shell (their content is
+already static in index.html).
 
 Fail-loud by design: every template replacement is an exact-match assertion and
 any mismatch fails the build, which keeps the last good deploy live. This is a
