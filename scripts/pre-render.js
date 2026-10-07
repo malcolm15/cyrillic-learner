@@ -79,6 +79,71 @@ function replaceOnce(haystack, needle, replacement, label) {
     return haystack.replace(needle, replacement);
 }
 
+// ---- JSON-LD inspection, for the breadcrumb assertions below ----
+//
+// The breadcrumb invariant is about JSON-LD objects, not about how the JSON
+// happens to be serialised, so these parse the blocks rather than grepping for
+// a spelling. A future reformat of index.html or of the emitted schema cannot
+// defeat them.
+//
+// Attribute order and quote style both vary in practice: the shell writes
+// <script type="application/ld+json"> while the emitted article schema writes
+// <script id="article-schema" type="application/ld+json">. Our generated JSON-LD
+// does not contain a literal </script>, so a lazy match to the closing tag is
+// safe for these controlled build inputs.
+const LD_SCRIPT = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
+
+function ldAttr(attrs, name) {
+    const m = new RegExp('\\b' + name + '\\s*=\\s*(?:"([^"]*)"|\'([^\']*)\')', 'i').exec(attrs);
+    if (!m) return null;
+    return m[1] !== undefined ? m[1] : m[2];
+}
+
+// Every application/ld+json block in `html`, parsed. A block that does not
+// parse fails the build rather than being skipped: a block that cannot be
+// parsed cannot be counted, and skipping it would let a broken page satisfy
+// the count.
+function ldBlocks(html, label) {
+    const out = [];
+    let m;
+    LD_SCRIPT.lastIndex = 0;
+    while ((m = LD_SCRIPT.exec(html)) !== null) {
+        const type = ldAttr(m[1], 'type');
+        if (!type || type.trim().toLowerCase() !== 'application/ld+json') continue;
+        let data;
+        try {
+            data = JSON.parse(m[2]);
+        } catch (e) {
+            fail(label + ': the application/ld+json block at character offset ' +
+                 m.index + ' does not parse as JSON: ' + e.message);
+        }
+        out.push({ offset: m.index, id: ldAttr(m[1], 'id'), data: data });
+    }
+    return out;
+}
+
+function isBreadcrumb(node) {
+    if (!node || typeof node !== 'object') return false;
+    const t = node['@type'];
+    return Array.isArray(t) ? t.indexOf('BreadcrumbList') !== -1 : t === 'BreadcrumbList';
+}
+
+// BreadcrumbList objects inside one parsed payload: a bare object, each object
+// of a top-level array, and each object of a top-level "@graph" array. Those
+// are the shapes this check covers. A BreadcrumbList nested as a property of
+// another object (for example WebPage.breadcrumb) is not counted.
+function breadcrumbNodes(payload) {
+    const found = [];
+    const roots = Array.isArray(payload) ? payload : [payload];
+    roots.forEach(function (root) {
+        if (isBreadcrumb(root)) found.push(root);
+        if (root && typeof root === 'object' && Array.isArray(root['@graph'])) {
+            root['@graph'].forEach(function (n) { if (isBreadcrumb(n)) found.push(n); });
+        }
+    });
+    return found;
+}
+
 // Remove everything from startMarker (inclusive) to endMarker (exclusive).
 // Both markers must occur exactly once and in order, else the build fails.
 function cutBetween(haystack, startMarker, endMarker, label) {
@@ -535,6 +600,17 @@ function main() {
         if (n !== 1) fail('template needle "' + key + '": expected exactly 1 occurrence in index.html, found ' + n);
     });
 
+    // The shell must carry no BreadcrumbList at all. One file serves all seven
+    // SPA routes, so any trail baked into it is wrong for at least six of them,
+    // and because the shell block carried no id the JS render could not replace
+    // it. Articles get their own trail below, with id="breadcrumb-schema".
+    const templateBreadcrumbs = ldBlocks(template, 'index.html')
+        .reduce(function (acc, b) { return acc + breadcrumbNodes(b.data).length; }, 0);
+    if (templateBreadcrumbs !== 0) {
+        fail('index.html must contain zero BreadcrumbList objects, found ' + templateBreadcrumbs +
+             '. The shell serves seven routes from one file and cannot carry a correct trail for them.');
+    }
+
     // ---- emit each article ----
     fs.mkdirSync(OUT_ROOT, { recursive: true });
     let emitted = 0;
@@ -724,6 +800,27 @@ function main() {
         ['home-page', 'articles-index', 'about-page', 'settings-page', 'contact-page', 'privacy-page', 'terms-page'].forEach(function (id) {
             if (page.indexOf('id="' + id + '"') !== -1) fail(slug + ': stripped section #' + id + ' still present');
         });
+        // Exactly one BreadcrumbList, and it must be the element the JS render can
+        // replace. The shell used to carry a second, id-less BreadcrumbList
+        // (Home > About > Contact, index.html, added 2026-02-13 in df27e39).
+        // Neither removal path in core.js could ever remove it, because both look
+        // the block up by id="breadcrumb-schema", so every article shipped two and
+        // Google displayed the generic one in place of the real trail.
+        const ld = ldBlocks(page, slug);
+        const bcHolders = ld.filter(function (b) { return breadcrumbNodes(b.data).length > 0; });
+        const bcCount = ld.reduce(function (acc, b) { return acc + breadcrumbNodes(b.data).length; }, 0);
+        if (bcCount !== 1) {
+            fail(slug + ': expected exactly one BreadcrumbList object in the emitted page, found ' + bcCount);
+        }
+        const bcScripts = ld.filter(function (b) { return b.id === 'breadcrumb-schema'; });
+        if (bcScripts.length !== 1) {
+            fail(slug + ': expected exactly one script with id="breadcrumb-schema", found ' + bcScripts.length);
+        }
+        if (bcHolders[0].id !== 'breadcrumb-schema') {
+            fail(slug + ': the BreadcrumbList is not inside id="breadcrumb-schema" (it is in ' +
+                 (bcHolders[0].id === null ? 'a block with no id' : 'id="' + bcHolders[0].id + '"') +
+                 '), so injectArticleSchema would duplicate it instead of replacing it');
+        }
         const h1s = countOccurrences(page, '<h1');
         if (h1s !== 1) fail(slug + ': expected exactly one <h1>, found ' + h1s);
         if (countOccurrences(page, '<main>') !== 1 || countOccurrences(page, '</main>') !== 1) fail(slug + ': expected exactly one <main> element');
