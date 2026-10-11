@@ -92,7 +92,7 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
     "description": "When you're learning Cyrillic, the first few days feel overwhelming. 33 new letters, half of which look familiar but sound different. It's tempting to..."
   },
   "cyrillic-vs-greek": {
-    "title": "Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor | Cyrilica",
+    "title": "Cyrillic vs Greek Alphabet: How They Compare | Cyrilica",
     "description": "If you've ever looked at the Greek and Russian alphabets side by side, the resemblance is hard to miss. The letter A appears in both. So does K, M, O, and..."
   },
   "letter-yo-story": {
@@ -104,7 +104,7 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
     "description": "You've learned enough Cyrillic letters to recognize words. Now you want to actually type them. Maybe you're messaging someone in Russian, filling out a..."
   },
   "cyrillic-copy-paste": {
-    "title": "Cyrillic Alphabet Copy and Paste | Cyrilica",
+    "title": "Russian and Cyrillic Alphabet Copy and Paste | Cyrilica",
     "description": "Copy any Cyrillic character to your clipboard with one click: standard Russian letters, accented vowels with stress marks, and pre-reform characters from..."
   },
   "russian-alphabet-chart": {
