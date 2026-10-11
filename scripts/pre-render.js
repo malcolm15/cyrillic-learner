@@ -90,6 +90,80 @@ function replaceOnce(haystack, needle, replacement, label) {
 // that is shown separately by comparing the two.
 const SHARE_FNS = ['copyArticleLink', 'shareToBluesky', 'shareToReddit', 'nativeShare'];
 
+// ---- the core script loading contract ----
+//
+// core.js, articles.js and article-scripts.js must stay present, in this order,
+// exactly once each, as parser-blocking classic scripts. The order is load
+// bearing: core.js defines the router, articles.js defines ARTICLES and
+// article-scripts.js defines ArticleScripts, and showArticle needs all three.
+//
+// async would let them execute in any order, and possibly after
+// DOMContentLoaded, so showArticle could run with ARTICLES missing and no
+// listener left to replay it.
+//
+// defer is worse rather than better. Deferred scripts run after parsing but
+// before DOMContentLoaded, with document.readyState already 'interactive', so
+// showArticle's guard would not engage at all. Order is preserved, so core.js
+// would still run first and read ARTICLES before articles.js had defined it:
+// the race would become a certainty instead of a probability.
+//
+// type="module" defers by definition, so it carries the same problem, and
+// module scope would also stop the three files sharing globals at all.
+const CORE_SCRIPTS = ['/js/core.js', '/js/articles.js', '/js/article-scripts.js'];
+
+// Double-quoted, single-quoted and unquoted attribute values all count. A
+// single-quoted src must not hide a tag from this check, and type='module' or
+// a bare type=module must not slip past the type rule.
+const ATTR_SRC  = /\ssrc\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i;
+const ATTR_TYPE = /\stype\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i;
+
+function assertScriptContract(html, label) {
+    const tags = [];
+    const re = /<script\b([^>]*)>/gi;
+    let m;
+    while ((m = re.exec(html)) !== null) {
+        const attrs = m[1];
+        const src = ATTR_SRC.exec(attrs);
+        if (!src) continue;
+        const srcVal = (src[1] !== undefined ? src[1] : src[2] !== undefined ? src[2] : src[3]).trim();
+        if (CORE_SCRIPTS.indexOf(srcVal) === -1) continue;
+        tags.push({ src: srcVal, attrs: attrs });
+    }
+    const order = tags.map(function (t) { return t.src; });
+    CORE_SCRIPTS.forEach(function (want) {
+        const n = order.filter(function (s) { return s === want; }).length;
+        if (n !== 1) {
+            fail(label + ': expected exactly one <script src="' + want + '">, found ' + n +
+                 '. Script tags seen: ' + JSON.stringify(order));
+        }
+    });
+    if (order.join(',') !== CORE_SCRIPTS.join(',')) {
+        fail(label + ': the core scripts are in the wrong order. Expected ' +
+             JSON.stringify(CORE_SCRIPTS) + ', found ' + JSON.stringify(order));
+    }
+    tags.forEach(function (t) {
+        if (/\basync\b/i.test(t.attrs)) {
+            fail(label + ': ' + t.src + ' carries async. The core scripts must execute in ' +
+                 'document order; async may run them in any order and possibly after ' +
+                 'DOMContentLoaded, when no listener is left to replay the article.');
+        }
+        if (/\bdefer\b/i.test(t.attrs)) {
+            fail(label + ': ' + t.src + ' carries defer. Deferred scripts run before ' +
+                 'DOMContentLoaded with readyState already "interactive", so the guard in ' +
+                 'showArticle would never engage, and core.js would still run before ARTICLES exists.');
+        }
+        const type = ATTR_TYPE.exec(t.attrs);
+        if (type) {
+            const typeVal = (type[1] !== undefined ? type[1] : type[2] !== undefined ? type[2] : type[3]).trim();
+            if (typeVal.toLowerCase() !== 'text/javascript') {
+                fail(label + ': ' + t.src + ' has type=' + JSON.stringify(typeVal) + '. The core scripts must be ' +
+                     'classic scripts sharing globals; only an absent type or text/javascript is allowed.');
+            }
+        }
+    });
+    return tags.length;
+}
+
 // Every onclick="..." attribute in `html`, as raw attribute text plus its offset.
 // This is the strict matcher the two rules below read. It only recognises the one
 // spelling the codebase uses, which is why onclickOccurrences() exists to prove
@@ -300,6 +374,7 @@ function derivePreview(content) {
 
 function main() {
     const template = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+    let scriptContractChecked = assertScriptContract(template, 'index.html');
     const articlesSrc = fs.readFileSync(path.join(ROOT, 'js', 'articles.js'), 'utf8');
     const coreSrc = fs.readFileSync(path.join(ROOT, 'js', 'core.js'), 'utf8');
     const headsSrc = fs.readFileSync(path.join(ROOT, 'netlify', 'lib', 'article-heads.ts'), 'utf8');
@@ -984,6 +1059,8 @@ function main() {
         if (h1s !== 1) fail(slug + ': expected exactly one <h1>, found ' + h1s);
         if (countOccurrences(page, '<main>') !== 1 || countOccurrences(page, '</main>') !== 1) fail(slug + ': expected exactly one <main> element');
 
+        scriptContractChecked += assertScriptContract(page, slug + ' (emitted page)');
+
         fs.writeFileSync(path.join(OUT_ROOT, slug + '.html'), page, 'utf8');
         emitted += 1;
     });
@@ -1058,6 +1135,8 @@ function main() {
 
     console.log('Pre-rendered ' + emitted + ' article pages into articles/');
     console.log('Onclick coverage: ' + pageOnclickTotal + ' attributes across the emitted pages, strict and permissive counts equal on every page.');
+    console.log('Script contract passed: ' + scriptContractChecked + ' core script tags across index.html and ' +
+                emitted + ' emitted pages, all three present once each, in order, classic, no async or defer.');
     console.log('Routing checks passed: ' + expectedRoutes.length + ' SPA routes match VALID_PAGES, ' +
                 ARTICLE_ORDER.length + ' article files on disk, 404.html clean.');
 }
