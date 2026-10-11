@@ -604,7 +604,7 @@ const ARTICLES = [
             
             <p><strong>Ѕ (dzelo)</strong> survives in Macedonian<br>
             <strong>Ѣ (yat)</strong> was used in Bulgarian until 1945<br>
-            <strong>І (i decimal)</strong> is still used in Ukrainian and Belarusian<br>
+            <strong>І (i decimal)</strong> is still used in Ukrainian and <a href="/articles/belarusian-alphabet" onclick="navTo(event, null, 'belarusian-alphabet')">Belarusian</a><br>
             Various Old Church Slavonic letters appear in academic editions of medieval texts</p>
             
             <p>So while these letters are "lost" to Russian, they're not entirely extinct. They just moved to different neighborhoods.</p>
