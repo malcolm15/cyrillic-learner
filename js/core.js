@@ -302,6 +302,9 @@ function showPage(pageName, opts) {
     // opts.push === false: show the page without adding a history entry
     // (Back/Forward, where the browser has already changed the URL).
     const push = !(opts && opts.push === false);
+    // The reader has chosen a different route; drop any article still waiting
+    // for DOMContentLoaded so it cannot open on top of this page.
+    clearPendingArticle();
     // Pre-rendered article documents contain only the article. Any other
     // route lives on the shell, so if its section is not in this document
     // (or the articles listing is not), navigate to it for real.
@@ -738,7 +741,41 @@ function navToArticle(event, slug) {
 }
 
 // Article navigation functions
+//
+// Deferred start. js/articles.js and js/article-scripts.js are parser-blocking
+// classic scripts that load after core.js, so while the document is still
+// loading neither ARTICLES nor ArticleScripts exists yet. Reading ARTICLES
+// below would throw a ReferenceError and skip the whole rest of this function,
+// including the per-article initialisers at the end, which is how the alphabet
+// chart's audio ended up permanently inert on throttled connections. Remember
+// the request instead and run it once every script has executed. One pending
+// slot, last request wins: a reader who clicks a second article during the gap
+// wants the second one. showPage() and showArticleIndex() clear the slot, so a
+// pending article never opens on top of a route the reader chose instead.
+let pendingArticleId = null;
+let pendingArticleOpts = null;
+let pendingArticleListening = false;
+
+function clearPendingArticle() {
+    pendingArticleId = null;
+    pendingArticleOpts = null;
+}
+
 function showArticle(articleId, opts) {
+    if (document.readyState === 'loading') {
+        pendingArticleId = articleId;
+        pendingArticleOpts = opts;
+        if (!pendingArticleListening) {
+            pendingArticleListening = true;
+            document.addEventListener('DOMContentLoaded', function () {
+                const id = pendingArticleId;
+                const pendingOpts = pendingArticleOpts;
+                clearPendingArticle();
+                if (id) showArticle(id, pendingOpts);
+            });
+        }
+        return;
+    }
     const push = !(opts && opts.push === false);
     const article = ARTICLES.find(a => a.id === articleId);
     if (!article) {
@@ -895,6 +932,7 @@ function showArticle(articleId, opts) {
 
 function showArticleIndex(opts) {
     const push = !(opts && opts.push === false);
+    clearPendingArticle();
     // Same fallback as showPage: the listing is not in pre-rendered article
     // documents, so go to the real /articles page.
     if (!document.getElementById('articles-index')) {
@@ -1463,9 +1501,9 @@ initReference();
             document.getElementById('articles-page').classList.add('active');
             setDisplay('articles-index', 'none');
             // Pre-rendered pages ship with this article already painted in
-            // #article-view; hiding it here would blank the content for the
-            // 100ms until showArticle repaints it. Everything else, including
-            // the full re-render, stays the same.
+            // #article-view; hiding it here would blank the content until
+            // showArticle repaints it. Everything else, including the full
+            // re-render, stays the same.
             if (document.body.dataset.prerendered !== articleId) {
                 document.getElementById('article-view').style.display = 'none';
             }
@@ -1474,9 +1512,9 @@ initReference();
             if (articlesNavLink) articlesNavLink.classList.add('active');
             setMenuOpen(false);
             window.scrollTo(0, 0);
-            setTimeout(() => {
-                showArticle(articleId);
-            }, 100);
+            // No timer: showArticle defers itself until DOMContentLoaded if the
+            // document is still loading.
+            showArticle(articleId);
         } else {
             // Just /articles - show article index
             showPage('articles');
