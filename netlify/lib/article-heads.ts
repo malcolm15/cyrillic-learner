@@ -104,7 +104,7 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
     "description": "You've learned enough Cyrillic letters to recognize words. Now you want to actually type them. Maybe you're messaging someone in Russian, filling out a..."
   },
   "cyrillic-copy-paste": {
-    "title": "Cyrillic Alphabet Copy and Paste | Cyrilica",
+    "title": "Russian and Cyrillic Alphabet Copy and Paste | Cyrilica",
     "description": "Copy any Cyrillic character to your clipboard with one click: standard Russian letters, accented vowels with stress marks, and pre-reform characters from..."
   },
   "russian-alphabet-chart": {
