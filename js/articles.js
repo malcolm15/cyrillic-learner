@@ -371,7 +371,7 @@ const ARTICLES = [
             <li><strong>Serbian Cyrillic</strong> (30 letters): Serbia, used alongside Latin script</li>
             <li><strong>Macedonian alphabet</strong> (31 letters): North Macedonia, with unique characters Ѓ and Ќ</li>
             <li><strong>Montenegrin alphabet</strong> (32 letters): Montenegro, the newest variant (adds С́ and З́)</li>
-            <li><strong>Belarusian alphabet</strong> (32 letters): Belarus, with its own letters Ў and І</li>
+            <li><strong><a href="/articles/belarusian-alphabet" onclick="navTo(event, null, 'belarusian-alphabet')">Belarusian alphabet</a></strong> (32 letters): Belarus, with its own letters Ў and І</li>
             <li><strong>Kazakh alphabet</strong> (42 letters): Kazakhstan, which plans to switch to Latin script by 2031</li>
             </ul>
 
