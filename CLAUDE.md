@@ -111,6 +111,20 @@ Two cross-file gotchas:
   The build asserts both: zero BreadcrumbList objects in `index.html`, exactly one
   per emitted article and inside that id. The site-wide SoftwareApplication,
   WebSite and Organization blocks in the shell are separate and unaffected.
+- **No backslash escapes inside `onclick` attributes in article content.** Use a
+  typographic apostrophe (U+2019) in share labels, never `\'`. pre-render.js copies
+  the content template literal as written, while core.js assigns the evaluated
+  string through `innerHTML`, so an escape makes the attribute differ between the
+  static page and the hydrated DOM. The build enforces this, and also that each
+  article has exactly four share handlers (`copyArticleLink`, `shareToBluesky`,
+  `shareToReddit`, `nativeShare`), each passing its own slug, 108 in total, and
+  that every `onclick` in every emitted page parses as JavaScript.
+- **Share labels and index cards may differ from the article title.**
+  Batch 56 Phase 1 checked all 27 articles and found 6 differing labels, on
+  `lost-letters`, `belarusian-alphabet`, `bulgarian-alphabet`,
+  `montenegrin-alphabet`, `history-of-cyrillic` and `how-to-type-cyrillic`. Every
+  one of the 6 was never the article's title field at any commit in the file's
+  history, so a difference is not, by itself, evidence of a stale label.
 
 ## Hosting and deployment (current: Netlify)
 - Served by **Netlify**, fronted by **Cloudflare for DNS only**.
@@ -208,6 +222,18 @@ removed in Batch 54. Why Google chose that block over the correct one was not
 verified; only that it was present and first. Nothing in the codebase read or
 depended on the generic shell block: no build needle, shell constant or
 edge-function match targeted it or its distinctive Home, About, Contact content.
+
+### Solved history: the share-button apostrophe escapes (do not reintroduce)
+
+Found 2026-10-10: 16 share-button `onclick` attributes across 4 articles were
+broken by an escaped apostrophe in the title label. pre-render.js copies the
+content template literal as written while core.js uses the evaluated string, so
+one backslash level is resolved in the hydrated DOM and not in the static HTML.
+`montenegrin-alphabet`, `cyrillic-letters-not-in-russian` and
+`kazakhstan-latin-transition` used `\'` and were invalid after hydration, which is
+the state users click in; `letter-yo-story` used `\\'` and was invalid only in the
+static HTML. Fixed in Batch 56 by replacing the escape with U+2019 so no backslash
+remains, plus the build assertions described above.
 
 ## Edge function (first server-side logic)
 

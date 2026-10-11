@@ -79,6 +79,92 @@ function replaceOnce(haystack, needle, replacement, label) {
     return haystack.replace(needle, replacement);
 }
 
+// ---- share handlers and onclick attributes ----
+//
+// The no-backslash rule below prevents the escape mismatch found on 2026-10-10:
+// pre-render.js copies the content template literal as written, while core.js
+// assigns the evaluated string through innerHTML, so a backslash escape inside an
+// onclick means the attribute differs between the static page and the hydrated
+// DOM. With no backslash in any onclick, those attribute values are the same in
+// both states. It does not make static and hydrated HTML equivalent in general;
+// that is shown separately by comparing the two.
+const SHARE_FNS = ['copyArticleLink', 'shareToBluesky', 'shareToReddit', 'nativeShare'];
+
+// Every onclick="..." attribute in `html`, as raw attribute text plus its offset.
+// This is the strict matcher the two rules below read. It only recognises the one
+// spelling the codebase uses, which is why onclickOccurrences() exists to prove
+// that no other spelling slipped in.
+function onclickAttrs(html) {
+    const out = [];
+    const re = /onclick="([^"]*)"/g;
+    let m;
+    while ((m = re.exec(html)) !== null) out.push({ attr: m[1], index: m.index });
+    return out;
+}
+
+// Permissive count of onclick attribute occurrences: any case, optional
+// whitespace around the equals sign, any quote style or unquoted. Restricted to
+// positions inside a tag, so the word appearing in prose or a comment is not
+// counted. On the current tree both counts agree exactly (174 in article content,
+// 66 in index.html, 27 in an emitted page) and there are no incidental
+// occurrences at all, so the restriction changes nothing today; it is there so a
+// future article that merely writes the word cannot fail the build.
+function onclickOccurrences(html) {
+    const out = [];
+    const re = /onclick\s*=/gi;
+    let m;
+    while ((m = re.exec(html)) !== null) {
+        const lt = html.lastIndexOf('<', m.index);
+        const gt = html.lastIndexOf('>', m.index);
+        if (lt > gt) out.push(m.index);
+    }
+    return out;
+}
+
+// Fails unless the strict matcher saw every occurrence the permissive counter
+// found. Without this, an attribute written in any other spelling would be
+// skipped by both rules below and the build would still pass.
+function assertOnclickCoverage(html, label) {
+    const strict = onclickAttrs(html);
+    const loose = onclickOccurrences(html);
+    if (strict.length === loose.length) return strict.length;
+    const seen = {};
+    strict.forEach(function (a) { seen[a.index] = true; });
+    const missed = loose.filter(function (i) { return !seen[i]; });
+    const at = missed.length ? missed[0] : loose[0];
+    const around = html.slice(Math.max(0, at - 80), at + 80).replace(/\n/g, ' ');
+    fail(label + ': onclick coverage mismatch. The permissive count found ' + loose.length +
+         ' attribute occurrences but the strict matcher returned ' + strict.length +
+         '. First unmatched occurrence at offset ' + at + ', around: ' + around);
+}
+
+// Every share handler call in `content`, with the function name and the first
+// argument. The first-argument pattern tolerates escapes so that malformed input
+// is reported by the checks below rather than skipped by the matcher.
+function shareHandlersIn(content) {
+    const out = [];
+    SHARE_FNS.forEach(function (fn) {
+        const re = new RegExp(fn + "\\('((?:[^'\\\\]|\\\\.)*)'", 'g');
+        let m;
+        while ((m = re.exec(content)) !== null) {
+            out.push({ fn: fn, id: m[1].replace(/\\(.)/g, '$1') });
+        }
+    });
+    return out;
+}
+
+// An onclick attribute is the body of an event handler function, so `return` at
+// the top level is legal there. Compiling it as a function body is what the
+// browser does, and is why this uses Function rather than vm.Script.
+function onclickParses(attr) {
+    try {
+        new Function(attr);
+        return null;
+    } catch (e) {
+        return e.message;
+    }
+}
+
 // ---- JSON-LD inspection, for the breadcrumb assertions below ----
 //
 // The breadcrumb invariant is about JSON-LD objects, not about how the JSON
@@ -611,9 +697,70 @@ function main() {
              '. The shell serves seven routes from one file and cannot carry a correct trail for them.');
     }
 
+    // ---- share handlers: coverage, then the no-backslash source rule ----
+    //
+    // Coverage is asserted before the content rule so that a missing or malformed
+    // handler is reported rather than passed over by the matcher. The content is
+    // the raw template-literal text from js/articles.js, read before any
+    // evaluation or unescaping, because the escape is exactly what is being
+    // checked for.
+    let shareHandlerTotal = 0;
+    let contentOnclickTotal = 0;
+    ARTICLE_ORDER.forEach(function (slug) {
+        const article = byId[slug];
+        if (!article) fail('share handlers: ARTICLE_ORDER slug "' + slug + '" not found in articles.js');
+        const found = shareHandlersIn(article.content);
+        shareHandlerTotal += found.length;
+        if (found.length !== SHARE_FNS.length) {
+            fail(slug + ': expected ' + SHARE_FNS.length + ' share handlers, found ' + found.length +
+                 ' (' + found.map(function (h) { return h.fn; }).join(', ') + ')');
+        }
+        SHARE_FNS.forEach(function (fn) {
+            const n = found.filter(function (h) { return h.fn === fn; }).length;
+            if (n !== 1) fail(slug + ': expected exactly 1 ' + fn + ' share handler, found ' + n);
+        });
+        found.forEach(function (h) {
+            if (h.id !== slug) {
+                fail(slug + ': share handler ' + h.fn + ' passes article id "' + h.id + '", expected "' + slug + '"');
+            }
+        });
+        contentOnclickTotal += assertOnclickCoverage(article.content, slug + ' (article content)');
+        onclickAttrs(article.content).forEach(function (o) {
+            const attr = o.attr;
+            if (attr.indexOf('\\') !== -1) {
+                fail(slug + ': onclick attribute in article content contains a backslash, which makes the ' +
+                     'static and hydrated attribute values differ. Use a typographic apostrophe (U+2019) ' +
+                     'instead of an escape. Attribute: ' + attr);
+            }
+        });
+    });
+    // Consistency between the two lists only. Proof that the parser found every
+    // article stays where it is, in the parsed-count versus article-heads.ts check.
+    const orderSet = {}, parsedSet = {};
+    ARTICLE_ORDER.forEach(function (s) {
+        if (orderSet[s]) fail('share handlers: ARTICLE_ORDER contains duplicate slug "' + s + '"');
+        orderSet[s] = true;
+    });
+    articles.forEach(function (a) { parsedSet[a.id] = true; });
+    const missingFromOrder = Object.keys(parsedSet).filter(function (s) { return !orderSet[s]; });
+    const missingFromArticles = Object.keys(orderSet).filter(function (s) { return !parsedSet[s]; });
+    if (missingFromOrder.length || missingFromArticles.length) {
+        fail('share handlers: ARTICLE_ORDER and the parsed articles disagree.' +
+             (missingFromArticles.length ? ' In ARTICLE_ORDER but not parsed: ' + missingFromArticles.join(', ') + '.' : '') +
+             (missingFromOrder.length ? ' Parsed but not in ARTICLE_ORDER: ' + missingFromOrder.join(', ') + '.' : ''));
+    }
+    if (shareHandlerTotal !== ARTICLE_ORDER.length * SHARE_FNS.length) {
+        fail('share handlers: expected ' + (ARTICLE_ORDER.length * SHARE_FNS.length) +
+             ' handlers across all articles, found ' + shareHandlerTotal);
+    }
+    console.log('Share handler checks passed: ' + ARTICLE_ORDER.length + ' articles, ' +
+                shareHandlerTotal + ' handlers, 0 backslashes in any onclick, ' +
+                contentOnclickTotal + ' onclick attributes in article content covered.');
+
     // ---- emit each article ----
     fs.mkdirSync(OUT_ROOT, { recursive: true });
     let emitted = 0;
+    let pageOnclickTotal = 0;
     ARTICLE_ORDER.forEach(function (slug, i) {
         const article = byId[slug];
         if (!article) fail('ARTICLE_ORDER slug "' + slug + '" not found in articles.js');
@@ -821,6 +968,18 @@ function main() {
                  (bcHolders[0].id === null ? 'a block with no id' : 'id="' + bcHolders[0].id + '"') +
                  '), so injectArticleSchema would duplicate it instead of replacing it');
         }
+        // Every onclick in the emitted page must parse as a handler body. This is
+        // the static half of the pair: the source rule above covers the text in
+        // js/articles.js, this covers what is actually served.
+        pageOnclickTotal += assertOnclickCoverage(page, slug + ' (emitted page)');
+        onclickAttrs(page).forEach(function (o) {
+            const attr = o.attr;
+            const err = onclickParses(attr);
+            if (err) {
+                fail(slug + ': onclick attribute in the emitted page does not parse as JavaScript: ' +
+                     err + '. Attribute: ' + attr);
+            }
+        });
         const h1s = countOccurrences(page, '<h1');
         if (h1s !== 1) fail(slug + ': expected exactly one <h1>, found ' + h1s);
         if (countOccurrences(page, '<main>') !== 1 || countOccurrences(page, '</main>') !== 1) fail(slug + ': expected exactly one <main> element');
@@ -898,6 +1057,7 @@ function main() {
     }
 
     console.log('Pre-rendered ' + emitted + ' article pages into articles/');
+    console.log('Onclick coverage: ' + pageOnclickTotal + ' attributes across the emitted pages, strict and permissive counts equal on every page.');
     console.log('Routing checks passed: ' + expectedRoutes.length + ' SPA routes match VALID_PAGES, ' +
                 ARTICLE_ORDER.length + ' article files on disk, 404.html clean.');
 }
