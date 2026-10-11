@@ -92,7 +92,7 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
     "description": "When you're learning Cyrillic, the first few days feel overwhelming. 33 new letters, half of which look familiar but sound different. It's tempting to..."
   },
   "cyrillic-vs-greek": {
-    "title": "Cyrillic vs Greek: How Two Alphabets Share a Common Ancestor | Cyrilica",
+    "title": "Cyrillic vs Greek Alphabet: How They Compare | Cyrilica",
     "description": "If you've ever looked at the Greek and Russian alphabets side by side, the resemblance is hard to miss. The letter A appears in both. So does K, M, O, and..."
   },
   "letter-yo-story": {
