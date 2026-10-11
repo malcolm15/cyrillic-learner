@@ -2857,7 +2857,7 @@ const ARTICLES = [
             <p><strong>East of the line (Orthodox influence):</strong><br>
             • Russian - Cyrillic alphabet<br>
             • Ukrainian - Cyrillic alphabet<br>
-            • Belarusian - Cyrillic alphabet<br>
+            • <a href="/articles/belarusian-alphabet" onclick="navTo(event, null, 'belarusian-alphabet')">Belarusian</a> - Cyrillic alphabet<br>
             • Bulgarian - Cyrillic alphabet<br>
             • Serbian - Cyrillic alphabet (though they also use Latin)<br>
             • Macedonian - Cyrillic alphabet</p>
