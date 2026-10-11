@@ -1053,7 +1053,7 @@ const ARTICLES = [
 
             <h3>The Belarusian Alphabet: 32 Letters</h3>
             
-            <p>Belarusian uses 32 letters compared to Russian's 33, and here is the surprise: Belarusian does have Ё, and it takes the letter more seriously than Russian does. Russian treats the two dots as optional and usually leaves them out, so readers have to guess. Belarusian writes Ё every time. The count comes out one lower because Belarusian drops three Russian letters and adds two of its own: Russian's 33, minus И, Щ and Ъ, plus І and Ў, makes 32.</p>
+            <p>Belarusian uses 32 letters compared to Russian's 33, and here is the surprise: Belarusian does have Ё, and it takes the letter more seriously than Russian does. <a href="/articles/letter-yo-story" onclick="navTo(event, null, 'letter-yo-story')">Russian treats the two dots as optional</a> and usually leaves them out, so readers have to guess. Belarusian writes Ё every time. The count comes out one lower because Belarusian drops three Russian letters and adds two of its own: Russian's 33, minus И, Щ and Ъ, plus І and Ў, makes 32.</p>
             
             <p><strong>Unique to Belarusian (not in standard Russian):</strong></p>
             <p>• <strong>Ў (short U)</strong>: Represents a "w" sound, like the "w" in "now"<br>
@@ -1066,7 +1066,7 @@ const ARTICLES = [
 
             <h3>The Most Important Letter: Ў</h3>
             
-            <p>The letter Ў (called "ў нескладовае" or "non-syllabic u") is Belarusian's signature character. It doesn't exist in Russian and makes Belarusian instantly recognizable.</p>
+            <p>The letter Ў (called "ў нескладовае" or "non-syllabic u") is Belarusian's signature character. It <a href="/articles/cyrillic-letters-not-in-russian" onclick="navTo(event, null, 'cyrillic-letters-not-in-russian')">doesn't exist in Russian</a> and makes Belarusian instantly recognizable.</p>
             
             <p>It sounds like the "w" in English "cow" or "how," a short, gliding sound that follows a vowel. In Russian, this sound is typically written as "в" but in Belarusian, it gets its own letter.</p>
             
@@ -1078,7 +1078,7 @@ const ARTICLES = [
 
             <h3>The Return of І</h3>
             
-            <p>Belarusian kept the letter І (decimal I) that Russian eliminated in 1918. This gives Belarusian two "i" sounds:</p>
+            <p>Belarusian kept the letter І (decimal I) that <a href="/articles/lost-letters" onclick="navTo(event, null, 'lost-letters')">Russian eliminated in 1918</a>. This gives Belarusian two "i" sounds:</p>
             
             <p>• <strong>І</strong>: hard "i" sound<br>
             • <strong>Ы</strong>: the difficult "y" sound (same as Russian)</p>
@@ -1091,7 +1091,7 @@ const ARTICLES = [
 
             <h3>How Different Is It From Russian?</h3>
             
-            <p>If you know Russian, a lot of Belarusian will be comprehensible. Russian, Ukrainian and Belarusian retain a degree of mutual intelligibility, though putting a percentage on that is more precision than the evidence supports. The alphabet differences are small (two letters added, three dropped), but pronunciation and vocabulary differ more significantly.</p>
+            <p>If you know Russian, a lot of Belarusian will be comprehensible. Russian, <a href="/articles/ukrainian-alphabet" onclick="navTo(event, null, 'ukrainian-alphabet')">Ukrainian</a> and Belarusian retain a degree of mutual intelligibility, though putting a percentage on that is more precision than the evidence supports. The alphabet differences are small (two letters added, three dropped), but pronunciation and vocabulary differ more significantly.</p>
             
             <p><strong>Key differences:</strong></p>
             
