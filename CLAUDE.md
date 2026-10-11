@@ -330,8 +330,26 @@ noindex, and any path that falls through to the shell.
 
 Direct-load routing: `handleInitialURL()` in core.js, for article paths, no longer
 routes through `showPage()`. That was resetting the canonical to the homepage
-mid-init. It now activates the articles DOM directly, then calls `showArticle()`
-after 100ms. That delay compensates for ARTICLES array load order; do not remove it.
+mid-init. It now activates the articles DOM directly and calls `showArticle()`
+straight away.
+
+Deferred start: `showArticle()` returns early while `document.readyState` is
+`loading`, recording the requested slug in a single pending slot and arming one
+`DOMContentLoaded` listener that replays it. It has to, because `js/articles.js`
+and `js/article-scripts.js` load after `core.js`, so `ARTICLES` and
+`ArticleScripts` do not exist yet. Last request wins, and `showPage()` and
+`showArticleIndex()` clear the slot, so an article waiting on the gap never
+opens on top of a route the reader picked instead. This replaced a 100ms timer
+that lost the race on 80 of 80 throttled loads, taking every per-article
+initialiser down with it because the throw happened at the top of
+`showArticle()`.
+
+Script loading contract: `index.html` and every emitted article page must load
+`/js/core.js`, `/js/articles.js` and `/js/article-scripts.js`, exactly once
+each, in that order, as classic scripts with no `async` and no `defer`. The
+order and the parser-blocking execution are what make the deferred start
+correct. `scripts/pre-render.js` checks all of this on the shell and on each
+emitted page and fails the build otherwise.
 
 Not-found state: when `showArticle()` receives a slug not in ARTICLES, it renders a
 friendly error, resets the canonical to `/articles`, hides the prev/next bar and
