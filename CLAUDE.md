@@ -420,6 +420,12 @@ A new article touches FIVE places, all using the identical slug:
    `keywords`; all four required or schema injection breaks) and the slug placed in
    `ARTICLE_ORDER` in the correct category group. Bump `modified` whenever you
    meaningfully change an article's content.
+   For link-only edits that wrap existing words in internal anchors without
+   changing visible text or substantially restructuring navigation, leave
+   `ARTICLE_META.modified` and the sitemap `<lastmod>` unchanged by default. Bump
+   both dates together if the change materially alters the page's content or
+   navigation. Either way, state the decision and the reason in the commit body.
+   (Decided in Batch 57, 2026-10-11.)
 3. `index.html`: an `.article-item` block in the right category group.
 4. `sitemap.xml`: a new `<url>` entry (add an `<image:image>` entry too if the
    article has an image).
@@ -467,11 +473,12 @@ not the protection. If the heads change and you did not intend it, rework the ed
 so the first 155 characters survive. If the change is intended, record the before
 and after description text so a later click-through shift can be traced to it.
 
-**The modified-date check.** After any content edit, confirm the edited article's
-`ARTICLE_META.modified` in `js/core.js` and its `<lastmod>` in `sitemap.xml` both
-equal the date of the commit. The two fields move together. If one changes and the
-other does not, or if either shows an older date, stop and find out why before
-pushing. A commit that leaves both files unexpectedly unchanged is the warning sign.
+**The modified-date check.** After any content edit not covered by the link-only
+default above, confirm the edited article's `ARTICLE_META.modified` in
+`js/core.js` and its `<lastmod>` in `sitemap.xml` both equal the date of the
+commit. The two fields move together. If one changes and the other does not, or
+if either shows an older date, stop and find out why before pushing. A commit
+that leaves both files unexpectedly unchanged is the warning sign.
 
 **Why.** Nothing else verifies a date field. In September 2026 the date-bump helper
 silently wrote a hardcoded 2026-09-16 for two days across 22 articles, and it only
