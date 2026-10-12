@@ -503,6 +503,55 @@ silently wrote a hardcoded 2026-09-16 for two days across 22 articles, and it on
 surfaced because a commit came back with those files unexpectedly unchanged. That
 was luck, not a check.
 
+**IndexNow baseline before every production merge.** Cyrilica tells Bing (and
+Yandex, Naver, Seznam, Yep; not Google) which URLs changed, through
+`scripts/indexnow.js`. The list is computed by comparing production before and
+after the merge, so the baseline has to be captured while production still
+serves the old commit. Run `node scripts/indexnow.js baseline` before merging
+and confirm the recorded `commitRef` matches the current `origin/main`. **No
+production merge happens until the baseline is captured.** Baselines live in
+`~/.cyrilica/indexnow/`, named `baseline-<commit_ref>.json`, and `diff` and
+`submit` select the one whose `commitRef` is parent 1 of the merge commit and
+refuse if none matches.
+
+After the production checks pass, run `node scripts/indexnow.js submit
+<merge-sha>` to see the classified list (CHANGED, ADDED, REMOVED, DEINDEXED,
+REDIRECTED, UNEXPECTED), then re-run with `--send`. Any UNEXPECTED row blocks
+the send: it usually means a URL left the sitemap but is still live and
+indexable, so the sitemap edit was the mistake, or a page is in the sitemap and
+carries noindex at the same time. Record the response code in the batch report.
+A 200 means the list was received, not that anything was indexed.
+
+Every run that reaches the submission stage ends with one line,
+`INDEXNOW RESULT: <label>`, where the label is `SUBMITTED` for 200,
+`ACCEPTED_PENDING_VALIDATION` for 202, `FAILED_RETRY_REQUIRED` for any non-2xx,
+timeout or network error, or `NOTHING_TO_SUBMIT` for an empty list. Record that
+label. A noindex directive counts when the meta name is `robots`, `bingbot` or
+`msnbot`, since those remove the page from Bing; `googlebot` does not, because
+Google does not consume IndexNow.
+
+**A failed submission must be retried by hand.** Nothing retries it
+automatically, and a later batch's diff only covers what that batch changed, so
+the missed URLs will not reappear on their own. On failure the script writes the
+failed list to `~/.cyrilica/indexnow/failed-<timestamp>.json` and prints a
+ready-to-run `submit --urls <list> --send` command; run that command. A failed
+submission never blocks or reverts a batch, which is why it exits 0: it is one
+search engine missing one notification, not a reason to undo verified work.
+
+**The key.** The key is 32 lowercase hex characters and is public by design. It
+exists in exactly one place, the name of the `<key>.txt` file at the repo root,
+and the script derives both the key and its `keyLocation` from that filename, so
+the served file and the submitted key cannot drift apart. **That file must
+contain the key and nothing else: no trailing newline, no BOM, no whitespace.**
+Create it with `printf '%s'`, never `echo`, and check afterwards that it is
+exactly 32 bytes. Before sending, the script fetches the live key file and
+requires its body to equal the key byte for byte with no trimming; that check is
+deliberately stricter than Bing may be, so it fails visibly on a doubtful key
+file rather than sending and hoping. No build check validates this file, so that
+preflight is what prevents an avoidable invalid-key submission. It does not
+replace the API's own answer: if a 403 comes back anyway, the run reports it
+like any other failure.
+
 **Homepage and /articles lastmod.** Bump the home `<lastmod>` in sitemap.xml
 whenever visible homepage body copy changes, and the `/articles` `<lastmod>`
 whenever visible listing copy on /articles changes, in the same push. Both live in
