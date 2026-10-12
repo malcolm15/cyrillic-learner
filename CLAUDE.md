@@ -62,6 +62,13 @@ Orientation for Claude Code (CC). Read this at the start of every session.
   changed the wrong rule twice: `.related-article-card` in Batch 41 and
   `.comparison-table td` in Batch 42.
 
+**Reports put everything in the message body.** Whatever a prompt asks a report
+to show (diffs, file listings, commit messages, command output, test results)
+must appear in the message body itself. Tool output is not visible to the person
+reviewing the report, so "printed in my tool output above" does not count as
+shown. If something is too long to include, say so and ask before abbreviating;
+never summarise a diff or file that was asked for in full.
+
 ## Stack
 Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
 - `index.html`: the SPA shell and all page content (home, about, settings, contact,
