@@ -48,8 +48,10 @@ function showCopiedFeedback(button) {
 // counterpart per the CLAUDE.md two-audio-functions note.
 //
 // `source` names the surface the click came from ('chart' or 'lookalike') and is
-// sent with the GA events below. Both callers pass it explicitly: one function
-// serves two surfaces, so without it the two would be indistinguishable in GA.
+// sent with the GA events below as audio_source. Both callers pass it
+// explicitly: one function serves two surfaces, so without it the two would be
+// indistinguishable in GA. The parameter is named audio_source rather than
+// source on the wire; see the hotfix commit for why.
 function playAudio(char, source) {
     console.log('playAudio called for:', char);
 
@@ -93,7 +95,7 @@ function playAudio(char, source) {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'letter_audio_played', {
                     'letter': char,
-                    'source': source
+                    'audio_source': source
                 });
             }
         }).catch(function(err) {
@@ -103,7 +105,7 @@ function playAudio(char, source) {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'letter_audio_failed', {
                     'letter': char,
-                    'source': source,
+                    'audio_source': source,
                     'error': (err && err.name) || 'unknown'
                 });
             }
