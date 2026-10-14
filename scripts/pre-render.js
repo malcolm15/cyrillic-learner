@@ -8,9 +8,10 @@
 // index triggers a 301 to the trailing-slash form, which would put a redirect
 // hop on every indexed article URL) with the per-article head, the article body
 // already in the DOM, prev/next navigation, the related-articles grid, and
-// Article plus BreadcrumbList JSON-LD. Netlify serves these real files ahead
-// of the non-forced /* /index.html 200 catch-all, so non-rendering crawlers
-// see full article content in raw HTML.
+// Article plus BreadcrumbList JSON-LD. Netlify serves these real files at their
+// extensionless paths, so non-rendering crawlers see full article content in
+// raw HTML. (This used to depend on them winning against a non-forced /*
+// catch-all; that catch-all was removed in Batch 50.)
 //
 // SELF-CONTAINED DOCUMENTS: every other route's section (home, the articles
 // listing, about, settings, contact, privacy, terms) is stripped from each
@@ -212,6 +213,183 @@ function assertOnclickCoverage(html, label) {
          '. First unmatched occurrence at offset ' + at + ', around: ' + around);
 }
 
+// ---- internal links: every target must resolve ----
+//
+// Nothing else in this script looks at an href, so a mistyped slug ships as a
+// 404 that only a crawler or a reader finds. The reference sets are read from
+// source rather than restated here: article ids from js/articles.js, SPA routes
+// from VALID_PAGES in js/core.js, rule sources from _redirects, and files from
+// disk. A retired path such as /articles/cyrillic-handwriting is therefore
+// accepted, because _redirects 301s it to a live article.
+//
+// A path that _redirects answers with 404 is denied before any accepting class
+// is tried, because such a path is deliberately unreachable whether or not a
+// file sits behind it: /CLAUDE.md is a real file on disk and still a dead link.
+//
+// href="#" is allowed. The Bluesky and Reddit share buttons are controls with no
+// destination, which is the carve-out recorded in CLAUDE.md.
+//
+// This is a structural check against source, not a crawl of the live site.
+// The file-on-disk class assumes a committed file is published; it does not
+// prove Netlify serves it. Live reachability is checked separately, on the
+// Deploy Preview and in production.
+const ARTICLE_PATH = '/articles/';
+// Both hostnames the site answers on. An absolute link to either is resolved
+// like a root-relative path, so it cannot escape the checks below.
+const SAME_ORIGIN_HOSTS = ['cyrilica.com', 'www.cyrilica.com'];
+const ATTR_HREF    = /\shref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i;
+const ATTR_ONCLICK = /\sonclick\s*=\s*"([^"]*)"/i;
+const ATTR_ID      = /\sid\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/gi;
+
+function attrValue(m) {
+    return (m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3]).trim();
+}
+
+// Strict matcher plus a permissive counter, the same pairing as the onclick
+// rules above: if any anchor escapes the matcher the two counts disagree and the
+// build fails rather than skipping that link in silence.
+function anchorTags(html) {
+    const out = [];
+    const re = /<a\b([^>]*)>/gi;
+    let m;
+    while ((m = re.exec(html)) !== null) out.push({ attrs: m[1], index: m.index });
+    return out;
+}
+
+function anchorOccurrences(html) {
+    const out = [];
+    const re = /<a\b/gi;
+    let m;
+    while ((m = re.exec(html)) !== null) out.push(m.index);
+    return out;
+}
+
+function idsIn(html) {
+    const out = Object.create(null);
+    ATTR_ID.lastIndex = 0;
+    let m;
+    while ((m = ATTR_ID.exec(html)) !== null) out[attrValue(m)] = true;
+    return out;
+}
+
+// A root-relative path naming a real committed file. This is the last class
+// tried. It refuses anything resolving outside the repo, and anything under
+// OUT_ROOT, which is the directory this script writes: articles/SLUG.html exists
+// only after a build, so without that exclusion the same link would pass on a
+// built tree and fail on a clean one. Excluding it also keeps the assertion
+// honest about what it means, since /articles/SLUG.html is the duplicate URL the
+// edge function 301s away from the canonical path.
+function isFileOnDisk(p) {
+    let decoded;
+    try { decoded = decodeURIComponent(p); } catch (e) { return false; }
+    const abs = path.resolve(ROOT, '.' + decoded);
+    if (abs !== ROOT && abs.indexOf(ROOT + path.sep) !== 0) return false;
+    if (abs === OUT_ROOT || abs.indexOf(OUT_ROOT + path.sep) === 0) return false;
+    try { return fs.statSync(abs).isFile(); } catch (e) { return false; }
+}
+
+function assertInternalLinks(html, label, refs) {
+    const strict = anchorTags(html);
+    const loose = anchorOccurrences(html);
+    if (strict.length !== loose.length) {
+        fail(label + ': anchor coverage mismatch. The permissive count found ' + loose.length +
+             ' <a tags but the strict matcher returned ' + strict.length +
+             '. An anchor whose opening tag contains ">" would be skipped by the checks below.');
+    }
+    const ids = idsIn(html);
+    let checked = 0;
+    strict.forEach(function (a) {
+        const hrefMatch = ATTR_HREF.exec(a.attrs);
+        // The shell's prev/next controls carry no href until pre-render adds one.
+        if (!hrefMatch) return;
+        const href = attrValue(hrefMatch);
+        checked += 1;
+        const onclickMatch = ATTR_ONCLICK.exec(a.attrs);
+        const onclick = onclickMatch ? onclickMatch[1] : '';
+        const where = label + ': <a href="' + href + '">';
+
+        // 1. The href and the router call must agree. A link whose onclick opens
+        //    something other than its href behaves one way on a left-click and
+        //    another on a middle-click, and only one of the two can be right.
+        const navArticle = /\bnavTo\(\s*event\s*,\s*null\s*,\s*'([^']*)'\s*\)/.exec(onclick) ||
+                           /\bnavToArticle\(\s*event\s*,\s*'([^']*)'\s*\)/.exec(onclick);
+        if (navArticle && href !== ARTICLE_PATH + navArticle[1]) {
+            fail(where + ' opens article ' + JSON.stringify(navArticle[1]) +
+                 ' but its href is not ' + ARTICLE_PATH + navArticle[1] + '.');
+        }
+        const navPage = /\bnavTo\(\s*event\s*,\s*'([^']*)'\s*,\s*null\s*\)/.exec(onclick);
+        if (navPage) {
+            const want = navPage[1] === 'home' ? '/' : '/' + navPage[1];
+            if (href !== want) {
+                fail(where + ' opens page ' + JSON.stringify(navPage[1]) +
+                     ' but its href is not ' + want + '.');
+            }
+        }
+
+        // 2. Resolve the target.
+        if (href === '#') return;
+        if (href.charAt(0) === '#') {
+            const frag = href.slice(1);
+            if (!ids[frag]) {
+                fail(where + ' is a same-page fragment but no element in this document has id="' + frag + '".');
+            }
+            return;
+        }
+        if (/^(?:mailto:|tel:)/i.test(href)) return;
+
+        let target = href;
+        if (/^[a-z][a-z0-9+.-]*:/i.test(href)) {
+            if (!/^https?:/i.test(href)) {
+                fail(where + ' uses a scheme that is neither http, https, mailto nor tel.');
+            }
+            let u = null;
+            try {
+                u = new URL(href);
+            } catch (e) {
+                fail(where + ' is not a parsable URL: ' + e.message);
+            }
+            if (SAME_ORIGIN_HOSTS.indexOf(u.hostname.toLowerCase()) === -1) return;
+            // Same-origin absolute: resolved exactly like a root-relative path,
+            // so an absolute link to a page the site does not have cannot pass.
+            target = u.pathname + u.hash;
+        } else if (href.charAt(0) !== '/') {
+            fail(where + ' is relative. Article URLs live one directory deep, so a ' +
+                 'relative href resolves differently on /articles/SLUG than on the shell.');
+        }
+
+        const hashAt = target.indexOf('#');
+        if (hashAt !== -1) target = target.slice(0, hashAt);
+        const queryAt = target.indexOf('?');
+        if (queryAt !== -1) target = target.slice(0, queryAt);
+
+        // No normalization: a trailing slash is a different URL from the canonical
+        // one, and canonical URLs on this site have none. There are zero such hrefs
+        // today.
+        if (target.length > 1 && target.slice(-1) === '/') {
+            fail(where + ' has a trailing slash. Canonical URLs on this site have none.');
+        }
+        const clean = target;
+
+        // Denied before anything can accept it.
+        const deniedBy = refs.denied.filter(function (d) {
+            return d.exact !== undefined ? clean === d.exact : clean.indexOf(d.prefix) === 0;
+        })[0];
+        if (deniedBy) {
+            fail(where + ' is covered by the _redirects rule "' + deniedBy.rule +
+                 '", which answers 404. That path is deliberately unreachable, so the link is ' +
+                 'dead even though a file sits behind it.');
+        }
+
+        if (refs.routes[clean]) return;
+        if (clean.indexOf(ARTICLE_PATH) === 0 && refs.articles[clean.slice(ARTICLE_PATH.length)]) return;
+        if (refs.redirectSources[clean]) return;
+        if (isFileOnDisk(clean)) return;
+        fail(where + ' does not resolve to anything the site has. Tried: an article slug in ' +
+             'ARTICLE_ORDER, an SPA route in VALID_PAGES, a _redirects source, and a file on disk.');
+    });
+    return checked;
+}
+
 // Every share handler call in `content`, with the function name and the first
 // argument. The first-argument pattern tolerates escapes so that malformed input
 // is reported by the checks below rather than skipped by the matcher.
@@ -378,6 +556,16 @@ function main() {
     const articlesSrc = fs.readFileSync(path.join(ROOT, 'js', 'articles.js'), 'utf8');
     const coreSrc = fs.readFileSync(path.join(ROOT, 'js', 'core.js'), 'utf8');
     const headsSrc = fs.readFileSync(path.join(ROOT, 'netlify', 'lib', 'article-heads.ts'), 'utf8');
+    // Read once here: both the internal-link assertion (before anything is
+    // written) and the routing checks (after) need it.
+    const redirectsSrc = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
+    const redirectRules = redirectsSrc.split('\n')
+        .map(function (l) { return l.trim(); })
+        .filter(function (l) { return l && l.charAt(0) !== '#'; })
+        .map(function (l) {
+            const f = l.split(/\s+/);
+            return { source: f[0], status: (f[2] || '').replace('!', '') };
+        });
 
     // ---- data: shared head artifact (same file the edge function imports) ----
     const headsMatch = headsSrc.match(/=\s(\{[\s\S]*\});\n\nexport default/);
@@ -411,6 +599,15 @@ function main() {
     if (ARTICLE_ORDER.length !== articles.length) {
         fail('ARTICLE_ORDER has ' + ARTICLE_ORDER.length + ' slugs but ' + articles.length + ' articles were parsed');
     }
+
+    // ---- data: VALID_PAGES from core.js ----
+    // Used by the internal-link assertion below and by the routing checks at the
+    // end. core.js stays the one source of truth for the route list.
+    const validMatch = coreSrc.match(/const VALID_PAGES = \[([^\]]*)\]/);
+    if (!validMatch) fail('could not read VALID_PAGES from js/core.js');
+    const validPages = validMatch[1].split(',')
+        .map(function (x) { return x.trim().replace(/^'|'$/g, ''); })
+        .filter(Boolean);
 
     // ---- chart parity: the 33 letter cards are static HTML, not built by JS ----
     // js/articles.js carries the cards so they reach the served document; the
@@ -772,6 +969,34 @@ function main() {
              '. The shell serves seven routes from one file and cannot carry a correct trail for them.');
     }
 
+    // ---- internal links: the shell, then every emitted page below ----
+    const linkRefs = {
+        articles: Object.create(null),
+        routes: Object.create(null),
+        redirectSources: Object.create(null),
+        denied: [],
+    };
+    ARTICLE_ORDER.forEach(function (slug) { linkRefs.articles[slug] = true; });
+    validPages.forEach(function (p) { linkRefs.routes[p === 'home' ? '/' : '/' + p] = true; });
+    redirectRules.forEach(function (r) {
+        // A source that is a full URL (the Netlify subdomain rule) is not a path.
+        if (r.source.charAt(0) !== '/') return;
+        if (r.status === '404') {
+            // Deny, do not accept. A /x/* source denies by path prefix, keeping
+            // the slash so /netlify/* cannot also deny /netlify.toml.
+            if (r.source.slice(-2) === '/*') {
+                linkRefs.denied.push({ rule: r.source, prefix: r.source.slice(0, -1) });
+            } else if (r.source.indexOf('*') === -1) {
+                linkRefs.denied.push({ rule: r.source, exact: r.source });
+            }
+            return;
+        }
+        // A wildcard source names no single path, so it validates nothing.
+        if (r.source.indexOf('*') !== -1) return;
+        linkRefs.redirectSources[r.source] = true;
+    });
+    let internalLinksChecked = assertInternalLinks(template, 'index.html', linkRefs);
+
     // ---- share handlers: coverage, then the no-backslash source rule ----
     //
     // Coverage is asserted before the content rule so that a missing or malformed
@@ -1060,6 +1285,7 @@ function main() {
         if (countOccurrences(page, '<main>') !== 1 || countOccurrences(page, '</main>') !== 1) fail(slug + ': expected exactly one <main> element');
 
         scriptContractChecked += assertScriptContract(page, slug + ' (emitted page)');
+        internalLinksChecked += assertInternalLinks(page, slug + ' (emitted page)', linkRefs);
 
         fs.writeFileSync(path.join(OUT_ROOT, slug + '.html'), page, 'utf8');
         emitted += 1;
@@ -1072,12 +1298,6 @@ function main() {
     // that cost this site its indexing on GitHub Pages, so it fails the build
     // here instead of reaching production. VALID_PAGES in js/core.js is the one
     // source of truth; this asserts against it rather than keeping a second list.
-    const redirectsSrc = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
-    const validMatch = coreSrc.match(/const VALID_PAGES = \[([^\]]*)\]/);
-    if (!validMatch) fail('could not read VALID_PAGES from js/core.js');
-    const validPages = validMatch[1].split(',')
-        .map(function (x) { return x.trim().replace(/^'|'$/g, ''); })
-        .filter(Boolean);
     const expectedRoutes = validPages.map(function (p) { return p === 'home' ? '/' : '/' + p; }).sort();
 
     const shellRewrites = redirectsSrc.split('\n')
@@ -1137,6 +1357,8 @@ function main() {
     console.log('Onclick coverage: ' + pageOnclickTotal + ' attributes across the emitted pages, strict and permissive counts equal on every page.');
     console.log('Script contract passed: ' + scriptContractChecked + ' core script tags across index.html and ' +
                 emitted + ' emitted pages, all three present once each, in order, classic, no async or defer.');
+    console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
+                emitted + ' emitted pages, every target resolves and every navTo slug matches its href.');
     console.log('Routing checks passed: ' + expectedRoutes.length + ' SPA routes match VALID_PAGES, ' +
                 ARTICLE_ORDER.length + ' article files on disk, 404.html clean.');
 }

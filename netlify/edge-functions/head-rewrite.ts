@@ -9,10 +9,12 @@ import articleHeads from "../lib/article-heads.ts";
 // per-article <title> and <meta name="description"> so each article has unique
 // head content instead of the identical shell head.
 //
-// It also refuses to bless a path the site does not have. The /* catch-all in
-// _redirects answers every unknown URL with the homepage shell at 200, so without
-// the isKnownPath check below every invented path became an indexable page that
-// declared itself canonical.
+// It also refuses to bless a path the site does not have. Until Batch 50 a /*
+// catch-all in _redirects answered every unknown URL with the homepage shell at
+// 200, so without the isKnownPath check below every invented path became an
+// indexable page that declared itself canonical. The catch-all is gone and
+// unknown paths now reach a real 404, but the check stays: it is what stops a
+// future rewrite from reintroducing the same problem silently.
 //
 // COUPLING 1: STATIC_CANONICAL, STATIC_ROBOTS, STATIC_TITLE, and STATIC_DESC below
 // must match index.html's canonical link, robots meta, title and description tags

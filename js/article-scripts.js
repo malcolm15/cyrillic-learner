@@ -46,7 +46,11 @@ function showCopiedFeedback(button) {
 // Shared by article pages (alphabet chart, lookalike strip). Note: study quiz
 // and chart audio in core.js uses playPronunciation; this is the article-side
 // counterpart per the CLAUDE.md two-audio-functions note.
-function playAudio(char) {
+//
+// `source` names the surface the click came from ('chart' or 'lookalike') and is
+// sent with the GA events below. Both callers pass it explicitly: one function
+// serves two surfaces, so without it the two would be indistinguishable in GA.
+function playAudio(char, source) {
     console.log('playAudio called for:', char);
 
     // Look up the character in CYRILLIC_DATA to get the correct audio path
@@ -81,8 +85,28 @@ function playAudio(char) {
         }
         audio.play().then(function() {
             console.log('Audio playing successfully');
+            // Confirmed playback, not the click. Autoplay policy, a missing file
+            // and a decode error all reject this promise, which the catch below
+            // records, so a resolved play() is the confirmation that playback
+            // actually started rather than only that the reader clicked. It does
+            // not prove the sound was heard: a muted device resolves too.
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'letter_audio_played', {
+                    'letter': char,
+                    'source': source
+                });
+            }
         }).catch(function(err) {
             console.log('Audio playback failed for ' + char + ':', err);
+            // Without this a drop in letter_audio_played is ambiguous between
+            // fewer clicks and playback starting to fail.
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'letter_audio_failed', {
+                    'letter': char,
+                    'source': source,
+                    'error': (err && err.name) || 'unknown'
+                });
+            }
         });
     } else {
         console.log('No audio file found for ' + char);
@@ -218,7 +242,7 @@ ArticleScripts['backwards-r-myth'] = function() {
 
             if (listenBtn) {
                 listenBtn.onclick = function() {
-                    playAudio(letter);
+                    playAudio(letter, 'lookalike');
                     listenBtn.classList.add('playing');
                     setTimeout(function() { listenBtn.classList.remove('playing'); }, 800);
                     track(letter, 'listen');
@@ -259,7 +283,7 @@ ArticleScripts['russian-alphabet-chart'] = function() {
         card.onclick = function() {
             card.classList.add('playing');
             setTimeout(function() { card.classList.remove('playing'); }, 800);
-            playAudio(card.getAttribute('data-letter'));
+            playAudio(card.getAttribute('data-letter'), 'chart');
         };
     }
 
