@@ -8,9 +8,10 @@
 // index triggers a 301 to the trailing-slash form, which would put a redirect
 // hop on every indexed article URL) with the per-article head, the article body
 // already in the DOM, prev/next navigation, the related-articles grid, and
-// Article plus BreadcrumbList JSON-LD. Netlify serves these real files ahead
-// of the non-forced /* /index.html 200 catch-all, so non-rendering crawlers
-// see full article content in raw HTML.
+// Article plus BreadcrumbList JSON-LD. Netlify serves these real files at their
+// extensionless paths, so non-rendering crawlers see full article content in
+// raw HTML. (This used to depend on them winning against a non-forced /*
+// catch-all; that catch-all was removed in Batch 50.)
 //
 // SELF-CONTAINED DOCUMENTS: every other route's section (home, the articles
 // listing, about, settings, contact, privacy, terms) is stripped from each

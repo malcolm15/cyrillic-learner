@@ -331,7 +331,7 @@ Article-to-article navigation on a pre-rendered page stays client-side.
 The edge function is unchanged and verified no-op on pre-rendered pages: their
 heads no longer contain its byte-for-byte match targets, so every replace
 misses safely. It still does real work for the homepage, /articles, utility
-noindex, and any path that falls through to the shell.
+noindex, and the seven SPA routes that are rewritten to the shell.
 
 ## SPA routing and canonicals
 
@@ -363,7 +363,7 @@ friendly error, resets the canonical to `/articles`, hides the prev/next bar and
 related-articles section, and returns without injecting schema. The success path
 explicitly restores the prev/next display in case a prior not-found visit hid it.
 
-`_redirects` 301s for retired slugs (beyond the catch-all):
+`_redirects` 301s for retired slugs:
 - `/articles/cyrillic-alphabet-chart` -> `/articles/russian-alphabet-chart`
 - `/articles/cyrillic-handwriting` -> `/articles/practice-writing-cyrillic`
 - `/articles/common-cyrillic-mistakes` -> `/articles/common-mistakes`
@@ -462,8 +462,11 @@ A new article touches FIVE places, all using the identical slug:
 Categories (exact strings): `Getting Started`, `Alphabet Variants`,
 `History & Culture`, `Learning Tools & Resources`.
 
-Conventions: `relatedArticles` is always exactly 3 slugs. Internal navigation links
-use real hrefs, never `href="#"`. Three patterns:
+Conventions: `relatedArticles` is always exactly 3 slugs. Every link that navigates
+uses a real href, never `href="#"`. The one carve-out is a control that performs an
+action with no destination: the Bluesky and Reddit share buttons in each article's
+share-section use `href="#"` because they have no URL for a modifier-click to open.
+Three patterns:
 - Article-to-article links: `<a href="/articles/SLUG" onclick="navTo(event, null, 'SLUG')">text</a>`
 - Homepage quick-start strip (two-step navigation): `<a href="/articles/SLUG" onclick="navToArticle(event, 'SLUG')">text</a>`
 - Page links (about, settings, etc.): `<a href="/PAGE" onclick="navTo(event, 'PAGE', null)">label</a>`
