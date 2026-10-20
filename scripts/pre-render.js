@@ -431,6 +431,99 @@ function assertInternalLinks(html, label, refs) {
     return checked;
 }
 
+// ---- media embedded by a standalone page ----
+//
+// A standalone page may embed video. Four things can go wrong quietly. The file
+// is not committed, so the page ships a broken element. The file grows, so a
+// page that was cheap becomes expensive and nobody notices until it is slow.
+// The element gains an autoplay attribute, which starts the download before any
+// script can decide and which prefers-reduced-motion cannot stop. Or preload
+// creeps back up from "none", which costs every visitor the clip whether or not
+// they ever look at it.
+//
+// All of it is read off the emitted bytes, and the limits are exact byte counts
+// rather than "about a megabyte". Script bodies are stripped first: the page's
+// own behaviour script talks about these elements in its comments, and a
+// sentence is not a tag.
+const MEDIA_PREFIX = '/media/';
+const MEDIA_VIDEO_MAX_BYTES = 1536 * 1024;   // 1.5 MB
+const MEDIA_POSTER_MAX_BYTES = 50 * 1024;    // 50 KB
+const ATTR_POSTER  = /\sposter\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i;
+const ATTR_WIDTH   = /\swidth\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i;
+const ATTR_HEIGHT  = /\sheight\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i;
+const ATTR_PRELOAD = /\spreload\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i;
+
+// A boolean attribute: present, not the tail of a longer attribute name, and
+// whether or not it carries a value.
+function hasBooleanAttr(attrs, name) {
+    return new RegExp('\\s' + name + '(?=[\\s=>]|$)', 'i').test(attrs + ' ');
+}
+
+function videoTagAttrs(html) {
+    const out = [];
+    const re = /<video\b([^>]*)>/gi;
+    let m;
+    const markup = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+    while ((m = re.exec(markup)) !== null) out.push(m[1]);
+    return out;
+}
+
+function assertStandaloneMedia(html, label) {
+    const refs = [];
+    videoTagAttrs(html).forEach(function (attrs) {
+        ['muted', 'loop', 'playsinline'].forEach(function (flag) {
+            if (!hasBooleanAttr(attrs, flag)) {
+                fail(label + ': a video element has no ' + flag + ' attribute. Attributes seen: ' + attrs.trim());
+            }
+        });
+        if (hasBooleanAttr(attrs, 'autoplay')) {
+            fail(label + ': a video element carries autoplay. Autoplay in the markup begins the download ' +
+                 'before any script can decide, and prefers-reduced-motion cannot stop it. Playback is ' +
+                 'started from the page script instead. Attributes seen: ' + attrs.trim());
+        }
+        const preload = ATTR_PRELOAD.exec(attrs);
+        if (!preload || attrValue(preload) !== 'none') {
+            fail(label + ': a video element must carry preload="none", found ' +
+                 (preload ? JSON.stringify(attrValue(preload)) : 'no preload attribute') +
+                 '. Anything else fetches the clip for every visitor, including one who asked for ' +
+                 'reduced motion and will never see it play. Attributes seen: ' + attrs.trim());
+        }
+        const w = ATTR_WIDTH.exec(attrs);
+        const h = ATTR_HEIGHT.exec(attrs);
+        if (!w || !h || !/^[0-9]+$/.test(attrValue(w)) || !/^[0-9]+$/.test(attrValue(h))) {
+            fail(label + ': a video element must carry numeric width and height attributes, so the box is ' +
+                 'reserved at its real aspect ratio before any bytes arrive. Attributes seen: ' + attrs.trim());
+        }
+        const src = ATTR_SRC.exec(attrs);
+        const poster = ATTR_POSTER.exec(attrs);
+        if (!src) fail(label + ': a video element has no src. Attributes seen: ' + attrs.trim());
+        if (!poster) {
+            fail(label + ': a video element has no poster. With preload="none" the poster is the only thing ' +
+                 'a visitor sees before pressing play. Attributes seen: ' + attrs.trim());
+        }
+        refs.push({ kind: 'video src', url: attrValue(src), limit: MEDIA_VIDEO_MAX_BYTES });
+        refs.push({ kind: 'poster', url: attrValue(poster), limit: MEDIA_POSTER_MAX_BYTES });
+    });
+    refs.forEach(function (r) {
+        if (r.url.indexOf(MEDIA_PREFIX) !== 0) {
+            fail(label + ': ' + r.kind + ' "' + r.url + '" must be a root-relative path under ' + MEDIA_PREFIX +
+                 ', which is where committed page media lives and the only prefix the caching and edge rules cover.');
+        }
+        const file = path.join(ROOT, r.url.slice(1));
+        if (!fs.existsSync(file)) {
+            fail(label + ': ' + r.kind + ' "' + r.url + '" is not on disk at ' + r.url.slice(1) +
+                 '. Media under ' + MEDIA_PREFIX + ' is a committed input, not build output, so a missing ' +
+                 'file here is a broken element in production.');
+        }
+        const bytes = fs.statSync(file).size;
+        if (bytes > r.limit) {
+            fail(label + ': ' + r.kind + ' "' + r.url + '" is ' + bytes + ' bytes, over the ' + r.limit +
+                 ' byte limit. Re-encode it or raise the limit deliberately.');
+        }
+    });
+    return refs;
+}
+
 // Every share handler call in `content`, with the function name and the first
 // argument. The first-argument pattern tolerates escapes so that malformed input
 // is reported by the checks below rather than skipped by the matcher.
@@ -1371,6 +1464,7 @@ function main() {
     const sitemapSrc = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
     const standaloneNames = [];
     const standaloneFooterLinks = [];
+    let standaloneMediaRefs = [];
     let standaloneEmitted = 0;
 
     STANDALONE_PAGES.forEach(function (sp) {
@@ -1527,6 +1621,10 @@ function main() {
             if (page.indexOf(needle) !== -1) fail(sp.slug + ': the emitted page contains article-only markup: ' + needle);
         });
 
+        // ---- embedded media ----
+        standaloneMediaRefs = standaloneMediaRefs.concat(
+            assertStandaloneMedia(page, sp.slug + ' (standalone page)'));
+
         // ---- JSON-LD assertions, by parsing rather than grepping ----
         const spBlocks = ldBlocks(page, sp.slug + ' (emitted page)');
         const byLdId = {};
@@ -1635,6 +1733,46 @@ function main() {
         }
     });
 
+    // ---- serving: embedded media bypasses the edge function and caches hard ----
+    //
+    // Only asserted while a standalone page actually references /media/, so the
+    // rules are demanded by the pages that need them rather than kept alive by
+    // this script's opinion.
+    if (standaloneMediaRefs.length) {
+        if (edgeSrc.indexOf('"' + MEDIA_PREFIX + '*"') === -1) {
+            fail('netlify/edge-functions/head-rewrite.ts: "' + MEDIA_PREFIX + '*" must be in excludedPath. ' +
+                 'A video is fetched with byte-range requests, and a function that reads and rewrites the ' +
+                 'response body cannot pass a 206 and its Content-Range through unchanged.');
+        }
+        const headersPath = path.join(ROOT, '_headers');
+        if (!fs.existsSync(headersPath)) {
+            fail('_headers does not exist, but a standalone page embeds media under ' + MEDIA_PREFIX +
+                 ', which needs a caching rule.');
+        }
+        const headersSrc = fs.readFileSync(headersPath, 'utf8');
+        const mediaBlock = /^\/media\/\*[ \t]*\r?\n((?:[ \t]+\S[^\n]*\r?\n?)+)/m.exec(headersSrc);
+        if (!mediaBlock) {
+            fail('_headers: expected a "' + MEDIA_PREFIX + '*" rule followed by at least one indented header line.');
+        }
+        if (!/cache-control:[^\n]*\bimmutable\b/i.test(mediaBlock[1])) {
+            fail('_headers: the ' + MEDIA_PREFIX + '* rule does not set an immutable Cache-Control. The ' +
+                 'filenames are versioned, so the bytes behind a URL never change and an immutable cache is ' +
+                 'the point of versioning them. Found: ' + JSON.stringify(mediaBlock[1].trim()));
+        }
+        // A redirect rule that matched a media path would answer before the file
+        // does, so the clip would never be served at all.
+        const mediaUrls = standaloneMediaRefs.map(function (r) { return r.url; });
+        const clashing = redirectRules.filter(function (r) {
+            if (r.source === MEDIA_PREFIX + '*' || r.source === '/*') return true;
+            return mediaUrls.indexOf(r.source) !== -1;
+        });
+        if (clashing.length) {
+            fail('_redirects: ' + clashing.length + ' rule(s) match a media path (' +
+                 clashing.map(function (r) { return r.source; }).join(', ') +
+                 '). A redirect answers before the file does.');
+        }
+    }
+
     const fragmentsChecked = resolveCrossPageFragments(linkRefs.pendingFragments, idsByPath);
 
     // ---- routing: _redirects must agree with the router and with disk ----
@@ -1714,6 +1852,11 @@ function main() {
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
+    console.log('Standalone media passed: ' + (standaloneMediaRefs.length / 2) + ' video element' +
+                (standaloneMediaRefs.length === 2 ? '' : 's') + ' and their posters, every file committed and ' +
+                'under its limit (' + MEDIA_VIDEO_MAX_BYTES + ' and ' + MEDIA_POSTER_MAX_BYTES + ' bytes), ' +
+                'muted loop playsinline preload="none" with width and height and no autoplay, ' +
+                MEDIA_PREFIX + '* excluded from the edge function, immutably cached, and unmatched by _redirects.');
     console.log('Routing checks passed: ' + expectedRoutes.length + ' SPA routes match VALID_PAGES, ' +
                 ARTICLE_ORDER.length + ' article files on disk, ' + standaloneEmitted + ' standalone file' +
                 (standaloneEmitted === 1 ? '' : 's') + ' on disk, 404.html clean.');

@@ -31,7 +31,7 @@ module.exports = [
         // copy cannot silently disappear behind a template change.
         keySentence: 'A student sees a letter, types how it sounds in Latin letters, and gets an answer straight away.',
         published: '2026-10-19',
-        modified: '2026-10-19',
+        modified: '2026-10-20',
         breadcrumbName: 'For Teachers',
         bodyHtml: `                    <div class="card">
                         <h1>Cyrilica for Teachers</h1>
@@ -39,6 +39,14 @@ module.exports = [
                         <div class="content-text">
                             <p>Cyrilica is a free tool for learning and practising the 33 letters of the Russian alphabet. A student sees a letter, types how it sounds in Latin letters, and gets an answer straight away.</p>
                         </div>
+
+                        <h2>See Cyrilica in action</h2>
+                        <figure class="demo-figure" id="quiz-demo">
+                            <video id="quiz-demo-wide" class="demo-video demo-video-wide" width="988" height="654" src="/media/teachers/quiz-demo-wide-v1.mp4" poster="/media/teachers/quiz-demo-wide-poster-v1.webp" muted loop playsinline preload="none" aria-describedby="quiz-demo-caption"></video>
+                            <video id="quiz-demo-phone" class="demo-video demo-video-phone" width="480" height="718" src="/media/teachers/quiz-demo-phone-v1.mp4" poster="/media/teachers/quiz-demo-phone-poster-v1.webp" muted loop playsinline preload="none" aria-describedby="quiz-demo-caption"></video>
+                            <button type="button" class="btn demo-toggle" id="quiz-demo-toggle">Play the demo</button>
+                            <figcaption id="quiz-demo-caption">A short silent loop: Vowels 1 is selected and Begin Learning is pressed, then three questions. A correct answer shows a green tick and confetti; a wrong answer shows the right romanization in red.</figcaption>
+                        </figure>
 
                         <h2>Try it in your next lesson</h2>
                         <div class="content-text">
@@ -105,6 +113,98 @@ module.exports = [
                         <div class="content-text">
                             <p>I built Cyrilica to make learning the Cyrillic alphabet a little easier. If you're teaching Russian and have suggestions for how it could work better in a classroom, I'd love to hear from you. <a href="/contact">Get in touch</a>.</p>
                         </div>
-                    </div>`,
+                    </div>
+                    <script>
+                    // The demo clips. There are two video elements, one per
+                    // width, and the CSS media query in css/styles.css decides
+                    // which one is shown. THAT QUERY IS THE ONLY PLACE THE
+                    // BREAKPOINT EXISTS: this script asks the layout which clip
+                    // is on screen (offsetParent is null for a display:none
+                    // element) rather than keeping a second copy of the number,
+                    // which could then drift from the CSS.
+                    //
+                    // Neither element carries an autoplay attribute. Autoplay in
+                    // the markup starts the download before anything can decide,
+                    // and prefers-reduced-motion cannot stop it. Both carry
+                    // preload="none", so a clip is fetched only at the moment
+                    // this script chooses to play it, and never at all for a
+                    // visitor who asked for reduced motion.
+                    (function () {
+                        var figure = document.getElementById('quiz-demo');
+                        var button = document.getElementById('quiz-demo-toggle');
+                        if (!figure || !button) return;
+                        var videos = [].slice.call(figure.getElementsByTagName('video'));
+                        var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+                        var inView = {};
+                        var pausedByVisitor = false;
+
+                        function visible() {
+                            var shown = videos.filter(function (v) { return v.offsetParent !== null; });
+                            return shown.length ? shown[0] : null;
+                        }
+                        function label() {
+                            var v = visible();
+                            button.textContent = (v && !v.paused) ? 'Pause the demo' : 'Play the demo';
+                        }
+                        function start(v) {
+                            v.preload = 'auto';
+                            var p = v.play();
+                            if (p && p.catch) p.catch(function () {});
+                        }
+                        // The single decision point. Called whenever anything
+                        // that feeds it changes: visibility, viewport width, the
+                        // reduced-motion setting, or the button.
+                        function apply() {
+                            var current = visible();
+                            videos.forEach(function (v) {
+                                if (v !== current && !v.paused) v.pause();
+                            });
+                            if (current) {
+                                var wanted = !pausedByVisitor && !motion.matches && inView[current.id] === true;
+                                if (wanted && current.paused) start(current);
+                                else if (!wanted && !current.paused) current.pause();
+                            }
+                            label();
+                        }
+
+                        button.addEventListener('click', function () {
+                            var current = visible();
+                            if (!current) return;
+                            if (current.paused) {
+                                // An explicit Play overrides both an earlier
+                                // pause and the reduced-motion default.
+                                pausedByVisitor = false;
+                                start(current);
+                            } else {
+                                // Remembered for the whole figure, not per clip,
+                                // so scrolling away and back, or resizing across
+                                // the breakpoint, cannot restart it.
+                                pausedByVisitor = true;
+                                current.pause();
+                            }
+                            label();
+                        });
+                        videos.forEach(function (v) {
+                            v.addEventListener('play', label);
+                            v.addEventListener('pause', label);
+                        });
+
+                        if (window.IntersectionObserver) {
+                            var io = new IntersectionObserver(function (entries) {
+                                entries.forEach(function (e) {
+                                    inView[e.target.id] = e.isIntersecting && e.intersectionRatio >= 0.4;
+                                });
+                                apply();
+                            }, { threshold: [0, 0.4, 0.75] });
+                            videos.forEach(function (v) { io.observe(v); });
+                        }
+                        // A resize can swap which clip is shown without moving
+                        // anything into or out of view, so the observer alone is
+                        // not enough to keep the button pointed at the right one.
+                        window.addEventListener('resize', apply);
+                        if (motion.addEventListener) motion.addEventListener('change', apply);
+                        label();
+                    })();
+                    </script>`,
     },
 ];
