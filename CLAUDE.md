@@ -398,6 +398,40 @@ painted left of the card's content box and clipped at its edge. The
 `data-standalone` body attribute is therefore also a CSS hook: do not rename or
 remove it.
 
+**Media.** Video and images a standalone page embeds live in `media/<slug>/`,
+committed as inputs, not build output, and every filename carries a version
+(`quiz-demo-wide-v1.mp4`). A changed clip ships under a new name, so the bytes
+behind a URL never change, which is what makes the immutable `Cache-Control` in
+`_headers` for `/media/*` safe. `/media/*` is also in `excludedPath` in the edge
+function: a video is fetched with byte-range requests and a function that
+rewrites the response body cannot pass a 206 and its `Content-Range` through.
+The build asserts, off the emitted bytes, that every `src` and `poster` exists
+on disk and is within its limit (1.5 MB for video, 50 KB for a poster), that
+each video element carries `muted`, `loop`, `playsinline`, `preload="none"` and
+numeric `width` and `height`, that none carries `autoplay`, and that the edge
+exclusion, the caching rule and the absence of any matching `_redirects` rule
+are all in place. `autoplay` is banned rather than discouraged: it begins the
+download before any script can decide and `prefers-reduced-motion` cannot stop
+it, so playback is started from the page's own inline script, which also means a
+visitor who asked for reduced motion downloads no video at all and sees the
+poster plus a Play button. Where two clips exist for two widths, the breakpoint
+lives in exactly one place, the CSS media query; the script asks the layout
+which element is visible rather than keeping a second copy of the number.
+
+**Demo clips.** The `/teachers` clips are regenerated with one command,
+`scripts/demo/make-demo.sh <output-dir>`, which launches a throwaway headless
+Chrome on 127.0.0.1, records both widths against production, encodes them with
+AVFoundation, makes the posters, and verifies the holds, the rest at the end and
+the loop seam. It needs four things: Google Chrome, `swift` from the Command
+Line Tools, `node` and `python3`, and it checks for them before it starts. There
+is no ffmpeg and nothing to install. None of these tools ever deletes or
+overwrites a file, so give the script a fresh or empty output directory each
+run; if anything it would write is already there it refuses before Chrome
+starts. It writes to the directory you give it and never into `media/`, so
+copying the output in under the next version number stays a deliberate step.
+Nothing under `scripts/demo/` is referenced by the build or served:
+`_redirects` answers `/scripts/*` with a 404.
+
 **Serving.** `<slug>.html` at the root is served by Netlify at `/<slug>` at 200,
 and at `/<slug>.html` at 200 as well, so `_redirects` carries a forced
 `/<slug>.html /<slug> 301!`. The trailing-slash form needs no additional rule,
