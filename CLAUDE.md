@@ -38,6 +38,17 @@ Orientation for Claude Code (CC). Read this at the start of every session.
   instrumentation locally through dataLayer where possible, without sending
   synthetic page views or events to Google. Report any test that requires an
   exception.
+- **Shell commands.** The shell on this machine is zsh, which does not split an
+  unquoted variable into words: `cmd $LIST`, `set -- $OUT` and `for x in $FILES`
+  all pass one argument, and the failure is usually silent. Quote every
+  variable. When a command needs several arguments, put them in an array
+  (`args=(a b c); cmd "${args[@]}"`); that is the standard. `${=VAR}` forces
+  splitting and is only for the rare case where splitting is deliberate, with a
+  comment saying why. Start any multi-command shell workflow with
+  `set -o pipefail` so a failure earlier in a pipe is not hidden by a later
+  command that succeeds, and take an exit status from the command that matters.
+  Give every wait loop a timeout. Anything that parses fields or makes decisions
+  is safer as a short node or python script than as inline shell.
 - **Show the diff before applying.** Never write or commit until approved.
 - **One source of truth.** No duplicated data or functions that can drift. Reuse
   shared functions, tokens, and data.
