@@ -388,6 +388,16 @@ containers; `showPage` resets the head. The build asserts the page body has no
 inherited nav and footer are fine: those call `showPage`, which finds no section
 and falls back to `window.location.assign`.
 
+**Lists.** The global reset at the top of `css/styles.css` removes the browser's
+list padding and `.content-text` does not restore it, so `css/styles.css` gives
+every `ul` and `ol` inside `.content-text` on a page whose body carries
+`data-standalone` the same 30px left indent article lists get (selectors
+`body[data-standalone] .content-text ul` and
+`body[data-standalone] .content-text ol`). Without it, outside list markers are
+painted left of the card's content box and clipped at its edge. The
+`data-standalone` body attribute is therefore also a CSS hook: do not rename or
+remove it.
+
 **Serving.** `<slug>.html` at the root is served by Netlify at `/<slug>` at 200,
 and at `/<slug>.html` at 200 as well, so `_redirects` carries a forced
 `/<slug>.html /<slug> 301!`. The trailing-slash form needs no additional rule,

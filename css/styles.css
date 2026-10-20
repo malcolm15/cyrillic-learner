@@ -3133,6 +3133,18 @@ body.dark-mode .related-article-card p {
     font-weight: 600;
 }
 
+/* Lists on a standalone page. The global reset at the top of this file removes
+   the browser's list padding, .content-text does not restore it, and the rule
+   that does restore it for articles (.article-content ul, .article-content ol
+   at styles.css:980) does not match a standalone page, whose wrapper is
+   .content-text alone. Without this, outside markers are painted left of the
+   card's content box and a decimal marker is clipped at the card's edge. The
+   data-standalone body attribute the pre-renderer writes is the hook. */
+body[data-standalone] .content-text ul,
+body[data-standalone] .content-text ol {
+    margin-left: 30px;
+}
+
 /* The resource links on a standalone page. Inline-block buttons wrap onto
    separate lines at narrow widths with no vertical gap at all, which reads as
    one solid block rather than three tap targets. One rule, no media query:
