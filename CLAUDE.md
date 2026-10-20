@@ -32,6 +32,12 @@ Orientation for Claude Code (CC). Read this at the start of every session.
   once when relying on a reasoned pass instead of an exhaustive one, and a "just
   delete it" recommendation would have broken direct article loading if not
   verified first.)
+- **Browser tests against production.** Automated browser tests against
+  production must block Google Analytics, Google Tag Manager, and Google
+  advertising network requests, including applicable subdomains. Verify analytics
+  instrumentation locally through dataLayer where possible, without sending
+  synthetic page views or events to Google. Report any test that requires an
+  exception.
 - **Show the diff before applying.** Never write or commit until approved.
 - **One source of truth.** No duplicated data or functions that can drift. Reuse
   shared functions, tokens, and data.
