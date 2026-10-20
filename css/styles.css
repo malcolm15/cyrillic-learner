@@ -3133,6 +3133,17 @@ body.dark-mode .related-article-card p {
     font-weight: 600;
 }
 
+/* The resource links on a standalone page. Inline-block buttons wrap onto
+   separate lines at narrow widths with no vertical gap at all, which reads as
+   one solid block rather than three tap targets. One rule, no media query:
+   flex-wrap handles both widths, so desktop and mobile stay one concern. */
+.standalone-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
 .tool-cta-btn {
     /* Now an <a href="/"> so crawlers can follow it; an anchor defaults to
        display:inline, which collapsed the button's box. */

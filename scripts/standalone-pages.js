@@ -53,9 +53,11 @@ module.exports = [
                         <div class="tool-cta-banner">
                             <div class="tool-cta-content">
                                 <p><strong>Everything you need for the lesson</strong></p>
-                                <a class="btn tool-cta-btn" href="/">Start the quiz</a>
-                                <a class="btn tool-cta-btn" href="/articles/russian-alphabet-chart">Russian alphabet chart with audio</a>
-                                <a class="btn tool-cta-btn" href="/articles/russian-alphabet-chart#print-controls">Printable alphabet chart</a>
+                                <div class="standalone-actions">
+                                    <a class="btn tool-cta-btn" href="/">Start the quiz</a>
+                                    <a class="btn tool-cta-btn" href="/articles/russian-alphabet-chart">Russian alphabet chart with audio</a>
+                                    <a class="btn tool-cta-btn" href="/articles/russian-alphabet-chart#print-controls">Printable alphabet chart</a>
+                                </div>
                             </div>
                         </div>
 
