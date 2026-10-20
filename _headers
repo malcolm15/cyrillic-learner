@@ -1,0 +1,13 @@
+# Netlify response headers. Netlify consumes this file at deploy time; it is
+# never served. Paths are matched top to bottom and a request collects the
+# headers of every rule it matches.
+#
+# /media/* is the committed, versioned media that standalone pages embed
+# (scripts/standalone-pages.js). Every filename carries a version, so a changed
+# clip ships under a new name and no URL's bytes ever change: a year-long
+# immutable cache is therefore safe, and a stale copy is impossible rather than
+# merely unlikely. scripts/pre-render.js asserts this rule exists for as long as
+# a standalone page references /media/, and that nothing in _redirects answers a
+# /media/ path first.
+/media/*
+  Cache-Control: public, max-age=31536000, immutable

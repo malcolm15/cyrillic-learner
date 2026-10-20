@@ -45,6 +45,12 @@ export const config: Config = {
   excludedPath: [
     "/images/*",
     "/audio/*",
+    // Video and poster files for standalone pages. Beyond being assets this
+    // function could only return unchanged, a video is fetched with byte-range
+    // requests: the browser asks for a slice and expects a 206 with a matching
+    // Content-Range. A function that reads and rewrites the response body cannot
+    // pass that through, so /media/* must never reach it.
+    "/media/*",
     "/css/*",
     "/js/*",
     "/scripts/*",

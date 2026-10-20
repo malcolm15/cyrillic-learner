@@ -3145,6 +3145,67 @@ body[data-standalone] .content-text ol {
     margin-left: 30px;
 }
 
+/* The demo clips on a standalone page (scripts/standalone-pages.js). Two video
+   elements, one per width, and THIS MEDIA QUERY IS THE ONLY PLACE THE BREAKPOINT
+   EXISTS. The page's inline script reads back which clip is shown by asking the
+   layout (offsetParent is null for a display:none element) instead of keeping a
+   second copy of the number that could drift from this one.
+
+   560px is measured, not habit. The wide clip is 988px of source recorded at a
+   1280px viewport, where the quiz feedback line is 25.6px, so that line renders
+   at 25.6 * displayWidth / 988. The teachers card gives a video 492px at a 560px
+   viewport, which puts the feedback at 12.7px; one step narrower, a 520px
+   viewport gives 452px and 11.7px. Below the breakpoint the phone clip is shown
+   instead, where the same line is 22.4px of a 480px frame and stays at 15px or
+   more down to a 390px viewport.
+
+   width and height attributes on each element give the box its aspect ratio
+   before any bytes arrive, so none of this costs a layout shift. */
+body[data-standalone] .demo-figure {
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+body[data-standalone] .demo-video {
+    display: none;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 2px solid var(--charcoal);
+    border-radius: var(--border-radius);
+}
+
+body.dark-mode[data-standalone] .demo-video {
+    border-color: var(--dark-border);
+}
+
+body[data-standalone] .demo-video-phone {
+    display: block;
+    max-width: 480px;
+}
+
+@media (min-width: 560px) {
+    body[data-standalone] .demo-video-phone {
+        display: none;
+    }
+
+    body[data-standalone] .demo-video-wide {
+        display: block;
+        max-width: 988px;
+    }
+}
+
+body[data-standalone] .demo-toggle {
+    margin-top: 12px;
+}
+
+body[data-standalone] .demo-figure figcaption {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
 /* The resource links on a standalone page. Inline-block buttons wrap onto
    separate lines at narrow widths with no vertical gap at all, which reads as
    one solid block rather than three tap targets. One rule, no media query:
