@@ -29,6 +29,11 @@ https://dapper-axolotl-1f65df.netlify.app/* https://cyrilica.com/:splat 301!
 /articles/cyrillic-pop-culture /articles/backwards-r-myth 301!
 /home /  301
 /index.html /  301!
+# Standalone pages are real files at the site root, so Netlify serves both
+# /teachers and /teachers.html at 200. Forced, because without the ! the real
+# file wins and the duplicate stays reachable. scripts/pre-render.js asserts
+# this rule exists and that /teachers is never rewritten to the shell.
+/teachers.html /teachers  301!
 
 # The seven SPA routes. Generated from VALID_PAGES in js/core.js and asserted
 # against it at build time, so this list cannot drift from the router.

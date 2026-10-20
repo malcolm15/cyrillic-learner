@@ -13,6 +13,12 @@
 // raw HTML. (This used to depend on them winning against a non-forced /*
 // catch-all; that catch-all was removed in Batch 50.)
 //
+// STANDALONE PAGES: scripts/standalone-pages.js lists indexable pages that are
+// not articles (currently /teachers, emitted to teachers.html at the repo root).
+// They reuse this template and the head substitutions below, and nothing else:
+// they are absent from ARTICLES, ARTICLE_ORDER, ARTICLE_META, article-heads.ts,
+// VALID_PAGES and the edge function, and every link on them is a plain href.
+//
 // SELF-CONTAINED DOCUMENTS: every other route's section (home, the articles
 // listing, about, settings, contact, privacy, terms) is stripped from each
 // emitted file, the article is wrapped in a <main> landmark, and its title is
@@ -61,6 +67,12 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://cyrilica.com';
 const OUT_ROOT = path.join(ROOT, 'articles');
+// Build-time only, never served: _redirects answers /scripts/* with a 404.
+const STANDALONE_PAGES = require('./standalone-pages.js');
+
+// The end of the .container and .main-content wrappers, immediately before the
+// footer. Both emitters close their <main> here, so it is declared once.
+const FOOTER_TAIL = '\n            </div>\n        </div>\n\n    <!-- Footer -->';
 
 function fail(msg) {
     console.error('PRE-RENDER FAILED: ' + msg);
@@ -273,19 +285,39 @@ function idsIn(html) {
 }
 
 // A root-relative path naming a real committed file. This is the last class
-// tried. It refuses anything resolving outside the repo, and anything under
-// OUT_ROOT, which is the directory this script writes: articles/SLUG.html exists
-// only after a build, so without that exclusion the same link would pass on a
-// built tree and fail on a clean one. Excluding it also keeps the assertion
-// honest about what it means, since /articles/SLUG.html is the duplicate URL the
-// edge function 301s away from the canonical path.
-function isFileOnDisk(p) {
+// tried. It refuses anything resolving outside the repo, and anything this
+// script writes: articles/SLUG.html and teachers.html exist only after a build,
+// so without that exclusion the same link would pass on a built tree and fail on
+// a clean one. `outputs` is derived from the write paths themselves, never
+// restated, so a new output is excluded the moment it is added.
+function isFileOnDisk(p, outputs) {
     let decoded;
     try { decoded = decodeURIComponent(p); } catch (e) { return false; }
     const abs = path.resolve(ROOT, '.' + decoded);
     if (abs !== ROOT && abs.indexOf(ROOT + path.sep) !== 0) return false;
-    if (abs === OUT_ROOT || abs.indexOf(OUT_ROOT + path.sep) === 0) return false;
+    for (let i = 0; i < outputs.length; i++) {
+        if (abs === outputs[i] || abs.indexOf(outputs[i] + path.sep) === 0) return false;
+    }
     try { return fs.statSync(abs).isFile(); } catch (e) { return false; }
+}
+
+// Cross-page fragments cannot be checked while a page is being built, because
+// the id lives in another document that may not be emitted yet. They are
+// recorded during the per-page pass and resolved once every document exists,
+// against ids collected from the documents themselves rather than a list.
+function resolveCrossPageFragments(pending, idsByPath) {
+    pending.forEach(function (f) {
+        const ids = idsByPath[f.target];
+        if (!ids) {
+            fail(f.from + ': <a href="' + f.href + '"> points at a fragment on ' + f.target +
+                 ', but no document was collected for that path, so the id cannot be checked.');
+        }
+        if (!ids[f.frag]) {
+            fail(f.from + ': <a href="' + f.href + '"> points at #' + f.frag + ' on ' + f.target +
+                 ', but that document has no element with id="' + f.frag + '".');
+        }
+    });
+    return pending.length;
 }
 
 function assertInternalLinks(html, label, refs) {
@@ -358,6 +390,7 @@ function assertInternalLinks(html, label, refs) {
         }
 
         const hashAt = target.indexOf('#');
+        const frag = hashAt === -1 ? '' : target.slice(hashAt + 1);
         if (hashAt !== -1) target = target.slice(0, hashAt);
         const queryAt = target.indexOf('?');
         if (queryAt !== -1) target = target.slice(0, queryAt);
@@ -380,12 +413,20 @@ function assertInternalLinks(html, label, refs) {
                  'dead even though a file sits behind it.');
         }
 
-        if (refs.routes[clean]) return;
-        if (clean.indexOf(ARTICLE_PATH) === 0 && refs.articles[clean.slice(ARTICLE_PATH.length)]) return;
+        // Record the fragment only for the three classes whose documents this
+        // build produces. A _redirects source resolves to somewhere else and a
+        // file on disk is an asset, so neither has ids to check here.
+        const accept = function () {
+            if (frag) refs.pendingFragments.push({ from: label, target: clean, frag: frag, href: href });
+        };
+        if (refs.routes[clean]) return accept();
+        if (refs.standalone[clean]) return accept();
+        if (clean.indexOf(ARTICLE_PATH) === 0 && refs.articles[clean.slice(ARTICLE_PATH.length)]) return accept();
         if (refs.redirectSources[clean]) return;
-        if (isFileOnDisk(clean)) return;
+        if (isFileOnDisk(clean, refs.outputs)) return;
         fail(where + ' does not resolve to anything the site has. Tried: an article slug in ' +
-             'ARTICLE_ORDER, an SPA route in VALID_PAGES, a _redirects source, and a file on disk.');
+             'ARTICLE_ORDER, an SPA route in VALID_PAGES, a standalone page in ' +
+             'scripts/standalone-pages.js, a _redirects source, and a file on disk.');
     });
     return checked;
 }
@@ -559,12 +600,15 @@ function main() {
     // Read once here: both the internal-link assertion (before anything is
     // written) and the routing checks (after) need it.
     const redirectsSrc = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
+    const notFoundSrc = fs.readFileSync(path.join(ROOT, '404.html'), 'utf8');
+    const edgeSrc = fs.readFileSync(path.join(ROOT, 'netlify', 'edge-functions', 'head-rewrite.ts'), 'utf8');
     const redirectRules = redirectsSrc.split('\n')
         .map(function (l) { return l.trim(); })
         .filter(function (l) { return l && l.charAt(0) !== '#'; })
         .map(function (l) {
             const f = l.split(/\s+/);
-            return { source: f[0], status: (f[2] || '').replace('!', '') };
+            const raw = f[2] || '';
+            return { source: f[0], target: f[1] || '', status: raw.replace('!', ''), forced: raw.indexOf('!') !== -1 };
         });
 
     // ---- data: shared head artifact (same file the edge function imports) ----
@@ -970,14 +1014,35 @@ function main() {
     }
 
     // ---- internal links: the shell, then every emitted page below ----
+    // Every path this script writes, derived from the write paths themselves so
+    // the file-on-disk class cannot answer differently on a built tree.
+    const scriptOutputs = [OUT_ROOT].concat(STANDALONE_PAGES.map(function (sp) {
+        return path.join(ROOT, sp.slug + '.html');
+    }));
+    // ids per document, filled as each one is built, for cross-page fragments.
+    const idsByPath = Object.create(null);
+    const templateIds = idsIn(template);
+
     const linkRefs = {
         articles: Object.create(null),
         routes: Object.create(null),
+        standalone: Object.create(null),
         redirectSources: Object.create(null),
         denied: [],
+        outputs: scriptOutputs,
+        pendingFragments: [],
     };
     ARTICLE_ORDER.forEach(function (slug) { linkRefs.articles[slug] = true; });
-    validPages.forEach(function (p) { linkRefs.routes[p === 'home' ? '/' : '/' + p] = true; });
+    // /teachers is a valid target because scripts/standalone-pages.js says so,
+    // not because this list says so.
+    STANDALONE_PAGES.forEach(function (sp) { linkRefs.standalone['/' + sp.slug] = true; });
+    validPages.forEach(function (p) {
+        const route = p === 'home' ? '/' : '/' + p;
+        linkRefs.routes[route] = true;
+        // Every shell route is served from index.html, so its ids are the
+        // template's ids.
+        idsByPath[route] = templateIds;
+    });
     redirectRules.forEach(function (r) {
         // A source that is a full URL (the Netlify subdomain rule) is not a path.
         if (r.source.charAt(0) !== '/') return;
@@ -1061,6 +1126,9 @@ function main() {
     fs.mkdirSync(OUT_ROOT, { recursive: true });
     let emitted = 0;
     let pageOnclickTotal = 0;
+    // Every emitted document, so the inbound-link assertion can check all of
+    // them without reading them back off disk.
+    const emittedPages = [];
     ARTICLE_ORDER.forEach(function (slug, i) {
         const article = byId[slug];
         if (!article) fail('ARTICLE_ORDER slug "' + slug + '" not found in articles.js');
@@ -1222,7 +1290,6 @@ function main() {
         }
 
         // ---- self-contained document: drop every other route's section ----
-        const FOOTER_TAIL = '\n            </div>\n        </div>\n\n    <!-- Footer -->';
         page = cutBetween(page,
             '                <!-- HOME PAGE -->',
             '                <!-- ARTICLES PAGE -->',
@@ -1286,10 +1353,289 @@ function main() {
 
         scriptContractChecked += assertScriptContract(page, slug + ' (emitted page)');
         internalLinksChecked += assertInternalLinks(page, slug + ' (emitted page)', linkRefs);
+        idsByPath[ARTICLE_PATH + slug] = idsIn(page);
+        emittedPages.push({ label: slug + ' (emitted page)', html: page });
 
         fs.writeFileSync(path.join(OUT_ROOT, slug + '.html'), page, 'utf8');
         emitted += 1;
     });
+
+    // ---- standalone pages ----
+    //
+    // Same template, same head needles, same inherited chrome as an article, and
+    // none of the article furniture: the three cuts below remove the home
+    // section, the whole articles page (listing, article view, back links, tool
+    // CTA, related grid and prev/next bar) and about through terms, leaving the
+    // nav, the theme control, the footer and the three core scripts. The page's
+    // own content then goes in where those sections were.
+    const sitemapSrc = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
+    const standaloneNames = [];
+    const standaloneFooterLinks = [];
+    let standaloneEmitted = 0;
+
+    STANDALONE_PAGES.forEach(function (sp) {
+        const url = SITE + '/' + sp.slug;
+        const escTitle = escapeHtml(sp.title);
+        const escDesc = escapeHtml(sp.description);
+
+        // ---- separation from everything article-shaped, asserted from source ----
+        if (ARTICLE_ORDER.indexOf(sp.slug) !== -1) fail(sp.slug + ': a standalone page must not be in ARTICLE_ORDER');
+        if (Object.prototype.hasOwnProperty.call(ARTICLE_META, sp.slug)) fail(sp.slug + ': a standalone page must not be in ARTICLE_META');
+        if (Object.prototype.hasOwnProperty.call(HEADS, sp.slug)) fail(sp.slug + ': a standalone page must not be in article-heads.ts');
+        if (byId[sp.slug]) fail(sp.slug + ': a standalone page must not be an article in js/articles.js');
+        if (fs.existsSync(path.join(OUT_ROOT, sp.slug + '.html'))) {
+            fail(sp.slug + ': articles/' + sp.slug + '.html exists; a standalone page is not an article');
+        }
+        if (validPages.indexOf(sp.slug) !== -1) {
+            fail(sp.slug + ': "' + sp.slug + '" is in VALID_PAGES in js/core.js. A standalone page must stay out ' +
+                 'of the router, or handleInitialURL hands it to showPage, which resets the head, and the ' +
+                 '_redirects coupling check then demands a shell rewrite at /' + sp.slug + '.');
+        }
+
+        // ---- the page's own source must not touch the router ----
+        if (/onclick=/.test(sp.bodyHtml)) fail(sp.slug + ': the page body carries an onclick attribute; standalone pages use plain hrefs only');
+        if (/\bnavTo\(|\bnavToArticle\(|\bshowPage\(|\bshowArticle\(/.test(sp.bodyHtml)) {
+            fail(sp.slug + ': the page body calls the SPA router. showArticle reads #article-view unguarded and ' +
+                 'would throw on this document, and showPage would reset the head.');
+        }
+
+        // ---- JSON-LD: its own WebPage and a two-step trail ----
+        const pageSchema = {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            'name': sp.title,
+            'headline': sp.h1,
+            'description': sp.description,
+            'url': url,
+            'inLanguage': 'en',
+            'isAccessibleForFree': true,
+            'isPartOf': { '@type': 'WebSite', 'name': 'Cyrilica', 'url': SITE },
+            'publisher': {
+                '@type': 'Organization', 'name': 'Cyrilica', 'url': SITE,
+                'logo': { '@type': 'ImageObject', 'url': SITE + '/favicon.svg' },
+            },
+            'datePublished': sp.published,
+            'dateModified': sp.modified,
+            'audience': { '@type': 'EducationalAudience', 'educationalRole': 'teacher' },
+            'about': {
+                '@type': 'Thing',
+                'name': 'Russian alphabet',
+                'description': 'The 33 letters of the Russian Cyrillic alphabet',
+            },
+        };
+        const breadcrumbSchema = {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+                { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE },
+                { '@type': 'ListItem', 'position': 2, 'name': sp.breadcrumbName, 'item': url },
+            ],
+        };
+        // Ids deliberately unlike the article ones: removeArticleSchema() in
+        // core.js deletes #article-schema and #breadcrumb-schema and resets the
+        // head. It cannot run on this document, and these ids put a second lock
+        // on that door.
+        const schemaScripts =
+            '    <script id="page-schema" type="application/ld+json">' + JSON.stringify(pageSchema) + '</script>\n' +
+            '    <script id="page-breadcrumb-schema" type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>\n';
+
+        // ---- assemble ----
+        let page = template;
+        page = replaceOnce(page, T.title, '<title>' + escTitle + '</title>', sp.slug + '/title');
+        page = replaceOnce(page, T.desc, '<meta name="description" content="' + escDesc + '">', sp.slug + '/description');
+        page = replaceOnce(page, T.canonical, '<link rel="canonical" href="' + url + '">', sp.slug + '/canonical');
+        page = replaceOnce(page, T.ogUrl, '<meta property="og:url" content="' + url + '">', sp.slug + '/og:url');
+        page = replaceOnce(page, T.ogTitle, '<meta property="og:title" content="' + escTitle + '">', sp.slug + '/og:title');
+        page = replaceOnce(page, T.ogDesc, '<meta property="og:description" content="' + escDesc + '">', sp.slug + '/og:description');
+        page = replaceOnce(page, T.twUrl, '<meta property="twitter:url" content="' + url + '">', sp.slug + '/twitter:url');
+        page = replaceOnce(page, T.twTitle, '<meta property="twitter:title" content="' + escTitle + '">', sp.slug + '/twitter:title');
+        page = replaceOnce(page, T.twDesc, '<meta property="twitter:description" content="' + escDesc + '">', sp.slug + '/twitter:description');
+        page = replaceOnce(page, T.headClose, schemaScripts + '</head>', sp.slug + '/schema');
+        // data-standalone, never data-prerendered: that attribute means "an
+        // article is already painted here" and is read by handleInitialURL.
+        page = replaceOnce(page, T.body, '<body data-standalone="' + sp.slug + '">', sp.slug + '/body marker');
+        // No nav entry, so Home simply loses its active state and nothing gains it.
+        page = replaceOnce(page, T.navHome,
+            '<li><a href="/" onclick="navTo(event, \'home\', null)">Home</a></li>',
+            sp.slug + '/nav home');
+
+        page = cutBetween(page, '                <!-- HOME PAGE -->', '                <!-- ARTICLES PAGE -->', sp.slug + '/strip home');
+        page = cutBetween(page, '                <!-- ARTICLES PAGE -->', '                <!-- ABOUT PAGE -->', sp.slug + '/strip articles page');
+        page = cutBetween(page, '                <!-- ABOUT PAGE -->', FOOTER_TAIL, sp.slug + '/strip about through terms');
+        // The container id is never "<slug>-page": handleInitialURL looks up
+        // getElementById(pageName + '-page') for /<slug> and would hand the
+        // document to showPage if it found one.
+        const containerOpen = '<div id="' + sp.slug + '-content" class="page-content active">';
+        page = replaceOnce(page, FOOTER_TAIL,
+            '\n                <main>\n' +
+            '                ' + containerOpen + '\n' +
+            sp.bodyHtml + '\n' +
+            '                </div>\n' +
+            '                </main>' + FOOTER_TAIL,
+            sp.slug + '/main');
+
+        // ---- head assertions on the emitted bytes ----
+        const expectHead = [
+            ['title', '<title>' + escTitle + '</title>'],
+            ['description', '<meta name="description" content="' + escDesc + '">'],
+            ['canonical', '<link rel="canonical" href="' + url + '">'],
+            ['robots', '<meta name="robots" content="index, follow">'],
+        ];
+        expectHead.forEach(function (pair) {
+            const n = countOccurrences(page, pair[1]);
+            if (n !== 1) fail(sp.slug + ': expected exactly 1 ' + pair[0] + ' tag ' + JSON.stringify(pair[1]) + ', found ' + n);
+        });
+        if (countOccurrences(page, 'noindex') !== 0) fail(sp.slug + ': the emitted page carries noindex; it must be indexable');
+
+        // ---- body assertions ----
+        if (countOccurrences(page, '<h1>' + escapeHtml(sp.h1) + '</h1>') !== 1) {
+            fail(sp.slug + ': expected exactly one <h1>' + sp.h1 + '</h1> in the emitted page');
+        }
+        if (countOccurrences(page, sp.keySentence) !== 1) {
+            fail(sp.slug + ': the key sentence is not in the emitted raw HTML exactly once: ' + JSON.stringify(sp.keySentence));
+        }
+        // Parsed out of the emitted bytes, not compared against containerOpen:
+        // asserting the generator's own string against itself could never catch
+        // the active class being dropped.
+        const containerRe = new RegExp('<div id="' + sp.slug + '-content" class="([^"]*)">', 'g');
+        const containerMatches = page.match(containerRe) || [];
+        if (containerMatches.length !== 1) {
+            fail(sp.slug + ': expected exactly one <div id="' + sp.slug + '-content" class="...">, found ' + containerMatches.length);
+        }
+        const containerClasses = /class="([^"]*)"/.exec(containerMatches[0])[1].split(/\s+/);
+        if (containerClasses.indexOf('page-content') === -1 || containerClasses.indexOf('active') === -1) {
+            fail(sp.slug + ': #' + sp.slug + '-content carries class="' + containerClasses.join(' ') +
+                 '". It must have both page-content and active: .page-content is display:none without active, ' +
+                 'so the page would render blank with JavaScript off, which is the one thing it exists to avoid.');
+        }
+        if (countOccurrences(page, 'id="' + sp.slug + '-page"') !== 0) {
+            fail(sp.slug + ': the emitted page contains id="' + sp.slug + '-page", which handleInitialURL would hand to showPage');
+        }
+        const h1s = countOccurrences(page, '<h1');
+        if (h1s !== 1) fail(sp.slug + ': expected exactly one <h1>, found ' + h1s);
+        if (countOccurrences(page, '<main>') !== 1 || countOccurrences(page, '</main>') !== 1) {
+            fail(sp.slug + ': expected exactly one <main> element');
+        }
+
+        // ---- no article furniture, no other route's section ----
+        ['article-content', 'article-title', 'related-articles-section', 'prev-article', 'next-article',
+         'home-page', 'articles-page', 'articles-index', 'article-view', 'about-page', 'settings-page',
+         'contact-page', 'privacy-page', 'terms-page', 'reference-container'].forEach(function (id) {
+            if (page.indexOf('id="' + id + '"') !== -1) fail(sp.slug + ': the emitted page still contains id="' + id + '"');
+        });
+        ['data-prerendered', 'class="article-item"', 'related-article-card', 'navigateArticle('].forEach(function (needle) {
+            if (page.indexOf(needle) !== -1) fail(sp.slug + ': the emitted page contains article-only markup: ' + needle);
+        });
+
+        // ---- JSON-LD assertions, by parsing rather than grepping ----
+        const spBlocks = ldBlocks(page, sp.slug + ' (emitted page)');
+        const byLdId = {};
+        spBlocks.forEach(function (b) { if (b.id) byLdId[b.id] = b; });
+        if (!byLdId['page-schema']) fail(sp.slug + ': no script with id="page-schema"');
+        if (!byLdId['page-breadcrumb-schema']) fail(sp.slug + ': no script with id="page-breadcrumb-schema"');
+        if (byLdId['page-schema'].data['@type'] !== 'WebPage') fail(sp.slug + ': page-schema is not a WebPage');
+        if (byLdId['page-schema'].data.url !== url) fail(sp.slug + ': page-schema url is ' + byLdId['page-schema'].data.url + ', expected ' + url);
+        if (byLdId['page-schema'].data.dateModified !== sp.modified) {
+            fail(sp.slug + ': page-schema dateModified is ' + byLdId['page-schema'].data.dateModified + ', expected ' + sp.modified);
+        }
+        const spBreadcrumbs = spBlocks.reduce(function (acc, b) { return acc.concat(breadcrumbNodes(b.data)); }, []);
+        if (spBreadcrumbs.length !== 1) fail(sp.slug + ': expected exactly one BreadcrumbList, found ' + spBreadcrumbs.length);
+        const trail = spBreadcrumbs[0].itemListElement || [];
+        if (trail.length !== 2) fail(sp.slug + ': expected a two-step breadcrumb trail, found ' + trail.length);
+        if (trail[0].name !== 'Home' || trail[0].item !== SITE) fail(sp.slug + ': breadcrumb step 1 is not Home -> ' + SITE);
+        if (trail[1].name !== sp.breadcrumbName || trail[1].item !== url) {
+            fail(sp.slug + ': breadcrumb step 2 is not ' + sp.breadcrumbName + ' -> ' + url);
+        }
+        const bcInBreadcrumbScript = breadcrumbNodes(byLdId['page-breadcrumb-schema'].data).length;
+        if (bcInBreadcrumbScript !== 1) fail(sp.slug + ': the BreadcrumbList is not inside id="page-breadcrumb-schema"');
+
+        // ---- the sitemap must agree with the source dates ----
+        const locNeedle = '<loc>' + url + '</loc>';
+        if (countOccurrences(sitemapSrc, locNeedle) !== 1) {
+            fail(sp.slug + ': sitemap.xml must contain exactly one ' + locNeedle);
+        }
+        const entryAt = sitemapSrc.indexOf(locNeedle);
+        const entryEnd = sitemapSrc.indexOf('</url>', entryAt);
+        const lastmodMatch = /<lastmod>([^<]*)<\/lastmod>/.exec(sitemapSrc.slice(entryAt, entryEnd));
+        if (!lastmodMatch) fail(sp.slug + ': the sitemap entry for ' + url + ' has no lastmod');
+        if (lastmodMatch[1] !== sp.modified) {
+            fail(sp.slug + ': sitemap lastmod is ' + lastmodMatch[1] + ' but the page says modified ' + sp.modified +
+                 '. The JSON-LD dateModified and the sitemap lastmod must be the same date.');
+        }
+
+        // ---- inherited chrome, same rules as an article ----
+        if (countOccurrences(page, 'window.FOLLOW_SYSTEM_THEME = ') !== 1) fail(sp.slug + ': the pre-paint theme snippet is missing from the emitted page');
+        if (countOccurrences(page, '<button class="theme-toggle" id="theme-toggle"') !== 1) fail(sp.slug + ': the header theme toggle is missing from the emitted page');
+        pageOnclickTotal += assertOnclickCoverage(page, sp.slug + ' (standalone page)');
+        onclickAttrs(page).forEach(function (o) {
+            const err = onclickParses(o.attr);
+            if (err) fail(sp.slug + ': onclick attribute in the emitted page does not parse as JavaScript: ' + err + '. Attribute: ' + o.attr);
+        });
+        const mainOpenAt = page.indexOf('<main>');
+        const mainBlock = page.slice(mainOpenAt, page.indexOf('</main>'));
+        if (countOccurrences(mainBlock, 'onclick=') !== 0) fail(sp.slug + ': the emitted page body carries an onclick attribute');
+        scriptContractChecked += assertScriptContract(page, sp.slug + ' (standalone page)');
+        internalLinksChecked += assertInternalLinks(page, sp.slug + ' (standalone page)', linkRefs);
+        idsByPath['/' + sp.slug] = idsIn(page);
+        emittedPages.push({ label: sp.slug + ' (standalone page)', html: page });
+
+        fs.writeFileSync(path.join(ROOT, sp.slug + '.html'), page, 'utf8');
+        standaloneNames.push(sp.slug + '.html');
+        standaloneFooterLinks.push('<a href="/' + sp.slug + '">' + sp.breadcrumbName + '</a>');
+        standaloneEmitted += 1;
+    });
+
+    // ---- the inbound links, in the shell and in every emitted document ----
+    //
+    // A standalone page has no nav entry, so the footer link and the one
+    // contextual link on the About page are how a reader and a crawler reach it.
+    // The link markup is derived from the page's own slug and breadcrumb name.
+    const aboutStart = template.indexOf('<div id="about-page"');
+    const aboutEnd = template.indexOf('<!-- SETTINGS PAGE -->');
+    if (aboutStart === -1 || aboutEnd === -1 || aboutEnd < aboutStart) fail('index.html: could not locate the About page section');
+    const aboutSection = template.slice(aboutStart, aboutEnd);
+    STANDALONE_PAGES.forEach(function (sp, i) {
+        const footerLink = standaloneFooterLinks[i];
+        if (countOccurrences(template, footerLink) !== 1) {
+            fail('index.html: expected exactly one footer link ' + footerLink);
+        }
+        if (countOccurrences(notFoundSrc, footerLink) !== 1) {
+            fail('404.html: expected exactly one footer link ' + footerLink);
+        }
+        if (countOccurrences(aboutSection, 'href="/' + sp.slug + '"') !== 1) {
+            fail('index.html: expected exactly one contextual link to /' + sp.slug + ' on the About page');
+        }
+        emittedPages.forEach(function (rec) {
+            if (countOccurrences(rec.html, footerLink) !== 1) {
+                fail(rec.label + ': expected exactly one footer link ' + footerLink);
+            }
+        });
+    });
+
+    // ---- serving: the standalone page must never be a shell route ----
+    STANDALONE_PAGES.forEach(function (sp) {
+        const shellRule = redirectRules.filter(function (r) {
+            return r.source === '/' + sp.slug && r.target === '/index.html';
+        });
+        if (shellRule.length) {
+            fail('_redirects: /' + sp.slug + ' is rewritten to the shell. The whole point of a standalone page is ' +
+                 'that its raw HTML is its own; a 200 rewrite to index.html serves the SPA shell there instead.');
+        }
+        const htmlRule = redirectRules.filter(function (r) {
+            return r.source === '/' + sp.slug + '.html' && r.target === '/' + sp.slug && r.status === '301' && r.forced;
+        });
+        if (htmlRule.length !== 1) {
+            fail('_redirects: expected exactly one forced 301 from /' + sp.slug + '.html to /' + sp.slug + ', found ' + htmlRule.length +
+                 '. Without it the .html path serves a byte-for-byte duplicate at 200.');
+        }
+        if (edgeSrc.indexOf('"/' + sp.slug + '"') === -1 || edgeSrc.indexOf('"/' + sp.slug + '.html"') === -1) {
+            fail('netlify/edge-functions/head-rewrite.ts: /' + sp.slug + ' and /' + sp.slug + '.html must both be in ' +
+                 'excludedPath. The function treats an unknown path as noindex, and it would rewrite this page\'s ' +
+                 'robots meta on every request.');
+        }
+    });
+
+    const fragmentsChecked = resolveCrossPageFragments(linkRefs.pendingFragments, idsByPath);
 
     // ---- routing: _redirects must agree with the router and with disk ----
     //
@@ -1330,9 +1676,14 @@ function main() {
             fail('article "' + slug + '" is in ARTICLE_ORDER but no file was emitted for it');
         }
     });
+    STANDALONE_PAGES.forEach(function (sp) {
+        if (!fs.existsSync(path.join(ROOT, sp.slug + '.html'))) {
+            fail('standalone page "' + sp.slug + '" produced no ' + sp.slug + '.html, so /' + sp.slug + ' would 404');
+        }
+    });
 
     // ---- the 404 page ----
-    const notFound = fs.readFileSync(path.join(ROOT, '404.html'), 'utf8');
+    const notFound = notFoundSrc;
     if (countOccurrences(notFound, 'adsbygoogle') !== 0) {
         fail('404.html carries the AdSense script; Google does not allow ads on error screens');
     }
@@ -1353,14 +1704,19 @@ function main() {
         fail('the pre-paint theme snippet in 404.html does not match index.html byte for byte');
     }
 
+    const totalEmitted = emitted + standaloneEmitted;
     console.log('Pre-rendered ' + emitted + ' article pages into articles/');
+    console.log('Pre-rendered ' + standaloneEmitted + ' standalone page' + (standaloneEmitted === 1 ? '' : 's') +
+                ' into the site root: ' + standaloneNames.join(', '));
     console.log('Onclick coverage: ' + pageOnclickTotal + ' attributes across the emitted pages, strict and permissive counts equal on every page.');
     console.log('Script contract passed: ' + scriptContractChecked + ' core script tags across index.html and ' +
-                emitted + ' emitted pages, all three present once each, in order, classic, no async or defer.');
+                totalEmitted + ' emitted pages, all three present once each, in order, classic, no async or defer.');
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
-                emitted + ' emitted pages, every target resolves and every navTo slug matches its href.');
+                totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
+                fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
     console.log('Routing checks passed: ' + expectedRoutes.length + ' SPA routes match VALID_PAGES, ' +
-                ARTICLE_ORDER.length + ' article files on disk, 404.html clean.');
+                ARTICLE_ORDER.length + ' article files on disk, ' + standaloneEmitted + ' standalone file' +
+                (standaloneEmitted === 1 ? '' : 's') + ' on disk, 404.html clean.');
 }
 
 main();
