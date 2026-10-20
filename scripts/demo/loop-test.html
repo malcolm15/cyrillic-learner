@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyrilica demo clips, loop test</title>
+<style>
+  :root { --cream:#faf7f2; --charcoal:#2c2c2c; }
+  body { background: var(--cream); color: var(--charcoal); margin: 0;
+         font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 20px 60px; }
+  h1 { font-size: 1.3rem; }
+  h2 { font-size: 1rem; margin: 28px 0 8px; }
+  p  { font-size: 0.85rem; line-height: 1.5; }
+  /* the widths these clips take inside the /teachers card: the card's inner
+     width is 908px at a 1280 viewport, so the wide clip is scaled to 908 and
+     the phone clip sits at its intrinsic 480. */
+  video { display: block; border: 2px solid var(--charcoal); border-radius: 6px; height: auto; }
+  #wide  { width: 908px; max-width: 100%; }
+  #phone { width: 480px; max-width: 100%; }
+  .meta { font-size: 0.75rem; opacity: 0.7; margin-top: 6px; }
+</style></head>
+<body>
+<div class="wrap">
+  <h1>Cyrilica demo clips, loop test</h1>
+  <p>Both clips autoplay, muted, looping. Watch the moment each one restarts: the last frame and the first frame are the same picture, so the restart should be invisible apart from the picture settling.</p>
+
+  <h2>Wide, 988x654, shown at 908px</h2>
+  <video id="wide" src="quiz-demo-wide.mp4" poster="quiz-demo-wide-poster.png"
+         muted loop playsinline autoplay width="988" height="654"></video>
+  <div class="meta">quiz-demo-wide.mp4</div>
+
+  <h2>Phone, 480x718, shown at 480px</h2>
+  <video id="phone" src="quiz-demo-phone.mp4" poster="quiz-demo-phone-poster.png"
+         muted loop playsinline autoplay width="480" height="718"></video>
+  <div class="meta">quiz-demo-phone.mp4</div>
+</div>
+<script>
+// Frame log for the automated loop check. Harmless when a person just watches.
+(function () {
+  window.__log = { wide: [], phone: [] };
+  var cv = document.createElement('canvas'); cv.width = 16; cv.height = 12;
+  var ctx = cv.getContext('2d', { willReadFrequently: true });
+  function signature(v) {
+    // 4x3 block means: enough to tell the card apart from a blank page, and
+    // cheap enough to run on every presented frame.
+    try {
+      ctx.drawImage(v, 0, 0, 16, 12);
+      var d = ctx.getImageData(0, 0, 16, 12).data, out = [];
+      for (var by = 0; by < 3; by++) for (var bx = 0; bx < 4; bx++) {
+        var s = 0, n = 0;
+        for (var y = by * 4; y < by * 4 + 4; y++) for (var x = bx * 4; x < bx * 4 + 4; x++) {
+          var i = (y * 16 + x) * 4; s += (d[i] + d[i+1] + d[i+2]) / 3; n++;
+        }
+        out.push(Math.round(s / n));
+      }
+      return out;
+    } catch (e) { return null; }
+  }
+  ['wide', 'phone'].forEach(function (id) {
+    var v = document.getElementById(id);
+    if (!v.requestVideoFrameCallback) { window.__log[id + 'Unsupported'] = true; return; }
+    function cb(now, meta) {
+      window.__log[id].push({ m: +meta.mediaTime.toFixed(4), d: meta.expectedDisplayTime,
+                              p: meta.presentedFrames, s: signature(v) });
+      v.requestVideoFrameCallback(cb);
+    }
+    v.requestVideoFrameCallback(cb);
+    var tryPlay = function () { var q = v.play(); if (q && q.catch) q.catch(function () {}); };
+    tryPlay();
+    v.addEventListener('canplay', tryPlay, { once: true });
+  });
+})();
+</script>
+</body></html>
