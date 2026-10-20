@@ -32,6 +32,12 @@ Orientation for Claude Code (CC). Read this at the start of every session.
   once when relying on a reasoned pass instead of an exhaustive one, and a "just
   delete it" recommendation would have broken direct article loading if not
   verified first.)
+- **Browser tests against production.** Automated browser tests against
+  production must block Google Analytics, Google Tag Manager, and Google
+  advertising network requests, including applicable subdomains. Verify analytics
+  instrumentation locally through dataLayer where possible, without sending
+  synthetic page views or events to Google. Report any test that requires an
+  exception.
 - **Show the diff before applying.** Never write or commit until approved.
 - **One source of truth.** No duplicated data or functions that can drift. Reuse
   shared functions, tokens, and data.
@@ -332,6 +338,80 @@ The edge function is unchanged and verified no-op on pre-rendered pages: their
 heads no longer contain its byte-for-byte match targets, so every replace
 misses safely. It still does real work for the homepage, /articles, utility
 noindex, and the seven SPA routes that are rewritten to the shell.
+
+## Standalone pages
+
+A standalone page is an indexable URL that is not an article and not an SPA
+route. The first one is `/teachers`.
+
+**Where they live.** `scripts/standalone-pages.js`, build time only. Each entry
+carries `slug`, `title`, `description`, `h1`, `keySentence`, `published`,
+`modified`, `breadcrumbName` and `bodyHtml`. The file is never served
+(`_redirects` answers `/scripts/*` with a 404) and never loaded by a browser, so
+the copy costs no runtime bytes. `js/articles.js` stays articles only.
+
+**How they are emitted.** `scripts/pre-render.js` builds them from the same
+`index.html` template as articles, reusing the same head needles. Three
+`cutBetween` calls remove the home section, the whole articles page (listing,
+article view, back links, tool CTA, related grid, prev/next bar) and about
+through terms. What survives is the nav, the pre-paint theme snippet, the theme
+toggle, the footer and the three core scripts. The page's content goes in where
+those sections were, inside a single `<main>`. Output is `<slug>.html` at the
+site root, gitignored beside `articles/` and rebuilt on every deploy.
+
+**They stay out of the router.** `slug` must never enter `VALID_PAGES` in
+`js/core.js`. Two things break if it does. `handleInitialURL()` looks up
+`getElementById(pageName + '-page')` and would hand the document to
+`showPage()`, which calls `removeArticleSchema()` and resets the title,
+description, og, twitter and canonical to the shell defaults, with no
+`PAGE_META` entry to restore them. And the build asserts that the `_redirects`
+shell rewrites match `VALID_PAGES` exactly, so adding the slug there forces a
+`/<slug> /index.html 200` rule, which serves the SPA shell at that URL and
+destroys the only reason the page exists. For the same reason the content
+container is `id="<slug>-content"`, never `id="<slug>-page"`, and it carries
+`class="page-content active"`, because `.page-content` is `display: none`
+without `active` and the page would render blank with JavaScript off.
+
+**They stay out of the edge function.** `/<slug>` and `/<slug>.html` go in
+`excludedPath` in `netlify/edge-functions/head-rewrite.ts`, not in its
+`VALID_PAGES` copy. The static file already carries its own canonical, robots,
+title, description and JSON-LD, so the function has nothing to add and one thing
+to get wrong: an unknown path gets its robots meta rewritten to `noindex`, and a
+standalone page inherits `index.html`'s `index, follow` tag byte for byte.
+Excluding it also keeps that `VALID_PAGES` copy an exact mirror of `js/core.js`.
+
+**Plain hrefs only.** Nothing on a standalone page may call `navTo`,
+`navToArticle`, `showPage` or `showArticle`. `showArticle` reads
+`#article-view` unguarded and throws on a document that has no article
+containers; `showPage` resets the head. The build asserts the page body has no
+`onclick` attribute and no router call. Links out of the page through the
+inherited nav and footer are fine: those call `showPage`, which finds no section
+and falls back to `window.location.assign`.
+
+**Serving.** `<slug>.html` at the root is served by Netlify at `/<slug>` at 200,
+and at `/<slug>.html` at 200 as well, so `_redirects` carries a forced
+`/<slug>.html /<slug> 301!`. The trailing-slash form needs no additional rule,
+based on Netlify's observed behavior for file-backed paths
+(`/articles/getting-started/` returned a 301 to `/articles/getting-started` on
+production on 2026-10-19). Verify that `/<slug>/` redirects to `/<slug>` on the
+Deploy Preview for every new standalone page.
+
+**Dates.** `published` and `modified` are the local date of the commit that adds
+or changes the page. The build asserts that `modified` equals the JSON-LD
+`dateModified` and the page's `lastmod` in `sitemap.xml`, so the three cannot
+drift. Adding a link to a standalone page from the footer is not body copy, so
+it does not bump any other page's `lastmod`.
+
+**JSON-LD.** Two blocks, `id="page-schema"` (a `WebPage`) and
+`id="page-breadcrumb-schema"` (a two-step `BreadcrumbList`, Home then the page).
+The ids deliberately differ from the article ones, because
+`removeArticleSchema()` deletes `#article-schema` and `#breadcrumb-schema`.
+
+**Inbound links.** A standalone page has no nav entry, so the footer link and one
+contextual link are how readers and crawlers reach it. The build asserts the
+footer link appears exactly once in `index.html`, exactly once in `404.html` and
+exactly once in every emitted document, and that the contextual link appears
+exactly once in the About section.
 
 ## SPA routing and canonicals
 

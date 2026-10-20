@@ -57,6 +57,17 @@ export const config: Config = {
     "/*.txt",
     "/*.xml",
     "/*.webmanifest",
+    // Standalone pre-rendered pages (scripts/standalone-pages.js). These are
+    // excluded rather than added to VALID_PAGES below because the static file
+    // already carries its own correct title, description, canonical, robots and
+    // JSON-LD, so this function has nothing to add and one thing to get wrong:
+    // an unknown path has its robots meta rewritten to noindex, and a standalone
+    // page inherits index.html's robots tag byte for byte. Excluding it also
+    // keeps VALID_PAGES an exact mirror of js/core.js, per COUPLING 3, which a
+    // standalone page must stay out of. The .html form is answered by a forced
+    // 301 in _redirects, which this function would only pass through anyway.
+    "/teachers",
+    "/teachers.html",
   ],
 };
 
