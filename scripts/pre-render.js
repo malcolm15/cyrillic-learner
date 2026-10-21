@@ -1237,7 +1237,7 @@ function main() {
     // ---- static template needles (byte-for-byte from index.html) ----
     const T = {
         htmlLang: '<html lang="en">',
-        logoOpen: '<a href="/" class="nav-logo" onclick="navTo(event, \'home\', null)">',
+        logoOpen: '<a href="/" class="nav-logo notranslate" translate="no" onclick="navTo(event, \'home\', null)">',
         themeLabel: 'aria-label="Switch to the dark theme" aria-pressed="false"',
         menuLabel: 'aria-label="Menu" aria-controls="nav-links"',
         navListOpen: '<ul class="nav-links" id="nav-links">',
@@ -1896,7 +1896,7 @@ function main() {
             const navEnd = page.indexOf('</ul>', navAt);
             if (countOccurrences(page, T.navListOpen) !== 1 || navEnd === -1) fail(sp.slug + ': could not locate the nav list to replace');
             page = page.slice(0, navAt + T.navListOpen.length) + '\n' + ch.navItems + '\n            ' + page.slice(navEnd);
-            page = replaceOnce(page, T.logoOpen, '<a href="' + ch.logoHref + '" class="nav-logo">', sp.slug + '/logo');
+            page = replaceOnce(page, T.logoOpen, '<a href="' + ch.logoHref + '" class="nav-logo notranslate" translate="no">', sp.slug + '/logo');
             page = replaceOnce(page, T.themeLabel, 'aria-label="' + escapeHtml(ch.themeLabel) + '" aria-pressed="false"', sp.slug + '/theme label');
             page = replaceOnce(page, T.menuLabel, 'aria-label="' + escapeHtml(ch.menuLabel) + '" aria-controls="nav-links"', sp.slug + '/menu label');
             const fAt = page.indexOf(T.footerOpen);
@@ -2196,6 +2196,41 @@ function main() {
         }
     });
 
+    // ---- logo translation guards ----
+    //
+    // The Cyrilica logo is a word with a Cyrillic Л in it, so a page translator
+    // transliterates it ("CYRILICA") or translates its pieces. Every copy of the
+    // logo carries notranslate and translate="no", and every Л span lang="ru":
+    // the nav logo on index.html, 404.html and every emitted page, and each
+    // logo-display (the homepage's, and any a page adds). wantDisplays is the
+    // exact number of logo-display elements a document must carry, or null when
+    // only their guard is checked.
+    const NAV_LOGO_GUARD = 'class="nav-logo notranslate" translate="no"';
+    const LOGO_DISPLAY_GUARD = 'class="logo-display notranslate" translate="no"';
+    let logosChecked = 0;
+    function assertLogoGuards(html, label, wantDisplays) {
+        const navs = countOccurrences(html, 'class="nav-logo');
+        const navsGuarded = countOccurrences(html, NAV_LOGO_GUARD);
+        if (navs !== 1 || navsGuarded !== 1) {
+            fail(label + ': expected exactly one nav logo, opening with ' + NAV_LOGO_GUARD + ' (found ' + navs + ' nav logo(s), ' + navsGuarded + ' guarded)');
+        }
+        const displays = countOccurrences(html, 'class="logo-display');
+        const displaysGuarded = countOccurrences(html, LOGO_DISPLAY_GUARD);
+        if (displaysGuarded !== displays || (wantDisplays !== null && displays !== wantDisplays)) {
+            fail(label + ': expected ' + (wantDisplays === null ? 'every' : wantDisplays) + ' logo-display, each opening with ' + LOGO_DISPLAY_GUARD +
+                 ' (found ' + displays + ', ' + displaysGuarded + ' guarded)');
+        }
+        const spans = countOccurrences(html, 'class="letter-l"');
+        const spansRu = countOccurrences(html, 'class="letter-l" lang="ru"');
+        if (spans !== 1 + displays || spansRu !== spans) {
+            fail(label + ': every Л span (class="letter-l") must carry lang="ru"; found ' + spansRu + ' of ' + spans + ' for ' + (1 + displays) + ' logo(s)');
+        }
+        logosChecked += 1 + displays;
+    }
+    assertLogoGuards(template, 'index.html', 1);
+    assertLogoGuards(notFoundSrc, '404.html', 0);
+    emittedPages.forEach(function (rec) { assertLogoGuards(rec.html, rec.label, null); });
+
     // ---- hreflang: only on the pages that declare alternates, and on the
     // homepage through the edge function (COUPLING 4) ----
     //
@@ -2400,6 +2435,8 @@ function main() {
                     QUIZ_TOGGLES.map(function (t) { return t.id; }).join(', ') + '), each once, type checkbox, named by its ' +
                     'setting-label; ' + sp.__toggles + ' onchange attributes in <main>, all allowed; no darkmode-toggle, no settings-btn.');
     });
+    console.log('Logo guards passed: ' + logosChecked + ' logos across index.html, 404.html and ' + emittedPages.length +
+                ' emitted pages, each notranslate with translate="no", every Л lang="ru".');
     const guardedPages = STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; });
     console.log('Translation guards passed: index.html' + guardedPages.map(function (sp) { return ' and /' + sp.slug; }).join('') +
                 ': 6 study grids, #current-char and #current-char-lower carry translate="no" and class notranslate' +
