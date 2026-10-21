@@ -208,6 +208,29 @@ function onclickOccurrences(html) {
     return out;
 }
 
+// Every onchange="..." attribute in `html`, strict, and the permissive count of
+// any spelling inside a tag: the same pair as onclickAttrs and
+// onclickOccurrences, for the one page that allows onchange in <main>.
+function onchangeAttrs(html) {
+    const out = [];
+    const re = /onchange="([^"]*)"/g;
+    let m;
+    while ((m = re.exec(html)) !== null) out.push({ attr: m[1], index: m.index });
+    return out;
+}
+
+function onchangeOccurrences(html) {
+    const out = [];
+    const re = /onchange\s*=/gi;
+    let m;
+    while ((m = re.exec(html)) !== null) {
+        const lt = html.lastIndexOf('<', m.index);
+        const gt = html.lastIndexOf('>', m.index);
+        if (lt > gt) out.push(m.index);
+    }
+    return out;
+}
+
 // Fails unless the strict matcher saw every occurrence the permissive counter
 // found. Without this, an attribute written in any other spelling would be
 // skipped by both rules below and the build would still pass.
@@ -1190,6 +1213,27 @@ function main() {
         fail('index.html: the quiz block no longer contains #reference-container, #start-btn and #quiz-container');
     }
 
+    // ---- the quiz toggles, derived from index.html's Settings page ----
+    // A page with settingsPanel carries these five checkboxes with the same ids
+    // and onchange values, so loadSettings syncs them and they share the English
+    // page's localStorage keys and setting_changed events. darkmode-toggle is
+    // left out: the theme stays in the nav.
+    const settingsStart = template.indexOf('<div id="settings-page"');
+    const settingsEnd = template.indexOf('<!-- CONTACT PAGE -->');
+    if (settingsStart === -1 || settingsEnd === -1 || settingsEnd < settingsStart) fail('index.html: could not locate the Settings page section');
+    const settingsSection = template.slice(settingsStart, settingsEnd);
+    const allToggles = [];
+    const toggleRe = /<input type="checkbox" id="([^"]+)" onchange="([^"]+)">/g;
+    let toggleMatch;
+    while ((toggleMatch = toggleRe.exec(settingsSection)) !== null) allToggles.push({ id: toggleMatch[1], onchange: toggleMatch[2] });
+    if (allToggles.length !== countOccurrences(settingsSection, 'type="checkbox"')) {
+        fail('index.html: a Settings checkbox is not in the form <input type="checkbox" id="..." onchange="...">');
+    }
+    const QUIZ_TOGGLES = allToggles.filter(function (t) { return t.id !== 'darkmode-toggle'; });
+    if (QUIZ_TOGGLES.length !== 5 || allToggles.length !== 6) {
+        fail('index.html: expected 5 quiz toggles plus darkmode-toggle on the Settings page, found ' + allToggles.length + ' checkboxes');
+    }
+
     // ---- static template needles (byte-for-byte from index.html) ----
     const T = {
         htmlLang: '<html lang="en">',
@@ -1640,6 +1684,17 @@ function main() {
                      (allowedOnclick.join(', ') || 'none') + ').');
             }
         });
+        // onchange: none, except the five quiz toggles on a page with settingsPanel.
+        const allowedOnchange = sp.settingsPanel ? QUIZ_TOGGLES.map(function (t) { return t.onchange; }) : [];
+        if (onchangeOccurrences(sp.bodyHtml).length !== onchangeAttrs(sp.bodyHtml).length) {
+            fail(sp.slug + ': the page body carries an onchange attribute in a spelling the strict matcher does not read');
+        }
+        onchangeAttrs(sp.bodyHtml).forEach(function (o) {
+            if (allowedOnchange.indexOf(o.attr) === -1) {
+                fail(sp.slug + ': the page body carries onchange="' + o.attr + '". Inside <main> an onchange is allowed only for ' +
+                     'the quiz toggles on a page with settingsPanel (' + (allowedOnchange.join(', ') || 'none') + ').');
+            }
+        });
         if (/\bnavTo\(|\bnavToArticle\(|\bshowPage\(|\bshowArticle\(/.test(sp.bodyHtml)) {
             fail(sp.slug + ': the page body calls the SPA router. showArticle reads #article-view unguarded and ' +
                  'would throw on this document, and showPage would reset the head.');
@@ -1913,7 +1968,8 @@ function main() {
         if (sp.quizPage) {
             QUIZ_IDS.forEach(function (id) {
                 const n = countOccurrences(page, 'id="' + id + '"');
-                // No Settings on a localised page: the Settings page is English.
+                // No settings-btn: it opens the English Settings page. A page
+                // with settingsPanel has its own panel instead.
                 const want = id === 'settings-btn' ? 0 : 1;
                 if (n !== want) fail(sp.slug + ': expected ' + want + ' id="' + id + '", found ' + n);
             });
@@ -1944,6 +2000,52 @@ function main() {
             });
             sp.__cyrillicRuns = runs.length;
             sp.__proseRuns = runs.filter(function (r) { return !r.quiz; }).length;
+        }
+
+        // ---- settings panel: one closed <details> between the two quiz cards ----
+        const PANEL_OPEN = '<details class="quiz-settings" id="quiz-settings">';
+        if (sp.settingsPanel) {
+            if (!sp.quizPage) fail(sp.slug + ': settingsPanel needs quizPage');
+            if (countOccurrences(page, 'id="quiz-settings"') !== 1 || countOccurrences(page, PANEL_OPEN) !== 1) {
+                fail(sp.slug + ': expected exactly one ' + PANEL_OPEN + ' (closed by default, no open attribute)');
+            }
+            // Placed after the selection card closes and directly before
+            // #quiz-container, so it sits under Empezar before a session and
+            // above the quiz card during one.
+            const cardAt = page.indexOf('<div class="card char-reference">');
+            const panelAt = page.indexOf(PANEL_OPEN);
+            const panelEnd = page.indexOf('</details>', panelAt);
+            const quizAt = page.indexOf('<div id="quiz-container">');
+            const between = page.slice(cardAt, panelAt);
+            if (cardAt === -1 || panelEnd === -1 || quizAt === -1 || !(cardAt < panelAt && panelAt < quizAt)) {
+                fail(sp.slug + ': #quiz-settings must come after the char-reference card and before #quiz-container');
+            }
+            if (countOccurrences(between, '<div') !== countOccurrences(between, '</div>')) {
+                fail(sp.slug + ': #quiz-settings must follow the char-reference card, not sit inside it');
+            }
+            if (page.slice(panelEnd + '</details>'.length, quizAt).trim() !== '') {
+                fail(sp.slug + ': #quiz-settings must be directly followed by #quiz-container');
+            }
+            const panel = page.slice(panelAt, panelEnd);
+            if (countOccurrences(panel, '<details') !== 1 || countOccurrences(panel, '<summary') !== 1) {
+                fail(sp.slug + ': #quiz-settings must hold one <summary> and no nested <details>');
+            }
+            QUIZ_TOGGLES.forEach(function (t) {
+                const tag = openingTagWithId(page, t.id, sp.slug);
+                if (panel.indexOf(tag) === -1) fail(sp.slug + ': #' + t.id + ' must be inside #quiz-settings');
+                if (!/\stype="checkbox"/.test(tag)) fail(sp.slug + ': #' + t.id + ' must be type="checkbox", found ' + tag);
+                if (countOccurrences(tag, 'onchange="' + t.onchange + '"') !== 1) {
+                    fail(sp.slug + ': #' + t.id + ' must carry onchange="' + t.onchange + '" exactly as index.html does, found ' + tag);
+                }
+                const named = /\saria-labelledby="([^"]+)"/.exec(tag);
+                if (!named) fail(sp.slug + ': #' + t.id + ' needs aria-labelledby pointing at its setting-label');
+                const labelTag = openingTagWithId(page, named[1], sp.slug);
+                if (!/\sclass="setting-label"/.test(labelTag)) fail(sp.slug + ': #' + named[1] + ' (the label of #' + t.id + ') must be the setting-label element');
+            });
+            if (countOccurrences(page, 'darkmode-toggle') !== 0) fail(sp.slug + ': carries darkmode-toggle; the theme stays in the nav');
+            sp.__toggles = QUIZ_TOGGLES.length;
+        } else if (countOccurrences(page, 'id="quiz-settings"') !== 0) {
+            fail(sp.slug + ': carries #quiz-settings without settingsPanel');
         }
         ['data-prerendered', 'class="article-item"', 'related-article-card', 'navigateArticle('].forEach(function (needle) {
             if (page.indexOf(needle) !== -1) fail(sp.slug + ': the emitted page contains article-only markup: ' + needle);
@@ -2005,6 +2107,15 @@ function main() {
         onclickAttrs(mainBlock).forEach(function (o) {
             if (allowedOnclick.indexOf(o.attr) === -1) fail(sp.slug + ': the emitted page body carries onclick="' + o.attr + '", which is not in allowedOnclick');
         });
+        if (onchangeOccurrences(mainBlock).length !== onchangeAttrs(mainBlock).length) {
+            fail(sp.slug + ': the emitted page body carries an onchange in a spelling the strict matcher does not read');
+        }
+        onchangeAttrs(mainBlock).forEach(function (o) {
+            if (allowedOnchange.indexOf(o.attr) === -1) fail(sp.slug + ': the emitted page body carries onchange="' + o.attr + '", which is not allowed');
+        });
+        if (sp.settingsPanel && onchangeAttrs(mainBlock).length !== QUIZ_TOGGLES.length) {
+            fail(sp.slug + ': expected ' + QUIZ_TOGGLES.length + ' onchange attributes in <main>, found ' + onchangeAttrs(mainBlock).length);
+        }
         scriptContractChecked += assertScriptContract(page, sp.slug + ' (standalone page)');
         internalLinksChecked += assertInternalLinks(page, sp.slug + ' (standalone page)', linkRefs);
         idsByPath['/' + sp.slug] = idsIn(page);
@@ -2282,6 +2393,12 @@ function main() {
                     'settings-btn absent, 6 study groups with the page\'s display values, ' + sp.__acceptedCount +
                     ' accepted answers across 33 letters with no cross-letter or same-letter prefix clash, ' +
                     Object.keys(sp.quizPage.strings || {}).length + ' strings matching QUIZ_STRINGS_EN placeholders.');
+    });
+    STANDALONE_PAGES.filter(function (sp) { return sp.settingsPanel; }).forEach(function (sp) {
+        console.log('Settings panel passed: /' + sp.slug + ', one closed #quiz-settings between the selection card and #quiz-container, ' +
+                    sp.__toggles + ' toggles with the ids and onchange values of index.html\'s Settings page (' +
+                    QUIZ_TOGGLES.map(function (t) { return t.id; }).join(', ') + '), each once, type checkbox, named by its ' +
+                    'setting-label; ' + sp.__toggles + ' onchange attributes in <main>, all allowed; no darkmode-toggle, no settings-btn.');
     });
     const guardedPages = STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; });
     console.log('Translation guards passed: index.html' + guardedPages.map(function (sp) { return ' and /' + sp.slug; }).join('') +

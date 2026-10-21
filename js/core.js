@@ -1347,6 +1347,28 @@ function startQuiz() {
     
     // Load first question
     nextQuestion();
+
+    // On a page with its own settings panel (/es), put the panel's top 12px
+    // below the fixed nav. nextQuestion's focus() should bring the quiz into
+    // view, but on /es (measured in Batch 66) Chrome's scroll anchoring can undo
+    // it once the selection card collapses, and an answer box only partly hidden
+    // under the nav gets no scroll at all, so the quiz could land off-screen.
+    // The panel is closed first: left open from the selection screen it would
+    // fill the screen above the quiz and push the answer box below the fold.
+    // Instant, not smooth: html sets scroll-behavior: smooth, so it is switched
+    // off for this one call. Pages without #quiz-settings run none of this, so
+    // the English quiz lands exactly as before.
+    const settingsPanel = document.getElementById('quiz-settings');
+    if (settingsPanel) {
+        settingsPanel.open = false;
+        const nav = document.querySelector('nav');
+        const navBottom = nav ? nav.getBoundingClientRect().bottom : 0;
+        const root = document.documentElement;
+        const previous = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+        window.scrollTo(0, settingsPanel.getBoundingClientRect().top + window.scrollY - navBottom - 12);
+        root.style.scrollBehavior = previous;
+    }
 }
 
 function nextQuestion() {

@@ -50,6 +50,11 @@
 //                        after the canonical. The homepage's copy of the same tags
 //                        is added by netlify/edge-functions/head-rewrite.ts, and
 //                        the build asserts the two agree.
+//   settingsPanel        true: the page carries its own <details id="quiz-settings">
+//                        with the five quiz toggles from index.html's Settings
+//                        page (same ids and onchange values, so core.js syncs
+//                        them and localStorage is shared). Allows exactly those
+//                        five onchange values inside <main>. Default false.
 
 // The Spanish quiz's runtime strings and answer table. Constants, so the chrome
 // below reuses the theme label instead of keeping a second copy of it.
@@ -294,6 +299,7 @@ module.exports = [
             { hreflang: 'x-default', href: 'https://cyrilica.com/' },
         ],
         allowedOnclick: ['selectAllGroups()', 'clearAllGroups()', 'checkAnswer()'],
+        settingsPanel: true,
         groupTitles: ['Vocales 1', 'Vocales 2', 'Consonantes 1', 'Consonantes 2', 'Consonantes 3', 'Consonantes 4'],
         quizPage: { answers: ES_ANSWERS, strings: ES_STRINGS },
         chrome: {
@@ -401,6 +407,68 @@ module.exports = [
                         </div>
                         <button class="start-btn" id="start-btn" disabled>Empezar</button>
                     </div>
+
+                    <details class="quiz-settings" id="quiz-settings">
+                        <summary class="btn btn-settings">⚙️ Ajustes</summary>
+                        <div class="card quiz-settings-body">
+                            <p class="quiz-settings-intro">Los ajustes se guardan en este navegador y también se aplican a la versión en inglés.</p>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label" id="autosubmit-label">Envío automático</div>
+                                    <div class="setting-desc" id="autosubmit-desc">La respuesta se envía sola en cuanto es correcta.</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autosubmit-toggle" onchange="toggleAutoSubmit()" aria-labelledby="autosubmit-label" aria-describedby="autosubmit-desc">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label" id="autoaudio-label">Sonido automático</div>
+                                    <div class="setting-desc" id="autoaudio-desc">Reproduce la pronunciación al acertar.</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autoaudio-toggle" onchange="toggleAutoAudio()" aria-labelledby="autoaudio-label" aria-describedby="autoaudio-desc">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label" id="lowercase-label">Mostrar minúsculas</div>
+                                    <div class="setting-desc" id="lowercase-desc">Muestra la letra minúscula junto a la mayúscula.</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="lowercase-toggle" onchange="toggleLowercase()" aria-labelledby="lowercase-label" aria-describedby="lowercase-desc">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label" id="repeat-label">Repetir las que fallas</div>
+                                    <div class="setting-desc" id="repeat-desc">Las letras que fallas aparecen más a menudo.</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="repeat-toggle" onchange="toggleRepeat()" aria-labelledby="repeat-label" aria-describedby="repeat-desc">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-label" id="continuous-label">Puntuación continua</div>
+                                    <div class="setting-desc" id="continuous-desc">La puntuación se mantiene al empezar una nueva sesión.</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="continuous-toggle" onchange="toggleContinuous()" aria-labelledby="continuous-label" aria-describedby="continuous-desc">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </details>
 
                     <div id="quiz-container">
                         <div class="card">

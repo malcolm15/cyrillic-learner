@@ -2107,6 +2107,35 @@
             color: white;
         }
 
+        /* The /es settings panel: a <details> between the selection card and the
+           quiz card, so only one of the two is ever next to it. The summary is
+           the .btn .btn-settings button; the rows reuse the Settings page's
+           .setting-item markup. */
+        .quiz-settings {
+            margin: 0 0 16px;
+            text-align: center;
+        }
+
+        .quiz-settings > summary {
+            display: inline-block;
+            list-style: none;
+        }
+
+        .quiz-settings > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .quiz-settings-body {
+            margin: 12px 0 0;
+            text-align: left;
+        }
+
+        .quiz-settings-intro {
+            margin: 0 0 4px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
         /* Plain-text label before a run of footer links, used by the Spanish
            page to say the links lead to English pages. Inherits the footer
            text colour; the weight sets it apart from the links. */
