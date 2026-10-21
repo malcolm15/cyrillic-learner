@@ -20,6 +20,51 @@
 // `published` and `modified` are the local date of the commit that adds or
 // changes the page, and the build asserts that `modified` matches both the
 // JSON-LD dateModified and the page's sitemap lastmod.
+//
+// Optional fields. Every one defaults to the behaviour /teachers has always had,
+// so an entry that leaves them out is emitted exactly as before.
+//   lang                 <html lang>. Default 'en'.
+//   schema               { inLanguage, audience, aboutName, aboutDescription } for
+//                        the WebPage block. Defaults: 'en', true (a teacher
+//                        audience), 'Russian alphabet', 'The 33 letters of the
+//                        Russian Cyrillic alphabet'.
+//   breadcrumbHomeName   Name of breadcrumb step 1. Default 'Home'.
+//   chrome               Replaces the inherited English chrome: { logoHref,
+//                        navItems, themeLabel, menuLabel, footerHtml }. Default:
+//                        the English nav and footer from index.html.
+//   quizPage             { answers, strings }, serialised into the head as
+//                        window.QUIZ_PAGE, which js/core.js reads (see the
+//                        localisation seam there). This is the ONLY place a page's
+//                        answer table and runtime strings live.
+//   groupTitles          The six study-group titles the page shows, in order.
+//                        Required with quizPage; the build checks the cards.
+//   inbound              'footer' (default): linked from the English footer and
+//                        the About page. 'homepage': linked once from the English
+//                        homepage only, never from the footer.
+//   allowedOnclick       Exact onclick attribute values allowed inside <main>.
+//                        Default none. Router calls stay banned regardless.
+
+// The Spanish quiz's runtime strings and answer table. Constants, so the chrome
+// below reuses the theme label instead of keeping a second copy of it.
+const ES_STRINGS = {
+    score: 'Aciertos: {correct}/{total}',
+    progress: 'Pregunta {n}',
+    correct: '✓ ¡Correcto!',
+    wrong: '✗ Incorrecto. Respuesta: {answer}',
+    skip: 'Respuesta: {answer}',
+    themeToDark: 'Cambiar al tema oscuro',
+    themeToLight: 'Cambiar al tema claro',
+};
+
+// Only letters that differ from English appear here. `show` replaces the
+// displayed romanization; `accept` adds answers. Every other letter keeps
+// exactly its English display and single answer.
+const ES_ANSWERS = {
+    'Х': { show: 'j', accept: ['kh'] },
+    'Щ': { accept: ['sch'] },
+    'Ъ': { accept: ['“', '”'] },
+    'Ь': { accept: ['’', '‘'] },
+};
 
 module.exports = [
     {
@@ -206,5 +251,199 @@ module.exports = [
                         label();
                     })();
                     </script>`,
+    },
+    {
+        slug: 'es',
+        lang: 'es',
+        title: 'Alfabeto ruso: practica las 33 letras con audio | Cyrilica',
+        description: 'Aprende el alfabeto ruso, también llamado abecedario ruso: 33 letras cirílicas, audio y ejercicios interactivos gratis. Sin registro.',
+        h1: 'Alfabeto ruso: aprende las 33 letras',
+        keySentence: 'El alfabeto ruso, también llamado abecedario ruso, tiene 33 letras y se escribe con el alfabeto cirílico.',
+        published: '2026-10-20',
+        modified: '2026-10-20',
+        breadcrumbName: 'Alfabeto ruso',
+        breadcrumbHomeName: 'Cyrilica',
+        schema: {
+            inLanguage: 'es',
+            audience: false,
+            aboutName: 'Alfabeto ruso',
+            aboutDescription: 'Las 33 letras del alfabeto cirílico ruso',
+        },
+        inbound: 'homepage',
+        allowedOnclick: ['selectAllGroups()', 'clearAllGroups()', 'checkAnswer()'],
+        groupTitles: ['Vocales 1', 'Vocales 2', 'Consonantes 1', 'Consonantes 2', 'Consonantes 3', 'Consonantes 4'],
+        quizPage: { answers: ES_ANSWERS, strings: ES_STRINGS },
+        chrome: {
+            logoHref: '/es',
+            navItems:
+                '                <li><a href="/es" class="active" aria-current="page">Inicio</a></li>\n' +
+                '                <li><a href="/articles">Artículos (en inglés)</a></li>\n' +
+                '                <li><a href="/" hreflang="en" lang="en">English</a></li>',
+            themeLabel: ES_STRINGS.themeToDark,
+            menuLabel: 'Menú',
+            footerHtml:
+                '        <div class="footer-content">\n' +
+                '            <p>© 2026 Cyrilica. Todos los derechos reservados.</p>\n' +
+                '            <div class="footer-links">\n' +
+                '                <span class="footer-label">En inglés:</span>\n' +
+                '                <a href="/privacy">Privacidad</a>\n' +
+                '                <a href="/terms">Términos</a>\n' +
+                '                <a href="/about">Acerca de</a>\n' +
+                '                <a href="/teachers">Para docentes</a>\n' +
+                '                <a href="/contact">Contacto</a>\n' +
+                '            </div>\n' +
+                '        </div>',
+        },
+        bodyHtml: `                    <div class="card">
+                        <h1>Alfabeto ruso: aprende las 33 letras</h1>
+
+                        <div class="content-text">
+                            <p>El alfabeto ruso, también llamado abecedario ruso, tiene 33 letras y se escribe con el alfabeto cirílico. Aquí puedes practicarlas todas: eliges un grupo de letras, ves cada una en pantalla, escribes su equivalente en letras latinas y compruebas al instante si es correcto. Puedes escuchar grabaciones de pronunciación mientras practicas, y no hace falta registrarse.</p>
+                        </div>
+                    </div>
+
+                    <div class="card char-reference">
+                        <div class="selection-header">
+                            <h2>Elige las letras que quieres practicar</h2>
+                            <div class="selection-controls">
+                                <button class="btn btn-control" onclick="selectAllGroups()">Seleccionar todo</button>
+                                <button class="btn btn-control" onclick="clearAllGroups()">Quitar todo</button>
+                            </div>
+                        </div>
+                        <p class="content-text" style="margin-bottom: 14px; font-size: 0.9rem;">Toca o haz clic en un grupo para elegirlo. Los grupos elegidos se marcan en rojo. ¿Quieres ver antes todas las letras con su sonido? Consulta la <a href="/articles/russian-alphabet-chart" class="reference-link">tabla del alfabeto ruso</a> (en inglés).</p>
+                        <div id="reference-container">
+                            <div class="reference-section" data-group="vowels_1">
+                                <div class="section-title">Vocales 1</div>
+                                <div class="reference-grid">
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">А</span><span class="char-ref-roman">a</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Е</span><span class="char-ref-roman">ye</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">И</span><span class="char-ref-roman">i</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">О</span><span class="char-ref-roman">o</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">У</span><span class="char-ref-roman">u</span></div>
+                                </div>
+                            </div>
+                            <div class="reference-section" data-group="vowels_2">
+                                <div class="section-title">Vocales 2</div>
+                                <div class="reference-grid">
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ё</span><span class="char-ref-roman">yo</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ы</span><span class="char-ref-roman">y</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Э</span><span class="char-ref-roman">e</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ю</span><span class="char-ref-roman">yu</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Я</span><span class="char-ref-roman">ya</span></div>
+                                </div>
+                            </div>
+                            <div class="reference-section" data-group="consonants_1">
+                                <div class="section-title">Consonantes 1</div>
+                                <div class="reference-grid">
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Б</span><span class="char-ref-roman">b</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">В</span><span class="char-ref-roman">v</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Г</span><span class="char-ref-roman">g</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Д</span><span class="char-ref-roman">d</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ж</span><span class="char-ref-roman">zh</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">З</span><span class="char-ref-roman">z</span></div>
+                                </div>
+                            </div>
+                            <div class="reference-section" data-group="consonants_2">
+                                <div class="section-title">Consonantes 2</div>
+                                <div class="reference-grid">
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">К</span><span class="char-ref-roman">k</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Л</span><span class="char-ref-roman">l</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">М</span><span class="char-ref-roman">m</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Н</span><span class="char-ref-roman">n</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">П</span><span class="char-ref-roman">p</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Р</span><span class="char-ref-roman">r</span></div>
+                                </div>
+                            </div>
+                            <div class="reference-section" data-group="consonants_3">
+                                <div class="section-title">Consonantes 3</div>
+                                <div class="reference-grid">
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">С</span><span class="char-ref-roman">s</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Т</span><span class="char-ref-roman">t</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ф</span><span class="char-ref-roman">f</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Х</span><span class="char-ref-roman">j</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ц</span><span class="char-ref-roman">ts</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ч</span><span class="char-ref-roman">ch</span></div>
+                                </div>
+                            </div>
+                            <div class="reference-section" data-group="consonants_4">
+                                <div class="section-title">Consonantes 4</div>
+                                <div class="reference-grid">
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ш</span><span class="char-ref-roman">sh</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Щ</span><span class="char-ref-roman">shch</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ъ</span><span class="char-ref-roman">"</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Ь</span><span class="char-ref-roman">'</span></div>
+                                    <div class="char-ref-item"><span class="char-ref-cyrillic">Й</span><span class="char-ref-roman">y</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="start-btn" id="start-btn" disabled>Empezar</button>
+                    </div>
+
+                    <div id="quiz-container">
+                        <div class="card">
+                            <div class="quiz-header">
+                                <div class="score" id="score">Aciertos: 0/0</div>
+                                <div class="progress" id="progress">Pregunta 1</div>
+                            </div>
+
+                            <div class="character-display">
+                                <span class="cyrillic-char" id="current-char">А</span>
+                                <span class="cyrillic-char cyrillic-char-lowercase" id="current-char-lower" style="display: none;">а</span>
+                                <button class="audio-btn" id="audio-btn" style="display: none;" title="Escuchar la pronunciación" aria-label="Escuchar la pronunciación">🔊</button>
+                            </div>
+
+                            <div class="input-section">
+                                <label for="answer-input" class="sr-only">Escribe esta letra en letras latinas</label>
+                                <div class="input-wrapper">
+                                    <input 
+                                        type="text" 
+                                        id="answer-input" 
+                                        placeholder="Escribe en letras latinas..."
+                                        autocomplete="off"
+                                    />
+                                    <button class="btn btn-submit" id="submit-btn" onclick="checkAnswer()">Comprobar</button>
+                                </div>
+                                <div class="feedback" id="feedback" aria-live="polite"></div>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button class="btn" id="skip-btn">Saltar</button>
+                                <button class="btn" id="reset-btn">Reiniciar</button>
+                                <button class="btn" id="home-btn">Cambiar grupos</button>
+                            </div>
+
+                            <div class="stats">
+                                <div class="stat-item">
+                                    <span class="stat-value" id="correct-count">0</span>
+                                    <span class="stat-label">Correctas</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="incorrect-count">0</span>
+                                    <span class="stat-label">Incorrectas</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="streak-count">0</span>
+                                    <span class="stat-label">Racha</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>Cómo funciona</h2>
+                        <div class="content-text">
+                            <p>Elige uno o varios grupos y pulsa Empezar. Verás una letra rusa: escribe cómo se transcribe en letras latinas y pulsa Comprobar. Si fallas, verás la respuesta correcta y pasarás a la siguiente letra. Con el botón 🔊 puedes escuchar el audio de cada letra.</p>
+                        </div>
+
+                        <h2>¿Cuántas letras tiene el alfabeto ruso?</h2>
+                        <div class="content-text">
+                            <p>Tiene 33: 10 vocales, 21 consonantes y dos signos sin sonido propio, el signo duro (Ъ) y el signo blando (Ь). Algunas se parecen a letras latinas, pero no se transcriben igual: В es v, Н es n, Р es r y С es s.</p>
+                        </div>
+
+                        <h2>Sobre la transcripción</h2>
+                        <div class="content-text">
+                            <p>Para practicar usamos una transcripción sencilla, letra por letra, que se puede escribir con cualquier teclado. No sigue al pie de la letra ninguna norma oficial. Х se escribe j (también se acepta kh) y Щ se escribe shch (también se acepta sch). Е se escribe ye y Э se escribe e, para distinguirlas. Los signos duro y blando se escriben con comillas: " para Ъ y ' para Ь.</p>
+                        </div>
+                    </div>`,
     },
 ];

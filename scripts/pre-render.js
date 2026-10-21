@@ -524,6 +524,17 @@ function assertStandaloneMedia(html, label) {
     return refs;
 }
 
+// The excludedPath array in head-rewrite.ts, parsed into exact strings. A
+// substring search was enough while the only standalone slug was "teachers";
+// a two-letter slug like "es" is a substring of half the file. Line comments
+// are stripped first so a quoted word in a comment can never count as an entry.
+function parseExcludedPath(src) {
+    const m = /excludedPath:\s*\[([\s\S]*?)\]/.exec(src);
+    if (!m) fail('netlify/edge-functions/head-rewrite.ts: could not find the excludedPath array');
+    const body = m[1].replace(/\/\/[^\n]*/g, '');
+    return (body.match(/"[^"]*"/g) || []).map(function (q) { return q.slice(1, -1); });
+}
+
 // Every share handler call in `content`, with the function name and the first
 // argument. The first-argument pattern tolerates escapes so that malformed input
 // is reported by the checks below rather than skipped by the matcher.
@@ -755,6 +766,19 @@ function main() {
     const dataMatch = coreSrc.match(/const CYRILLIC_DATA = \{[\s\S]*?\n\};/);
     if (!dataMatch) fail('could not extract CYRILLIC_DATA from core.js');
     const CYRILLIC_DATA = eval('(' + dataMatch[0].replace('const CYRILLIC_DATA = ', '').replace(/;$/, '') + ')');
+    // Letter -> { group, roman }, for the localised quiz checks further down.
+    const LETTER_INFO = Object.create(null);
+    Object.keys(CYRILLIC_DATA).forEach(function (groupKey) {
+        Object.keys(CYRILLIC_DATA[groupKey].chars).forEach(function (ch) {
+            LETTER_INFO[ch] = { group: groupKey, roman: CYRILLIC_DATA[groupKey].chars[ch].roman };
+        });
+    });
+    // The English quiz strings, read from source the same way, so a localised
+    // page's strings are checked against the keys and placeholders core.js
+    // actually renders rather than against a copy kept here.
+    const stringsMatch = coreSrc.match(/const QUIZ_STRINGS_EN = \{[\s\S]*?\n\};/);
+    if (!stringsMatch) fail('could not extract QUIZ_STRINGS_EN from core.js');
+    const QUIZ_STRINGS_EN = eval('(' + stringsMatch[0].replace('const QUIZ_STRINGS_EN = ', '').replace(/;$/, '') + ')');
     const audioLetters = new Set();
     Object.keys(CYRILLIC_DATA).forEach(function (groupKey) {
         Object.keys(CYRILLIC_DATA[groupKey].chars).forEach(function (ch) { audioLetters.add(ch); });
@@ -1008,58 +1032,89 @@ function main() {
         { key: 'consonants_4', title: 'Consonants 4', letters: ['Ш', 'Щ', 'Ъ', 'Ь', 'Й'], romans: ['sh', 'shch', '"', '\'', 'y'] },
     ];
 
-    const shellGroupsOpen = '<div id="reference-container">';
-    const sgAt = template.indexOf(shellGroupsOpen);
-    if (sgAt === -1) fail('index.html: #reference-container not found');
-    const sgInner = template.slice(sgAt);
-    const sectionRe = /<div class="reference-section" data-group="([^"]+)">([\s\S]*?)<\/div>\s*<\/div>/g;
-    const sections = [];
-    let sgMatch;
-    while ((sgMatch = sectionRe.exec(sgInner)) !== null && sections.length <= STUDY_GROUPS.length) {
-        sections.push({ key: sgMatch[1], html: sgMatch[2] });
-    }
-    if (sections.length !== STUDY_GROUPS.length) {
-        fail('index.html: expected ' + STUDY_GROUPS.length + ' study groups, found ' + sections.length);
-    }
-    const sgSeenGroups = new Set();
-    const sgSeenLetters = new Set();
-    STUDY_GROUPS.forEach(function (want, i) {
-        const got = sections[i];
-        if (got.key !== want.key) fail('index.html: study group ' + (i + 1) + ' is "' + got.key + '", expected "' + want.key + '"');
-        if (sgSeenGroups.has(got.key)) fail('index.html: duplicate study group ' + got.key);
-        sgSeenGroups.add(got.key);
-        const titleMatch = got.html.match(/<div class="section-title">([^<]*)<\/div>/);
-        if (!titleMatch || titleMatch[1] !== want.title) {
-            fail('index.html: ' + want.key + ' title is "' + (titleMatch ? titleMatch[1] : 'missing') + '", expected "' + want.title + '"');
+    // One check for every document that carries the quiz: index.html and any
+    // standalone page that declares quizPage. `groups` gives, in order, each
+    // card's data-group key, title, letters and the romanization it must show.
+    // With checkData, each shown roman must also equal the CYRILLIC_DATA roman;
+    // a localised page instead passes its own display values as `romans`.
+    function assertStudyGroups(html, label, groups, checkData) {
+        const groupsOpen = '<div id="reference-container">';
+        const sgAt = html.indexOf(groupsOpen);
+        if (sgAt === -1) fail(label + ': #reference-container not found');
+        if (html.indexOf(groupsOpen, sgAt + 1) !== -1) fail(label + ': more than one #reference-container');
+        const sgInner = html.slice(sgAt);
+        const sectionRe = /<div class="reference-section" data-group="([^"]+)">([\s\S]*?)<\/div>\s*<\/div>/g;
+        const sections = [];
+        let sgMatch;
+        while ((sgMatch = sectionRe.exec(sgInner)) !== null && sections.length <= groups.length) {
+            sections.push({ key: sgMatch[1], html: sgMatch[2] });
         }
-        const letters = [];
-        const romans = [];
-        const itemRe = /<span class="char-ref-cyrillic">([^<]*)<\/span><span class="char-ref-roman">([^<]*)<\/span>/g;
-        let item;
-        while ((item = itemRe.exec(got.html)) !== null) { letters.push(item[1]); romans.push(item[2]); }
-        if (letters.join(' ') !== want.letters.join(' ')) {
-            fail('index.html: ' + want.key + ' letters are "' + letters.join(' ') + '", expected "' + want.letters.join(' ') + '"');
+        if (sections.length !== groups.length) {
+            fail(label + ': expected ' + groups.length + ' study groups, found ' + sections.length);
         }
-        if (romans.join(' ') !== want.romans.join(' ')) {
-            fail('index.html: ' + want.key + ' romans are "' + romans.join(' ') + '", expected "' + want.romans.join(' ') + '"');
-        }
-        letters.forEach(function (ch, j) {
-            if (sgSeenLetters.has(ch)) fail('index.html: letter ' + ch + ' appears in more than one study group');
-            sgSeenLetters.add(ch);
-            const data = CYRILLIC_DATA[want.key] && CYRILLIC_DATA[want.key].chars[ch];
-            if (!data) fail('index.html: ' + ch + ' is not in CYRILLIC_DATA group ' + want.key);
-            if (data.roman !== romans[j]) {
-                fail('index.html: ' + ch + ' shows roman "' + romans[j] + '" but CYRILLIC_DATA says "' + data.roman + '"');
+        const sgSeenGroups = new Set();
+        const sgSeenLetters = new Set();
+        groups.forEach(function (want, i) {
+            const got = sections[i];
+            if (got.key !== want.key) fail(label + ': study group ' + (i + 1) + ' is "' + got.key + '", expected "' + want.key + '"');
+            if (sgSeenGroups.has(got.key)) fail(label + ': duplicate study group ' + got.key);
+            sgSeenGroups.add(got.key);
+            const titleMatch = got.html.match(/<div class="section-title">([^<]*)<\/div>/);
+            if (!titleMatch || titleMatch[1] !== want.title) {
+                fail(label + ': ' + want.key + ' title is "' + (titleMatch ? titleMatch[1] : 'missing') + '", expected "' + want.title + '"');
             }
+            const letters = [];
+            const romans = [];
+            const itemRe = /<span class="char-ref-cyrillic">([^<]*)<\/span><span class="char-ref-roman">([^<]*)<\/span>/g;
+            let item;
+            while ((item = itemRe.exec(got.html)) !== null) { letters.push(item[1]); romans.push(item[2]); }
+            if (letters.join(' ') !== want.letters.join(' ')) {
+                fail(label + ': ' + want.key + ' letters are "' + letters.join(' ') + '", expected "' + want.letters.join(' ') + '"');
+            }
+            if (romans.join(' ') !== want.romans.join(' ')) {
+                fail(label + ': ' + want.key + ' romans are "' + romans.join(' ') + '", expected "' + want.romans.join(' ') + '"');
+            }
+            letters.forEach(function (ch, j) {
+                if (sgSeenLetters.has(ch)) fail(label + ': letter ' + ch + ' appears in more than one study group');
+                sgSeenLetters.add(ch);
+                const data = CYRILLIC_DATA[want.key] && CYRILLIC_DATA[want.key].chars[ch];
+                if (!data) fail(label + ': ' + ch + ' is not in CYRILLIC_DATA group ' + want.key);
+                if (checkData && data.roman !== romans[j]) {
+                    fail(label + ': ' + ch + ' shows roman "' + romans[j] + '" but CYRILLIC_DATA says "' + data.roman + '"');
+                }
+            });
         });
-    });
-    if (sgSeenLetters.size !== 33) fail('index.html: study groups cover ' + sgSeenLetters.size + ' letters, expected 33');
-    RUSSIAN_LETTERS.forEach(function (ch) {
-        if (!sgSeenLetters.has(ch)) fail('index.html: letter ' + ch + ' is missing from the study groups');
-    });
+        if (sgSeenLetters.size !== 33) fail(label + ': study groups cover ' + sgSeenLetters.size + ' letters, expected 33');
+        RUSSIAN_LETTERS.forEach(function (ch) {
+            if (!sgSeenLetters.has(ch)) fail(label + ': letter ' + ch + ' is missing from the study groups');
+        });
+    }
+    assertStudyGroups(template, 'index.html', STUDY_GROUPS, true);
+
+    // ---- the quiz block's ids, derived from index.html ----
+    // From the selection card through #quiz-container. A page that carries the
+    // quiz must carry every one of these ids (core.js reads most of them
+    // unguarded), so the list is read off the shell rather than kept by hand.
+    const quizBlockStart = template.indexOf('<div class="card char-reference">');
+    const quizBlockEnd = template.indexOf('<!-- Homepage orientation prose -->');
+    if (quizBlockStart === -1 || quizBlockEnd === -1 || quizBlockEnd < quizBlockStart) {
+        fail('index.html: could not locate the quiz block (the char-reference card through #quiz-container)');
+    }
+    const QUIZ_IDS = (template.slice(quizBlockStart, quizBlockEnd).match(/\sid="[^"]+"/g) || [])
+        .map(function (m) { return m.slice(5, -1); });
+    if (QUIZ_IDS.indexOf('reference-container') === -1 || QUIZ_IDS.indexOf('quiz-container') === -1 || QUIZ_IDS.indexOf('start-btn') === -1) {
+        fail('index.html: the quiz block no longer contains #reference-container, #start-btn and #quiz-container');
+    }
 
     // ---- static template needles (byte-for-byte from index.html) ----
     const T = {
+        htmlLang: '<html lang="en">',
+        logoOpen: '<a href="/" class="nav-logo" onclick="navTo(event, \'home\', null)">',
+        themeLabel: 'aria-label="Switch to the dark theme" aria-pressed="false"',
+        menuLabel: 'aria-label="Menu" aria-controls="nav-links"',
+        navListOpen: '<ul class="nav-links" id="nav-links">',
+        footerOpen: '<footer>',
+        footerClose: '</footer>',
         title: '<title>Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica</title>',
         desc: '<meta name="description" content="Free interactive tool to learn the Russian alphabet. Practice all 33 Cyrillic letters with instant feedback, pronunciation audio, and progress tracking. No signup required.">',
         canonical: '<link rel="canonical" href="https://cyrilica.com">',
@@ -1487,13 +1542,27 @@ function main() {
         }
 
         // ---- the page's own source must not touch the router ----
-        if (/onclick=/.test(sp.bodyHtml)) fail(sp.slug + ': the page body carries an onclick attribute; standalone pages use plain hrefs only');
+        // Plain hrefs only, except the exact onclick values the entry declares.
+        // The permissive count must agree with the strict one, so no other
+        // spelling of the attribute can slip past this.
+        const allowedOnclick = sp.allowedOnclick || [];
+        if (onclickOccurrences(sp.bodyHtml).length !== onclickAttrs(sp.bodyHtml).length) {
+            fail(sp.slug + ': the page body carries an onclick attribute in a spelling the strict matcher does not read');
+        }
+        onclickAttrs(sp.bodyHtml).forEach(function (o) {
+            if (allowedOnclick.indexOf(o.attr) === -1) {
+                fail(sp.slug + ': the page body carries onclick="' + o.attr + '". Standalone pages use plain hrefs; inside ' +
+                     '<main> an onclick is allowed only for the exact values listed in allowedOnclick (' +
+                     (allowedOnclick.join(', ') || 'none') + ').');
+            }
+        });
         if (/\bnavTo\(|\bnavToArticle\(|\bshowPage\(|\bshowArticle\(/.test(sp.bodyHtml)) {
             fail(sp.slug + ': the page body calls the SPA router. showArticle reads #article-view unguarded and ' +
                  'would throw on this document, and showPage would reset the head.');
         }
 
         // ---- JSON-LD: its own WebPage and a two-step trail ----
+        const schemaOpts = sp.schema || {};
         const pageSchema = {
             '@context': 'https://schema.org',
             '@type': 'WebPage',
@@ -1501,7 +1570,7 @@ function main() {
             'headline': sp.h1,
             'description': sp.description,
             'url': url,
-            'inLanguage': 'en',
+            'inLanguage': schemaOpts.inLanguage || 'en',
             'isAccessibleForFree': true,
             'isPartOf': { '@type': 'WebSite', 'name': 'Cyrilica', 'url': SITE },
             'publisher': {
@@ -1513,15 +1582,19 @@ function main() {
             'audience': { '@type': 'EducationalAudience', 'educationalRole': 'teacher' },
             'about': {
                 '@type': 'Thing',
-                'name': 'Russian alphabet',
-                'description': 'The 33 letters of the Russian Cyrillic alphabet',
+                'name': schemaOpts.aboutName || 'Russian alphabet',
+                'description': schemaOpts.aboutDescription || 'The 33 letters of the Russian Cyrillic alphabet',
             },
         };
+        // Deleting rather than building conditionally keeps every other key in
+        // its existing position, so a page with the defaults emits the same bytes.
+        if (schemaOpts.audience === false) delete pageSchema.audience;
+        const breadcrumbHomeName = sp.breadcrumbHomeName || 'Home';
         const breadcrumbSchema = {
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             'itemListElement': [
-                { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE },
+                { '@type': 'ListItem', 'position': 1, 'name': breadcrumbHomeName, 'item': SITE },
                 { '@type': 'ListItem', 'position': 2, 'name': sp.breadcrumbName, 'item': url },
             ],
         };
@@ -1533,8 +1606,103 @@ function main() {
             '    <script id="page-schema" type="application/ld+json">' + JSON.stringify(pageSchema) + '</script>\n' +
             '    <script id="page-breadcrumb-schema" type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>\n';
 
+        // ---- quizPage: validate the answer table and strings, then serialise ----
+        //
+        // standalone-pages.js is the only home of a page's answer table and
+        // runtime strings; js/core.js reads them as window.QUIZ_PAGE. Everything
+        // below is checked against what core.js itself does: acceptedAnswers is
+        // the display value plus `accept`, lowercased, compared after trim and
+        // toLowerCase, and quizString fills {placeholders}.
+        let quizPageScript = '';
+        if (sp.quizPage) {
+            const qp = sp.quizPage;
+            const answers = qp.answers || {};
+            const strings = qp.strings || {};
+            Object.keys(qp).forEach(function (k) {
+                if (k !== 'answers' && k !== 'strings') fail(sp.slug + ': quizPage has an unknown key "' + k + '"; core.js reads only answers and strings');
+            });
+            if (!Array.isArray(sp.groupTitles) || sp.groupTitles.length !== STUDY_GROUPS.length) {
+                fail(sp.slug + ': a page with quizPage must list ' + STUDY_GROUPS.length + ' groupTitles');
+            }
+            Object.keys(answers).forEach(function (ch) {
+                if (!LETTER_INFO[ch]) fail(sp.slug + ': quizPage.answers has "' + ch + '", which is not a CYRILLIC_DATA letter');
+                Object.keys(answers[ch]).forEach(function (k) {
+                    if (k !== 'show' && k !== 'accept') fail(sp.slug + ': quizPage.answers["' + ch + '"] has an unknown key "' + k + '"');
+                });
+                if (answers[ch].accept !== undefined && !Array.isArray(answers[ch].accept)) fail(sp.slug + ': quizPage.answers["' + ch + '"].accept must be an array');
+            });
+            // Every value: non-empty, trimmed and lowercase, because the input is
+            // trimmed and lowercased before the comparison and anything else could
+            // never be typed.
+            const displayOf = function (ch) {
+                return answers[ch] && typeof answers[ch].show === 'string' ? answers[ch].show : LETTER_INFO[ch].roman;
+            };
+            const acceptedOf = Object.create(null);
+            RUSSIAN_LETTERS.forEach(function (ch) {
+                const own = answers[ch] && answers[ch].accept ? answers[ch].accept : [];
+                const vals = [displayOf(ch)].concat(own);
+                vals.forEach(function (v) {
+                    if (typeof v !== 'string' || v === '' || v !== v.trim() || v !== v.toLowerCase()) {
+                        fail(sp.slug + ': quizPage value ' + JSON.stringify(v) + ' for ' + ch + ' must be a non-empty, trimmed, lowercase string');
+                    }
+                });
+                if (new Set(vals).size !== vals.length) fail(sp.slug + ': ' + ch + ' lists the same answer twice: ' + JSON.stringify(vals));
+                acceptedOf[ch] = vals;
+            });
+            // No accepted value may belong to two letters, or a learner is marked
+            // right for typing a different letter's sound. The one exemption is the
+            // pair English already has: Ы and Й are both "y".
+            const owner = Object.create(null);
+            RUSSIAN_LETTERS.forEach(function (ch) {
+                acceptedOf[ch].forEach(function (v) {
+                    if (owner[v] && owner[v] !== ch) {
+                        const pair = [owner[v], ch].sort().join('');
+                        const exempt = v === 'y' && pair === ['Ы', 'Й'].sort().join('');
+                        if (!exempt) fail(sp.slug + ': "' + v + '" is accepted for both ' + owner[v] + ' and ' + ch);
+                    } else {
+                        owner[v] = ch;
+                    }
+                });
+            });
+            // No accepted value may be a proper prefix of another accepted value for
+            // the same letter: with Auto-Submit on, the shorter one would submit
+            // before the learner finished typing the longer one.
+            RUSSIAN_LETTERS.forEach(function (ch) {
+                acceptedOf[ch].forEach(function (a) {
+                    acceptedOf[ch].forEach(function (b) {
+                        if (a !== b && b.indexOf(a) === 0) {
+                            fail(sp.slug + ': for ' + ch + ', "' + a + '" is a prefix of "' + b + '"; Auto-Submit would fire before "' + b + '" is finished');
+                        }
+                    });
+                });
+            });
+            // Strings: only keys core.js renders, each with exactly the English
+            // placeholders, so nothing is left unfilled and nothing is dropped.
+            const placeholders = function (t) { return (t.match(/\{[a-zA-Z]+\}/g) || []).sort().join(','); };
+            Object.keys(strings).forEach(function (k) {
+                if (!Object.prototype.hasOwnProperty.call(QUIZ_STRINGS_EN, k)) {
+                    fail(sp.slug + ': quizPage.strings has "' + k + '", which is not a key of QUIZ_STRINGS_EN in core.js');
+                }
+                if (typeof strings[k] !== 'string') fail(sp.slug + ': quizPage.strings.' + k + ' must be a string');
+                if (placeholders(strings[k]) !== placeholders(QUIZ_STRINGS_EN[k])) {
+                    fail(sp.slug + ': quizPage.strings.' + k + ' has placeholders [' + placeholders(strings[k]) +
+                         '] but the English default has [' + placeholders(QUIZ_STRINGS_EN[k]) + ']');
+                }
+            });
+            if (sp.chrome && sp.chrome.themeLabel !== undefined && strings.themeToDark !== undefined && sp.chrome.themeLabel !== strings.themeToDark) {
+                fail(sp.slug + ': chrome.themeLabel differs from quizPage.strings.themeToDark; core.js sets the second on boot');
+            }
+            const json = JSON.stringify(qp);
+            // Inline in a <script>: a "<" could open </script> early.
+            if (json.indexOf('<') !== -1) fail(sp.slug + ': the serialised quizPage contains "<"');
+            quizPageScript = '    <script>window.QUIZ_PAGE = ' + json + ';</script>\n';
+            sp.__displayOf = displayOf;
+            sp.__acceptedCount = RUSSIAN_LETTERS.reduce(function (n, ch) { return n + acceptedOf[ch].length; }, 0);
+        }
+
         // ---- assemble ----
         let page = template;
+        page = replaceOnce(page, T.htmlLang, '<html lang="' + (sp.lang || 'en') + '">', sp.slug + '/html lang');
         page = replaceOnce(page, T.title, '<title>' + escTitle + '</title>', sp.slug + '/title');
         page = replaceOnce(page, T.desc, '<meta name="description" content="' + escDesc + '">', sp.slug + '/description');
         page = replaceOnce(page, T.canonical, '<link rel="canonical" href="' + url + '">', sp.slug + '/canonical');
@@ -1544,14 +1712,17 @@ function main() {
         page = replaceOnce(page, T.twUrl, '<meta property="twitter:url" content="' + url + '">', sp.slug + '/twitter:url');
         page = replaceOnce(page, T.twTitle, '<meta property="twitter:title" content="' + escTitle + '">', sp.slug + '/twitter:title');
         page = replaceOnce(page, T.twDesc, '<meta property="twitter:description" content="' + escDesc + '">', sp.slug + '/twitter:description');
-        page = replaceOnce(page, T.headClose, schemaScripts + '</head>', sp.slug + '/schema');
+        page = replaceOnce(page, T.headClose, schemaScripts + quizPageScript + '</head>', sp.slug + '/schema');
         // data-standalone, never data-prerendered: that attribute means "an
         // article is already painted here" and is read by handleInitialURL.
         page = replaceOnce(page, T.body, '<body data-standalone="' + sp.slug + '">', sp.slug + '/body marker');
         // No nav entry, so Home simply loses its active state and nothing gains it.
-        page = replaceOnce(page, T.navHome,
-            '<li><a href="/" onclick="navTo(event, \'home\', null)">Home</a></li>',
-            sp.slug + '/nav home');
+        // A page with its own chrome replaces the whole nav list below instead.
+        if (!sp.chrome) {
+            page = replaceOnce(page, T.navHome,
+                '<li><a href="/" onclick="navTo(event, \'home\', null)">Home</a></li>',
+                sp.slug + '/nav home');
+        }
 
         page = cutBetween(page, '                <!-- HOME PAGE -->', '                <!-- ARTICLES PAGE -->', sp.slug + '/strip home');
         page = cutBetween(page, '                <!-- ARTICLES PAGE -->', '                <!-- ABOUT PAGE -->', sp.slug + '/strip articles page');
@@ -1567,6 +1738,32 @@ function main() {
             '                </div>\n' +
             '                </main>' + FOOTER_TAIL,
             sp.slug + '/main');
+
+        // ---- chrome: a page in another language replaces the English chrome ----
+        //
+        // The nav list, the logo link, the theme and menu labels and the footer.
+        // The logo keeps its Л confetti span untouched; only its link changes, to
+        // a plain href with no router call.
+        if (sp.chrome) {
+            const ch = sp.chrome;
+            const navAt = page.indexOf(T.navListOpen);
+            const navEnd = page.indexOf('</ul>', navAt);
+            if (countOccurrences(page, T.navListOpen) !== 1 || navEnd === -1) fail(sp.slug + ': could not locate the nav list to replace');
+            page = page.slice(0, navAt + T.navListOpen.length) + '\n' + ch.navItems + '\n            ' + page.slice(navEnd);
+            page = replaceOnce(page, T.logoOpen, '<a href="' + ch.logoHref + '" class="nav-logo">', sp.slug + '/logo');
+            page = replaceOnce(page, T.themeLabel, 'aria-label="' + escapeHtml(ch.themeLabel) + '" aria-pressed="false"', sp.slug + '/theme label');
+            page = replaceOnce(page, T.menuLabel, 'aria-label="' + escapeHtml(ch.menuLabel) + '" aria-controls="nav-links"', sp.slug + '/menu label');
+            const fAt = page.indexOf(T.footerOpen);
+            const fEnd = page.indexOf(T.footerClose);
+            if (countOccurrences(page, T.footerOpen) !== 1 || countOccurrences(page, T.footerClose) !== 1 || fEnd < fAt) {
+                fail(sp.slug + ': could not locate the footer to replace');
+            }
+            page = page.slice(0, fAt + T.footerOpen.length) + '\n' + ch.footerHtml + '\n    ' + page.slice(fEnd);
+            // Nothing of the English chrome may survive.
+            ['All rights reserved', 'aria-label="Switch to the dark theme"', 'aria-label="Menu"', 'navTo('].forEach(function (needle) {
+                if (countOccurrences(page, needle) !== 0) fail(sp.slug + ': English chrome survived the replacement: ' + needle);
+            });
+        }
 
         // ---- head assertions on the emitted bytes ----
         const expectHead = [
@@ -1615,8 +1812,32 @@ function main() {
         ['article-content', 'article-title', 'related-articles-section', 'prev-article', 'next-article',
          'home-page', 'articles-page', 'articles-index', 'article-view', 'about-page', 'settings-page',
          'contact-page', 'privacy-page', 'terms-page', 'reference-container'].forEach(function (id) {
+            // A page that declares quizPage carries the quiz, and core.js finds the
+            // study groups by this id. Every other id stays banned for every page.
+            if (id === 'reference-container' && sp.quizPage) return;
             if (page.indexOf('id="' + id + '"') !== -1) fail(sp.slug + ': the emitted page still contains id="' + id + '"');
         });
+
+        // ---- quiz parity: a page with quizPage carries the whole quiz ----
+        if (sp.quizPage) {
+            QUIZ_IDS.forEach(function (id) {
+                const n = countOccurrences(page, 'id="' + id + '"');
+                // No Settings on a localised page: the Settings page is English.
+                const want = id === 'settings-btn' ? 0 : 1;
+                if (n !== want) fail(sp.slug + ': expected ' + want + ' id="' + id + '", found ' + n);
+            });
+            const classAttrs = page.match(/\sclass="[^"]*"/g) || [];
+            const charRef = classAttrs.filter(function (c) { return c.slice(8, -1).split(/\s+/).indexOf('char-reference') !== -1; }).length;
+            if (charRef !== 1) fail(sp.slug + ': expected exactly one element with class char-reference, found ' + charRef);
+            assertStudyGroups(page, sp.slug, STUDY_GROUPS.map(function (g, i) {
+                return { key: g.key, title: sp.groupTitles[i], letters: g.letters, romans: g.letters.map(sp.__displayOf) };
+            }), false);
+            // A same-page fragment link pushes a history entry, and core.js's
+            // popstate handler would send the next Back press to the English
+            // homepage, because this document has no section for it.
+            const quizMain = page.slice(page.indexOf('<main>'), page.indexOf('</main>'));
+            if (/href\s*=\s*["']#/.test(quizMain)) fail(sp.slug + ': <main> contains a same-page fragment link (href="#...")');
+        }
         ['data-prerendered', 'class="article-item"', 'related-article-card', 'navigateArticle('].forEach(function (needle) {
             if (page.indexOf(needle) !== -1) fail(sp.slug + ': the emitted page contains article-only markup: ' + needle);
         });
@@ -1640,7 +1861,7 @@ function main() {
         if (spBreadcrumbs.length !== 1) fail(sp.slug + ': expected exactly one BreadcrumbList, found ' + spBreadcrumbs.length);
         const trail = spBreadcrumbs[0].itemListElement || [];
         if (trail.length !== 2) fail(sp.slug + ': expected a two-step breadcrumb trail, found ' + trail.length);
-        if (trail[0].name !== 'Home' || trail[0].item !== SITE) fail(sp.slug + ': breadcrumb step 1 is not Home -> ' + SITE);
+        if (trail[0].name !== breadcrumbHomeName || trail[0].item !== SITE) fail(sp.slug + ': breadcrumb step 1 is not ' + breadcrumbHomeName + ' -> ' + SITE);
         if (trail[1].name !== sp.breadcrumbName || trail[1].item !== url) {
             fail(sp.slug + ': breadcrumb step 2 is not ' + sp.breadcrumbName + ' -> ' + url);
         }
@@ -1671,46 +1892,92 @@ function main() {
         });
         const mainOpenAt = page.indexOf('<main>');
         const mainBlock = page.slice(mainOpenAt, page.indexOf('</main>'));
-        if (countOccurrences(mainBlock, 'onclick=') !== 0) fail(sp.slug + ': the emitted page body carries an onclick attribute');
+        if (onclickOccurrences(mainBlock).length !== onclickAttrs(mainBlock).length) {
+            fail(sp.slug + ': the emitted page body carries an onclick in a spelling the strict matcher does not read');
+        }
+        onclickAttrs(mainBlock).forEach(function (o) {
+            if (allowedOnclick.indexOf(o.attr) === -1) fail(sp.slug + ': the emitted page body carries onclick="' + o.attr + '", which is not in allowedOnclick');
+        });
         scriptContractChecked += assertScriptContract(page, sp.slug + ' (standalone page)');
         internalLinksChecked += assertInternalLinks(page, sp.slug + ' (standalone page)', linkRefs);
         idsByPath['/' + sp.slug] = idsIn(page);
-        emittedPages.push({ label: sp.slug + ' (standalone page)', html: page });
+        emittedPages.push({ label: sp.slug + ' (standalone page)', html: page, slug: sp.slug,
+                            lang: sp.lang || 'en', customFooter: !!sp.chrome });
 
         fs.writeFileSync(path.join(ROOT, sp.slug + '.html'), page, 'utf8');
         standaloneNames.push(sp.slug + '.html');
-        standaloneFooterLinks.push('<a href="/' + sp.slug + '">' + sp.breadcrumbName + '</a>');
+        if ((sp.inbound || 'footer') === 'footer') {
+            standaloneFooterLinks.push('<a href="/' + sp.slug + '">' + sp.breadcrumbName + '</a>');
+        }
         standaloneEmitted += 1;
     });
 
     // ---- the inbound links, in the shell and in every emitted document ----
     //
-    // A standalone page has no nav entry, so the footer link and the one
-    // contextual link on the About page are how a reader and a crawler reach it.
-    // The link markup is derived from the page's own slug and breadcrumb name.
+    // inbound 'footer' (the default): a standalone page has no nav entry, so the
+    // footer link and the one contextual link on the About page are how a reader
+    // and a crawler reach it. The link markup is derived from the page's own slug
+    // and breadcrumb name. A page with its own chrome has its own footer, so
+    // there the check is for exactly one href to the page instead.
+    //
+    // inbound 'homepage': linked once from the English homepage and nowhere
+    // else, never from the footer.
     const aboutStart = template.indexOf('<div id="about-page"');
     const aboutEnd = template.indexOf('<!-- SETTINGS PAGE -->');
     if (aboutStart === -1 || aboutEnd === -1 || aboutEnd < aboutStart) fail('index.html: could not locate the About page section');
     const aboutSection = template.slice(aboutStart, aboutEnd);
-    STANDALONE_PAGES.forEach(function (sp, i) {
-        const footerLink = standaloneFooterLinks[i];
-        if (countOccurrences(template, footerLink) !== 1) {
-            fail('index.html: expected exactly one footer link ' + footerLink);
-        }
-        if (countOccurrences(notFoundSrc, footerLink) !== 1) {
-            fail('404.html: expected exactly one footer link ' + footerLink);
-        }
-        if (countOccurrences(aboutSection, 'href="/' + sp.slug + '"') !== 1) {
-            fail('index.html: expected exactly one contextual link to /' + sp.slug + ' on the About page');
-        }
-        emittedPages.forEach(function (rec) {
-            if (countOccurrences(rec.html, footerLink) !== 1) {
-                fail(rec.label + ': expected exactly one footer link ' + footerLink);
+    const footerOf = function (html) { return html.slice(html.indexOf('<footer>'), html.indexOf('</footer>')); };
+    let footerLinkIndex = 0;
+    STANDALONE_PAGES.forEach(function (sp) {
+        const inbound = sp.inbound || 'footer';
+        const href = 'href="/' + sp.slug + '"';
+        if (inbound === 'footer') {
+            const footerLink = standaloneFooterLinks[footerLinkIndex++];
+            if (countOccurrences(template, footerLink) !== 1) {
+                fail('index.html: expected exactly one footer link ' + footerLink);
             }
-        });
+            if (countOccurrences(notFoundSrc, footerLink) !== 1) {
+                fail('404.html: expected exactly one footer link ' + footerLink);
+            }
+            if (countOccurrences(aboutSection, href) !== 1) {
+                fail('index.html: expected exactly one contextual link to /' + sp.slug + ' on the About page');
+            }
+            emittedPages.forEach(function (rec) {
+                if (rec.customFooter) {
+                    if (countOccurrences(footerOf(rec.html), href) !== 1) {
+                        fail(rec.label + ': expected exactly one ' + href + ' in its own footer');
+                    }
+                } else if (countOccurrences(rec.html, footerLink) !== 1) {
+                    fail(rec.label + ': expected exactly one footer link ' + footerLink);
+                }
+            });
+        } else if (inbound === 'homepage') {
+            if (countOccurrences(footerOf(template), href) !== 0) fail('index.html: the footer links to /' + sp.slug + ', whose inbound mode is homepage');
+            if (countOccurrences(notFoundSrc, href) !== 0) fail('404.html: links to /' + sp.slug + ', whose inbound mode is homepage');
+            if (countOccurrences(aboutSection, href) !== 0) fail('index.html: the About page links to /' + sp.slug + ', whose inbound mode is homepage');
+            emittedPages.forEach(function (rec) {
+                if (rec.slug !== sp.slug && countOccurrences(rec.html, href) !== 0) {
+                    fail(rec.label + ': links to /' + sp.slug + ', whose inbound mode is homepage');
+                }
+            });
+        } else {
+            fail(sp.slug + ': inbound must be "footer" or "homepage", found ' + JSON.stringify(inbound));
+        }
+    });
+
+    // ---- <html lang> on every emitted document ----
+    emittedPages.forEach(function (rec) {
+        const want = rec.lang || 'en';
+        if (countOccurrences(rec.html, '<html lang="' + want + '">') !== 1 || countOccurrences(rec.html, '<html lang=') !== 1) {
+            fail(rec.label + ': expected exactly one <html lang="' + want + '">');
+        }
     });
 
     // ---- serving: the standalone page must never be a shell route ----
+    const excludedPaths = parseExcludedPath(edgeSrc);
+    const gitignoreLines = fs.readFileSync(path.join(ROOT, '.gitignore'), 'utf8').split('\n')
+        .map(function (l) { return l.trim(); })
+        .filter(function (l) { return l && l.charAt(0) !== '#'; });
     STANDALONE_PAGES.forEach(function (sp) {
         const shellRule = redirectRules.filter(function (r) {
             return r.source === '/' + sp.slug && r.target === '/index.html';
@@ -1726,10 +1993,18 @@ function main() {
             fail('_redirects: expected exactly one forced 301 from /' + sp.slug + '.html to /' + sp.slug + ', found ' + htmlRule.length +
                  '. Without it the .html path serves a byte-for-byte duplicate at 200.');
         }
-        if (edgeSrc.indexOf('"/' + sp.slug + '"') === -1 || edgeSrc.indexOf('"/' + sp.slug + '.html"') === -1) {
+        if (excludedPaths.indexOf('/' + sp.slug) === -1 || excludedPaths.indexOf('/' + sp.slug + '.html') === -1) {
             fail('netlify/edge-functions/head-rewrite.ts: /' + sp.slug + ' and /' + sp.slug + '.html must both be in ' +
                  'excludedPath. The function treats an unknown path as noindex, and it would rewrite this page\'s ' +
                  'robots meta on every request.');
+        }
+        // The trailing-slash form must never be served at 200: it would be a
+        // duplicate URL, and relative paths (the quiz audio) would resolve under it.
+        const slashRule = redirectRules.filter(function (r) { return r.source === '/' + sp.slug + '/' && r.status === '200'; });
+        if (slashRule.length) fail('_redirects: /' + sp.slug + '/ is served with a 200; it must redirect to /' + sp.slug);
+        // The emitted file is build output and must never be committed.
+        if (gitignoreLines.indexOf(sp.slug + '.html') === -1 && gitignoreLines.indexOf('/' + sp.slug + '.html') === -1) {
+            fail('.gitignore: ' + sp.slug + '.html is build output and must be ignored');
         }
     });
 
@@ -1739,7 +2014,7 @@ function main() {
     // rules are demanded by the pages that need them rather than kept alive by
     // this script's opinion.
     if (standaloneMediaRefs.length) {
-        if (edgeSrc.indexOf('"' + MEDIA_PREFIX + '*"') === -1) {
+        if (excludedPaths.indexOf(MEDIA_PREFIX + '*') === -1) {
             fail('netlify/edge-functions/head-rewrite.ts: "' + MEDIA_PREFIX + '*" must be in excludedPath. ' +
                  'A video is fetched with byte-range requests, and a function that reads and rewrites the ' +
                  'response body cannot pass a 206 and its Content-Range through unchanged.');
@@ -1857,6 +2132,12 @@ function main() {
                 'under its limit (' + MEDIA_VIDEO_MAX_BYTES + ' and ' + MEDIA_POSTER_MAX_BYTES + ' bytes), ' +
                 'muted loop playsinline preload="none" with width and height and no autoplay, ' +
                 MEDIA_PREFIX + '* excluded from the edge function, immutably cached, and unmatched by _redirects.');
+    STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; }).forEach(function (sp) {
+        console.log('Localised quiz passed: /' + sp.slug + ' (lang ' + sp.lang + '), ' + (QUIZ_IDS.length - 1) + ' quiz ids present and ' +
+                    'settings-btn absent, 6 study groups with the page\'s display values, ' + sp.__acceptedCount +
+                    ' accepted answers across 33 letters with no cross-letter or same-letter prefix clash, ' +
+                    Object.keys(sp.quizPage.strings || {}).length + ' strings matching QUIZ_STRINGS_EN placeholders.');
+    });
     console.log('Routing checks passed: ' + expectedRoutes.length + ' SPA routes match VALID_PAGES, ' +
                 ARTICLE_ORDER.length + ' article files on disk, ' + standaloneEmitted + ' standalone file' +
                 (standaloneEmitted === 1 ? '' : 's') + ' on disk, 404.html clean.');

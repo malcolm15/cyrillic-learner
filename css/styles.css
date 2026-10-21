@@ -2088,6 +2088,14 @@
             color: white;
         }
 
+        /* Plain-text label before a run of footer links, used by the Spanish
+           page to say the links lead to English pages. Inherits the footer
+           text colour; the weight sets it apart from the links. */
+        .footer-label {
+            font-weight: 400;
+            opacity: 0.85;
+        }
+
         body.dark-mode .footer-links a:hover {
             color: var(--dark-link-hover);
         }
