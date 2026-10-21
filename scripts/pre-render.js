@@ -535,6 +535,72 @@ function parseExcludedPath(src) {
     return (body.match(/"[^"]*"/g) || []).map(function (q) { return q.slice(1, -1); });
 }
 
+// The guard a page translator honours, on one opening tag: translate="no" for
+// Chrome's translator and the notranslate class for Google's translate proxy.
+function hasTranslateGuard(tag) {
+    const cls = /\sclass="([^"]*)"/.exec(tag);
+    return /\stranslate="no"/.test(tag) && !!cls && cls[1].split(/\s+/).indexOf('notranslate') !== -1;
+}
+
+// The opening tag of the one element with id="<id>" in `html`. Fails unless
+// there is exactly one.
+function openingTagWithId(html, id, label) {
+    const attrs = '(?:[^>"\']|"[^"]*"|\'[^\']*\')*';
+    const tags = html.match(new RegExp('<[a-zA-Z][a-zA-Z0-9-]*' + attrs + '\\sid="' + id + '"' + attrs + '>', 'g')) || [];
+    if (tags.length !== 1) fail(label + ': expected one element with id="' + id + '", found ' + tags.length);
+    return tags[0];
+}
+
+// Every run of text in `html` that contains a Cyrillic letter, with what is open
+// around it: a translation guard, a lang="ru" element, or one of the quiz's own
+// letter elements (a study grid, #current-char, #current-char-lower). A small tag
+// scanner, enough for hand-written markup: comments are skipped, void elements
+// never open, and script and style bodies are not text.
+function cyrillicTextRuns(html) {
+    const VOID = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'];
+    const tagRe = /<!--[\s\S]*?-->|<(\/?)([a-zA-Z][a-zA-Z0-9-]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g;
+    const stack = [];
+    const runs = [];
+    let last = 0;
+    let m;
+    const take = function (text) {
+        if (!/[\u0400-\u04FF]/.test(text)) return;
+        runs.push({
+            text: text.trim(),
+            guarded: stack.some(function (e) { return e.guard; }),
+            russian: stack.some(function (e) { return e.ru; }),
+            quiz: stack.some(function (e) { return e.quiz; }),
+        });
+    };
+    while ((m = tagRe.exec(html)) !== null) {
+        take(html.slice(last, m.index));
+        last = tagRe.lastIndex;
+        if (m[0].indexOf('<!--') === 0) continue;
+        const name = m[2].toLowerCase();
+        if (m[1]) {
+            for (let i = stack.length - 1; i >= 0; i--) {
+                if (stack[i].name === name) { stack.length = i; break; }
+            }
+            continue;
+        }
+        if (VOID.indexOf(name) !== -1 || /\/\s*$/.test(m[3])) continue;
+        if (name === 'script' || name === 'style') {
+            const end = html.indexOf('</' + name, last);
+            if (end === -1) break;
+            tagRe.lastIndex = last = end;
+            continue;
+        }
+        stack.push({
+            name: name,
+            guard: hasTranslateGuard(m[0]),
+            ru: /\slang="ru"/.test(m[3]),
+            quiz: /\sid="current-char(?:-lower)?"/.test(m[3]) || /\sclass="[^"]*\breference-grid\b/.test(m[3]),
+        });
+    }
+    take(html.slice(last));
+    return runs;
+}
+
 // Every share handler call in `content`, with the function name and the first
 // argument. The first-argument pattern tolerates escapes so that malformed input
 // is reported by the checks below rather than skipped by the matcher.
@@ -1037,6 +1103,11 @@ function main() {
     // card's data-group key, title, letters and the romanization it must show.
     // With checkData, each shown roman must also equal the CYRILLIC_DATA roman;
     // a localised page instead passes its own display values as `romans`.
+    // Each study grid opens with this exact tag on every document that has the
+    // quiz. Without the guard a page translator rewrites the grid as words: Cyrillic
+    // letters transliterated, and romanizations such as y, ya and yo turned into
+    // "and", "already" and "I".
+    const GRID_OPEN = '<div class="reference-grid notranslate" translate="no">';
     function assertStudyGroups(html, label, groups, checkData) {
         const groupsOpen = '<div id="reference-container">';
         const sgAt = html.indexOf(groupsOpen);
@@ -1062,6 +1133,9 @@ function main() {
             const titleMatch = got.html.match(/<div class="section-title">([^<]*)<\/div>/);
             if (!titleMatch || titleMatch[1] !== want.title) {
                 fail(label + ': ' + want.key + ' title is "' + (titleMatch ? titleMatch[1] : 'missing') + '", expected "' + want.title + '"');
+            }
+            if (countOccurrences(got.html, 'class="reference-grid') !== 1 || countOccurrences(got.html, GRID_OPEN) !== 1) {
+                fail(label + ': the ' + want.key + ' grid must open with ' + GRID_OPEN);
             }
             const letters = [];
             const romans = [];
@@ -1090,6 +1164,16 @@ function main() {
         });
     }
     assertStudyGroups(template, 'index.html', STUDY_GROUPS, true);
+
+    // The letter being asked, upper and lower case, carries the same guard as the
+    // grids. A translated И once displayed as "AND".
+    function assertQuizLetterGuards(html, label) {
+        ['current-char', 'current-char-lower'].forEach(function (id) {
+            const tag = openingTagWithId(html, id, label);
+            if (!hasTranslateGuard(tag)) fail(label + ': #' + id + ' must carry translate="no" and class notranslate, found ' + tag);
+        });
+    }
+    assertQuizLetterGuards(template, 'index.html');
 
     // ---- the quiz block's ids, derived from index.html ----
     // From the selection card through #quiz-container. A page that carries the
@@ -1844,6 +1928,22 @@ function main() {
             // homepage, because this document has no section for it.
             const quizMain = page.slice(page.indexOf('<main>'), page.indexOf('</main>'));
             if (/href\s*=\s*["']#/.test(quizMain)) fail(sp.slug + ': <main> contains a same-page fragment link (href="#...")');
+            // Translation guards: the quiz letter, and every Cyrillic letter in
+            // <main> inside an element with translate="no" and class notranslate.
+            // Outside the quiz's own grids and letter that element must also be
+            // lang="ru", which is what ru() in standalone-pages.js emits.
+            assertQuizLetterGuards(page, sp.slug);
+            const runs = cyrillicTextRuns(quizMain);
+            runs.forEach(function (r) {
+                if (!r.guarded) {
+                    fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in <main> is not inside an element with translate="no" and class notranslate');
+                }
+                if (!r.quiz && !r.russian) {
+                    fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in the <main> prose is not inside a lang="ru" element; wrap it with ru() in scripts/standalone-pages.js');
+                }
+            });
+            sp.__cyrillicRuns = runs.length;
+            sp.__proseRuns = runs.filter(function (r) { return !r.quiz; }).length;
         }
         ['data-prerendered', 'class="article-item"', 'related-article-card', 'navigateArticle('].forEach(function (needle) {
             if (page.indexOf(needle) !== -1) fail(sp.slug + ': the emitted page contains article-only markup: ' + needle);
@@ -2183,6 +2283,13 @@ function main() {
                     ' accepted answers across 33 letters with no cross-letter or same-letter prefix clash, ' +
                     Object.keys(sp.quizPage.strings || {}).length + ' strings matching QUIZ_STRINGS_EN placeholders.');
     });
+    const guardedPages = STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; });
+    console.log('Translation guards passed: index.html' + guardedPages.map(function (sp) { return ' and /' + sp.slug; }).join('') +
+                ': 6 study grids, #current-char and #current-char-lower carry translate="no" and class notranslate' +
+                guardedPages.map(function (sp) {
+                    return '; /' + sp.slug + ' <main>: ' + sp.__cyrillicRuns + ' Cyrillic text runs, all guarded (' +
+                           sp.__proseRuns + ' in lang="ru" prose spans)';
+                }).join('') + '.');
     console.log('Routing checks passed: ' + expectedRoutes.length + ' SPA routes match VALID_PAGES, ' +
                 ARTICLE_ORDER.length + ' article files on disk, ' + standaloneEmitted + ' standalone file' +
                 (standaloneEmitted === 1 ? '' : 's') + ' on disk, 404.html clean.');

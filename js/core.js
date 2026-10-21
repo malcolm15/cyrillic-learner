@@ -26,19 +26,52 @@ const QUIZ_STRINGS_EN = {
     themeToLight: 'Switch to the light theme'
 };
 
+// The page's template for `key` if it supplies one, otherwise the English default.
+function quizTemplate(key) {
+    const own = QUIZ_PAGE && QUIZ_PAGE.strings &&
+        Object.prototype.hasOwnProperty.call(QUIZ_PAGE.strings, key) ? QUIZ_PAGE.strings[key] : null;
+    return typeof own === 'string' ? own : QUIZ_STRINGS_EN[key];
+}
+
 // The page's string for `key` if it supplies one, otherwise the English default,
 // with placeholders filled from `values`. A replacer function, not a replacement
 // string, so a "$" in a value is copied literally.
 function quizString(key, values) {
-    const own = QUIZ_PAGE && QUIZ_PAGE.strings &&
-        Object.prototype.hasOwnProperty.call(QUIZ_PAGE.strings, key) ? QUIZ_PAGE.strings[key] : null;
-    return fillPlaceholders(typeof own === 'string' ? own : QUIZ_STRINGS_EN[key], values);
+    return fillPlaceholders(quizTemplate(key), values);
 }
 
 function fillPlaceholders(template, values) {
     return template.replace(/\{([a-zA-Z]+)\}/g, function (whole, name) {
         return values && Object.prototype.hasOwnProperty.call(values, name) ? String(values[name]) : whole;
     });
+}
+
+// Writes quizString(key, values) into `el`, with each filled placeholder in its
+// own <span translate="no" class="notranslate">. The feedback line's {answer} is
+// a romanization, and a page translator (Chrome's, or translate.goog) would turn
+// "o" into "either" or "ya" into "already" and show the learner a wrong answer;
+// the words around it stay translatable. DOM methods only, never innerHTML, and
+// el.textContent always ends up exactly equal to quizString(key, values).
+function setQuizText(el, key, values) {
+    const template = quizTemplate(key);
+    const re = /\{([a-zA-Z]+)\}/g;
+    let last = 0;
+    let m;
+    el.textContent = '';
+    while ((m = re.exec(template)) !== null) {
+        if (m.index > last) el.appendChild(document.createTextNode(template.slice(last, m.index)));
+        if (values && Object.prototype.hasOwnProperty.call(values, m[1])) {
+            const span = document.createElement('span');
+            span.setAttribute('translate', 'no');
+            span.className = 'notranslate';
+            span.textContent = String(values[m[1]]);
+            el.appendChild(span);
+        } else {
+            el.appendChild(document.createTextNode(m[0]));
+        }
+        last = re.lastIndex;
+    }
+    if (last < template.length) el.appendChild(document.createTextNode(template.slice(last)));
 }
 
 function safeGetNavLink(pageName) {
@@ -1411,7 +1444,7 @@ function checkAnswer() {
             }, 750); // Perfect for correct answers
         }
     } else {
-        feedback.textContent = quizString('wrong', { answer: displayRoman(currentChar) });
+        setQuizText(feedback, 'wrong', { answer: displayRoman(currentChar) });
         feedback.className = 'feedback incorrect';
         incorrectCount++;
         currentStreak = 0;
@@ -1449,7 +1482,7 @@ function updateStats() {
 
 function skipQuestion() {
     const feedback = document.getElementById('feedback');
-    feedback.textContent = quizString('skip', { answer: displayRoman(currentChar) });
+    setQuizText(feedback, 'skip', { answer: displayRoman(currentChar) });
     feedback.className = 'feedback';
     answered = true;
     

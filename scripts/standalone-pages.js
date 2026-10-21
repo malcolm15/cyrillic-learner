@@ -73,6 +73,16 @@ const ES_ANSWERS = {
     'Ь': { accept: ['’', '‘'] },
 };
 
+// Translation guards for the Spanish prose. A page translator (Chrome's, or
+// translate.goog) rewrites Cyrillic letters and short romanizations as if they
+// were words, so "e" can come back as "and" and Х as "Kh". ru() marks a Russian
+// letter and rom() a romanization or quoted sign; both render as the bare text,
+// so the visible copy is unchanged. scripts/pre-render.js asserts every Cyrillic
+// letter in the page's <main> sits inside one of these or a quiz element that
+// carries translate="no".
+const ru = ch => '<span lang="ru" translate="no" class="notranslate">' + ch + '</span>';
+const rom = text => '<span translate="no" class="notranslate">' + text + '</span>';
+
 module.exports = [
     {
         slug: 'teachers',
@@ -327,7 +337,7 @@ module.exports = [
                         <div id="reference-container">
                             <div class="reference-section" data-group="vowels_1">
                                 <div class="section-title">Vocales 1</div>
-                                <div class="reference-grid">
+                                <div class="reference-grid notranslate" translate="no">
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">А</span><span class="char-ref-roman">a</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Е</span><span class="char-ref-roman">ye</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">И</span><span class="char-ref-roman">i</span></div>
@@ -337,7 +347,7 @@ module.exports = [
                             </div>
                             <div class="reference-section" data-group="vowels_2">
                                 <div class="section-title">Vocales 2</div>
-                                <div class="reference-grid">
+                                <div class="reference-grid notranslate" translate="no">
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Ё</span><span class="char-ref-roman">yo</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Ы</span><span class="char-ref-roman">y</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Э</span><span class="char-ref-roman">e</span></div>
@@ -347,7 +357,7 @@ module.exports = [
                             </div>
                             <div class="reference-section" data-group="consonants_1">
                                 <div class="section-title">Consonantes 1</div>
-                                <div class="reference-grid">
+                                <div class="reference-grid notranslate" translate="no">
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Б</span><span class="char-ref-roman">b</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">В</span><span class="char-ref-roman">v</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Г</span><span class="char-ref-roman">g</span></div>
@@ -358,7 +368,7 @@ module.exports = [
                             </div>
                             <div class="reference-section" data-group="consonants_2">
                                 <div class="section-title">Consonantes 2</div>
-                                <div class="reference-grid">
+                                <div class="reference-grid notranslate" translate="no">
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">К</span><span class="char-ref-roman">k</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Л</span><span class="char-ref-roman">l</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">М</span><span class="char-ref-roman">m</span></div>
@@ -369,7 +379,7 @@ module.exports = [
                             </div>
                             <div class="reference-section" data-group="consonants_3">
                                 <div class="section-title">Consonantes 3</div>
-                                <div class="reference-grid">
+                                <div class="reference-grid notranslate" translate="no">
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">С</span><span class="char-ref-roman">s</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Т</span><span class="char-ref-roman">t</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Ф</span><span class="char-ref-roman">f</span></div>
@@ -380,7 +390,7 @@ module.exports = [
                             </div>
                             <div class="reference-section" data-group="consonants_4">
                                 <div class="section-title">Consonantes 4</div>
-                                <div class="reference-grid">
+                                <div class="reference-grid notranslate" translate="no">
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Ш</span><span class="char-ref-roman">sh</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Щ</span><span class="char-ref-roman">shch</span></div>
                                     <div class="char-ref-item"><span class="char-ref-cyrillic">Ъ</span><span class="char-ref-roman">"</span></div>
@@ -400,8 +410,8 @@ module.exports = [
                             </div>
 
                             <div class="character-display">
-                                <span class="cyrillic-char" id="current-char">А</span>
-                                <span class="cyrillic-char cyrillic-char-lowercase" id="current-char-lower" style="display: none;">а</span>
+                                <span class="cyrillic-char notranslate" id="current-char" translate="no">А</span>
+                                <span class="cyrillic-char cyrillic-char-lowercase notranslate" id="current-char-lower" translate="no" style="display: none;">а</span>
                                 <button class="audio-btn" id="audio-btn" style="display: none;" title="Escuchar la pronunciación" aria-label="Escuchar la pronunciación">🔊</button>
                             </div>
 
@@ -450,12 +460,12 @@ module.exports = [
 
                         <h2>¿Cuántas letras tiene el alfabeto ruso?</h2>
                         <div class="content-text">
-                            <p>Tiene 33: 10 vocales, 21 consonantes y dos signos sin sonido propio, el signo duro (Ъ) y el signo blando (Ь). Algunas se parecen a letras latinas, pero no se transcriben igual: В es v, Н es n, Р es r y С es s.</p>
+                            <p>Tiene 33: 10 vocales, 21 consonantes y dos signos sin sonido propio, el signo duro (${ru('Ъ')}) y el signo blando (${ru('Ь')}). Algunas se parecen a letras latinas, pero no se transcriben igual: ${ru('В')} es ${rom('v')}, ${ru('Н')} es ${rom('n')}, ${ru('Р')} es ${rom('r')} y ${ru('С')} es ${rom('s')}.</p>
                         </div>
 
                         <h2>Sobre la transcripción</h2>
                         <div class="content-text">
-                            <p>Para practicar usamos una transcripción sencilla, letra por letra, que se puede escribir con cualquier teclado. No sigue al pie de la letra ninguna norma oficial. Х se escribe j (también se acepta kh) y Щ se escribe shch (también se acepta sch). Е se escribe ye y Э se escribe e, para distinguirlas. Los signos duro y blando se escriben con comillas: " para Ъ y ' para Ь.</p>
+                            <p>Para practicar usamos una transcripción sencilla, letra por letra, que se puede escribir con cualquier teclado. No sigue al pie de la letra ninguna norma oficial. ${ru('Х')} se escribe ${rom('j')} (también se acepta ${rom('kh')}) y ${ru('Щ')} se escribe ${rom('shch')} (también se acepta ${rom('sch')}). ${ru('Е')} se escribe ${rom('ye')} y ${ru('Э')} se escribe ${rom('e')}, para distinguirlas. Los signos duro y blando se escriben con comillas: ${rom('"')} para ${ru('Ъ')} y ${rom("'")} para ${ru('Ь')}.</p>
                         </div>
                     </div>`,
     },
