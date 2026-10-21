@@ -39,13 +39,18 @@
 //   groupTitles          The six study-group titles the page shows, in order.
 //                        Required with quizPage; the build checks the cards.
 //   inbound              'footer' (default): linked from the English footer and
-//                        the About page. 'homepage': linked once from the English
-//                        homepage only, never from the footer.
+//                        the About page. 'language': for a page in another
+//                        language, linked from the footer of every English
+//                        document (footerLabel) and once from the homepage, as a
+//                        link shown only to browsers whose primary language
+//                        matches (inboundLabel).
 //   allowedOnclick       Exact onclick attribute values allowed inside <main>.
 //                        Default none. Router calls stay banned regardless.
-//   inboundLabel         With inbound 'homepage': the text of the one homepage
-//                        link, which is <p class="lang-switch"><a href="/<slug>"
+//   inboundLabel         With inbound 'language': the text of the homepage
+//                        link, <p class="lang-suggest"><a href="/<slug>"
 //                        hreflang="<lang>" lang="<lang>">label</a></p>.
+//   footerLabel          With inbound 'language': the text of the footer link,
+//                        <a href="/<slug>" hreflang="<lang>" lang="<lang>">label</a>.
 //   alternates           [{ hreflang, href }]. Emitted as <link rel="alternate">
 //                        after the canonical. The homepage's copy of the same tags
 //                        is added by netlify/edge-functions/head-rewrite.ts, and
@@ -282,7 +287,7 @@ module.exports = [
         h1: 'Alfabeto ruso: aprende las 33 letras',
         keySentence: 'El alfabeto ruso, también llamado abecedario ruso, tiene 33 letras y se escribe con el alfabeto cirílico.',
         published: '2026-10-20',
-        modified: '2026-10-20',
+        modified: '2026-10-21',
         breadcrumbName: 'Alfabeto ruso',
         breadcrumbHomeName: 'Cyrilica',
         schema: {
@@ -291,14 +296,15 @@ module.exports = [
             aboutName: 'Alfabeto ruso',
             aboutDescription: 'Las 33 letras del alfabeto cirílico ruso',
         },
-        inbound: 'homepage',
-        inboundLabel: 'Español',
+        inbound: 'language',
+        inboundLabel: 'Practicar en español',
+        footerLabel: 'Quiz en español',
         alternates: [
             { hreflang: 'en', href: 'https://cyrilica.com/' },
             { hreflang: 'es', href: 'https://cyrilica.com/es' },
             { hreflang: 'x-default', href: 'https://cyrilica.com/' },
         ],
-        allowedOnclick: ['selectAllGroups()', 'clearAllGroups()', 'checkAnswer()'],
+        allowedOnclick: ['selectAllGroups()', 'clearAllGroups()', 'checkAnswer()', 'burstConfetti(event, this)'],
         settingsPanel: true,
         groupTitles: ['Vocales 1', 'Vocales 2', 'Consonantes 1', 'Consonantes 2', 'Consonantes 3', 'Consonantes 4'],
         quizPage: { answers: ES_ANSWERS, strings: ES_STRINGS },
@@ -323,13 +329,11 @@ module.exports = [
                 '            </div>\n' +
                 '        </div>',
         },
-        bodyHtml: `                    <div class="card">
-                        <h1>Alfabeto ruso: aprende las 33 letras</h1>
-
-                        <div class="content-text">
-                            <p>El alfabeto ruso, también llamado abecedario ruso, tiene 33 letras y se escribe con el alfabeto cirílico. Aquí puedes practicarlas todas: eliges un grupo de letras, ves cada una en pantalla, escribes su equivalente en letras latinas y compruebas al instante si es correcto. Puedes escuchar grabaciones de pronunciación mientras practicas, y no hace falta registrarse.</p>
-                        </div>
-                    </div>
+        bodyHtml: `                    <header>
+                        <div class="logo-display notranslate" translate="no">CYRI<span class="letter-l" lang="ru" onclick="burstConfetti(event, this)">Л<span class="confetti-burst"></span></span>ICA</div>
+                        <h1 class="subtitle">Alfabeto ruso: aprende las 33 letras</h1>
+                        <p class="site-description">El alfabeto ruso, también llamado abecedario ruso, tiene 33 letras y se escribe con el alfabeto cirílico.</p>
+                    </header>
 
                     <div class="card char-reference">
                         <div class="selection-header">
@@ -523,7 +527,7 @@ module.exports = [
                     <div class="card">
                         <h2>Cómo funciona</h2>
                         <div class="content-text">
-                            <p>Elige uno o varios grupos y pulsa Empezar. Verás una letra rusa: escribe cómo se transcribe en letras latinas y pulsa Comprobar. Si fallas, verás la respuesta correcta y pasarás a la siguiente letra. Con el botón 🔊 puedes escuchar el audio de cada letra.</p>
+                            <p>Elige uno o varios grupos y pulsa Empezar. Verás una letra rusa: escribe cómo se transcribe en letras latinas y pulsa Comprobar para saber al instante si es correcta. Si fallas, verás la respuesta correcta y pasarás a la siguiente letra. Con el botón 🔊 puedes escuchar el audio de cada letra. Es gratis y no hace falta registrarse.</p>
                         </div>
 
                         <h2>¿Cuántas letras tiene el alfabeto ruso?</h2>

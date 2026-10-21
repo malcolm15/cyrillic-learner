@@ -537,8 +537,11 @@
             color: var(--dark-text);
         }
 
+        /* Weight 400 because /es puts its h1 in this class, and an h1 would
+           otherwise be synthetically bolded (Bebas Neue is loaded at 400 only). */
         .subtitle {
             font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
             font-size: 1.6rem;
             color: #444;
             letter-spacing: 2.5px;
@@ -564,22 +567,30 @@
             color: var(--dark-text-muted);
         }
 
-        /* The homepage's one link to the Spanish page (/es). A small text link
-           under the site description, not a button, so it reads as a language
-           choice rather than a call to action. */
-        .lang-switch {
+        /* The homepage's suggestion of the Spanish page (/es), under the site
+           description: a small text link, not a button. It is in the HTML for
+           everyone but hidden, and shown only when the pre-paint script in
+           index.html puts lang-es on <html> (the browser's primary language is
+           Spanish), so it never shifts the layout. That class is used by the
+           rule below and no other; scripts/pre-render.js asserts it. */
+        .lang-suggest {
+            display: none;
             margin: 0;
             font-size: 0.9rem;
             text-align: center;
         }
 
-        .lang-switch a {
+        html.lang-es .lang-suggest {
+            display: block;
+        }
+
+        .lang-suggest a {
             color: var(--dark-blue);
             text-decoration: underline;
             text-underline-offset: 2px;
         }
 
-        body.dark-mode .lang-switch a {
+        body.dark-mode .lang-suggest a {
             color: var(--dark-link);
         }
 
