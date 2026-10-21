@@ -43,6 +43,13 @@
 //                        homepage only, never from the footer.
 //   allowedOnclick       Exact onclick attribute values allowed inside <main>.
 //                        Default none. Router calls stay banned regardless.
+//   inboundLabel         With inbound 'homepage': the text of the one homepage
+//                        link, which is <p class="lang-switch"><a href="/<slug>"
+//                        hreflang="<lang>" lang="<lang>">label</a></p>.
+//   alternates           [{ hreflang, href }]. Emitted as <link rel="alternate">
+//                        after the canonical. The homepage's copy of the same tags
+//                        is added by netlify/edge-functions/head-rewrite.ts, and
+//                        the build asserts the two agree.
 
 // The Spanish quiz's runtime strings and answer table. Constants, so the chrome
 // below reuses the theme label instead of keeping a second copy of it.
@@ -270,6 +277,12 @@ module.exports = [
             aboutDescription: 'Las 33 letras del alfabeto cirílico ruso',
         },
         inbound: 'homepage',
+        inboundLabel: 'Español',
+        alternates: [
+            { hreflang: 'en', href: 'https://cyrilica.com/' },
+            { hreflang: 'es', href: 'https://cyrilica.com/es' },
+            { hreflang: 'x-default', href: 'https://cyrilica.com/' },
+        ],
         allowedOnclick: ['selectAllGroups()', 'clearAllGroups()', 'checkAnswer()'],
         groupTitles: ['Vocales 1', 'Vocales 2', 'Consonantes 1', 'Consonantes 2', 'Consonantes 3', 'Consonantes 4'],
         quizPage: { answers: ES_ANSWERS, strings: ES_STRINGS },

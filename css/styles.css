@@ -564,6 +564,25 @@
             color: var(--dark-text-muted);
         }
 
+        /* The homepage's one link to the Spanish page (/es). A small text link
+           under the site description, not a button, so it reads as a language
+           choice rather than a call to action. */
+        .lang-switch {
+            margin: 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .lang-switch a {
+            color: var(--dark-blue);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        body.dark-mode .lang-switch a {
+            color: var(--dark-link);
+        }
+
         .card {
             background: var(--paper);
             border: 2px solid var(--charcoal);

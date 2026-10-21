@@ -35,6 +35,13 @@ import articleHeads from "../lib/article-heads.ts";
 // COUPLING 3: VALID_PAGES below must match VALID_PAGES in js/core.js. A page added
 // to the SPA without being added here keeps working, but its raw HTML would carry
 // noindex and no canonical, so crawlers would drop it.
+//
+// COUPLING 4: HREFLANG_HOME below is the homepage's half of a reciprocal
+// hreflang pair. The other half is emitted on /es by scripts/pre-render.js from
+// the `alternates` field in scripts/standalone-pages.js, and the build asserts
+// this file contains each of those exact tags once. The tags cannot live in
+// index.html: it is the shell for six other routes and the template for every
+// emitted page, so they would land on all of them.
 
 // Runs on every path, because an unknown path is exactly the case this function
 // has to handle. Assets are excluded instead: they are never HTML, so the
@@ -90,6 +97,11 @@ const NOINDEX_ROBOTS   = '<meta name="robots" content="noindex, follow">';
 const STATIC_TITLE     = '<title>Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica</title>';
 const STATIC_DESC      = '<meta name="description" content="Free interactive tool to learn the Russian alphabet. Practice all 33 Cyrillic letters with instant feedback, pronunciation audio, and progress tracking. No signup required.">';
 const NOINDEX_PATHS    = new Set(["/contact", "/privacy", "/about", "/terms", "/settings"]);
+// See COUPLING 4. Inserted after the canonical, on the homepage only.
+const HREFLANG_HOME =
+  '\n    <link rel="alternate" hreflang="en" href="https://cyrilica.com/">' +
+  '\n    <link rel="alternate" hreflang="es" href="https://cyrilica.com/es">' +
+  '\n    <link rel="alternate" hreflang="x-default" href="https://cyrilica.com/">';
 
 // The site's real pages, normalised the same way `path` is below: no trailing
 // slash, lowercased, and the homepage as the empty string. Articles are checked
@@ -179,6 +191,15 @@ export default async function headRewrite(
 
     if (!known || NOINDEX_PATHS.has(path)) {
       body = body.replace(STATIC_ROBOTS, NOINDEX_ROBOTS);
+    }
+
+    // hreflang on the homepage only (COUPLING 4). Anchored on the canonical just
+    // written; if it is missing the replace misses and the page is served without
+    // the tags, failing open like everything else here. A replacer function, so
+    // no "$" pattern in the inserted text is ever interpreted.
+    if (path === "") {
+      const homeCanonical = `<link rel="canonical" href="${SITE_ORIGIN}">`;
+      body = body.replace(homeCanonical, () => homeCanonical + HREFLANG_HOME);
     }
 
     // Per-article title and meta description. Only for /articles/<slug> paths

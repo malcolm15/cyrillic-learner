@@ -1705,7 +1705,14 @@ function main() {
         page = replaceOnce(page, T.htmlLang, '<html lang="' + (sp.lang || 'en') + '">', sp.slug + '/html lang');
         page = replaceOnce(page, T.title, '<title>' + escTitle + '</title>', sp.slug + '/title');
         page = replaceOnce(page, T.desc, '<meta name="description" content="' + escDesc + '">', sp.slug + '/description');
-        page = replaceOnce(page, T.canonical, '<link rel="canonical" href="' + url + '">', sp.slug + '/canonical');
+        // hreflang alternates, straight after the canonical, the same position the
+        // edge function uses on the homepage.
+        const alternateTags = (sp.alternates || []).map(function (a) {
+            return '<link rel="alternate" hreflang="' + a.hreflang + '" href="' + a.href + '">';
+        });
+        page = replaceOnce(page, T.canonical, '<link rel="canonical" href="' + url + '">' +
+            alternateTags.map(function (t) { return '\n    ' + t; }).join(''), sp.slug + '/canonical');
+        sp.__alternateTags = alternateTags;
         page = replaceOnce(page, T.ogUrl, '<meta property="og:url" content="' + url + '">', sp.slug + '/og:url');
         page = replaceOnce(page, T.ogTitle, '<meta property="og:title" content="' + escTitle + '">', sp.slug + '/og:title');
         page = replaceOnce(page, T.ogDesc, '<meta property="og:description" content="' + escDesc + '">', sp.slug + '/og:description');
@@ -1952,6 +1959,19 @@ function main() {
                 }
             });
         } else if (inbound === 'homepage') {
+            // Exactly one link, in the homepage section, in exactly this markup.
+            const homeStart = template.indexOf('<div id="home-page"');
+            const homeEnd = template.indexOf('<!-- ARTICLES PAGE -->');
+            if (homeStart === -1 || homeEnd === -1 || homeEnd < homeStart) fail('index.html: could not locate the home section');
+            const lang = sp.lang || 'en';
+            const inboundLink = '<p class="lang-switch"><a href="/' + sp.slug + '" hreflang="' + lang + '" lang="' + lang + '">' + sp.inboundLabel + '</a></p>';
+            if (!sp.inboundLabel) fail(sp.slug + ': inbound "homepage" needs an inboundLabel');
+            if (countOccurrences(template.slice(homeStart, homeEnd), inboundLink) !== 1) {
+                fail('index.html: expected exactly one ' + inboundLink + ' in the home section');
+            }
+            if (countOccurrences(template, href) !== 1) {
+                fail('index.html: expected exactly one ' + href + ' in the whole file (the homepage link), found ' + countOccurrences(template, href));
+            }
             if (countOccurrences(footerOf(template), href) !== 0) fail('index.html: the footer links to /' + sp.slug + ', whose inbound mode is homepage');
             if (countOccurrences(notFoundSrc, href) !== 0) fail('404.html: links to /' + sp.slug + ', whose inbound mode is homepage');
             if (countOccurrences(aboutSection, href) !== 0) fail('index.html: the About page links to /' + sp.slug + ', whose inbound mode is homepage');
@@ -1963,6 +1983,31 @@ function main() {
         } else {
             fail(sp.slug + ': inbound must be "footer" or "homepage", found ' + JSON.stringify(inbound));
         }
+    });
+
+    // ---- hreflang: only on the pages that declare alternates, and on the
+    // homepage through the edge function (COUPLING 4) ----
+    //
+    // index.html must carry none: it is the shell for six other routes and the
+    // template for every emitted page. Each page's tags must also appear, exactly,
+    // once in head-rewrite.ts, which adds the homepage's half of the pair.
+    const HREFLANG_NEEDLE = '<link rel="alternate" hreflang=';
+    if (countOccurrences(template, HREFLANG_NEEDLE) !== 0) fail('index.html: carries hreflang; it is the shell for every SPA route and the template for every emitted page');
+    if (countOccurrences(notFoundSrc, HREFLANG_NEEDLE) !== 0) fail('404.html: carries hreflang');
+    let hreflangTags = 0;
+    emittedPages.forEach(function (rec) {
+        const sp = STANDALONE_PAGES.filter(function (x) { return x.slug === rec.slug; })[0];
+        const tags = sp && sp.__alternateTags ? sp.__alternateTags : [];
+        if (countOccurrences(rec.html, HREFLANG_NEEDLE) !== tags.length) {
+            fail(rec.label + ': expected ' + tags.length + ' hreflang tag(s), found ' + countOccurrences(rec.html, HREFLANG_NEEDLE));
+        }
+        tags.forEach(function (t) {
+            if (countOccurrences(rec.html, t) !== 1) fail(rec.label + ': expected exactly one ' + t);
+            if (countOccurrences(edgeSrc, t) !== 1) {
+                fail('netlify/edge-functions/head-rewrite.ts: expected exactly one ' + t + ' (COUPLING 4: the homepage half of the pair)');
+            }
+            hreflangTags += 1;
+        });
     });
 
     // ---- <html lang> on every emitted document ----
