@@ -49,6 +49,9 @@ Orientation for Claude Code (CC). Read this at the start of every session.
   command that succeeds, and take an exit status from the command that matters.
   Give every wait loop a timeout. Anything that parses fields or makes decisions
   is safer as a short node or python script than as inline shell.
+  Multi-line shell work goes in a script file run with bash, starting
+  `#!/usr/bin/env bash` and `set -euo pipefail`, never typed into zsh. Check
+  that a local port is free before binding it.
 - **Show the diff before applying.** Never write or commit until approved.
 - **One source of truth.** No duplicated data or functions that can drift. Reuse
   shared functions, tokens, and data.
@@ -487,12 +490,10 @@ and crawlers reach it. The build asserts the footer link appears exactly once in
 `index.html`, exactly once in `404.html` and exactly once in every emitted
 document, and that the contextual link appears exactly once in the About
 section. A page with its own footer (`chrome`) is checked for exactly one
-`href` to the page in that footer instead. `'homepage'` is for `/es`: one link,
-`<p class="lang-switch"><a href="/es" hreflang="es" lang="es">Español</a></p>`,
-in the homepage header and nowhere else. The build asserts exactly one in the
-home section, exactly one `href="/es"` in the whole of `index.html`, and none in
-the footer, About, `404.html` or any other emitted page. Adding it did not bump
-the home `<lastmod>`, by the same reading as the footer-link rule above.
+`href` to the page in that footer instead. `'language'` is for a page in
+another language (`/es`); see "Language entry (/es)" below. The always-visible
+homepage line it replaced (`lang-switch`) is retired, and the build asserts it
+appears nowhere.
 
 **Per-page options.** All optional, all defaulting to what `/teachers` has
 always had, which is why `/teachers` is emitted byte for byte as before: `lang`
@@ -501,8 +502,8 @@ always had, which is why `/teachers` is emitted byte for byte as before: `lang`
 (default `Home`; `/es` uses `Cyrilica`), `chrome` (replaces the English nav
 list, logo link, theme and menu labels and footer; the build fails if any
 English chrome survives), `quizPage`, `groupTitles`, `inbound`, `inboundLabel`,
-`alternates` (hreflang, see COUPLING 4), `allowedOnclick` and `settingsPanel`
-(the /es settings panel, below).
+`footerLabel`, `alternates` (hreflang, see COUPLING 4), `allowedOnclick` and
+`settingsPanel` (the /es settings panel, below).
 
 **Pages that carry the quiz.** A page that declares `quizPage` may contain
 `id="reference-container"`, which is banned on every other standalone page. It
@@ -533,6 +534,43 @@ be a duplicate URL. The build asserts no `_redirects` rule serves `/<slug>/`
 with a 200; that Netlify actually redirects `/es/` is checked on every Deploy
 Preview, not assumed.
 
+**The /es header.** `/es` opens like the homepage: a `<header>` with the
+homepage's `logo-display` (guarded, see below; its Л span calls
+`burstConfetti(event, this)`, which is in `/es`'s `allowedOnclick`), the
+approved H1 as `<h1 class="subtitle">`, and a `site-description` that is
+exactly the `keySentence`. The H1 is the page's only `<h1` and visible, unlike
+the homepage's `sr-only` one; the build accepts it bare or with
+`class="subtitle"`, and the `keySentence` must still appear exactly once.
+`.subtitle` sets `font-weight: 400`, so the h1 is not synthetically bolded
+(Bebas Neue is loaded at 400 only) and matches the homepage's subtitle.
+
+**Language entry (/es).** Set by `inbound: 'language'`. Two links, no
+redirects, and hreflang unchanged (COUPLING 4). First, a quiet footer link,
+`<a href="/es" hreflang="es" lang="es">Quiz en español</a>` (`footerLabel`),
+last in `footer-links` in `index.html` and `404.html`, so through the template
+on every English document; `/es`'s own footer does not carry it. Second, a
+homepage link, `<p class="lang-suggest"><a href="/es" hreflang="es"
+lang="es">Practicar en español</a></p>` (`inboundLabel`), in the HTML for
+everyone but hidden by
+`.lang-suggest` in `css/styles.css` and shown by `html.lang-es .lang-suggest`.
+A small script after the theme script in `index.html`'s pre-paint `<script>`
+adds `lang-es` to `<html>` when `navigator.languages[0]` (falling back to
+`navigator.language`) matches `/^es(-|$)/i`. Only the primary language counts,
+and it runs before layout, so showing the link never shifts the page. The
+script is part of the template, so every emitted page (articles, `/teachers`,
+`/es`) carries it too. That is harmless and deliberate, not stripped: the
+class is read by the `.lang-suggest` rule alone, and only the homepage has
+that element. It sits outside the theme script, so `404.html` (which does not
+carry it) still matches the theme script byte for byte. The build asserts the
+footer link once in the footer of `index.html`, `404.html` and every English
+emitted page, and no other `/es` link there; the suggestion once in the home
+section and exactly two `href="/es"` in `index.html`; none in About or in
+`/es`'s own footer; no `lang-suggest` on any emitted page; the script once in
+`index.html` and in every emitted page, after the theme script, and not in
+`404.html`; and `html.lang-es` exactly once in `css/styles.css`, in that rule,
+with `.lang-suggest` hidden by default. The footer link, the attributes and
+the inherited script are not content: they do not move any page's dates.
+
 **Translation guards (both quizzes).** A page translator (Chrome's, or the
 translate.goog proxy) rewrites the quiz as if it were prose: И shown as
 "AND", y as "and", ya as "already", Cyrillic transliterated. So the six
@@ -548,9 +586,14 @@ The build asserts the grid tag in the shared study-group check (so on
 `index.html` and `/es`), the guard on both letter elements, and, on a page
 with `quizPage`, that every Cyrillic letter in `<main>` sits inside a
 guarded element, which outside the grids and letter must also be
-`lang="ru"`. Not yet guarded, for a follow-up batch: the nav logo's Л (it is
-template-wide, so the change would touch all 27 articles) and the articles
-themselves (the chart, copy-paste and lookalike pages).
+`lang="ru"`. The logo is guarded too: a translator turns CYRIЛICA into
+CYRILICA. The nav logo (template, so every page; `404.html` has its own copy)
+and every `logo-display` carry `notranslate` and `translate="no"` on the whole
+logo, and every Л span (`class="letter-l"`) is `lang="ru"`. The build asserts
+exactly one guarded nav logo on `index.html`, `404.html` and every emitted page,
+every `logo-display` guarded, and every Л span `lang="ru"`. Not yet guarded,
+for a follow-up batch: the articles' letter tools (the chart, copy-paste,
+lookalike and quiz pages). Explanatory prose is never guarded.
 
 **The /es settings panel.** `settingsPanel: true` gives `/es` one
 `<details class="quiz-settings" id="quiz-settings">`, closed by default,
@@ -896,7 +939,7 @@ rejections.
 Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode,
 homepage quick-start strip redesign, desktop compaction on
 home and static pages, privacy policy cleanup (AdSense and consent copy removed;
-the AdSense script was removed in batch 20, ads.txt kept), audio fixes for Й (wiring) and Ь (playback rate), new article on
+ads.txt kept), audio fixes for Й (wiring) and Ь (playback rate), new article on
 Cyrillic letters not in Russian, noindexing contact/privacy/about, removal of dead
 GitHub-era artifacts, re-recorded letter А audio, alphabet chart card redesign
 (whole-card audio tap target, no Listen buttons), quiz-CTA scroll fix (land at top),
@@ -907,16 +950,11 @@ chart generator, cursive stroke-order section (six letters, rAF engine), edge
 function for per-route canonical and robots in raw HTML, /reference page retired
 with a 301 to russian-alphabet-chart and homepage link re-pointed to the chart.
 
-Open: AdSense reapplication. Two commits, privacy page first: disclose the
-AdSense cookie use, then restore the adsbygoogle script (client
-ca-pub-5821564771189825, ads.txt already matches). The script sets third-party
-advertising cookies (IDE on .doubleclick.net, measured 2026-09-18), which is why
-the disclosure ships first. Requirement quoted in the ledger row for batch 35,
-from support.google.com/adsense/answer/1348695. A Google certified consent
-message for EEA, UK and Switzerland is already published in AdSense (Privacy and
-messaging, European regulations, cyrilica.com, published 2026-02-10). It is
-delivered by the adsbygoogle tag, so it only runs while that tag is on the site.
-If the tag is ever removed again, EEA traffic loses its consent prompt with it.
+AdSense: the adsbygoogle script (client ca-pub-5821564771189825) is live on
+every page except 404.html (restored 2026-09-23, 193aa5d), and the privacy page
+discloses its cookies. The certified EEA, UK and Switzerland consent message
+(published 2026-02-10) is delivered by that tag, so removing the tag removes the
+consent prompt. Open: the reapplication itself.
 Possible cursive phase B (more
 letters or a tracing mode) if engagement data justifies it. Audio for non-Russian
 letters is deferred and viable. Explicitly ruled out (do not re-propose): a faux
