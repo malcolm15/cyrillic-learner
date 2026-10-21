@@ -410,9 +410,13 @@ containers; `showPage` resets the head. The build asserts the page body has no
 router call, and no `onclick` attribute except the exact values the entry lists
 in `allowedOnclick`. `/es` allows `selectAllGroups()`, `clearAllGroups()` and
 `checkAnswer()`, because core.js wires those three quiz buttons only through
-their `onclick`. The router-call ban has no exception. Links out of the page
-through the inherited nav and footer are fine: those call `showPage`, which
-finds no section and falls back to `window.location.assign`.
+their `onclick`. `onchange` follows the same rule, counted strictly and
+permissively: none in `<main>`, except on a page with `settingsPanel`, which
+may carry exactly the five quiz toggles' values, read at build time from
+`index.html`'s Settings page. The router-call ban has no exception. Links out
+of the page through the inherited nav and footer are fine: those call
+`showPage`, which finds no section and falls back to
+`window.location.assign`.
 
 **Lists.** The global reset at the top of `css/styles.css` removes the browser's
 list padding and `.content-text` does not restore it, so `css/styles.css` gives
@@ -497,7 +501,8 @@ always had, which is why `/teachers` is emitted byte for byte as before: `lang`
 (default `Home`; `/es` uses `Cyrilica`), `chrome` (replaces the English nav
 list, logo link, theme and menu labels and footer; the build fails if any
 English chrome survives), `quizPage`, `groupTitles`, `inbound`, `inboundLabel`,
-`alternates` (hreflang, see COUPLING 4) and `allowedOnclick`.
+`alternates` (hreflang, see COUPLING 4), `allowedOnclick` and `settingsPanel`
+(the /es settings panel, below).
 
 **Pages that carry the quiz.** A page that declares `quizPage` may contain
 `id="reference-container"`, which is banned on every other standalone page. It
@@ -527,6 +532,54 @@ from `/es/` every sound would request `/es/audio/...` and fail, and `/es/` would
 be a duplicate URL. The build asserts no `_redirects` rule serves `/<slug>/`
 with a 200; that Netlify actually redirects `/es/` is checked on every Deploy
 Preview, not assumed.
+
+**Translation guards (both quizzes).** A page translator (Chrome's, or the
+translate.goog proxy) rewrites the quiz as if it were prose: И shown as
+"AND", y as "and", ya as "already", Cyrillic transliterated. So the six
+study grids open with `<div class="reference-grid notranslate"
+translate="no">`, `#current-char` and `#current-char-lower` carry
+`translate="no"` and the `notranslate` class (both, since translators differ
+in which they honour), and the answer in the wrong-answer and skip feedback sits
+in its own guarded span (`setQuizText`). Titles, buttons and instructions
+stay translatable. On `/es` every Cyrillic letter in the prose is wrapped by
+`ru()` in `scripts/standalone-pages.js` (a `lang="ru"` guarded span) and
+every romanization or quoted sign by `rom()`; the visible text is unchanged.
+The build asserts the grid tag in the shared study-group check (so on
+`index.html` and `/es`), the guard on both letter elements, and, on a page
+with `quizPage`, that every Cyrillic letter in `<main>` sits inside a
+guarded element, which outside the grids and letter must also be
+`lang="ru"`. Not yet guarded, for a follow-up batch: the nav logo's Л (it is
+template-wide, so the change would touch all 27 articles) and the articles
+themselves (the chart, copy-paste and lookalike pages).
+
+**The /es settings panel.** `settingsPanel: true` gives `/es` one
+`<details class="quiz-settings" id="quiz-settings">`, closed by default,
+between the char-reference card and `#quiz-container`. Only one of those
+cards shows at a time, so it sits under Empezar before a session and above
+the quiz card during one. The summary is the `.btn .btn-settings` button;
+inside are the five quiz toggles in the Settings page's markup with the
+same ids and `onchange` values as `index.html`, so `loadSettings` syncs
+them and the localStorage keys and `setting_changed` events are the English
+page's. Each checkbox is named by its Spanish label (`aria-labelledby`).
+There is no `darkmode-toggle` (the theme stays in the nav) and no
+`settings-btn` (it would open the English Settings page). The build asserts
+one closed panel, after the char-reference card and directly before
+`#quiz-container`, with one `<summary>`; each of the five ids once, inside
+it, `type="checkbox"`, with exactly `index.html`'s `onchange` and an
+`aria-labelledby` that resolves to a `setting-label` element; and no
+`darkmode-toggle` or `settings-btn`. It does not check the summary's
+classes, the row markup, which label a toggle points at, or the label text.
+Never duplicate the panel: the toggle ids must stay unique.
+
+**Landing scroll (pages with #quiz-settings only).** `startQuiz` closes the
+panel (left open, it would fill the screen above the quiz) and scrolls
+`#quiz-settings` to 12px below the fixed nav, instantly (the root's smooth
+scroll-behavior is switched off for that one call). On `/es` the focus
+scroll from `nextQuestion` was unreliable: Chrome's scroll anchoring could
+undo it when the selection card collapsed, and an answer box only partly
+under the nav got no scroll at all, so the quiz could land off-screen. It is
+limited to pages that carry the panel so the English quiz lands exactly as
+before; doing the same on `/` (option A2) is logged for a later batch.
 
 ## SPA routing and canonicals
 
@@ -810,9 +863,13 @@ generated from a standalone page's `quizPage` and emitted in that page's head,
 before the core scripts, and it is absent on every English document.
 `quizString(key, values)` returns the page's string or the English default from
 `QUIZ_STRINGS_EN` and fills `{placeholders}`; it covers the five quiz strings
-and the two theme toggle labels. `displayRoman(ch)` returns the page's display
-value or the `CYRILLIC_DATA` roman, and `acceptedAnswers(ch)` the display value
-plus any extras, lowercased. `CYRILLIC_DATA` is never modified. With
+and the two theme toggle labels. `setQuizText(el, key, values)` writes the
+same string into an element with each filled value in its own
+`translate="no"` span; the wrong-answer and skip feedback use it, and its
+`textContent` must always equal `quizString(key, values)`. `displayRoman(ch)`
+returns the page's display value or the `CYRILLIC_DATA` roman, and
+`acceptedAnswers(ch)` the display value plus any extras, lowercased.
+`CYRILLIC_DATA` is never modified. With
 `QUIZ_PAGE` absent, every string must render byte-identically to before and
 every letter must accept exactly its one roman; any change to the seam has to
 prove both on the English homepage.
