@@ -564,6 +564,25 @@
             color: var(--dark-text-muted);
         }
 
+        /* The homepage's one link to the Spanish page (/es). A small text link
+           under the site description, not a button, so it reads as a language
+           choice rather than a call to action. */
+        .lang-switch {
+            margin: 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .lang-switch a {
+            color: var(--dark-blue);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        body.dark-mode .lang-switch a {
+            color: var(--dark-link);
+        }
+
         .card {
             background: var(--paper);
             border: 2px solid var(--charcoal);
@@ -2086,6 +2105,43 @@
 
         .footer-links a:hover {
             color: white;
+        }
+
+        /* The /es settings panel: a <details> between the selection card and the
+           quiz card, so only one of the two is ever next to it. The summary is
+           the .btn .btn-settings button; the rows reuse the Settings page's
+           .setting-item markup. */
+        .quiz-settings {
+            margin: 0 0 16px;
+            text-align: center;
+        }
+
+        .quiz-settings > summary {
+            display: inline-block;
+            list-style: none;
+        }
+
+        .quiz-settings > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .quiz-settings-body {
+            margin: 12px 0 0;
+            text-align: left;
+        }
+
+        .quiz-settings-intro {
+            margin: 0 0 4px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Plain-text label before a run of footer links, used by the Spanish
+           page to say the links lead to English pages. Inherits the footer
+           text colour; the weight sets it apart from the links. */
+        .footer-label {
+            font-weight: 400;
+            opacity: 0.85;
         }
 
         body.dark-mode .footer-links a:hover {

@@ -266,7 +266,8 @@ and rewrites head tags before they reach the client: the canonical (set to the
 actual request path), the robots meta (switched to `noindex, follow` for
 `/contact`, `/privacy`, `/about`), and, for `/articles/<slug>` paths, the `<title>`
 and `<meta name="description">` (set to the per-article values so each article has
-unique raw-HTML head content instead of the identical shell head). 301 responses
+unique raw-HTML head content instead of the identical shell head), and, on the
+homepage only, three hreflang alternates (COUPLING 4 below). 301 responses
 and non-HTML assets pass through untransformed. Fail-open: if transformation errors,
 or an article slug is not found, the original response is returned unchanged.
 
@@ -303,6 +304,17 @@ import), so a data-file problem cannot fail the module load and regress the
 canonical / robots rewrites. It lives in netlify/lib/, not netlify/edge-functions/,
 because Netlify treats every file in the edge-functions directory as its own
 function entry point (this is the mistake that broke the first b4cf079 deploy).
+
+CRITICAL COUPLING 4: `HREFLANG_HOME` in `head-rewrite.ts` is the homepage's half
+of a reciprocal hreflang pair (en, es and x-default, x-default being the English
+homepage). The other half is emitted on `/es` by `scripts/pre-render.js` from
+the `alternates` field of its entry in `scripts/standalone-pages.js`. The build
+asserts each of those exact tags appears once in `head-rewrite.ts`. The tags are
+inserted after the canonical only when the path is the homepage, and fail open.
+They must never go in `index.html`: it is the shell for six other routes and the
+template for every emitted page, so they would land on all of them. The build
+asserts `index.html`, `404.html` and every emitted page other than `/es` carry
+none.
 
 ## Article pre-rendering (deploy-time)
 
@@ -353,7 +365,7 @@ noindex, and the seven SPA routes that are rewritten to the shell.
 ## Standalone pages
 
 A standalone page is an indexable URL that is not an article and not an SPA
-route. The first one is `/teachers`.
+route. There are two: `/teachers` and `/es`, the Spanish quiz.
 
 **Where they live.** `scripts/standalone-pages.js`, build time only. Each entry
 carries `slug`, `title`, `description`, `h1`, `keySentence`, `published`,
@@ -395,9 +407,16 @@ Excluding it also keeps that `VALID_PAGES` copy an exact mirror of `js/core.js`.
 `navToArticle`, `showPage` or `showArticle`. `showArticle` reads
 `#article-view` unguarded and throws on a document that has no article
 containers; `showPage` resets the head. The build asserts the page body has no
-`onclick` attribute and no router call. Links out of the page through the
-inherited nav and footer are fine: those call `showPage`, which finds no section
-and falls back to `window.location.assign`.
+router call, and no `onclick` attribute except the exact values the entry lists
+in `allowedOnclick`. `/es` allows `selectAllGroups()`, `clearAllGroups()` and
+`checkAnswer()`, because core.js wires those three quiz buttons only through
+their `onclick`. `onchange` follows the same rule, counted strictly and
+permissively: none in `<main>`, except on a page with `settingsPanel`, which
+may carry exactly the five quiz toggles' values, read at build time from
+`index.html`'s Settings page. The router-call ban has no exception. Links out
+of the page through the inherited nav and footer are fine: those call
+`showPage`, which finds no section and falls back to
+`window.location.assign`.
 
 **Lists.** The global reset at the top of `css/styles.css` removes the browser's
 list padding and `.content-text` does not restore it, so `css/styles.css` gives
@@ -462,11 +481,105 @@ it does not bump any other page's `lastmod`.
 The ids deliberately differ from the article ones, because
 `removeArticleSchema()` deletes `#article-schema` and `#breadcrumb-schema`.
 
-**Inbound links.** A standalone page has no nav entry, so the footer link and one
-contextual link are how readers and crawlers reach it. The build asserts the
-footer link appears exactly once in `index.html`, exactly once in `404.html` and
-exactly once in every emitted document, and that the contextual link appears
-exactly once in the About section.
+**Inbound links.** Set by `inbound`. The default, `'footer'`, is for an English
+page with no nav entry: the footer link and one contextual link are how readers
+and crawlers reach it. The build asserts the footer link appears exactly once in
+`index.html`, exactly once in `404.html` and exactly once in every emitted
+document, and that the contextual link appears exactly once in the About
+section. A page with its own footer (`chrome`) is checked for exactly one
+`href` to the page in that footer instead. `'homepage'` is for `/es`: one link,
+`<p class="lang-switch"><a href="/es" hreflang="es" lang="es">Español</a></p>`,
+in the homepage header and nowhere else. The build asserts exactly one in the
+home section, exactly one `href="/es"` in the whole of `index.html`, and none in
+the footer, About, `404.html` or any other emitted page. Adding it did not bump
+the home `<lastmod>`, by the same reading as the footer-link rule above.
+
+**Per-page options.** All optional, all defaulting to what `/teachers` has
+always had, which is why `/teachers` is emitted byte for byte as before: `lang`
+(the `<html lang>`, asserted on every emitted document), `schema` (`inLanguage`,
+`audience` on or off, the `about` name and description), `breadcrumbHomeName`
+(default `Home`; `/es` uses `Cyrilica`), `chrome` (replaces the English nav
+list, logo link, theme and menu labels and footer; the build fails if any
+English chrome survives), `quizPage`, `groupTitles`, `inbound`, `inboundLabel`,
+`alternates` (hreflang, see COUPLING 4), `allowedOnclick` and `settingsPanel`
+(the /es settings panel, below).
+
+**Pages that carry the quiz.** A page that declares `quizPage` may contain
+`id="reference-container"`, which is banned on every other standalone page. It
+must then carry every id in `index.html`'s quiz block (the char-reference card
+through `#quiz-container`, read from the shell at build time, not hand-listed)
+exactly once, except `settings-btn`, which must be absent; exactly one
+`char-reference` element; the six study groups, checked by the same function as
+`index.html`, with the page's titles and its display value for every letter;
+and no same-page `href="#..."` in `<main>`, because core.js's popstate handler
+would send the next Back press to the English homepage. Never ship
+`#reference-container` without `#start-btn`: `updateStartButton` reads it
+unguarded and the throw aborts the rest of core.js. The answer table is checked
+against what core.js does: every key a real letter; every value non-empty,
+trimmed and lowercase; no value accepted for two letters (the existing Ы/Й `y`
+is the one exemption); no value a proper prefix of another for the same letter,
+since Auto-Submit would fire early. Every string key must exist in core.js's
+`QUIZ_STRINGS_EN` with exactly the same placeholders, and the serialised object
+may contain no `<`. A page's answer table and runtime strings live only in its
+`quizPage` in `scripts/standalone-pages.js`.
+
+**The Spanish page (/es).** Launched without native-speaker review, by decision:
+Spanish copy is corrected after launch from live feedback, as plain copy edits
+in its entry in `scripts/standalone-pages.js` (dates, sitemap `lastmod` and
+IndexNow as for any body change). The quiz's audio paths in `CYRILLIC_DATA` are
+relative (`audio/a.mp3`), so `/es` must only ever be served at that flat path:
+from `/es/` every sound would request `/es/audio/...` and fail, and `/es/` would
+be a duplicate URL. The build asserts no `_redirects` rule serves `/<slug>/`
+with a 200; that Netlify actually redirects `/es/` is checked on every Deploy
+Preview, not assumed.
+
+**Translation guards (both quizzes).** A page translator (Chrome's, or the
+translate.goog proxy) rewrites the quiz as if it were prose: И shown as
+"AND", y as "and", ya as "already", Cyrillic transliterated. So the six
+study grids open with `<div class="reference-grid notranslate"
+translate="no">`, `#current-char` and `#current-char-lower` carry
+`translate="no"` and the `notranslate` class (both, since translators differ
+in which they honour), and the answer in the wrong-answer and skip feedback sits
+in its own guarded span (`setQuizText`). Titles, buttons and instructions
+stay translatable. On `/es` every Cyrillic letter in the prose is wrapped by
+`ru()` in `scripts/standalone-pages.js` (a `lang="ru"` guarded span) and
+every romanization or quoted sign by `rom()`; the visible text is unchanged.
+The build asserts the grid tag in the shared study-group check (so on
+`index.html` and `/es`), the guard on both letter elements, and, on a page
+with `quizPage`, that every Cyrillic letter in `<main>` sits inside a
+guarded element, which outside the grids and letter must also be
+`lang="ru"`. Not yet guarded, for a follow-up batch: the nav logo's Л (it is
+template-wide, so the change would touch all 27 articles) and the articles
+themselves (the chart, copy-paste and lookalike pages).
+
+**The /es settings panel.** `settingsPanel: true` gives `/es` one
+`<details class="quiz-settings" id="quiz-settings">`, closed by default,
+between the char-reference card and `#quiz-container`. Only one of those
+cards shows at a time, so it sits under Empezar before a session and above
+the quiz card during one. The summary is the `.btn .btn-settings` button;
+inside are the five quiz toggles in the Settings page's markup with the
+same ids and `onchange` values as `index.html`, so `loadSettings` syncs
+them and the localStorage keys and `setting_changed` events are the English
+page's. Each checkbox is named by its Spanish label (`aria-labelledby`).
+There is no `darkmode-toggle` (the theme stays in the nav) and no
+`settings-btn` (it would open the English Settings page). The build asserts
+one closed panel, after the char-reference card and directly before
+`#quiz-container`, with one `<summary>`; each of the five ids once, inside
+it, `type="checkbox"`, with exactly `index.html`'s `onchange` and an
+`aria-labelledby` that resolves to a `setting-label` element; and no
+`darkmode-toggle` or `settings-btn`. It does not check the summary's
+classes, the row markup, which label a toggle points at, or the label text.
+Never duplicate the panel: the toggle ids must stay unique.
+
+**Landing scroll (pages with #quiz-settings only).** `startQuiz` closes the
+panel (left open, it would fill the screen above the quiz) and scrolls
+`#quiz-settings` to 12px below the fixed nav, instantly (the root's smooth
+scroll-behavior is switched off for that one call). On `/es` the focus
+scroll from `nextQuestion` was unreliable: Chrome's scroll anchoring could
+undo it when the selection card collapsed, and an answer box only partly
+under the nav got no scroll at all, so the quiz could land off-screen. It is
+limited to pages that carry the panel so the English quiz lands exactly as
+before; doing the same on `/` (option A2) is logged for a later batch.
 
 ## SPA routing and canonicals
 
@@ -743,6 +856,23 @@ dot, applied to SVG paths in a `skewX(-10)` group for cursive slant. Respects
 `prefers-reduced-motion`. GA event: `cursive_animation_played`. The letterforms were
 drafted from published propisi descriptions and are not yet verified by a native
 speaker; corrections are deliberate one-path edits in `CURSIVE_STROKES`.
+
+**Localisation seam** (js/core.js): `window.QUIZ_PAGE`, read once into
+`QUIZ_PAGE`, is the only per-page localisation input core.js accepts. It is
+generated from a standalone page's `quizPage` and emitted in that page's head,
+before the core scripts, and it is absent on every English document.
+`quizString(key, values)` returns the page's string or the English default from
+`QUIZ_STRINGS_EN` and fills `{placeholders}`; it covers the five quiz strings
+and the two theme toggle labels. `setQuizText(el, key, values)` writes the
+same string into an element with each filled value in its own
+`translate="no"` span; the wrong-answer and skip feedback use it, and its
+`textContent` must always equal `quizString(key, values)`. `displayRoman(ch)`
+returns the page's display value or the `CYRILLIC_DATA` roman, and
+`acceptedAnswers(ch)` the display value plus any extras, lowercased.
+`CYRILLIC_DATA` is never modified. With
+`QUIZ_PAGE` absent, every string must render byte-identically to before and
+every letter must accept exactly its one roman; any change to the seam has to
+prove both on the English homepage.
 
 **Alphabet chart cards** (russian-alphabet-chart): the full card is the audio tap
 target (`button` elements, `.letter-card` class, dark mode handled). No separate

@@ -24,6 +24,13 @@
         <priority>0.8</priority>
     </url>
     
+    <url>
+        <loc>https://cyrilica.com/es</loc>
+        <lastmod>2026-10-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
     <!-- Articles: Learning Basics -->
     <url>
         <loc>https://cyrilica.com/articles/getting-started</loc>

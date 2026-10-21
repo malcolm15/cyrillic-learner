@@ -2,6 +2,78 @@
 // Valid page names (whitelist for URL routing)
 const VALID_PAGES = ['home', 'articles', 'settings', 'about', 'contact', 'privacy', 'terms'];
 
+// Per-page localisation input. A standalone page in another language (the
+// Spanish quiz at /es) defines window.QUIZ_PAGE in an inline script before this
+// file loads. It is absent on every English document, and with it absent every
+// string below renders exactly as it always has. It is the only per-page
+// localisation input core.js accepts: per-letter answers and display values
+// (read by acceptedAnswers and displayRoman) plus UI strings (read by
+// quizString), including the theme toggle labels. It is only ever read, and
+// CYRILLIC_DATA is never modified to apply it. The object itself is generated
+// at build time from scripts/standalone-pages.js.
+const QUIZ_PAGE = window.QUIZ_PAGE || null;
+
+// English UI strings. {name} placeholders are filled by quizString.
+// scripts/pre-render.js reads this object from source and requires every key a
+// page overrides to exist here, with exactly the same placeholders.
+const QUIZ_STRINGS_EN = {
+    score: 'Score: {correct}/{total}',
+    progress: 'Question {n}',
+    correct: '✓ Correct!',
+    wrong: '✗ Wrong. Correct: {answer}',
+    skip: 'Answer: {answer}',
+    themeToDark: 'Switch to the dark theme',
+    themeToLight: 'Switch to the light theme'
+};
+
+// The page's template for `key` if it supplies one, otherwise the English default.
+function quizTemplate(key) {
+    const own = QUIZ_PAGE && QUIZ_PAGE.strings &&
+        Object.prototype.hasOwnProperty.call(QUIZ_PAGE.strings, key) ? QUIZ_PAGE.strings[key] : null;
+    return typeof own === 'string' ? own : QUIZ_STRINGS_EN[key];
+}
+
+// The page's string for `key` if it supplies one, otherwise the English default,
+// with placeholders filled from `values`. A replacer function, not a replacement
+// string, so a "$" in a value is copied literally.
+function quizString(key, values) {
+    return fillPlaceholders(quizTemplate(key), values);
+}
+
+function fillPlaceholders(template, values) {
+    return template.replace(/\{([a-zA-Z]+)\}/g, function (whole, name) {
+        return values && Object.prototype.hasOwnProperty.call(values, name) ? String(values[name]) : whole;
+    });
+}
+
+// Writes quizString(key, values) into `el`, with each filled placeholder in its
+// own <span translate="no" class="notranslate">. The feedback line's {answer} is
+// a romanization, and a page translator (Chrome's, or translate.goog) would turn
+// "o" into "either" or "ya" into "already" and show the learner a wrong answer;
+// the words around it stay translatable. DOM methods only, never innerHTML, and
+// el.textContent always ends up exactly equal to quizString(key, values).
+function setQuizText(el, key, values) {
+    const template = quizTemplate(key);
+    const re = /\{([a-zA-Z]+)\}/g;
+    let last = 0;
+    let m;
+    el.textContent = '';
+    while ((m = re.exec(template)) !== null) {
+        if (m.index > last) el.appendChild(document.createTextNode(template.slice(last, m.index)));
+        if (values && Object.prototype.hasOwnProperty.call(values, m[1])) {
+            const span = document.createElement('span');
+            span.setAttribute('translate', 'no');
+            span.className = 'notranslate';
+            span.textContent = String(values[m[1]]);
+            el.appendChild(span);
+        } else {
+            el.appendChild(document.createTextNode(m[0]));
+        }
+        last = re.lastIndex;
+    }
+    if (last < template.length) el.appendChild(document.createTextNode(template.slice(last)));
+}
+
 function safeGetNavLink(pageName) {
     if (!VALID_PAGES.includes(pageName)) return null;
     return document.querySelector(`.nav-links a[onclick*="'${pageName}'"]`);
@@ -194,7 +266,7 @@ function syncThemeToggle() {
     const btn = document.getElementById('theme-toggle');
     if (!btn) return;
     btn.setAttribute('aria-pressed', String(darkMode));
-    btn.setAttribute('aria-label', darkMode ? 'Switch to the light theme' : 'Switch to the dark theme');
+    btn.setAttribute('aria-label', quizString(darkMode ? 'themeToLight' : 'themeToDark'));
     const icon = btn.querySelector('.theme-toggle-icon');
     if (icon) icon.textContent = darkMode ? '\u2600' : '\u263E';
 }
@@ -1133,6 +1205,30 @@ const CYRILLIC_DATA = {
     }
 };
 
+// The romanization shown for a letter: the page's display value if it sets one,
+// otherwise CYRILLIC_DATA's. On an English page this is always the CYRILLIC_DATA
+// value. Reads only; never writes to CYRILLIC_DATA.
+function displayRoman(ch) {
+    const own = QUIZ_PAGE && QUIZ_PAGE.answers &&
+        Object.prototype.hasOwnProperty.call(QUIZ_PAGE.answers, ch) ? QUIZ_PAGE.answers[ch] : null;
+    if (own && typeof own.show === 'string') return own.show;
+    const groups = Object.keys(CYRILLIC_DATA);
+    for (let i = 0; i < groups.length; i++) {
+        const entry = CYRILLIC_DATA[groups[i]].chars[ch];
+        if (entry) return entry.roman;
+    }
+    return '';
+}
+
+// Every answer marked correct for a letter, lowercased: the display value plus
+// any extras the page accepts. On an English page this is exactly [roman].
+function acceptedAnswers(ch) {
+    const own = QUIZ_PAGE && QUIZ_PAGE.answers &&
+        Object.prototype.hasOwnProperty.call(QUIZ_PAGE.answers, ch) ? QUIZ_PAGE.answers[ch] : null;
+    const extra = own && Array.isArray(own.accept) ? own.accept : [];
+    return [displayRoman(ch)].concat(extra).map(function (a) { return String(a).toLowerCase(); });
+}
+
 // Audio playback function
 function playPronunciation(audioPath) {
     if (!audioPath) return;
@@ -1251,6 +1347,28 @@ function startQuiz() {
     
     // Load first question
     nextQuestion();
+
+    // On a page with its own settings panel (/es), put the panel's top 12px
+    // below the fixed nav. nextQuestion's focus() should bring the quiz into
+    // view, but on /es (measured in Batch 66) Chrome's scroll anchoring can undo
+    // it once the selection card collapses, and an answer box only partly hidden
+    // under the nav gets no scroll at all, so the quiz could land off-screen.
+    // The panel is closed first: left open from the selection screen it would
+    // fill the screen above the quiz and push the answer box below the fold.
+    // Instant, not smooth: html sets scroll-behavior: smooth, so it is switched
+    // off for this one call. Pages without #quiz-settings run none of this, so
+    // the English quiz lands exactly as before.
+    const settingsPanel = document.getElementById('quiz-settings');
+    if (settingsPanel) {
+        settingsPanel.open = false;
+        const nav = document.querySelector('nav');
+        const navBottom = nav ? nav.getBoundingClientRect().bottom : 0;
+        const root = document.documentElement;
+        const previous = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+        window.scrollTo(0, settingsPanel.getBoundingClientRect().top + window.scrollY - navBottom - 12);
+        root.style.scrollBehavior = previous;
+    }
 }
 
 function nextQuestion() {
@@ -1304,13 +1422,12 @@ function checkAnswer() {
     if (answered) return;
     
     const input = document.getElementById('answer-input').value.trim().toLowerCase();
-    const correct = studyChars[currentChar].roman.toLowerCase();
     const feedback = document.getElementById('feedback');
     
     answered = true;
     
-    if (input === correct) {
-        feedback.textContent = '✓ Correct!';
+    if (acceptedAnswers(currentChar).indexOf(input) !== -1) {
+        feedback.textContent = quizString('correct');
         feedback.className = 'feedback correct';
         correctCount++;
         currentStreak++;
@@ -1349,7 +1466,7 @@ function checkAnswer() {
             }, 750); // Perfect for correct answers
         }
     } else {
-        feedback.textContent = `✗ Wrong. Correct: ${studyChars[currentChar].roman}`;
+        setQuizText(feedback, 'wrong', { answer: displayRoman(currentChar) });
         feedback.className = 'feedback incorrect';
         incorrectCount++;
         currentStreak = 0;
@@ -1378,16 +1495,16 @@ function checkAnswer() {
 
 function updateStats() {
     const total = correctCount + incorrectCount;
-    document.getElementById('score').textContent = `Score: ${correctCount}/${total}`;
+    document.getElementById('score').textContent = quizString('score', { correct: correctCount, total: total });
     document.getElementById('correct-count').textContent = correctCount;
     document.getElementById('incorrect-count').textContent = incorrectCount;
     document.getElementById('streak-count').textContent = currentStreak;
-    document.getElementById('progress').textContent = `Question ${questionCount}`;
+    document.getElementById('progress').textContent = quizString('progress', { n: questionCount });
 }
 
 function skipQuestion() {
     const feedback = document.getElementById('feedback');
-    feedback.textContent = `Answer: ${studyChars[currentChar].roman}`;
+    setQuizText(feedback, 'skip', { answer: displayRoman(currentChar) });
     feedback.className = 'feedback';
     answered = true;
     
@@ -1471,8 +1588,7 @@ on('answer-input', 'input', (e) => {
     // Auto-submit if enabled and answer is correct
     if (autoSubmit && !answered) {
         const input = e.target.value.trim().toLowerCase();
-        const correct = studyChars[currentChar].roman.toLowerCase();
-        if (input === correct) {
+        if (acceptedAnswers(currentChar).indexOf(input) !== -1) {
             checkAnswer();
         }
     }
