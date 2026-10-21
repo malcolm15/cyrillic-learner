@@ -287,7 +287,7 @@ module.exports = [
         h1: 'Alfabeto ruso: aprende las 33 letras',
         keySentence: 'El alfabeto ruso, también llamado abecedario ruso, tiene 33 letras y se escribe con el alfabeto cirílico.',
         published: '2026-10-20',
-        modified: '2026-10-20',
+        modified: '2026-10-21',
         breadcrumbName: 'Alfabeto ruso',
         breadcrumbHomeName: 'Cyrilica',
         schema: {
@@ -304,7 +304,7 @@ module.exports = [
             { hreflang: 'es', href: 'https://cyrilica.com/es' },
             { hreflang: 'x-default', href: 'https://cyrilica.com/' },
         ],
-        allowedOnclick: ['selectAllGroups()', 'clearAllGroups()', 'checkAnswer()'],
+        allowedOnclick: ['selectAllGroups()', 'clearAllGroups()', 'checkAnswer()', 'burstConfetti(event, this)'],
         settingsPanel: true,
         groupTitles: ['Vocales 1', 'Vocales 2', 'Consonantes 1', 'Consonantes 2', 'Consonantes 3', 'Consonantes 4'],
         quizPage: { answers: ES_ANSWERS, strings: ES_STRINGS },
@@ -329,13 +329,11 @@ module.exports = [
                 '            </div>\n' +
                 '        </div>',
         },
-        bodyHtml: `                    <div class="card">
-                        <h1>Alfabeto ruso: aprende las 33 letras</h1>
-
-                        <div class="content-text">
-                            <p>El alfabeto ruso, también llamado abecedario ruso, tiene 33 letras y se escribe con el alfabeto cirílico. Aquí puedes practicarlas todas: eliges un grupo de letras, ves cada una en pantalla, escribes su equivalente en letras latinas y compruebas al instante si es correcto. Puedes escuchar grabaciones de pronunciación mientras practicas, y no hace falta registrarse.</p>
-                        </div>
-                    </div>
+        bodyHtml: `                    <header>
+                        <div class="logo-display notranslate" translate="no">CYRI<span class="letter-l" lang="ru" onclick="burstConfetti(event, this)">Л<span class="confetti-burst"></span></span>ICA</div>
+                        <h1 class="subtitle">Alfabeto ruso: aprende las 33 letras</h1>
+                        <p class="site-description">El alfabeto ruso, también llamado abecedario ruso, tiene 33 letras y se escribe con el alfabeto cirílico.</p>
+                    </header>
 
                     <div class="card char-reference">
                         <div class="selection-header">
@@ -529,7 +527,7 @@ module.exports = [
                     <div class="card">
                         <h2>Cómo funciona</h2>
                         <div class="content-text">
-                            <p>Elige uno o varios grupos y pulsa Empezar. Verás una letra rusa: escribe cómo se transcribe en letras latinas y pulsa Comprobar. Si fallas, verás la respuesta correcta y pasarás a la siguiente letra. Con el botón 🔊 puedes escuchar el audio de cada letra.</p>
+                            <p>Elige uno o varios grupos y pulsa Empezar. Verás una letra rusa: escribe cómo se transcribe en letras latinas y pulsa Comprobar para saber al instante si es correcta. Si fallas, verás la respuesta correcta y pasarás a la siguiente letra. Con el botón 🔊 puedes escuchar el audio de cada letra. Es gratis y no hace falta registrarse.</p>
                         </div>
 
                         <h2>¿Cuántas letras tiene el alfabeto ruso?</h2>

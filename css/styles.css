@@ -537,8 +537,11 @@
             color: var(--dark-text);
         }
 
+        /* Weight 400 because /es puts its h1 in this class, and an h1 would
+           otherwise be synthetically bolded (Bebas Neue is loaded at 400 only). */
         .subtitle {
             font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
             font-size: 1.6rem;
             color: #444;
             letter-spacing: 2.5px;

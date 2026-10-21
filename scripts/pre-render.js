@@ -1925,8 +1925,12 @@ function main() {
         if (countOccurrences(page, 'noindex') !== 0) fail(sp.slug + ': the emitted page carries noindex; it must be indexable');
 
         // ---- body assertions ----
-        if (countOccurrences(page, '<h1>' + escapeHtml(sp.h1) + '</h1>') !== 1) {
-            fail(sp.slug + ': expected exactly one <h1>' + sp.h1 + '</h1> in the emitted page');
+        // The page's one visible <h1>, bare, or as the subtitle of a
+        // homepage-style header (/es). The <h1 count below stays at exactly one.
+        const h1Text = escapeHtml(sp.h1);
+        const h1Found = countOccurrences(page, '<h1>' + h1Text + '</h1>') + countOccurrences(page, '<h1 class="subtitle">' + h1Text + '</h1>');
+        if (h1Found !== 1) {
+            fail(sp.slug + ': expected exactly one <h1>' + sp.h1 + '</h1> (bare or class="subtitle") in the emitted page, found ' + h1Found);
         }
         if (countOccurrences(page, sp.keySentence) !== 1) {
             fail(sp.slug + ': the key sentence is not in the emitted raw HTML exactly once: ' + JSON.stringify(sp.keySentence));
