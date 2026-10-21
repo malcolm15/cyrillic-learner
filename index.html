@@ -211,6 +211,24 @@
             });
         });
     })();
+    // Spanish-first browsers see the homepage's "Practicar en español" link. It
+    // is in the HTML for everyone and hidden by css/styles.css until this class
+    // is on <html>, which happens here, before anything is laid out, so showing
+    // it never shifts the page. Only the PRIMARY language counts: a secondary
+    // Spanish preference does not. Nothing redirects. This script is part of
+    // the template, so every emitted page carries it too, where it is harmless:
+    // html.lang-es is used only by the .lang-suggest rule, and only the
+    // homepage has that element. It sits after the theme script on purpose,
+    // outside the part scripts/pre-render.js requires 404.html to match.
+    (function () {
+        try {
+            var langs = navigator.languages;
+            var primary = (langs && langs.length ? langs[0] : navigator.language) || '';
+            if (/^es(-|$)/i.test(primary)) document.documentElement.classList.add('lang-es');
+        } catch (e) {
+            // No navigator language: the link simply stays hidden.
+        }
+    })();
     </script>
     <!-- Navigation -->
     <nav>
@@ -238,7 +256,7 @@
                         <div class="logo-display notranslate" translate="no">CYRI<span class="letter-l" lang="ru" onclick="burstConfetti(event, this)">Л<span class="confetti-burst"></span></span>ICA</div>
                         <div class="subtitle">MASTER THE CYRILLIC ALPHABET</div>
                         <p class="site-description">The no-nonsense way to learn Cyrillic. Pick letters, practice sounds, track progress.</p>
-                        <p class="lang-switch"><a href="/es" hreflang="es" lang="es">Español</a></p>
+                        <p class="lang-suggest"><a href="/es" hreflang="es" lang="es">Practicar en español</a></p>
                     </header>
 
                     <!-- Combined Character Reference & Selection -->
@@ -1052,6 +1070,8 @@
                 <a href="/teachers">For Teachers</a>
                 <a href="/contact" onclick="navTo(event, 'contact', null)">Contact</a>
                 <a href="/settings" onclick="navTo(event, 'settings', null)">Settings</a>
+                <!-- Plain href, no navTo: /es is a standalone document in Spanish. -->
+                <a href="/es" hreflang="es" lang="es">Quiz en español</a>
             </div>
         </div>
     </footer>

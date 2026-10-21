@@ -2138,14 +2138,16 @@ function main() {
     // and breadcrumb name. A page with its own chrome has its own footer, so
     // there the check is for exactly one href to the page instead.
     //
-    // inbound 'homepage': linked once from the English homepage and nowhere
-    // else, never from the footer.
+    // inbound 'language': a page in another language, linked from the footer of
+    // every English document and once from the homepage (see below).
     const aboutStart = template.indexOf('<div id="about-page"');
     const aboutEnd = template.indexOf('<!-- SETTINGS PAGE -->');
     if (aboutStart === -1 || aboutEnd === -1 || aboutEnd < aboutStart) fail('index.html: could not locate the About page section');
     const aboutSection = template.slice(aboutStart, aboutEnd);
     const footerOf = function (html) { return html.slice(html.indexOf('<footer>'), html.indexOf('</footer>')); };
     let footerLinkIndex = 0;
+    let languageFooters = 0;
+    const languageEntries = [];
     STANDALONE_PAGES.forEach(function (sp) {
         const inbound = sp.inbound || 'footer';
         const href = 'href="/' + sp.slug + '"';
@@ -2169,31 +2171,86 @@ function main() {
                     fail(rec.label + ': expected exactly one footer link ' + footerLink);
                 }
             });
-        } else if (inbound === 'homepage') {
-            // Exactly one link, in the homepage section, in exactly this markup.
+        } else if (inbound === 'language') {
+            // A page in another language (/es): a quiet footer link on every
+            // English document, and one homepage link shown only to browsers
+            // whose primary language matches. Nothing else links to it.
+            if (!sp.footerLabel || !sp.inboundLabel) fail(sp.slug + ': inbound "language" needs footerLabel and inboundLabel');
+            const lang = sp.lang || 'en';
+            const footerLink = '<a href="/' + sp.slug + '" hreflang="' + lang + '" lang="' + lang + '">' + sp.footerLabel + '</a>';
+            const suggestLink = '<p class="lang-suggest"><a href="/' + sp.slug + '" hreflang="' + lang + '" lang="' + lang + '">' + sp.inboundLabel + '</a></p>';
             const homeStart = template.indexOf('<div id="home-page"');
             const homeEnd = template.indexOf('<!-- ARTICLES PAGE -->');
             if (homeStart === -1 || homeEnd === -1 || homeEnd < homeStart) fail('index.html: could not locate the home section');
-            const lang = sp.lang || 'en';
-            const inboundLink = '<p class="lang-switch"><a href="/' + sp.slug + '" hreflang="' + lang + '" lang="' + lang + '">' + sp.inboundLabel + '</a></p>';
-            if (!sp.inboundLabel) fail(sp.slug + ': inbound "homepage" needs an inboundLabel');
-            if (countOccurrences(template.slice(homeStart, homeEnd), inboundLink) !== 1) {
-                fail('index.html: expected exactly one ' + inboundLink + ' in the home section');
+            // index.html: the footer link once, in its footer; the suggestion
+            // once, in the home section; no other link to the page.
+            if (countOccurrences(footerOf(template), footerLink) !== 1 || countOccurrences(template, footerLink) !== 1) {
+                fail('index.html: expected exactly one ' + footerLink + ', in the footer');
             }
-            if (countOccurrences(template, href) !== 1) {
-                fail('index.html: expected exactly one ' + href + ' in the whole file (the homepage link), found ' + countOccurrences(template, href));
+            if (countOccurrences(template.slice(homeStart, homeEnd), suggestLink) !== 1 || countOccurrences(template, 'class="lang-suggest"') !== 1) {
+                fail('index.html: expected exactly one ' + suggestLink + ', in the home section');
             }
-            if (countOccurrences(footerOf(template), href) !== 0) fail('index.html: the footer links to /' + sp.slug + ', whose inbound mode is homepage');
-            if (countOccurrences(notFoundSrc, href) !== 0) fail('404.html: links to /' + sp.slug + ', whose inbound mode is homepage');
-            if (countOccurrences(aboutSection, href) !== 0) fail('index.html: the About page links to /' + sp.slug + ', whose inbound mode is homepage');
+            if (countOccurrences(template, href) !== 2) {
+                fail('index.html: expected exactly two ' + href + ' (the footer link and the homepage suggestion), found ' + countOccurrences(template, href));
+            }
+            if (countOccurrences(aboutSection, href) !== 0) fail('index.html: the About page links to /' + sp.slug + ', whose inbound mode is language');
+            // 404.html: the footer link once and nothing else.
+            if (countOccurrences(footerOf(notFoundSrc), footerLink) !== 1 || countOccurrences(notFoundSrc, href) !== 1) {
+                fail('404.html: expected exactly one ' + footerLink + ', in the footer, and no other ' + href);
+            }
+            // Every other English document: the footer link once, nothing else.
+            // The page itself does not link to itself from its footer.
             emittedPages.forEach(function (rec) {
-                if (rec.slug !== sp.slug && countOccurrences(rec.html, href) !== 0) {
-                    fail(rec.label + ': links to /' + sp.slug + ', whose inbound mode is homepage');
+                if (rec.slug === sp.slug) {
+                    if (countOccurrences(footerOf(rec.html), href) !== 0) fail(rec.label + ': links to itself from its own footer');
+                } else if ((rec.lang || 'en') === 'en') {
+                    if (countOccurrences(footerOf(rec.html), footerLink) !== 1 || countOccurrences(rec.html, href) !== 1) {
+                        fail(rec.label + ': expected exactly one ' + footerLink + ', in the footer, and no other ' + href);
+                    }
+                    languageFooters += 1;
                 }
+                if (countOccurrences(rec.html, 'class="lang-suggest"') !== 0) fail(rec.label + ': carries the homepage-only lang-suggest link');
             });
+            languageEntries.push({ slug: sp.slug, footerLink: footerLink });
         } else {
-            fail(sp.slug + ': inbound must be "footer" or "homepage", found ' + JSON.stringify(inbound));
+            fail(sp.slug + ': inbound must be "footer" or "language", found ' + JSON.stringify(inbound));
         }
+    });
+
+    // ---- the language reveal (with inbound 'language') ----
+    //
+    // The pre-paint script in index.html puts lang-es on <html> when the
+    // browser's primary language is Spanish, and css/styles.css shows
+    // .lang-suggest only then. The script is part of the template, so every
+    // emitted page carries it; that is harmless only while html.lang-es is used
+    // by the .lang-suggest rule alone and no page but the homepage has that
+    // element (asserted above). 404.html needs neither.
+    const LANG_REVEAL = "document.documentElement.classList.add('lang-es')";
+    let revealPages = 0;
+    if (languageEntries.length) {
+        if (countOccurrences(template, LANG_REVEAL) !== 1) fail('index.html: expected the language reveal exactly once in the pre-paint script');
+        const themeEnd = template.indexOf('})();', template.indexOf('window.FOLLOW_SYSTEM_THEME = '));
+        const revealAt = template.indexOf(LANG_REVEAL);
+        const scriptEnd = template.indexOf('</script>', template.indexOf('window.FOLLOW_SYSTEM_THEME = '));
+        if (!(themeEnd !== -1 && themeEnd < revealAt && revealAt < scriptEnd)) {
+            fail('index.html: the language reveal must sit after the theme script, inside the same <script>, outside the part 404.html must match');
+        }
+        if (countOccurrences(notFoundSrc, LANG_REVEAL) !== 0) fail('404.html: carries the language reveal; it has no lang-suggest link');
+        emittedPages.forEach(function (rec) {
+            if (countOccurrences(rec.html, 'window.FOLLOW_SYSTEM_THEME = ') === 1) {
+                if (countOccurrences(rec.html, LANG_REVEAL) !== 1) fail(rec.label + ': expected the inherited language reveal exactly once');
+                revealPages += 1;
+            }
+        });
+        const cssSrc = fs.readFileSync(path.join(ROOT, 'css', 'styles.css'), 'utf8');
+        if (countOccurrences(cssSrc, 'html.lang-es') !== 1 || countOccurrences(cssSrc, 'html.lang-es .lang-suggest {') !== 1) {
+            fail('css/styles.css: html.lang-es must appear exactly once, in the .lang-suggest rule (found ' + countOccurrences(cssSrc, 'html.lang-es') + ')');
+        }
+        if (countOccurrences(cssSrc, '.lang-suggest {\n            display: none;') !== 1) fail('css/styles.css: .lang-suggest must be hidden by default (display: none)');
+    }
+    // The always-visible homepage line is retired everywhere.
+    [['index.html', template], ['404.html', notFoundSrc]].concat(emittedPages.map(function (r) { return [r.label, r.html]; })).forEach(function (d) {
+        if (countOccurrences(d[1], 'lang-switch') !== 0) fail(d[0] + ': still carries the retired lang-switch line');
     });
 
     // ---- logo translation guards ----
@@ -2434,6 +2491,12 @@ function main() {
                     sp.__toggles + ' toggles with the ids and onchange values of index.html\'s Settings page (' +
                     QUIZ_TOGGLES.map(function (t) { return t.id; }).join(', ') + '), each once, type checkbox, named by its ' +
                     'setting-label; ' + sp.__toggles + ' onchange attributes in <main>, all allowed; no darkmode-toggle, no settings-btn.');
+    });
+    languageEntries.forEach(function (e) {
+        console.log('Language entry passed: /' + e.slug + ' linked from the footer of index.html, 404.html and ' + languageFooters +
+                    ' English pages, and once from the homepage (lang-suggest, hidden unless html.lang-es); the reveal script is in ' +
+                    'index.html once and inherited once by each of ' + revealPages + ' emitted pages, none in 404.html; html.lang-es ' +
+                    'appears once in css/styles.css.');
     });
     console.log('Logo guards passed: ' + logosChecked + ' logos across index.html, 404.html and ' + emittedPages.length +
                 ' emitted pages, each notranslate with translate="no", every Л lang="ru".');

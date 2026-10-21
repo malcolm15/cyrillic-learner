@@ -39,13 +39,18 @@
 //   groupTitles          The six study-group titles the page shows, in order.
 //                        Required with quizPage; the build checks the cards.
 //   inbound              'footer' (default): linked from the English footer and
-//                        the About page. 'homepage': linked once from the English
-//                        homepage only, never from the footer.
+//                        the About page. 'language': for a page in another
+//                        language, linked from the footer of every English
+//                        document (footerLabel) and once from the homepage, as a
+//                        link shown only to browsers whose primary language
+//                        matches (inboundLabel).
 //   allowedOnclick       Exact onclick attribute values allowed inside <main>.
 //                        Default none. Router calls stay banned regardless.
-//   inboundLabel         With inbound 'homepage': the text of the one homepage
-//                        link, which is <p class="lang-switch"><a href="/<slug>"
+//   inboundLabel         With inbound 'language': the text of the homepage
+//                        link, <p class="lang-suggest"><a href="/<slug>"
 //                        hreflang="<lang>" lang="<lang>">label</a></p>.
+//   footerLabel          With inbound 'language': the text of the footer link,
+//                        <a href="/<slug>" hreflang="<lang>" lang="<lang>">label</a>.
 //   alternates           [{ hreflang, href }]. Emitted as <link rel="alternate">
 //                        after the canonical. The homepage's copy of the same tags
 //                        is added by netlify/edge-functions/head-rewrite.ts, and
@@ -291,8 +296,9 @@ module.exports = [
             aboutName: 'Alfabeto ruso',
             aboutDescription: 'Las 33 letras del alfabeto cirílico ruso',
         },
-        inbound: 'homepage',
-        inboundLabel: 'Español',
+        inbound: 'language',
+        inboundLabel: 'Practicar en español',
+        footerLabel: 'Quiz en español',
         alternates: [
             { hreflang: 'en', href: 'https://cyrilica.com/' },
             { hreflang: 'es', href: 'https://cyrilica.com/es' },
