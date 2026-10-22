@@ -1310,12 +1310,6 @@ function main() {
         }
     });
     if (f2Spans !== partialSpans) fail('article content has ' + f2Spans + ' partial-wrap spans, but the listed partial wraps account for ' + partialSpans);
-    // No guard outside the lists: every translate="no" in article content is one
-    // of the elements checked above.
-    const articleTranslateNo = articles.reduce(function (n, a) { return n + countOccurrences(a.content, 'translate="no"'); }, 0);
-    if (articleTranslateNo !== articleGuardsChecked + partialSpans) {
-        fail('article content carries ' + articleTranslateNo + ' translate="no", but the listed guards account for ' + (articleGuardsChecked + partialSpans) + '; add a new letter tool to ARTICLE_GUARDS or PARTIAL_WRAPS');
-    }
     // The printable chart: buildPrintChart builds new nodes after load, which a
     // translator also rewrites, so the cells carry the cards' guards.
     const articleScriptsSrc = fs.readFileSync(path.join(ROOT, 'js', 'article-scripts.js'), 'utf8');
@@ -1329,7 +1323,7 @@ function main() {
     if (/example\.textContent\s*=/.test(printFn[0])) fail('js/article-scripts.js buildPrintChart: the example must clone the card\'s guarded nodes, not copy its text');
     const articleGuardSummary = 'Article guards passed: ' + Object.keys(guardCounts).map(function (k) { return k + ' ' + guardCounts[k]; }).join(', ') +
         ' (whole element, guarded, expected lang, big-letter by row); ' + tiles.length + ' copy values equal to their guarded glyph and the expected list; ' +
-        PARTIAL_WRAPS.map(function (p) { return p.cls + ' ' + p.count; }).join(', ') + ' partial wraps (' + partialSpans + ' spans, F2 spacing); no other translate="no" in article content; print cells guarded.';
+        PARTIAL_WRAPS.map(function (p) { return p.cls + ' ' + p.count; }).join(', ') + ' partial wraps (' + partialSpans + ' spans, F2 spacing); print cells guarded.';
 
     // ---- study groups: the six selectable groups are static HTML in index.html ----
     // Same rule as the chart, the copy tiles and the lookalike strip, but this one
@@ -1432,6 +1426,48 @@ function main() {
         });
     }
     assertAnswerInput(template, 'index.html');
+
+    // ---- article mini quizzes: false-friends, memory-tricks, serbian-cyrillic-vs-latin ----
+    // The letter on screen is guarded by id (its spans have no class of their
+    // own): translate="no", notranslate and the quiz's language, sr for the
+    // Serbian letters. The answer box takes the same four attributes as the main
+    // quiz. The feedback answer is written by setQuizText from core.js, so it sits
+    // in its own guarded span with the space before it inside, and the text is
+    // the English quiz's 'wrong' and 'skip' strings exactly (checked by the
+    // setQuizText run further down).
+    const MINI_QUIZZES = [
+        { prefix: 'mini', article: 'false-friends', lang: 'ru' },
+        { prefix: 'mem', article: 'memory-tricks', lang: 'ru' },
+        { prefix: 'srb', article: 'serbian-cyrillic-vs-latin', lang: 'sr' },
+    ];
+    let miniQuizSpans = 0;
+    MINI_QUIZZES.forEach(function (q) {
+        const a = byId[q.article];
+        if (!a) fail(q.article + ' article not found; the mini-quiz assertion cannot run');
+        ['-current-char', '-current-char-lower'].forEach(function (suffix) {
+            const tag = openingTagWithId(a.content, q.prefix + suffix, q.article);
+            if (!hasTranslateGuard(tag)) fail(q.article + ': #' + q.prefix + suffix + ' must carry translate="no" and class notranslate: ' + tag);
+            if (langOf(tag) !== q.lang) fail(q.article + ': #' + q.prefix + suffix + ' has lang ' + JSON.stringify(langOf(tag)) + ', expected "' + q.lang + '"');
+            miniQuizSpans += 1;
+        });
+        const input = openingTagWithId(a.content, q.prefix + '-answer-input', q.article);
+        ANSWER_INPUT_ATTRS.forEach(function (attr) {
+            if (!new RegExp('\\s' + attr + '[\\s/>]').test(input)) fail(q.article + ': #' + q.prefix + '-answer-input must carry ' + attr + ', found ' + input);
+        });
+        openingTagWithId(a.content, q.prefix + '-feedback', q.article);
+    });
+    // quizCheck and quizSkip write the answer through setQuizText, never as text.
+    ["setQuizText(feedback, 'wrong', { answer: state.chars[state.currentChar].roman });",
+     "setQuizText(feedback, 'skip', { answer: state.chars[state.currentChar].roman });"].forEach(function (line) {
+        if (countOccurrences(articleScriptsSrc, line) !== 1) fail('js/article-scripts.js: the mini-quiz feedback must use ' + line);
+    });
+    if (/Correct: \$\{|Answer: \$\{/.test(articleScriptsSrc)) fail('js/article-scripts.js: a mini-quiz answer is written as plain text; use setQuizText');
+    // No guard outside the lists: every translate="no" in article content is one
+    // of the elements checked above.
+    const articleTranslateNo = articles.reduce(function (n, a) { return n + countOccurrences(a.content, 'translate="no"'); }, 0);
+    if (articleTranslateNo !== articleGuardsChecked + partialSpans + miniQuizSpans) {
+        fail('article content carries ' + articleTranslateNo + ' translate="no", but the listed guards account for ' + (articleGuardsChecked + partialSpans + miniQuizSpans) + '; add a new letter tool to ARTICLE_GUARDS, PARTIAL_WRAPS or MINI_QUIZZES');
+    }
 
     // The quiz's screen-reader names: a label for the answer box, a polite live
     // region for the feedback line, and a name for the audio button. On
@@ -2756,6 +2792,9 @@ function main() {
                     'appears once in css/styles.css.');
     });
     console.log(articleGuardSummary);
+    console.log('Mini quizzes passed: ' + MINI_QUIZZES.map(function (q) { return q.article + ' (' + q.lang + ')'; }).join(', ') +
+                ': ' + miniQuizSpans + ' letter spans guarded with lang, answer inputs carry ' + ANSWER_INPUT_ATTRS.join(' ') +
+                ', feedback answers written by setQuizText; ' + articleTranslateNo + ' translate="no" in article content, all listed.');
     console.log('Logo guards passed: ' + logosChecked + ' logos across index.html, 404.html and ' + emittedPages.length +
                 ' emitted pages, each notranslate with translate="no", every Л lang="ru".');
     // ---- setQuizText: spacing and exact text ----

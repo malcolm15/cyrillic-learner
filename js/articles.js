@@ -290,13 +290,13 @@ const ARTICLES = [
                     <div id="mini-quiz-active">
                         <div class="mini-quiz-question">
                             <div class="mini-char-display">
-                                <span id="mini-current-char"></span>
-                                <span id="mini-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
+                                <span id="mini-current-char" class="notranslate" translate="no" lang="ru"></span>
+                                <span id="mini-current-char-lower" class="quiz-char-lower notranslate" translate="no" lang="ru" style="display: none;"></span>
                                 <button class="audio-btn" id="mini-audio-btn" style="display: none; margin-left: 10px;" title="Hear pronunciation">🔊</button>
                             </div>
                             
                             <div class="mini-input-area">
-                                <input type="text" id="mini-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                                <input type="text" id="mini-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
                                 <button class="btn" onclick="checkMiniAnswer()">Submit</button>
                             </div>
                             
@@ -760,13 +760,13 @@ const ARTICLES = [
                     <div id="mem-quiz-active">
                         <div class="mini-quiz-question">
                             <div class="mini-char-display">
-                                <span id="mem-current-char"></span>
-                                <span id="mem-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
+                                <span id="mem-current-char" class="notranslate" translate="no" lang="ru"></span>
+                                <span id="mem-current-char-lower" class="quiz-char-lower notranslate" translate="no" lang="ru" style="display: none;"></span>
                                 <button class="audio-btn" id="mem-audio-btn" style="display: none; margin-left: 10px;" title="Hear pronunciation">🔊</button>
                             </div>
                             
                             <div class="mini-input-area">
-                                <input type="text" id="mem-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                                <input type="text" id="mem-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
                                 <button class="btn" onclick="checkMemAnswer()">Submit</button>
                             </div>
                             
@@ -2667,11 +2667,11 @@ const ARTICLES = [
                     <div id="srb-quiz-active">
                         <div class="mini-quiz-question">
                             <div class="mini-char-display">
-                                <span id="srb-current-char"></span>
-                                <span id="srb-current-char-lower" class="quiz-char-lower" style="display: none;"></span>
+                                <span id="srb-current-char" class="notranslate" translate="no" lang="sr"></span>
+                                <span id="srb-current-char-lower" class="quiz-char-lower notranslate" translate="no" lang="sr" style="display: none;"></span>
                             </div>
                             <div class="mini-input-area">
-                                <input type="text" id="srb-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocapitalize="off">
+                                <input type="text" id="srb-answer-input" class="quiz-answer-input" placeholder="Type romanization..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
                                 <button class="btn" onclick="checkSrbAnswer()">Submit</button>
                             </div>
                             <div id="srb-feedback" class="feedback quiz-feedback"></div>

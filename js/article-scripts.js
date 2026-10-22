@@ -636,7 +636,9 @@ function quizCheck(prefix) {
         
         setTimeout(() => { state.currentIndex++; quizNext(prefix); }, 600);
     } else {
-        feedback.textContent = `✗ Wrong. Correct: ${state.chars[state.currentChar].roman}`;
+        // setQuizText (core.js) writes the same text with the answer in its own
+        // guarded span, so a page translator cannot rewrite the romanization.
+        setQuizText(feedback, 'wrong', { answer: state.chars[state.currentChar].roman });
         feedback.className = 'feedback incorrect';
         state.incorrectCount++;
         state.streak = 0;
@@ -653,7 +655,7 @@ function quizSkip(prefix) {
     if (!state) return;
     
     const feedback = document.getElementById(prefix + '-feedback');
-    feedback.textContent = `Answer: ${state.chars[state.currentChar].roman}`;
+    setQuizText(feedback, 'skip', { answer: state.chars[state.currentChar].roman });
     feedback.className = 'feedback';
     state.answered = true;
     state.incorrectCount++;
