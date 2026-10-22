@@ -227,12 +227,12 @@ const ARTICLES = [
             <p>Here are the six letters that look like English letters but make different sounds. Learn these six first.</p>
 
             <div class="false-friends-grid">
-                <div class="ff-card"><div class="ff-letter">В в</div><div class="ff-body"><div class="ff-wrong">✕ you think "B"</div><div class="ff-right">✓ actually "V"</div><div class="ff-example">Вода, Voda (Water)</div></div></div>
-                <div class="ff-card"><div class="ff-letter">Н н</div><div class="ff-body"><div class="ff-wrong">✕ you think "H"</div><div class="ff-right">✓ actually "N"</div><div class="ff-example">Нет, Nyet (No)</div></div></div>
-                <div class="ff-card"><div class="ff-letter">Р р</div><div class="ff-body"><div class="ff-wrong">✕ you think "P"</div><div class="ff-right">✓ actually "R"</div><div class="ff-example">Россия, Rossiya (Russia)</div></div></div>
-                <div class="ff-card"><div class="ff-letter">С с</div><div class="ff-body"><div class="ff-wrong">✕ you think "C"</div><div class="ff-right">✓ actually "S"</div><div class="ff-example">Спасибо, Spasibo (Thanks)</div></div></div>
-                <div class="ff-card"><div class="ff-letter">У у</div><div class="ff-body"><div class="ff-wrong">✕ you think "Y"</div><div class="ff-right">✓ actually "OO"</div><div class="ff-example">Утро, Utro (Morning)</div></div></div>
-                <div class="ff-card"><div class="ff-letter">Х х</div><div class="ff-body"><div class="ff-wrong">✕ you think "X"</div><div class="ff-right">✓ actually "KH"</div><div class="ff-example">Хорошо, Khorosho (Good)</div></div></div>
+                <div class="ff-card"><div class="ff-letter notranslate" translate="no" lang="ru">В в</div><div class="ff-body"><div class="ff-wrong">✕ you think "B"</div><div class="ff-right">✓ actually "V"</div><div class="ff-example"><span lang="ru" translate="no" class="notranslate">Вода, </span><span translate="no" class="notranslate">Voda </span>(Water)</div></div></div>
+                <div class="ff-card"><div class="ff-letter notranslate" translate="no" lang="ru">Н н</div><div class="ff-body"><div class="ff-wrong">✕ you think "H"</div><div class="ff-right">✓ actually "N"</div><div class="ff-example"><span lang="ru" translate="no" class="notranslate">Нет, </span><span translate="no" class="notranslate">Nyet </span>(No)</div></div></div>
+                <div class="ff-card"><div class="ff-letter notranslate" translate="no" lang="ru">Р р</div><div class="ff-body"><div class="ff-wrong">✕ you think "P"</div><div class="ff-right">✓ actually "R"</div><div class="ff-example"><span lang="ru" translate="no" class="notranslate">Россия, </span><span translate="no" class="notranslate">Rossiya </span>(Russia)</div></div></div>
+                <div class="ff-card"><div class="ff-letter notranslate" translate="no" lang="ru">С с</div><div class="ff-body"><div class="ff-wrong">✕ you think "C"</div><div class="ff-right">✓ actually "S"</div><div class="ff-example"><span lang="ru" translate="no" class="notranslate">Спасибо, </span><span translate="no" class="notranslate">Spasibo </span>(Thanks)</div></div></div>
+                <div class="ff-card"><div class="ff-letter notranslate" translate="no" lang="ru">У у</div><div class="ff-body"><div class="ff-wrong">✕ you think "Y"</div><div class="ff-right">✓ actually "OO"</div><div class="ff-example"><span lang="ru" translate="no" class="notranslate">Утро, </span><span translate="no" class="notranslate">Utro </span>(Morning)</div></div></div>
+                <div class="ff-card"><div class="ff-letter notranslate" translate="no" lang="ru">Х х</div><div class="ff-body"><div class="ff-wrong">✕ you think "X"</div><div class="ff-right">✓ actually "KH"</div><div class="ff-example"><span lang="ru" translate="no" class="notranslate">Хорошо, </span><span translate="no" class="notranslate">Khorosho </span>(Good)</div></div></div>
             </div>
             
             <p><strong>В (Ve): Sounds like "V"</strong></p>
@@ -1382,10 +1382,10 @@ const ARTICLES = [
                     <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><span class="big-letter">Ґ ґ</span></td><td>hard <strong>g</strong>, as in <em>go</em></td><td>Russian does not need a letter like this, because its own Г is already a hard G. Ukrainian's regular Г is a breathy <em>h</em> sound instead, so Ukrainian needed a separate letter for the hard one. It is just Г with a little hook on top.</td></tr>
-                    <tr><td><span class="big-letter">Є є</span></td><td><strong>ye</strong>, as in <em>yes</em></td><td>This is the mirror image of the Russian Э. Where Russian writes Э for a plain "eh," Ukrainian uses Е for that and saves Є for the "yeh" sound.</td></tr>
-                    <tr><td><span class="big-letter">І і</span></td><td><strong>ee</strong>, as in <em>see</em></td><td>The dotted I. It looks exactly like a Latin "i" and sounds like one too. Ukrainian uses this for the "ee" sound and gives its own job to the letter that looks like Russian's И.</td></tr>
-                    <tr><td><span class="big-letter">Ї ї</span></td><td><strong>yi</strong>, like <em>ye-ee</em> run together</td><td>The I with two dots. It is the only letter in the Ukrainian alphabet with two dots like this, though Russian has Ё, and it shows up in the Ukrainian word for "their," їх.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="uk">Ґ ґ</span></td><td>hard <strong>g</strong>, as in <em>go</em></td><td>Russian does not need a letter like this, because its own Г is already a hard G. Ukrainian's regular Г is a breathy <em>h</em> sound instead, so Ukrainian needed a separate letter for the hard one. It is just Г with a little hook on top.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="uk">Є є</span></td><td><strong>ye</strong>, as in <em>yes</em></td><td>This is the mirror image of the Russian Э. Where Russian writes Э for a plain "eh," Ukrainian uses Е for that and saves Є for the "yeh" sound.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="uk">І і</span></td><td><strong>ee</strong>, as in <em>see</em></td><td>The dotted I. It looks exactly like a Latin "i" and sounds like one too. Ukrainian uses this for the "ee" sound and gives its own job to the letter that looks like Russian's И.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="uk">Ї ї</span></td><td><strong>yi</strong>, like <em>ye-ee</em> run together</td><td>The I with two dots. It is the only letter in the Ukrainian alphabet with two dots like this, though Russian has Ё, and it shows up in the Ukrainian word for "their," їх.</td></tr>
                 </tbody>
             </table>
 
@@ -1400,8 +1400,8 @@ const ARTICLES = [
                     <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><span class="big-letter">Ў ў</span></td><td><strong>w</strong>, like the <em>w</em> in <em>now</em></td><td>Called "short U." It is У wearing the same little curved hat that Й wears, and it does the same trick: it turns a full vowel into a glide. If you spot this letter, you are almost certainly looking at Belarusian. It even has a monument built in its honor in the city of Polatsk.</td></tr>
-                    <tr><td><span class="big-letter">І і</span></td><td><strong>ee</strong>, as in <em>see</em></td><td>The same dotted I as Ukrainian. Belarusian uses it instead of the Russian-style И entirely.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="be">Ў ў</span></td><td><strong>w</strong>, like the <em>w</em> in <em>now</em></td><td>Called "short U." It is У wearing the same little curved hat that Й wears, and it does the same trick: it turns a full vowel into a glide. If you spot this letter, you are almost certainly looking at Belarusian. It even has a monument built in its honor in the city of Polatsk.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="be">І і</span></td><td><strong>ee</strong>, as in <em>see</em></td><td>The same dotted I as Ukrainian. Belarusian uses it instead of the Russian-style И entirely.</td></tr>
                 </tbody>
             </table>
 
@@ -1414,12 +1414,12 @@ const ARTICLES = [
                     <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><span class="big-letter">Ј ј</span></td><td><strong>y</strong>, as in <em>yes</em></td><td>Yes, that is the Latin J, living inside a Cyrillic alphabet. Serbian uses it for the "y" sound and builds its "ya," "yu," and "yo" sounds by combining it with vowels, instead of using separate letters like Russian's Я, Ю, and Ё.</td></tr>
-                    <tr><td><span class="big-letter">Љ љ</span></td><td><strong>ly</strong>, like the <em>lli</em> in <em>million</em></td><td>A Л and a Ь fused into a single letter. One sound, one symbol.</td></tr>
-                    <tr><td><span class="big-letter">Њ њ</span></td><td><strong>ny</strong>, like the <em>ny</em> in <em>canyon</em></td><td>The same trick as above, this time Н fused with Ь. These two fused letters are pure Karadžić.</td></tr>
-                    <tr><td><span class="big-letter">Ђ ђ</span></td><td>soft <strong>j</strong>, like the <em>j</em> in <em>jeep</em></td><td>A soft "dj" sound with no clean English equivalent. It is the letter in the name Ђоковић, usually spelled Djokovic in English.</td></tr>
-                    <tr><td><span class="big-letter">Ћ ћ</span></td><td>soft <strong>ch</strong>, a gentle <em>ch</em></td><td>The voiceless partner to Ђ. English smears both of these into "ch" and "j," but Serbian keeps them distinct.</td></tr>
-                    <tr><td><span class="big-letter">Џ џ</span></td><td><strong>dzh</strong>, like the <em>j</em> in <em>judge</em></td><td>A hard "j" sound. Its shape is Ц with the little descender moved from the right-hand corner to the middle.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Ј ј</span></td><td><strong>y</strong>, as in <em>yes</em></td><td>Yes, that is the Latin J, living inside a Cyrillic alphabet. Serbian uses it for the "y" sound and builds its "ya," "yu," and "yo" sounds by combining it with vowels, instead of using separate letters like Russian's Я, Ю, and Ё.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Љ љ</span></td><td><strong>ly</strong>, like the <em>lli</em> in <em>million</em></td><td>A Л and a Ь fused into a single letter. One sound, one symbol.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Њ њ</span></td><td><strong>ny</strong>, like the <em>ny</em> in <em>canyon</em></td><td>The same trick as above, this time Н fused with Ь. These two fused letters are pure Karadžić.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Ђ ђ</span></td><td>soft <strong>j</strong>, like the <em>j</em> in <em>jeep</em></td><td>A soft "dj" sound with no clean English equivalent. It is the letter in the name Ђоковић, usually spelled Djokovic in English.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Ћ ћ</span></td><td>soft <strong>ch</strong>, a gentle <em>ch</em></td><td>The voiceless partner to Ђ. English smears both of these into "ch" and "j," but Serbian keeps them distinct.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Џ џ</span></td><td><strong>dzh</strong>, like the <em>j</em> in <em>judge</em></td><td>A hard "j" sound. Its shape is Ц with the little descender moved from the right-hand corner to the middle.</td></tr>
                 </tbody>
             </table>
 
@@ -1434,9 +1434,9 @@ const ARTICLES = [
                     <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><span class="big-letter">Ѕ ѕ</span></td><td><strong>dz</strong>, like the <em>ds</em> in <em>kids</em></td><td>This one is a small celebrity. It looks exactly like a Latin "S," but it sounds like "dz," and it is so rare that you can read several pages of Macedonian without meeting it. It turns up in ѕвезда, meaning "star."</td></tr>
-                    <tr><td><span class="big-letter">Ѓ ѓ</span></td><td>soft <strong>g</strong>, a gentle <em>dy</em></td><td>Macedonian's answer to the Serbian Ђ. Same neighborhood of sound, different letter shape, which is partly a way of looking a little less like Serbian.</td></tr>
-                    <tr><td><span class="big-letter">Ќ ќ</span></td><td>soft <strong>k</strong>, a gentle <em>ty</em></td><td>The pair to Ѓ, matching the Serbian Ћ. If you have learned the Serbian letters, these two are just restyled versions.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="mk">Ѕ ѕ</span></td><td><strong>dz</strong>, like the <em>ds</em> in <em>kids</em></td><td>This one is a small celebrity. It looks exactly like a Latin "S," but it sounds like "dz," and it is so rare that you can read several pages of Macedonian without meeting it. It turns up in ѕвезда, meaning "star."</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="mk">Ѓ ѓ</span></td><td>soft <strong>g</strong>, a gentle <em>dy</em></td><td>Macedonian's answer to the Serbian Ђ. Same neighborhood of sound, different letter shape, which is partly a way of looking a little less like Serbian.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="mk">Ќ ќ</span></td><td>soft <strong>k</strong>, a gentle <em>ty</em></td><td>The pair to Ѓ, matching the Serbian Ћ. If you have learned the Serbian letters, these two are just restyled versions.</td></tr>
                 </tbody>
             </table>
 
@@ -1449,8 +1449,8 @@ const ARTICLES = [
                     <tr><th>Letter</th><th>Sounds like</th><th>Notes</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><span class="big-letter">С́ с́</span></td><td>soft <strong>s</strong>, like the <em>sh</em> in <em>sheep</em> but softer</td><td>An С with an acute accent. It replaces the two-letter spelling сј, so сјутра (tomorrow) can also be written с́утра. There is no ready-made character for it: it is built from С plus a combining accent mark.</td></tr>
-                    <tr><td><span class="big-letter">З́ з́</span></td><td>soft <strong>z</strong>, like the <em>s</em> in <em>vision</em></td><td>The voiced partner to С́. It replaces зј, so зјеница (pupil of the eye) can also be written з́еница.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="cnr">С́ с́</span></td><td>soft <strong>s</strong>, like the <em>sh</em> in <em>sheep</em> but softer</td><td>An С with an acute accent. It replaces the two-letter spelling сј, so сјутра (tomorrow) can also be written с́утра. There is no ready-made character for it: it is built from С plus a combining accent mark.</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="cnr">З́ з́</span></td><td>soft <strong>z</strong>, like the <em>s</em> in <em>vision</em></td><td>The voiced partner to С́. It replaces зј, so зјеница (pupil of the eye) can also be written з́еница.</td></tr>
                 </tbody>
             </table>
 
@@ -1463,22 +1463,22 @@ const ARTICLES = [
                     <tr><th>Letter</th><th>Sound</th><th>Where you'll see it</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><span class="big-letter">Ґ</span></td><td>hard g (<em>go</em>)</td><td>Ukrainian</td></tr>
-                    <tr><td><span class="big-letter">Є</span></td><td>ye (<em>yes</em>)</td><td>Ukrainian</td></tr>
-                    <tr><td><span class="big-letter">І</span></td><td>ee (<em>see</em>)</td><td>Ukrainian, Belarusian</td></tr>
-                    <tr><td><span class="big-letter">Ї</span></td><td>yi (<em>ye-ee</em>)</td><td>Ukrainian</td></tr>
-                    <tr><td><span class="big-letter">Ў</span></td><td>w (<em>now</em>)</td><td>Belarusian</td></tr>
-                    <tr><td><span class="big-letter">Ј</span></td><td>y (<em>yes</em>)</td><td>Serbian, Macedonian, Montenegrin</td></tr>
-                    <tr><td><span class="big-letter">Љ</span></td><td>ly (<em>million</em>)</td><td>Serbian, Macedonian, Montenegrin</td></tr>
-                    <tr><td><span class="big-letter">Њ</span></td><td>ny (<em>canyon</em>)</td><td>Serbian, Macedonian, Montenegrin</td></tr>
-                    <tr><td><span class="big-letter">Ђ</span></td><td>soft j (<em>jeep</em>)</td><td>Serbian, Montenegrin</td></tr>
-                    <tr><td><span class="big-letter">Ћ</span></td><td>soft ch</td><td>Serbian, Montenegrin</td></tr>
-                    <tr><td><span class="big-letter">Џ</span></td><td>dzh (<em>judge</em>)</td><td>Serbian, Macedonian, Montenegrin</td></tr>
-                    <tr><td><span class="big-letter">Ѕ</span></td><td>dz (<em>kids</em>)</td><td>Macedonian</td></tr>
-                    <tr><td><span class="big-letter">Ѓ</span></td><td>soft g</td><td>Macedonian</td></tr>
-                    <tr><td><span class="big-letter">Ќ</span></td><td>soft k</td><td>Macedonian</td></tr>
-                    <tr><td><span class="big-letter">С́</span></td><td>soft s (<em>sheep</em>)</td><td>Montenegrin</td></tr>
-                    <tr><td><span class="big-letter">З́</span></td><td>soft z (<em>vision</em>)</td><td>Montenegrin</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="uk">Ґ</span></td><td>hard g (<em>go</em>)</td><td>Ukrainian</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="uk">Є</span></td><td>ye (<em>yes</em>)</td><td>Ukrainian</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="uk">І</span></td><td>ee (<em>see</em>)</td><td>Ukrainian, Belarusian</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="uk">Ї</span></td><td>yi (<em>ye-ee</em>)</td><td>Ukrainian</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="be">Ў</span></td><td>w (<em>now</em>)</td><td>Belarusian</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Ј</span></td><td>y (<em>yes</em>)</td><td>Serbian, Macedonian, Montenegrin</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Љ</span></td><td>ly (<em>million</em>)</td><td>Serbian, Macedonian, Montenegrin</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Њ</span></td><td>ny (<em>canyon</em>)</td><td>Serbian, Macedonian, Montenegrin</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Ђ</span></td><td>soft j (<em>jeep</em>)</td><td>Serbian, Montenegrin</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Ћ</span></td><td>soft ch</td><td>Serbian, Montenegrin</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="sr">Џ</span></td><td>dzh (<em>judge</em>)</td><td>Serbian, Macedonian, Montenegrin</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="mk">Ѕ</span></td><td>dz (<em>kids</em>)</td><td>Macedonian</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="mk">Ѓ</span></td><td>soft g</td><td>Macedonian</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="mk">Ќ</span></td><td>soft k</td><td>Macedonian</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="cnr">С́</span></td><td>soft s (<em>sheep</em>)</td><td>Montenegrin</td></tr>
+                    <tr><td><span class="big-letter notranslate" translate="no" lang="cnr">З́</span></td><td>soft z (<em>vision</em>)</td><td>Montenegrin</td></tr>
                 </tbody>
             </table>
 
@@ -1783,7 +1783,7 @@ const ARTICLES = [
             <p>Tap any letter to hear what it really sounds like, or copy it to your clipboard:</p>
             <div class="false-friends-grid lookalike-strip" id="lookalike-strip">
                 <div class="ff-card lookalike-card" data-letter="Я">
-                    <div class="ff-letter">Я</div>
+                    <div class="ff-letter notranslate" translate="no" lang="ru">Я</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">R</span> · <span class="lookalike-says">says </span><span class="ff-right">ya</span><span class="lookalike-hint"> (yard)</span></div>
                     <div class="lookalike-actions">
                         <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Я">🔊</button>
@@ -1791,7 +1791,7 @@ const ARTICLES = [
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="И">
-                    <div class="ff-letter">И</div>
+                    <div class="ff-letter notranslate" translate="no" lang="ru">И</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">N</span> · <span class="lookalike-says">says </span><span class="ff-right">ee</span><span class="lookalike-hint"> (see)</span></div>
                     <div class="lookalike-actions">
                         <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to И">🔊</button>
@@ -1799,7 +1799,7 @@ const ARTICLES = [
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Д">
-                    <div class="ff-letter">Д</div>
+                    <div class="ff-letter notranslate" translate="no" lang="ru">Д</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">A</span> · <span class="lookalike-says">says </span><span class="ff-right">d</span><span class="lookalike-hint"> (dog)</span></div>
                     <div class="lookalike-actions">
                         <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Д">🔊</button>
@@ -1807,7 +1807,7 @@ const ARTICLES = [
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Ш">
-                    <div class="ff-letter">Ш</div>
+                    <div class="ff-letter notranslate" translate="no" lang="ru">Ш</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">W</span> · <span class="lookalike-says">says </span><span class="ff-right">sh</span><span class="lookalike-hint"> (shop)</span></div>
                     <div class="lookalike-actions">
                         <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ш">🔊</button>
@@ -1815,7 +1815,7 @@ const ARTICLES = [
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Ц">
-                    <div class="ff-letter">Ц</div>
+                    <div class="ff-letter notranslate" translate="no" lang="ru">Ц</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">U</span> · <span class="lookalike-says">says </span><span class="ff-right">ts</span><span class="lookalike-hint"> (cats)</span></div>
                     <div class="lookalike-actions">
                         <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ц">🔊</button>
@@ -1823,7 +1823,7 @@ const ARTICLES = [
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Г">
-                    <div class="ff-letter">Г</div>
+                    <div class="ff-letter notranslate" translate="no" lang="ru">Г</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">r</span> · <span class="lookalike-says">says </span><span class="ff-right">g</span><span class="lookalike-hint"> (go)</span></div>
                     <div class="lookalike-actions">
                         <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Г">🔊</button>
@@ -1831,7 +1831,7 @@ const ARTICLES = [
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Ф">
-                    <div class="ff-letter">Ф</div>
+                    <div class="ff-letter notranslate" translate="no" lang="ru">Ф</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">O</span> · <span class="lookalike-says">says </span><span class="ff-right">f</span><span class="lookalike-hint"> (fox)</span></div>
                     <div class="lookalike-actions">
                         <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ф">🔊</button>
@@ -1839,7 +1839,7 @@ const ARTICLES = [
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Ё">
-                    <div class="ff-letter">Ё</div>
+                    <div class="ff-letter notranslate" translate="no" lang="ru">Ё</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">E</span> · <span class="lookalike-says">says </span><span class="ff-right">yo</span><span class="lookalike-hint"> (yolk)</span></div>
                     <div class="lookalike-actions">
                         <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ё">🔊</button>
@@ -2097,12 +2097,12 @@ const ARTICLES = [
             <p>Reading about cursive only gets you so far. The six letters below cause most of the confusion, and the fastest way to make sense of them is to watch the pen. Tap a letter to see it drawn stroke by stroke, the way it is taught in Russian school copybooks, and slow it down if you want to follow the direction.</p>
 
             <div id="cursive-picker" class="cursive-picker">
-                <button class="cursive-letter-btn" data-letter="т" data-caption="Three humps, rounded on top, like a Latin m. The bar above is optional but common." aria-pressed="false">т</button>
-                <button class="cursive-letter-btn" data-letter="и" data-caption="Two cups, rounded on the bottom, like a Latin u." aria-pressed="false">и</button>
-                <button class="cursive-letter-btn" data-letter="ш" data-caption="Three cups, rounded on the bottom. Some writers add a line underneath." aria-pressed="false">ш</button>
-                <button class="cursive-letter-btn" data-letter="л" data-caption="A small hook, then one peak. The hook is what makes it л." aria-pressed="false">л</button>
-                <button class="cursive-letter-btn" data-letter="м" data-caption="A small hook, then two humps. Like л with one more." aria-pressed="false">м</button>
-                <button class="cursive-letter-btn" data-letter="д" data-caption="A round body with a loop below the line, like a Latin g." aria-pressed="false">д</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="т" data-caption="Three humps, rounded on top, like a Latin m. The bar above is optional but common." aria-pressed="false">т</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="и" data-caption="Two cups, rounded on the bottom, like a Latin u." aria-pressed="false">и</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="ш" data-caption="Three cups, rounded on the bottom. Some writers add a line underneath." aria-pressed="false">ш</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="л" data-caption="A small hook, then one peak. The hook is what makes it л." aria-pressed="false">л</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="м" data-caption="A small hook, then two humps. Like л with one more." aria-pressed="false">м</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="д" data-caption="A round body with a loop below the line, like a Latin g." aria-pressed="false">д</button>
             </div>
 
             <div class="cursive-stage-wrap">
@@ -3581,82 +3581,82 @@ const ARTICLES = [
             <h3>Standard Russian Alphabet</h3>
             <p class="copy-section-label">Uppercase</p>
             <div id="uppercase-container" class="copy-grid">
-                <button type="button" class="copy-char-btn" data-char="А">А<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Б">Б<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="В">В<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Г">Г<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Д">Д<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Е">Е<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ж">Ж<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="З">З<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="И">И<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Й">Й<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="К">К<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Л">Л<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="М">М<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Н">Н<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="О">О<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="П">П<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Р">Р<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="С">С<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Т">Т<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="У">У<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ф">Ф<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Х">Х<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ц">Ц<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ч">Ч<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ш">Ш<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Щ">Щ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="А"><span class="copy-glyph notranslate" translate="no" lang="ru">А</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Б"><span class="copy-glyph notranslate" translate="no" lang="ru">Б</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="В"><span class="copy-glyph notranslate" translate="no" lang="ru">В</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Г"><span class="copy-glyph notranslate" translate="no" lang="ru">Г</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Д"><span class="copy-glyph notranslate" translate="no" lang="ru">Д</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Е"><span class="copy-glyph notranslate" translate="no" lang="ru">Е</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ж"><span class="copy-glyph notranslate" translate="no" lang="ru">Ж</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="З"><span class="copy-glyph notranslate" translate="no" lang="ru">З</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="И"><span class="copy-glyph notranslate" translate="no" lang="ru">И</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Й"><span class="copy-glyph notranslate" translate="no" lang="ru">Й</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="К"><span class="copy-glyph notranslate" translate="no" lang="ru">К</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Л"><span class="copy-glyph notranslate" translate="no" lang="ru">Л</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="М"><span class="copy-glyph notranslate" translate="no" lang="ru">М</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Н"><span class="copy-glyph notranslate" translate="no" lang="ru">Н</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="О"><span class="copy-glyph notranslate" translate="no" lang="ru">О</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="П"><span class="copy-glyph notranslate" translate="no" lang="ru">П</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Р"><span class="copy-glyph notranslate" translate="no" lang="ru">Р</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="С"><span class="copy-glyph notranslate" translate="no" lang="ru">С</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Т"><span class="copy-glyph notranslate" translate="no" lang="ru">Т</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="У"><span class="copy-glyph notranslate" translate="no" lang="ru">У</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ф"><span class="copy-glyph notranslate" translate="no" lang="ru">Ф</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Х"><span class="copy-glyph notranslate" translate="no" lang="ru">Х</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ц"><span class="copy-glyph notranslate" translate="no" lang="ru">Ц</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ч"><span class="copy-glyph notranslate" translate="no" lang="ru">Ч</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ш"><span class="copy-glyph notranslate" translate="no" lang="ru">Ш</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Щ"><span class="copy-glyph notranslate" translate="no" lang="ru">Щ</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
 
             <p class="copy-section-label">Lowercase</p>
             <div id="lowercase-container" class="copy-grid">
-                <button type="button" class="copy-char-btn" data-char="а">а<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="б">б<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="в">в<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="г">г<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="д">д<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="е">е<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ж">ж<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="з">з<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="и">и<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="й">й<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="к">к<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="л">л<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="м">м<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="н">н<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="о">о<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="п">п<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="р">р<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="с">с<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="т">т<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="у">у<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ф">ф<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="х">х<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ц">ц<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ч">ч<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ш">ш<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="щ">щ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="а"><span class="copy-glyph notranslate" translate="no" lang="ru">а</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="б"><span class="copy-glyph notranslate" translate="no" lang="ru">б</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="в"><span class="copy-glyph notranslate" translate="no" lang="ru">в</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="г"><span class="copy-glyph notranslate" translate="no" lang="ru">г</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="д"><span class="copy-glyph notranslate" translate="no" lang="ru">д</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="е"><span class="copy-glyph notranslate" translate="no" lang="ru">е</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ж"><span class="copy-glyph notranslate" translate="no" lang="ru">ж</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="з"><span class="copy-glyph notranslate" translate="no" lang="ru">з</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="и"><span class="copy-glyph notranslate" translate="no" lang="ru">и</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="й"><span class="copy-glyph notranslate" translate="no" lang="ru">й</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="к"><span class="copy-glyph notranslate" translate="no" lang="ru">к</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="л"><span class="copy-glyph notranslate" translate="no" lang="ru">л</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="м"><span class="copy-glyph notranslate" translate="no" lang="ru">м</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="н"><span class="copy-glyph notranslate" translate="no" lang="ru">н</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="о"><span class="copy-glyph notranslate" translate="no" lang="ru">о</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="п"><span class="copy-glyph notranslate" translate="no" lang="ru">п</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="р"><span class="copy-glyph notranslate" translate="no" lang="ru">р</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="с"><span class="copy-glyph notranslate" translate="no" lang="ru">с</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="т"><span class="copy-glyph notranslate" translate="no" lang="ru">т</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="у"><span class="copy-glyph notranslate" translate="no" lang="ru">у</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ф"><span class="copy-glyph notranslate" translate="no" lang="ru">ф</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="х"><span class="copy-glyph notranslate" translate="no" lang="ru">х</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ц"><span class="copy-glyph notranslate" translate="no" lang="ru">ц</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ч"><span class="copy-glyph notranslate" translate="no" lang="ru">ч</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ш"><span class="copy-glyph notranslate" translate="no" lang="ru">ш</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="щ"><span class="copy-glyph notranslate" translate="no" lang="ru">щ</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
 
             <p class="copy-section-label">Special Characters (Ё, Signs, Ы, Э, Ю, Я)</p>
             <div id="special-container" class="copy-grid">
-                <button type="button" class="copy-char-btn" data-char="Ё">Ё<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ё">ё<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ъ">Ъ<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ъ">ъ<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ь">Ь<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ь">ь<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ы">Ы<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ы">ы<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Э">Э<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="э">э<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ю">Ю<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ю">ю<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Я">Я<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="я">я<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ё"><span class="copy-glyph notranslate" translate="no" lang="ru">Ё</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ё"><span class="copy-glyph notranslate" translate="no" lang="ru">ё</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ъ"><span class="copy-glyph notranslate" translate="no" lang="ru">Ъ</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ъ"><span class="copy-glyph notranslate" translate="no" lang="ru">ъ</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ь"><span class="copy-glyph notranslate" translate="no" lang="ru">Ь</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ь"><span class="copy-glyph notranslate" translate="no" lang="ru">ь</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ы"><span class="copy-glyph notranslate" translate="no" lang="ru">Ы</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ы"><span class="copy-glyph notranslate" translate="no" lang="ru">ы</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Э"><span class="copy-glyph notranslate" translate="no" lang="ru">Э</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="э"><span class="copy-glyph notranslate" translate="no" lang="ru">э</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ю"><span class="copy-glyph notranslate" translate="no" lang="ru">Ю</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ю"><span class="copy-glyph notranslate" translate="no" lang="ru">ю</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Я"><span class="copy-glyph notranslate" translate="no" lang="ru">Я</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="я"><span class="copy-glyph notranslate" translate="no" lang="ru">я</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
 
@@ -3664,42 +3664,42 @@ const ARTICLES = [
             <p>Russian dictionaries and textbooks use acute accents to mark stressed syllables. These are hard to type. Here they are ready to copy.</p>
             <p class="copy-section-label">Uppercase Accented</p>
             <div id="accented-upper-container" class="copy-grid">
-                <button type="button" class="copy-char-btn" data-char="А́">А́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Е́">Е́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="И́">И́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="О́">О́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="У́">У́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ы́">Ы́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Э́">Э́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ю́">Ю́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Я́">Я́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="А́"><span class="copy-glyph notranslate" translate="no" lang="ru">А́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Е́"><span class="copy-glyph notranslate" translate="no" lang="ru">Е́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="И́"><span class="copy-glyph notranslate" translate="no" lang="ru">И́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="О́"><span class="copy-glyph notranslate" translate="no" lang="ru">О́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="У́"><span class="copy-glyph notranslate" translate="no" lang="ru">У́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ы́"><span class="copy-glyph notranslate" translate="no" lang="ru">Ы́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Э́"><span class="copy-glyph notranslate" translate="no" lang="ru">Э́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ю́"><span class="copy-glyph notranslate" translate="no" lang="ru">Ю́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Я́"><span class="copy-glyph notranslate" translate="no" lang="ru">Я́</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
             <p class="copy-section-label">Lowercase Accented</p>
             <div id="accented-lower-container" class="copy-grid">
-                <button type="button" class="copy-char-btn" data-char="а́">а́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="е́">е́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="и́">и́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="о́">о́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="у́">у́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ы́">ы́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="э́">э́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ю́">ю́<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="я́">я́<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="а́"><span class="copy-glyph notranslate" translate="no" lang="ru">а́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="е́"><span class="copy-glyph notranslate" translate="no" lang="ru">е́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="и́"><span class="copy-glyph notranslate" translate="no" lang="ru">и́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="о́"><span class="copy-glyph notranslate" translate="no" lang="ru">о́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="у́"><span class="copy-glyph notranslate" translate="no" lang="ru">у́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ы́"><span class="copy-glyph notranslate" translate="no" lang="ru">ы́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="э́"><span class="copy-glyph notranslate" translate="no" lang="ru">э́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ю́"><span class="copy-glyph notranslate" translate="no" lang="ru">ю́</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="я́"><span class="copy-glyph notranslate" translate="no" lang="ru">я́</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
 
             <h3>Pre-Reform Letters (Pre-1918)</h3>
             <p>These letters dropped out of Russian with the 1918 spelling reform. Three were removed by decree, and the fourth, izhitsa, had already fallen out of use. You'll still encounter them in pre-revolutionary texts, historical documents, and academic publications.</p>
             <div id="prereform-container" class="copy-grid">
-                <button type="button" class="copy-char-btn" data-char="Ѣ">Ѣ<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ѣ">ѣ<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ѳ">Ѳ<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ѳ">ѳ<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="І">І<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="і">і<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="Ѵ">Ѵ<span class="copy-feedback">Copied!</span></button>
-                <button type="button" class="copy-char-btn" data-char="ѵ">ѵ<span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ѣ"><span class="copy-glyph notranslate" translate="no" lang="ru">Ѣ</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ѣ"><span class="copy-glyph notranslate" translate="no" lang="ru">ѣ</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ѳ"><span class="copy-glyph notranslate" translate="no" lang="ru">Ѳ</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ѳ"><span class="copy-glyph notranslate" translate="no" lang="ru">ѳ</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="І"><span class="copy-glyph notranslate" translate="no" lang="ru">І</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="і"><span class="copy-glyph notranslate" translate="no" lang="ru">і</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="Ѵ"><span class="copy-glyph notranslate" translate="no" lang="ru">Ѵ</span><span class="copy-feedback">Copied!</span></button>
+                <button type="button" class="copy-char-btn" data-char="ѵ"><span class="copy-glyph notranslate" translate="no" lang="ru">ѵ</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
 
@@ -3774,266 +3774,266 @@ const ARTICLES = [
             <div id="alphabet-grid" class="alphabet-grid">
                     <button type="button" class="letter-card easy" data-letter="А" data-type="vowel" aria-label="Play pronunciation of А">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">А а</div>
-                        <div class="letter-name">а (ah)</div>
-                        <div class="letter-sound">ah</div>
-                        <div class="letter-example">автобус (bus)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">А а</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">а (ah)</div>
+                        <div class="letter-sound notranslate" translate="no">ah</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">автобус </span>(bus)</div>
                         <div class="letter-ipa">/a/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="Е" data-type="vowel" aria-label="Play pronunciation of Е">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Е е</div>
-                        <div class="letter-name">е</div>
-                        <div class="letter-sound">yeh</div>
-                        <div class="letter-example">есть (to eat)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Е е</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">е</div>
+                        <div class="letter-sound notranslate" translate="no">yeh</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">есть </span>(to eat)</div>
                         <div class="letter-ipa">/je/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Ё" data-type="vowel" aria-label="Play pronunciation of Ё">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ё ё</div>
-                        <div class="letter-name">ё</div>
-                        <div class="letter-sound">yo</div>
-                        <div class="letter-example">ёлка (tree)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ё ё</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ё</div>
+                        <div class="letter-sound notranslate" translate="no">yo</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">ёлка </span>(tree)</div>
                         <div class="letter-ipa">/jo/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="И" data-type="vowel" aria-label="Play pronunciation of И">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">И и</div>
-                        <div class="letter-name">и (ee)</div>
-                        <div class="letter-sound">ee</div>
-                        <div class="letter-example">имя (name)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">И и</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">и (ee)</div>
+                        <div class="letter-sound notranslate" translate="no">ee</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">имя </span>(name)</div>
                         <div class="letter-ipa">/i/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="О" data-type="vowel" aria-label="Play pronunciation of О">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">О о</div>
-                        <div class="letter-name">о</div>
-                        <div class="letter-sound">oh</div>
-                        <div class="letter-example">окно (window)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">О о</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">о</div>
+                        <div class="letter-sound notranslate" translate="no">oh</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">окно </span>(window)</div>
                         <div class="letter-ipa">/o/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="У" data-type="vowel" aria-label="Play pronunciation of У">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">У у</div>
-                        <div class="letter-name">у (oo)</div>
-                        <div class="letter-sound">oo</div>
-                        <div class="letter-example">утро (morning)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">У у</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">у (oo)</div>
+                        <div class="letter-sound notranslate" translate="no">oo</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">утро </span>(morning)</div>
                         <div class="letter-ipa">/u/</div>
                     </button>
                     <button type="button" class="letter-card hard" data-letter="Ы" data-type="vowel" aria-label="Play pronunciation of Ы">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ы ы</div>
-                        <div class="letter-name">ы</div>
-                        <div class="letter-sound">ih</div>
-                        <div class="letter-example">мы (we)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ы ы</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ы</div>
+                        <div class="letter-sound notranslate" translate="no">ih</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">мы </span>(we)</div>
                         <div class="letter-ipa">/ɨ/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Э" data-type="vowel" aria-label="Play pronunciation of Э">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Э э</div>
-                        <div class="letter-name">э (e)</div>
-                        <div class="letter-sound">eh</div>
-                        <div class="letter-example">это (this)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Э э</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">э (e)</div>
+                        <div class="letter-sound notranslate" translate="no">eh</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">это </span>(this)</div>
                         <div class="letter-ipa">/ɛ/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Ю" data-type="vowel" aria-label="Play pronunciation of Ю">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ю ю</div>
-                        <div class="letter-name">ю (ew)</div>
-                        <div class="letter-sound">yoo</div>
-                        <div class="letter-example">юг (south)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ю ю</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ю (ew)</div>
+                        <div class="letter-sound notranslate" translate="no">yoo</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">юг </span>(south)</div>
                         <div class="letter-ipa">/ju/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Я" data-type="vowel" aria-label="Play pronunciation of Я">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Я я</div>
-                        <div class="letter-name">я</div>
-                        <div class="letter-sound">ya</div>
-                        <div class="letter-example">яблоко (apple)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Я я</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">я</div>
+                        <div class="letter-sound notranslate" translate="no">ya</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">яблоко </span>(apple)</div>
                         <div class="letter-ipa">/ja/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="Б" data-type="consonant" aria-label="Play pronunciation of Б">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Б б</div>
-                        <div class="letter-name">бэ (be)</div>
-                        <div class="letter-sound">b</div>
-                        <div class="letter-example">банк (bank)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Б б</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">бэ (be)</div>
+                        <div class="letter-sound notranslate" translate="no">b</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">банк </span>(bank)</div>
                         <div class="letter-ipa">/bɛ/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="В" data-type="consonant" aria-label="Play pronunciation of В">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">В в</div>
-                        <div class="letter-name">вэ (ve)</div>
-                        <div class="letter-sound">v</div>
-                        <div class="letter-example">вода (water)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">В в</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">вэ (ve)</div>
+                        <div class="letter-sound notranslate" translate="no">v</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">вода </span>(water)</div>
                         <div class="letter-ipa">/vɛ/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="Г" data-type="consonant" aria-label="Play pronunciation of Г">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Г г</div>
-                        <div class="letter-name">гэ (ghe)</div>
-                        <div class="letter-sound">g</div>
-                        <div class="letter-example">город (city)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Г г</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">гэ (ghe)</div>
+                        <div class="letter-sound notranslate" translate="no">g</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">город </span>(city)</div>
                         <div class="letter-ipa">/ɡɛ/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="Д" data-type="consonant" aria-label="Play pronunciation of Д">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Д д</div>
-                        <div class="letter-name">дэ (de)</div>
-                        <div class="letter-sound">d</div>
-                        <div class="letter-example">дом (house)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Д д</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">дэ (de)</div>
+                        <div class="letter-sound notranslate" translate="no">d</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">дом </span>(house)</div>
                         <div class="letter-ipa">/dɛ/</div>
                     </button>
                     <button type="button" class="letter-card hard" data-letter="Ж" data-type="consonant" aria-label="Play pronunciation of Ж">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ж ж</div>
-                        <div class="letter-name">жэ</div>
-                        <div class="letter-sound">zh</div>
-                        <div class="letter-example">жизнь (life)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ж ж</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">жэ</div>
+                        <div class="letter-sound notranslate" translate="no">zh</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">жизнь </span>(life)</div>
                         <div class="letter-ipa">/ʐɛ/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="З" data-type="consonant" aria-label="Play pronunciation of З">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">З з</div>
-                        <div class="letter-name">зэ (ze)</div>
-                        <div class="letter-sound">z</div>
-                        <div class="letter-example">зима (winter)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">З з</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">зэ (ze)</div>
+                        <div class="letter-sound notranslate" translate="no">z</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">зима </span>(winter)</div>
                         <div class="letter-ipa">/zɛ/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Й" data-type="consonant" aria-label="Play pronunciation of Й">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Й й</div>
-                        <div class="letter-name">и краткое</div>
-                        <div class="letter-sound">y</div>
-                        <div class="letter-example">мой (my)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Й й</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">и краткое</div>
+                        <div class="letter-sound notranslate" translate="no">y</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">мой </span>(my)</div>
                         <div class="letter-ipa">/ˈi ˈkratkəjə/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="К" data-type="consonant" aria-label="Play pronunciation of К">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">К к</div>
-                        <div class="letter-name">ка</div>
-                        <div class="letter-sound">k</div>
-                        <div class="letter-example">кот (cat)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">К к</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ка</div>
+                        <div class="letter-sound notranslate" translate="no">k</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">кот </span>(cat)</div>
                         <div class="letter-ipa">/ka/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="Л" data-type="consonant" aria-label="Play pronunciation of Л">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Л л</div>
-                        <div class="letter-name">эль</div>
-                        <div class="letter-sound">l</div>
-                        <div class="letter-example">лес (forest)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Л л</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">эль</div>
+                        <div class="letter-sound notranslate" translate="no">l</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">лес </span>(forest)</div>
                         <div class="letter-ipa">/ɛlʲ/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="М" data-type="consonant" aria-label="Play pronunciation of М">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">М м</div>
-                        <div class="letter-name">эм (em)</div>
-                        <div class="letter-sound">m</div>
-                        <div class="letter-example">мама (mom)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">М м</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">эм (em)</div>
+                        <div class="letter-sound notranslate" translate="no">m</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">мама </span>(mom)</div>
                         <div class="letter-ipa">/ɛm/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Н" data-type="consonant" aria-label="Play pronunciation of Н">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Н н</div>
-                        <div class="letter-name">эн (en)</div>
-                        <div class="letter-sound">n</div>
-                        <div class="letter-example">нет (no)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Н н</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">эн (en)</div>
+                        <div class="letter-sound notranslate" translate="no">n</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">нет </span>(no)</div>
                         <div class="letter-ipa">/ɛn/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="П" data-type="consonant" aria-label="Play pronunciation of П">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">П п</div>
-                        <div class="letter-name">пэ (pe)</div>
-                        <div class="letter-sound">p</div>
-                        <div class="letter-example">папа (dad)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">П п</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">пэ (pe)</div>
+                        <div class="letter-sound notranslate" translate="no">p</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">папа </span>(dad)</div>
                         <div class="letter-ipa">/pɛ/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Р" data-type="consonant" aria-label="Play pronunciation of Р">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Р р</div>
-                        <div class="letter-name">эр (err)</div>
-                        <div class="letter-sound">r</div>
-                        <div class="letter-example">рука (hand)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Р р</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">эр (err)</div>
+                        <div class="letter-sound notranslate" translate="no">r</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">рука </span>(hand)</div>
                         <div class="letter-ipa">/ɛr/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="С" data-type="consonant" aria-label="Play pronunciation of С">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">С с</div>
-                        <div class="letter-name">эс (es)</div>
-                        <div class="letter-sound">s</div>
-                        <div class="letter-example">слово (word)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">С с</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">эс (es)</div>
+                        <div class="letter-sound notranslate" translate="no">s</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">слово </span>(word)</div>
                         <div class="letter-ipa">/ɛs/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="Т" data-type="consonant" aria-label="Play pronunciation of Т">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Т т</div>
-                        <div class="letter-name">тэ (te)</div>
-                        <div class="letter-sound">t</div>
-                        <div class="letter-example">там (there)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Т т</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">тэ (te)</div>
+                        <div class="letter-sound notranslate" translate="no">t</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">там </span>(there)</div>
                         <div class="letter-ipa">/tɛ/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="Ф" data-type="consonant" aria-label="Play pronunciation of Ф">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ф ф</div>
-                        <div class="letter-name">эф (ef)</div>
-                        <div class="letter-sound">f</div>
-                        <div class="letter-example">фото (photo)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ф ф</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">эф (ef)</div>
+                        <div class="letter-sound notranslate" translate="no">f</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">фото </span>(photo)</div>
                         <div class="letter-ipa">/ɛf/</div>
                     </button>
                     <button type="button" class="letter-card hard" data-letter="Х" data-type="consonant" aria-label="Play pronunciation of Х">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Х х</div>
-                        <div class="letter-name">ха</div>
-                        <div class="letter-sound">kh</div>
-                        <div class="letter-example">хлеб (bread)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Х х</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ха</div>
+                        <div class="letter-sound notranslate" translate="no">kh</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">хлеб </span>(bread)</div>
                         <div class="letter-ipa">/xa/</div>
                     </button>
                     <button type="button" class="letter-card hard" data-letter="Ц" data-type="consonant" aria-label="Play pronunciation of Ц">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ц ц</div>
-                        <div class="letter-name">цэ (tse)</div>
-                        <div class="letter-sound">ts</div>
-                        <div class="letter-example">цена (price)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ц ц</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">цэ (tse)</div>
+                        <div class="letter-sound notranslate" translate="no">ts</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">цена </span>(price)</div>
                         <div class="letter-ipa">/tsɛ/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Ч" data-type="consonant" aria-label="Play pronunciation of Ч">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ч ч</div>
-                        <div class="letter-name">че</div>
-                        <div class="letter-sound">ch</div>
-                        <div class="letter-example">час (hour)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ч ч</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">че</div>
+                        <div class="letter-sound notranslate" translate="no">ch</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">час </span>(hour)</div>
                         <div class="letter-ipa">/tɕe/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Ш" data-type="consonant" aria-label="Play pronunciation of Ш">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ш ш</div>
-                        <div class="letter-name">ша</div>
-                        <div class="letter-sound">sh</div>
-                        <div class="letter-example">школа (school)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ш ш</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ша</div>
+                        <div class="letter-sound notranslate" translate="no">sh</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">школа </span>(school)</div>
                         <div class="letter-ipa">/ʂa/</div>
                     </button>
                     <button type="button" class="letter-card hard" data-letter="Щ" data-type="consonant" aria-label="Play pronunciation of Щ">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Щ щ</div>
-                        <div class="letter-name">ща</div>
-                        <div class="letter-sound">shch</div>
-                        <div class="letter-example">щи (soup)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Щ щ</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ща</div>
+                        <div class="letter-sound notranslate" translate="no">shch</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">щи </span>(soup)</div>
                         <div class="letter-ipa">/ɕːa/</div>
                     </button>
                     <button type="button" class="letter-card hard" data-letter="Ъ" data-type="sign" aria-label="Play pronunciation of Ъ">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ъ ъ</div>
-                        <div class="letter-name">твёрдый знак</div>
-                        <div class="letter-sound">hard sign</div>
-                        <div class="letter-example">объект (object)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ъ ъ</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">твёрдый знак</div>
+                        <div class="letter-sound notranslate" translate="no">hard sign</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">объект </span>(object)</div>
                         <div class="letter-ipa">/ˈtvʲɵrdɨj znak/</div>
                     </button>
                     <button type="button" class="letter-card hard" data-letter="Ь" data-type="sign" aria-label="Play pronunciation of Ь">
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars">Ь ь</div>
-                        <div class="letter-name">мягкий знак</div>
-                        <div class="letter-sound">soft sign</div>
-                        <div class="letter-example">день (day)</div>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ь ь</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">мягкий знак</div>
+                        <div class="letter-sound notranslate" translate="no">soft sign</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">день </span>(day)</div>
                         <div class="letter-ipa">/ˈmʲæxʲkʲɪj znak/</div>
                     </button>
                 </div>
