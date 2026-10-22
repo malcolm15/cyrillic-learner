@@ -1269,6 +1269,18 @@ function main() {
     }
     assertAnswerInput(template, 'index.html');
 
+    // The quiz's screen-reader names: a label for the answer box, a polite live
+    // region for the feedback line, and a name for the audio button. On
+    // index.html and every quiz page.
+    function assertQuizA11y(html, label) {
+        const labels = html.match(/<label for="answer-input"[^>]*>([^<]*)<\/label>/g) || [];
+        if (labels.length !== 1 || countOccurrences(html, 'for="answer-input"') !== 1) fail(label + ': expected exactly one <label for="answer-input">, found ' + labels.length);
+        if (!/>[^<]*\S[^<]*<\/label>$/.test(labels[0])) fail(label + ': the answer-input label is empty');
+        if (!/\saria-live="polite"/.test(openingTagWithId(html, 'feedback', label))) fail(label + ': #feedback must carry aria-live="polite"');
+        if (!/\saria-label="[^"]*\S[^"]*"/.test(openingTagWithId(html, 'audio-btn', label))) fail(label + ': #audio-btn must carry a non-empty aria-label');
+    }
+    assertQuizA11y(template, 'index.html');
+
     // ---- the quiz block's ids, derived from index.html ----
     // From the selection card through #quiz-container. A page that carries the
     // quiz must carry every one of these ids (core.js reads most of them
@@ -1293,13 +1305,26 @@ function main() {
     const settingsEnd = template.indexOf('<!-- CONTACT PAGE -->');
     if (settingsStart === -1 || settingsEnd === -1 || settingsEnd < settingsStart) fail('index.html: could not locate the Settings page section');
     const settingsSection = template.slice(settingsStart, settingsEnd);
+    // Each checkbox's attributes are read by name, in any order.
+    const attrOf = function (tag, name) { const m = new RegExp('\\s' + name + '="([^"]*)"').exec(tag); return m ? m[1] : null; };
+    const checkboxTags = settingsSection.match(/<input\b[^>]*\stype="checkbox"[^>]*>/g) || [];
     const allToggles = [];
-    const toggleRe = /<input type="checkbox" id="([^"]+)" onchange="([^"]+)">/g;
-    let toggleMatch;
-    while ((toggleMatch = toggleRe.exec(settingsSection)) !== null) allToggles.push({ id: toggleMatch[1], onchange: toggleMatch[2] });
+    checkboxTags.forEach(function (tag) {
+        const id = attrOf(tag, 'id');
+        const onchange = attrOf(tag, 'onchange');
+        if (!id || !onchange) fail('index.html: a Settings checkbox has no id or no onchange: ' + tag);
+        allToggles.push({ id: id, onchange: onchange, tag: tag });
+    });
     if (allToggles.length !== countOccurrences(settingsSection, 'type="checkbox"')) {
-        fail('index.html: a Settings checkbox is not in the form <input type="checkbox" id="..." onchange="...">');
+        fail('index.html: a Settings checkbox could not be parsed (found ' + countOccurrences(settingsSection, 'type="checkbox"') + ' type="checkbox", parsed ' + allToggles.length + ')');
     }
+    // Every Settings checkbox is named by its own row's label, as on /es.
+    allToggles.forEach(function (t) {
+        const named = attrOf(t.tag, 'aria-labelledby');
+        if (!named) fail('index.html: #' + t.id + ' needs aria-labelledby pointing at its setting-label');
+        const labelTag = openingTagWithId(template, named, 'index.html');
+        if (!/\sclass="setting-label"/.test(labelTag)) fail('index.html: #' + named + ' (the label of #' + t.id + ') must be the setting-label element');
+    });
     const QUIZ_TOGGLES = allToggles.filter(function (t) { return t.id !== 'darkmode-toggle'; });
     if (QUIZ_TOGGLES.length !== 5 || allToggles.length !== 6) {
         fail('index.html: expected 5 quiz toggles plus darkmode-toggle on the Settings page, found ' + allToggles.length + ' checkboxes');
@@ -2038,6 +2063,7 @@ function main() {
             // lang="ru", which is what ru() in standalone-pages.js emits.
             assertQuizLetterGuards(page, sp.slug);
             assertAnswerInput(page, sp.slug);
+            assertQuizA11y(page, sp.slug);
             const runs = cyrillicTextRuns(quizMain);
             runs.forEach(function (r) {
                 if (!r.guarded) {
@@ -2549,6 +2575,8 @@ function main() {
     });
     console.log('Logo guards passed: ' + logosChecked + ' logos across index.html, 404.html and ' + emittedPages.length +
                 ' emitted pages, each notranslate with translate="no", every Л lang="ru".');
+    console.log('Quiz accessibility passed: index.html and every quiz page carry one answer-input label, #feedback aria-live="polite" and an #audio-btn aria-label; ' +
+                'all ' + allToggles.length + ' Settings checkboxes on index.html are named by their setting-label.');
     console.log('Answer variants passed: ANSWER_VARIANTS from core.js (' + Object.keys(ANSWER_VARIANTS).map(function (ch) { return ch + ' ' + ANSWER_VARIANTS[ch].length; }).join(', ') +
                 ') checked in the English answers and in ' + STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; }).length +
                 ' localised table(s), no page repeating them, no cross-letter or prefix clash; #answer-input carries ' +
