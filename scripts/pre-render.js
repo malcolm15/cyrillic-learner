@@ -868,6 +868,66 @@ function main() {
     const stringsMatch = coreSrc.match(/const QUIZ_STRINGS_EN = \{[\s\S]*?\n\};/);
     if (!stringsMatch) fail('could not extract QUIZ_STRINGS_EN from core.js');
     const QUIZ_STRINGS_EN = eval('(' + stringsMatch[0].replace('const QUIZ_STRINGS_EN = ', '').replace(/;$/, '') + ')');
+    // The answers every page accepts on top of its own (the curly quotes phones
+    // type for Ъ and Ь), read from core.js the same way: core.js is their one
+    // home, and every answer table below is checked with them included.
+    const variantsMatch = coreSrc.match(/const ANSWER_VARIANTS = \{[\s\S]*?\n\};/);
+    if (!variantsMatch) fail('could not extract ANSWER_VARIANTS from core.js');
+    const ANSWER_VARIANTS = eval('(' + variantsMatch[0].replace('const ANSWER_VARIANTS = ', '').replace(/;$/, '') + ')');
+    Object.keys(ANSWER_VARIANTS).forEach(function (ch) {
+        if (!LETTER_INFO[ch]) fail('core.js: ANSWER_VARIANTS has "' + ch + '", which is not a CYRILLIC_DATA letter');
+        if (!Array.isArray(ANSWER_VARIANTS[ch]) || !ANSWER_VARIANTS[ch].length) fail('core.js: ANSWER_VARIANTS["' + ch + '"] must be a non-empty array');
+    });
+    const variantsOf = function (ch) { return Object.prototype.hasOwnProperty.call(ANSWER_VARIANTS, ch) ? ANSWER_VARIANTS[ch] : []; };
+
+    // One answer table, letter -> every accepted value, checked against what
+    // core.js does: acceptedAnswers is the display value, the page's extras and
+    // ANSWER_VARIANTS, lowercased, compared after trim and toLowerCase.
+    function assertAnswerTable(label, acceptedOf) {
+        // Every value: non-empty, trimmed and lowercase, because the input is
+        // trimmed and lowercased before the comparison and anything else could
+        // never be typed.
+        RUSSIAN_LETTERS.forEach(function (ch) {
+            const vals = acceptedOf[ch];
+            vals.forEach(function (v) {
+                if (typeof v !== 'string' || v === '' || v !== v.trim() || v !== v.toLowerCase()) {
+                    fail(label + ': value ' + JSON.stringify(v) + ' for ' + ch + ' must be a non-empty, trimmed, lowercase string');
+                }
+            });
+            if (new Set(vals).size !== vals.length) fail(label + ': ' + ch + ' lists the same answer twice: ' + JSON.stringify(vals));
+        });
+        // No accepted value may belong to two letters, or a learner is marked
+        // right for typing a different letter's sound. The one exemption is the
+        // pair English already has: Ы and Й are both "y".
+        const owner = Object.create(null);
+        RUSSIAN_LETTERS.forEach(function (ch) {
+            acceptedOf[ch].forEach(function (v) {
+                if (owner[v] && owner[v] !== ch) {
+                    const pair = [owner[v], ch].sort().join('');
+                    const exempt = v === 'y' && pair === ['Ы', 'Й'].sort().join('');
+                    if (!exempt) fail(label + ': "' + v + '" is accepted for both ' + owner[v] + ' and ' + ch);
+                } else {
+                    owner[v] = ch;
+                }
+            });
+        });
+        // No accepted value may be a proper prefix of another accepted value for
+        // the same letter: with Auto-Submit on, the shorter one would submit
+        // before the learner finished typing the longer one.
+        RUSSIAN_LETTERS.forEach(function (ch) {
+            acceptedOf[ch].forEach(function (a) {
+                acceptedOf[ch].forEach(function (b) {
+                    if (a !== b && b.indexOf(a) === 0) {
+                        fail(label + ': for ' + ch + ', "' + a + '" is a prefix of "' + b + '"; Auto-Submit would fire before "' + b + '" is finished');
+                    }
+                });
+            });
+        });
+    }
+    // The English quiz's own table: the CYRILLIC_DATA roman plus the variants.
+    const englishAccepted = Object.create(null);
+    RUSSIAN_LETTERS.forEach(function (ch) { englishAccepted[ch] = [LETTER_INFO[ch].roman].concat(variantsOf(ch)); });
+    assertAnswerTable('index.html (English answers)', englishAccepted);
     const audioLetters = new Set();
     Object.keys(CYRILLIC_DATA).forEach(function (groupKey) {
         Object.keys(CYRILLIC_DATA[groupKey].chars).forEach(function (ch) { audioLetters.add(ch); });
@@ -1197,6 +1257,17 @@ function main() {
         });
     }
     assertQuizLetterGuards(template, 'index.html');
+
+    // The answer box takes Latin letters and quotes, never words: no saved
+    // values, no autocorrect, no automatic capital, no spellcheck underline.
+    const ANSWER_INPUT_ATTRS = ['autocomplete="off"', 'autocorrect="off"', 'autocapitalize="none"', 'spellcheck="false"'];
+    function assertAnswerInput(html, label) {
+        const tag = openingTagWithId(html, 'answer-input', label);
+        ANSWER_INPUT_ATTRS.forEach(function (a) {
+            if (!new RegExp('\\s' + a + '[\\s/>]').test(tag)) fail(label + ': #answer-input must carry ' + a + ', found ' + tag.replace(/\s+/g, ' '));
+        });
+    }
+    assertAnswerInput(template, 'index.html');
 
     // ---- the quiz block's ids, derived from index.html ----
     // From the selection card through #quiz-container. A page that carries the
@@ -1770,51 +1841,24 @@ function main() {
                 });
                 if (answers[ch].accept !== undefined && !Array.isArray(answers[ch].accept)) fail(sp.slug + ': quizPage.answers["' + ch + '"].accept must be an array');
             });
-            // Every value: non-empty, trimmed and lowercase, because the input is
-            // trimmed and lowercased before the comparison and anything else could
-            // never be typed.
             const displayOf = function (ch) {
                 return answers[ch] && typeof answers[ch].show === 'string' ? answers[ch].show : LETTER_INFO[ch].roman;
             };
+            // One source: a page never repeats a shared variant.
+            Object.keys(answers).forEach(function (ch) {
+                (answers[ch].accept || []).forEach(function (v) {
+                    if (variantsOf(ch).indexOf(v) !== -1) {
+                        fail(sp.slug + ': quizPage.answers["' + ch + '"] accepts ' + JSON.stringify(v) +
+                             ', which ANSWER_VARIANTS in core.js already gives every page; keep it in one place');
+                    }
+                });
+            });
             const acceptedOf = Object.create(null);
             RUSSIAN_LETTERS.forEach(function (ch) {
                 const own = answers[ch] && answers[ch].accept ? answers[ch].accept : [];
-                const vals = [displayOf(ch)].concat(own);
-                vals.forEach(function (v) {
-                    if (typeof v !== 'string' || v === '' || v !== v.trim() || v !== v.toLowerCase()) {
-                        fail(sp.slug + ': quizPage value ' + JSON.stringify(v) + ' for ' + ch + ' must be a non-empty, trimmed, lowercase string');
-                    }
-                });
-                if (new Set(vals).size !== vals.length) fail(sp.slug + ': ' + ch + ' lists the same answer twice: ' + JSON.stringify(vals));
-                acceptedOf[ch] = vals;
+                acceptedOf[ch] = [displayOf(ch)].concat(own, variantsOf(ch));
             });
-            // No accepted value may belong to two letters, or a learner is marked
-            // right for typing a different letter's sound. The one exemption is the
-            // pair English already has: Ы and Й are both "y".
-            const owner = Object.create(null);
-            RUSSIAN_LETTERS.forEach(function (ch) {
-                acceptedOf[ch].forEach(function (v) {
-                    if (owner[v] && owner[v] !== ch) {
-                        const pair = [owner[v], ch].sort().join('');
-                        const exempt = v === 'y' && pair === ['Ы', 'Й'].sort().join('');
-                        if (!exempt) fail(sp.slug + ': "' + v + '" is accepted for both ' + owner[v] + ' and ' + ch);
-                    } else {
-                        owner[v] = ch;
-                    }
-                });
-            });
-            // No accepted value may be a proper prefix of another accepted value for
-            // the same letter: with Auto-Submit on, the shorter one would submit
-            // before the learner finished typing the longer one.
-            RUSSIAN_LETTERS.forEach(function (ch) {
-                acceptedOf[ch].forEach(function (a) {
-                    acceptedOf[ch].forEach(function (b) {
-                        if (a !== b && b.indexOf(a) === 0) {
-                            fail(sp.slug + ': for ' + ch + ', "' + a + '" is a prefix of "' + b + '"; Auto-Submit would fire before "' + b + '" is finished');
-                        }
-                    });
-                });
-            });
+            assertAnswerTable(sp.slug, acceptedOf);
             // Strings: only keys core.js renders, each with exactly the English
             // placeholders, so nothing is left unfilled and nothing is dropped.
             const placeholders = function (t) { return (t.match(/\{[a-zA-Z]+\}/g) || []).sort().join(','); };
@@ -1993,6 +2037,7 @@ function main() {
             // Outside the quiz's own grids and letter that element must also be
             // lang="ru", which is what ru() in standalone-pages.js emits.
             assertQuizLetterGuards(page, sp.slug);
+            assertAnswerInput(page, sp.slug);
             const runs = cyrillicTextRuns(quizMain);
             runs.forEach(function (r) {
                 if (!r.guarded) {
@@ -2504,6 +2549,10 @@ function main() {
     });
     console.log('Logo guards passed: ' + logosChecked + ' logos across index.html, 404.html and ' + emittedPages.length +
                 ' emitted pages, each notranslate with translate="no", every Л lang="ru".');
+    console.log('Answer variants passed: ANSWER_VARIANTS from core.js (' + Object.keys(ANSWER_VARIANTS).map(function (ch) { return ch + ' ' + ANSWER_VARIANTS[ch].length; }).join(', ') +
+                ') checked in the English answers and in ' + STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; }).length +
+                ' localised table(s), no page repeating them, no cross-letter or prefix clash; #answer-input carries ' +
+                ANSWER_INPUT_ATTRS.join(' ') + ' on index.html and every quiz page.');
     const guardedPages = STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; });
     console.log('Translation guards passed: index.html' + guardedPages.map(function (sp) { return ' and /' + sp.slug; }).join('') +
                 ': 6 study grids, #current-char and #current-char-lower carry translate="no" and class notranslate' +

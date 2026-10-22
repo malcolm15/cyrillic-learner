@@ -26,6 +26,16 @@ const QUIZ_STRINGS_EN = {
     themeToLight: 'Switch to the light theme'
 };
 
+// Answers accepted on every page on top of each letter's own: the curly quotes
+// a phone types for the hard and soft signs (iPhone smart punctuation turns "
+// and ' into these). This is the one list; a page's QUIZ_PAGE must not repeat
+// it. scripts/pre-render.js reads it from here and checks it against the
+// English answers and every page's table.
+const ANSWER_VARIANTS = {
+    'Ъ': ['“', '”'],
+    'Ь': ['’', '‘']
+};
+
 // The page's template for `key` if it supplies one, otherwise the English default.
 function quizTemplate(key) {
     const own = QUIZ_PAGE && QUIZ_PAGE.strings &&
@@ -1220,13 +1230,15 @@ function displayRoman(ch) {
     return '';
 }
 
-// Every answer marked correct for a letter, lowercased: the display value plus
-// any extras the page accepts. On an English page this is exactly [roman].
+// Every answer marked correct for a letter, lowercased: the display value, any
+// extras the page accepts, and the shared ANSWER_VARIANTS. On an English page
+// this is [roman], plus the curly quotes for Ъ and Ь.
 function acceptedAnswers(ch) {
     const own = QUIZ_PAGE && QUIZ_PAGE.answers &&
         Object.prototype.hasOwnProperty.call(QUIZ_PAGE.answers, ch) ? QUIZ_PAGE.answers[ch] : null;
     const extra = own && Array.isArray(own.accept) ? own.accept : [];
-    return [displayRoman(ch)].concat(extra).map(function (a) { return String(a).toLowerCase(); });
+    const shared = Object.prototype.hasOwnProperty.call(ANSWER_VARIANTS, ch) ? ANSWER_VARIANTS[ch] : [];
+    return [displayRoman(ch)].concat(extra, shared).map(function (a) { return String(a).toLowerCase(); });
 }
 
 // Audio playback function

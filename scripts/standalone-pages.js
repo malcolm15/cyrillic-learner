@@ -75,12 +75,12 @@ const ES_STRINGS = {
 
 // Only letters that differ from English appear here. `show` replaces the
 // displayed romanization; `accept` adds answers. Every other letter keeps
-// exactly its English display and single answer.
+// exactly its English display and single answer. The curly quotes for Ъ and Ь
+// are not listed: every page accepts them through ANSWER_VARIANTS in
+// js/core.js, and the build fails if a page repeats them.
 const ES_ANSWERS = {
     'Х': { show: 'j', accept: ['kh'] },
     'Щ': { accept: ['sch'] },
-    'Ъ': { accept: ['“', '”'] },
-    'Ь': { accept: ['’', '‘'] },
 };
 
 // Translation guards for the Spanish prose. A page translator (Chrome's, or
@@ -495,6 +495,9 @@ module.exports = [
                                         id="answer-input" 
                                         placeholder="Escribe en letras latinas..."
                                         autocomplete="off"
+                                        autocorrect="off"
+                                        autocapitalize="none"
+                                        spellcheck="false"
                                     />
                                     <button class="btn btn-submit" id="submit-btn" onclick="checkAnswer()">Comprobar</button>
                                 </div>
