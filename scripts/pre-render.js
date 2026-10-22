@@ -2075,6 +2075,24 @@ function main() {
             });
             sp.__cyrillicRuns = runs.length;
             sp.__proseRuns = runs.filter(function (r) { return !r.quiz; }).length;
+            // Spacing under translation: a translator drops a space, or a
+            // closing bracket or comma, that sits just outside a guarded span,
+            // and keeps what is inside it. So every ru()/rom() span in <main>
+            // takes the space before it and the punctuation and space after it.
+            const guardRe = /<span (?:lang="ru" )?translate="no" class="notranslate">[^<]*<\/span>/g;
+            let g;
+            let guardSpans = 0;
+            while ((g = guardRe.exec(quizMain)) !== null) {
+                guardSpans += 1;
+                const before = quizMain.charAt(g.index - 1);
+                const after = quizMain.charAt(g.index + g[0].length);
+                if (/\s/.test(before) || /[\s,.;:!?)\]]/.test(after)) {
+                    const ctx = quizMain.slice(Math.max(0, g.index - 20), g.index + g[0].length + 20).replace(/\s+/g, ' ');
+                    fail(sp.slug + ': a guarded span has ' + (/\s/.test(before) ? 'a space just before it' : 'a space or punctuation just after it') +
+                         '; move it inside the span (ru(\' X \') / rom(\' x, \')), or a translator drops it: ...' + ctx + '...');
+                }
+            }
+            sp.__guardSpans = guardSpans;
         }
 
         // ---- settings panel: one closed <details> between the two quiz cards ----
@@ -2575,8 +2593,61 @@ function main() {
     });
     console.log('Logo guards passed: ' + logosChecked + ' logos across index.html, 404.html and ' + emittedPages.length +
                 ' emitted pages, each notranslate with translate="no", every Л lang="ru".');
+    // ---- setQuizText: spacing and exact text ----
+    // The feedback line is built by setQuizText. Run it from core.js source on a
+    // minimal DOM for every string, English and each page's: its text must equal
+    // quizString exactly, and a space in front of a filled value must sit inside
+    // the guarded span, not before it.
+    const grabFn = function (name) {
+        const m = coreSrc.match(new RegExp('function ' + name + '\\([\\s\\S]*?\\n\\}\\n'));
+        if (!m) fail('could not extract ' + name + ' from core.js');
+        return m[0];
+    };
+    function textNode(t) { return { nodeType: 3, data: t, get textContent() { return this.data; } }; }
+    function element() {
+        const el = { nodeType: 1, children: [], attrs: {}, className: '' };
+        Object.defineProperty(el, 'textContent', {
+            get: function () { return this.children.map(function (c) { return c.textContent; }).join(''); },
+            set: function (v) { this.children = v ? [textNode(String(v))] : []; },
+        });
+        el.appendChild = function (c) { el.children.push(c); };
+        el.setAttribute = function (k, v) { el.attrs[k] = v; };
+        return el;
+    }
+    const stubDocument = { createTextNode: textNode, createElement: element };
+    let quizTextChecks = 0;
+    [null].concat(STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; })).forEach(function (sp) {
+        const fns = new Function('QUIZ_PAGE', 'QUIZ_STRINGS_EN', 'document',
+            grabFn('quizTemplate') + grabFn('quizString') + grabFn('fillPlaceholders') + grabFn('setQuizText') + 'return { quizTemplate: quizTemplate, quizString: quizString, setQuizText: setQuizText };')(
+            sp ? sp.quizPage : null, QUIZ_STRINGS_EN, stubDocument);
+        Object.keys(QUIZ_STRINGS_EN).forEach(function (key) {
+            const values = { answer: 'kh', correct: 3, total: 4, n: 5 };
+            const el = element();
+            fns.setQuizText(el, key, values);
+            const label = (sp ? sp.slug : 'index.html') + ' setQuizText("' + key + '")';
+            if (el.textContent !== fns.quizString(key, values)) {
+                fail(label + ' writes ' + JSON.stringify(el.textContent) + ', not quizString\'s ' + JSON.stringify(fns.quizString(key, values)));
+            }
+            // Every filled placeholder becomes its own guarded span.
+            const filledCount = (fns.quizTemplate(key).match(/\{([a-zA-Z]+)\}/g) || []).filter(function (ph) {
+                return Object.prototype.hasOwnProperty.call(values, ph.slice(1, -1));
+            }).length;
+            const spanCount = el.children.filter(function (c) { return c.nodeType === 1; }).length;
+            if (spanCount !== filledCount) fail(label + ': ' + filledCount + ' filled value(s) but ' + spanCount + ' span(s); every filled value must be in its own guarded span');
+            el.children.forEach(function (c, i) {
+                if (c.nodeType !== 1) return;
+                if (c.attrs.translate !== 'no' || c.className !== 'notranslate') fail(label + ': a filled value is not in a translate="no" notranslate span');
+                const prev = el.children[i - 1];
+                if (prev && prev.nodeType === 3 && /\s$/.test(prev.data)) fail(label + ': the space before a filled value sits outside its span, where a translator drops it');
+            });
+            quizTextChecks += 1;
+        });
+    });
+
     console.log('Quiz accessibility passed: index.html and every quiz page carry one answer-input label, #feedback aria-live="polite" and an #audio-btn aria-label; ' +
                 'all ' + allToggles.length + ' Settings checkboxes on index.html are named by their setting-label.');
+    console.log('Translated spacing passed: setQuizText checked for ' + quizTextChecks + ' strings (text equal to quizString, every filled value in its own guarded span, no space left just before one); ' +
+                STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; }).map(function (sp) { return '/' + sp.slug + ' <main>: ' + sp.__guardSpans + ' guarded spans with no space before and no space or punctuation after'; }).join('; ') + '.');
     console.log('Answer variants passed: ANSWER_VARIANTS from core.js (' + Object.keys(ANSWER_VARIANTS).map(function (ch) { return ch + ' ' + ANSWER_VARIANTS[ch].length; }).join(', ') +
                 ') checked in the English answers and in ' + STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; }).length +
                 ' localised table(s), no page repeating them, no cross-letter or prefix clash; #answer-input carries ' +

@@ -90,6 +90,11 @@ const ES_ANSWERS = {
 // so the visible copy is unchanged. scripts/pre-render.js asserts every Cyrillic
 // letter in the page's <main> sits inside one of these or a quiz element that
 // carries translate="no".
+// The span also takes the space in front of the token and the punctuation (and
+// space) after it, e.g. igual:${ru(' В ')}es${rom(' v,')}: a translator drops a
+// space or a closing bracket that sits just outside a guarded span, and keeps
+// what is inside. The build fails if a guarded span here has a space just
+// before it, or a space or punctuation just after it.
 const ru = ch => '<span lang="ru" translate="no" class="notranslate">' + ch + '</span>';
 const rom = text => '<span translate="no" class="notranslate">' + text + '</span>';
 
@@ -287,7 +292,7 @@ module.exports = [
         h1: 'Alfabeto ruso: aprende las 33 letras',
         keySentence: 'El alfabeto ruso, también llamado abecedario ruso, tiene 33 letras y se escribe con el alfabeto cirílico.',
         published: '2026-10-20',
-        modified: '2026-10-21',
+        modified: '2026-10-22',
         breadcrumbName: 'Alfabeto ruso',
         breadcrumbHomeName: 'Cyrilica',
         schema: {
@@ -535,12 +540,12 @@ module.exports = [
 
                         <h2>¿Cuántas letras tiene el alfabeto ruso?</h2>
                         <div class="content-text">
-                            <p>Tiene 33: 10 vocales, 21 consonantes y dos signos sin sonido propio, el signo duro (${ru('Ъ')}) y el signo blando (${ru('Ь')}). Algunas se parecen a letras latinas, pero no se transcriben igual: ${ru('В')} es ${rom('v')}, ${ru('Н')} es ${rom('n')}, ${ru('Р')} es ${rom('r')} y ${ru('С')} es ${rom('s')}.</p>
+                            <p>Tiene 33: 10 vocales, 21 consonantes y dos signos sin sonido propio, el signo duro (${ru('Ъ) ')}y el signo blando (${ru('Ь). ')}Algunas se parecen a letras latinas, pero no se transcriben igual:${ru(' В ')}es${rom(' v,')}${ru(' Н ')}es${rom(' n,')}${ru(' Р ')}es${rom(' r ')}y${ru(' С ')}es${rom(' s.')}</p>
                         </div>
 
                         <h2>Sobre la transcripción</h2>
                         <div class="content-text">
-                            <p>Para practicar usamos una transcripción sencilla, letra por letra, que se puede escribir con cualquier teclado. No sigue al pie de la letra ninguna norma oficial. ${ru('Х')} se escribe ${rom('j')} (también se acepta ${rom('kh')}) y ${ru('Щ')} se escribe ${rom('shch')} (también se acepta ${rom('sch')}). ${ru('Е')} se escribe ${rom('ye')} y ${ru('Э')} se escribe ${rom('e')}, para distinguirlas. Los signos duro y blando se escriben con comillas: ${rom('"')} para ${ru('Ъ')} y ${rom("'")} para ${ru('Ь')}.</p>
+                            <p>Para practicar usamos una transcripción sencilla, letra por letra, que se puede escribir con cualquier teclado. No sigue al pie de la letra ninguna norma oficial.${ru(' Х ')}se escribe${rom(' j, ')}aunque también se acepta${rom(' kh.')}${ru(' Щ ')}se escribe${rom(' shch, ')}aunque también se acepta${rom(' sch.')}${ru(' Е ')}se escribe${rom(' ye ')}y${ru(' Э ')}se escribe${rom(' e, ')}para distinguirlas. Los signos duro y blando se escriben con comillas:${rom(' " ')}para${ru(' Ъ ')}y${rom(" ' ")}para${ru(' Ь.')}</p>
                         </div>
                     </div>`,
     },

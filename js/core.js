@@ -60,8 +60,11 @@ function fillPlaceholders(template, values) {
 // own <span translate="no" class="notranslate">. The feedback line's {answer} is
 // a romanization, and a page translator (Chrome's, or translate.goog) would turn
 // "o" into "either" or "ya" into "already" and show the learner a wrong answer;
-// the words around it stay translatable. DOM methods only, never innerHTML, and
-// el.textContent always ends up exactly equal to quizString(key, values).
+// the words around it stay translatable. A space in front of a filled value
+// goes inside its span: a translator drops a space that sits just outside a
+// guarded span ("ANSWER:TS") and keeps one inside it. DOM methods only, never
+// innerHTML, and el.textContent always ends up exactly equal to
+// quizString(key, values); scripts/pre-render.js checks both.
 function setQuizText(el, key, values) {
     const template = quizTemplate(key);
     const re = /\{([a-zA-Z]+)\}/g;
@@ -69,12 +72,19 @@ function setQuizText(el, key, values) {
     let m;
     el.textContent = '';
     while ((m = re.exec(template)) !== null) {
-        if (m.index > last) el.appendChild(document.createTextNode(template.slice(last, m.index)));
-        if (values && Object.prototype.hasOwnProperty.call(values, m[1])) {
+        const filled = values && Object.prototype.hasOwnProperty.call(values, m[1]);
+        let before = template.slice(last, m.index);
+        let lead = '';
+        if (filled && / $/.test(before)) {
+            before = before.slice(0, -1);
+            lead = ' ';
+        }
+        if (before) el.appendChild(document.createTextNode(before));
+        if (filled) {
             const span = document.createElement('span');
             span.setAttribute('translate', 'no');
             span.className = 'notranslate';
-            span.textContent = String(values[m[1]]);
+            span.textContent = lead + String(values[m[1]]);
             el.appendChild(span);
         } else {
             el.appendChild(document.createTextNode(m[0]));
