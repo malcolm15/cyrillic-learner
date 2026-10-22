@@ -594,9 +594,46 @@ CYRILICA. The nav logo (template, so every page; `404.html` has its own copy)
 and every `logo-display` carry `notranslate` and `translate="no"` on the whole
 logo, and every Л span (`class="letter-l"`) is `lang="ru"`. The build asserts
 exactly one guarded nav logo on `index.html`, `404.html` and every emitted page,
-every `logo-display` guarded, and every Л span `lang="ru"`. Not yet guarded,
-for a follow-up batch: the articles' letter tools (the chart, copy-paste,
-lookalike and quiz pages). Explanatory prose is never guarded.
+every `logo-display` guarded, and every Л span `lang="ru"`. The articles'
+letter tools are guarded too, under their own rules (below). Explanatory
+prose is never guarded.
+
+**Article letter tools (translation guards).** On production a translator
+changed all 92 copy tiles, 21 of 33 chart letters, 22 of 33 big-letter cells
+and 11 of 33 chart sounds ("И" to "Y", "g" to "gramo"). The tools in 8
+articles now carry translate="no"
+plus the notranslate class, listed in `ARTICLE_GUARDS`, `PARTIAL_WRAPS` and
+`MINI_QUIZZES` in `scripts/pre-render.js`. Three rules:
+- Whole element, when it holds only letters, a romanization or a letter
+  name: `.letter-chars`, `.letter-name` and `.letter-sound` (chart),
+  `.big-letter`, `.ff-letter` (false-friends and the lookalike glyphs),
+  `.cursive-letter-btn`, and `.copy-glyph`, a span around the glyph inside
+  each copy tile (the tile and its "Copied!" stay translatable). A whole
+  guard never takes in a neighbouring space or punctuation. `.letter-sound`
+  includes "hard sign" and "soft sign", which stay English by decision.
+- Partial wrap, when Russian sits beside an English gloss: in
+  `.letter-example` the Russian word, in `.ff-example` the Russian word and
+  its romanization (two spans), F2 spacing, the gloss left translatable.
+- Never guarded: prose, headings, inline examples, explanatory table cells
+  and the cursive caption. Guarding follows the class list, never the
+  presence of Cyrillic, and no check asks for prose to be guarded.
+`lang` is `ru` except where the letter belongs to another language: each
+`.big-letter` takes the language of its table row (`uk`, `be`, `sr`, `mk`,
+`cnr` for С́ and З́; a cheat-sheet row naming several languages takes the
+first named), and the Serbian mini quiz is `sr`. Romanizations have no
+`lang`. The mini quizzes' letter spans are guarded by id, their answer
+inputs carry the main quiz's four attributes, and their feedback answer is
+written by `setQuizText`. `buildPrintChart` guards the cells it creates,
+because a translator also rewrites nodes added after load.
+The build asserts, per article: every element of each listed class guarded,
+with its expected lang, text only, counts pinned; big-letter letter by
+letter with its row's lang; the 92 copy tiles in their exact form, each
+data-char (what is copied) equal to its glyph, no whitespace, matching the
+expected tile list; both partial wraps in their exact form; F2 spacing on
+every partial-wrap span in article content; no `translate="no"` in article
+content outside the lists; the mini quizzes; and the guard lines in
+`buildPrintChart`. A new letter tool must use a guarded class, or be added
+to the lists.
 
 **Spacing around guarded text (F2).** A translator drops a space, a comma or a
 closing bracket that sits just outside a `translate="no"` span ("ANSWER:TS",
@@ -796,6 +833,10 @@ new tab. `navTo` and `navToArticle` intercept plain left-clicks for fast in-app 
 navigation; modifier-clicks fall through to the browser. In-article section
 headings are `<h3>`. Comparison tables use the `.comparison-table` class with
 `.big-letter` spans for Cyrillic characters (light, dark, and mobile styles exist).
+`.big-letter` is a guarded letter tool (see "Article letter tools"): it carries
+translate="no", notranslate and its row's lang, and its count and letters are
+pinned to cyrillic-letters-not-in-russian, so a new use must also be added to
+`ARTICLE_GUARDS` and `BIG_LETTER_LANGS` in `scripts/pre-render.js`.
 Prefer crisp HTML card grids over raster images for text-heavy graphics; the pattern
 lives in `.false-friends-grid` / `.ff-card` (false-friends article).
 Articles end with the standard quiz-cta and share-section blocks; copy the
@@ -919,7 +960,8 @@ a STOP and wait for approval. When unsure whether something is a gate, stop.
 **Printable chart generator** (russian-alphabet-chart): `buildPrintChart()` and
 `printChart()` in article-scripts.js. The `@media print` block in styles.css is the
 only print CSS in the project. Output is one page; forces light-mode rendering even
-in dark mode. GA event: `chart_printed`.
+in dark mode. GA event: `chart_printed`. The cells it builds carry the cards'
+translation guards (see "Article letter tools" above).
 
 **Cursive stroke-order** (practice-writing-cyrillic): `CURSIVE_STROKES` in
 article-scripts.js is the single source of truth for the six letterform paths
