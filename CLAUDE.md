@@ -515,11 +515,14 @@ exactly once, except `settings-btn`, which must be absent; exactly one
 and no same-page `href="#..."` in `<main>`, because core.js's popstate handler
 would send the next Back press to the English homepage. Never ship
 `#reference-container` without `#start-btn`: `updateStartButton` reads it
-unguarded and the throw aborts the rest of core.js. The answer table is checked
-against what core.js does: every key a real letter; every value non-empty,
-trimmed and lowercase; no value accepted for two letters (the existing Ы/Й `y`
-is the one exemption); no value a proper prefix of another for the same letter,
-since Auto-Submit would fire early. Every string key must exist in core.js's
+unguarded and the throw aborts the rest of core.js. Answer tables are checked
+against what core.js does (`assertAnswerTable`), for the English quiz (each
+`CYRILLIC_DATA` roman) and for every `quizPage` (display value plus extras),
+both with `ANSWER_VARIANTS` included: every key a real letter; every value
+non-empty, trimmed and lowercase; no value accepted for two letters (the
+existing Ы/Й `y` is the one exemption); no value a proper prefix of another for
+the same letter, since Auto-Submit would fire early. A page may not repeat a
+shared variant in its own table. Every string key must exist in core.js's
 `QUIZ_STRINGS_EN` with exactly the same placeholders, and the serialised object
 may contain no `<`. A page's answer table and runtime strings live only in its
 `quizPage` in `scripts/standalone-pages.js`.
@@ -595,6 +598,32 @@ every `logo-display` guarded, and every Л span `lang="ru"`. Not yet guarded,
 for a follow-up batch: the articles' letter tools (the chart, copy-paste,
 lookalike and quiz pages). Explanatory prose is never guarded.
 
+**Spacing around guarded text (F2).** A translator drops a space, a comma or a
+closing bracket that sits just outside a `translate="no"` span ("ANSWER:TS",
+"Вisv,Нisn"), and keeps what is inside it. So guarded spans take their
+neighbours in: `setQuizText` puts the space before a filled value inside its
+span, and on `/es` each `ru()`/`rom()` span takes the space before it and the
+punctuation and space after it, e.g. ``igual:${ru(' В ')}es${rom(' v,')}``.
+The visible text is unchanged. The build fails if a guarded span in a quiz
+page's `<main>` has a space just before it or a space or punctuation just
+after it, and runs `setQuizText` from core.js source on a minimal DOM for every
+English and page string: the text must equal `quizString` exactly, every
+filled value must be in its own guarded span, and no space may sit just before
+one, outside it. (Text after a filled value is not checked; today every
+placeholder ends its string or is followed by "/".)
+When adding a guarded token to the prose, write the space and punctuation
+inside the call.
+
+**Answer box and screen readers (both quizzes).** `#answer-input` carries
+`autocomplete="off" autocorrect="off" autocapitalize="none"
+spellcheck="false"` on `index.html` and every quiz page (asserted). Both
+quizzes have an `sr-only` `<label for="answer-input">`, `aria-live="polite"`
+on `#feedback` and an `aria-label` on `#audio-btn` (asserted on `index.html`
+and every quiz page). Every Settings checkbox on `index.html`, darkmode
+included, is named by its row's `setting-label` through `aria-labelledby`
+(asserted, as on `/es`); the build reads each checkbox's id and onchange by
+name, in any attribute order, and fails unless every one is parsed.
+
 **The /es settings panel.** `settingsPanel: true` gives `/es` one
 `<details class="quiz-settings" id="quiz-settings">`, closed by default,
 between the char-reference card and `#quiz-container`. Only one of those
@@ -614,15 +643,15 @@ it, `type="checkbox"`, with exactly `index.html`'s `onchange` and an
 classes, the row markup, which label a toggle points at, or the label text.
 Never duplicate the panel: the toggle ids must stay unique.
 
-**Landing scroll (pages with #quiz-settings only).** `startQuiz` closes the
-panel (left open, it would fill the screen above the quiz) and scrolls
-`#quiz-settings` to 12px below the fixed nav, instantly (the root's smooth
-scroll-behavior is switched off for that one call). On `/es` the focus
-scroll from `nextQuestion` was unreliable: Chrome's scroll anchoring could
-undo it when the selection card collapsed, and an answer box only partly
-under the nav got no scroll at all, so the quiz could land off-screen. It is
-limited to pages that carry the panel so the English quiz lands exactly as
-before; doing the same on `/` (option A2) is logged for a later batch.
+**Landing scroll (both quizzes).** `startQuiz` scrolls the top of the quiz
+screen to 12px below the fixed nav, instantly (the root's smooth
+scroll-behavior is switched off for that one call): `#quiz-settings` on a page
+that has one (`/es`, which it first closes, since left open it would fill the
+screen above the quiz), otherwise `#quiz-container` (the English homepage).
+The focus scroll from `nextQuestion` was unreliable on both: Chrome's scroll
+anchoring could undo it when the selection card collapsed, and an answer box
+only partly under the nav got no scroll at all, so the quiz could land
+off-screen.
 
 ## SPA routing and canonicals
 
@@ -911,11 +940,25 @@ same string into an element with each filled value in its own
 `translate="no"` span; the wrong-answer and skip feedback use it, and its
 `textContent` must always equal `quizString(key, values)`. `displayRoman(ch)`
 returns the page's display value or the `CYRILLIC_DATA` roman, and
-`acceptedAnswers(ch)` the display value plus any extras, lowercased.
-`CYRILLIC_DATA` is never modified. With
+`acceptedAnswers(ch)` the display value plus the page's extras plus the shared
+`ANSWER_VARIANTS`, lowercased. `ANSWER_VARIANTS` (the curly quotes phones type:
+“ ” for Ъ, ’ ‘ for Ь) is the one list of answers every page accepts; a
+`quizPage` must not repeat it. `CYRILLIC_DATA` is never modified. With
 `QUIZ_PAGE` absent, every string must render byte-identically to before and
-every letter must accept exactly its one roman; any change to the seam has to
-prove both on the English homepage.
+every letter must accept exactly its one roman plus its `ANSWER_VARIANTS`; any
+change to the seam has to prove both on the English homepage.
+
+**Reduced motion.** `prefersReducedMotion()` in core.js is the one JS check of
+`prefers-reduced-motion` for the quiz and the articles. `scrollBehavior()`
+uses it, `createConfetti`
+(correct answers), `burstConfetti` (the logo Л; it still returns true so the
+link works) and article-scripts.js's `quizConfetti` return early when it is
+true, and the cursive animation's local `prefersReduced()` calls it.
+article-scripts.js loads after core.js (the script contract asserts the
+order), so the helper is always defined there. Two other places read the
+setting on purpose: the global `@media (prefers-reduced-motion: reduce)` block
+in `css/styles.css`, and the `/teachers` demo clip, which keeps its own
+`MediaQueryList` so it can react when the setting changes.
 
 **Alphabet chart cards** (russian-alphabet-chart): the full card is the audio tap
 target (`button` elements, `.letter-card` class, dark mode handled). No separate

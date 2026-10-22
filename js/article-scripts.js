@@ -680,6 +680,8 @@ function quizShowComplete(prefix) {
 }
 
 function quizConfetti() {
+    // No confetti under reduced motion (the helper is in core.js, loaded first).
+    if (prefersReducedMotion()) return;
     const colors = ['#FFC107', '#FF9800', '#4CAF50', '#2196F3', '#9C27B0'];
     for (let i = 0; i < 8; i++) {
         const c = document.createElement('div');
@@ -847,7 +849,7 @@ ArticleScripts['practice-writing-cyrillic'] = function () {
     var SVG_NS    = 'http://www.w3.org/2000/svg';
 
     function prefersReduced() {
-        return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        return prefersReducedMotion();
     }
 
     function stopAll() {

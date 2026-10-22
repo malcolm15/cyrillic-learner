@@ -347,20 +347,24 @@
                             <div class="character-display">
                                 <span class="cyrillic-char notranslate" id="current-char" translate="no">А</span>
                                 <span class="cyrillic-char cyrillic-char-lowercase notranslate" id="current-char-lower" translate="no" style="display: none;">а</span>
-                                <button class="audio-btn" id="audio-btn" style="display: none;" title="Hear pronunciation">🔊</button>
+                                <button class="audio-btn" id="audio-btn" style="display: none;" title="Hear pronunciation" aria-label="Hear pronunciation">🔊</button>
                             </div>
 
                             <div class="input-section">
+                                <label for="answer-input" class="sr-only">Type this letter in Latin letters</label>
                                 <div class="input-wrapper">
                                     <input 
                                         type="text" 
                                         id="answer-input" 
                                         placeholder="Type romanization..."
                                         autocomplete="off"
+                                        autocorrect="off"
+                                        autocapitalize="none"
+                                        spellcheck="false"
                                     />
                                     <button class="btn btn-submit" id="submit-btn" onclick="checkAnswer()">Submit</button>
                                 </div>
-                                <div class="feedback" id="feedback"></div>
+                                <div class="feedback" id="feedback" aria-live="polite"></div>
                             </div>
 
                             <div class="action-buttons">
@@ -824,55 +828,55 @@
                             
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <div class="setting-label">Include Lowercase</div>
+                                    <div class="setting-label" id="lowercase-label">Include Lowercase</div>
                                     <div class="setting-desc">Show lowercase letters alongside uppercase during quizzes</div>
                                 </div>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="lowercase-toggle" onchange="toggleLowercase()">
+                                    <input type="checkbox" id="lowercase-toggle" onchange="toggleLowercase()" aria-labelledby="lowercase-label">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
 
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <div class="setting-label">Auto-Submit</div>
+                                    <div class="setting-label" id="autosubmit-label">Auto-Submit</div>
                                     <div class="setting-desc">Answer is submitted automatically when correct</div>
                                 </div>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="autosubmit-toggle" onchange="toggleAutoSubmit()">
+                                    <input type="checkbox" id="autosubmit-toggle" onchange="toggleAutoSubmit()" aria-labelledby="autosubmit-label">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
 
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <div class="setting-label">Continuous Play</div>
+                                    <div class="setting-label" id="continuous-label">Continuous Play</div>
                                     <div class="setting-desc">Score persists when starting a new session</div>
                                 </div>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="continuous-toggle" onchange="toggleContinuous()">
+                                    <input type="checkbox" id="continuous-toggle" onchange="toggleContinuous()" aria-labelledby="continuous-label">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
 
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <div class="setting-label">Repeat Problem Questions</div>
+                                    <div class="setting-label" id="repeat-label">Repeat Problem Questions</div>
                                     <div class="setting-desc">Characters you get wrong appear more frequently</div>
                                 </div>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="repeat-toggle" onchange="toggleRepeat()">
+                                    <input type="checkbox" id="repeat-toggle" onchange="toggleRepeat()" aria-labelledby="repeat-label">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
 
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <div class="setting-label">Auto-play Audio</div>
+                                    <div class="setting-label" id="autoaudio-label">Auto-play Audio</div>
                                     <div class="setting-desc">Plays pronunciation automatically on correct answers</div>
                                 </div>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="autoaudio-toggle" onchange="toggleAutoAudio()">
+                                    <input type="checkbox" id="autoaudio-toggle" onchange="toggleAutoAudio()" aria-labelledby="autoaudio-label">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -883,11 +887,11 @@
                             
                             <div class="setting-item">
                                 <div class="setting-info">
-                                    <div class="setting-label">Dark Mode</div>
+                                    <div class="setting-label" id="darkmode-label">Dark Mode</div>
                                     <div class="setting-desc">A dark theme that's easier on the eyes in low light.</div>
                                 </div>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()">
+                                    <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()" aria-labelledby="darkmode-label">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>

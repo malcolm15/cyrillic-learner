@@ -26,6 +26,16 @@ const QUIZ_STRINGS_EN = {
     themeToLight: 'Switch to the light theme'
 };
 
+// Answers accepted on every page on top of each letter's own: the curly quotes
+// a phone types for the hard and soft signs (iPhone smart punctuation turns "
+// and ' into these). This is the one list; a page's QUIZ_PAGE must not repeat
+// it. scripts/pre-render.js reads it from here and checks it against the
+// English answers and every page's table.
+const ANSWER_VARIANTS = {
+    'Ъ': ['“', '”'],
+    'Ь': ['’', '‘']
+};
+
 // The page's template for `key` if it supplies one, otherwise the English default.
 function quizTemplate(key) {
     const own = QUIZ_PAGE && QUIZ_PAGE.strings &&
@@ -50,8 +60,11 @@ function fillPlaceholders(template, values) {
 // own <span translate="no" class="notranslate">. The feedback line's {answer} is
 // a romanization, and a page translator (Chrome's, or translate.goog) would turn
 // "o" into "either" or "ya" into "already" and show the learner a wrong answer;
-// the words around it stay translatable. DOM methods only, never innerHTML, and
-// el.textContent always ends up exactly equal to quizString(key, values).
+// the words around it stay translatable. A space in front of a filled value
+// goes inside its span: a translator drops a space that sits just outside a
+// guarded span ("ANSWER:TS") and keeps one inside it. DOM methods only, never
+// innerHTML, and el.textContent always ends up exactly equal to
+// quizString(key, values); scripts/pre-render.js checks both.
 function setQuizText(el, key, values) {
     const template = quizTemplate(key);
     const re = /\{([a-zA-Z]+)\}/g;
@@ -59,12 +72,19 @@ function setQuizText(el, key, values) {
     let m;
     el.textContent = '';
     while ((m = re.exec(template)) !== null) {
-        if (m.index > last) el.appendChild(document.createTextNode(template.slice(last, m.index)));
-        if (values && Object.prototype.hasOwnProperty.call(values, m[1])) {
+        const filled = values && Object.prototype.hasOwnProperty.call(values, m[1]);
+        let before = template.slice(last, m.index);
+        let lead = '';
+        if (filled && / $/.test(before)) {
+            before = before.slice(0, -1);
+            lead = ' ';
+        }
+        if (before) el.appendChild(document.createTextNode(before));
+        if (filled) {
             const span = document.createElement('span');
             span.setAttribute('translate', 'no');
             span.className = 'notranslate';
-            span.textContent = String(values[m[1]]);
+            span.textContent = lead + String(values[m[1]]);
             el.appendChild(span);
         } else {
             el.appendChild(document.createTextNode(m[0]));
@@ -96,11 +116,16 @@ function setDisplay(id, value) {
     if (el) el.style.display = value;
 }
 
-// Smooth scrolling unless the visitor has asked the OS for reduced motion.
-// core.js loads before article-scripts.js, whose prefersReduced() is local to the
-// cursive feature, so this check stands on its own.
+// Whether the visitor has asked the OS for reduced motion. The one check:
+// smooth scrolling, both confetti effects here and, in article-scripts.js
+// (which loads after this file), the quiz confetti and the cursive animation.
+function prefersReducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+}
+
+// Smooth scrolling unless the visitor has asked for reduced motion.
 function scrollBehavior() {
-    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    return prefersReducedMotion() ? 'auto' : 'smooth';
 }
 
 // Settings
@@ -281,6 +306,9 @@ function toggleTheme() {
 
 // Confetti burst for correct answers
 function createConfetti() {
+    // No confetti for a visitor who asked for reduced motion: the CSS already
+    // cuts animations to nothing, which would only flash the pieces.
+    if (prefersReducedMotion()) return;
     const colors = ['#FFC107', '#FF9800', '#4CAF50', '#2196F3', '#9C27B0'];
     const confettiCount = 15; // Subtle amount
     
@@ -315,7 +343,9 @@ function createConfetti() {
 
 // Logo confetti burst function
 function burstConfetti(event, letterElement) {
-    // Create confetti animation
+    // No confetti under reduced motion. Still returns true, so the logo link
+    // around the Л works as before.
+    if (prefersReducedMotion()) return true;
     
     const colors = ['#FFC107', '#FF6B35', '#4CAF50', '#2196F3', '#9C27B0'];
     const confettiCount = 15;
@@ -1220,13 +1250,15 @@ function displayRoman(ch) {
     return '';
 }
 
-// Every answer marked correct for a letter, lowercased: the display value plus
-// any extras the page accepts. On an English page this is exactly [roman].
+// Every answer marked correct for a letter, lowercased: the display value, any
+// extras the page accepts, and the shared ANSWER_VARIANTS. On an English page
+// this is [roman], plus the curly quotes for Ъ and Ь.
 function acceptedAnswers(ch) {
     const own = QUIZ_PAGE && QUIZ_PAGE.answers &&
         Object.prototype.hasOwnProperty.call(QUIZ_PAGE.answers, ch) ? QUIZ_PAGE.answers[ch] : null;
     const extra = own && Array.isArray(own.accept) ? own.accept : [];
-    return [displayRoman(ch)].concat(extra).map(function (a) { return String(a).toLowerCase(); });
+    const shared = Object.prototype.hasOwnProperty.call(ANSWER_VARIANTS, ch) ? ANSWER_VARIANTS[ch] : [];
+    return [displayRoman(ch)].concat(extra, shared).map(function (a) { return String(a).toLowerCase(); });
 }
 
 // Audio playback function
@@ -1348,25 +1380,26 @@ function startQuiz() {
     // Load first question
     nextQuestion();
 
-    // On a page with its own settings panel (/es), put the panel's top 12px
-    // below the fixed nav. nextQuestion's focus() should bring the quiz into
-    // view, but on /es (measured in Batch 66) Chrome's scroll anchoring can undo
-    // it once the selection card collapses, and an answer box only partly hidden
-    // under the nav gets no scroll at all, so the quiz could land off-screen.
-    // The panel is closed first: left open from the selection screen it would
-    // fill the screen above the quiz and push the answer box below the fold.
-    // Instant, not smooth: html sets scroll-behavior: smooth, so it is switched
-    // off for this one call. Pages without #quiz-settings run none of this, so
-    // the English quiz lands exactly as before.
+    // Put the top of the quiz screen 12px below the fixed nav: the settings
+    // panel on a page that has one (/es), otherwise #quiz-container.
+    // nextQuestion's focus() should bring the quiz into view, but (measured in
+    // Batch 66 and 67) Chrome's scroll anchoring can undo it once the selection
+    // card collapses, and an answer box only partly hidden under the nav gets no
+    // scroll at all, so the quiz could land off-screen on both pages. The panel
+    // is closed first: left open from the selection screen it would fill the
+    // screen above the quiz and push the answer box below the fold. Instant, not
+    // smooth: html sets scroll-behavior: smooth, so it is switched off for this
+    // one call.
     const settingsPanel = document.getElementById('quiz-settings');
-    if (settingsPanel) {
-        settingsPanel.open = false;
+    if (settingsPanel) settingsPanel.open = false;
+    const landing = settingsPanel || document.getElementById('quiz-container');
+    if (landing) {
         const nav = document.querySelector('nav');
         const navBottom = nav ? nav.getBoundingClientRect().bottom : 0;
         const root = document.documentElement;
         const previous = root.style.scrollBehavior;
         root.style.scrollBehavior = 'auto';
-        window.scrollTo(0, settingsPanel.getBoundingClientRect().top + window.scrollY - navBottom - 12);
+        window.scrollTo(0, landing.getBoundingClientRect().top + window.scrollY - navBottom - 12);
         root.style.scrollBehavior = previous;
     }
 }
