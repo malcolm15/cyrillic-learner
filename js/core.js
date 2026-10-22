@@ -106,11 +106,16 @@ function setDisplay(id, value) {
     if (el) el.style.display = value;
 }
 
-// Smooth scrolling unless the visitor has asked the OS for reduced motion.
-// core.js loads before article-scripts.js, whose prefersReduced() is local to the
-// cursive feature, so this check stands on its own.
+// Whether the visitor has asked the OS for reduced motion. The one check:
+// smooth scrolling, both confetti effects here and, in article-scripts.js
+// (which loads after this file), the quiz confetti and the cursive animation.
+function prefersReducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+}
+
+// Smooth scrolling unless the visitor has asked for reduced motion.
 function scrollBehavior() {
-    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    return prefersReducedMotion() ? 'auto' : 'smooth';
 }
 
 // Settings
@@ -291,6 +296,9 @@ function toggleTheme() {
 
 // Confetti burst for correct answers
 function createConfetti() {
+    // No confetti for a visitor who asked for reduced motion: the CSS already
+    // cuts animations to nothing, which would only flash the pieces.
+    if (prefersReducedMotion()) return;
     const colors = ['#FFC107', '#FF9800', '#4CAF50', '#2196F3', '#9C27B0'];
     const confettiCount = 15; // Subtle amount
     
@@ -325,7 +333,9 @@ function createConfetti() {
 
 // Logo confetti burst function
 function burstConfetti(event, letterElement) {
-    // Create confetti animation
+    // No confetti under reduced motion. Still returns true, so the logo link
+    // around the Л works as before.
+    if (prefersReducedMotion()) return true;
     
     const colors = ['#FFC107', '#FF6B35', '#4CAF50', '#2196F3', '#9C27B0'];
     const confettiCount = 15;
