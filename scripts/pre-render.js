@@ -1215,9 +1215,9 @@ function main() {
     // translatable.
     const PARTIAL_WRAPS = [
         { cls: 'letter-example', article: 'russian-alphabet-chart', count: 33,
-          re: /^<span lang="ru" translate="no" class="notranslate">[Ѐ-ӿ]+ <\/span>\([^()<Ѐ-ӿ]+\)$/ },
+          re: /^<span lang="ru" translate="no" class="notranslate">[\u0400-\u04FF]+ <\/span>\([^()<\u0400-\u04FF]+\)$/ },
         { cls: 'ff-example', article: 'false-friends', count: 6,
-          re: /^<span lang="ru" translate="no" class="notranslate">[Ѐ-ӿ]+, <\/span><span translate="no" class="notranslate">[A-Za-z]+ <\/span>\([^()<Ѐ-ӿ]+\)$/ },
+          re: /^<span lang="ru" translate="no" class="notranslate">[\u0400-\u04FF]+, <\/span><span translate="no" class="notranslate">[A-Za-z]+ <\/span>\([^()<\u0400-\u04FF]+\)$/ },
     ];
     const tagScan = /<([a-zA-Z][a-zA-Z0-9-]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g;
     const langOf = function (tag) { const m = /\slang="([^"]*)"/.exec(tag); return m ? m[1] : null; };
