@@ -1010,14 +1010,17 @@ function main() {
         const html = chartCard[2];
         const want = nameById[letter];
         if (!want) fail('russian-alphabet-chart: no expected name for card ' + letter);
+        // letter-name carries a translation guard (checked below with the other
+        // article letter tools), so the line may have more classes and attributes.
         function lineText(cls) {
-            const m = html.match(new RegExp('<div class="' + cls + '">([^<]*)</div>'));
+            const m = html.match(new RegExp('<div class="' + cls + '(?: [^"]*)?"[^>]*>([^<]*)</div>'));
             return m ? m[1] : null;
         }
-        if (countOccurrences(html, 'class="letter-name"') !== 1) {
+        const linesOf = function (cls) { return (html.match(new RegExp('class="' + cls + '[ "]', 'g')) || []).length; };
+        if (linesOf('letter-name') !== 1) {
             fail('russian-alphabet-chart: ' + letter + ' does not have exactly one letter-name line');
         }
-        if (countOccurrences(html, 'class="letter-ipa"') !== 1) {
+        if (linesOf('letter-ipa') !== 1) {
             fail('russian-alphabet-chart: ' + letter + ' does not have exactly one letter-ipa line');
         }
         if (lineText('letter-name') !== want.name) {
@@ -1167,6 +1170,161 @@ function main() {
         }
     });
 
+    // ---- article letter tools: translation guards ----
+    // A page translator rewrites a lone letter or romanization as if it were a
+    // word: "И" becomes "Y", "В в" becomes "B en", the sound "g" becomes "gramo".
+    // Each letter tool below is guarded the way the quiz is, translate="no" plus
+    // the notranslate class, with lang for the letter's language. Guarding is
+    // driven by this class list, never by the presence of Cyrillic: explanatory
+    // prose, headings and inline examples are deliberately unguarded, and nothing
+    // here asks for them to be. The counts are pinned per article, so the set
+    // cannot silently shrink or spread, and a new letter tool must use one of
+    // these classes (or be added here).
+    // Whole element (rule 1): the element holds only letters, a romanization or a
+    // letter name, and never takes in a neighbouring space or punctuation.
+    const ARTICLE_GUARDS = [
+        { cls: 'letter-chars', lang: 'ru', counts: { 'russian-alphabet-chart': 33 } },
+        { cls: 'letter-name', lang: 'ru', counts: { 'russian-alphabet-chart': 33 } },
+        // Romanizations, and the two English labels "hard sign" and "soft sign",
+        // which stay English under translation by decision. Not Russian, so no lang.
+        { cls: 'letter-sound', lang: null, counts: { 'russian-alphabet-chart': 33 } },
+        { cls: 'big-letter', lang: 'row', counts: { 'cyrillic-letters-not-in-russian': 33 } },
+        { cls: 'ff-letter', lang: 'ru', counts: { 'false-friends': 6, 'backwards-r-myth': 8 } },
+        { cls: 'cursive-letter-btn', lang: 'ru', counts: { 'practice-writing-cyrillic': 6 } },
+        // The glyph inside each copy tile; the tile and its "Copied!" stay translatable.
+        { cls: 'copy-glyph', lang: 'ru', counts: { 'cyrillic-copy-paste': 92 } },
+    ];
+    // big-letter takes the language of the article row the letter sits in, not a
+    // guess per character: І is uk in the Ukrainian table and be in the
+    // Belarusian one. Cheat-sheet rows that name several languages take the first
+    // one named. С́ and З́ are Montenegrin (cnr).
+    const BIG_LETTER_LANGS = [
+        ['Ґ ґ', 'uk'], ['Є є', 'uk'], ['І і', 'uk'], ['Ї ї', 'uk'],
+        ['Ў ў', 'be'], ['І і', 'be'],
+        ['Ј ј', 'sr'], ['Љ љ', 'sr'], ['Њ њ', 'sr'], ['Ђ ђ', 'sr'], ['Ћ ћ', 'sr'], ['Џ џ', 'sr'],
+        ['Ѕ ѕ', 'mk'], ['Ѓ ѓ', 'mk'], ['Ќ ќ', 'mk'],
+        ['С́ с́', 'cnr'], ['З́ з́', 'cnr'],
+        ['Ґ', 'uk'], ['Є', 'uk'], ['І', 'uk'], ['Ї', 'uk'], ['Ў', 'be'],
+        ['Ј', 'sr'], ['Љ', 'sr'], ['Њ', 'sr'], ['Ђ', 'sr'], ['Ћ', 'sr'], ['Џ', 'sr'],
+        ['Ѕ', 'mk'], ['Ѓ', 'mk'], ['Ќ', 'mk'], ['С́', 'cnr'], ['З́', 'cnr'],
+    ];
+    // Partial wraps (rule 2): an element that mixes Russian with an English gloss.
+    // Only the Russian (and, in ff-example, its romanization) is guarded, F2
+    // style: the space and punctuation after a guarded token sit inside its span,
+    // because a translator drops what sits just outside one. The gloss stays
+    // translatable.
+    const PARTIAL_WRAPS = [
+        { cls: 'letter-example', article: 'russian-alphabet-chart', count: 33,
+          re: /^<span lang="ru" translate="no" class="notranslate">[\u0400-\u04FF]+ <\/span>\([^()<\u0400-\u04FF]+\)$/ },
+        { cls: 'ff-example', article: 'false-friends', count: 6,
+          re: /^<span lang="ru" translate="no" class="notranslate">[\u0400-\u04FF]+, <\/span><span translate="no" class="notranslate">[A-Za-z]+ <\/span>\([^()<\u0400-\u04FF]+\)$/ },
+    ];
+    const tagScan = /<([a-zA-Z][a-zA-Z0-9-]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g;
+    const langOf = function (tag) { const m = /\slang="([^"]*)"/.exec(tag); return m ? m[1] : null; };
+    let articleGuardsChecked = 0;
+    const guardCounts = {};
+    const bigLetters = [];
+    ARTICLE_GUARDS.forEach(function (g) {
+        let total = 0;
+        articles.forEach(function (a) {
+            const found = [];
+            let t;
+            tagScan.lastIndex = 0;
+            while ((t = tagScan.exec(a.content)) !== null) {
+                const cls = /\sclass="([^"]*)"/.exec(t[0]);
+                if (!cls || cls[1].split(/\s+/).indexOf(g.cls) === -1) continue;
+                const rest = a.content.slice(tagScan.lastIndex);
+                const text = rest.slice(0, rest.indexOf('<'));
+                found.push({ tag: t[0], text: text, closes: rest.slice(text.length).indexOf('</' + t[1] + '>') === 0 });
+            }
+            const want = g.counts[a.id] || 0;
+            if (found.length !== want) {
+                fail(a.id + ': ' + found.length + ' .' + g.cls + ' element(s), expected ' + want + '. A letter tool must use a guarded class from ARTICLE_GUARDS in scripts/pre-render.js, and these counts are pinned.');
+            }
+            found.forEach(function (e) {
+                const where = a.id + ': .' + g.cls + ' "' + e.text + '"';
+                if (!hasTranslateGuard(e.tag)) fail(where + ' is not guarded (translate="no" and class notranslate on its tag): ' + e.tag);
+                if (!e.closes) fail(where + ' must hold text only, no child elements');
+                if (!e.text || e.text !== e.text.trim()) fail(where + ' must be non-empty and take in no neighbouring space');
+                const lang = langOf(e.tag);
+                if (g.lang === 'row') bigLetters.push([e.text, lang]);
+                else if (lang !== g.lang) fail(where + ' has lang ' + JSON.stringify(lang) + ', expected ' + JSON.stringify(g.lang));
+            });
+            total += found.length;
+        });
+        guardCounts[g.cls] = total;
+        articleGuardsChecked += total;
+    });
+    if (JSON.stringify(bigLetters) !== JSON.stringify(BIG_LETTER_LANGS)) {
+        const at = bigLetters.findIndex(function (b, i) { return JSON.stringify(b) !== JSON.stringify(BIG_LETTER_LANGS[i]); });
+        fail('cyrillic-letters-not-in-russian: .big-letter ' + (at + 1) + ' is ' + JSON.stringify(bigLetters[at]) +
+             ', expected ' + JSON.stringify(BIG_LETTER_LANGS[at]) + ' (letter and the language of its row)');
+    }
+    // Copy tiles: the glyph sits in its own guarded span, it is exactly the
+    // tile's data-char (what the click handler copies), and it holds no whitespace.
+    const tileFullRe = /<button type="button" class="copy-char-btn" data-char="([^"]+)"><span class="copy-glyph notranslate" translate="no" lang="ru">([^<]*)<\/span><span class="copy-feedback">Copied!<\/span><\/button>/g;
+    const tiles = [];
+    let tileFull;
+    while ((tileFull = tileFullRe.exec(copyPaste.content)) !== null) {
+        if (tileFull[1] !== tileFull[2]) fail('cyrillic-copy-paste: tile data-char ' + JSON.stringify(tileFull[1]) + ' differs from its glyph ' + JSON.stringify(tileFull[2]));
+        if (/\s/.test(tileFull[1])) fail('cyrillic-copy-paste: tile ' + JSON.stringify(tileFull[1]) + ' copies whitespace');
+        tiles.push(tileFull[1]);
+    }
+    const allExpectedTiles = [].concat.apply([], Object.keys(expectedTiles).map(function (k) { return expectedTiles[k]; }));
+    if (tiles.length !== 92 || countOccurrences(copyPaste.content, 'class="copy-char-btn" data-char=') !== 92) {
+        fail('cyrillic-copy-paste: ' + tiles.length + ' tiles in the guarded form, expected 92 (<button ... data-char="X"><span class="copy-glyph notranslate" translate="no" lang="ru">X</span><span class="copy-feedback">Copied!</span></button>)');
+    }
+    if (JSON.stringify(tiles) !== JSON.stringify(allExpectedTiles)) fail('cyrillic-copy-paste: the 92 copy values do not match the expected tile list');
+    // Partial wraps.
+    let partialSpans = 0;
+    PARTIAL_WRAPS.forEach(function (p) {
+        articles.forEach(function (a) {
+            const re = new RegExp('<div class="' + p.cls + '">([\\s\\S]*?)</div>', 'g');
+            const inner = [];
+            let m;
+            while ((m = re.exec(a.content)) !== null) inner.push(m[1]);
+            const any = countOccurrences(a.content, 'class="' + p.cls);
+            const want = a.id === p.article ? p.count : 0;
+            if (inner.length !== want || any !== want) fail(a.id + ': ' + any + ' .' + p.cls + ' element(s), expected ' + want);
+            inner.forEach(function (h) {
+                if (!p.re.test(h)) fail(a.id + ': .' + p.cls + ' is not wrapped as expected (Russian guarded, F2 spacing, gloss outside): ' + h);
+                partialSpans += countOccurrences(h, 'translate="no"');
+            });
+        });
+    });
+    // F2 spacing for every partial-wrap span in article content: no space just
+    // before it, no space or punctuation just after it.
+    const articleGuardRe = /<span (?:lang="[a-z]+" )?translate="no" class="notranslate">[^<]*<\/span>/g;
+    let f2Spans = 0;
+    articles.forEach(function (a) {
+        let g;
+        articleGuardRe.lastIndex = 0;
+        while ((g = articleGuardRe.exec(a.content)) !== null) {
+            f2Spans += 1;
+            const before = a.content.charAt(g.index - 1);
+            const after = a.content.charAt(g.index + g[0].length);
+            if (/\s/.test(before) || /[\s,.;:!?)\]]/.test(after)) {
+                fail(a.id + ': a guarded span has ' + (/\s/.test(before) ? 'a space just before it' : 'a space or punctuation just after it') +
+                     '; move it inside the span, or a translator drops it: ' + a.content.slice(Math.max(0, g.index - 20), g.index + g[0].length + 20).replace(/\s+/g, ' '));
+            }
+        }
+    });
+    if (f2Spans !== partialSpans) fail('article content has ' + f2Spans + ' partial-wrap spans, but the listed partial wraps account for ' + partialSpans);
+    // The printable chart: buildPrintChart builds new nodes after load, which a
+    // translator also rewrites, so the cells carry the cards' guards.
+    const articleScriptsSrc = fs.readFileSync(path.join(ROOT, 'js', 'article-scripts.js'), 'utf8');
+    const printFn = articleScriptsSrc.match(/\n    function buildPrintChart\([\s\S]*?\n    }\n/);
+    if (!printFn) fail('js/article-scripts.js: could not find buildPrintChart');
+    ["chars.className = 'print-chars notranslate';", "chars.setAttribute('translate', 'no');", "chars.setAttribute('lang', 'ru');",
+     "sound.className = 'print-sound notranslate';", "sound.setAttribute('translate', 'no');",
+     "example.appendChild(n.cloneNode(true));"].forEach(function (line) {
+        if (countOccurrences(printFn[0], line) !== 1) fail('js/article-scripts.js buildPrintChart: missing the guard line ' + line);
+    });
+    if (/example\.textContent\s*=/.test(printFn[0])) fail('js/article-scripts.js buildPrintChart: the example must clone the card\'s guarded nodes, not copy its text');
+    const articleGuardSummary = 'Article guards passed: ' + Object.keys(guardCounts).map(function (k) { return k + ' ' + guardCounts[k]; }).join(', ') +
+        ' (whole element, guarded, expected lang, big-letter by row); ' + tiles.length + ' copy values equal to their guarded glyph and the expected list; ' +
+        PARTIAL_WRAPS.map(function (p) { return p.cls + ' ' + p.count; }).join(', ') + ' partial wraps (' + partialSpans + ' spans, F2 spacing); print cells guarded.';
+
     // ---- study groups: the six selectable groups are static HTML in index.html ----
     // Same rule as the chart, the copy tiles and the lookalike strip, but this one
     // lives in the shell rather than an article. The romans are asserted against
@@ -1268,6 +1426,48 @@ function main() {
         });
     }
     assertAnswerInput(template, 'index.html');
+
+    // ---- article mini quizzes: false-friends, memory-tricks, serbian-cyrillic-vs-latin ----
+    // The letter on screen is guarded by id (its spans have no class of their
+    // own): translate="no", notranslate and the quiz's language, sr for the
+    // Serbian letters. The answer box takes the same four attributes as the main
+    // quiz. The feedback answer is written by setQuizText from core.js, so it sits
+    // in its own guarded span with the space before it inside, and the text is
+    // the English quiz's 'wrong' and 'skip' strings exactly (checked by the
+    // setQuizText run further down).
+    const MINI_QUIZZES = [
+        { prefix: 'mini', article: 'false-friends', lang: 'ru' },
+        { prefix: 'mem', article: 'memory-tricks', lang: 'ru' },
+        { prefix: 'srb', article: 'serbian-cyrillic-vs-latin', lang: 'sr' },
+    ];
+    let miniQuizSpans = 0;
+    MINI_QUIZZES.forEach(function (q) {
+        const a = byId[q.article];
+        if (!a) fail(q.article + ' article not found; the mini-quiz assertion cannot run');
+        ['-current-char', '-current-char-lower'].forEach(function (suffix) {
+            const tag = openingTagWithId(a.content, q.prefix + suffix, q.article);
+            if (!hasTranslateGuard(tag)) fail(q.article + ': #' + q.prefix + suffix + ' must carry translate="no" and class notranslate: ' + tag);
+            if (langOf(tag) !== q.lang) fail(q.article + ': #' + q.prefix + suffix + ' has lang ' + JSON.stringify(langOf(tag)) + ', expected "' + q.lang + '"');
+            miniQuizSpans += 1;
+        });
+        const input = openingTagWithId(a.content, q.prefix + '-answer-input', q.article);
+        ANSWER_INPUT_ATTRS.forEach(function (attr) {
+            if (!new RegExp('\\s' + attr + '[\\s/>]').test(input)) fail(q.article + ': #' + q.prefix + '-answer-input must carry ' + attr + ', found ' + input);
+        });
+        openingTagWithId(a.content, q.prefix + '-feedback', q.article);
+    });
+    // quizCheck and quizSkip write the answer through setQuizText, never as text.
+    ["setQuizText(feedback, 'wrong', { answer: state.chars[state.currentChar].roman });",
+     "setQuizText(feedback, 'skip', { answer: state.chars[state.currentChar].roman });"].forEach(function (line) {
+        if (countOccurrences(articleScriptsSrc, line) !== 1) fail('js/article-scripts.js: the mini-quiz feedback must use ' + line);
+    });
+    if (/Correct: \$\{|Answer: \$\{/.test(articleScriptsSrc)) fail('js/article-scripts.js: a mini-quiz answer is written as plain text; use setQuizText');
+    // No guard outside the lists: every translate="no" in article content is one
+    // of the elements checked above.
+    const articleTranslateNo = articles.reduce(function (n, a) { return n + countOccurrences(a.content, 'translate="no"'); }, 0);
+    if (articleTranslateNo !== articleGuardsChecked + partialSpans + miniQuizSpans) {
+        fail('article content carries ' + articleTranslateNo + ' translate="no", but the listed guards account for ' + (articleGuardsChecked + partialSpans + miniQuizSpans) + '; add a new letter tool to ARTICLE_GUARDS, PARTIAL_WRAPS or MINI_QUIZZES');
+    }
 
     // The quiz's screen-reader names: a label for the answer box, a polite live
     // region for the feedback line, and a name for the audio button. On
@@ -2591,6 +2791,10 @@ function main() {
                     'index.html once and inherited once by each of ' + revealPages + ' emitted pages, none in 404.html; html.lang-es ' +
                     'appears once in css/styles.css.');
     });
+    console.log(articleGuardSummary);
+    console.log('Mini quizzes passed: ' + MINI_QUIZZES.map(function (q) { return q.article + ' (' + q.lang + ')'; }).join(', ') +
+                ': ' + miniQuizSpans + ' letter spans guarded with lang, answer inputs carry ' + ANSWER_INPUT_ATTRS.join(' ') +
+                ', feedback answers written by setQuizText; ' + articleTranslateNo + ' translate="no" in article content, all listed.');
     console.log('Logo guards passed: ' + logosChecked + ' logos across index.html, 404.html and ' + emittedPages.length +
                 ' emitted pages, each notranslate with translate="no", every Л lang="ru".');
     // ---- setQuizText: spacing and exact text ----

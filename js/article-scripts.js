@@ -326,6 +326,11 @@ ArticleScripts['russian-alphabet-chart'] = function() {
     // Builds a print-only DOM subtree from the cards in the document, appended to
     // body. Called fresh on each print so checkbox state is always honored. Every
     // letter prints regardless of the current filter, as it always has.
+    // The cells carry the cards' translation guards: a page translator also
+    // rewrites nodes added after load, so the letters and sounds are guarded
+    // whole and the example keeps the card's guarded span around the Russian word
+    // (cloned, so the printed text is exactly the card's). scripts/pre-render.js
+    // checks these lines.
     function buildPrintChart(includeExamples) {
         var existing = document.getElementById('print-chart');
         if (existing) existing.parentNode.removeChild(existing);
@@ -353,17 +358,23 @@ ArticleScripts['russian-alphabet-chart'] = function() {
             var cell = document.createElement('div');
             cell.className = 'print-cell';
             var chars = document.createElement('div');
-            chars.className = 'print-chars';
+            chars.className = 'print-chars notranslate';
+            chars.setAttribute('translate', 'no');
+            chars.setAttribute('lang', 'ru');
             chars.textContent = textOf(cards[i], 'letter-chars');
             var sound = document.createElement('div');
-            sound.className = 'print-sound';
+            sound.className = 'print-sound notranslate';
+            sound.setAttribute('translate', 'no');
             sound.textContent = textOf(cards[i], 'letter-sound');
             cell.appendChild(chars);
             cell.appendChild(sound);
             if (includeExamples) {
                 var example = document.createElement('div');
                 example.className = 'print-example';
-                example.textContent = textOf(cards[i], 'letter-example');
+                var exampleSrc = cards[i].querySelector('.letter-example');
+                if (exampleSrc) {
+                    for (var n = exampleSrc.firstChild; n; n = n.nextSibling) example.appendChild(n.cloneNode(true));
+                }
                 cell.appendChild(example);
             }
             grid.appendChild(cell);
@@ -625,7 +636,9 @@ function quizCheck(prefix) {
         
         setTimeout(() => { state.currentIndex++; quizNext(prefix); }, 600);
     } else {
-        feedback.textContent = `✗ Wrong. Correct: ${state.chars[state.currentChar].roman}`;
+        // setQuizText (core.js) writes the same text with the answer in its own
+        // guarded span, so a page translator cannot rewrite the romanization.
+        setQuizText(feedback, 'wrong', { answer: state.chars[state.currentChar].roman });
         feedback.className = 'feedback incorrect';
         state.incorrectCount++;
         state.streak = 0;
@@ -642,7 +655,7 @@ function quizSkip(prefix) {
     if (!state) return;
     
     const feedback = document.getElementById(prefix + '-feedback');
-    feedback.textContent = `Answer: ${state.chars[state.currentChar].roman}`;
+    setQuizText(feedback, 'skip', { answer: state.chars[state.currentChar].roman });
     feedback.className = 'feedback';
     state.answered = true;
     state.incorrectCount++;
