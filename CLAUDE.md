@@ -52,6 +52,13 @@ Orientation for Claude Code (CC). Read this at the start of every session.
   Multi-line shell work goes in a script file run with bash, starting
   `#!/usr/bin/env bash` and `set -euo pipefail`, never typed into zsh. Check
   that a local port is free before binding it.
+- **Unicode escapes in source files.** Text sent through the agent's tool
+  input has its \u escapes decoded before it reaches the file, so writing
+  `\u0400` directly puts the literal character Ѐ in the file instead. Write
+  a Unicode escape with a script that builds the backslash (for example
+  `chr(92) + 'u0400'` in Python), then confirm at byte level that the file
+  holds the six ASCII characters and no literal character, and report both
+  counts. This happened twice, in Batch 67 and Batch 68.
 - **Show the diff before applying.** Never write or commit until approved.
 - **One source of truth.** No duplicated data or functions that can drift. Reuse
   shared functions, tokens, and data.

@@ -1354,7 +1354,7 @@ function main() {
     // No aria-label in article content may carry a Cyrillic letter: the
     // translator would rewrite it.
     articles.forEach(function (a) {
-        const m = a.content.match(/aria-label="[^"]*[Ѐ-ӿ][^"]*"/);
+        const m = a.content.match(/aria-label="[^"]*[\u0400-\u04FF][^"]*"/);
         if (m) fail(a.id + ': ' + m[0] + ' carries a Cyrillic letter in an aria-label; use aria-labelledby with a guarded label (BUTTON_LABELS in scripts/pre-render.js)');
     });
     // F2 spacing for every partial-wrap span in article content: no space just

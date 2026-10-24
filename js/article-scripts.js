@@ -436,7 +436,7 @@ const QUIZ_CONFIGS = {
             'Я': { upper: 'Я', lower: 'я', roman: 'ya', audio: 'audio/ya.mp3' }
         }
     },
-    // Chart article — Group 1: Easy Vowels
+    // Serbian unique letters article
     'srb': {
         chars: {
             'Ђ': { upper: 'Ђ', lower: 'ђ', roman: 'dj',  audio: null },
