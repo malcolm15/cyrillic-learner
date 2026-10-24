@@ -219,6 +219,19 @@ Two cross-file gotchas:
   code change appears not to have taken effect, suspect cache before suspecting the
   code, and verify the function actually loaded (check it in the browser console)
   before re-editing.
+- **Byte comparisons against a Deploy Preview.** Netlify injects one badge
+  block into every Deploy Preview document, and production never carries it.
+  Strip it before comparing preview and production bytes. Two forms have been
+  seen. Until 2026-10-22 the block's second line was blank; since then it
+  holds an HTML comment ("This div is automatically inserted by Netlify for
+  all Deploy Preview URLs."), and the block has moved a few lines down the
+  document. Match it anywhere in the document, with the comment optional:
+  `<div data-netlify-deploy-id="HEX" data-netlify-site-id="UUID"
+  data-vcs="github" style="position:fixed">` newline, two spaces, an optional
+  `<!-- ... -->`, newline, `  <script async src="/.netlify/scripts/cdp"></script>`,
+  newline, `</div>`, newline. Require exactly one match per preview document
+  and none in production. Record the deploy id from the badge: it also proves
+  which deploy served the page.
 
 ### Solved history: the SPA 404 problem (do not reintroduce)
 The site was previously on GitHub Pages, which served `404.html` for every non-file
@@ -634,6 +647,32 @@ every partial-wrap span in article content; no `translate="no"` in article
 content outside the lists; the mini quizzes; and the guard lines in
 `buildPrintChart`. A new letter tool must use a guarded class, or be added
 to the lists.
+
+**Button names (letter-announcing buttons).** A translator rewrites an
+`aria-label` like any text ("Play pronunciation of А" came back as "... de
+A", "Copy И" as "Copiar y"), and an attribute cannot hold a guard. So a
+button whose name announces a letter takes it from its own label through
+`aria-labelledby`, never from `aria-label`:
+`<span id="copy-label-2" class="sr-only" aria-hidden="true">Copy<span
+lang="ru" translate="no" class="notranslate"> И</span></span>`. The
+instruction stays translatable; the letter is guarded with its language and
+the space before it inside (F2). `sr-only` keeps the label rendered, so a
+translator sees it; `aria-hidden` keeps a screen reader from reading it a
+second time as text. The label goes inside the button only where no script
+rewrites the button's text (the chart cards); otherwise beside it in the
+same card (the lookalike buttons, whose copy button swaps its own text),
+each label on its own line so its words never run into the next. Today:
+the 33 chart play buttons and the 8 listen and 8 copy lookalike buttons,
+listed in `BUTTON_LABELS` in `scripts/pre-render.js`. The label text counts
+toward the Article schema `wordCount`, by decision. The build asserts, per
+article: each listed button (counts pinned, none elsewhere) has no
+`aria-label` and an `aria-labelledby` naming exactly one id that exists
+once, whose element is exactly the sr-only aria-hidden label with the
+expected instruction and the button's letter (its `data-letter`, or its
+card's), with whitespace on both sides; no `aria-label` in article content
+carries Cyrillic; and the F2 span check and the `translate="no"` total count
+the label spans. A new button that names a letter must follow the same
+pattern and be added to `BUTTON_LABELS`.
 
 **Spacing around guarded text (F2).** A translator drops a space, a comma or a
 closing bracket that sits just outside a `translate="no"` span ("ANSWER:TS",
