@@ -165,6 +165,13 @@ Two cross-file gotchas:
 - Deploys **automatically on every push to `main`**. A git push is the deploy. It is
   atomic, so there is no partial-upload problem (this is a change from the old GitHub
   Pages manual-upload era; ignore any older guidance about uploading files together).
+- **Branch protection.** A repository ruleset on `main` requires a pull request and
+  the Netlify Deploy Preview check (`netlify/dapper-axolotl-1f65df/deploy-preview`)
+  to pass, and blocks force-pushes and deletion, with no bypass list. That blocks
+  ordinary direct pushes to `main`, so every change reaches production through a PR
+  whose preview built. It does not protect against a compromised admin credential,
+  which can change the rules or merge a PR, and any tool holding the `gh` login has
+  that power. GitHub Actions are disabled for the repo.
 - **Routing. There is no `/*` catch-all.** `_redirects` has an explicit
   `/<route> /index.html 200` rewrite for each of the seven SPA routes, and
   `scripts/pre-render.js` fails the build if that set does not match `VALID_PAGES`
@@ -205,7 +212,13 @@ Two cross-file gotchas:
   work at the end of a path, so a new root file needs its own named rule. Blocking is
   case-sensitive while static files are served case-insensitively; case variants are
   an accepted residual risk because the repo is public and only the committed
-  spelling is discoverable.
+  spelling is discoverable. An encoded slash also bypasses the directory denies
+  (`/scripts%2Fpre-render.js` and `/netlify%2Flib%2Farticle-heads.ts` were served
+  at 200 in the Batch 69 audit). That is accepted for the same reason: the repo is
+  public and holds no secrets. If the repo ever goes private, neither bypass is
+  acceptable any more, and the fix is a publish directory: `publish` pointing at a
+  build output folder that holds only SITE files, so the site serves what is copied
+  in rather than blocking known internal paths.
 - **Content containers.** Any list or table a reader should see must be static HTML
   in articles.js, guarded by a pre-render assertion. Scripts attach to existing
   markup; they do not build readable content into empty containers.
@@ -1051,6 +1064,63 @@ in `css/styles.css`, and the `/teachers` demo clip, which keeps its own
 **Alphabet chart cards** (russian-alphabet-chart): the full card is the audio tap
 target (`button` elements, `.letter-card` class, dark mode handled). No separate
 Listen buttons.
+
+## Dependency and tool supply-chain safety
+- Prefer Node built-ins, browser APIs and tools already approved for this repo.
+  Cyrilica has no package dependencies, and that is deliberate.
+- No new package, global tool, Homebrew formula, pip package, npx or npm exec run,
+  downloaded binary, remote script, browser extension or third-party GitHub Action
+  without Malc's explicit approval BEFORE installation or execution, whether for
+  the site, a build step or a local test harness.
+- An AI suggestion (from CC, Claude or ChatGPT) is never evidence that a package is
+  real or trustworthy.
+- Before asking for approval: verify the exact name and version on the official
+  registry; independently find the official source repository or website and
+  confirm it links back to that package; check publisher and release history,
+  version age (normally at least seven days), download history, typosquatting,
+  install scripts, notable transitive dependencies and advisories; explain why
+  built-ins are not enough.
+- Never substitute a similarly named package when the intended one is unavailable.
+- Read-only audits never install or execute unreviewed software.
+- The dependency guard, its list of approved imports, and the Netlify build
+  settings (netlify.toml, NPM_FLAGS, the build command, the publish directory) must
+  not be weakened or changed without Malc's explicit approval. Any change touching
+  them is called out as the first item of the report that proposes it, with its
+  diff, so it cannot pass unnoticed inside a larger change. A passing build cannot
+  prove its own checks were not weakened in the same change.
+- Applies to planning recommendations as well as to code.
+
+**The dependency guard** (`assertNoDependencies()`, the first thing `main()` in
+`scripts/pre-render.js` runs, so it runs on every Deploy Preview and production
+build). It is an accidental-dependency guard, not a malware scanner. It fails the
+build if any `package.json`, `npm-shrinkwrap.json`, `package-lock.json`,
+`yarn.lock`, `pnpm-lock.yaml`, `bun.lockb`, `bun.lock` or `node_modules` appears
+anywhere in the repo (everything except `.git`). It reads every `.js`, `.mjs`,
+`.cjs` and `.ts` file outside `.git` with a small lexer that skips comments,
+strings, template text and regular expressions, and allows only three kinds of
+module: Node built-ins (with or without `node:`), relative paths, and the one
+type-only `import type ... from "@netlify/edge-functions"` in
+`netlify/edge-functions/head-rewrite.ts`. It recognises `import ... from`
+(including multiline and `import type`), side-effect `import "x"`,
+`export ... from`, `export * from`, `require("x")` and `import("x")`. It fails
+closed: `require(` or `import(` with anything but one string literal,
+`createRequire`, `module.require`, `process.binding`, a URL specifier (`https:`,
+`http:`, `npm:`, `jsr:`, `data:` or any other scheme but `node:`), and any
+`import`, `export` or `require` token it cannot classify all fail the build. There
+is no exceptions list; a new legitimate form means changing the guard, under the
+rule above.
+
+Its limits, which are why it is not a malware scanner:
+- It reads source text for module loading and nothing else. It does not judge
+  what an allowed module does: `child_process`, `https` plus `eval` or
+  `new Function`, or a relative file that someone pasted in, all pass.
+- It runs after Netlify's automatic install, so it cannot stop an install-time
+  script that already ran. `NPM_FLAGS = "--ignore-scripts"` in `netlify.toml` is
+  the backstop for that: it stops npm lifecycle scripts during an npm install; it
+  does not stop packages being downloaded, does not stop their code running if a
+  build script imports them, and does not apply if Netlify picks Yarn, pnpm or Bun.
+- It cannot protect a local machine where something was already installed.
+- The same change it would catch can remove it, hence the reporting rule above.
 
 ## Security and analytics
 - Hash validation regex before querySelector, a `VALID_PAGES` whitelist, and a

@@ -8,7 +8,8 @@ Alphabet Variants, History & Culture, and Learning Tools & Resources.
 
 - Vanilla JavaScript, HTML and CSS. No framework and no package.json.
 - Path-based routing with the History API (for example `/articles/getting-started`).
-  `_redirects` serves `index.html` for every path that is not a file.
+  `_redirects` rewrites each of the seven app routes to `index.html`. Each article is
+  a real pre-rendered file, and any other path gets a real 404 from `404.html`.
 - Hosted on Netlify. The build command in `netlify.toml` runs
   `scripts/generate-article-heads.js` (writes `netlify/lib/article-heads.ts`), then
   `scripts/pre-render.js` (writes the 27 article pages to `articles/`, gitignored).
