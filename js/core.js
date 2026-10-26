@@ -137,13 +137,32 @@ let autoPlayAudio = false;
 let darkMode = false;
 let problemChars = {}; // Track characters user got wrong
 
+// Site storage can throw (cookies blocked, some private modes). A read that
+// throws counts as no saved value, and a write that throws keeps the setting
+// for this visit only, so the quiz and its settings keep working either way.
+function readSetting(key) {
+    try {
+        return localStorage.getItem(key);
+    } catch (e) {
+        return null;
+    }
+}
+
+function saveSetting(key, value) {
+    try {
+        localStorage.setItem(key, value);
+    } catch (e) {
+        // Storage blocked: the setting holds for this visit only.
+    }
+}
+
 // Load settings from localStorage
 function loadSettings() {
-    const savedLowercase = localStorage.getItem('includeLowercase');
-    const savedAutoSubmit = localStorage.getItem('autoSubmit');
-    const savedContinuous = localStorage.getItem('continuousPlay');
-    const savedRepeat = localStorage.getItem('repeatProblems');
-    const savedDarkMode = localStorage.getItem('darkMode');
+    const savedLowercase = readSetting('includeLowercase');
+    const savedAutoSubmit = readSetting('autoSubmit');
+    const savedContinuous = readSetting('continuousPlay');
+    const savedRepeat = readSetting('repeatProblems');
+    const savedDarkMode = readSetting('darkMode');
     
     if (savedLowercase !== null) {
         includeLowercase = savedLowercase === 'true';
@@ -164,7 +183,7 @@ function loadSettings() {
         repeatProblems = savedRepeat === 'true';
         setToggle('repeat-toggle', repeatProblems);
     }
-    const savedAutoAudio = localStorage.getItem('autoPlayAudio');
+    const savedAutoAudio = readSetting('autoPlayAudio');
     if (savedAutoAudio !== null) {
         autoPlayAudio = savedAutoAudio === 'true';
         setToggle('autoaudio-toggle', autoPlayAudio);
@@ -193,7 +212,7 @@ function loadSettings() {
 
 function toggleLowercase() {
     includeLowercase = document.getElementById('lowercase-toggle').checked;
-    localStorage.setItem('includeLowercase', includeLowercase);
+    saveSetting('includeLowercase', includeLowercase);
     
     // Track setting change in Google Analytics
     if (typeof gtag !== 'undefined') {
@@ -208,7 +227,7 @@ function toggleLowercase() {
 
 function toggleAutoSubmit() {
     autoSubmit = document.getElementById('autosubmit-toggle').checked;
-    localStorage.setItem('autoSubmit', autoSubmit);
+    saveSetting('autoSubmit', autoSubmit);
     
     // Track setting change in Google Analytics
     if (typeof gtag !== 'undefined') {
@@ -221,7 +240,7 @@ function toggleAutoSubmit() {
 
 function toggleContinuous() {
     continuousPlay = document.getElementById('continuous-toggle').checked;
-    localStorage.setItem('continuousPlay', continuousPlay);
+    saveSetting('continuousPlay', continuousPlay);
     
     // Track setting change in Google Analytics
     if (typeof gtag !== 'undefined') {
@@ -234,7 +253,7 @@ function toggleContinuous() {
 
 function toggleRepeat() {
     repeatProblems = document.getElementById('repeat-toggle').checked;
-    localStorage.setItem('repeatProblems', repeatProblems);
+    saveSetting('repeatProblems', repeatProblems);
     
     // Track setting change in Google Analytics
     if (typeof gtag !== 'undefined') {
@@ -247,7 +266,7 @@ function toggleRepeat() {
 
 function toggleAutoAudio() {
     autoPlayAudio = document.getElementById('autoaudio-toggle').checked;
-    localStorage.setItem('autoPlayAudio', autoPlayAudio);
+    saveSetting('autoPlayAudio', autoPlayAudio);
     
     // Track setting change in Google Analytics
     if (typeof gtag !== 'undefined') {

@@ -784,7 +784,392 @@ function derivePreview(content) {
     return text.substring(0, 120).trim() + '...';
 }
 
+// ---- accidental-dependency guard ----
+// Cyrilica has no package dependencies, and that is deliberate (CLAUDE.md,
+// "Dependency and tool supply-chain safety"). This guard fails the build if a
+// package file or node_modules appears anywhere in the repo, or if any script
+// loads a module that is not a Node built-in, a relative file, or the one
+// approved type-only import ("@netlify/edge-functions" in
+// netlify/edge-functions/head-rewrite.ts). It is an ACCIDENTAL-DEPENDENCY
+// GUARD, NOT A MALWARE SCANNER: it reads source text for module loading. It
+// runs after Netlify's own install step, it cannot protect a machine where
+// something was already installed, and the change that would weaken it could
+// remove it, which is why CLAUDE.md requires any change to it to be the first
+// item of the report that proposes it. It fails closed: a require or import
+// it cannot classify fails the build.
+//
+// One directory is exempt besides .git: .netlify at the repo root, and only
+// there. Netlify restores its own build cache into it before the build command
+// runs (its Deno edge-function tooling, which carries a node_modules folder and
+// .js files), so walking it would fail every Netlify build. Two safeguards
+// cover the accidental-dependency bypasses that exemption would otherwise
+// open: git must track no file under .netlify/ (checked with git ls-files,
+// failing closed if git cannot answer), and no relative specifier may resolve
+// into .netlify/ or through a node_modules path segment. They are protections
+// against those identified bypasses, not a guarantee that nothing can ever
+// read or run files in that cache.
+const { builtinModules } = require('module');
+const { execFileSync } = require('child_process');
+
+const DEP_PACKAGE_FILES = ['package.json', 'npm-shrinkwrap.json', 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock'];
+const DEP_SCAN_EXT = /\.(?:js|mjs|cjs|ts)$/;
+const DEP_APPROVED_TYPE_IMPORT = { file: 'netlify/edge-functions/head-rewrite.ts', spec: '@netlify/edge-functions' };
+// Netlify's build cache, restored before the build command. Root only.
+const DEP_EXEMPT_ROOT_DIR = '.netlify';
+// After these keywords a "/" starts a regular expression, not a division.
+const DEP_REGEX_AFTER_ID = new Set(['return', 'typeof', 'instanceof', 'in', 'of', 'new', 'delete', 'void', 'throw', 'case', 'do', 'else', 'yield', 'await']);
+const DEP_EXPORT_DECLARATIONS = ['const', 'let', 'var', 'function', 'class', 'default', 'async', 'type', 'interface', 'enum', 'declare', 'abstract'];
+
+function depWalk(dir, rel, out) {
+    fs.readdirSync(dir, { withFileTypes: true }).forEach(function (e) {
+        if (e.name === '.git') return;
+        const r = rel ? rel + '/' + e.name : e.name;
+        if (r === DEP_EXEMPT_ROOT_DIR && e.isDirectory()) return;
+        if (e.isDirectory()) {
+            if (e.name === 'node_modules') out.packageHits.push(r + '/');
+            depWalk(path.join(dir, e.name), r, out);
+        } else {
+            if (DEP_PACKAGE_FILES.indexOf(e.name) !== -1) out.packageHits.push(r);
+            if (DEP_SCAN_EXT.test(e.name)) out.files.push(r);
+        }
+    });
+    return out;
+}
+
+// A small JavaScript/TypeScript lexer, enough to skip comments, strings,
+// template text and regular expressions so that only code is classified. It
+// throws on anything it cannot read (an unterminated string, comment, regex or
+// template), and the guard turns that into a build failure.
+function depLex(src) {
+    const toks = [];
+    let i = 0;
+    let line = 1;
+    const err = function (msg) { throw new Error('line ' + line + ': ' + msg); };
+    function regexAllowed() {
+        const p = toks.length ? toks[toks.length - 1] : null;
+        if (!p) return true;
+        if (p.t === 'punct') return p.v !== ')' && p.v !== ']';
+        if (p.t === 'id') return DEP_REGEX_AFTER_ID.has(p.v);
+        return false;
+    }
+    function code(stopAtBrace) {
+        let depth = 0;
+        while (i < src.length) {
+            const c = src[i];
+            if (c === '\n') { line++; i++; continue; }
+            if (c === ' ' || c === '\t' || c === '\r' || c === '\f' || c === '\v' || c === '\u00a0' || c === '\ufeff') { i++; continue; }
+            if (c === '/' && src[i + 1] === '/') { while (i < src.length && src[i] !== '\n') i++; continue; }
+            if (c === '/' && src[i + 1] === '*') {
+                const end = src.indexOf('*/', i + 2);
+                if (end === -1) err('unterminated block comment');
+                line += (src.slice(i, end).match(/\n/g) || []).length;
+                i = end + 2;
+                continue;
+            }
+            if (c === '"' || c === "'") {
+                const start = line;
+                let j = i + 1;
+                let v = '';
+                while (j < src.length && src[j] !== c) {
+                    if (src[j] === '\n') err('unterminated string');
+                    if (src[j] === '\\') { v += src[j] + src[j + 1]; if (src[j + 1] === '\n') line++; j += 2; continue; }
+                    v += src[j];
+                    j++;
+                }
+                if (j >= src.length) err('unterminated string');
+                toks.push({ t: 'str', v: v, line: start });
+                i = j + 1;
+                continue;
+            }
+            if (c === '`') { i++; template(); continue; }
+            if (c === '/' && regexAllowed()) {
+                let j = i + 1;
+                let inClass = false;
+                while (j < src.length) {
+                    const d = src[j];
+                    if (d === '\n') err('unterminated regular expression');
+                    if (d === '\\') { j += 2; continue; }
+                    if (d === '[') inClass = true;
+                    else if (d === ']') inClass = false;
+                    else if (d === '/' && !inClass) break;
+                    j++;
+                }
+                if (j >= src.length) err('unterminated regular expression');
+                j++;
+                while (j < src.length && /[a-z]/i.test(src[j])) j++;
+                toks.push({ t: 'regex', line: line });
+                i = j;
+                continue;
+            }
+            if (/[A-Za-z_$]/.test(c)) {
+                let j = i + 1;
+                while (j < src.length && /[\w$]/.test(src[j])) j++;
+                toks.push({ t: 'id', v: src.slice(i, j), line: line });
+                i = j;
+                continue;
+            }
+            if (/[0-9]/.test(c)) {
+                let j = i + 1;
+                while (j < src.length && /[\w.]/.test(src[j])) j++;
+                toks.push({ t: 'num', line: line });
+                i = j;
+                continue;
+            }
+            if (c === '=' && src[i + 1] === '>') { toks.push({ t: 'punct', v: '=>', line: line }); i += 2; continue; }
+            if (c === '.' && src[i + 1] === '.' && src[i + 2] === '.') { toks.push({ t: 'punct', v: '...', line: line }); i += 3; continue; }
+            if (c === '?' && src[i + 1] === '.' && !/[0-9]/.test(src[i + 2] || '')) { toks.push({ t: 'punct', v: '?.', line: line }); i += 2; continue; }
+            if (stopAtBrace) {
+                if (c === '{') depth++;
+                else if (c === '}') { if (depth === 0) { i++; return; } depth--; }
+            }
+            if (c.charCodeAt(0) > 127) err('unexpected character outside a string or comment');
+            toks.push({ t: 'punct', v: c, line: line });
+            i++;
+        }
+        if (stopAtBrace) err('unterminated template expression');
+    }
+    function template() {
+        while (i < src.length) {
+            const c = src[i];
+            if (c === '\\') { if (src[i + 1] === '\n') line++; i += 2; continue; }
+            if (c === '\n') { line++; i++; continue; }
+            if (c === '`') { i++; toks.push({ t: 'tpl', line: line }); return; }
+            if (c === '$' && src[i + 1] === '{') { i += 2; code(true); continue; }
+            i++;
+        }
+        err('unterminated template literal');
+    }
+    code(false);
+    return toks;
+}
+
+function depIsBuiltin(s) {
+    const bare = s.replace(/^node:/, '');
+    return builtinModules.indexOf(s) !== -1 || builtinModules.indexOf(bare) !== -1 || builtinModules.indexOf('node:' + bare) !== -1;
+}
+
+// Every module load in one file, and every token the guard cannot classify.
+function depClassify(file, src) {
+    const loads = [];
+    const problems = [];
+    let toks;
+    try { toks = depLex(src); } catch (e) { problems.push(file + ': cannot read the file as code (' + e.message + ')'); return { loads: loads, problems: problems }; }
+    const at = function (k) { return toks[k] || {}; };
+    const isP = function (k, v) { return at(k).t === 'punct' && at(k).v === v; };
+    const isId = function (k, v) { return at(k).t === 'id' && (v === undefined || at(k).v === v); };
+    const flag = function (k, msg) { problems.push(file + ':' + at(k).line + ': ' + msg); };
+    const take = function (k, kind, typeOnly) { loads.push({ file: file, line: at(k).line, kind: kind, spec: at(k).v, typeOnly: !!typeOnly }); };
+    for (let k = 0; k < toks.length; k++) {
+        const tk = toks[k];
+        if (tk.t !== 'id') continue;
+        const afterDot = isP(k - 1, '.') || isP(k - 1, '?.');
+        if (tk.v === 'createRequire') { flag(k, 'createRequire is not allowed'); continue; }
+        if (tk.v === 'process' && isP(k + 1, '.') && isId(k + 2, 'binding')) { flag(k, 'process.binding is not allowed'); continue; }
+        if (tk.v === 'require') {
+            if (afterDot) { flag(k, isId(k - 2, 'module') ? 'module.require is not allowed' : 'a .require property access cannot be classified'); continue; }
+            if (isP(k + 1, '(')) {
+                if (at(k + 2).t === 'str' && isP(k + 3, ')')) take(k + 2, 'require');
+                else flag(k, 'require( whose argument is not a single string literal');
+                continue;
+            }
+            // require.main names the entry module; reading it loads nothing.
+            if (isP(k + 1, '.') && isId(k + 2, 'main')) continue;
+            flag(k, 'a require token that cannot be classified');
+            continue;
+        }
+        if (tk.v === 'import') {
+            if (afterDot) { flag(k, 'an .import property access cannot be classified'); continue; }
+            if (isP(k + 1, '(')) {
+                if (at(k + 2).t === 'str' && isP(k + 3, ')')) take(k + 2, 'import()');
+                else flag(k, 'import( whose argument is not a single string literal');
+                continue;
+            }
+            if (isP(k + 1, '.') && isId(k + 2, 'meta')) continue;   // import.meta loads nothing
+            if (at(k + 1).t === 'str') { take(k + 1, 'import (side effect)'); continue; }
+            const typeOnly = isId(k + 1, 'type');
+            let j = k + 1;
+            let found = false;
+            while (j < toks.length) {
+                const t = at(j);
+                if (t.t === 'id' && t.v === 'from' && at(j + 1).t === 'str') { take(j + 1, typeOnly ? 'import type' : 'import', typeOnly); found = true; break; }
+                if (t.t === 'id' || (t.t === 'punct' && ['*', '{', '}', ','].indexOf(t.v) !== -1)) { j++; continue; }
+                break;
+            }
+            if (!found) flag(k, 'an import statement that cannot be classified');
+            continue;
+        }
+        if (tk.v === 'export') {
+            if (afterDot) { flag(k, 'an .export property access cannot be classified'); continue; }
+            let j = k + 1;
+            if (isId(j, 'type') && isP(j + 1, '{')) j++;
+            if (isP(j, '*')) {
+                j++;
+                if (isId(j, 'as')) j += 2;
+                if (isId(j, 'from') && at(j + 1).t === 'str') take(j + 1, 'export * from');
+                else flag(k, 'an export * that cannot be classified');
+                continue;
+            }
+            if (isP(j, '{')) {
+                let ok = true;
+                while (j < toks.length && !isP(j, '}')) {
+                    if (!(at(j).t === 'id' || isP(j, '{') || isP(j, ','))) { ok = false; break; }
+                    j++;
+                }
+                if (!ok || j >= toks.length) { flag(k, 'an export list that cannot be classified'); continue; }
+                if (isId(j + 1, 'from')) {
+                    if (at(j + 2).t === 'str') take(j + 2, 'export from');
+                    else flag(k, 'an export from that cannot be classified');
+                }
+                continue;
+            }
+            if (isId(j) && DEP_EXPORT_DECLARATIONS.indexOf(at(j).v) !== -1) continue;
+            flag(k, 'an export statement that cannot be classified');
+            continue;
+        }
+    }
+    loads.forEach(function (l) {
+        const s = l.spec;
+        if (/^[a-z][a-z0-9+.-]*:/i.test(s) && !/^node:/.test(s)) problems.push(l.file + ':' + l.line + ': "' + s + '" is a URL specifier');
+        else if (/^\.\.?\//.test(s)) {
+            // A relative load must not reach into the exempt cache or into any
+            // node_modules folder, which would bypass the checks above.
+            const target = path.posix.normalize(path.posix.join(path.posix.dirname(l.file), s));
+            if (target === DEP_EXEMPT_ROOT_DIR || target.indexOf(DEP_EXEMPT_ROOT_DIR + '/') === 0) {
+                problems.push(l.file + ':' + l.line + ': "' + s + '" resolves into ' + DEP_EXEMPT_ROOT_DIR + '/, Netlify\'s build cache');
+            } else if (target.split('/').indexOf('node_modules') !== -1) {
+                problems.push(l.file + ':' + l.line + ': "' + s + '" resolves through a node_modules folder');
+            }
+        }
+        else if (depIsBuiltin(s)) return;
+        else if (s === DEP_APPROVED_TYPE_IMPORT.spec && l.file === DEP_APPROVED_TYPE_IMPORT.file && l.typeOnly) return;
+        else problems.push(l.file + ':' + l.line + ': "' + s + '" is not a Node built-in, a relative file or the approved type-only import');
+    });
+    return { loads: loads, problems: problems };
+}
+
+function assertNoDependencies() {
+    const guardNote = ' (accidental-dependency guard, not a malware scanner; see "Dependency and tool supply-chain safety" in CLAUDE.md)';
+    // The walk skips the root .netlify directory, so nothing committed may hide there.
+    let tracked;
+    try {
+        tracked = execFileSync('git', ['ls-files', '-z', '--', DEP_EXEMPT_ROOT_DIR], { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+    } catch (e) {
+        fail('could not run git ls-files to confirm nothing under ' + DEP_EXEMPT_ROOT_DIR + '/ is tracked, so the guard fails closed (' +
+             String(e.message).split('\n')[0] + ')' + guardNote);
+    }
+    const trackedFiles = tracked.split('\0').filter(Boolean);
+    if (trackedFiles.length) {
+        fail('git tracks files under ' + DEP_EXEMPT_ROOT_DIR + '/, which the guard skips as Netlify\'s build cache: ' + trackedFiles.join(', ') + guardNote);
+    }
+    const found = depWalk(ROOT, '', { files: [], packageHits: [] });
+    if (found.packageHits.length) {
+        fail('package files or node_modules found: ' + found.packageHits.join(', ') + '. Cyrilica has no package dependencies by design' + guardNote);
+    }
+    let loads = [];
+    let problems = [];
+    found.files.sort().forEach(function (f) {
+        const r = depClassify(f, fs.readFileSync(path.join(ROOT, f), 'utf8'));
+        loads = loads.concat(r.loads);
+        problems = problems.concat(r.problems);
+    });
+    if (problems.length) fail('module loading the guard does not allow: ' + problems.join(' | ') + guardNote);
+    console.log('Dependency guard passed: no package files or node_modules; ' + found.files.length + ' scripts scanned, ' + loads.length +
+                ' module loads, all Node built-ins, relative files or the approved type-only import (an accidental-dependency guard, not a malware scanner).');
+}
+
+// ---- serving: security headers on every path ----
+//
+// _headers must carry a /* rule with exactly these three headers, and the
+// /media/* caching rule must stay exactly as it is. Netlify applies every rule
+// a path matches, so the two combine on /media/ files.
+const SECURITY_HEADERS = [
+    'X-Content-Type-Options: nosniff',
+    'Referrer-Policy: strict-origin-when-cross-origin',
+    'Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()'
+];
+const MEDIA_HEADERS = ['Cache-Control: public, max-age=31536000, immutable'];
+
+function assertSecurityHeaders() {
+    const headersPath = path.join(ROOT, '_headers');
+    if (!fs.existsSync(headersPath)) fail('_headers does not exist; it must carry the /* security headers rule.');
+    const rules = [];
+    fs.readFileSync(headersPath, 'utf8').split(/\r?\n/).forEach(function (raw, n) {
+        if (!raw.trim() || raw.trim().charAt(0) === '#') return;
+        if (/^\S/.test(raw)) { rules.push({ path: raw.trim(), headers: [] }); return; }
+        if (!rules.length) fail('_headers line ' + (n + 1) + ': an indented header line before any path.');
+        rules[rules.length - 1].headers.push(raw.trim());
+    });
+    [['/*', SECURITY_HEADERS], ['/media/*', MEDIA_HEADERS]].forEach(function (want) {
+        const found = rules.filter(function (r) { return r.path === want[0]; });
+        if (found.length !== 1) fail('_headers: expected exactly one "' + want[0] + '" rule, found ' + found.length + '.');
+        if (found[0].headers.join('\n') !== want[1].join('\n')) {
+            fail('_headers: the "' + want[0] + '" rule must be exactly ' + JSON.stringify(want[1]) +
+                 ', found ' + JSON.stringify(found[0].headers) + '.');
+        }
+    });
+    console.log('Security headers passed: /* carries the ' + SECURITY_HEADERS.length + ' expected headers, /media/* unchanged.');
+}
+
+// ---- edge function: replacement values are inserted literally ----
+//
+// A string passed as the second argument of String.replace is a pattern, not
+// text: $&, $1, $$, $` and $' in it are expanded, so an article title holding
+// one would be garbled in the raw HTML. What a function returns is inserted
+// as it is. So every .replace( and .replaceAll( call in the edge function must
+// take a function as its second argument, () => value, and any use of either
+// name this check cannot classify fails the build. It reads the file with the
+// dependency guard's lexer, so comments and strings are never mistaken for code.
+const EDGE_FUNCTION_FILE = 'netlify/edge-functions/head-rewrite.ts';
+
+function assertReplaceCallbacks() {
+    const file = EDGE_FUNCTION_FILE;
+    let toks;
+    try { toks = depLex(fs.readFileSync(path.join(ROOT, file), 'utf8')); } catch (e) { fail(file + ': cannot read the file as code (' + e.message + ')'); }
+    const isP = function (k, v) { return !!toks[k] && toks[k].t === 'punct' && toks[k].v === v; };
+    const isId = function (k, v) { return !!toks[k] && toks[k].t === 'id' && (v === undefined || toks[k].v === v); };
+    // function ..., x => ..., (...) => ..., each optionally async.
+    function startsFunction(k) {
+        if (isId(k, 'async')) k++;
+        if (isId(k, 'function')) return true;
+        if (isId(k) && isP(k + 1, '=>')) return true;
+        if (!isP(k, '(')) return false;
+        let depth = 0;
+        for (let j = k; j < toks.length; j++) {
+            if (isP(j, '(')) depth++;
+            else if (isP(j, ')') && --depth === 0) return isP(j + 1, '=>');
+        }
+        return false;
+    }
+    let calls = 0;
+    for (let k = 0; k < toks.length; k++) {
+        if (!isId(k, 'replace') && !isId(k, 'replaceAll')) continue;
+        const where = file + ':' + toks[k].line + ': .' + toks[k].v;
+        if (!(isP(k - 1, '.') || isP(k - 1, '?.')) || !isP(k + 1, '(')) fail(where + ' is not a method call this check can classify.');
+        // Skip the first argument, up to the comma at this call's own depth.
+        let j = k + 2;
+        let depth = 0;
+        for (; j < toks.length; j++) {
+            if (toks[j].t !== 'punct') continue;
+            const v = toks[j].v;
+            if (v === '(' || v === '[' || v === '{') depth++;
+            else if (v === ')' || v === ']' || v === '}') { if (depth === 0) break; depth--; }
+            else if (v === ',' && depth === 0) break;
+        }
+        if (!isP(j, ',')) fail(where + ' has no second argument this check can find.');
+        if (!startsFunction(j + 1)) {
+            fail(where + ' takes a string or other value as its second argument. It must be a function, () => value, ' +
+                 'so that $ patterns in the value are inserted literally instead of expanded.');
+        }
+        calls++;
+    }
+    if (!calls) fail(file + ': no .replace( calls found. The function rewrites the head with them, so the scan did not run as expected.');
+    console.log('Edge function replace checks passed: ' + calls + ' .replace/.replaceAll calls in ' + file + ', every one with a function as its second argument.');
+}
+
 function main() {
+    assertNoDependencies();
+    assertSecurityHeaders();
+    assertReplaceCallbacks();
     const template = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     let scriptContractChecked = assertScriptContract(template, 'index.html');
     const articlesSrc = fs.readFileSync(path.join(ROOT, 'js', 'articles.js'), 'utf8');
