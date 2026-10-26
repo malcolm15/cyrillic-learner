@@ -1073,9 +1073,66 @@ function assertSecurityHeaders() {
     console.log('Security headers passed: /* carries the ' + SECURITY_HEADERS.length + ' expected headers, /media/* unchanged.');
 }
 
+// ---- edge function: replacement values are inserted literally ----
+//
+// A string passed as the second argument of String.replace is a pattern, not
+// text: $&, $1, $$, $` and $' in it are expanded, so an article title holding
+// one would be garbled in the raw HTML. What a function returns is inserted
+// as it is. So every .replace( and .replaceAll( call in the edge function must
+// take a function as its second argument, () => value, and any use of either
+// name this check cannot classify fails the build. It reads the file with the
+// dependency guard's lexer, so comments and strings are never mistaken for code.
+const EDGE_FUNCTION_FILE = 'netlify/edge-functions/head-rewrite.ts';
+
+function assertReplaceCallbacks() {
+    const file = EDGE_FUNCTION_FILE;
+    let toks;
+    try { toks = depLex(fs.readFileSync(path.join(ROOT, file), 'utf8')); } catch (e) { fail(file + ': cannot read the file as code (' + e.message + ')'); }
+    const isP = function (k, v) { return !!toks[k] && toks[k].t === 'punct' && toks[k].v === v; };
+    const isId = function (k, v) { return !!toks[k] && toks[k].t === 'id' && (v === undefined || toks[k].v === v); };
+    // function ..., x => ..., (...) => ..., each optionally async.
+    function startsFunction(k) {
+        if (isId(k, 'async')) k++;
+        if (isId(k, 'function')) return true;
+        if (isId(k) && isP(k + 1, '=>')) return true;
+        if (!isP(k, '(')) return false;
+        let depth = 0;
+        for (let j = k; j < toks.length; j++) {
+            if (isP(j, '(')) depth++;
+            else if (isP(j, ')') && --depth === 0) return isP(j + 1, '=>');
+        }
+        return false;
+    }
+    let calls = 0;
+    for (let k = 0; k < toks.length; k++) {
+        if (!isId(k, 'replace') && !isId(k, 'replaceAll')) continue;
+        const where = file + ':' + toks[k].line + ': .' + toks[k].v;
+        if (!(isP(k - 1, '.') || isP(k - 1, '?.')) || !isP(k + 1, '(')) fail(where + ' is not a method call this check can classify.');
+        // Skip the first argument, up to the comma at this call's own depth.
+        let j = k + 2;
+        let depth = 0;
+        for (; j < toks.length; j++) {
+            if (toks[j].t !== 'punct') continue;
+            const v = toks[j].v;
+            if (v === '(' || v === '[' || v === '{') depth++;
+            else if (v === ')' || v === ']' || v === '}') { if (depth === 0) break; depth--; }
+            else if (v === ',' && depth === 0) break;
+        }
+        if (!isP(j, ',')) fail(where + ' has no second argument this check can find.');
+        if (!startsFunction(j + 1)) {
+            fail(where + ' takes a string or other value as its second argument. It must be a function, () => value, ' +
+                 'so that $ patterns in the value are inserted literally instead of expanded.');
+        }
+        calls++;
+    }
+    if (!calls) fail(file + ': no .replace( calls found. The function rewrites the head with them, so the scan did not run as expected.');
+    console.log('Edge function replace checks passed: ' + calls + ' .replace/.replaceAll calls in ' + file + ', every one with a function as its second argument.');
+}
+
 function main() {
     assertNoDependencies();
     assertSecurityHeaders();
+    assertReplaceCallbacks();
     const template = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     let scriptContractChecked = assertScriptContract(template, 'index.html');
     const articlesSrc = fs.readFileSync(path.join(ROOT, 'js', 'articles.js'), 'utf8');

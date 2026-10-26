@@ -140,7 +140,7 @@ export default async function headRewrite(
   const requestUrl = new URL(request.url);
   // Strip trailing slash, then lowercase (slugs are all lowercase; odd-case
   // requests like /Articles/Foo would otherwise mint a mixed-case canonical).
-  const path = requestUrl.pathname.replace(/\/$/, "").toLowerCase() || "";
+  const path = requestUrl.pathname.replace(/\/$/, () => "").toLowerCase() || "";
 
   // articles/<slug>.html is a real file on disk, so without this it would serve
   // a byte-for-byte duplicate of the clean URL at 200. Redirect the slugs we
@@ -186,11 +186,11 @@ export default async function headRewrite(
     // A path the site does not have gets no canonical at all: it must not
     // declare itself the canonical version of anything. A real page gets its own.
     let body = known
-      ? html.replace(STATIC_CANONICAL, `<link rel="canonical" href="${canonicalHref}">`)
-      : html.replace(STATIC_CANONICAL, "");
+      ? html.replace(STATIC_CANONICAL, () => `<link rel="canonical" href="${canonicalHref}">`)
+      : html.replace(STATIC_CANONICAL, () => "");
 
     if (!known || NOINDEX_PATHS.has(path)) {
-      body = body.replace(STATIC_ROBOTS, NOINDEX_ROBOTS);
+      body = body.replace(STATIC_ROBOTS, () => NOINDEX_ROBOTS);
     }
 
     // hreflang on the homepage only (COUPLING 4). Anchored on the canonical just
@@ -212,10 +212,10 @@ export default async function headRewrite(
       if (hasHead(slug)) {
         const head = HEADS[slug];
         body = body
-          .replace(STATIC_TITLE, `<title>${head.title}</title>`)
+          .replace(STATIC_TITLE, () => `<title>${head.title}</title>`)
           .replace(
             STATIC_DESC,
-            `<meta name="description" content="${head.description}">`,
+            () => `<meta name="description" content="${head.description}">`,
           );
       }
     }
