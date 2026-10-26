@@ -1040,8 +1040,42 @@ function assertNoDependencies() {
                 ' module loads, all Node built-ins, relative files or the approved type-only import (an accidental-dependency guard, not a malware scanner).');
 }
 
+// ---- serving: security headers on every path ----
+//
+// _headers must carry a /* rule with exactly these three headers, and the
+// /media/* caching rule must stay exactly as it is. Netlify applies every rule
+// a path matches, so the two combine on /media/ files.
+const SECURITY_HEADERS = [
+    'X-Content-Type-Options: nosniff',
+    'Referrer-Policy: strict-origin-when-cross-origin',
+    'Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()'
+];
+const MEDIA_HEADERS = ['Cache-Control: public, max-age=31536000, immutable'];
+
+function assertSecurityHeaders() {
+    const headersPath = path.join(ROOT, '_headers');
+    if (!fs.existsSync(headersPath)) fail('_headers does not exist; it must carry the /* security headers rule.');
+    const rules = [];
+    fs.readFileSync(headersPath, 'utf8').split(/\r?\n/).forEach(function (raw, n) {
+        if (!raw.trim() || raw.trim().charAt(0) === '#') return;
+        if (/^\S/.test(raw)) { rules.push({ path: raw.trim(), headers: [] }); return; }
+        if (!rules.length) fail('_headers line ' + (n + 1) + ': an indented header line before any path.');
+        rules[rules.length - 1].headers.push(raw.trim());
+    });
+    [['/*', SECURITY_HEADERS], ['/media/*', MEDIA_HEADERS]].forEach(function (want) {
+        const found = rules.filter(function (r) { return r.path === want[0]; });
+        if (found.length !== 1) fail('_headers: expected exactly one "' + want[0] + '" rule, found ' + found.length + '.');
+        if (found[0].headers.join('\n') !== want[1].join('\n')) {
+            fail('_headers: the "' + want[0] + '" rule must be exactly ' + JSON.stringify(want[1]) +
+                 ', found ' + JSON.stringify(found[0].headers) + '.');
+        }
+    });
+    console.log('Security headers passed: /* carries the ' + SECURITY_HEADERS.length + ' expected headers, /media/* unchanged.');
+}
+
 function main() {
     assertNoDependencies();
+    assertSecurityHeaders();
     const template = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     let scriptContractChecked = assertScriptContract(template, 'index.html');
     const articlesSrc = fs.readFileSync(path.join(ROOT, 'js', 'articles.js'), 'utf8');
