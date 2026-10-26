@@ -1292,6 +1292,71 @@ function main() {
             });
         });
     });
+    // ---- button names: the letter a button announces ----
+    // A page translator rewrites an aria-label like any text ("Play
+    // pronunciation of А" came back as "... de A", "Copy И" as "Copiar y"), and
+    // an attribute cannot hold a guard. So each button that announces a letter
+    // takes its name from its own label element instead: aria-labelledby points
+    // at <span class="sr-only" aria-hidden="true">, whose instruction stays
+    // translatable and whose letter sits in a guarded span with the space before
+    // it inside (F2). sr-only keeps the label rendered, so a translator sees it;
+    // aria-hidden keeps a screen reader from reading it a second time as text.
+    // The label sits inside the button only where no script rewrites the
+    // button's text (the chart cards); the lookalike copy button swaps its own
+    // text, so its labels sit beside the buttons in the same card. Each label
+    // has whitespace on both sides so its words never run into the next.
+    const BUTTON_LABELS = [
+        { article: 'russian-alphabet-chart', cls: 'letter-card', instruction: 'Play pronunciation of', count: 33 },
+        { article: 'backwards-r-myth', cls: 'lookalike-listen', instruction: 'Listen to', count: 8 },
+        { article: 'backwards-r-myth', cls: 'lookalike-copy', instruction: 'Copy', count: 8 },
+    ];
+    let labelSpans = 0;
+    const buttonLabelCounts = [];
+    BUTTON_LABELS.forEach(function (b) {
+        articles.forEach(function (a) {
+            const want = a.id === b.article ? b.count : 0;
+            const found = [];
+            let t;
+            tagScan.lastIndex = 0;
+            while ((t = tagScan.exec(a.content)) !== null) {
+                const cls = /\sclass="([^"]*)"/.exec(t[0]);
+                if (t[1] === 'button' && cls && cls[1].split(/\s+/).indexOf(b.cls) !== -1) found.push({ tag: t[0], at: t.index });
+            }
+            if (found.length !== want) fail(a.id + ': ' + found.length + ' .' + b.cls + ' button(s), expected ' + want);
+            found.forEach(function (f) {
+                // The letter the button announces: its own data-letter (chart),
+                // or its card's (lookalike), the nearest one before it.
+                const own = /\sdata-letter="([^"]+)"/.exec(f.tag);
+                const before = a.content.slice(0, f.at).match(/data-letter="([^"]+)"/g) || [];
+                const letter = own ? own[1] : (before.length ? before[before.length - 1].slice(13, -1) : null);
+                const where = a.id + ': .' + b.cls + ' for ' + letter;
+                if (/\saria-label=/.test(f.tag)) fail(where + ' still carries an aria-label; its name must come from aria-labelledby');
+                const ref = /\saria-labelledby="([^"]*)"/.exec(f.tag);
+                if (!ref) fail(where + ' has no aria-labelledby');
+                const ids = ref[1].trim().split(/\s+/);
+                if (ids.length !== 1) fail(where + ' must point at exactly one label, found aria-labelledby="' + ref[1] + '"');
+                if (countOccurrences(a.content, 'id="' + ids[0] + '"') !== 1) fail(where + ': id "' + ids[0] + '" must exist exactly once in the article');
+                const label = '<span id="' + ids[0] + '" class="sr-only" aria-hidden="true">' + b.instruction +
+                              '<span lang="ru" translate="no" class="notranslate"> ' + letter + '</span></span>';
+                const at = a.content.indexOf(label);
+                if (at === -1) {
+                    const actual = a.content.slice(a.content.indexOf('id="' + ids[0] + '"') - 6).split('</span></span>')[0];
+                    fail(where + ': its label must be exactly ' + label + ', found ' + actual + '</span></span>');
+                }
+                if (!/\s/.test(a.content.charAt(at - 1)) || !/\s/.test(a.content.charAt(at + label.length))) {
+                    fail(where + ': its label needs whitespace before and after it, or its words run into the neighbouring text');
+                }
+                labelSpans += 1;
+            });
+        });
+        buttonLabelCounts.push(b.cls + ' ' + b.count);
+    });
+    // No aria-label in article content may carry a Cyrillic letter: the
+    // translator would rewrite it.
+    articles.forEach(function (a) {
+        const m = a.content.match(/aria-label="[^"]*[\u0400-\u04FF][^"]*"/);
+        if (m) fail(a.id + ': ' + m[0] + ' carries a Cyrillic letter in an aria-label; use aria-labelledby with a guarded label (BUTTON_LABELS in scripts/pre-render.js)');
+    });
     // F2 spacing for every partial-wrap span in article content: no space just
     // before it, no space or punctuation just after it.
     const articleGuardRe = /<span (?:lang="[a-z]+" )?translate="no" class="notranslate">[^<]*<\/span>/g;
@@ -1309,7 +1374,7 @@ function main() {
             }
         }
     });
-    if (f2Spans !== partialSpans) fail('article content has ' + f2Spans + ' partial-wrap spans, but the listed partial wraps account for ' + partialSpans);
+    if (f2Spans !== partialSpans + labelSpans) fail('article content has ' + f2Spans + ' guarded spans, but the listed partial wraps and button labels account for ' + (partialSpans + labelSpans));
     // The printable chart: buildPrintChart builds new nodes after load, which a
     // translator also rewrites, so the cells carry the cards' guards.
     const articleScriptsSrc = fs.readFileSync(path.join(ROOT, 'js', 'article-scripts.js'), 'utf8');
@@ -1465,8 +1530,8 @@ function main() {
     // No guard outside the lists: every translate="no" in article content is one
     // of the elements checked above.
     const articleTranslateNo = articles.reduce(function (n, a) { return n + countOccurrences(a.content, 'translate="no"'); }, 0);
-    if (articleTranslateNo !== articleGuardsChecked + partialSpans + miniQuizSpans) {
-        fail('article content carries ' + articleTranslateNo + ' translate="no", but the listed guards account for ' + (articleGuardsChecked + partialSpans + miniQuizSpans) + '; add a new letter tool to ARTICLE_GUARDS, PARTIAL_WRAPS or MINI_QUIZZES');
+    if (articleTranslateNo !== articleGuardsChecked + partialSpans + miniQuizSpans + labelSpans) {
+        fail('article content carries ' + articleTranslateNo + ' translate="no", but the listed guards account for ' + (articleGuardsChecked + partialSpans + miniQuizSpans + labelSpans) + '; add a new letter tool to ARTICLE_GUARDS, PARTIAL_WRAPS, MINI_QUIZZES or BUTTON_LABELS');
     }
 
     // The quiz's screen-reader names: a label for the answer box, a polite live
@@ -2792,6 +2857,8 @@ function main() {
                     'appears once in css/styles.css.');
     });
     console.log(articleGuardSummary);
+    console.log('Button names passed: ' + buttonLabelCounts.join(', ') + ' buttons named by aria-labelledby to their own sr-only aria-hidden label, ' +
+                'instruction translatable and the card\'s letter guarded (lang ru, F2 spacing), whitespace on both sides; ' + labelSpans + ' label spans; no aria-label in article content carries Cyrillic.');
     console.log('Mini quizzes passed: ' + MINI_QUIZZES.map(function (q) { return q.article + ' (' + q.lang + ')'; }).join(', ') +
                 ': ' + miniQuizSpans + ' letter spans guarded with lang, answer inputs carry ' + ANSWER_INPUT_ATTRS.join(' ') +
                 ', feedback answers written by setQuizText; ' + articleTranslateNo + ' translate="no" in article content, all listed.');

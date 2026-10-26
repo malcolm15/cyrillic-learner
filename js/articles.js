@@ -1786,64 +1786,80 @@ const ARTICLES = [
                     <div class="ff-letter notranslate" translate="no" lang="ru">Я</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">R</span> · <span class="lookalike-says">says </span><span class="ff-right">ya</span><span class="lookalike-hint"> (yard)</span></div>
                     <div class="lookalike-actions">
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Я">🔊</button>
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Я">📋</button>
+                        <span id="listen-label-1" class="sr-only" aria-hidden="true">Listen to<span lang="ru" translate="no" class="notranslate"> Я</span></span>
+                        <span id="copy-label-1" class="sr-only" aria-hidden="true">Copy<span lang="ru" translate="no" class="notranslate"> Я</span></span>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-labelledby="listen-label-1">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-labelledby="copy-label-1">📋</button>
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="И">
                     <div class="ff-letter notranslate" translate="no" lang="ru">И</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">N</span> · <span class="lookalike-says">says </span><span class="ff-right">ee</span><span class="lookalike-hint"> (see)</span></div>
                     <div class="lookalike-actions">
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to И">🔊</button>
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy И">📋</button>
+                        <span id="listen-label-2" class="sr-only" aria-hidden="true">Listen to<span lang="ru" translate="no" class="notranslate"> И</span></span>
+                        <span id="copy-label-2" class="sr-only" aria-hidden="true">Copy<span lang="ru" translate="no" class="notranslate"> И</span></span>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-labelledby="listen-label-2">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-labelledby="copy-label-2">📋</button>
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Д">
                     <div class="ff-letter notranslate" translate="no" lang="ru">Д</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">A</span> · <span class="lookalike-says">says </span><span class="ff-right">d</span><span class="lookalike-hint"> (dog)</span></div>
                     <div class="lookalike-actions">
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Д">🔊</button>
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Д">📋</button>
+                        <span id="listen-label-3" class="sr-only" aria-hidden="true">Listen to<span lang="ru" translate="no" class="notranslate"> Д</span></span>
+                        <span id="copy-label-3" class="sr-only" aria-hidden="true">Copy<span lang="ru" translate="no" class="notranslate"> Д</span></span>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-labelledby="listen-label-3">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-labelledby="copy-label-3">📋</button>
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Ш">
                     <div class="ff-letter notranslate" translate="no" lang="ru">Ш</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">W</span> · <span class="lookalike-says">says </span><span class="ff-right">sh</span><span class="lookalike-hint"> (shop)</span></div>
                     <div class="lookalike-actions">
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ш">🔊</button>
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Ш">📋</button>
+                        <span id="listen-label-4" class="sr-only" aria-hidden="true">Listen to<span lang="ru" translate="no" class="notranslate"> Ш</span></span>
+                        <span id="copy-label-4" class="sr-only" aria-hidden="true">Copy<span lang="ru" translate="no" class="notranslate"> Ш</span></span>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-labelledby="listen-label-4">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-labelledby="copy-label-4">📋</button>
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Ц">
                     <div class="ff-letter notranslate" translate="no" lang="ru">Ц</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">U</span> · <span class="lookalike-says">says </span><span class="ff-right">ts</span><span class="lookalike-hint"> (cats)</span></div>
                     <div class="lookalike-actions">
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ц">🔊</button>
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Ц">📋</button>
+                        <span id="listen-label-5" class="sr-only" aria-hidden="true">Listen to<span lang="ru" translate="no" class="notranslate"> Ц</span></span>
+                        <span id="copy-label-5" class="sr-only" aria-hidden="true">Copy<span lang="ru" translate="no" class="notranslate"> Ц</span></span>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-labelledby="listen-label-5">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-labelledby="copy-label-5">📋</button>
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Г">
                     <div class="ff-letter notranslate" translate="no" lang="ru">Г</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">r</span> · <span class="lookalike-says">says </span><span class="ff-right">g</span><span class="lookalike-hint"> (go)</span></div>
                     <div class="lookalike-actions">
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Г">🔊</button>
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Г">📋</button>
+                        <span id="listen-label-6" class="sr-only" aria-hidden="true">Listen to<span lang="ru" translate="no" class="notranslate"> Г</span></span>
+                        <span id="copy-label-6" class="sr-only" aria-hidden="true">Copy<span lang="ru" translate="no" class="notranslate"> Г</span></span>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-labelledby="listen-label-6">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-labelledby="copy-label-6">📋</button>
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Ф">
                     <div class="ff-letter notranslate" translate="no" lang="ru">Ф</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">O</span> · <span class="lookalike-says">says </span><span class="ff-right">f</span><span class="lookalike-hint"> (fox)</span></div>
                     <div class="lookalike-actions">
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ф">🔊</button>
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Ф">📋</button>
+                        <span id="listen-label-7" class="sr-only" aria-hidden="true">Listen to<span lang="ru" translate="no" class="notranslate"> Ф</span></span>
+                        <span id="copy-label-7" class="sr-only" aria-hidden="true">Copy<span lang="ru" translate="no" class="notranslate"> Ф</span></span>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-labelledby="listen-label-7">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-labelledby="copy-label-7">📋</button>
                     </div>
                 </div>
                 <div class="ff-card lookalike-card" data-letter="Ё">
                     <div class="ff-letter notranslate" translate="no" lang="ru">Ё</div>
                     <div class="lookalike-line"><span class="lookalike-verbose">looks </span>like <span class="ff-wrong">E</span> · <span class="lookalike-says">says </span><span class="ff-right">yo</span><span class="lookalike-hint"> (yolk)</span></div>
                     <div class="lookalike-actions">
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-label="Listen to Ё">🔊</button>
-                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-label="Copy Ё">📋</button>
+                        <span id="listen-label-8" class="sr-only" aria-hidden="true">Listen to<span lang="ru" translate="no" class="notranslate"> Ё</span></span>
+                        <span id="copy-label-8" class="sr-only" aria-hidden="true">Copy<span lang="ru" translate="no" class="notranslate"> Ё</span></span>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-listen" aria-labelledby="listen-label-8">🔊</button>
+                        <button type="button" class="copy-char-btn lookalike-btn lookalike-copy" aria-labelledby="copy-label-8">📋</button>
                     </div>
                 </div>
             </div>
@@ -3772,7 +3788,8 @@ const ARTICLES = [
             </div>
 
             <div id="alphabet-grid" class="alphabet-grid">
-                    <button type="button" class="letter-card easy" data-letter="А" data-type="vowel" aria-label="Play pronunciation of А">
+                    <button type="button" class="letter-card easy" data-letter="А" data-type="vowel" aria-labelledby="play-label-1">
+                        <span id="play-label-1" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> А</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">А а</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">а (ah)</div>
@@ -3780,7 +3797,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">автобус </span>(bus)</div>
                         <div class="letter-ipa">/a/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="Е" data-type="vowel" aria-label="Play pronunciation of Е">
+                    <button type="button" class="letter-card easy" data-letter="Е" data-type="vowel" aria-labelledby="play-label-2">
+                        <span id="play-label-2" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Е</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Е е</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">е</div>
@@ -3788,7 +3806,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">есть </span>(to eat)</div>
                         <div class="letter-ipa">/je/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="Ё" data-type="vowel" aria-label="Play pronunciation of Ё">
+                    <button type="button" class="letter-card medium" data-letter="Ё" data-type="vowel" aria-labelledby="play-label-3">
+                        <span id="play-label-3" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ё</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ё ё</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">ё</div>
@@ -3796,7 +3815,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">ёлка </span>(tree)</div>
                         <div class="letter-ipa">/jo/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="И" data-type="vowel" aria-label="Play pronunciation of И">
+                    <button type="button" class="letter-card medium" data-letter="И" data-type="vowel" aria-labelledby="play-label-4">
+                        <span id="play-label-4" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> И</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">И и</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">и (ee)</div>
@@ -3804,7 +3824,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">имя </span>(name)</div>
                         <div class="letter-ipa">/i/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="О" data-type="vowel" aria-label="Play pronunciation of О">
+                    <button type="button" class="letter-card easy" data-letter="О" data-type="vowel" aria-labelledby="play-label-5">
+                        <span id="play-label-5" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> О</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">О о</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">о</div>
@@ -3812,7 +3833,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">окно </span>(window)</div>
                         <div class="letter-ipa">/o/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="У" data-type="vowel" aria-label="Play pronunciation of У">
+                    <button type="button" class="letter-card medium" data-letter="У" data-type="vowel" aria-labelledby="play-label-6">
+                        <span id="play-label-6" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> У</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">У у</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">у (oo)</div>
@@ -3820,7 +3842,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">утро </span>(morning)</div>
                         <div class="letter-ipa">/u/</div>
                     </button>
-                    <button type="button" class="letter-card hard" data-letter="Ы" data-type="vowel" aria-label="Play pronunciation of Ы">
+                    <button type="button" class="letter-card hard" data-letter="Ы" data-type="vowel" aria-labelledby="play-label-7">
+                        <span id="play-label-7" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ы</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ы ы</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">ы</div>
@@ -3828,7 +3851,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">мы </span>(we)</div>
                         <div class="letter-ipa">/ɨ/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="Э" data-type="vowel" aria-label="Play pronunciation of Э">
+                    <button type="button" class="letter-card medium" data-letter="Э" data-type="vowel" aria-labelledby="play-label-8">
+                        <span id="play-label-8" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Э</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Э э</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">э (e)</div>
@@ -3836,7 +3860,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">это </span>(this)</div>
                         <div class="letter-ipa">/ɛ/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="Ю" data-type="vowel" aria-label="Play pronunciation of Ю">
+                    <button type="button" class="letter-card medium" data-letter="Ю" data-type="vowel" aria-labelledby="play-label-9">
+                        <span id="play-label-9" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ю</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ю ю</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">ю (ew)</div>
@@ -3844,7 +3869,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">юг </span>(south)</div>
                         <div class="letter-ipa">/ju/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="Я" data-type="vowel" aria-label="Play pronunciation of Я">
+                    <button type="button" class="letter-card medium" data-letter="Я" data-type="vowel" aria-labelledby="play-label-10">
+                        <span id="play-label-10" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Я</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Я я</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">я</div>
@@ -3852,7 +3878,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">яблоко </span>(apple)</div>
                         <div class="letter-ipa">/ja/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="Б" data-type="consonant" aria-label="Play pronunciation of Б">
+                    <button type="button" class="letter-card easy" data-letter="Б" data-type="consonant" aria-labelledby="play-label-11">
+                        <span id="play-label-11" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Б</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Б б</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">бэ (be)</div>
@@ -3860,7 +3887,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">банк </span>(bank)</div>
                         <div class="letter-ipa">/bɛ/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="В" data-type="consonant" aria-label="Play pronunciation of В">
+                    <button type="button" class="letter-card medium" data-letter="В" data-type="consonant" aria-labelledby="play-label-12">
+                        <span id="play-label-12" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> В</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">В в</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">вэ (ve)</div>
@@ -3868,7 +3896,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">вода </span>(water)</div>
                         <div class="letter-ipa">/vɛ/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="Г" data-type="consonant" aria-label="Play pronunciation of Г">
+                    <button type="button" class="letter-card easy" data-letter="Г" data-type="consonant" aria-labelledby="play-label-13">
+                        <span id="play-label-13" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Г</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Г г</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">гэ (ghe)</div>
@@ -3876,7 +3905,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">город </span>(city)</div>
                         <div class="letter-ipa">/ɡɛ/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="Д" data-type="consonant" aria-label="Play pronunciation of Д">
+                    <button type="button" class="letter-card easy" data-letter="Д" data-type="consonant" aria-labelledby="play-label-14">
+                        <span id="play-label-14" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Д</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Д д</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">дэ (de)</div>
@@ -3884,7 +3914,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">дом </span>(house)</div>
                         <div class="letter-ipa">/dɛ/</div>
                     </button>
-                    <button type="button" class="letter-card hard" data-letter="Ж" data-type="consonant" aria-label="Play pronunciation of Ж">
+                    <button type="button" class="letter-card hard" data-letter="Ж" data-type="consonant" aria-labelledby="play-label-15">
+                        <span id="play-label-15" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ж</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ж ж</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">жэ</div>
@@ -3892,7 +3923,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">жизнь </span>(life)</div>
                         <div class="letter-ipa">/ʐɛ/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="З" data-type="consonant" aria-label="Play pronunciation of З">
+                    <button type="button" class="letter-card easy" data-letter="З" data-type="consonant" aria-labelledby="play-label-16">
+                        <span id="play-label-16" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> З</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">З з</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">зэ (ze)</div>
@@ -3900,7 +3932,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">зима </span>(winter)</div>
                         <div class="letter-ipa">/zɛ/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="Й" data-type="consonant" aria-label="Play pronunciation of Й">
+                    <button type="button" class="letter-card medium" data-letter="Й" data-type="consonant" aria-labelledby="play-label-17">
+                        <span id="play-label-17" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Й</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Й й</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">и краткое</div>
@@ -3908,7 +3941,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">мой </span>(my)</div>
                         <div class="letter-ipa">/ˈi ˈkratkəjə/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="К" data-type="consonant" aria-label="Play pronunciation of К">
+                    <button type="button" class="letter-card easy" data-letter="К" data-type="consonant" aria-labelledby="play-label-18">
+                        <span id="play-label-18" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> К</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">К к</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">ка</div>
@@ -3916,7 +3950,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">кот </span>(cat)</div>
                         <div class="letter-ipa">/ka/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="Л" data-type="consonant" aria-label="Play pronunciation of Л">
+                    <button type="button" class="letter-card easy" data-letter="Л" data-type="consonant" aria-labelledby="play-label-19">
+                        <span id="play-label-19" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Л</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Л л</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">эль</div>
@@ -3924,7 +3959,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">лес </span>(forest)</div>
                         <div class="letter-ipa">/ɛlʲ/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="М" data-type="consonant" aria-label="Play pronunciation of М">
+                    <button type="button" class="letter-card easy" data-letter="М" data-type="consonant" aria-labelledby="play-label-20">
+                        <span id="play-label-20" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> М</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">М м</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">эм (em)</div>
@@ -3932,7 +3968,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">мама </span>(mom)</div>
                         <div class="letter-ipa">/ɛm/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="Н" data-type="consonant" aria-label="Play pronunciation of Н">
+                    <button type="button" class="letter-card medium" data-letter="Н" data-type="consonant" aria-labelledby="play-label-21">
+                        <span id="play-label-21" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Н</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Н н</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">эн (en)</div>
@@ -3940,7 +3977,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">нет </span>(no)</div>
                         <div class="letter-ipa">/ɛn/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="П" data-type="consonant" aria-label="Play pronunciation of П">
+                    <button type="button" class="letter-card easy" data-letter="П" data-type="consonant" aria-labelledby="play-label-22">
+                        <span id="play-label-22" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> П</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">П п</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">пэ (pe)</div>
@@ -3948,7 +3986,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">папа </span>(dad)</div>
                         <div class="letter-ipa">/pɛ/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="Р" data-type="consonant" aria-label="Play pronunciation of Р">
+                    <button type="button" class="letter-card medium" data-letter="Р" data-type="consonant" aria-labelledby="play-label-23">
+                        <span id="play-label-23" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Р</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Р р</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">эр (err)</div>
@@ -3956,7 +3995,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">рука </span>(hand)</div>
                         <div class="letter-ipa">/ɛr/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="С" data-type="consonant" aria-label="Play pronunciation of С">
+                    <button type="button" class="letter-card medium" data-letter="С" data-type="consonant" aria-labelledby="play-label-24">
+                        <span id="play-label-24" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> С</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">С с</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">эс (es)</div>
@@ -3964,7 +4004,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">слово </span>(word)</div>
                         <div class="letter-ipa">/ɛs/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="Т" data-type="consonant" aria-label="Play pronunciation of Т">
+                    <button type="button" class="letter-card easy" data-letter="Т" data-type="consonant" aria-labelledby="play-label-25">
+                        <span id="play-label-25" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Т</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Т т</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">тэ (te)</div>
@@ -3972,7 +4013,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">там </span>(there)</div>
                         <div class="letter-ipa">/tɛ/</div>
                     </button>
-                    <button type="button" class="letter-card easy" data-letter="Ф" data-type="consonant" aria-label="Play pronunciation of Ф">
+                    <button type="button" class="letter-card easy" data-letter="Ф" data-type="consonant" aria-labelledby="play-label-26">
+                        <span id="play-label-26" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ф</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ф ф</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">эф (ef)</div>
@@ -3980,7 +4022,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">фото </span>(photo)</div>
                         <div class="letter-ipa">/ɛf/</div>
                     </button>
-                    <button type="button" class="letter-card hard" data-letter="Х" data-type="consonant" aria-label="Play pronunciation of Х">
+                    <button type="button" class="letter-card hard" data-letter="Х" data-type="consonant" aria-labelledby="play-label-27">
+                        <span id="play-label-27" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Х</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Х х</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">ха</div>
@@ -3988,7 +4031,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">хлеб </span>(bread)</div>
                         <div class="letter-ipa">/xa/</div>
                     </button>
-                    <button type="button" class="letter-card hard" data-letter="Ц" data-type="consonant" aria-label="Play pronunciation of Ц">
+                    <button type="button" class="letter-card hard" data-letter="Ц" data-type="consonant" aria-labelledby="play-label-28">
+                        <span id="play-label-28" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ц</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ц ц</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">цэ (tse)</div>
@@ -3996,7 +4040,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">цена </span>(price)</div>
                         <div class="letter-ipa">/tsɛ/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="Ч" data-type="consonant" aria-label="Play pronunciation of Ч">
+                    <button type="button" class="letter-card medium" data-letter="Ч" data-type="consonant" aria-labelledby="play-label-29">
+                        <span id="play-label-29" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ч</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ч ч</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">че</div>
@@ -4004,7 +4049,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">час </span>(hour)</div>
                         <div class="letter-ipa">/tɕe/</div>
                     </button>
-                    <button type="button" class="letter-card medium" data-letter="Ш" data-type="consonant" aria-label="Play pronunciation of Ш">
+                    <button type="button" class="letter-card medium" data-letter="Ш" data-type="consonant" aria-labelledby="play-label-30">
+                        <span id="play-label-30" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ш</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ш ш</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">ша</div>
@@ -4012,7 +4058,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">школа </span>(school)</div>
                         <div class="letter-ipa">/ʂa/</div>
                     </button>
-                    <button type="button" class="letter-card hard" data-letter="Щ" data-type="consonant" aria-label="Play pronunciation of Щ">
+                    <button type="button" class="letter-card hard" data-letter="Щ" data-type="consonant" aria-labelledby="play-label-31">
+                        <span id="play-label-31" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Щ</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Щ щ</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">ща</div>
@@ -4020,7 +4067,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">щи </span>(soup)</div>
                         <div class="letter-ipa">/ɕːa/</div>
                     </button>
-                    <button type="button" class="letter-card hard" data-letter="Ъ" data-type="sign" aria-label="Play pronunciation of Ъ">
+                    <button type="button" class="letter-card hard" data-letter="Ъ" data-type="sign" aria-labelledby="play-label-32">
+                        <span id="play-label-32" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ъ</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ъ ъ</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">твёрдый знак</div>
@@ -4028,7 +4076,8 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">объект </span>(object)</div>
                         <div class="letter-ipa">/ˈtvʲɵrdɨj znak/</div>
                     </button>
-                    <button type="button" class="letter-card hard" data-letter="Ь" data-type="sign" aria-label="Play pronunciation of Ь">
+                    <button type="button" class="letter-card hard" data-letter="Ь" data-type="sign" aria-labelledby="play-label-33">
+                        <span id="play-label-33" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ь</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
                         <div class="letter-chars notranslate" translate="no" lang="ru">Ь ь</div>
                         <div class="letter-name notranslate" translate="no" lang="ru">мягкий знак</div>
