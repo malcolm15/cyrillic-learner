@@ -1,3 +1,14 @@
 [build]
   command = "node scripts/generate-article-heads.js && node scripts/pre-render.js"
   publish = "."
+
+# NPM_FLAGS="--ignore-scripts" stops npm lifecycle scripts (preinstall,
+# install, postinstall and the like) during an npm install. It does not stop
+# packages being downloaded, it does not stop their code running if a build
+# script imports them, and it does not apply if Netlify picks Yarn, pnpm or Bun
+# (a yarn.lock, pnpm-lock.yaml, bun.lockb or bun.lock selects those). Cyrilica
+# has no package file, so no install runs today; this is a backstop for the
+# case where one appears, and scripts/pre-render.js fails the build when it
+# does (an accidental-dependency guard, not a malware scanner).
+[build.environment]
+  NPM_FLAGS = "--ignore-scripts"
