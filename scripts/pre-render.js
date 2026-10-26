@@ -797,11 +797,25 @@ function derivePreview(content) {
 // remove it, which is why CLAUDE.md requires any change to it to be the first
 // item of the report that proposes it. It fails closed: a require or import
 // it cannot classify fails the build.
+//
+// One directory is exempt besides .git: .netlify at the repo root, and only
+// there. Netlify restores its own build cache into it before the build command
+// runs (its Deno edge-function tooling, which carries a node_modules folder and
+// .js files), so walking it would fail every Netlify build. Two safeguards
+// cover the accidental-dependency bypasses that exemption would otherwise
+// open: git must track no file under .netlify/ (checked with git ls-files,
+// failing closed if git cannot answer), and no relative specifier may resolve
+// into .netlify/ or through a node_modules path segment. They are protections
+// against those identified bypasses, not a guarantee that nothing can ever
+// read or run files in that cache.
 const { builtinModules } = require('module');
+const { execFileSync } = require('child_process');
 
 const DEP_PACKAGE_FILES = ['package.json', 'npm-shrinkwrap.json', 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock'];
 const DEP_SCAN_EXT = /\.(?:js|mjs|cjs|ts)$/;
 const DEP_APPROVED_TYPE_IMPORT = { file: 'netlify/edge-functions/head-rewrite.ts', spec: '@netlify/edge-functions' };
+// Netlify's build cache, restored before the build command. Root only.
+const DEP_EXEMPT_ROOT_DIR = '.netlify';
 // After these keywords a "/" starts a regular expression, not a division.
 const DEP_REGEX_AFTER_ID = new Set(['return', 'typeof', 'instanceof', 'in', 'of', 'new', 'delete', 'void', 'throw', 'case', 'do', 'else', 'yield', 'await']);
 const DEP_EXPORT_DECLARATIONS = ['const', 'let', 'var', 'function', 'class', 'default', 'async', 'type', 'interface', 'enum', 'declare', 'abstract'];
@@ -810,6 +824,7 @@ function depWalk(dir, rel, out) {
     fs.readdirSync(dir, { withFileTypes: true }).forEach(function (e) {
         if (e.name === '.git') return;
         const r = rel ? rel + '/' + e.name : e.name;
+        if (r === DEP_EXEMPT_ROOT_DIR && e.isDirectory()) return;
         if (e.isDirectory()) {
             if (e.name === 'node_modules') out.packageHits.push(r + '/');
             depWalk(path.join(dir, e.name), r, out);
@@ -1015,7 +1030,17 @@ function depClassify(file, src) {
     loads.forEach(function (l) {
         const s = l.spec;
         if (/^[a-z][a-z0-9+.-]*:/i.test(s) && !/^node:/.test(s)) problems.push(l.file + ':' + l.line + ': "' + s + '" is a URL specifier');
-        else if (/^\.\.?\//.test(s) || depIsBuiltin(s)) return;
+        else if (/^\.\.?\//.test(s)) {
+            // A relative load must not reach into the exempt cache or into any
+            // node_modules folder, which would bypass the checks above.
+            const target = path.posix.normalize(path.posix.join(path.posix.dirname(l.file), s));
+            if (target === DEP_EXEMPT_ROOT_DIR || target.indexOf(DEP_EXEMPT_ROOT_DIR + '/') === 0) {
+                problems.push(l.file + ':' + l.line + ': "' + s + '" resolves into ' + DEP_EXEMPT_ROOT_DIR + '/, Netlify\'s build cache');
+            } else if (target.split('/').indexOf('node_modules') !== -1) {
+                problems.push(l.file + ':' + l.line + ': "' + s + '" resolves through a node_modules folder');
+            }
+        }
+        else if (depIsBuiltin(s)) return;
         else if (s === DEP_APPROVED_TYPE_IMPORT.spec && l.file === DEP_APPROVED_TYPE_IMPORT.file && l.typeOnly) return;
         else problems.push(l.file + ':' + l.line + ': "' + s + '" is not a Node built-in, a relative file or the approved type-only import');
     });
@@ -1023,8 +1048,20 @@ function depClassify(file, src) {
 }
 
 function assertNoDependencies() {
-    const found = depWalk(ROOT, '', { files: [], packageHits: [] });
     const guardNote = ' (accidental-dependency guard, not a malware scanner; see "Dependency and tool supply-chain safety" in CLAUDE.md)';
+    // The walk skips the root .netlify directory, so nothing committed may hide there.
+    let tracked;
+    try {
+        tracked = execFileSync('git', ['ls-files', '-z', '--', DEP_EXEMPT_ROOT_DIR], { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+    } catch (e) {
+        fail('could not run git ls-files to confirm nothing under ' + DEP_EXEMPT_ROOT_DIR + '/ is tracked, so the guard fails closed (' +
+             String(e.message).split('\n')[0] + ')' + guardNote);
+    }
+    const trackedFiles = tracked.split('\0').filter(Boolean);
+    if (trackedFiles.length) {
+        fail('git tracks files under ' + DEP_EXEMPT_ROOT_DIR + '/, which the guard skips as Netlify\'s build cache: ' + trackedFiles.join(', ') + guardNote);
+    }
+    const found = depWalk(ROOT, '', { files: [], packageHits: [] });
     if (found.packageHits.length) {
         fail('package files or node_modules found: ' + found.packageHits.join(', ') + '. Cyrilica has no package dependencies by design' + guardNote);
     }

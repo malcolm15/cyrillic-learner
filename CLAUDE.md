@@ -1110,6 +1110,21 @@ closed: `require(` or `import(` with anything but one string literal,
 is no exceptions list; a new legitimate form means changing the guard, under the
 rule above.
 
+One directory is exempt besides `.git`: `.netlify` at the repo root, and only
+there (a `.netlify` anywhere else is walked like any other folder). Netlify
+restores its own build cache into it before the build command runs, including
+its Deno edge-function tooling with a `node_modules` folder and `.js` files, and
+the first Batch 69 Deploy Preview failed on exactly that. The skip covers both
+the package-file check and the source scan. Two safeguards cover the
+accidental-dependency bypasses the exemption would otherwise open: the build
+fails if git tracks any file under `.netlify/` (`git ls-files -z -- .netlify`,
+failing closed if git is unavailable or the command fails), and it fails any
+relative specifier that resolves, from the importing file's folder, into the root
+`.netlify/` or through a `node_modules` path segment. They protect against those
+identified bypasses (a committed file hidden under `.netlify/`, a relative load
+into `.netlify/` or `node_modules`); they are not a guarantee that nothing can
+ever read or run files in that cache.
+
 Its limits, which are why it is not a malware scanner:
 - It reads source text for module loading and nothing else. It does not judge
   what an allowed module does: `child_process`, `https` plus `eval` or
