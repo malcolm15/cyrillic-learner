@@ -5,6 +5,12 @@
 // non-rendering crawlers. Values are pre-HTML-escaped and ready to drop into
 // <title>...</title> and content="...".
 //
+// It also generates netlify/lib/page-heads.ts, the same shape keyed by path
+// ("/about", "/articles", ...) for the six non-home SPA routes, read from
+// PAGE_META in js/core.js by scripts/page-meta.js. The edge function uses it to
+// serve those routes' title, description, og and twitter tags in raw HTML, and
+// scripts/pre-render.js asserts it against PAGE_META on every build.
+//
 // It is emitted as a TypeScript data module (export default { ... }), not JSON,
 // so the edge function imports it as a plain ES module. A JSON import
 // (with { type: "json" }) that failed would take down the whole function,
@@ -35,10 +41,13 @@
 
 const fs = require('fs');
 const path = require('path');
+const { parsePageMeta } = require('./page-meta.js');
 
 const ROOT = path.resolve(__dirname, '..');
 const ARTICLES_SRC = path.join(ROOT, 'js', 'articles.js');
+const CORE_SRC = path.join(ROOT, 'js', 'core.js');
 const OUT_FILE = path.join(ROOT, 'netlify', 'lib', 'article-heads.ts');
+const PAGE_OUT_FILE = path.join(ROOT, 'netlify', 'lib', 'page-heads.ts');
 
 const TITLE_SUFFIX = ' | Cyrilica';
 
@@ -182,4 +191,37 @@ function main() {
     console.log(`\nWrote ${path.relative(ROOT, OUT_FILE)}`);
 }
 
+// The six non-home SPA routes, from PAGE_META in js/core.js. Unlike the
+// article heads there is nothing to derive: the title and description are the
+// literals core.js applies on render, escaped the same way. A PAGE_META that
+// the parser cannot read exactly fails the build rather than emitting a guess.
+function mainPageHeads() {
+    const coreSrc = fs.readFileSync(CORE_SRC, 'utf8');
+    let meta;
+    try {
+        meta = parsePageMeta(coreSrc);
+    } catch (e) {
+        console.error('generate-article-heads FAILED: PAGE_META in js/core.js: ' + e.message);
+        process.exit(1);
+    }
+    const heads = {};
+    meta.routes.forEach((r) => {
+        heads[r.path] = {
+            title: escapeForHtml(r.title),
+            description: escapeForHtml(r.desc),
+        };
+    });
+    const banner =
+        '// GENERATED FILE. Do not edit by hand.\n' +
+        '// Regenerate with: node scripts/generate-article-heads.js\n' +
+        '// Source of truth: PAGE_META in js/core.js. See head-rewrite.ts COUPLING 2.\n\n';
+    const moduleBody =
+        'const PAGE_HEADS: Record<string, { title: string; description: string }> = ' +
+        JSON.stringify(heads, null, 2) +
+        ';\n\nexport default PAGE_HEADS;\n';
+    fs.writeFileSync(PAGE_OUT_FILE, banner + moduleBody, 'utf8');
+    console.log(`Wrote ${path.relative(ROOT, PAGE_OUT_FILE)} (${meta.routes.length} SPA routes)`);
+}
+
 main();
+mainPageHeads();
