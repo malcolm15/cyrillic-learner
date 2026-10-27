@@ -800,11 +800,11 @@ const DEFAULT_URL = 'https://cyrilica.com/';
 
 const PAGE_META = {
     home:      { title: DEFAULT_TITLE,                                          desc: DEFAULT_DESC,                                                                                              url: 'https://cyrilica.com/' },
-    about:     { title: 'About Cyrilica — Free Cyrillic Alphabet Learner',      desc: 'Learn about Cyrilica — the free, no-fluff tool built by a language learner to make mastering the Cyrillic alphabet simple and approachable.',  url: 'https://cyrilica.com/about' },
-    contact:   { title: 'Contact — Cyrilica',                                   desc: 'Have feedback, found a bug, or want to suggest a feature? Get in touch with the team behind Cyrilica.',                                         url: 'https://cyrilica.com/contact' },
-    privacy:   { title: 'Privacy Policy — Cyrilica',                            desc: 'Cyrilica privacy policy. Learn what data is collected, how it is used, and your choices regarding Google Analytics.',               url: 'https://cyrilica.com/privacy' },
-    settings:  { title: 'Settings — Cyrilica',                                  desc: 'Customize your Cyrillic learning experience. Toggle lowercase display, auto-submit, continuous play, audio, and dark mode.',                    url: 'https://cyrilica.com/settings' },
-    articles:  { title: 'Cyrillic Alphabet Articles — Cyrilica',                desc: 'In-depth articles on the Cyrillic alphabet: history, regional variants, writing tips, memory tricks, and cultural curiosities.',               url: 'https://cyrilica.com/articles' },
+    about:     { title: 'About Cyrilica | Free Cyrillic Alphabet Learner',      desc: 'Learn about Cyrilica, the free, no-fluff tool built by a language learner to make mastering the Cyrillic alphabet simple and approachable.',  url: 'https://cyrilica.com/about' },
+    contact:   { title: 'Contact | Cyrilica',                                   desc: 'Have feedback, found a bug, or want to suggest a feature? Get in touch with the team behind Cyrilica.',                                         url: 'https://cyrilica.com/contact' },
+    privacy:   { title: 'Privacy Policy | Cyrilica',                            desc: 'Cyrilica privacy policy. Learn what data is collected, how it is used, and your choices regarding Google Analytics.',               url: 'https://cyrilica.com/privacy' },
+    settings:  { title: 'Settings | Cyrilica',                                  desc: 'Customize your Cyrillic learning experience. Toggle lowercase display, auto-submit, continuous play, audio, and dark mode.',                    url: 'https://cyrilica.com/settings' },
+    articles:  { title: 'Cyrillic Alphabet Articles | Cyrilica',                desc: 'In-depth articles on the Cyrillic alphabet: history, regional variants, writing tips, memory tricks, and cultural curiosities.',               url: 'https://cyrilica.com/articles' },
     terms:     { title: 'Terms of Service | Cyrilica',                          desc: 'Terms of service for Cyrilica, the free Cyrillic alphabet learning tool. No account, nothing to buy, personal and classroom use.',              url: 'https://cyrilica.com/terms' },
 };
 
