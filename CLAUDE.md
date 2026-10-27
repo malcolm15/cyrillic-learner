@@ -114,8 +114,10 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
 - `netlify/edge-functions/`: server-side Deno edge functions. Currently one function,
   `head-rewrite.ts`. Deployed automatically with each push.
 - `scripts/`: dependency-free node generators run by the Netlify build command
-  (netlify.toml): generate-article-heads.js then pre-render.js. The articles/
-  output directory is a gitignored deploy artifact, never committed.
+  (netlify.toml): generate-article-heads.js (which writes both
+  `netlify/lib/article-heads.ts` and `netlify/lib/page-heads.ts`, committed) then
+  pre-render.js. The articles/ output directory is a gitignored deploy artifact,
+  never committed.
 - `scripts/images/`: Pillow (Python) generators for four comparison images
   (Ukrainian, Bulgarian, and the two Serbian ones). Run by hand, never by the
   build. Each resolves the repo root from its own path and writes into images/,
@@ -143,8 +145,13 @@ Two cross-file gotchas:
   carry exactly one, with `id="breadcrumb-schema"`, emitted by
   `scripts/pre-render.js` and replaced one for one by `injectArticleSchema()`.
   The build asserts both: zero BreadcrumbList objects in `index.html`, exactly one
-  per emitted article and inside that id. The site-wide SoftwareApplication,
-  WebSite and Organization blocks in the shell are separate and unaffected.
+  per emitted article and inside that id. The site-wide WebSite and Organization
+  blocks in the shell are separate and unaffected. The shell carries no
+  SoftwareApplication block: the one it had until Batch 70 could never qualify
+  for Google's rich result (that needs ratings or reviews the site does not
+  have), carried two properties outside schema.org's definitions for the type
+  (`targetProduct`, `browserRequirements`) and rode along on every article and
+  standalone page. Do not reintroduce application markup site-wide.
 - **No backslash escapes inside `onclick` attributes in article content.** Use a
   typographic apostrophe (U+2019) in share labels, never `\'`. pre-render.js copies
   the content template literal as written, while core.js assigns the evaluated
@@ -187,7 +194,10 @@ Two cross-file gotchas:
 - **Adding a new SPA page:** add it to `VALID_PAGES` in `js/core.js` AND add a
   `/<name> /index.html 200` line to `_redirects`. The build fails if the two
   disagree, so a forgotten rewrite is caught before deploy rather than becoming a
-  404 on a real route.
+  404 on a real route. It also needs a `PAGE_META` entry in `js/core.js` (the
+  build asserts `PAGE_META` keys equal `VALID_PAGES`) and its key added to
+  `EXPECTED_KEYS` in `scripts/page-meta.js`, whose fail-closed parser rejects any
+  other entry count.
 - **Why the `.html` article redirect lives in the edge function.** Both places
   could do it: `_redirects` would need 27 forced rules, one per slug, generated at
   build time. The edge function needs none, because it already imports the
@@ -302,7 +312,12 @@ and rewrites head tags before they reach the client: the canonical (set to the
 actual request path), the robots meta (switched to `noindex, follow` for
 `/contact`, `/privacy`, `/about`), and, for `/articles/<slug>` paths, the `<title>`
 and `<meta name="description">` (set to the per-article values so each article has
-unique raw-HTML head content instead of the identical shell head), and, on the
+unique raw-HTML head content instead of the identical shell head), and, for the
+six non-home SPA routes (`/articles`, `/about`, `/contact`, `/privacy`, `/terms`,
+`/settings`), the title, description, og:title, og:description, og:url,
+twitter:title, twitter:description and twitter:url, set to the values `showPage()`
+applies on render (`PAGE_META` in `js/core.js`, via `netlify/lib/page-heads.ts`),
+and, on the
 homepage only, three hreflang alternates (COUPLING 4 below). 301 responses
 and non-HTML assets pass through untransformed. Fail-open: if transformation errors,
 or an article slug is not found, the original response is returned unchanged.
@@ -318,10 +333,16 @@ Three canonical layers that must stay consistent:
    page load (rendering browsers).
 3. `core.js` dynamic injection -- updates on SPA navigation within a session.
 
-CRITICAL COUPLING 1: the function string-replaces four tags in index.html's head
-byte-for-byte: the canonical link, the robots meta, the title and the description
-(the title constant includes a U+2014 em-dash). If those tags change, update the
-match strings in `head-rewrite.ts` or the function silently stops working.
+CRITICAL COUPLING 1: the function string-replaces ten tags in index.html's head
+byte-for-byte: the canonical link, the robots meta, the title, the description,
+og:url, og:title, og:description, twitter:url, twitter:title and
+twitter:description (the title, og:title and twitter:title constants include a
+U+2014 em-dash because they are byte-for-byte match targets for the shell's
+title, as are the matching needles in `scripts/pre-render.js`). If those tags
+change, update the match strings in `head-rewrite.ts` or the function silently
+stops working.
+`scripts/pre-render.js` asserts the same ten strings occur exactly once in
+`index.html` (its `T` needles) but does not compare them to `head-rewrite.ts`.
 
 CRITICAL COUPLING 2: the per-article title and description come from
 `netlify/lib/article-heads.ts`, generated from js/articles.js by
@@ -340,6 +361,18 @@ import), so a data-file problem cannot fail the module load and regress the
 canonical / robots rewrites. It lives in netlify/lib/, not netlify/edge-functions/,
 because Netlify treats every file in the edge-functions directory as its own
 function entry point (this is the mistake that broke the first b4cf079 deploy).
+`netlify/lib/page-heads.ts` is the same class of artifact for the six non-home
+SPA routes: the same generator writes it from `PAGE_META` in `js/core.js`, which
+`scripts/page-meta.js` reads as text and never evaluates. That parser is
+deliberately fail-closed: it accepts only the exact shape the literal has today
+(one entry per line, bare key, title, desc and url as single-quoted literals with
+no backslash or embedded quote, home using the DEFAULT constants, exactly the
+seven keys it lists) and fails the build on anything else, so a reformat of
+`PAGE_META` is a deliberate change to the parser as well. pre-render.js asserts
+the artifact equals `PAGE_META` (decoded) and that `PAGE_META` keys equal
+`VALID_PAGES`. `PAGE_META` stays the single source of truth for those heads; the
+artifact is derived, committed, and regenerated on every deploy. Titles there use
+` | Cyrilica` as the separator (Batch 70), never an em-dash.
 
 CRITICAL COUPLING 4: `HREFLANG_HOME` in `head-rewrite.ts` is the homepage's half
 of a reciprocal hreflang pair (en, es and x-default, x-default being the English
