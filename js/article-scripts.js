@@ -692,14 +692,17 @@ window.initArticleQuizzes = initArticleQuizzes;
 // Coordinate system: viewBox 0 0 240 200, baseline y=145, x-height y=45.
 // Paths are designed in straight coordinates; the engine applies skewX(-10)
 // to the letter group at render time for a natural rightward cursive slant.
-// Each arch uses two cubics (rise + fall) with horizontal tangents at the
-// peak, producing rounded tops rather than pointed ones.
+// и, ш, л and м build each arch from two cubics (rise and fall) with
+// horizontal tangents at the peak, for rounded tops. т and д are derived
+// from the Wikimedia Commons Russian cursive chart (public domain), with
+// stroke order checked against the Middlebury Institute guide.
 
 var CURSIVE_STROKES = {
-    // t: three rounded arches (like Latin m). Stroke 2 is the optional bar.
+    // t: entry tick, three stems joined by two arches (like Latin m), exit rising right.
+    //    One stroke. Shape from Commons Russian_Cursive_Cyrillic.svg (public domain);
+    //    stroke order checked against the Middlebury Institute handwriting guide.
     'т': [
-        { d: 'M 20,145 C 20,85 30,45 45,45 C 60,45 65,85 65,145 C 65,85 75,45 90,45 C 105,45 110,85 110,145 C 110,85 120,45 135,45 C 150,45 155,85 155,145 L 170,145', optional: false, label: null },
-        { d: 'M 15,30 L 165,30',                                                                                                                                                          optional: true,  label: 'optional bar' }
+        { d: 'M 17,94 C 28,80 35,63 38,45 C 42,79 42,112 38,145 C 41,123 42,100 41,77 C 59,47 73,39 87,53 C 91,58 93,65 94,74 C 96,99 90,121 88,145 C 90,121 96,99 94,74 C 98,60 105,51 115,49 C 135,48 143,63 137,95 C 138,123 143,139 153,144 C 163,148 172,143 181,128', optional: false, label: null }
     ],
     // i: two cups rounded on the bottom (like a double u)
     'и': [
@@ -717,9 +720,12 @@ var CURSIVE_STROKES = {
     'м': [
         { d: 'M 22,130 C 10,110 10,145 28,140 C 40,137 44,88 48,45 C 62,45 64,85 64,145 C 64,85 74,45 84,45 C 98,45 100,85 100,145 L 115,145', optional: false, label: null }
     ],
-    // d: counterclockwise oval body, then descender looping below the baseline
+    // d: oval bowl drawn counter-clockwise from its top right, stem down the right side
+    //    into a descender loop that crosses back near the baseline, exit rising right.
+    //    One stroke. Shape from Commons Russian_Cursive_Cyrillic.svg (public domain),
+    //    descender shortened to fit the box; stroke order checked against the Middlebury guide.
     'д': [
-        { d: 'M 62,145 C 68,85 55,45 38,45 C 18,45 16,100 38,145 C 50,152 62,160 62,178 C 60,190 42,194 26,184 C 12,172 14,145 44,145 L 90,145', optional: false, label: null }
+        { d: 'M 70,63 C 64,54 56,49 48,49 C 39,49 31,54 25,63 C 20,70 17,78 16,87 C 15,90 15,94 15,97 C 15,110 18,122 25,131 C 31,140 39,145 48,145 C 57,145 64,140 71,131 C 75,124 78,116 80,107 C 81,100 81,94 79,87 C 78,78 75,70 70,63 C 75,70 78,78 79,87 C 81,94 81,100 80,107 C 78,118 81,130 81,142 C 81,162 82,179 76,189 C 68,199 59,195 55,184 C 50,175 59,161 81,142 C 88,136 91,127 96,120', optional: false, label: null }
     ]
 };
 
@@ -831,7 +837,7 @@ ArticleScripts['practice-writing-cyrillic'] = function () {
         var t1 = setTimeout(function () {
             if (startDot) startDot.setAttribute('opacity', '0');
 
-            // Show stroke label in caption if present (e.g. optional bar)
+            // Show stroke label in caption if present (e.g. an optional stroke, drawn thinner; no letter uses one at present)
             if (strokes[index].label && captionEl) captionEl.textContent = strokes[index].label;
 
             // Snap tip to path start before revealing it

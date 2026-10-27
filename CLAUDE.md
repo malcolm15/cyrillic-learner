@@ -1059,9 +1059,48 @@ translation guards (see "Article letter tools" above).
 article-scripts.js is the single source of truth for the six letterform paths
 (т и ш л м д). Engine uses rAF stroke-dashoffset animation with a moving pen-tip
 dot, applied to SVG paths in a `skewX(-10)` group for cursive slant. Respects
-`prefers-reduced-motion`. GA event: `cursive_animation_played`. The letterforms were
-drafted from published propisi descriptions and are not yet verified by a native
-speaker; corrections are deliberate one-path edits in `CURSIVE_STROKES`.
+`prefers-reduced-motion`. GA event: `cursive_animation_played`. Sources and
+evidence for the letterforms: т and д: shape derived from the Wikimedia Commons
+Russian cursive chart (public domain); stroke order checked against the
+Middlebury Institute Russian handwriting guide, with inferred joining movements
+recorded in the Batch 71 evidence ledger. и, ш, л and м: shape checked against
+both sources and passing. Stroke order checked against the Middlebury guide: и, л
+and м pass; ш is provisional, because the guide shows no direction arrows on its
+stems. None is yet verified by a native speaker; corrections are deliberate
+one-path edits in `CURSIVE_STROKES`.
+
+**The stroke-path build check** (`assertCursiveStrokes()` in
+`scripts/pre-render.js`, run on every build before any page is emitted). It reads
+`CURSIVE_STROKES` from `js/article-scripts.js` as text, never evaluating it, and
+fails closed on any line that is not a comment, an entry, a stroke
+(`{ d: '...', optional: true|false, label: null|'...' }`) or a closing bracket.
+It takes the geometry the browser uses from the files that define it: the stage
+viewBox and the letter group's transform from the practice-writing-cyrillic
+markup in `js/articles.js`, the stroke widths of `.cursive-stroke` and
+`.cursive-stroke--opt` and the round caps and joins from `css/styles.css`, and
+buildGroup's class line, which ties `optional` to the second class. The build
+fails if any of them cannot be read, or if any rule whose selector names
+`cursive-stroke`, `cursive-stage` or `cursive-letter-group` (the two stroke rules
+included) sets a property the check does not model: a stroke width, cap or join
+beyond the ones read, `transform`, `translate`, `scale`, `rotate`,
+`vector-effect` or `d`. It does not see a rule that reaches the paths through
+some other selector (`svg path`, `#cursive-path-0`), nor a transform on a wrapper
+element added around the group in the markup; avoid both, or extend the check.
+It asserts: the picker's `.cursive-letter-btn` letters and the `CURSIVE_STROKES`
+keys are the same set; every `d` uses only absolute M, C, L and Z, starts with
+M, and gives each command exactly its own count of plain numbers (2, 6, 2, 0; no
+implicit repeats), separated only by SVG whitespace (space, tab, LF, FF, CR) or
+commas, since a browser rejects a path or transform holding a no-break space;
+and every stroke stays inside the viewBox once drawn. For the last, it maps
+every point through the group transform (the rightmost function acts first, so
+skewX before translate), takes each cubic's exact x and y range from its
+endpoints and the roots of its derivative in (0, 1), and widens it by half the
+stroke width times the transform's stretch (1.0154 for skewX(-10), so 3.554 for
+the 7-wide stroke and 2.539 for the 5-wide one). Round caps and joins add
+nothing beyond that. The pass line prints the values read and the tightest
+clearance on each edge. It checks geometry, not letterforms: a path that parses
+and fits can still be the wrong letter. The pen-tip and start dots are circles,
+not strokes, and are not checked.
 
 **Localisation seam** (js/core.js): `window.QUIZ_PAGE`, read once into
 `QUIZ_PAGE`, is the only per-page localisation input core.js accepts. It is
@@ -1115,6 +1154,10 @@ Listen buttons.
   built-ins are not enough.
 - Never substitute a similarly named package when the intended one is unavailable.
 - Read-only audits never install or execute unreviewed software.
+- A read-only audit may download reference data and official documentation into a
+  scratch folder outside the repo, never executable content, and records each
+  source. If a site's terms of use forbid saving its content, view it only and
+  save nothing; delete any copies already made.
 - The dependency guard, its list of approved imports, and the Netlify build
   settings (netlify.toml, NPM_FLAGS, the build command, the publish directory) must
   not be weakened or changed without Malc's explicit approval. Any change touching

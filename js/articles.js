@@ -2098,7 +2098,7 @@ const ARTICLES = [
             
             <p><strong>Ш (Sh) in cursive:</strong> Looks like English 'w' but continues to the next letter</p>
             
-            <p><strong>Д (D) in cursive:</strong> Has a big loop, looks like English 'g'</p>
+            <p><strong>Д (D) in cursive:</strong> Has a loop below the line, looks like English 'g'</p>
             
             <p><strong>The "ишишишиши" problem:</strong><br>
             Multiple letters in cursive can create identical-looking sequences. The word "шиши" looks like "uuuu" in cursive. You have to use context to figure out what letters they actually are.</p>
@@ -2110,10 +2110,10 @@ const ARTICLES = [
 
             <h3>Watch the Tricky Letters Being Written</h3>
 
-            <p>Reading about cursive only gets you so far. The six letters below cause most of the confusion, and the fastest way to make sense of them is to watch the pen. Tap a letter to see it drawn stroke by stroke, the way it is taught in Russian school copybooks, and slow it down if you want to follow the direction.</p>
+            <p>Reading about cursive only gets you so far. The six letters below cause most of the confusion, and the fastest way to make sense of them is to watch the pen. Tap a letter to see it drawn stroke by stroke, and slow it down if you want to follow the direction. The shapes are checked against the public-domain Russian cursive chart on Wikimedia Commons, and the stroke order against the Middlebury Institute's Russian handwriting guide.</p>
 
             <div id="cursive-picker" class="cursive-picker">
-                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="т" data-caption="Three humps, rounded on top, like a Latin m. The bar above is optional but common." aria-pressed="false">т</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="т" data-caption="Three downstrokes joined by two arches on top, like a Latin m. Some writers add a bar above it." aria-pressed="false">т</button>
                 <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="и" data-caption="Two cups, rounded on the bottom, like a Latin u." aria-pressed="false">и</button>
                 <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="ш" data-caption="Three cups, rounded on the bottom. Some writers add a line underneath." aria-pressed="false">ш</button>
                 <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="л" data-caption="A small hook, then one peak. The hook is what makes it л." aria-pressed="false">л</button>
@@ -2136,7 +2136,7 @@ const ARTICLES = [
 
             <p id="cursive-caption" class="cursive-caption">Tap a letter above to watch it being written.</p>
 
-            <p>The pattern worth noticing: т is rounded on top, three humps like a Latin m. и and ш are rounded on the bottom, two cups and three. л and м lean in with a small hook before their first stroke, and that hook is what separates them from the hump letters around them. д drops a loop below the line like a Latin g. Many writers also add a small bar above т and a line below ш to keep them apart in fast writing. Once you can spot humps, cups, hooks, and tails, words like лишишься stop being a wall of identical bumps.</p>
+            <p>The pattern worth noticing: т is rounded on top, two humps like a Latin m. и and ш are rounded on the bottom, two cups and three. л and м lean in with a small hook before their first stroke, and that hook is what separates them from the hump letters around them. д drops a loop below the line like a Latin g. Some writers also add a small bar above т and a line below ш to tell them apart. Once you can spot humps, cups, hooks, and tails, words like лишишься stop being a wall of identical bumps.</p>
 
             <h3>Practice Method: The Proven System</h3>
             
@@ -2188,7 +2188,7 @@ const ARTICLES = [
             Cursive letters should flow together. Lifting your pen between every letter defeats the purpose.</p>
             
             <p><strong>5. Confusing Cursive т and ш</strong><br>
-            Both can look like 'm' shapes. Practice distinguishing them through context and careful formation.</p>
+            In careful cursive, т has its arches on top, like an m, and ш has its cups at the bottom. In some handwriting the two look alike, so read for context, and consider a bar above т or below ш.</p>
 
             <h3>Speed vs. Legibility</h3>
             
