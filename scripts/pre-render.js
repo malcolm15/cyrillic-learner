@@ -35,6 +35,9 @@
 //   function, and the JS render can never disagree. The description is also
 //   re-derived here with the injectArticleSchema algorithm and asserted equal
 //   to the artifact value.
+// - netlify/lib/page-heads.ts, the edge function's head map for the six
+//   non-home SPA routes, is asserted equal to PAGE_META in js/core.js (read as
+//   text by scripts/page-meta.js), and PAGE_META's keys equal to VALID_PAGES.
 // - #article-content is article.content verbatim: showArticle assigns
 //   article.content to innerHTML with no transformation, so emitting the same
 //   string byte-for-byte gives the same DOM.
@@ -69,6 +72,7 @@ const SITE = 'https://cyrilica.com';
 const OUT_ROOT = path.join(ROOT, 'articles');
 // Build-time only, never served: _redirects answers /scripts/* with a 404.
 const STANDALONE_PAGES = require('./standalone-pages.js');
+const { parsePageMeta } = require('./page-meta.js');
 
 // The end of the .container and .main-content wrappers, immediately before the
 // footer. Both emitters close their <main> here, so it is declared once.
@@ -1209,6 +1213,31 @@ function main() {
     if (articles.length !== Object.keys(HEADS).length) {
         fail('parsed ' + articles.length + ' articles but article-heads.ts has ' + Object.keys(HEADS).length + ' entries');
     }
+
+    // ---- data: shared page-head artifact for the SPA routes (same file the edge function imports) ----
+    // PAGE_META in core.js is the source of truth; the artifact must equal it,
+    // decoded, or the raw HTML and the rendered head would disagree.
+    const pageHeadsSrc = fs.readFileSync(path.join(ROOT, 'netlify', 'lib', 'page-heads.ts'), 'utf8');
+    const pageHeadsMatch = pageHeadsSrc.match(/=\s(\{[\s\S]*\});\n\nexport default/);
+    if (!pageHeadsMatch) fail('could not extract the object literal from page-heads.ts');
+    const PAGE_HEADS = JSON.parse(pageHeadsMatch[1]);
+    let pageMeta;
+    try {
+        pageMeta = parsePageMeta(coreSrc);
+    } catch (e) {
+        fail('PAGE_META in js/core.js: ' + e.message);
+    }
+    const pageMetaPaths = pageMeta.routes.map(function (r) { return r.path; }).sort();
+    const pageHeadPaths = Object.keys(PAGE_HEADS).sort();
+    if (pageMetaPaths.join(' ') !== pageHeadPaths.join(' ')) {
+        fail('page-heads.ts routes (' + pageHeadPaths.join(' ') + ') do not match PAGE_META (' + pageMetaPaths.join(' ') +
+             '). Regenerate page-heads.ts.');
+    }
+    pageMeta.routes.forEach(function (r) {
+        const h = PAGE_HEADS[r.path];
+        if (decodeHeads(h.title) !== r.title) fail(r.path + ': page-heads.ts title does not match PAGE_META. Regenerate page-heads.ts.');
+        if (decodeHeads(h.description) !== r.desc) fail(r.path + ': page-heads.ts description does not match PAGE_META. Regenerate page-heads.ts.');
+    });
     const byId = {};
     articles.forEach(function (a) { byId[a.id] = a; });
 
@@ -1230,6 +1259,14 @@ function main() {
     const validPages = validMatch[1].split(',')
         .map(function (x) { return x.trim().replace(/^'|'$/g, ''); })
         .filter(Boolean);
+    // Every route needs a head entry, or the edge function would serve it the
+    // homepage's head; and every head entry must be a route.
+    const pageMetaKeys = ['home'].concat(pageMeta.routes.map(function (r) { return r.key; })).sort();
+    if (pageMetaKeys.join(' ') !== validPages.slice().sort().join(' ')) {
+        fail('PAGE_META keys (' + pageMetaKeys.join(' ') + ') do not match VALID_PAGES (' + validPages.slice().sort().join(' ') + ') in js/core.js');
+    }
+    console.log('Page heads passed: ' + pageMeta.routes.length + ' SPA routes in page-heads.ts match PAGE_META in js/core.js (' +
+                pageHeadPaths.join(', ') + '), and PAGE_META keys match VALID_PAGES.');
 
     // ---- chart parity: the 33 letter cards are static HTML, not built by JS ----
     // js/articles.js carries the cards so they reach the served document; the

@@ -11,10 +11,12 @@ Alphabet Variants, History & Culture, and Learning Tools & Resources.
   `_redirects` rewrites each of the seven app routes to `index.html`. Each article is
   a real pre-rendered file, and any other path gets a real 404 from `404.html`.
 - Hosted on Netlify. The build command in `netlify.toml` runs
-  `scripts/generate-article-heads.js` (writes `netlify/lib/article-heads.ts`), then
+  `scripts/generate-article-heads.js` (writes `netlify/lib/article-heads.ts` and
+  `netlify/lib/page-heads.ts`), then
   `scripts/pre-render.js` (writes the 27 article pages to `articles/`, gitignored).
 - One edge function, `netlify/edge-functions/head-rewrite.ts`, rewrites the head of
-  each page (canonical, robots, title, description) for crawlers that read raw HTML.
+  each page (canonical, robots, title, description, and on the six non-home app
+  routes also the og and twitter tags) for crawlers that read raw HTML.
 
 ## Layout
 
