@@ -1,0 +1,452 @@
+{
+  "about": "Worksheet spec for build-worksheets.js: the three Russian cursive worksheet sets (Batch 74, owner's final spec of 2026-10-28). Each set is one document per paper, named <name>-<paper>-v<version>. Trace rows show start dots only for letters with a stroke plan.",
+  "version": 1,
+  "xHeightMm": 10,
+  "footer": "cyrilica.com · Letterforms from a public-domain chart on Wikimedia Commons",
+  "instructions": {
+    "trace": "Trace each grey letter, then write it on your own on the blank lines. Where you see dots, start your pen on the dot.",
+    "word": "Write each word in cursive on the blank lines, joining the letters where you can."
+  },
+  "sets": [
+    {
+      "name": "russian-cursive-worksheets-lowercase",
+      "title": "Russian cursive worksheets: lowercase letters",
+      "pages": [
+        {
+          "title": "Stems and cups",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "и"
+            },
+            {
+              "type": "trace",
+              "letter": "й"
+            },
+            {
+              "type": "trace",
+              "letter": "ш"
+            },
+            {
+              "type": "trace",
+              "letter": "ч"
+            }
+          ]
+        },
+        {
+          "title": "Peaks and arches",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "л"
+            },
+            {
+              "type": "trace",
+              "letter": "м"
+            },
+            {
+              "type": "trace",
+              "letter": "п"
+            },
+            {
+              "type": "trace",
+              "letter": "т"
+            }
+          ]
+        },
+        {
+          "title": "Ovals and open curves",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "о"
+            },
+            {
+              "type": "trace",
+              "letter": "а"
+            },
+            {
+              "type": "trace",
+              "letter": "с"
+            },
+            {
+              "type": "trace",
+              "letter": "е"
+            },
+            {
+              "type": "trace",
+              "letter": "ё"
+            }
+          ]
+        },
+        {
+          "title": "Ovals with tall or long strokes",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "б"
+            },
+            {
+              "type": "trace",
+              "letter": "д"
+            },
+            {
+              "type": "trace",
+              "letter": "ф"
+            }
+          ]
+        },
+        {
+          "title": "Strokes below the line",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "у"
+            },
+            {
+              "type": "trace",
+              "letter": "ц"
+            },
+            {
+              "type": "trace",
+              "letter": "щ"
+            },
+            {
+              "type": "trace",
+              "letter": "з"
+            },
+            {
+              "type": "trace",
+              "letter": "р"
+            }
+          ]
+        },
+        {
+          "title": "Letters with a small bowl",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "ь"
+            },
+            {
+              "type": "trace",
+              "letter": "ъ"
+            },
+            {
+              "type": "trace",
+              "letter": "ы"
+            }
+          ]
+        },
+        {
+          "title": "More letters",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "в"
+            },
+            {
+              "type": "trace",
+              "letter": "г"
+            },
+            {
+              "type": "trace",
+              "letter": "к"
+            },
+            {
+              "type": "trace",
+              "letter": "н"
+            },
+            {
+              "type": "trace",
+              "letter": "х"
+            }
+          ]
+        },
+        {
+          "title": "The last letters",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "ж"
+            },
+            {
+              "type": "trace",
+              "letter": "э"
+            },
+            {
+              "type": "trace",
+              "letter": "ю"
+            },
+            {
+              "type": "trace",
+              "letter": "я"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "russian-cursive-worksheets-capitals",
+      "title": "Russian cursive worksheets: capital letters",
+      "pages": [
+        {
+          "title": "Capitals",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "А"
+            },
+            {
+              "type": "trace",
+              "letter": "Б"
+            },
+            {
+              "type": "trace",
+              "letter": "В"
+            },
+            {
+              "type": "trace",
+              "letter": "Г"
+            },
+            {
+              "type": "trace",
+              "letter": "Д"
+            }
+          ]
+        },
+        {
+          "title": "Capitals",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "Е"
+            },
+            {
+              "type": "trace",
+              "letter": "Ё"
+            },
+            {
+              "type": "trace",
+              "letter": "Ж"
+            },
+            {
+              "type": "trace",
+              "letter": "З"
+            },
+            {
+              "type": "trace",
+              "letter": "И"
+            }
+          ]
+        },
+        {
+          "title": "Capitals",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "Й"
+            },
+            {
+              "type": "trace",
+              "letter": "К"
+            },
+            {
+              "type": "trace",
+              "letter": "Л"
+            },
+            {
+              "type": "trace",
+              "letter": "М"
+            },
+            {
+              "type": "trace",
+              "letter": "Н"
+            }
+          ]
+        },
+        {
+          "title": "Capitals",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "О"
+            },
+            {
+              "type": "trace",
+              "letter": "П"
+            },
+            {
+              "type": "trace",
+              "letter": "Р"
+            },
+            {
+              "type": "trace",
+              "letter": "С"
+            },
+            {
+              "type": "trace",
+              "letter": "Т"
+            }
+          ]
+        },
+        {
+          "title": "Capitals",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "У"
+            },
+            {
+              "type": "trace",
+              "letter": "Ф"
+            },
+            {
+              "type": "trace",
+              "letter": "Х"
+            },
+            {
+              "type": "trace",
+              "letter": "Ц"
+            },
+            {
+              "type": "trace",
+              "letter": "Ч"
+            }
+          ]
+        },
+        {
+          "title": "Capitals",
+          "rows": [
+            {
+              "type": "trace",
+              "letter": "Ш"
+            },
+            {
+              "type": "trace",
+              "letter": "Щ"
+            },
+            {
+              "type": "trace",
+              "letter": "Э"
+            },
+            {
+              "type": "trace",
+              "letter": "Ю"
+            },
+            {
+              "type": "trace",
+              "letter": "Я"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "russian-cursive-worksheets-words",
+      "title": "Russian cursive worksheets: words to write",
+      "pages": [
+        {
+          "title": "Short words",
+          "rows": [
+            {
+              "type": "word",
+              "text": "мама"
+            },
+            {
+              "type": "word",
+              "text": "папа"
+            },
+            {
+              "type": "word",
+              "text": "дом"
+            },
+            {
+              "type": "word",
+              "text": "чай"
+            },
+            {
+              "type": "word",
+              "text": "мир"
+            }
+          ]
+        },
+        {
+          "title": "Words with л and м",
+          "rows": [
+            {
+              "type": "word",
+              "text": "лампа"
+            },
+            {
+              "type": "word",
+              "text": "молоко"
+            },
+            {
+              "type": "word",
+              "text": "мыло"
+            },
+            {
+              "type": "word",
+              "text": "лимон"
+            },
+            {
+              "type": "word",
+              "text": "улица"
+            }
+          ]
+        },
+        {
+          "title": "Everyday words",
+          "rows": [
+            {
+              "type": "word",
+              "text": "привет"
+            },
+            {
+              "type": "word",
+              "text": "спасибо"
+            },
+            {
+              "type": "word",
+              "text": "хорошо"
+            },
+            {
+              "type": "word",
+              "text": "школа"
+            },
+            {
+              "type": "word",
+              "text": "книга"
+            }
+          ]
+        },
+        {
+          "title": "Names and places",
+          "rows": [
+            {
+              "type": "word",
+              "text": "Москва"
+            },
+            {
+              "type": "word",
+              "text": "Россия"
+            },
+            {
+              "type": "word",
+              "text": "Анна"
+            },
+            {
+              "type": "word",
+              "text": "Иван"
+            },
+            {
+              "type": "word",
+              "text": "Ольга"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
