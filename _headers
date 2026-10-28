@@ -12,6 +12,15 @@
 /media/*
   Cache-Control: public, max-age=31536000, immutable
 
+# /downloads/* holds the printable worksheets (PDF), committed and versioned
+# like /media/*: a changed file ships under a new -v name, so the immutable
+# cache is safe. X-Robots-Tag keeps the PDFs out of search results, so the
+# article that links them is what ranks. scripts/pre-render.js asserts these
+# exact two values while downloads/ exists.
+/downloads/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Robots-Tag: noindex
+
 # /* adds three security headers to every path. nosniff stops a browser
 # guessing a script or stylesheet out of a file served as something else; the
 # referrer policy sends other sites the origin only, never a full path; the

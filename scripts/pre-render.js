@@ -1093,7 +1093,8 @@ const SECURITY_HEADERS = [
 ];
 const MEDIA_HEADERS = ['Cache-Control: public, max-age=31536000, immutable'];
 
-function assertSecurityHeaders() {
+// _headers as rules: { path, headers: [lines] }, in file order.
+function readHeaderRules() {
     const headersPath = path.join(ROOT, '_headers');
     if (!fs.existsSync(headersPath)) fail('_headers does not exist; it must carry the /* security headers rule.');
     const rules = [];
@@ -1103,6 +1104,11 @@ function assertSecurityHeaders() {
         if (!rules.length) fail('_headers line ' + (n + 1) + ': an indented header line before any path.');
         rules[rules.length - 1].headers.push(raw.trim());
     });
+    return rules;
+}
+
+function assertSecurityHeaders() {
+    const rules = readHeaderRules();
     [['/*', SECURITY_HEADERS], ['/media/*', MEDIA_HEADERS]].forEach(function (want) {
         const found = rules.filter(function (r) { return r.path === want[0]; });
         if (found.length !== 1) fail('_headers: expected exactly one "' + want[0] + '" rule, found ' + found.length + '.');
@@ -1168,6 +1174,71 @@ function assertReplaceCallbacks() {
     }
     if (!calls) fail(file + ': no .replace( calls found. The function rewrites the head with them, so the scan did not run as expected.');
     console.log('Edge function replace checks passed: ' + calls + ' .replace/.replaceAll calls in ' + file + ', every one with a function as its second argument.');
+}
+
+// ---- downloads: the printable worksheets under /downloads/ ----
+//
+// downloads/ is a SITE folder of committed, versioned PDFs (the cursive
+// worksheets, made by scripts/cursive/build-worksheets.js and copied in by a
+// reviewed batch). Asserted while the folder exists: every file is a PDF with
+// a -v<N> name and under the size cap; _headers caches /downloads/* immutably
+// and keeps it out of search with X-Robots-Tag: noindex; the edge function
+// never sees it (a PDF viewer asks for byte ranges, which a body-rewriting
+// function cannot pass through); no _redirects rule answers first; and every
+// link to a download in article content names a file that is there, by its
+// versioned name, with the download attribute.
+const DOWNLOADS_DIR = 'downloads';
+const DOWNLOAD_NAME = /^[a-z0-9]+(?:-[a-z0-9]+)*-v[1-9][0-9]*\.pdf$/;
+const DOWNLOAD_MAX_BYTES = 512 * 1024;
+const DOWNLOAD_HEADERS = ['Cache-Control: public, max-age=31536000, immutable', 'X-Robots-Tag: noindex'];
+
+function assertDownloads(articlesSrc, edgeSrc, redirectRules) {
+    const dir = path.join(ROOT, DOWNLOADS_DIR);
+    const links = [];
+    const linkRe = /<a\b[^>]*\shref="(\/downloads\/[^"]*)"[^>]*>/g;
+    let m;
+    while ((m = linkRe.exec(articlesSrc)) !== null) links.push({ href: m[1], tag: m[0] });
+    if (!fs.existsSync(dir)) {
+        if (links.length) fail('js/articles.js links to ' + links[0].href + ' but there is no downloads/ folder');
+        return;
+    }
+    const files = fs.readdirSync(dir).sort();
+    if (!files.length) fail('downloads/ exists but is empty');
+    let largest = 0;
+    files.forEach(function (f) {
+        const full = path.join(dir, f);
+        const st = fs.statSync(full);
+        if (!st.isFile()) fail('downloads/' + f + ' is not a file; downloads/ holds only versioned PDFs');
+        if (!DOWNLOAD_NAME.test(f)) fail('downloads/' + f + ': expected a lowercase hyphenated name ending -v<N>.pdf, so a changed file ships under a new name');
+        if (st.size > DOWNLOAD_MAX_BYTES) fail('downloads/' + f + ' is ' + st.size + ' bytes, over the ' + DOWNLOAD_MAX_BYTES + '-byte cap');
+        const fd = fs.openSync(full, 'r');
+        const head = Buffer.alloc(5);
+        fs.readSync(fd, head, 0, 5, 0);
+        fs.closeSync(fd);
+        if (head.toString('latin1') !== '%PDF-') fail('downloads/' + f + ' does not start with %PDF-');
+        largest = Math.max(largest, st.size);
+    });
+    const rule = readHeaderRules().filter(function (r) { return r.path === '/' + DOWNLOADS_DIR + '/*'; });
+    if (rule.length !== 1) fail('_headers: expected exactly one "/' + DOWNLOADS_DIR + '/*" rule while downloads/ exists, found ' + rule.length);
+    if (rule[0].headers.join('\n') !== DOWNLOAD_HEADERS.join('\n')) {
+        fail('_headers: the "/' + DOWNLOADS_DIR + '/*" rule must be exactly ' + JSON.stringify(DOWNLOAD_HEADERS) + ', found ' + JSON.stringify(rule[0].headers));
+    }
+    if (parseExcludedPath(edgeSrc).indexOf('/' + DOWNLOADS_DIR + '/*') === -1) {
+        fail('netlify/edge-functions/head-rewrite.ts: "/' + DOWNLOADS_DIR + '/*" must be in excludedPath; a PDF is fetched with byte ranges');
+    }
+    const clashing = redirectRules.filter(function (r) { return r.source === '/*' || r.source.indexOf('/' + DOWNLOADS_DIR + '/') === 0; });
+    if (clashing.length) fail('_redirects: ' + clashing.map(function (r) { return r.source; }).join(', ') + ' would answer before a download');
+    const linked = new Set();
+    links.forEach(function (l) {
+        const name = l.href.slice(DOWNLOADS_DIR.length + 2);
+        if (!DOWNLOAD_NAME.test(name)) fail('js/articles.js: ' + l.href + ' is not a versioned PDF name');
+        if (files.indexOf(name) === -1) fail('js/articles.js links to ' + l.href + ', which is not in downloads/');
+        if (!/\sdownload(?=[\s>])/.test(l.tag)) fail('js/articles.js: the link to ' + l.href + ' must carry the download attribute');
+        linked.add(name);
+    });
+    console.log('Downloads passed: ' + files.length + ' versioned PDFs in downloads/ (largest ' + largest + ' bytes, cap ' + DOWNLOAD_MAX_BYTES +
+                '), ' + links.length + ' links in article content to ' + linked.size + ' of them, each present and carrying download; /' + DOWNLOADS_DIR +
+                '/* is cached immutably with X-Robots-Tag noindex, excluded from the edge function, and no _redirects rule answers first.');
 }
 
 // ---- cursive stroke paths: they parse, and they stay inside the widget box ----
@@ -1696,6 +1767,7 @@ function main() {
     }
     assertCursiveStrokes(articles);
     assertCursiveData();
+    assertDownloads(articlesSrc, edgeSrc, redirectRules);
 
     // ---- data: shared page-head artifact for the SPA routes (same file the edge function imports) ----
     // PAGE_META in core.js is the source of truth; the artifact must equal it,
