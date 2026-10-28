@@ -130,6 +130,10 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
   `stacked_row_lines()` implements the row-308 rule, where every band in a row
   shares one ink-top line set below the deepest ink in that row. New or rebuilt
   image scripts import from it and must not reimplement either rule.
+- `scripts/cursive/`: the cursive alphabet data (S1 shapes, S2 stroke evidence)
+  and its hand-run generators. INTERNAL: never served (the `/scripts/*` 404 rule
+  covers it) and never run by the build, which only checks its two JSON files.
+  See "Cursive data (scripts/cursive/)".
 - `images/`, `audio/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
   namespace).
 
@@ -1198,6 +1202,58 @@ in `css/styles.css`, and the `/teachers` demo clip, which keeps its own
 target (`button` elements, `.letter-card` class, dark mode handled). No separate
 Listen buttons.
 
+## Cursive data (scripts/cursive/)
+
+Three layers, kept apart on purpose:
+1. **Shapes** (`shapes.json`): all 63 written forms (30 capitals, 33 lowercase;
+   the 63-form school-handwriting reference omits written capitals of Ъ, Ы and
+   Ь) in S1's own coordinates, shape only, with no stroke order or pen
+   direction. S1 is `source/Russian_Cursive_Cyrillic.svg`, the Wikimedia Commons
+   file kept exactly as downloaded (public domain; provenance in
+   `source/source.txt`). `rules.json` is the per-letter table decided by hand:
+   which S1 subpaths make each form, how their segments chain, each piece's
+   role, what is dropped and why, and the ambiguities.
+2. **Stroke evidence** (`evidence.json`): what S2 (the Middlebury guide, page 1)
+   shows for each form, in our own words: stroke numbers, each segment as
+   ARROWED, FORCED or OPEN, joining marks, the S1/S2 structure comparison and the
+   classification (ANIMATE-READY, PARTIAL-INFERABLE, PARTIAL-STATIC). S2 is
+   evidence only: nothing from it is traced, cropped, embedded or copied, and
+   its terms carry no statement (`evidence-source.txt`).
+3. **Animation data**: each widget's stroke table in `js/article-scripts.js`,
+   in that widget's own coordinate system, derived from layers 1 and 2 by a
+   reviewed batch.
+
+Why separate: shapes are S1's facts and regenerate from the source; evidence
+records what a reference shows and changes only when it is re-read; animation
+is a decision that combines both. One source of truth applies to shapes: a new
+table that repeated a shape in the same coordinates would be a second copy.
+
+**Regenerating.** `node scripts/cursive/extract.js` rebuilds `shapes.json` from
+the source file and `rules.json` with fixed thresholds (merge, snap, smoothing
+and straight-piece rules, all listed in the file's meta and logged per form). It
+is deterministic (two runs are byte-identical), checks the source's sha256, and
+fails closed unless every S1 subpath is in exactly one form and every segment is
+used once or dropped with a checked reason; `--check` confirms the committed
+file is current. extract.js caps smoothing: a node keeps its corner if smoothing
+it would move any piece more than 0.25 S1 units from its geometry after snaps,
+measured cumulatively, and the run fails (writing nothing) if any piece ends
+over the cap. A form's keepFree list in rules.json names free chain ends that
+are never snapped, so S1's own gap there is kept exactly (used only for the
+stem-2 tips of И and Й). `node scripts/cursive/build-chart.js` reads
+`shapes.json` and `layout.json` (x-height, S1's 22.5 degree slant, cell size,
+version) and writes the chart's HTML block, a page holding it and the chart PNG
+(headless Chrome on 127.0.0.1, throwaway profile) into
+`~/.cyrilica/harness/cursive/b73/chart/`. It refuses any other destination, the
+repo included, unless given `--allow-output-outside-harness`, and never
+overwrites: raise `version` in `layout.json` for new names. Its output goes live
+only by being copied into the site in a reviewed batch, never by the generator
+writing there.
+
+**The build check.** `assertCursiveData()` in `scripts/pre-render.js` requires
+both JSON files to parse, each to hold exactly the 63 forms (no duplicates, and
+none of the capitals Ъ, Ы and Ь that the reference omits) and the two to agree
+on the set. It checks nothing else.
+
 ## Dependency and tool supply-chain safety
 - Prefer Node built-ins, browser APIs and tools already approved for this repo.
   Cyrilica has no package dependencies, and that is deliberate.
@@ -1226,6 +1282,9 @@ Listen buttons.
   diff, so it cannot pass unnoticed inside a larger change. A passing build cannot
   prove its own checks were not weakened in the same change.
 - Applies to planning recommendations as well as to code.
+- Automated requests (scripts, harness tools and one-off commands alike) identify
+  themselves by the site's public name, for example "Cyrilica research script
+  (cyrilica.com)", never by a personal address or other personal detail.
 
 **The dependency guard** (`assertNoDependencies()`, the first thing `main()` in
 `scripts/pre-render.js` runs, so it runs on every Deploy Preview and production
