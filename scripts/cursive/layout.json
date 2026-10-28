@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "about": "Layout for build-chart.js. Lengths in S1 units unless named Px. S1's own proportions are kept: x-height 12 S1 units, strokes 1.0 wide, slant 22.5 degrees. slantDeg 22.5 means the chart keeps S1's slant unchanged; any other value shears the forms to that slant.",
+  "xHeightPx": 36,
+  "slantDeg": 22.5,
+  "s1SlantDeg": 22.5,
+  "strokeWidth": 1.0,
+  "cellPadding": 2.5,
+  "guides": true,
+  "pageWidthPx": 1600,
+  "deviceScaleFactor": 2,
+  "pngName": "russian-cursive-alphabet-chart-v{version}.png",
+  "blockName": "russian-cursive-chart-block-v{version}.html",
+  "pageName": "russian-cursive-chart-page-v{version}.html"
+}
