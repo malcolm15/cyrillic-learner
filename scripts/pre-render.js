@@ -1183,7 +1183,16 @@ function assertReplaceCallbacks() {
 // It checks geometry, not letterforms: a path that parses and fits can still be
 // the wrong letter. The pen-tip and start dots (circles, not strokes) are not
 // checked.
-const CURSIVE_OPEN = '\nvar CURSIVE_STROKES = {\n';
+// One entry per cursive widget: the article its markup lives in, the id prefix
+// of its markup and generated elements, and the name of its stroke table in
+// js/article-scripts.js. A widget that is not listed here fails the build.
+const CURSIVE_WIDGETS = [
+    { article: 'practice-writing-cyrillic', prefix: 'cursive', table: 'CURSIVE_STROKES' },
+];
+// Stroke tables are named CURSIVE_STROKES or CURSIVE_STROKES_<NAME>, so an
+// unregistered one can be found by its declaration.
+const CURSIVE_TABLE_DECL = /^\s*(?:var|let|const)\s+(CURSIVE_STROKES\w*)\s*=/gm;
+const CURSIVE_SECTION = '\n// ==================== CURSIVE STROKE ORDER ====================\n';
 const CURSIVE_CLOSE = '\n};\n';
 // buildGroup's class choice, which ties an entry's optional flag to a CSS rule.
 const CURSIVE_CLASS_LINE = "class: stroke.optional ? 'cursive-stroke cursive-stroke--opt' : 'cursive-stroke',";
@@ -1205,17 +1214,18 @@ function svgSplit(s) {
     return t ? t.split(new RegExp(SVG_WS + '*,' + SVG_WS + '*|' + SVG_WS + '+')) : [];
 }
 
-function cursiveEntries(src) {
+function cursiveEntries(src, name) {
     const file = 'js/article-scripts.js';
-    if (countOccurrences(src, CURSIVE_OPEN) !== 1) fail(file + ': expected "var CURSIVE_STROKES = {" exactly once, on its own line');
-    const bodyStart = src.indexOf(CURSIVE_OPEN) + CURSIVE_OPEN.length;
+    const opener = '\nvar ' + name + ' = {\n';
+    if (countOccurrences(src, opener) !== 1) fail(file + ': expected "var ' + name + ' = {" exactly once, on its own line');
+    const bodyStart = src.indexOf(opener) + opener.length;
     const end = src.indexOf(CURSIVE_CLOSE, bodyStart);
-    if (end === -1) fail(file + ': could not find the closing "};" of CURSIVE_STROKES');
+    if (end === -1) fail(file + ': could not find the closing "};" of ' + name);
     const lines = src.slice(bodyStart, end).split('\n');
     const entries = [];
     let open = null;
     lines.forEach(function (line, i) {
-        const where = file + ' CURSIVE_STROKES line ' + (i + 1) + ': ';
+        const where = file + ' ' + name + ' line ' + (i + 1) + ': ';
         let m;
         if (/^ {4}\/\/( |$)/.test(line)) return;
         if ((m = /^ {4}'([^'\\])': \[$/.exec(line))) {
@@ -1243,10 +1253,10 @@ function cursiveEntries(src) {
         }
         fail(where + 'not a comment, entry, stroke or closing line in the expected shape: ' + JSON.stringify(line));
     });
-    if (open) fail(file + ': CURSIVE_STROKES entry \'' + open.letter + '\' never closes');
-    if (!entries.length) fail(file + ': CURSIVE_STROKES has no entries');
+    if (open) fail(file + ': ' + name + ' entry \'' + open.letter + '\' never closes');
+    if (!entries.length) fail(file + ': ' + name + ' has no entries');
     entries.forEach(function (e, k) {
-        if (e.comma !== (k < entries.length - 1)) fail(file + ': CURSIVE_STROKES entry \'' + e.letter + '\'' + (e.comma ? ' has a trailing comma' : ' is missing its comma'));
+        if (e.comma !== (k < entries.length - 1)) fail(file + ': ' + name + ' entry \'' + e.letter + '\'' + (e.comma ? ' has a trailing comma' : ' is missing its comma'));
     });
     return entries;
 }
@@ -1354,48 +1364,68 @@ function cssDecl(body, prop) {
     return found.map(function (d) { return d.slice(d.indexOf(':') + 1).trim(); });
 }
 
-function assertCursiveStrokes() {
+function assertCursiveStrokes(articles) {
     const scriptsSrc = fs.readFileSync(path.join(ROOT, 'js', 'article-scripts.js'), 'utf8');
     const articlesSrc = fs.readFileSync(path.join(ROOT, 'js', 'articles.js'), 'utf8');
     const cssSrc = fs.readFileSync(path.join(ROOT, 'css', 'styles.css'), 'utf8');
-    const entries = cursiveEntries(scriptsSrc);
     if (countOccurrences(scriptsSrc, CURSIVE_CLASS_LINE) !== 1) {
         fail('js/article-scripts.js: buildGroup must choose the stroke class with exactly this line, once: ' + CURSIVE_CLASS_LINE);
     }
 
-    // The picker's letters and the entries are the same set.
-    const buttons = [];
-    (articlesSrc.match(/<button\b[^>]*>/g) || []).forEach(function (tag) {
-        const cls = /\sclass="([^"]*)"/.exec(tag);
-        if (!cls || cls[1].split(/\s+/).indexOf('cursive-letter-btn') === -1) return;
-        const letter = /\sdata-letter="([^"]*)"/.exec(tag);
-        if (!letter) fail('js/articles.js: a .cursive-letter-btn has no data-letter: ' + tag);
-        if (buttons.indexOf(letter[1]) !== -1) fail('js/articles.js: two .cursive-letter-btn buttons offer \'' + letter[1] + '\'');
-        buttons.push(letter[1]);
+    // ---- the registry: every widget, stage, factory call and stroke table is listed ----
+    const prefixes = CURSIVE_WIDGETS.map(function (w) { return w.prefix; });
+    const tableNames = CURSIVE_WIDGETS.map(function (w) { return w.table; });
+    prefixes.forEach(function (p, i) { if (prefixes.indexOf(p) !== i) fail('scripts/pre-render.js CURSIVE_WIDGETS: prefix "' + p + '" is listed twice'); });
+    tableNames.forEach(function (t, i) { if (tableNames.indexOf(t) !== i) fail('scripts/pre-render.js CURSIVE_WIDGETS: table ' + t + ' is listed twice'); });
+    const declared = [];
+    let decl;
+    CURSIVE_TABLE_DECL.lastIndex = 0;
+    while ((decl = CURSIVE_TABLE_DECL.exec(scriptsSrc))) declared.push(decl[1]);
+    declared.forEach(function (t) {
+        if (tableNames.indexOf(t) === -1) fail('js/article-scripts.js: stroke table ' + t + ' is not in CURSIVE_WIDGETS in scripts/pre-render.js');
     });
-    if (!buttons.length) fail('js/articles.js: found no .cursive-letter-btn buttons');
-    const keys = entries.map(function (e) { return e.letter; });
-    buttons.forEach(function (b) { if (keys.indexOf(b) === -1) fail('js/articles.js: the picker offers \'' + b + '\', which has no CURSIVE_STROKES entry'); });
-    keys.forEach(function (k) { if (buttons.indexOf(k) === -1) fail('js/article-scripts.js: CURSIVE_STROKES entry \'' + k + '\' has no .cursive-letter-btn in the picker'); });
-
-    // The box and the transform, from the widget markup.
-    const svgTags = articlesSrc.match(/<svg\b[^>]*\sid="cursive-stage"[^>]*>/g) || [];
-    if (svgTags.length !== 1) fail('js/articles.js: expected one <svg id="cursive-stage">, found ' + svgTags.length);
-    const vbAttr = /\sviewBox="([^"]*)"/.exec(svgTags[0]);
-    if (!vbAttr) fail('js/articles.js: <svg id="cursive-stage"> has no viewBox');
-    const vb = svgSplit(vbAttr[1]);
-    if (vb.length !== 4 || !vb.every(function (v) { return CURSIVE_NUMBER.test(v); }) || !(Number(vb[2]) > 0 && Number(vb[3]) > 0)) {
-        fail('js/articles.js: cannot read the cursive-stage viewBox ' + JSON.stringify(vbAttr[1]));
+    tableNames.forEach(function (t) {
+        const n = declared.filter(function (d) { return d === t; }).length;
+        if (n !== 1) fail('js/article-scripts.js: expected one declaration of ' + t + ', found ' + n);
+    });
+    const calls = countOccurrences(scriptsSrc, 'initCursiveWidget(') - countOccurrences(scriptsSrc, 'function initCursiveWidget(');
+    if (countOccurrences(scriptsSrc, 'function initCursiveWidget(') !== 1) fail('js/article-scripts.js: expected one definition of initCursiveWidget');
+    CURSIVE_WIDGETS.forEach(function (w) {
+        const call = "initCursiveWidget('" + w.prefix + "', " + w.table + ',';
+        const n = countOccurrences(scriptsSrc, call);
+        if (n !== 1) fail('js/article-scripts.js: expected ' + call + ' exactly once, found ' + n);
+    });
+    if (calls !== CURSIVE_WIDGETS.length) {
+        fail('js/article-scripts.js: ' + calls + ' initCursiveWidget calls, but CURSIVE_WIDGETS lists ' + CURSIVE_WIDGETS.length + ' widget' + (CURSIVE_WIDGETS.length === 1 ? '' : 's'));
     }
-    const box = { left: Number(vb[0]), top: Number(vb[1]), right: Number(vb[0]) + Number(vb[2]), bottom: Number(vb[1]) + Number(vb[3]) };
-    const groupTags = articlesSrc.match(/<g\b[^>]*\sid="cursive-letter-group"[^>]*>/g) || [];
-    if (groupTags.length !== 1) fail('js/articles.js: expected one <g id="cursive-letter-group">, found ' + groupTags.length);
-    const tfAttr = /\stransform="([^"]*)"/.exec(groupTags[0]);
-    if (!tfAttr) fail('js/articles.js: <g id="cursive-letter-group"> has no transform');
-    const mat = parseSvgTransform(tfAttr[1], 'js/articles.js cursive-letter-group transform');
+    const stageTags = (articlesSrc.match(/<svg\b[^>]*>/g) || []).filter(function (tag) {
+        const cls = /\sclass="([^"]*)"/.exec(tag);
+        return cls && cls[1].split(/\s+/).indexOf('cursive-stage') !== -1;
+    });
+    if (stageTags.length !== CURSIVE_WIDGETS.length) {
+        fail('js/articles.js: ' + stageTags.length + ' cursive stage svg' + (stageTags.length === 1 ? '' : 's') + ', but CURSIVE_WIDGETS lists ' + CURSIVE_WIDGETS.length + ' widget' + (CURSIVE_WIDGETS.length === 1 ? '' : 's'));
+    }
 
-    // Stroke widths, caps and joins, from the CSS. The optional class must come
-    // after the base rule, since a stroke carrying both takes the later width.
+    // ---- script may not move a letter group (a text check, so it has limits) ----
+    // Outside the cursive section, nothing may name a letter group. Inside it, no
+    // transform, standalone translate/rotate/scale, wholesale style write or
+    // viewBox write may appear. Indirection (a helper defined elsewhere, or a
+    // selector that never names letter-group) is not detected.
+    if (countOccurrences(scriptsSrc, CURSIVE_SECTION) !== 1) fail('js/article-scripts.js: expected the CURSIVE STROKE ORDER section header exactly once');
+    const sectionAt = scriptsSrc.indexOf(CURSIVE_SECTION);
+    const section = scriptsSrc.slice(sectionAt);
+    const before = scriptsSrc.slice(0, sectionAt);
+    if (before.indexOf('letter-group') !== -1) fail('js/article-scripts.js: "letter-group" appears outside the CURSIVE STROKE ORDER section; only the widget may reach the group');
+    ['transform', '.style.translate', '.style.rotate', '.style.scale', '.style =', '.style=', 'cssText', "setAttribute('style'", 'setAttribute("style"',
+     '.style[', 'setProperty(', 'setAttributeNS(', "setAttribute('viewBox'", 'setAttribute("viewBox"'].forEach(function (needle) {
+        if (section.indexOf(needle) !== -1) {
+            fail('js/article-scripts.js: the CURSIVE STROKE ORDER section contains "' + needle + '"; the letter group\'s geometry and the stage box must come only from the markup, which the box check reads');
+        }
+    });
+
+    // ---- stroke widths, caps and joins, from the CSS (shared by every widget) ----
+    // The optional class must come after the base rule, since a stroke carrying
+    // both takes the later width.
     const rules = cssRules(cssSrc);
     const base = rules.filter(function (r) { return r.sel === '.cursive-stroke'; });
     const opt = rules.filter(function (r) { return r.sel === '.cursive-stroke--opt'; });
@@ -1414,12 +1444,13 @@ function assertCursiveStrokes() {
         const v = cssDecl(base[0].body, p);
         if (v.length !== 1 || v[0] !== 'round') fail('css/styles.css: .cursive-stroke must set ' + p + ': round, which the margin below assumes (found ' + JSON.stringify(v) + ')');
     });
-    // Every rule naming a cursive stroke, stage or group, the two read above
-    // included, may set none of the properties below beyond what was read.
-    // translate, scale and rotate are the standalone transform properties; a
-    // CSS d property would replace the path itself.
+    // Every rule naming a cursive stroke, stage or group, or one of a widget's
+    // generated ids, the two read above included, may set none of the
+    // properties below beyond what was read. translate, scale and rotate are the
+    // standalone transform properties; a CSS d property would replace the path itself.
+    const namesWidget = new RegExp('cursive-(?:stroke|stage|letter-group)|#(?:' + prefixes.join('|') + ')-(?:path|dot|stage|letter-group)');
     rules.forEach(function (r) {
-        if (!/cursive-(?:stroke|stage|letter-group)/.test(r.sel)) return;
+        if (!namesWidget.test(r.sel)) return;
         const read = r === base[0] ? ['stroke-width', 'stroke-linecap', 'stroke-linejoin'] : r === opt[0] ? ['stroke-width'] : [];
         ['stroke-width', 'stroke-linecap', 'stroke-linejoin', 'transform', 'translate', 'scale', 'rotate', 'vector-effect', 'd'].forEach(function (p) {
             if (read.indexOf(p) !== -1) return;
@@ -1427,84 +1458,161 @@ function assertCursiveStrokes() {
         });
     });
 
-    // Round caps and joins put the ink within half the stroke width of the
-    // path, before the transform. The transform maps that disc to an ellipse
-    // whose reach along x is h * sqrt(a^2 + c^2) and along y h * sqrt(b^2 + d^2);
-    // the larger of the two is used on both axes.
-    const stretch = Math.max(Math.hypot(mat[0], mat[2]), Math.hypot(mat[1], mat[3]));
-    const margins = { base: widths.base / 2 * stretch, opt: widths.opt / 2 * stretch };
-    const tx = function (x, y) { return [mat[0] * x + mat[2] * y + mat[4], mat[1] * x + mat[3] * y + mat[5]]; };
-    const problems = [];
-    const tightest = {};
-    let strokeCount = 0;
-    let segmentCount = 0;
-    entries.forEach(function (e) {
-        e.strokes.forEach(function (s, si) {
-            const where = 'CURSIVE_STROKES \'' + e.letter + '\' stroke ' + si;
-            const cmds = parseCursivePath(s.d, where);
-            const margin = s.optional ? margins.opt : margins.base;
-            const ext = { left: [Infinity, -1], right: [-Infinity, -1], top: [Infinity, -1], bottom: [-Infinity, -1] };
-            const note = function (lo, hi, axis, k) {
-                if (axis === 'x') {
-                    if (lo < ext.left[0]) ext.left = [lo, k];
-                    if (hi > ext.right[0]) ext.right = [hi, k];
-                } else {
-                    if (lo < ext.top[0]) ext.top = [lo, k];
-                    if (hi > ext.bottom[0]) ext.bottom = [hi, k];
-                }
-            };
-            let cur = null;
-            let start = null;
-            cmds.forEach(function (c, k) {
-                if (c.cmd === 'M') {
-                    cur = tx(c.args[0], c.args[1]);
-                    start = cur;
-                    note(cur[0], cur[0], 'x', k);
-                    note(cur[1], cur[1], 'y', k);
-                } else if (c.cmd === 'L' || c.cmd === 'Z') {
-                    const p = c.cmd === 'L' ? tx(c.args[0], c.args[1]) : start;
-                    note(Math.min(cur[0], p[0]), Math.max(cur[0], p[0]), 'x', k);
-                    note(Math.min(cur[1], p[1]), Math.max(cur[1], p[1]), 'y', k);
-                    cur = p;
-                } else {
-                    const p1 = tx(c.args[0], c.args[1]);
-                    const p2 = tx(c.args[2], c.args[3]);
-                    const p3 = tx(c.args[4], c.args[5]);
-                    const rx = cubicRange(cur[0], p1[0], p2[0], p3[0]);
-                    const ry = cubicRange(cur[1], p1[1], p2[1], p3[1]);
-                    note(rx[0], rx[1], 'x', k);
-                    note(ry[0], ry[1], 'y', k);
-                    cur = p3;
-                }
-                segmentCount++;
-            });
-            strokeCount++;
-            [['left', 'x', -1], ['right', 'x', 1], ['top', 'y', -1], ['bottom', 'y', 1]].forEach(function (side) {
-                const curve = ext[side[0]][0];
-                const ink = curve + side[2] * margin;
-                const clearance = side[2] * (box[side[0]] - ink);
-                if (!tightest[side[0]] || clearance < tightest[side[0]].clearance) tightest[side[0]] = { clearance: clearance, letter: e.letter };
-                if (clearance < 0) {
-                    problems.push(where + ' (command ' + ext[side[0]][1] + '): ink reaches ' + side[1] + ' ' + ink.toFixed(2) +
-                                  ' (path ' + curve.toFixed(2) + (side[2] < 0 ? ' - ' : ' + ') + margin.toFixed(3) + ' margin), past the viewBox ' +
-                                  side[0] + ' edge ' + side[1] + ' ' + box[side[0]] + ' by ' + (-clearance).toFixed(2));
-                }
+    // ---- per widget ----
+    let pickerButtons = 0;
+    CURSIVE_WIDGETS.forEach(function (w) {
+        const article = articles.filter(function (a) { return a.id === w.article; });
+        if (article.length !== 1) fail('scripts/pre-render.js CURSIVE_WIDGETS: article "' + w.article + '" not found');
+        const html = article[0].content;
+        const stageId = 'id="' + w.prefix + '-stage"';
+        if (countOccurrences(articlesSrc, stageId) !== 1 || countOccurrences(html, stageId) !== 1) {
+            fail('js/articles.js: expected ' + stageId + ' exactly once, inside the ' + w.article + ' article (found ' + countOccurrences(html, stageId) +
+                 ' there, ' + countOccurrences(articlesSrc, stageId) + ' in the file)');
+        }
+        const entries = cursiveEntries(scriptsSrc, w.table);
+
+        // The picker's letters and the entries are the same set. The picker is
+        // read from its own <div> to its first closing </div>, which must hold no other div.
+        const pickerOpen = new RegExp('<div\\b[^>]*\\sid="' + w.prefix + '-picker"[^>]*>', 'g');
+        const pm = html.match(pickerOpen) || [];
+        if (pm.length !== 1) fail('js/articles.js: expected one <div id="' + w.prefix + '-picker"> in ' + w.article + ', found ' + pm.length);
+        const pickerStart = html.indexOf(pm[0]) + pm[0].length;
+        const pickerEnd = html.indexOf('</div>', pickerStart);
+        const picker = html.slice(pickerStart, pickerEnd);
+        if (pickerEnd === -1 || /<div\b/.test(picker)) fail('js/articles.js: the ' + w.prefix + '-picker div must close before any nested div');
+        const buttons = [];
+        (picker.match(/<button\b[^>]*>/g) || []).forEach(function (tag) {
+            const cls = /\sclass="([^"]*)"/.exec(tag);
+            if (!cls || cls[1].split(/\s+/).indexOf('cursive-letter-btn') === -1) return;
+            const letter = /\sdata-letter="([^"]*)"/.exec(tag);
+            if (!letter) fail('js/articles.js: a .cursive-letter-btn has no data-letter: ' + tag);
+            if (buttons.indexOf(letter[1]) !== -1) fail('js/articles.js: two .cursive-letter-btn buttons in ' + w.prefix + '-picker offer \'' + letter[1] + '\'');
+            buttons.push(letter[1]);
+        });
+        if (!buttons.length) fail('js/articles.js: found no .cursive-letter-btn buttons in ' + w.prefix + '-picker');
+        pickerButtons += buttons.length;
+        const keys = entries.map(function (e) { return e.letter; });
+        buttons.forEach(function (b) { if (keys.indexOf(b) === -1) fail('js/articles.js: the picker offers \'' + b + '\', which has no ' + w.table + ' entry'); });
+        keys.forEach(function (k) { if (buttons.indexOf(k) === -1) fail('js/article-scripts.js: ' + w.table + ' entry \'' + k + '\' has no .cursive-letter-btn in the picker'); });
+
+        // The stage: only guide lines and one empty letter group whose only
+        // attributes are id and transform, in that order. No wrapper, no style.
+        const svgOpen = new RegExp('<svg\\b[^>]*\\s' + stageId + '[^>]*>');
+        const svgTag = svgOpen.exec(html);
+        if (!svgTag) fail('js/articles.js: cannot read the <svg ' + stageId + '> tag');
+        const vbAttr = /\sviewBox="([^"]*)"/.exec(svgTag[0]);
+        if (!vbAttr) fail('js/articles.js: <svg ' + stageId + '> has no viewBox');
+        const vb = svgSplit(vbAttr[1]);
+        if (vb.length !== 4 || !vb.every(function (v) { return CURSIVE_NUMBER.test(v); }) || !(Number(vb[2]) > 0 && Number(vb[3]) > 0)) {
+            fail('js/articles.js: cannot read the ' + w.prefix + '-stage viewBox ' + JSON.stringify(vbAttr[1]));
+        }
+        const box = { left: Number(vb[0]), top: Number(vb[1]), right: Number(vb[0]) + Number(vb[2]), bottom: Number(vb[1]) + Number(vb[3]) };
+        const innerStart = svgTag.index + svgTag[0].length;
+        const innerEnd = html.indexOf('</svg>', innerStart);
+        if (innerEnd === -1) fail('js/articles.js: <svg ' + stageId + '> is never closed');
+        const inner = html.slice(innerStart, innerEnd);
+        const groupRe = new RegExp('<g id="' + w.prefix + '-letter-group" transform="([^"]*)"></g>', 'g');
+        const groups = inner.match(groupRe) || [];
+        if (groups.length !== 1) {
+            fail('js/articles.js: the ' + w.prefix + '-stage svg must hold exactly one <g id="' + w.prefix + '-letter-group" transform="..."></g>, ' +
+                 'empty and with only those two attributes, found ' + groups.length);
+        }
+        const tfAttr = /transform="([^"]*)"/.exec(groups[0]);
+        const rest = inner.replace(groupRe, '').replace(/<line class="cursive-guide"[^<>]*\/>/g, '');
+        if (rest.trim() !== '') {
+            fail('js/articles.js: the ' + w.prefix + '-stage svg may hold only <line class="cursive-guide" .../> elements and the bare letter group; ' +
+                 'found ' + JSON.stringify(rest.trim().slice(0, 80)));
+        }
+        const mat = parseSvgTransform(tfAttr[1], 'js/articles.js ' + w.prefix + '-letter-group transform');
+
+        // Round caps and joins put the ink within half the stroke width of the
+        // path, before the transform. The transform maps that disc to an ellipse
+        // whose reach along x is h * sqrt(a^2 + c^2) and along y h * sqrt(b^2 + d^2);
+        // the larger of the two is used on both axes.
+        const stretch = Math.max(Math.hypot(mat[0], mat[2]), Math.hypot(mat[1], mat[3]));
+        const margins = { base: widths.base / 2 * stretch, opt: widths.opt / 2 * stretch };
+        const tx = function (x, y) { return [mat[0] * x + mat[2] * y + mat[4], mat[1] * x + mat[3] * y + mat[5]]; };
+        const problems = [];
+        const tightest = {};
+        let strokeCount = 0;
+        let segmentCount = 0;
+        entries.forEach(function (e) {
+            e.strokes.forEach(function (s, si) {
+                const where = w.table + ' \'' + e.letter + '\' stroke ' + si;
+                const cmds = parseCursivePath(s.d, where);
+                const margin = s.optional ? margins.opt : margins.base;
+                const ext = { left: [Infinity, -1], right: [-Infinity, -1], top: [Infinity, -1], bottom: [-Infinity, -1] };
+                const note = function (lo, hi, axis, k) {
+                    if (axis === 'x') {
+                        if (lo < ext.left[0]) ext.left = [lo, k];
+                        if (hi > ext.right[0]) ext.right = [hi, k];
+                    } else {
+                        if (lo < ext.top[0]) ext.top = [lo, k];
+                        if (hi > ext.bottom[0]) ext.bottom = [hi, k];
+                    }
+                };
+                let cur = null;
+                let start = null;
+                cmds.forEach(function (c, k) {
+                    if (c.cmd === 'M') {
+                        cur = tx(c.args[0], c.args[1]);
+                        start = cur;
+                        note(cur[0], cur[0], 'x', k);
+                        note(cur[1], cur[1], 'y', k);
+                    } else if (c.cmd === 'L' || c.cmd === 'Z') {
+                        const p = c.cmd === 'L' ? tx(c.args[0], c.args[1]) : start;
+                        note(Math.min(cur[0], p[0]), Math.max(cur[0], p[0]), 'x', k);
+                        note(Math.min(cur[1], p[1]), Math.max(cur[1], p[1]), 'y', k);
+                        cur = p;
+                    } else {
+                        const p1 = tx(c.args[0], c.args[1]);
+                        const p2 = tx(c.args[2], c.args[3]);
+                        const p3 = tx(c.args[4], c.args[5]);
+                        const rx = cubicRange(cur[0], p1[0], p2[0], p3[0]);
+                        const ry = cubicRange(cur[1], p1[1], p2[1], p3[1]);
+                        note(rx[0], rx[1], 'x', k);
+                        note(ry[0], ry[1], 'y', k);
+                        cur = p3;
+                    }
+                    segmentCount++;
+                });
+                strokeCount++;
+                [['left', 'x', -1], ['right', 'x', 1], ['top', 'y', -1], ['bottom', 'y', 1]].forEach(function (side) {
+                    const curve = ext[side[0]][0];
+                    const ink = curve + side[2] * margin;
+                    const clearance = side[2] * (box[side[0]] - ink);
+                    if (!tightest[side[0]] || clearance < tightest[side[0]].clearance) tightest[side[0]] = { clearance: clearance, letter: e.letter };
+                    if (clearance < 0) {
+                        problems.push(where + ' (command ' + ext[side[0]][1] + '): ink reaches ' + side[1] + ' ' + ink.toFixed(2) +
+                                      ' (path ' + curve.toFixed(2) + (side[2] < 0 ? ' - ' : ' + ') + margin.toFixed(3) + ' margin), past the viewBox ' +
+                                      side[0] + ' edge ' + side[1] + ' ' + box[side[0]] + ' by ' + (-clearance).toFixed(2));
+                    }
+                });
             });
         });
+        if (problems.length) fail('cursive strokes outside the widget box (the stage clips at its viewBox):\n  ' + problems.join('\n  '));
+        console.log('Cursive strokes passed: ' + w.article + ' (prefix ' + w.prefix + ', table ' + w.table + '): ' + keys.length + ' entries (' + keys.join(' ') +
+                    ') match the ' + buttons.length + ' picker buttons; ' + strokeCount + ' strokes, ' + segmentCount + ' commands, absolute M/C/L/Z only; viewBox ' +
+                    vbAttr[1] + ', group transform ' + tfAttr[1] + ', stroke widths ' + widths.base + ' and ' + widths.opt +
+                    ' (optional) with round caps and joins, margins ' + margins.base.toFixed(3) + ' and ' + margins.opt.toFixed(3) + ' (half width x ' +
+                    stretch.toFixed(4) + '); every stroke inside the box, tightest ' +
+                    ['left', 'right', 'top', 'bottom'].map(function (s) { return s + ' ' + tightest[s].clearance.toFixed(2) + ' (' + tightest[s].letter + ')'; }).join(', ') + '.');
     });
-    if (problems.length) fail('cursive strokes outside the widget box (the stage clips at its viewBox):\n  ' + problems.join('\n  '));
-    console.log('Cursive strokes passed: ' + keys.length + ' entries (' + keys.join(' ') + ') match the ' + buttons.length + ' picker buttons; ' +
-                strokeCount + ' strokes, ' + segmentCount + ' commands, absolute M/C/L/Z only; viewBox ' + vbAttr[1] + ', group transform ' + tfAttr[1] +
-                ', stroke widths ' + widths.base + ' and ' + widths.opt + ' (optional) with round caps and joins, margins ' + margins.base.toFixed(3) +
-                ' and ' + margins.opt.toFixed(3) + ' (half width x ' + stretch.toFixed(4) + '); every stroke inside the box, tightest ' +
-                ['left', 'right', 'top', 'bottom'].map(function (s) { return s + ' ' + tightest[s].clearance.toFixed(2) + ' (' + tightest[s].letter + ')'; }).join(', ') + '.');
+    const allButtons = (articlesSrc.match(/<button\b[^>]*>/g) || []).filter(function (tag) {
+        const cls = /\sclass="([^"]*)"/.exec(tag);
+        return cls && cls[1].split(/\s+/).indexOf('cursive-letter-btn') !== -1;
+    }).length;
+    if (allButtons !== pickerButtons) fail('js/articles.js: ' + allButtons + ' .cursive-letter-btn buttons, but only ' + pickerButtons + ' sit inside a registered widget picker');
+    console.log('Cursive registry passed: ' + CURSIVE_WIDGETS.length + ' widget' + (CURSIVE_WIDGETS.length === 1 ? '' : 's') + ' (' + prefixes.join(', ') + '), ' +
+                stageTags.length + ' stage svg' + (stageTags.length === 1 ? '' : 's') + ', ' + calls + ' initCursiveWidget call' + (calls === 1 ? '' : 's') + ', ' +
+                declared.length + ' stroke table' + (declared.length === 1 ? '' : 's') + ' (' + declared.join(', ') + '), all listed; each stage holds only guide lines ' +
+                'and one bare letter group; no transform, translate, rotate, scale, style or viewBox write in the cursive section, and no letter-group reference outside it.');
 }
 
 function main() {
     assertNoDependencies();
     assertSecurityHeaders();
     assertReplaceCallbacks();
-    assertCursiveStrokes();
     const template = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     let scriptContractChecked = assertScriptContract(template, 'index.html');
     const articlesSrc = fs.readFileSync(path.join(ROOT, 'js', 'articles.js'), 'utf8');
@@ -1544,6 +1652,7 @@ function main() {
     if (articles.length !== Object.keys(HEADS).length) {
         fail('parsed ' + articles.length + ' articles but article-heads.ts has ' + Object.keys(HEADS).length + ' entries');
     }
+    assertCursiveStrokes(articles);
 
     // ---- data: shared page-head artifact for the SPA routes (same file the edge function imports) ----
     // PAGE_META in core.js is the source of truth; the artifact must equal it,

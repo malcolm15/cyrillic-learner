@@ -118,10 +118,12 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
   `netlify/lib/article-heads.ts` and `netlify/lib/page-heads.ts`, committed) then
   pre-render.js. The articles/ output directory is a gitignored deploy artifact,
   never committed.
-- `scripts/images/`: Pillow (Python) generators for four comparison images
-  (Ukrainian, Bulgarian, and the two Serbian ones). Run by hand, never by the
-  build. Each resolves the repo root from its own path and writes into images/,
-  so it can be run from any directory. The `/scripts/*` 404 rule in _redirects
+- `scripts/images/`: Pillow (Python) generators for five comparison images:
+  `make_ukrainian_image.py`, `make_belarusian_image.py`,
+  `make_bulgarian_image.py`, and the two Serbian ones, `make_serbian_image.py`
+  and `make_serbian_letters_image.py`. Run by hand, never by the build. Each
+  resolves the repo root from its own path and writes into images/, so it can
+  be run from any directory. The `/scripts/*` 404 rule in _redirects
   keeps them off the live site.
   `scripts/images/layout.py` is the shared layout helper: `baseline_row()` draws
   mixed fonts on one baseline using Pillow's `anchor="ls"`, and
@@ -1069,38 +1071,97 @@ and м pass; ш is provisional, because the guide shows no direction arrows on i
 stems. None is yet verified by a native speaker; corrections are deliberate
 one-path edits in `CURSIVE_STROKES`.
 
+**The cursive widget factory.** The engine is `initCursiveWidget(prefix,
+strokes, opts)` in `js/article-scripts.js`; each article that carries a widget
+calls it once from its `ArticleScripts` entry. practice-writing-cyrillic calls
+`initCursiveWidget('cursive', CURSIVE_STROKES, { initial: 'т', descenders: ['д']
+})`. `prefix` scopes every id the widget reads from its markup
+(`<prefix>-picker`, `-stage`, `-letter-group`, `-caption`, `-replay`, `-slow`,
+`-guide-descender`) and every id it generates (`<prefix>-dot-start`,
+`<prefix>-path-N`, `<prefix>-dot-tip-N`), so two widgets on one page cannot
+collide. `strokes` is the widget's stroke table; both options are required:
+`opts.initial` is the letter preselected on load (drawn statically, caption left
+as the HTML placeholder) and `opts.descenders` the array of letters that show
+the descender guide (empty if none). Classes are shared (`.cursive-stroke`,
+`.cursive-letter-btn` and so on), so every widget takes the same stroke widths.
+The engine reads no geometry: the viewBox, guide lines and slant live only in
+each widget's markup. Replay plays even under `prefers-reduced-motion` (letter
+taps fall back to the static letter); that is existing behaviour, logged
+separately, not part of the factory.
+
+**Adding a cursive widget.** (1) Markup in the article's content, copied from
+practice-writing-cyrillic with every id renamed to the new prefix; its own
+viewBox, guide `<line class="cursive-guide" .../>` elements and letter-group
+`transform`. (2) A stroke table named `CURSIVE_STROKES_<NAME>` in
+`js/article-scripts.js`, in the same one-entry-per-line grammar, inside the
+CURSIVE STROKE ORDER section. (3) One call, `initCursiveWidget('<prefix>',
+CURSIVE_STROKES_<NAME>, {...})`, from the article's `ArticleScripts` entry. (4)
+A line in `CURSIVE_WIDGETS` in `scripts/pre-render.js` with the article slug,
+prefix and table name. (5) The article's `.cursive-letter-btn` count in
+`ARTICLE_GUARDS`. Missing any of (1) to (4) fails the build. A second table that
+repeats letters in the same coordinate system as `CURSIVE_STROKES` is two copies
+that can drift; share the table instead unless the coordinates differ.
+
 **The stroke-path build check** (`assertCursiveStrokes()` in
-`scripts/pre-render.js`, run on every build before any page is emitted). It reads
-`CURSIVE_STROKES` from `js/article-scripts.js` as text, never evaluating it, and
-fails closed on any line that is not a comment, an entry, a stroke
-(`{ d: '...', optional: true|false, label: null|'...' }`) or a closing bracket.
-It takes the geometry the browser uses from the files that define it: the stage
-viewBox and the letter group's transform from the practice-writing-cyrillic
-markup in `js/articles.js`, the stroke widths of `.cursive-stroke` and
-`.cursive-stroke--opt` and the round caps and joins from `css/styles.css`, and
-buildGroup's class line, which ties `optional` to the second class. The build
-fails if any of them cannot be read, or if any rule whose selector names
-`cursive-stroke`, `cursive-stage` or `cursive-letter-group` (the two stroke rules
-included) sets a property the check does not model: a stroke width, cap or join
-beyond the ones read, `transform`, `translate`, `scale`, `rotate`,
-`vector-effect` or `d`. It does not see a rule that reaches the paths through
-some other selector (`svg path`, `#cursive-path-0`), nor a transform on a wrapper
-element added around the group in the markup; avoid both, or extend the check.
-It asserts: the picker's `.cursive-letter-btn` letters and the `CURSIVE_STROKES`
-keys are the same set; every `d` uses only absolute M, C, L and Z, starts with
-M, and gives each command exactly its own count of plain numbers (2, 6, 2, 0; no
-implicit repeats), separated only by SVG whitespace (space, tab, LF, FF, CR) or
-commas, since a browser rejects a path or transform holding a no-break space;
-and every stroke stays inside the viewBox once drawn. For the last, it maps
-every point through the group transform (the rightmost function acts first, so
-skewX before translate), takes each cubic's exact x and y range from its
-endpoints and the roots of its derivative in (0, 1), and widens it by half the
-stroke width times the transform's stretch (1.0154 for skewX(-10), so 3.554 for
-the 7-wide stroke and 2.539 for the 5-wide one). Round caps and joins add
-nothing beyond that. The pass line prints the values read and the tightest
-clearance on each edge. It checks geometry, not letterforms: a path that parses
-and fits can still be the wrong letter. The pen-tip and start dots are circles,
-not strokes, and are not checked.
+`scripts/pre-render.js`, run on every build right after the articles are parsed,
+before any page is emitted). It is driven by the `CURSIVE_WIDGETS` registry, one
+entry per widget: article slug, id prefix and stroke-table name. It fails closed
+if the number of cursive stage svgs (`class` containing `cursive-stage`) in
+`js/articles.js` differs from the registry length; if any `<prefix>-stage` is
+not exactly once in the file and inside its own article; if
+`initCursiveWidget('<prefix>', <TABLE>,` is not called exactly once per entry,
+or the total number of calls differs from the registry length; or if any stroke
+table (a declaration named `CURSIVE_STROKES` or `CURSIVE_STROKES_<NAME>`) is not
+in the registry. It reads each registered table as text, never evaluating it,
+and fails closed on any line that is not a comment, an entry, a stroke (`{ d:
+'...', optional: true|false, label: null|'...' }`) or a closing bracket. Per
+widget, it takes the geometry the browser uses from the files that define it:
+the viewBox and the letter group's transform from that widget's markup, the
+stroke widths of `.cursive-stroke` and `.cursive-stroke--opt` and the round caps
+and joins from `css/styles.css`, and buildGroup's class line, which ties
+`optional` to the second class. Each widget prints its own pass line, and a
+registry line follows.
+
+The structural check: each stage svg may hold only `<line class="cursive-guide"
+.../>` elements and exactly one empty `<g id="<prefix>-letter-group"
+transform="..."></g>` whose only attributes are `id` and `transform`, in that
+order, so a wrapper `<g>`, an inline `style` or a second group fails. In
+`js/article-scripts.js`, the string `letter-group` may appear only in the
+CURSIVE STROKE ORDER section, and that section (which runs to the end of the
+file) may not contain `transform` (comments included), `.style.translate`,
+`.style.rotate`, `.style.scale`, `.style =`, `cssText`, `setAttribute('style'`,
+`.style[`, `setProperty(`, `setAttributeNS(` or `setAttribute('viewBox'`. This
+is a text check: it stops direct writes in the widget code, but not indirection,
+such as a helper defined above the section that the widget calls with the group,
+or code elsewhere that reaches the group through a selector that never names
+`letter-group`. Avoid both. Because the script check covers everything from the
+CURSIVE STROKE ORDER header to the end of js/article-scripts.js, add new article
+scripts above that section, not below it. The build also fails if any rule whose
+selector names `cursive-stroke`, `cursive-stage` or `cursive-letter-group`, or a
+widget's generated ids (`#<prefix>-path-N`, `#<prefix>-dot-...`), the two stroke
+rules included, sets a property the check does not model: a stroke width, cap or
+join beyond the ones read, `transform`, `translate`, `scale`, `rotate`,
+`vector-effect` or `d`. It still does not see a rule that reaches the paths
+through some other selector (`svg path`); avoid that, or extend the check. It
+asserts, per widget: the `.cursive-letter-btn` letters inside that widget's
+picker (`<div id="<prefix>-picker">` to its first `</div>`, which must hold no
+other div) and the table's keys are the same set, with duplicates checked only
+within the widget, so two widgets may both offer т, and every
+`.cursive-letter-btn` in the file sits in some registered picker; every `d` uses
+only absolute M, C, L and Z, starts with M, and gives each command exactly its
+own count of plain numbers (2, 6, 2, 0; no implicit repeats), separated only by
+SVG whitespace (space, tab, LF, FF, CR) or commas, since a browser rejects a
+path or transform holding a no-break space; and every stroke stays inside the
+viewBox once drawn. For the last, it maps every point through the group
+transform (the rightmost function acts first, so skewX before translate), takes
+each cubic's exact x and y range from its endpoints and the roots of its
+derivative in (0, 1), and widens it by half the stroke width times the
+transform's stretch (1.0154 for skewX(-10), so 3.554 for the 7-wide stroke and
+2.539 for the 5-wide one). Round caps and joins add nothing beyond that. The
+pass line prints the values read and the tightest clearance on each edge. It
+checks geometry, not letterforms: a path that parses and fits can still be the
+wrong letter. The pen-tip and start dots are circles, not strokes, and are not
+checked.
 
 **Localisation seam** (js/core.js): `window.QUIZ_PAGE`, read once into
 `QUIZ_PAGE`, is the only per-page localisation input core.js accepts. It is
