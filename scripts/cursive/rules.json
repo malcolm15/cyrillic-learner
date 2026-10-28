@@ -1,0 +1,2822 @@
+{
+  "about": "Per-letter table for extract.js (layer 1, shapes). Decided by hand from S1 alone: the subpaths of each form (the Phase 1 inventory), how their segments chain, each piece's role, what is dropped and why, and the ambiguities. A piece is \"<subpath>.<segment>[r] <role>\"; r means traversed backwards. Roles: body, entry, exit, dot, breve, bar, tail. A drop is a duplicate (names the kept segment it repeats in \"of\"), a sliver (shorter than 0.4) or other (names, in \"along\", the kept segment it lies on along its whole length). keepFree lists free chain ends, named by the S1 segment and its own start or end, that are never snapped, so S1's gap there is kept exactly.",
+  "rows": {
+    "1": {
+      "baseline": 38.254,
+      "xHeight": 12,
+      "note": "INFERRED (Phase 1 prototype): row 1 holds only capitals, so its baseline is the median bottom of 23 row-1 capitals minus the median 0.297 by which 13 row-2 capitals sit below 87.45. x-height taken as 12, the same pen size as rows 2 and 3."
+    },
+    "2": {
+      "baseline": 87.45,
+      "xHeight": 12,
+      "note": "Measured in Batch 71 from S1's lowercase in row 2 (baseline 87.45, x-height line 75.45)."
+    },
+    "3": {
+      "baseline": 132.45,
+      "xHeight": 12,
+      "note": "Measured in Batch 71 from S1's lowercase in row 3 (baseline 132.45, x-height line 120.45)."
+    }
+  },
+  "splits": [
+    {
+      "forms": ["а", "б"],
+      "ends": 11,
+      "starts": 10,
+      "at": [400.6, 84.05],
+      "note": "S1 draws one hairline from а's stem foot into б's bowl and splits it into #11 and #10 at this point, the only ink contact between two lowercase forms. а keeps #11 as its exit and б takes #10 as its entry (a Phase 1 inference, recorded in both forms' ambiguities)."
+    }
+  ],
+  "forms": [
+    {
+      "char": "А",
+      "name": "capital a",
+      "row": 1,
+      "subpaths": [234, 235, 236, 237, 238, 239, 240, 241],
+      "chains": [
+        {
+          "pieces": ["239.0 body", "235.6 body", "235.0 body", "235.1 body", "235.2 body", "241.0 body"]
+        },
+        {
+          "pieces": ["234.3r body", "234.2r body", "234.1r body", "234.0r body", "236.0r body", "235.5r body", "235.4r body", "238.0 body", "237.0 exit"]
+        },
+        {
+          "pieces": ["235.3 body", "240.0r body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "#235 is one closed subpath that carries the left diagonal, the right stem, the curved second leg and part of the crossbar, so it has to be split across chains.",
+          "choice": "Split at its junctions: 235.6, 235.0, 235.1, 235.2 run with the lead tail #239 as one line (lead tail, diagonal up, stem down); 235.5 and 235.4 run in the crossbar chain; 235.3 runs with #240 as the second leg.",
+          "why": "At J11 (16.1,33.45) the lead tail #239 continues into 235.6 at 1.9 degrees while #236 and 235.5 form the straight crossbar through the same point; at J9 (21.9,33.3) 235.3 continues into #240 reversed at 0.3 degrees while 235.4 and #238 carry the crossbar on."
+        },
+        {
+          "issue": "#234 (crossbar loop) ends 0.492 short of #235 at (19.25,29.1); the nearest point is at t=0.003 of 235.0, i.e. next to the J5 endpoint.",
+          "choice": "Left open as S1 draws it. The extractor does not snap it because the near point is an endpoint, not the inside of a piece.",
+          "why": "The inventory notes the loop only closes at rendered width 1.0. Closing it would move S1 ink; a reviewer may want to confirm that the 0.49 gap is acceptable at display width."
+        },
+        {
+          "issue": "#241 is a 0.38-unit stub at the foot of the right stem, continuing the stem line past the cusp at (21.75,38.5).",
+          "choice": "Kept, chained as the continuation of the stem (235.2 to 241.0 is 1.3 degrees); the second leg 235.3 starts its own chain at the cusp.",
+          "why": "Tiny real stub that sits on the stem line, not a crossing artefact; drafting rules keep foot stubs. At the branch J8 the stem runs straight on into #241 while 235.3 turns back 171.5 degrees."
+        },
+        {
+          "issue": "235.4 is a 0.381-unit crossbar piece, under the sliver length.",
+          "choice": "Kept in the crossbar chain.",
+          "why": "It is the only ink between J10 and J9 on the crossbar; dropping it would break the crossbar."
+        },
+        {
+          "issue": "Entry and exit tags. Inventory calls #239 the entry tail and #238 plus #237 the exit flick along the crossbar.",
+          "choice": "#239 body. #237 exit. #238 body. А has no entry piece.",
+          "why": "Batch 73 role convention: entry is only a lead-in join hairline from the left at the joining level; a capital's lead hook, tick or curl is part of the letter. #239 is one cubic that touches the baseline at t=0.5 (8.92,38.57); its second half rises 5.1 units to the crossbar at J11 (16.1,33.45) and is А's lower left leg, so tagging it entry would leave the body-only А with no left foot (the leg would end in mid-air at crossbar height). #238 lies between the second leg (J9) and the right stem (J7), inside the letter; the last point where the crossbar touches the body is the stem crossing at J7, so only #237 leads out. Tagging #238 exit would leave the body-only shape with a broken crossbar."
+        },
+        {
+          "issue": "Smoothing nodes in the crossbar chain: 234.0r to 236.0r 14.9, 236.0r to 235.5r 10.4, 235.5r to 235.4r 14.7, 235.4r to 238.0 18.9 degrees.",
+          "choice": "Left to the extractor (all below 25 degrees).",
+          "why": "None near the 30 degree threshold."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "Б",
+      "name": "capital be",
+      "row": 1,
+      "subpaths": [227, 228, 229, 230, 231],
+      "chains": [
+        {
+          "pieces": ["228.0 bar", "227.0 bar", "227.1 bar"]
+        },
+        {
+          "pieces": ["231.0 body", "229.3 body", "230.2r body", "230.1r body", "229.2r body", "229.1r body", "229.0r body", "229.4r body"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "230.0",
+          "kind": "sliver",
+          "reason": "0.05-unit zero-length L at the start of #230, sitting on the J7 junction (40.6,25.1); no visible ink of its own."
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Role of the detached top bar and its left curl (#228, #227).",
+          "choice": "All three pieces tagged bar, curl included.",
+          "why": "Drafting rules name the top bar of Б as a bar; S1 draws bar and curl as one separate component (c-bar), detached from the stem."
+        },
+        {
+          "issue": "Stem top #231 stops 2.44 units below the bar at (45.1,14.45).",
+          "choice": "Left free, no snap (beyond 0.75).",
+          "why": "S1 leaves the bar unattached; the inventory records it as detached."
+        },
+        {
+          "issue": "#229 (bowl, holding the stem's lower straight piece) and #230 (second loop against that piece) meet at J7 and J8, so the bowl, the stem and the left loop share points.",
+          "choice": "One chain: stem #231 straight into 229.3 (0.1 degrees), then at J8 into the left loop 230.2 reversed (17.2 degrees), back up 230.1 reversed to J7, on into the bowl 229.2 reversed (9.1 degrees), round to 229.4 reversed ending at J8.",
+          "why": "Every node in that run is under 20 degrees; the alternatives (229.3 to 229.4, 74.8 degrees; 229.2 to 229.3, 37.8 degrees) are real corners. The chain passes through J7 and J8 twice, which is S1's own topology."
+        },
+        {
+          "issue": "230.0 is a 0.05-unit L inside #230 at J7.",
+          "choice": "Dropped as a sliver. The extractor then merges the 0.05 gap between 230.1 reversed and 229.2 reversed.",
+          "why": "Zero-length artefact at the junction; no shape. The merge is under the 0.1 threshold."
+        },
+        {
+          "issue": "Inventory: #230 joins #229 at interior vertices and is a separate component.",
+          "choice": "Treated as one form, as assigned.",
+          "why": "Ownership only; no effect on shape."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "В",
+      "name": "capital ve",
+      "row": 1,
+      "subpaths": [223, 224, 225, 226],
+      "chains": [
+        {
+          "pieces": ["223.6r body", "223.5r body", "223.4r body", "223.3r body", "223.2r body", "223.1r body", "223.0r body", "225.0r body", "224.1r body", "224.0r body", "224.2r body", "226.0r body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "At J10 (63.6,17.05) four ends meet: #225, both sides of the closed loop #224, and the tip #226.",
+          "choice": "One chain: the bowls, then #225 into 224.1 reversed (6.5 degrees), round the loop, up 224.2 reversed into the tip #226 reversed (0.9 degrees).",
+          "why": "Both pairings through J10 are near-straight; this keeps everything in one run with no branch."
+        },
+        {
+          "issue": "Tip #226 (3.7 units above the stem top).",
+          "choice": "Kept as body, continuing the stem upstroke.",
+          "why": "Real ink on the stem line (0.9 degrees), not an artefact."
+        },
+        {
+          "issue": "Bowl end 223.6 stops free 1.655 from the stem at (57.6,36.45).",
+          "choice": "Left free (beyond snap).",
+          "why": "S1 draws it as a terminal curl back toward the stem; it is not tagged exit because it turns left, not out to the right."
+        },
+        {
+          "issue": "Cusp between the bowls at (64.1,23.45), 223.2 to 223.3.",
+          "choice": "Kept as a corner.",
+          "why": "Real cusp inside one S1 curve; the inventory notes it does not reach the stem."
+        },
+        {
+          "issue": "Inventory: #223's bbox overlaps Г's foot hook #232 in x only.",
+          "choice": "No change.",
+          "why": "Different heights, 3.68 units apart; ownership clear."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "Г",
+      "name": "capital ge",
+      "row": 1,
+      "subpaths": [209, 210, 232, 233],
+      "chains": [
+        {
+          "pieces": ["209.0r bar", "210.0r bar"]
+        },
+        {
+          "pieces": ["233.0 body", "232.0 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Prototype form: chains and drops fixed from the Phase 1 prototype.",
+          "choice": "Only roles re-tagged: the detached top bar #210 and its left curl #209 are now bar (the prototype had body).",
+          "why": "Drafting convention: the top bar of Г is a bar; S1 draws bar and curl as one separate component (c8)."
+        },
+        {
+          "issue": "Stem top #233 starts 0.45 below the bar at (90.6,13.45) (prototype resolution 7).",
+          "choice": "Snapped by the extractor onto #210 (T-junction near-miss, under 0.75).",
+          "why": "The bar and stem touch at rendered width; the inventory records a T junction."
+        },
+        {
+          "issue": "The bar's right end (101.2,13.0) comes within 2.39 of Д's curl #206 and overhangs Д's bbox.",
+          "choice": "Kept whole with Г, as the inventory assigns it.",
+          "why": "Ownership is clear; the bar is a flourish reaching toward Д."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "Д",
+      "name": "capital de",
+      "row": 1,
+      "subpaths": [205, 206, 207, 208],
+      "chains": [
+        {
+          "pieces": ["205.2 body", "207.0 body", "207.1 body", "207.2 body", "207.3 body", "205.3 body", "205.0 body", "205.1 body", "208.0 body", "206.0 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Two closed subpaths (#205 main bowl with the stem diagonal, #207 foot loop) share J3 (99.85,36.75), and #208 leaves #205 at its top vertex J2.",
+          "choice": "One open chain: diagonal 205.2 down into the foot loop (207.0, 4.7 degrees), round the loop, out along the bottom 205.3 (21.0 degrees), up 205.0, the short top piece 205.1, on into #208 (13.8 degrees) and the curl #206.",
+          "why": "These are the smooth pairings at each branch; the alternatives (205.2 to 205.3, 91.8; 205.1 to 205.2, 82.6 degrees) are real corners. The chain passes J2 and J3 twice, S1's own topology."
+        },
+        {
+          "issue": "207.0 is a 0.391-unit straight piece, just under the sliver length.",
+          "choice": "Kept in the chain.",
+          "why": "It is the only ink linking the diagonal to the foot loop; it continues the diagonal at 4.7 degrees."
+        },
+        {
+          "issue": "Nodes 207.3 to 205.3 (21.0 degrees, split point) and 205.0 to 205.1 (21.9 degrees, straight-piece kink).",
+          "choice": "Both smoothed, the turn split by arc length: at the first, 207.3 (4.86 long) takes 0.69 of it and 205.3 (10.97) 0.31; at the second, the 0.97-unit 205.1 takes 0.96 and 205.0 (25.90) 0.04. Pieces move from their geometry after snaps by at most 0.21 (205.3).",
+          "why": "Batch 73 smoothing rule. Under the first rule (both handles to the bisector) 205.0 moved 0.52."
+        },
+        {
+          "issue": "Node 207.2 to 207.3, 26.1 degrees inside the foot loop (near the threshold).",
+          "choice": "Left to the extractor: kept as a corner inside one S1 curve.",
+          "why": "Checked in the view: it sits on S1's ink at the loop's top left and reads as part of the round loop at display size."
+        },
+        {
+          "issue": "Inventory: S1's capital Д is the D-shaped cursive form with a foot loop and no descender.",
+          "choice": "Kept as S1 draws it.",
+          "why": "Shape source is S1 only."
+        },
+        {
+          "issue": "Node 208.0 to 206.0, 12.8 degrees, where the curl 206.0 meets the long straight 208.0.",
+          "choice": "Kept as a corner: the long straight 208.0 never moves, and turning the curl 206.0 alone would move it 0.32 from its geometry, over the 0.25 cap.",
+          "why": "Batch 73 smoothing rule: the turn is split by arc length, and a node keeps its corner if smoothing it would move any piece more than 0.25 from its geometry after snaps. Reported for the owner's visual review."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "Е",
+      "name": "capital ye",
+      "row": 1,
+      "subpaths": [203, 204],
+      "chains": [
+        {
+          "pieces": ["204.0 body", "203.0 body", "203.1 body", "203.2 body", "203.3 body", "203.4 body", "203.5 body", "203.6 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "S1 does not separate an exit from the body of Е.",
+          "choice": "203.6 tagged exit: the upstroke after the last baseline touch at (122.55,38.35) to the free end (128.6,33.95).",
+          "why": "Drafting rule: tag from the last point where the pen touches the baseline; the stroke leads out to the right, as in prototype ш and ё."
+        },
+        {
+          "issue": "Middle cusp at (128.6,23.45), 203.2 to 203.3.",
+          "choice": "Kept as a corner.",
+          "why": "Real cusp inside one S1 curve (inventory: a pointed cusp, not a loop)."
+        },
+        {
+          "issue": "Top hook #204.",
+          "choice": "Body.",
+          "why": "Decorative start of the top curve, not a lead-in from the left."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "Ё",
+      "name": "capital yo",
+      "row": 1,
+      "subpaths": [199, 200, 201, 202],
+      "chains": [
+        {
+          "pieces": ["202.0 body", "201.0 body", "201.1 body", "201.2 body", "201.3 body", "201.4 body", "201.5 body", "201.6 exit"]
+        },
+        {
+          "pieces": ["199.0 dot", "199.1 dot", "199.2 dot", "199.3 dot", "199.4 dot", "199.5 dot", "199.6 dot", "199.7 dot"],
+          "closed": true,
+          "nosmooth": true
+        },
+        {
+          "pieces": ["200.0 dot", "200.1 dot", "200.2 dot", "200.3 dot", "200.4 dot", "200.5 dot", "200.6 dot", "200.7 dot"],
+          "closed": true,
+          "nosmooth": true
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "S1 does not separate an exit from the body of Ё.",
+          "choice": "201.6 tagged exit: the upstroke after the last baseline touch at (138.7,38.4).",
+          "why": "Same call as Е (and prototype ё): tag from the last baseline touch."
+        },
+        {
+          "issue": "Dots #199 and #200 are closed 8-segment polygons (S1 octagons), every segment under 0.4.",
+          "choice": "Kept as closed dot chains with no smoothing; none dropped as slivers.",
+          "why": "They are the diaeresis, real ink (prototype resolution 14 for ё); inventory counts them as separate pieces, not loops."
+        },
+        {
+          "issue": "Middle cusp at (144.75,23.5), 201.2 to 201.3.",
+          "choice": "Kept as a corner.",
+          "why": "Real cusp inside one S1 curve, same as Е."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "Ж",
+      "name": "capital zhe",
+      "row": 1,
+      "subpaths": [122, 123, 124, 125, 126],
+      "chains": [
+        {
+          "pieces": ["125.0 body", "124.0 body", "123.2 body", "123.0 body", "123.1 body", "124.1 body", "122.0 body", "122.1 body", "122.2 body", "122.3 body"]
+        },
+        {
+          "pieces": ["126.0 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Prototype form: chains and drops fixed from the Phase 1 prototype.",
+          "choice": "Roles left as body throughout.",
+          "why": "No piece of Ж is a bar, dot, breve or tail; the top-left hook #125 is a decorative start and the lower-right hook #126 is the right leg, not a lead-in or lead-out hairline."
+        },
+        {
+          "issue": "#123 has a 22.9 degree corner inside one curve at the loop's lower left (prototype resolution 11).",
+          "choice": "Kept as a corner.",
+          "why": "Corner drawn inside one S1 curve; it is also visible in the S1 raster."
+        },
+        {
+          "issue": "#122 straight-to-curve node at (184.6,14.15), 6.3 degrees inside one subpath (prototype resolution 12).",
+          "choice": "Smoothed under the straight-piece rule.",
+          "why": "Same treatment as Batch 71 gave nodes inside subpaths."
+        },
+        {
+          "issue": "#126 starts on #122's interior vertex J2 (176.7,23.6).",
+          "choice": "Own chain (branch).",
+          "why": "122.1 to 122.2 is the continuous run through J2."
+        },
+        {
+          "issue": "#126 is one S1 segment: the right leg down to the baseline and an upturn to the right, to (183.6,34.45).",
+          "choice": "Body, not split into body and exit.",
+          "why": "S1 gives no split; tagging the whole segment exit would remove the right leg from the body-only shape. Unlike the exits of И (113.2), Й (90.4) and Л (88.2), which start 1.4 to 2.8 above the baseline just after the stem, #126 is the whole right leg as one S1 segment starting at J2, 14.65 above the baseline, so there is no short lead-out piece to tag and it stays body."
+        },
+        {
+          "issue": "Inventory: whether the centre stem and the arms are one pen stroke is not in S1.",
+          "choice": "No effect here.",
+          "why": "Pen order is a later layer; chains carry no order."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "З",
+      "name": "capital ze",
+      "row": 1,
+      "subpaths": [120, 121],
+      "chains": [
+        {
+          "pieces": ["121.0 body", "120.0 body", "120.1 body", "120.2 body", "120.3 body", "120.4 body", "120.5 body", "120.6 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Final piece 120.6 ends free at (188.2,32.45) after the baseline touch.",
+          "choice": "Body, not exit.",
+          "why": "It curls back up and to the left, a terminal curl, not a lead-out to the right."
+        },
+        {
+          "issue": "Middle cusp at (196.1,23.45), 120.2 to 120.3.",
+          "choice": "Kept as a corner.",
+          "why": "Real cusp inside one S1 curve (inventory: a cusp, not a loop)."
+        },
+        {
+          "issue": "Top hook #121.",
+          "choice": "Body.",
+          "why": "Decorative start of the top curve."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "И",
+      "name": "capital i",
+      "row": 1,
+      "subpaths": [113, 114, 115, 116, 117, 118, 119],
+      "chains": [
+        {
+          "pieces": ["119.0 body", "117.0 body", "116.0 body", "115.0 body"]
+        },
+        {
+          "pieces": ["113.2r exit", "113.1r body", "113.0r body", "114.0 body"]
+        },
+        {
+          "pieces": ["118.0 body"]
+        }
+      ],
+      "dropped": [],
+      "keepFree": ["114.0 end"],
+      "ambiguities": [
+        {
+          "issue": "Stem-2 tip: S1 draws #114 up from J0 (224.5,17.95) to (226.6,12.45) and #118 down from (227.1,12.55) to J0, so the two tops are 0.51 apart. Neither repeats the other: the duplicate test gives 0.51 both ways (one way 0.494), over the 0.3 limit, so this is ink S1 draws once, not twice.",
+          "choice": "Both kept; nothing dropped. #114 continues stem 2 (113.0 reversed into 114.0); #118 is its own chain. #114's top is listed in keepFree, so it is not snapped onto #118 (0.494 away) and S1's open wedge at the tip is kept exactly.",
+          "why": "Batch 73 rules: remove only ink that S1 draws twice, never ink that is visible once, and keep this tip as S1 draws it. Snapping it would leave 0.49 of S1's tip ink uncovered."
+        },
+        {
+          "issue": "J1 (222.6,22.1) is a branch: the diagonal #115 ends there, and #113 runs on through it.",
+          "choice": "#113 kept whole as stem 2 (113.0 to 113.1 is 1.2 degrees, S1's own subpath); the lead hook, stem 1, foot and diagonal end at J1 as their own chain.",
+          "why": "Both continuations are smooth (115.0 to 113.0 reversed is 2.2 degrees); kept S1's subpath continuity, and the same split as Й."
+        },
+        {
+          "issue": "S1 does not separate an exit from the body.",
+          "choice": "113.2 tagged exit: the upturn from (217.6,36.85) to (222.6,34.45). It starts 1.40 above the row 1 baseline (38.254), not at the baseline; the baseline touch of stem 2 lies inside the exit piece (at about t=0.395), so stripping the exit removes the foot turn and the body-only stem 2 ends 1.40 short of the baseline.",
+          "why": "S1 cuts the lead-out at this node, which is the last node before the baseline touch; this matches how S1 cuts its own exit subpaths for М (#36 starts 1.8 above the baseline) and Н (#34 starts 2.8 above). The inventory calls the matching Й piece the exit end."
+        },
+        {
+          "issue": "Lead hook #119.",
+          "choice": "Body.",
+          "why": "Decorative start at cap height into stem 1, not a lead-in hairline from the left at the joining level."
+        },
+        {
+          "issue": "Node 119.0 to 117.0, 28.2 degrees (near the threshold), where the lead hook meets the long straight stem 117.0.",
+          "choice": "Kept as a corner: the long straight 117.0 never moves, so the hook 119.0 would take the whole turn, and that would move it 0.43 from its geometry, over the 0.25 cap.",
+          "why": "Batch 73 smoothing rule: the turn is split by arc length, and a node keeps its corner if smoothing it would move any piece more than 0.25 from its geometry after snaps."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "Й",
+      "name": "capital short i",
+      "row": 1,
+      "subpaths": [2, 90, 91, 92, 93],
+      "chains": [
+        {
+          "pieces": ["91.0 body", "90.0 body", "90.1 body", "90.2 body"]
+        },
+        {
+          "pieces": ["90.4r exit", "90.3r body", "92.0 body", "92.1 body"]
+        },
+        {
+          "pieces": ["93.0 body"]
+        },
+        {
+          "pieces": ["2.0 breve"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "93.1",
+          "kind": "duplicate",
+          "of": "92.1",
+          "reason": "exact repeat of #92 segment 1 (stem-2 top, 246.25,17.9 to 248.35,12.4), deviation 0"
+        }
+      ],
+      "keepFree": ["92.1 end"],
+      "ambiguities": [
+        {
+          "issue": "Stem-2 tip: S1 draws #92 up to (248.35,12.4) (92.0, then 92.1) and #93 as 93.0, down from (248.85,12.5) to J9 (246.25,17.9), then 93.1, back up from J9 to (248.35,12.4) over exactly the same line as 92.1. So 93.1 is the one segment S1 draws twice (identical to 92.1, deviation 0). 93.0 is a separate downstroke from a top 0.51 to the right: the duplicate test gives 0.51 against both 92.1 and 93.1, over the 0.3 limit.",
+          "choice": "93.1 dropped as a duplicate of 92.1; 93.0 kept as its own chain. 92.1's top is listed in keepFree, so it is not snapped onto 93.0 (0.494 away) and S1's open wedge at the tip is kept exactly, as in И.",
+          "why": "Batch 73 rules: remove only ink that S1 draws twice. 93.1 is drawn twice; 93.0 is visible once. Same structure as И, whose #114 and #118 are 92.1 and 93.0's counterparts."
+        },
+        {
+          "issue": "J5 (244.35,22.05) is a branch: S1's #90 runs the diagonal 90.2 straight into stem 2's downstroke 90.3 through a cusp, and #92 leaves upward.",
+          "choice": "Stem 2 chained as exit, 90.3 reversed, 92.0, 92.1 (1.2 and 3.7 degrees); lead hook, stem 1, foot and diagonal end at J5 as their own chain.",
+          "why": "90.2 to 90.3 is a cusp, not a continuous line; both 90.2 to 92.0 (2.2) and 90.3 reversed to 92.0 (1.2) are smooth. Chosen to match И exactly, which keeps the two forms identical in structure."
+        },
+        {
+          "issue": "S1 does not separate an exit from the body.",
+          "choice": "90.4 tagged exit: the upturn from (239.35,36.8) to (244.35,34.4). It starts 1.45 above the row 1 baseline (38.254), not at the baseline; the baseline touch of stem 2 lies inside the exit piece (at about t=0.395), so stripping the exit removes the foot turn and the body-only stem 2 ends 1.45 short of the baseline.",
+          "why": "Inventory calls it Й's exit end. S1 cuts the lead-out at this node, the last node before the baseline touch; same as И 113.2 and as S1's own exit subpaths for М (#36, 1.8 above) and Н (#34, 2.8 above)."
+        },
+        {
+          "issue": "Breve #2 is on a separate path element.",
+          "choice": "Own chain, role breve.",
+          "why": "Inventory assigns it to Й."
+        },
+        {
+          "issue": "Lead hook #91.",
+          "choice": "Body.",
+          "why": "Same call as И's #119."
+        },
+        {
+          "issue": "Node 91.0 to 90.0, 28.2 degrees (near the threshold), where the lead hook meets the long straight stem 90.0.",
+          "choice": "Kept as a corner: smoothing would move the hook 91.0 0.43, over the 0.25 cap. Same as И.",
+          "why": "Batch 73 smoothing rule: the turn is split by arc length, and a node keeps its corner if smoothing it would move any piece more than 0.25 from its geometry after snaps."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "К",
+      "name": "capital ka",
+      "row": 1,
+      "subpaths": [94, 95, 96, 97],
+      "chains": [
+        {
+          "pieces": ["97.0 body", "96.0 body", "96.1 body", "96.2 body"]
+        },
+        {
+          "pieces": ["94.0r body", "95.0r body"]
+        },
+        {
+          "pieces": ["95.1 body", "95.2 body", "95.3 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Branches at J2 (258.7,24.4) on the stem and J0 (259.2,23.7) where the arms meet; 95.0 is a 0.86 link between them.",
+          "choice": "Stem kept whole (96.0 to 96.1 is 0.3 degrees). Upper arm #94 runs on through 95.0 to the stem (0.6 degrees). Lower arm 95.1 to 95.3 starts its own chain at J0.",
+          "why": "These are the straight runs. The dump's proposal ran the upper arm into the lower stem and cut the stem at J2; that breaks the stem's 0.3 degree run. 95.0 to 95.1 is 35.5 degrees, a real corner."
+        },
+        {
+          "issue": "S1 does not separate an exit from the lower arm.",
+          "choice": "95.3 tagged exit (from the foot at (262.6,38.45) to (266.6,34.45)).",
+          "why": "Inventory names #95's exit end; tag from the last baseline touch."
+        },
+        {
+          "issue": "Stem foot 96.2 curls left to a free end (247.6,33.45).",
+          "choice": "Body.",
+          "why": "Terminal curl to the left, not a lead-out."
+        },
+        {
+          "issue": "Lead hook #97.",
+          "choice": "Body.",
+          "why": "Decorative start at cap height, as И and Й."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "Л",
+      "name": "capital el",
+      "row": 1,
+      "subpaths": [88, 89],
+      "chains": [
+        {
+          "pieces": ["89.0 body", "88.0 body", "88.1 body", "88.2 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Lead tick #89 from (269.6,34.45) down to the baseline start of 88.0.",
+          "choice": "Body. Л has no entry piece.",
+          "why": "Batch 73 role convention: entry is only a lead-in join hairline from the left at the joining level; a capital's lead hook, tick or curl (at cap height or at the baseline) is part of the letter, so it is body."
+        },
+        {
+          "issue": "S1 does not separate an exit from the body.",
+          "choice": "88.2 tagged exit: from (285.6,35.45) to (292.0,33.45). It starts 2.80 above the row 1 baseline (38.254), not at the stem foot; the baseline touch lies inside the exit piece (at t=0.445, y 38.86), so stripping the exit removes the foot turn and the body-only stem ends 2.80 short of the baseline.",
+          "why": "Inventory names Л's exit end. S1 cuts the lead-out at this node, the last node before the baseline touch; this matches how S1 cuts its own exit subpaths for М (#36 starts 1.8 above the baseline) and Н (#34 starts 2.8 above; 31.0 starts at y 35.45, where 88.1 ends)."
+        },
+        {
+          "issue": "Node 89.0 to 88.0, 18.6 degrees at the baseline (split point between subpaths).",
+          "choice": "Chained through and smoothed, the turn split by arc length: the lead tick 89.0 (6.30 long) takes 0.84 of it and 88.0 (34.27) 0.16. 89.0 moves 0.22 from its geometry and 88.0 0.24, both under the 0.25 cap.",
+          "why": "Batch 73 smoothing rule. Under the first rule 88.0 moved 0.78."
+        },
+        {
+          "issue": "Inventory: М's #37 could be read as Л's exit; resolved to М.",
+          "choice": "Kept out of Л.",
+          "why": "Ownership as assigned; Л's #88 ends free 1.72 from #37."
+        },
+        {
+          "issue": "Node 88.1 to 88.2, 12.1 degrees, where the exit 88.2 meets the long straight 88.1.",
+          "choice": "Kept as a corner: turning 88.2 alone would move it 0.41 from its geometry, over the 0.25 cap.",
+          "why": "Batch 73 smoothing rule: the turn is split by arc length, and a node keeps its corner if smoothing it would move any piece more than 0.25 from its geometry after snaps. Reported for the owner's visual review."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "М",
+      "name": "capital em",
+      "row": 1,
+      "subpaths": [35, 36, 37, 38],
+      "chains": [
+        {
+          "pieces": ["37.0 body", "35.0 body", "35.1 body", "35.2 body", "35.3 body", "35.4 body", "35.5 body", "35.6 body", "35.7 body"]
+        },
+        {
+          "pieces": ["38.0 body", "36.0 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "J5 (322.0,21.7) is a branch: #35 runs on up past it to (326.0,13.4) and #38 leaves downward. Both 35.4 to 35.5 (1.5 degrees) and 35.5 reversed to 38.0 (0.9) are smooth.",
+          "choice": "#35 kept whole as one chain (S1's own subpath); #38 plus the exit start their own chain at J5.",
+          "why": "Near tie; kept S1's subpath continuity (same rule as И). Inventory: the part above J5 is the top of the last upstroke, retraced down before #38; the retrace is pen order, not shape, so it is drawn once. Prototype ш precedent: there S1 runs the upstroke through the peak cusp in one subpath (#69) and the stem tops are their own chains; Ш and Щ in Batch 73 instead make the stem continuous, as a convention. М as drafted follows S1's own run (upstroke 35.4 on into the stem top 35.5 to 35.7, with the lower stem #38 as the branch), which is the ш reading, not the stem-continuous one (35.7r, 35.6r, 35.5r, 38.0 with the upstroke ending at J5); the ink is identical either way."
+        },
+        {
+          "issue": "Node 37.0 to 35.0, 18.6 degrees at the baseline (split point between subpaths).",
+          "choice": "Chained through and smoothed, the turn split by arc length: the lead tick 37.0 (6.30 long) takes 0.84 of it and 35.0 (33.80) 0.16. 37.0 moves 0.22 from its geometry and 35.0 0.24, both under the 0.25 cap.",
+          "why": "Batch 73 smoothing rule. Under the first rule 35.0 moved 0.78."
+        },
+        {
+          "issue": "Lead tick #37.",
+          "choice": "Body. М has no entry piece.",
+          "why": "Batch 73 role convention: entry is only a lead-in join hairline from the left at the joining level; a capital's lead tick at the baseline is part of the letter, so it is body (as Л's #89)."
+        },
+        {
+          "issue": "#36.",
+          "choice": "Exit.",
+          "why": "Inventory names it the exit. It is S1's own exit subpath and starts 1.80 above the row 1 baseline, at the end of #38; the baseline touch (lowest point at about t=0.41) lies inside the exit, so stripping the exit removes the foot turn and the body-only third stem ends 1.80 short of the baseline."
+        },
+        {
+          "issue": "Node 35.1 to 35.2, 20.3 degrees at the second stem's foot, where 35.2 meets the long straight 35.1.",
+          "choice": "Kept as a corner: turning 35.2 alone would move it 0.2524 from its geometry, just over the 0.25 cap.",
+          "why": "Batch 73 smoothing rule: the turn is split by arc length, and a node keeps its corner if smoothing it would move any piece more than 0.25 from its geometry after snaps."
+        },
+        {
+          "issue": "Node 38.0 to 36.0, 18.6 degrees, where the third stem meets the exit.",
+          "choice": "Kept as a corner: split by arc length (38.0 takes 0.37, 36.0 0.63), smoothing would move 38.0 0.27 from its geometry, over the 0.25 cap.",
+          "why": "Batch 73 smoothing rule: the turn is split by arc length, and a node keeps its corner if smoothing it would move any piece more than 0.25 from its geometry after snaps. Reported for the owner's visual review."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "Н",
+      "name": "capital en",
+      "row": 1,
+      "subpaths": [29, 30, 31, 32, 33, 34],
+      "chains": [
+        {
+          "pieces": ["33.0r body", "31.2r body", "32.0 body", "32.1 body", "32.2 body", "31.1r body", "30.1r body", "30.0r body", "29.3 body", "29.0 body", "29.1 body", "29.2 body", "30.3r body", "30.2r body", "31.0r body", "34.0r exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Degenerate closed micro-subpath #30 (0.4 by 0.3 units) at the crossbar and right-stem crossing. It runs J3 (346.75,21.5) to J4 (346.7,21.6) to J5 (346.45,21.75) and straight back. Inventory suggests it is safe to drop.",
+          "choice": "All four segments kept, none dropped. The outbound half (30.1 reversed, 30.0 reversed) links the crossbar (J5) to the upper-right loop (J3); the return half (30.3 reversed, 30.2 reversed) links the loop back to the right stem (J5). Each half is used once, as S1 draws them, out and back.",
+          "why": "J3 and J5 are 0.39 apart and #30 is the only ink between them; each pass of the chain through the crossing needs one half of it. Using both halves avoids drops and needs no snap or merge."
+        },
+        {
+          "issue": "#31 runs, in one subpath, the right stem, then the crossbar going left, then the left stem straight up; the crossbar and the right stem cross the upper-right loop #29 at J3/J5. Assembly splits #31.",
+          "choice": "One chain, no branches: top tick #33, left stem 31.2 down, lower-left loop #32, crossbar 31.1 to the right, the #30 outbound link, into the loop at 29.3, round 29.0, 29.1, down 29.2 back to J3, the #30 return link, right stem 31.0 down, exit #34.",
+          "why": "These are the real continuations through the crossing, measured on raw S1: the crossbar 31.1 reversed runs into 29.3 at 2.8 degrees, and the loop downstroke 29.2 runs into the right stem 31.0 reversed at 12.6 degrees, so the crossbar and the right stem read as two lines crossing (an X). At J7 the left stem continues into the loop (1.7) and the loop returns into the crossbar (6.3). The earlier draft turned the crossbar into 29.2 reversed (41.8 degrees hidden inside the link) and cut the right stem off as a branch, measuring its 31.2 degree corner against the 0.3-unit artefact 30.1 instead of the stem's real continuation 29.2."
+        },
+        {
+          "issue": "Nodes at and inside the 0.4-unit #30 link, near the threshold: 30.1 reversed to 30.0 reversed (32.5 degrees), 30.0 reversed to 29.3 (27.7), 30.3 reversed to 30.2 reversed (32.5) and 30.2 reversed to 31.0 reversed (31.2).",
+          "choice": "Left to the extractor: the three over 30 degrees are kept as corners and the 27.7 degree one is smoothed (30.1r, 30.0r and 30.3r are rebuilt as tiny cubics, as is 29.3; 30.2r stays a straight piece). No snaps or merges.",
+          "why": "By the 30 degree rule. They are artefact angles of S1's micro-subpath (pieces 0.11 and 0.29 units long), invisible at display width; the crossbar and stem lines themselves run through the crossing at 2.8 and 12.6 degrees."
+        },
+        {
+          "issue": "Upper-right loop #29 starts and ends at J3, where 29.2 meets 29.3 at a sharp corner (141 degrees).",
+          "choice": "The loop is traversed once inside the single chain (in at 29.3, out at the end of 29.2), with no closed flag; the chain passes J3 twice.",
+          "why": "That point is a sharp corner in S1, not a smooth closure; the run enters from the crossbar and leaves into the right stem, both through #30."
+        },
+        {
+          "issue": "Top tick #33.",
+          "choice": "Body.",
+          "why": "Decorative start at cap height, like the lead hooks of И, Й, К."
+        },
+        {
+          "issue": "#34.",
+          "choice": "Exit (traversed reversed, from J6 (340.2,35.45) out to the free end).",
+          "why": "Inventory names it the exit. S1 cuts it as its own subpath starting at J6, 2.80 above the baseline, not at the foot; the baseline touch lies inside 34.0 (lowest point at about t=0.54, y 38.48), so stripping the exit removes the foot turn and the body-only right stem ends 2.80 short of the baseline."
+        },
+        {
+          "issue": "Row 1 baseline",
+          "choice": "Used 38.254.",
+          "why": "Row 1 baseline (38.254) is inferred, not measured: median bottom of 23 row-1 capitals minus the median 0.297 by which row-2 capitals sit below 87.45 (prototype resolution 15)."
+        }
+      ]
+    },
+    {
+      "char": "О",
+      "name": "capital o",
+      "row": 2,
+      "subpaths": [242],
+      "chains": [
+        {
+          "pieces": ["242.0 body", "242.1 body", "242.2 body", "242.3 body", "242.4 body", "242.5 body", "242.6 body", "242.7 body"],
+          "closed": true
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "No entry or exit. S1 draws О as one closed oval with no lead-in or lead-out.",
+          "choice": "Every piece tagged body.",
+          "why": "There is no hairline to tag; the inventory lists no separate pieces."
+        }
+      ]
+    },
+    {
+      "char": "П",
+      "name": "capital pe",
+      "row": 2,
+      "subpaths": [243, 244, 245, 246, 251, 252],
+      "chains": [
+        {
+          "pieces": ["243.0r bar", "244.0r bar"]
+        },
+        {
+          "pieces": ["245.0r body", "246.0r body"]
+        },
+        {
+          "pieces": ["252.0 body", "251.0 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "The detached top stroke is a left curl #243 plus the straight bar #244.",
+          "choice": "Both pieces tagged bar.",
+          "why": "S1 draws the curl and bar as one separate stroke; the bar role covers the stroke S1 draws as a separate bar."
+        },
+        {
+          "issue": "Both stem tops (#246 and #252 starts) end 2.2 units below the bar.",
+          "choice": "Left as free ends; no snap.",
+          "why": "2.2 is well over the 0.75 snap limit, and S1's raster also shows the gap."
+        },
+        {
+          "issue": "Foot hook #245 at the foot of stem 1.",
+          "choice": "Tagged body, not exit.",
+          "why": "It curls back to the left at the stem foot; S1's lead-out is #251 to the right."
+        }
+      ]
+    },
+    {
+      "char": "Р",
+      "name": "capital er",
+      "row": 2,
+      "subpaths": [247, 248, 249, 250],
+      "chains": [
+        {
+          "pieces": ["248.0 body", "247.0 body", "247.1 body", "247.2 body"]
+        },
+        {
+          "pieces": ["250.0 body", "249.0 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Left upstroke #248 rises from the left of the stem into the bowl top. It could be read as an entry.",
+          "choice": "Tagged body.",
+          "why": "The inventory calls it the left upstroke, not a lead hook, and it plays the same part as the curls on the bars of П and Т: the start of the bowl stroke, not a join from a neighbour."
+        },
+        {
+          "issue": "The bowl #247 ends at (71.6,73.15), 3.6 units right of the stem, and the stem top #250 sits 1.78 below the bowl.",
+          "choice": "Both left free; no snap.",
+          "why": "Both gaps exceed 0.75. The bowl is open in S1, as the inventory notes."
+        },
+        {
+          "issue": "Foot hook #249.",
+          "choice": "Tagged body.",
+          "why": "It curls left at the stem foot; S1 has no lead-out on Р."
+        }
+      ]
+    },
+    {
+      "char": "С",
+      "name": "capital es",
+      "row": 2,
+      "subpaths": [211, 212],
+      "chains": [
+        {
+          "pieces": ["211.6r body", "211.5r body", "211.4r body", "211.3r body", "211.2r body", "211.1r body", "211.0r body", "212.0r exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "#211 segment 6 is a 0.70-unit straight tick at the top terminal (94.5,65.55) to (94.55,66.25).",
+          "choice": "Kept as body.",
+          "why": "It is longer than the 0.4 sliver limit and sits at a free end, not at a crossing, so it is real terminal ink."
+        },
+        {
+          "issue": "Exit #212 is a straight 4.5-unit line leaving the foot of the curve.",
+          "choice": "Tagged exit.",
+          "why": "The inventory lists it as the exit, and S1 draws it as a separate subpath."
+        }
+      ]
+    },
+    {
+      "char": "Т",
+      "name": "capital te",
+      "row": 2,
+      "subpaths": [3, 213, 214, 215, 216, 221, 222],
+      "chains": [
+        {
+          "pieces": ["213.0r bar", "214.0r bar"]
+        },
+        {
+          "pieces": ["215.0r body", "216.0r body"]
+        },
+        {
+          "pieces": ["3.0 body"]
+        },
+        {
+          "pieces": ["222.0 body", "221.0 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "The detached top stroke is a left curl #213 plus the straight bar #214.",
+          "choice": "Both pieces tagged bar.",
+          "why": "S1 draws curl and bar as one separate stroke, as on П."
+        },
+        {
+          "issue": "The middle stem #3 is on its own path element (path18) and is an isolated straight line.",
+          "choice": "Kept as its own one-piece chain, body.",
+          "why": "It is real ink, the middle of the three stems; it touches nothing."
+        },
+        {
+          "issue": "All three stem tops end below the bar (1.85, 3.0 and 1.95 units).",
+          "choice": "Left free; no snap.",
+          "why": "All exceed the 0.75 snap limit."
+        },
+        {
+          "issue": "Inventory ambiguity: У's lead hook #219 starts 3.3 units right of the bar's end at nearly the same height.",
+          "choice": "#219 stays with У; Т's bar ends at (132.6,62.45).",
+          "why": "Inventory resolution kept: #219 shares its endpoint with У's #217."
+        },
+        {
+          "issue": "Foot hook #215 at the foot of stem 1.",
+          "choice": "Tagged body.",
+          "why": "It curls left; the lead-out is #221."
+        }
+      ]
+    },
+    {
+      "char": "У",
+      "name": "capital u",
+      "row": 2,
+      "subpaths": [217, 218, 219, 220],
+      "chains": [
+        {
+          "pieces": ["217.5r body", "217.4r body", "220.0 body", "218.0 body"]
+        },
+        {
+          "pieces": ["219.0 body", "217.0 body", "217.1 body", "217.2 body", "217.3 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "At (148,63.4) three ends meet: the rising left arm #217.3, the long right stroke #217.4, and the tip micro-pieces #220 and #218.",
+          "choice": "The right stroke runs on through the tip (#217.4 to #220 to #218); the left arm ends at that point as a branch.",
+          "why": "Both continuations through the tip are near-straight: #217.3 into #220 turns 7.0 degrees and #217.4 reversed into #220 turns 10.3 degrees (the only cusp at this point is between #217.3 and #217.4, 176.7 degrees). The tip goes with the right stroke because the inventory calls #220+#218 the tip of the right arm."
+        },
+        {
+          "issue": "Tip micro-pieces #220 (0.54) and #218 (0.58).",
+          "choice": "Kept as body.",
+          "why": "Both exceed the 0.4 sliver limit and sit at a free tip, not at a crossing."
+        },
+        {
+          "issue": "Lead hook #219 rising from the left into the top of the left arm.",
+          "choice": "Tagged body.",
+          "why": "It is the capital's lead hook at cap height, part of the taught letter shape, not a join hairline. Batch 73 role convention: entry is only a lead-in join hairline coming in from the left at the joining level. Capitals start words, so a capital's lead hook, tick or curl is part of the letter and is body; no capital keeps an entry piece."
+        },
+        {
+          "issue": "#217 segment 5 curls left at the foot of the right stroke.",
+          "choice": "Tagged body, not exit.",
+          "why": "It is a foot hook curling back to the left (same shape as Ф's #135), not a lead-out to the right."
+        }
+      ]
+    },
+    {
+      "char": "Ф",
+      "name": "capital ef",
+      "row": 2,
+      "subpaths": [133, 134, 135, 136, 137, 138, 139],
+      "chains": [
+        {
+          "pieces": ["139.0r body", "134.2 body", "133.4 body", "138.0 body", "135.0 body"]
+        },
+        {
+          "pieces": ["133.0 body", "133.1 body", "133.2 body", "133.3 body"]
+        },
+        {
+          "pieces": ["137.1 body", "137.2 body", "137.3 body", "137.0 body"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "134.1",
+          "kind": "duplicate",
+          "of": "134.2",
+          "reason": "#134 is a degenerate closed micro-triangle; its segments 1 and 2 run between the same two points 0.206 apart, so the stem line is drawn twice there. Segment 2 is kept because it ends on the node where #133's stem segment starts."
+        },
+        {
+          "piece": "134.0",
+          "kind": "sliver",
+          "reason": "0.206-unit closing edge of the micro-triangle #134 at the stem junction."
+        },
+        {
+          "piece": "136",
+          "kind": "other",
+          "along": "133.4",
+          "reason": "#136 is a 0.78 piece lying along stem #133.4 within 0.22 for its whole length, so keeping it would draw the stem twice at stroke width."
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Stem route is not explicit in S1.",
+          "choice": "Stem chain: tip #139, #134 segment 2, #133 segment 4 (the straight stem piece inside the right loop's subpath), #138, foot hook #135.",
+          "why": "These pieces line up end to end into one straight descending stroke, the route the inventory infers."
+        },
+        {
+          "issue": "#133 segment 4 is both the stem and the left side of the right loop.",
+          "choice": "Emitted once, in the stem chain; the right loop chain (#133 segments 0 to 3) runs between two stem nodes and is not closed on its own.",
+          "why": "Same treatment as prototype ф (resolution 9): a shared piece is emitted once."
+        },
+        {
+          "issue": "Inventory ambiguity: #134 is a closed micro-triangle with near-zero area.",
+          "choice": "Treated as a separate piece, not a loop: one edge kept in the stem, one dropped as a duplicate, one dropped as a sliver.",
+          "why": "Its area is near zero; keeping all three edges would draw the stem twice."
+        },
+        {
+          "issue": "#136 (0.78) runs from the left loop's junction (161.3,66.15) to the micro-triangle corner (161.65,65.45), lying along stem #133.4 within 0.22 for its whole length.",
+          "choice": "Dropped as kind other.",
+          "why": "It would draw the stem twice. The left loop does not need it to reach the stem: the loop's two ends at (161.3,66.15) lie 0.218 from #133.4 and snap onto the stem automatically."
+        },
+        {
+          "issue": "Left loop #137 meets itself and #136 at (161.3,66.15). Measured there, #137 segment 0 into segment 1 turns 30.8 degrees, while #136 reversed into #137 segment 1 turns only 0.2 degrees.",
+          "choice": "With #136 dropped, the loop is one open chain: #137 segments 1, 2, 3, 0. Its start and end both sit at (161.3,66.15) and snap 0.218 onto the stem.",
+          "why": "The 30.8 degree turn between segments 0 and 1 is a real point in S1, so the loop is not closed smoothly through it. Opening the chain there lets both ends meet the stem, which is where S1's ink joins the loop to the stem."
+        },
+        {
+          "issue": "Foot hook #135.",
+          "choice": "Tagged body.",
+          "why": "It curls left at the stem foot. S1 draws no exit on Ф."
+        },
+        {
+          "issue": "Near-threshold angle: #137 segment 0 into segment 1 at (161.3,66.15) measures 30.8 degrees.",
+          "choice": "No longer a chain node: the open loop chain starts with segment 1 and ends with segment 0 at that point, and both ends snap onto the stem.",
+          "why": "Opening the loop there keeps S1's slight point at the stem junction without relying on the extractor's 30 degree corner rule. Worth a human check of the loop's join to the stem."
+        }
+      ]
+    },
+    {
+      "char": "Х",
+      "name": "capital kha",
+      "row": 2,
+      "subpaths": [127, 128, 129, 130, 131, 132],
+      "chains": [
+        {
+          "pieces": ["130.0 body", "128.0 body", "128.1 body", "131.0r body", "128.4 body", "128.5 body"]
+        },
+        {
+          "pieces": ["127.1r body", "127.0r body"]
+        },
+        {
+          "pieces": ["129.0r body", "132.0r exit"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "128.2",
+          "kind": "other",
+          "along": "128.4",
+          "reason": "Out-and-back spike along #128.4: #128 runs down from (181.7,76.15) to the tip (180.95,77.9) and back up. Segment 2 lies within 0.296 of the diagonal #128.4 for its whole length, so keeping it would draw the diagonal twice at stroke width."
+        },
+        {
+          "piece": "128.3",
+          "kind": "other",
+          "along": "128.4",
+          "reason": "The return leg of the same spike, retracing #128 segment 2 back up onto the diagonal. Dropped as other, not duplicate, because its twin #128.2 is also dropped and a duplicate must name a kept piece."
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Inventory ambiguity: which arcs pair into the two 'c' shapes is not in S1.",
+          "choice": "Long diagonal as one chain: lead curl #130, #128 segments 0 and 1, the crossing micro-piece #131, #128 segments 4 and 5 down to the foot hook. The upper right arc #127 ends on the diagonal at (183.1,73.2); the lower right arc is #129 (reversed) into exit #132, and its free top at (180.95,77.9) snaps 0.296 onto #128.4.",
+          "why": "The diagonal is the one smooth continuous line through the crossing; the right-hand arcs meet it at cusps."
+        },
+        {
+          "issue": "#131 is a 0.29-unit micro-piece at the crossing (under the 0.4 sliver limit).",
+          "choice": "Kept in the diagonal chain.",
+          "why": "It is the only ink that carries the diagonal straight through from #128 segment 1 to segment 4 without going down the spike; dropping it would split the diagonal at a 0.29 gap."
+        },
+        {
+          "issue": "The spike #128 segments 2 and 3: S1 draws the stretch from (181.7,76.15) down to (180.95,77.9) and back three times (#128.2 down, #128.3 back up, #128.4 along the diagonal). #128.2 lies within 0.296 of #128.4 for its whole length.",
+          "choice": "Both spike segments dropped as kind other. The lower right arc chain is #129 reversed, then exit #132; its free start at (180.95,77.9) snaps 0.296 onto #128.4 as a T-junction.",
+          "why": "Keeping either spike segment would redraw about 1.9 units of the diagonal's ink. The snap keeps #129 joined to the diagonal where S1 joins it."
+        },
+        {
+          "issue": "Lead curl #130 and exit arc #132.",
+          "choice": "#130 tagged body; #132 tagged exit.",
+          "why": "#130 is the capital's lead curl at cap height, part of the letter. Batch 73 role convention: entry is only a lead-in join hairline coming in from the left at the joining level. Capitals start words, so a capital's lead hook, tick or curl is part of the letter and is body; no capital keeps an entry piece. #132 is S1's own lead-out subpath. #128 segment 5 curls left at the foot and is tagged body."
+        },
+        {
+          "issue": "Near-threshold node: lead curl #130 into #128 at (183.6,62.45) measures 28.2 degrees.",
+          "choice": "Kept as a corner: split by arc length (130.0 takes 0.44, 128.0 0.56), smoothing would move 128.0 0.43 from its geometry, over the 0.25 cap.",
+          "why": "Batch 73 smoothing rule: the turn is split by arc length, and a node keeps its corner if smoothing it would move any piece more than 0.25 from its geometry after snaps. S1's ink at the top of the diagonal is a rounded turn, so the kept corner is worth a look in the review sheets."
+        }
+      ]
+    },
+    {
+      "char": "Ц",
+      "name": "capital tse",
+      "row": 2,
+      "subpaths": [143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 302, 303],
+      "chains": [
+        {
+          "pieces": ["148.0 body", "146.0 body", "145.0 body", "144.0 body"]
+        },
+        {
+          "pieces": ["147.0 body", "143.0 body", "143.1 body", "143.2 body", "143.3 body", "143.4 body", "143.5 body", "143.6 body", "303.0 tail", "302.0 tail", "302.1 tail", "302.2 tail", "153.0 tail", "152.0 tail", "151.0 tail"]
+        },
+        {
+          "pieces": ["149.0 exit"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "150.0",
+          "kind": "duplicate",
+          "of": "302.1",
+          "reason": "Exact duplicate (deviation 0) of #302 segment 1 at the tail loop's crossing; the tail is split across path22 and path26."
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Inventory ambiguity: route from the stem foot through the tail is inferred.",
+          "choice": "Stem 2 down to the foot, #143 segment 6 along the baseline, then tail: #303 up and right, #302 down, round the loop #153, #152, #151 back to (211.7,88.1). Exit #149 starts at (211.9,87.9) as its own chain.",
+          "why": "Follows the inventory route. After the loop closes, reaching #149 would need the duplicate #150 again, so the exit starts its own chain at the crossing node."
+        },
+        {
+          "issue": "Where the tail role starts.",
+          "choice": "#143 segment 6 (1.05 units along the baseline at the stem foot) is body; tail starts at #303.",
+          "why": "Batch 73 tail rule for ц, щ, Ц, Щ: the tail starts where the stroke leaves the baseline foot to go down to the descender loop, the rise after the foot, not the foot piece along the baseline. #303 is that rise. Lowercase ц (tail from #305) and щ (tail from #299) follow the same rule."
+        },
+        {
+          "issue": "Short straight pieces in stem 2: #143 segments 3 (0.52) and 4 (0.85).",
+          "choice": "Kept as body.",
+          "why": "Both exceed 0.4 and lie in the middle of the stem line, not at a crossing."
+        },
+        {
+          "issue": "#144 joins stem 2 mid-stroke at (211.7,75.3).",
+          "choice": "Stem 2 runs straight through; the stem-1 chain ends there as a branch.",
+          "why": "Stem 2 is the continuous line; #144 arrives at an angle."
+        },
+        {
+          "issue": "#302 segment 1 (0.28) is under the sliver limit.",
+          "choice": "Kept in the tail chain; its exact copy #150 is the one dropped.",
+          "why": "It is the piece that links #302 segment 0 to segment 2; dropping both copies would break the tail."
+        },
+        {
+          "issue": "Lead hook #148.",
+          "choice": "Tagged body.",
+          "why": "It is the capital's lead hook at cap height into the stem-1 top, part of the letter. Batch 73 role convention: entry is only a lead-in join hairline coming in from the left at the joining level. Capitals start words, so a capital's lead hook, tick or curl is part of the letter and is body; no capital keeps an entry piece."
+        },
+        {
+          "issue": "Near-threshold nodes at the tail crossing: #302 segment 0 to 1 (37.5 degrees) and segment 1 to 2 (32.1 degrees), either side of the 0.28 micro-piece.",
+          "choice": "Left to the extractor, which keeps both as corners.",
+          "why": "Both are over 30. The micro-piece is too short for the corners to show at stroke width, but a reviewer may want to check the crossing."
+        }
+      ]
+    },
+    {
+      "char": "Ч",
+      "name": "capital che",
+      "row": 2,
+      "subpaths": [140, 141, 142],
+      "chains": [
+        {
+          "pieces": ["141.0 body", "140.0 body", "140.1 body"]
+        },
+        {
+          "pieces": ["142.0r body", "140.2 body", "140.3 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "At (234.75,66.85) the arc #140.1, the stem #140.2 and the tip #142 meet.",
+          "choice": "Tip and stem chained as one straight line; the arc ends there as a branch.",
+          "why": "#142 and #140 segment 2 are nearly collinear straight pieces; the arc arrives at a cusp."
+        },
+        {
+          "issue": "S1 does not split the exit from the stem: #140 segment 3 runs on from the stem foot (227.6,84.45) to (234.6,83.45). That stem foot vertex is 3.0 units above the baseline (87.45), not on it.",
+          "choice": "Segment 3 tagged exit.",
+          "why": "The stem #140 segment 2 ends at its lowest point 3.0 above the baseline; the baseline touch lies inside the exit piece (its lowest point is 87.92, at t 0.47). So stripping the exit removes the foot turn as well as the lead-out. It has the same shape as П's exit #251 and Т's exit #221, which S1 draws as separate subpaths starting at about the same height (#251 at y 84.45, #221 at y 84.7)."
+        },
+        {
+          "issue": "Lead hook #141.",
+          "choice": "Tagged body.",
+          "why": "It is the capital's lead hook at cap height into the arc top, part of the letter. Batch 73 role convention: entry is only a lead-in join hairline coming in from the left at the joining level. Capitals start words, so a capital's lead hook, tick or curl is part of the letter and is body; no capital keeps an entry piece."
+        }
+      ]
+    },
+    {
+      "char": "Ш",
+      "name": "capital sha",
+      "row": 2,
+      "subpaths": [98, 99, 100, 101, 102, 103, 197, 198],
+      "chains": [
+        {
+          "pieces": ["198.0 body", "197.0 body"]
+        },
+        {
+          "pieces": ["103.0 body", "100.0 body"]
+        },
+        {
+          "pieces": ["101.0 body", "98.0 body", "98.1 body", "98.2 body", "98.3 body"]
+        },
+        {
+          "pieces": ["98.7r body", "98.6r body", "98.5r body", "98.4r body", "102.0 body", "99.0 exit", "99.1 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Inventory ambiguity: #98 runs up past where stem 3 #102 branches off, to (270.6,62.45) (overshoot and retrace, as in М).",
+          "choice": "Stem 3 is one chain from its top (#98 segments 7 to 4, reversed) down #102 to the exit; the upstroke from stem 2 (#98 segment 3) ends at (265.25,74.4) as a branch.",
+          "why": "Both continuations at (265.25,74.4) are near-tangent: the upstroke #98 segment 3 into segment 4 turns 3.0 degrees, and stem #98 segment 4 reversed into #102 turns 4.6 degrees. Keeping the stem continuous is a convention (the same as Щ); the ink is identical either way, and S1 draws the top of stem 3 only once."
+        },
+        {
+          "issue": "#98 segment 4 is 0.36 units (under the sliver limit).",
+          "choice": "Kept in the stem-3 chain.",
+          "why": "It is a straight piece in the middle of stem 3 at the branch node, not a crossing artefact; dropping it would break the stem."
+        },
+        {
+          "issue": "Stem 1 foot: #197 ends at (242.6,81.45) and #103 starts at (242.6,81.85), 0.4 apart.",
+          "choice": "Two chains; the 0.4 gap stays open (the extractor does not snap it).",
+          "why": "0.4 is over the 0.1 chaining limit, and the miss is end to end, not onto the inside of a piece, so the snap rule does not apply and no rule closes it. S1's own ink shows the same notch at that point. Flagged for the owner as a possible extractor tweak."
+        },
+        {
+          "issue": "Exit #99 is two segments (curve then a 2.8-unit straight).",
+          "choice": "Both tagged exit.",
+          "why": "S1 draws #99 as its own subpath and the inventory names it the exit."
+        },
+        {
+          "issue": "Lead hook #198.",
+          "choice": "Tagged body.",
+          "why": "It is the capital's lead hook at cap height into the stem-1 top, part of the letter. Batch 73 role convention: entry is only a lead-in join hairline coming in from the left at the joining level. Capitals start words, so a capital's lead hook, tick or curl is part of the letter and is body; no capital keeps an entry piece."
+        }
+      ]
+    },
+    {
+      "char": "Щ",
+      "name": "capital shcha",
+      "row": 2,
+      "subpaths": [0, 104, 105, 106, 107, 108, 111, 112, 297, 300, 301],
+      "chains": [
+        {
+          "pieces": ["106.0 body", "104.0 body", "104.1 body", "104.2 body"]
+        },
+        {
+          "pieces": ["107.0r body", "104.3 body", "104.4 body", "104.5 body"]
+        },
+        {
+          "pieces": ["104.7r body", "104.6r body", "105.0r body", "108.0r body", "300.0r tail", "301.0r tail", "297.0 tail", "111.0 tail", "111.1 tail", "111.2 tail", "111.3 tail", "112.0 tail", "0.0r exit"]
+        },
+        {
+          "pieces": ["111.4 tail"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Inventory ambiguity: route at the foot is inferred.",
+          "choice": "Stem 3 down to the foot, #108, #300 up, #301 down, #297, round #111 segments 0 to 3, #112, then exit #0, all one chain. #111 segment 4 (0.99) closes the loop as its own one-piece chain.",
+          "why": "Follows the inventory route. At (298.05,88) #112 continues #111 segment 3's up-right direction smoothly; segment 4 turns sharply down."
+        },
+        {
+          "issue": "Where the tail role starts.",
+          "choice": "#108 (along the baseline at the stem-3 foot) is body; tail starts at #300.",
+          "why": "Batch 73 tail rule for ц, щ, Ц, Щ: the tail starts where the stroke leaves the baseline foot to go down to the descender loop, the rise after the foot, not the foot piece along the baseline. #300 is that rise. This matches prototype щ, whose tail starts at #299 (its foot piece #57 is body)."
+        },
+        {
+          "issue": "Stems 2 and 3: #107 and #105 attach to #104's interior.",
+          "choice": "Stem 2 runs from its top #107 down #104 segment 3; stem 3 from its top (#104 segments 7 and 6, reversed) down #105. The upstrokes #104 segments 2 and 5 end at the stems as branches.",
+          "why": "Both continuations are near-tangent: at stem 2 #104 segment 2 into #107 turns 0.2 degrees against 3.1 for the stem route, and at stem 3 #104 segment 5 into segment 6 turns 0.4 against 3.7. Keeping the stems continuous is a convention (the same reading as Ш); the ink is identical either way."
+        },
+        {
+          "issue": "Tail micro-pieces #112 (0.46) and #111 segment 4 (0.99).",
+          "choice": "Kept.",
+          "why": "Both exceed 0.4 and are needed to connect and close the tail loop."
+        },
+        {
+          "issue": "Lead hook #106 and exit #0 (path12).",
+          "choice": "#106 tagged body; #0 tagged exit.",
+          "why": "#106 is the capital's lead hook at cap height, part of the letter. Batch 73 role convention: entry is only a lead-in join hairline coming in from the left at the joining level. Capitals start words, so a capital's lead hook, tick or curl is part of the letter and is body; no capital keeps an entry piece. #0 is S1's own lead-out subpath, named so by the inventory."
+        },
+        {
+          "issue": "Near-threshold node: #111 segment 3 into #112 at (298.05,88) measures 20 degrees.",
+          "choice": "Smoothed by the extractor (straight-piece kink).",
+          "why": "Under 30, and it is where the loop runs out into the exit."
+        }
+      ]
+    },
+    {
+      "char": "Э",
+      "name": "capital e",
+      "row": 2,
+      "subpaths": [1, 109, 110],
+      "chains": [
+        {
+          "pieces": ["110.0 body", "109.0 body", "109.1 body", "109.2 body", "109.3 body", "109.4 body", "109.5 body", "109.6 body"]
+        },
+        {
+          "pieces": ["1.0 bar"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Middle bar #1 is on its own path element; its right end is 0.375 from the bowl.",
+          "choice": "Its own chain, tagged bar. Its right end is left 0.375 from the bowl; the extractor does not snap it.",
+          "why": "S1 draws it as a separate bar. The nearest bowl point is at the very end of #109 segment 2 (t 0.991, next to the node at (322.9,74.7)), so it is not a T-junction near-miss and stays where S1 put it. At rendered width the bar touches the bowl. A reviewer may want this gap closed. Batch 73 decision: the bar stays 0.375 off the bowl under the near-node spur rule; flagged for the owner together with Ш's 0.4 stem gap as a possible extractor tweak."
+        },
+        {
+          "issue": "#109 segment 6 is a 0.5-unit straight stub at the lower terminal (307.5,83.85) to (307.5,83.35).",
+          "choice": "Kept as body.",
+          "why": "Over the 0.4 sliver limit and at a free end, so it reads as terminal ink, not an artefact."
+        },
+        {
+          "issue": "Lead tick #110.",
+          "choice": "Tagged body.",
+          "why": "It is the capital's lead tick at cap height into the top of the bowl, part of the letter. Batch 73 role convention: entry is only a lead-in join hairline coming in from the left at the joining level. Capitals start words, so a capital's lead hook, tick or curl is part of the letter and is body; no capital keeps an entry piece."
+        },
+        {
+          "issue": "No exit.",
+          "choice": "The lower terminal is body.",
+          "why": "S1 draws no lead-out on Э."
+        }
+      ]
+    },
+    {
+      "char": "Ю",
+      "name": "capital yu",
+      "row": 2,
+      "subpaths": [39, 40, 41, 42],
+      "chains": [
+        {
+          "pieces": ["42.0 body", "41.0 body", "40.3 body", "40.0 body", "40.1 body", "40.2 body", "41.1 bar"]
+        },
+        {
+          "pieces": ["39.0 body", "39.1 body", "39.2 body", "39.3 body", "39.4 body", "39.5 body", "39.6 body", "39.7 body"],
+          "closed": true
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Four ends meet at (332.4,76.7): stem #41 segment 0, the straight stem piece #40 segment 3, the foot loop's return #40 segment 2 and the crossbar #41 segment 1.",
+          "choice": "One chain: lead tick, stem, down #40 segment 3, round the foot loop, back up through the node and on into the crossbar.",
+          "why": "Stem into #40 segment 3 is straight, and the loop's return into the crossbar is a smooth up-right continuation, so the form reads as one line crossing itself at the node."
+        },
+        {
+          "issue": "Crossbar end (340.6,72.45) is 0.53 from the ring.",
+          "choice": "Snapped onto the ring automatically.",
+          "why": "Under the 0.75 snap limit; it touches the ring at rendered width."
+        },
+        {
+          "issue": "Crossbar #41 segment 1 sits inside the same subpath as the stem.",
+          "choice": "Tagged bar.",
+          "why": "The bar role names the connecting bar of Ю."
+        },
+        {
+          "issue": "Lead tick #42.",
+          "choice": "Tagged body.",
+          "why": "It is the capital's lead tick at cap height into the stem top, part of the letter. Batch 73 role convention: entry is only a lead-in join hairline coming in from the left at the joining level. Capitals start words, so a capital's lead hook, tick or curl is part of the letter and is body; no capital keeps an entry piece."
+        },
+        {
+          "issue": "Near-threshold node: #40 segments 0 to 1 at the bottom of the foot loop (325.6,87.45) measures 20.4 degrees.",
+          "choice": "Kept by the extractor (corner inside one S1 curve).",
+          "why": "It is drawn inside one S1 curve, so the rule keeps it; S1's ink shows a tight turn there."
+        }
+      ]
+    },
+    {
+      "char": "Я",
+      "name": "capital ya",
+      "row": 2,
+      "subpaths": [43, 44, 45, 46, 47, 48],
+      "chains": [
+        {
+          "pieces": ["46.0 body", "43.0 body", "43.1 body", "43.2 body"]
+        },
+        {
+          "pieces": ["47.0 body", "44.0 body"]
+        },
+        {
+          "pieces": ["45.0r body", "48.0r body", "43.3 body", "43.4 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Inventory ambiguity: the bowl closes only by proximity; #44 ends 0.485 short of the stem #45.",
+          "choice": "Joined by the automatic snap of #44's free end onto #45.",
+          "why": "0.485 is under the 0.75 snap limit and the bowl is closed at rendered width in S1."
+        },
+        {
+          "issue": "At (367.75,75.6) the leg #43 segment 1, the straight #43 segment 2 and the bowl #47 meet.",
+          "choice": "Leg runs on through #43 segment 2 to the stem; the bowl starts there as its own chain.",
+          "why": "#43 segments 1 and 2 are nearly in line; #47 leaves heading left at a sharp angle."
+        },
+        {
+          "issue": "Micro-pieces #43 segment 0 (0.65) and #48 (0.63).",
+          "choice": "Kept as body.",
+          "why": "Both exceed 0.4 and are the only links (lead hook to leg, and leg node to the stem)."
+        },
+        {
+          "issue": "The inventory calls #46 a lead hook, but it sits at the bottom left like a foot hook on the leg.",
+          "choice": "Tagged body.",
+          "why": "It is the leg's own terminal hook, curling up and left at the lower-left end of the descending leg, the same shape as Х's foot hook #128.5. Batch 73 role convention: entry is only a lead-in join hairline coming in from the left at the joining level. Capitals start words, so a capital's lead hook, tick or curl is part of the letter and is body; no capital keeps an entry piece."
+        },
+        {
+          "issue": "At (369.45,73.1) the leg #43 segment 2 reaches the stem, where the stem top (#45, #48) runs on into #43 segment 3 (overshoot and retrace, as in Ш and Щ).",
+          "choice": "Leg #43 segment 2 ends at the stem as a branch; the stem chain runs #45 reversed, #48 reversed, into #43 segment 3 and down to the exit.",
+          "why": "Both continuations are near-tangent: #48 reversed into #43 segment 3 turns 5.1 degrees and the leg #43 segment 2 into #48 turns 5.6. Keeping the stem continuous is a convention (the same as Ш and Щ); the ink is identical either way."
+        },
+        {
+          "issue": "S1 does not split the exit from the stem: #43 segment 4 runs from the stem foot (366.6,87.45) to (371.6,83.45).",
+          "choice": "Segment 4 tagged exit.",
+          "why": "Tagged from the stem foot on the baseline, the last baseline touch."
+        }
+      ]
+    },
+    {
+      "char": "а",
+      "name": "lowercase a",
+      "row": 2,
+      "subpaths": [13, 14, 15, 17, 12, 11],
+      "chains": [
+        {
+          "pieces": ["13.0 body", "13.1 body", "13.2 body", "13.3 body", "13.4 body", "13.5 body", "13.6 body", "13.7 body", "13.8 body"],
+          "closed": true
+        },
+        {
+          "pieces": ["14.0 body"]
+        },
+        {
+          "pieces": ["12.0 body", "11.0 exit"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "17.0",
+          "kind": "other",
+          "along": "13.8",
+          "reason": "partial duplicate of the bowl closing line #13 segment 8: #17 runs (395.65,82.25) to (395.9,81.7), lying on that line within 0.03. It covers only part of 13.8, so the whole-length duplicate test cannot apply."
+        },
+        {
+          "piece": "15.0",
+          "kind": "other",
+          "along": "13.8",
+          "reason": "partial duplicate of the bowl closing line #13 segment 8: #15 runs (395.9,81.7) to (396.25,80.8), lying on that line within 0.03. Together #17 and #15 retrace 13.8 exactly."
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "#15 (0.97 long) and #17 (0.60 long) lie on the bowl's closing L segment #13.8 within 0.03 units: S1 draws that 1.57-unit stretch of the bowl's right side twice.",
+          "choice": "Kept 13.8 inside the closed bowl and dropped #17 and #15 as kind other (not duplicate), so the stretch is drawn once.",
+          "why": "Each of the two pieces covers only part of 13.8, so neither passes the one-to-one duplicate test (each sits about 0.6 from the far end of 13.8). Keeping the bowl closed matches the prototype д, where the stem's copy of the bowl segment (#19.1) was dropped and the bowl kept whole."
+        },
+        {
+          "issue": "The stem (#12 below the bowl, the bowl's right side, #14 above it) meets the closed bowl at two four-ended junctions (395.65,82.25) and (396.25,80.8).",
+          "choice": "Three chains: the closed bowl, the stem top #14 on its own, and the lower stem #12 plus exit #11 on its own. Both stem chains end exactly on bowl vertices, so nothing is snapped.",
+          "why": "Same structure as the prototype д (closed bowl, stem top #23 separate, lower stem separate). The other reading, one stem chain 12.0r, 13.8r, 14.0 with an open bowl, is equally smooth (3.5 and 1.1 degrees) and would need 13.8 out of the bowl."
+        },
+        {
+          "issue": "#14 is a short stem-top tick above the bowl, up to x-height (the Phase 1 report notes а has the same tick as д #23).",
+          "choice": "Kept as body.",
+          "why": "It is real S1 ink and the top of the stem; the prototype keeps д's #23 for the same reason."
+        },
+        {
+          "issue": "а and б share one S1 hairline, split by S1 at (400.6,84.05): #11 ends exactly where #10 starts.",
+          "choice": "а keeps #11 as its exit; #10 is б's entry (Phase 1 inference). No cut is needed, the split is an existing subpath boundary.",
+          "why": "#11 rises 3.4 units from the stem foot, a normal exit length, and #10 ends on б's bowl vertex like the о, ф and с entries. Inferred, not proven."
+        },
+        {
+          "issue": "S1 draws no entry for а: the form starts at the bowl.",
+          "choice": "No entry piece is tagged.",
+          "why": "Every piece of the bowl is bowl ink; inventing an entry would mean cutting a curve."
+        }
+      ]
+    },
+    {
+      "char": "б",
+      "name": "lowercase be",
+      "row": 2,
+      "subpaths": [8, 16, 9, 10],
+      "chains": [
+        {
+          "pieces": ["9.0r body", "16.0r body", "8.7r body", "8.6r body", "8.5r body", "8.4r body", "8.3r body", "8.2r body", "8.1r body", "8.0r body", "8.10r body", "8.9r body", "8.8r body"]
+        },
+        {
+          "pieces": ["10.0 entry"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Owner of #10: S1 has one continuous hairline #11 plus #10 between а and б, split only at (400.6,84.05).",
+          "choice": "#10 is б's entry; а keeps #11 as its exit.",
+          "why": "Phase 1 inference: #10 ends on б's bowl vertex (405.0,80.0) exactly like the entries of о, ф and с, and the split leaves а a normal-length exit. Inferred, not proven."
+        },
+        {
+          "issue": "Branch at (412.3,80.55): the bowl's right side #8.7, the bowl top #8.8 and the stem #16 meet there.",
+          "choice": "The bowl's right side runs on into the stem and flourish (8.7 to 16.0 is 0.2 degrees, a straight line), so one open chain runs flourish, stem, down the right side, round the bowl and back over its top, ending with 8.8 at that junction. The bowl is therefore not a closed chain.",
+          "why": "The rule says to continue the run that reads as one line; 8.7 into 16.0 is straighter than 8.7 into 8.8 (8.2 degrees). The chain's last end sits exactly on its own junction, so no snap is needed."
+        },
+        {
+          "issue": "Branch at (405.0,80.0): the entry #10 meets the bowl between 8.1 and 8.2.",
+          "choice": "The bowl runs through (8.1 to 8.2, 4.3 degrees) and the entry is its own chain.",
+          "why": "The entry arrives against the bowl's direction on one side (167 degrees to 8.2) and at 17 degrees on the other; the bowl is the continuous line."
+        },
+        {
+          "issue": "#8.0 is a 0.32-unit straight piece inside the closed bowl #8 (a sliver candidate by length).",
+          "choice": "Kept as body.",
+          "why": "It is part of the Z-closed bowl outline between 8.10 and 8.1 (3.9 and 4.8 degree nodes), not a crossing artefact; dropping it would open the bowl."
+        },
+        {
+          "issue": "S1 draws no exit for б: the form ends with the top flourish #9 at (425.6,63.95).",
+          "choice": "The flourish #9 is tagged body, not exit.",
+          "why": "It is the ascender flourish that is part of the letter, not a lead-out to the next letter (в has its own entry #7, 2.30 away)."
+        }
+      ]
+    },
+    {
+      "char": "в",
+      "name": "lowercase ve",
+      "row": 2,
+      "subpaths": [5, 6, 7],
+      "chains": [
+        {
+          "pieces": ["7.0 entry", "5.2 body", "5.0 body", "5.1 body", "6.0 body", "6.1 body", "6.2 body", "6.3 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Four-ended junction at the loop vertex (421.6,77.25): entry #7, both ends of the loop #5 and the lower bowl #6 all meet there.",
+          "choice": "One chain crossing that point twice: entry #7 runs on into 5.2 (0.1 degrees), round the ascender loop, and 5.1 runs on into 6.0 (1.5 degrees) and the lower bowl. The loop is not a separate closed chain.",
+          "why": "These are the two straight-through pairings at that point; the other pairings are cusps."
+        },
+        {
+          "issue": "Closure of the ascender loop #5 at its top right (430.6,68.45), where the chain passes from 5.2 to 5.0 (21.0 degrees).",
+          "choice": "Kept as a corner: split by arc length (5.2 takes 0.38, 5.0 0.62), smoothing would move 5.0 0.40 from its geometry, over the 0.25 cap. The 12.9 degree node from 6.0 into 6.1 is kept for the same reason (6.1 would move 0.36).",
+          "why": "Batch 73 smoothing rule: the turn is split by arc length, and a node keeps its corner if smoothing it would move any piece more than 0.25 from its geometry after snaps. Reported for the owner's visual review."
+        },
+        {
+          "issue": "Whether #7 could be б's exit.",
+          "choice": "#7 is в's entry (Phase 1).",
+          "why": "It ends on в's loop vertex, starts 2.30 from б's bowl without touching, and б ends at its flourish."
+        },
+        {
+          "issue": "S1 draws no exit for в: the lower bowl #6 ends inside the letter at (423.0,78.35).",
+          "choice": "No exit is tagged; 6.3 is body. Its free end is 1.67 from 6.0, beyond the snap distance, so it stays where S1 put it.",
+          "why": "The hook end is part of the letter shape, not a lead-out."
+        }
+      ]
+    },
+    {
+      "char": "г",
+      "name": "lowercase ge",
+      "row": 2,
+      "subpaths": [24, 25],
+      "chains": [
+        {
+          "pieces": ["25.0 entry", "24.0 body", "24.1 body", "24.2 body", "24.3 body", "24.4 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "S1 does not split г's exit from the body: it is the last segment of #24.",
+          "choice": "Tagged 24.4 (from the baseline vertex (436.15,87.70) to (440.6,85.45)) as exit.",
+          "why": "Rule: tag from the last point where the pen touches the baseline; that vertex is the Phase 1 strip point."
+        }
+      ]
+    },
+    {
+      "char": "д",
+      "name": "lowercase de",
+      "row": 2,
+      "subpaths": [18, 19, 20, 21, 22, 23],
+      "chains": [
+        {
+          "pieces": ["20.0 body", "20.1 body", "20.2 body", "20.3 body", "20.4 body", "20.5 body", "20.6 body", "20.7 body", "20.8 body", "20.9 body"],
+          "closed": true
+        },
+        {
+          "pieces": ["23.0 body"]
+        },
+        {
+          "pieces": ["19.0r body", "18.2 body", "18.0 body", "18.1 body", "21.0r exit"]
+        },
+        {
+          "pieces": ["22.0r entry"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "19.1",
+          "kind": "duplicate",
+          "of": "20.9",
+          "reason": "exact duplicate of bowl #20 segment 9"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "#19 segment 1 C(452.35,82.85) to (450.05,85.75) is identical to the bowl #20z's closing segment 20.9 (prototype resolution 1; Phase 1).",
+          "choice": "Dropped 19.1 as a duplicate of 20.9; the bowl is drawn once and kept closed.",
+          "why": "S1 draws the shared stretch twice; deviation 0."
+        },
+        {
+          "issue": "#22, a short hairline from the bowl vertex (445.65,80.5) to a free end 2.83 from г's exit (prototype resolution 4).",
+          "choice": "Kept as д's entry. Batch 71 left it out.",
+          "why": "It sits like the о, ф, с and б entries and touches no neighbour."
+        },
+        {
+          "issue": "#23, the stem top above the bowl up to x-height (prototype resolution 5).",
+          "choice": "Kept as body, as its own chain ending on the bowl vertex (453.3,80.45). Batch 71 left it out.",
+          "why": "It is real S1 ink, the same role as а's #14. The Phase 1 report notes it would need an inferred retrace for animation."
+        },
+        {
+          "issue": "#28 touches д's side of the gap only by proximity (prototype resolution 6; Phase 1).",
+          "choice": "Not д's: it is е's entry, kept out of this form.",
+          "why": "It ends on е's junction and is separated from д's exit #21 by a 1.414 gap; Batch 71 also left it out of д."
+        },
+        {
+          "issue": "Descender loop closure where #19's straight piece meets #18 (prototype resolution 10): the 23.2 degree node from 18.2 into 18.0.",
+          "choice": "Kept as a corner: split by arc length (18.2 takes 0.34, 18.0 0.66), smoothing would move 18.0 0.35 from its geometry, over the 0.25 cap. Batch 71 smoothed it in production; this record does not change production.",
+          "why": "Batch 73 smoothing rule: the turn is split by arc length, and a node keeps its corner if smoothing it would move any piece more than 0.25 from its geometry after snaps. Reported for the owner's visual review."
+        },
+        {
+          "issue": "Descender length: the prototype keeps S1's full-length descender loop.",
+          "choice": "Not shrunk. Batch 71 scaled it about the crossing (450.75,87.1) by about 0.576.",
+          "why": "Geometry comes from S1 as drawn; any shortening is a later production choice."
+        }
+      ]
+    },
+    {
+      "char": "е",
+      "name": "lowercase ye",
+      "row": 2,
+      "subpaths": [26, 27, 28],
+      "chains": [
+        {
+          "pieces": ["28.0 entry", "26.2r body", "26.1r body", "26.0r body", "26.3r body", "27.0 body", "27.1 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Four-ended junction at (455.6,83.2): entry #28, both ends of the loop #26 and the lower stroke #27.",
+          "choice": "One chain, the same as the prototype ё: entry into 26.2r (1.5 degrees), round the loop backwards, then from 26.3r on into 27.0.",
+          "why": "е and ё are the same shape in S1; their chaining should match. The 26.3r to 27.0 node is about 20 degrees (a split point, smoothed), as ё's 20.2 degree node is."
+        },
+        {
+          "issue": "#28 (1.03 long) could be read as д's join into е (Batch 71).",
+          "choice": "Kept as е's entry (Phase 1).",
+          "why": "It ends on е's junction and is separated from д's exit #21 by a 1.414 gap."
+        },
+        {
+          "issue": "S1 does not split е's exit from the body: it is the last segment of #27.",
+          "choice": "Tagged 27.1 (from the baseline vertex (459.6,87.45)) as exit.",
+          "why": "Rule: tag from the last baseline touch; same call as the prototype ё (resolution 13)."
+        }
+      ]
+    },
+    {
+      "char": "ё",
+      "name": "lowercase yo",
+      "row": 3,
+      "subpaths": [274, 275, 276, 277, 278],
+      "chains": [
+        {
+          "pieces": ["278.0 entry", "276.2r body", "276.1r body", "276.0r body", "276.3r body", "277.0 body", "277.1 exit"]
+        },
+        {
+          "pieces": ["274.0 dot", "274.1 dot", "274.2 dot", "274.3 dot", "274.4 dot", "274.5 dot", "274.6 dot", "274.7 dot"],
+          "closed": true,
+          "nosmooth": true
+        },
+        {
+          "pieces": ["275.0 dot", "275.1 dot", "275.2 dot", "275.3 dot", "275.4 dot", "275.5 dot", "275.6 dot", "275.7 dot"],
+          "closed": true,
+          "nosmooth": true
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "S1 does not split ё's exit from the body: it is the last segment of #277 (prototype resolution 13).",
+          "choice": "Tagged 277.1 (from the baseline vertex (11.45,132.70)) as exit.",
+          "why": "It follows the last touch on the baseline; a judgement call."
+        },
+        {
+          "issue": "The diaeresis dots #274 and #275 are S1 octagons made of 0.38-unit pieces (sliver candidates by length) (prototype resolution 14).",
+          "choice": "Kept whole as closed chains with role dot and no smoothing.",
+          "why": "They are real S1 ink, not crossing artefacts; smoothing would distort the octagons."
+        },
+        {
+          "issue": "The dots are Z-closed subpaths (Phase 1).",
+          "choice": "Counted as diacritics, not loops.",
+          "why": "They sit above x-height and carry no counter."
+        },
+        {
+          "issue": "Split point between 276.3r and 277.0 at the loop junction (7.45,128.45) (prototype resolution 10).",
+          "choice": "The 20.2 degree node is smoothed.",
+          "why": "It is a split point between subpaths inside the 1 to 30 degree band."
+        }
+      ]
+    },
+    {
+      "char": "ж",
+      "name": "lowercase zhe",
+      "row": 3,
+      "subpaths": [270, 271, 273, 269, 272],
+      "chains": [
+        {
+          "pieces": ["272.0r entry", "270.4r body", "271.0 body", "271.1 body", "271.2 body", "270.3r body", "270.2r body", "270.1r body", "270.0r body", "273.0r body"]
+        },
+        {
+          "pieces": ["269.0 body", "269.1 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Branch at (36.95,123.6): the hairline 270.1 from the stem foot, the short piece 270.0 to the right element's top, and the right element's descent #269 meet there.",
+          "choice": "The hairline from the stem foot runs on through 270.0 into the top hook #273 as one chain (the end of chain 1); the с-descent #269 and the exit start at that point as their own chain, starting exactly on the junction, so nothing is snapped.",
+          "why": "The hairline 270.1 runs straight into 270.0 (0 degrees; both are segments of the same subpath #270), and 270.0 rolls on into the hook #273 at 9.1 degrees (smoothed), while the descent 269.0 leaves that point at 17.4 degrees. The prototype Ж has the same geometry and was chained the same way: hairline 122.1, then 122.2, then the top hook 122.3 as one run, with the с bowl 126.0 as its own branch chain. The earlier draft ran 273, 270.0, 269.0 as the с, which bent the straight piece 270.0 out of line with the hairline."
+        },
+        {
+          "issue": "Four-ended junction at the loop vertex (26.7,126.05): the left element's descent, both ends of loop #271 and the hairline up to the stem top.",
+          "choice": "One chain through it twice: 270.4r on into the loop (12.9 degrees) and out of the loop into 270.3r (3.5 degrees).",
+          "why": "Those are the through pairings."
+        },
+        {
+          "issue": "Cusps at the stem top (33.6,121.05) and the stem foot (28.1,132.45) inside #270.",
+          "choice": "Chained through; the corners are kept.",
+          "why": "Rule: chain through two-ended junctions, a cusp is fine."
+        },
+        {
+          "issue": "Whether #272 is ё's exit.",
+          "choice": "ж's entry (Phase 1).",
+          "why": "It ends at the top of ж's left element and a 2.83 gap separates it from ё."
+        },
+        {
+          "issue": "S1 does not split ж's exit from the body: it is the last segment of #269.",
+          "choice": "Tagged 269.1 (from the baseline vertex (36.60,132.45)) as exit.",
+          "why": "Rule: tag from the last baseline touch; that vertex is the Phase 1 strip point."
+        }
+      ]
+    },
+    {
+      "char": "з",
+      "name": "lowercase ze",
+      "row": 3,
+      "subpaths": [263, 264, 265, 266, 267, 268],
+      "chains": [
+        {
+          "pieces": ["268.0 body", "266.0 body", "265.0 body", "265.1 body"]
+        },
+        {
+          "pieces": ["264.1r body", "264.0r body", "263.3 body", "263.0 body", "263.1 body", "263.2 body", "267.0r exit"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "264.2",
+          "kind": "duplicate",
+          "of": "265.1",
+          "reason": "exact duplicate of #265 segment 1 (the waist tip spur)"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "#264 segment 2 repeats #265 segment 1, the waist tip spur (prototype resolution 1).",
+          "choice": "Dropped 264.2 as a duplicate of 265.1; the spur is kept once.",
+          "why": "S1 draws it twice; deviation 0."
+        },
+        {
+          "issue": "Waist spur: the 0.67-unit tip to (47.6,130.05) (prototype resolution 2).",
+          "choice": "Kept and not snapped.",
+          "why": "The cusp is real."
+        },
+        {
+          "issue": "#264 is a short hook from the waist turn to the loop top (50.6,131.8) (Phase 1).",
+          "choice": "з body (waist into descender).",
+          "why": "It joins the waist to the descender loop; no other form reaches it."
+        },
+        {
+          "issue": "#264.0 is a 0.35-unit straight piece (a sliver candidate by length).",
+          "choice": "Kept in the chain as body (fixed by the prototype).",
+          "why": "It links the loop top (50.6,131.8) to the hook; not a crossing artefact."
+        },
+        {
+          "issue": "Split between #268 and #266 at the top right (54.6,121.45) (prototype resolution 10).",
+          "choice": "The 27.6 degree node is smoothed.",
+          "why": "Split point between subpaths inside the 1 to 30 degree band; a human check is worthwhile as it is near 30."
+        },
+        {
+          "issue": "з's entry is embedded in #268, a single cubic that is the entry and the top arc together.",
+          "choice": "Tagged 268.0 body; no entry piece.",
+          "why": "Stripping it would need a mid-curve cut, which the rule does not allow."
+        },
+        {
+          "issue": "Exit #267 runs from (55.6,127.85) into the loop crossing (50.6,131.8).",
+          "choice": "Tagged 267.0r exit, at the end of the loop chain.",
+          "why": "S1 splits it off as its own subpath ending free on the right."
+        }
+      ]
+    },
+    {
+      "char": "и",
+      "name": "lowercase i",
+      "row": 3,
+      "subpaths": [258, 259, 262, 260, 261],
+      "chains": [
+        {
+          "pieces": ["258.2r body", "258.1r body", "258.0r body", "259.0 body", "259.1 body", "259.2 body"]
+        },
+        {
+          "pieces": ["260.0r body", "262.0r body", "259.3 body", "259.4 exit"]
+        },
+        {
+          "pieces": ["261.0 entry"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Branch at stem 1's top junction (60.85,123.0): entry #261, the stem top #258 and stem 1 #259.0 meet there. Both entry into #258 (4.0 degrees) and #258 into stem 1 (0 degrees) run straight.",
+          "choice": "Stem 1 runs on as one line (#258 then 259.0) and the entry is its own chain ending on that point.",
+          "why": "The stem is the line that reads as continuous; the entry is a hairline that meets it."
+        },
+        {
+          "issue": "Branch at stem 2 (66.55,124.85): the upstroke 259.2, the junction piece #262 and stem 2 259.3 meet there. Both upstroke into #262 (0 degrees) and #262 into stem 2 (2.8 degrees) run straight.",
+          "choice": "Stem 2 runs on as one line (#260, #262, then 259.3 down to the foot and the exit), and the upstroke ends on it as part of stem 1's chain.",
+          "why": "Same call as stem 1: the stem reads as one straight line from x-height to the baseline. The dump's proposal paired the upstroke with #262 instead. Prototype precedent: in the prototype ш, S1's #69 runs the upstroke through the peak cusp into the downstroke (69.1 to 69.2, 69.3 to 69.4) and the stem tops #71 and #72 are their own chains; this form instead makes the stem continuous from x-height and lets the upstroke end on it, as a convention. The ink is identical either way."
+        },
+        {
+          "issue": "#262 (0.36 long) is a sub-unit junction piece (a sliver candidate by length).",
+          "choice": "Kept as body in stem 2's chain.",
+          "why": "It bridges #260 to the stem; dropping it would leave a gap (Phase 1: и body)."
+        },
+        {
+          "issue": "S1 does not split и's exit from the body: it is the last segment of #259.",
+          "choice": "Tagged 259.4 (from the baseline vertex (64.60,132.45)) as exit.",
+          "why": "Rule: tag from the last baseline touch; that vertex is the Phase 1 strip point."
+        }
+      ]
+    },
+    {
+      "char": "й",
+      "name": "lowercase short i",
+      "row": 3,
+      "subpaths": [253, 254, 257, 255, 256, 4],
+      "chains": [
+        {
+          "pieces": ["253.2r body", "253.1r body", "253.0r body", "254.0 body", "254.1 body", "254.2 body"]
+        },
+        {
+          "pieces": ["255.0r body", "257.0r body", "254.3 body", "254.4 exit"]
+        },
+        {
+          "pieces": ["256.0 entry"]
+        },
+        {
+          "pieces": ["4.0 breve"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Branch at stem 1's top junction (77.0,123.05): entry #256, stem top #253 and stem 1 #254.0. Both entry into #253 (4.0 degrees) and #253 into stem 1 (0 degrees) run straight.",
+          "choice": "Stem 1 runs on as one line and the entry is its own chain.",
+          "why": "Same call as и."
+        },
+        {
+          "issue": "Branch at stem 2 (82.7,124.9): upstroke 254.2, junction piece #257, stem 2 254.3. Both pairings with #257 run straight (0 and 2.8 degrees).",
+          "choice": "Stem 2 runs on as one line (#255, #257, 254.3, exit) and the upstroke ends on it.",
+          "why": "Same call as и: the stem reads as one straight line. Prototype precedent: in the prototype ш, S1's #69 runs the upstroke through the peak cusp into the downstroke (69.1 to 69.2, 69.3 to 69.4) and the stem tops #71 and #72 are their own chains; this form instead makes the stem continuous from x-height and lets the upstroke end on it, as a convention. The ink is identical either way."
+        },
+        {
+          "issue": "#257 (0.36 long) is a sub-unit junction piece (a sliver candidate by length).",
+          "choice": "Kept as body.",
+          "why": "It bridges #255 to the stem; dropping it would leave a gap."
+        },
+        {
+          "issue": "#4 lies in a different S1 path element (path20), not path22 (Phase 1).",
+          "choice": "It is й's breve, its own chain with role breve.",
+          "why": "It sits centred over й (x 79.6 to 83.6)."
+        },
+        {
+          "issue": "S1 does not split й's exit from the body: it is the last segment of #254.",
+          "choice": "Tagged 254.4 (from the baseline vertex (80.75,132.50)) as exit.",
+          "why": "Rule: tag from the last baseline touch; that vertex is the Phase 1 strip point."
+        }
+      ]
+    },
+    {
+      "char": "к",
+      "name": "lowercase ka",
+      "row": 3,
+      "subpaths": [293, 292, 291, 290, 294],
+      "chains": [
+        {
+          "pieces": ["293.0 body", "293.1 body", "292.0 body", "292.1 body", "292.2 body"]
+        },
+        {
+          "pieces": ["294.0 entry"]
+        },
+        {
+          "pieces": ["291.0 body", "290.0 body", "290.1 body"]
+        },
+        {
+          "pieces": ["291.1 body", "291.2 body", "291.3 exit"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "294.1",
+          "kind": "duplicate",
+          "of": "293.1",
+          "reason": "exact duplicate of #293 segment 1 (the entry's retrace down the stem)"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "The entry #294 runs up to (92.55,123.45) and back down the stem: its segment 1 is identical to the stem piece 293.1.",
+          "choice": "Dropped 294.1 as a duplicate of 293.1; the stem is drawn once.",
+          "why": "S1 draws that 4.4-unit stretch twice; deviation 0."
+        },
+        {
+          "issue": "Whether #294 is й's exit.",
+          "choice": "к's entry (Phase 1).",
+          "why": "The same subpath runs down к's stem, and it is 1.79 from й's exit."
+        },
+        {
+          "issue": "Stem junction (91.55,127.75): the stem (293.1 into 292.0, 6.8 degrees), the arm hairline 291.0 and the dropped retrace meet there. 291.0r also runs into 292.0 at 8.5 degrees.",
+          "choice": "The stem runs on as one line from x-height to the foot; the arm hairline starts there as its own chain.",
+          "why": "The stem reads as one line and is slightly straighter."
+        },
+        {
+          "issue": "Arm junction (93.1,125.6): 291.0 runs straight into the upper arm 290.0 (0.9 degrees); the lower arm 291.1 leaves at 41.9 degrees.",
+          "choice": "Chain 291.0, 290.0, 290.1 (hairline into the upper arm); the lower arm and exit start there as their own chain.",
+          "why": "Straight continuation; the lower arm is the branch."
+        },
+        {
+          "issue": "Entry junction (92.55,123.45): the entry 294.0 ends on the stem between 293.0 and 293.1.",
+          "choice": "Entry is its own chain; the stem runs through. The 17.4 degree node between the straight stem top 293.0 and 293.1 is smoothed by the extractor (straight-piece kink).",
+          "why": "The entry meets the stem at a cusp (155.6 degrees to 293.1), so the stem is the through line."
+        },
+        {
+          "issue": "S1 does not split к's exit from the body: it is the last segment of #291.",
+          "choice": "Tagged 291.3 as exit, from the vertex (95.60,131.45), which is 1.0 above the row-3 baseline (132.45), not on it. The pen touches the baseline inside 291.3, at about (97.0,132.7), so the exit piece carries the lower arm's foot turn: stripping the exit removes that turn and a body-only к ends 1.0 above the baseline.",
+          "why": "That vertex is the Phase 1 strip point, and the rule 'tag from the last baseline touch' cannot be met exactly without a mid-curve cut, which is not allowed. The alternative (291.3 as body, no exit) keeps the foot turn but hides the lead-out S1 draws here, leaving к with no exit piece although S1 joins it onward; it was rejected for that reason. A judgement call."
+        }
+      ]
+    },
+    {
+      "char": "л",
+      "name": "lowercase el",
+      "row": 3,
+      "subpaths": [295, 296],
+      "chains": [
+        {
+          "pieces": ["296.0 body", "295.0 body", "295.1 body", "295.2 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "The baseline hook #296 is part of the taught л shape and is also its entry (Phase 1).",
+          "choice": "Tagged 296.0 body; л has no entry piece.",
+          "why": "Role convention: л is one of Middlebury's hook letters, and its baseline hook is the letter's own hook, part of the taught shape, so it is body. S1 splits it off as its own subpath that starts free on the left at (102.6,128.95), dips to the baseline at about (104.0,132.7) and ends at the foot (106.6,131.45) where the main stroke rises; there is no separate lead-in hairline before it."
+        },
+        {
+          "issue": "The peak of л (115.6,121.45) is a 176 degree cusp inside #295, between the upstroke 295.0 and the downstroke 295.1.",
+          "choice": "Chained through; the corner is kept.",
+          "why": "Rule: chain through two-ended junctions, a cusp is fine."
+        },
+        {
+          "issue": "S1 does not split л's exit from the body: it is the last segment of #295.",
+          "choice": "Tagged 295.2 as exit, from the vertex (111.60,131.45), which is 1.0 above the row-3 baseline (132.45), not on it. The pen touches the baseline inside 295.2, at about (112.7,132.81), so the exit piece carries the right stem's foot turn: stripping the exit removes that turn and a body-only л ends 1.0 above the baseline.",
+          "why": "That vertex is the Phase 1 strip point. The rule 'tag from the last baseline touch' cannot be met exactly without a mid-curve cut, which is not allowed, so this is a judgement call forced by the no-mid-curve-cut rule."
+        }
+      ]
+    },
+    {
+      "char": "м",
+      "name": "lowercase em",
+      "row": 3,
+      "subpaths": [287, 286, 289, 288],
+      "chains": [
+        {
+          "pieces": ["288.0 body", "287.0 body"]
+        },
+        {
+          "pieces": ["286.0r body", "287.1 body", "287.2 body", "287.3 body"]
+        },
+        {
+          "pieces": ["289.0 body", "287.4 body", "287.5 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Peak 1 (131.2,121.55): the upstroke 287.0, the tip #286 and the downstroke 287.1 meet there. The tip runs straight into both (2.7 degrees from the upstroke, 1.0 to the downstroke).",
+          "choice": "The downstroke runs on from the tip as one line; the baseline hook and upstroke end on the peak as their own chain.",
+          "why": "The downstroke reads as the letter's stroke from x-height; same call as the stems of и and й. Prototype precedent: in the prototype ш, S1's #69 runs the upstroke through the peak cusp into the downstroke (69.1 to 69.2, 69.3 to 69.4) and the stem tops #71 and #72 are their own chains; this form instead makes the stem continuous from x-height and lets the upstroke end on it, as a convention. The ink is identical either way."
+        },
+        {
+          "issue": "Peak 2 (137.55,123.45): the upstroke 287.3, the tip #289 and the downstroke 287.4. The tip runs straight into both (2.9 and 1.0 degrees).",
+          "choice": "The downstroke runs on from the tip (with the exit); the upstroke ends on the peak.",
+          "why": "Same call as peak 1. The dump's proposal paired the tip with the upstroke here but with the downstroke at peak 1, which would treat the two peaks differently. Prototype precedent: in the prototype ш, S1's #69 runs the upstroke through the peak cusp into the downstroke (69.1 to 69.2, 69.3 to 69.4) and the stem tops #71 and #72 are their own chains; this form instead makes the stem continuous from x-height and lets the upstroke end on it, as a convention. The ink is identical either way."
+        },
+        {
+          "issue": "The baseline hook #288 leads into the first upstroke. Checked whether it is the hook itself or a separate hairline before the hook: #288 is a single cubic from (118.6,129.45) that dips to the baseline at about (120.7,132.74) and ends at (123.6,131.45) where 287.0 rises, so it is the hook itself, the same shape as л's #296.",
+          "choice": "Tagged 288.0 body; м has no entry piece. 287.0 (the rise from the hook's end to the peak) is body.",
+          "why": "Role convention: м is one of Middlebury's hook letters, and its baseline hook is the letter's own hook, so it is body, not entry. There is no separate lead-in hairline in S1 to tag as entry."
+        },
+        {
+          "issue": "S1 does not split м's exit from the body: it is the last segment of #287.",
+          "choice": "Tagged 287.5 (from the baseline vertex (135.60,132.45)) as exit.",
+          "why": "Rule: tag from the last baseline touch; that vertex is the Phase 1 strip point."
+        }
+      ]
+    },
+    {
+      "char": "н",
+      "name": "lowercase en",
+      "row": 3,
+      "subpaths": [279, 284, 283, 280, 281, 285, 282],
+      "chains": [
+        {
+          "pieces": ["285.0 entry", "279.2 body", "279.0 body", "279.1 body", "284.0 body", "283.2 body", "283.0 body", "283.1 body", "284.1 body", "280.0 body", "280.1 body", "281.1r body", "281.0r body", "280.2 body", "282.0 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "All three Z-closed subpaths of н are degenerate thin loops, not counters: #279z the top tip of stem 1 (about 3.6 round), #283z the lower stem 1 drawn down and up, #281z the top tip of stem 2 (Phase 1).",
+          "choice": "All kept as real ink, opened and chained through, none as a closed chain.",
+          "why": "They are S1's drawn ink. Each meets the rest of the letter at a four-ended junction where the through pairings run them into the strokes."
+        },
+        {
+          "issue": "Junction (147.1,121.95), stem 1 top: entry #285, both ends of tip loop #279 and the upper stem 284.0.",
+          "choice": "Entry runs into 279.2 (0 degrees), round the tip, and 279.1 runs into 284.0 (0.2 degrees).",
+          "why": "Those are the straight-through pairings. Inside the tip the 279.0 to 279.1 node is a 108 degree corner, kept, as S1 draws a sharp tip."
+        },
+        {
+          "issue": "Junction (145.35,127.25): the upper stem 284.0, both ends of #283z and the crossbar 284.1. #283z attaches only here, at #284's interior vertex.",
+          "choice": "284.0 runs into 283.2 (0.3 degrees) down to the foot, back up 283.0 and 283.1, and 283.1 runs into the crossbar 284.1 at a 41.9 degree corner, kept.",
+          "why": "The other pairing (stem straight into the crossbar) is a sharper corner, and 283.1 into 283.2 is a cusp. Worth a human look: the foot (143.6,132.45) is a 55.5 degree corner and the stem is drawn twice side by side as a thin loop."
+        },
+        {
+          "issue": "Junction (153.05,124.1), stem 2 top: the crossbar end 280.1, both ends of tip loop #281 and stem 2 280.2.",
+          "choice": "280.1 runs into 281.1r (2.7 degrees), round the tip, and 281.0r runs into 280.2 (2.0 degrees).",
+          "why": "Those are the smoothest pairings (the alternatives are 23.8 and 28.6 degrees)."
+        },
+        {
+          "issue": "Near-threshold node where the crossbar 284.1 meets 280.0 at (151.6,125.45), about 26 degrees.",
+          "choice": "Smoothed by the extractor (straight-piece kink).",
+          "why": "Inside the 1 to 30 degree band; S1 draws a rounded turn there."
+        },
+        {
+          "issue": "Entry and exit are separate S1 subpaths (#285 and #282).",
+          "choice": "Tagged 285.0 entry and 282.0 exit.",
+          "why": "Each starts or ends free. The exit #282 starts at (150.6,131.45), 1.0 above the row-3 baseline (132.45), not on it; the pen touches the baseline inside 282.0, at about (151.3,133.0). So the exit piece carries stem 2's foot turn: stripping the exit removes that turn and a body-only н ends 1.0 above the baseline. Kept as exit because S1 cuts its own exit subpath there (as it does for Н #34 and М #36) and no mid-curve cut is allowed."
+        }
+      ]
+    },
+    {
+      "char": "о",
+      "name": "lowercase o",
+      "row": 3,
+      "subpaths": [167, 168, 169],
+      "chains": [
+        {
+          "pieces": ["167.0 body", "167.1 body", "167.2 body", "167.3 body", "167.4 body", "167.5 body", "167.6 body", "167.7 body", "167.8 body"],
+          "closed": true
+        },
+        {
+          "pieces": ["169.0 entry"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "168",
+          "kind": "sliver",
+          "reason": "0.05-unit degenerate spur from the bowl vertex (162.5,124.25) to (162.5,124.2), where the entry meets the bowl"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "#168 is a 0.05-unit degenerate piece at the bowl vertex where the entry #169 ends (Phase 1 assigned it to о as the bridge from #169 to #167z).",
+          "choice": "Dropped as a sliver.",
+          "why": "#169 ends exactly on the bowl vertex (162.5,124.25), so #168 bridges nothing; it is a zero-width spur, not visible ink."
+        },
+        {
+          "issue": "Branch at (162.5,124.25): the entry ends on the bowl. The bowl runs through (0.3 degrees); the entry meets 167.8 at 8.2 degrees.",
+          "choice": "Closed bowl chain; the entry is its own chain.",
+          "why": "The bowl is the straighter line through that point."
+        },
+        {
+          "issue": "S1 draws no exit for о.",
+          "choice": "No exit is tagged.",
+          "why": "The form ends with the closed bowl."
+        }
+      ]
+    },
+    {
+      "char": "п",
+      "name": "lowercase pe",
+      "row": 3,
+      "subpaths": [170, 171, 172, 173],
+      "chains": [
+        {
+          "pieces": ["170.4r body", "170.3r body", "170.2r body", "170.1r body", "170.0r body", "172.0r exit"]
+        },
+        {
+          "pieces": ["173.0 entry", "171.0 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Branch point at (174.8, 127.1): the arch (#170 segment 2), the top of stem 1 (#171) and the lower stem 1 (#170 segment 3) meet; both possible runs are smooth (arch into lower stem turns 2.1 degrees, #171 into lower stem 4.9 degrees).",
+          "choice": "Follow the smoother run: lower stem 1, arch, stem 2 and exit are one chain (S1's #170 as drawn); the entry and the stem-1 top #171 are a second chain ending at the junction.",
+          "why": "The group rule at three-way junctions is to continue through the smallest turn, as in the т prototype (arch 1 into stem 2) and щ's stem-2 junction. The margin here is small (2.1 against 4.9 degrees), so a reviewer may prefer the straight stem as the run; the drawn shape is the same either way."
+        },
+        {
+          "issue": "Inventory shape note: #171 (the top of stem 1 from x-height) overlaps #170 for about 2 units, where #171 and #170 segment 2 converge almost tangentially into the junction (174.8, 127.1).",
+          "choice": "Keep both whole; nothing is dropped.",
+          "why": "No segment pair lies within 0.3 along its whole length, so neither is a duplicate; the two strokes only run within one stroke width of each other for about 2 units before they meet. The same kind of shared approach is recorded for у (#158 and #159)."
+        }
+      ]
+    },
+    {
+      "char": "р",
+      "name": "lowercase er",
+      "row": 3,
+      "subpaths": [174, 175, 176, 177],
+      "chains": [
+        {
+          "pieces": ["177.0 entry", "175.0 body", "175.1 body"]
+        },
+        {
+          "pieces": ["174.2r body", "174.1r body", "174.0r body", "176.0r exit"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "174.3",
+          "kind": "duplicate",
+          "of": "175.1",
+          "reason": "S1 draws the stem from the branch point to the descender foot twice; #174 segment 3 is identical to #175 segment 1 (deviation 0)"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Duplicated descender stroke: #174 segment 3 and #175 segment 1 are the same line from (192.1, 126.2) to the foot (183.6, 143.45).",
+          "choice": "Drop #174 segment 3 and keep #175 segment 1.",
+          "why": "Keeping #175 segment 1 lets the stem run as one chain from the top; the duplicate is exact."
+        },
+        {
+          "issue": "Branch point at (192.1, 126.2) where the arch #174 segment 2 leaves the stem.",
+          "choice": "The stem (#177 entry, #175) is one chain; the arch, bowl side and exit are a second chain starting at the junction.",
+          "why": "Continue through the smallest turn (group rule): the stem runs straight through (1.2 degrees) while the arch would turn 16.4 degrees into the lower stem."
+        }
+      ]
+    },
+    {
+      "char": "с",
+      "name": "lowercase es",
+      "row": 3,
+      "subpaths": [154, 155, 156],
+      "chains": [
+        {
+          "pieces": ["156.0 entry", "154.0 body", "154.1 body"]
+        },
+        {
+          "pieces": ["155.0 body", "155.1 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Three subpaths meet at (208.45, 123.95): the entry #156, the top hook #154 and the bowl #155. The entry runs into the hook with a 0.5 degree turn; the hook meets the bowl at 25.7 degrees.",
+          "choice": "The entry and the top hook are one chain; the bowl and exit are a second chain starting at the junction.",
+          "why": "Continue through the smallest turn (group rule). Chaining hook into bowl instead would put a 25.7 degree node there, under 30, and the extractor would round off the point S1 draws at the upper left of с; as a branch the point stays sharp."
+        },
+        {
+          "issue": "S1 does not separate the exit from the bowl; #155 segment 1 runs from the bottom vertex (209.6, 132.35) to the free end. That vertex is 0.1 above the row-3 baseline (132.45); the pen touches the baseline inside the exit piece, at its lowest point about (211.5, 132.62).",
+          "choice": "Tag all of #155 segment 1 as exit, cut at the vertex.",
+          "why": "The vertex is the inventory's optional strip point; cutting at the actual baseline touch would need a split in the middle of the curve. So the baseline touch lies inside the exit piece, and stripping the exit removes the foot turn as well: a body-only с ends at the vertex, 0.1 above the baseline."
+        }
+      ]
+    },
+    {
+      "char": "т",
+      "name": "lowercase te",
+      "row": 3,
+      "subpaths": [161, 162, 163, 164, 165, 166],
+      "chains": [
+        {
+          "pieces": ["166.0 entry", "165.0 body"]
+        },
+        {
+          "pieces": ["164.0 body", "162.0 body", "161.3 body", "161.4 body"]
+        },
+        {
+          "pieces": ["161.2r body", "161.1r body", "161.0r body", "163.0r exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Prototype form; inventory notes no ambiguity (calibration agrees with Batch 71).",
+          "choice": "Chains and drops taken unchanged from proto-rules.json; roles unchanged.",
+          "why": "The prototype reproduces Batch 71 to within 1.6 units."
+        },
+        {
+          "issue": "Snap: the free start of arch 1 (#164) misses stem 1 (#165) by 0.3175 (prototype resolution 7).",
+          "choice": "Let the extractor snap #164's start onto #165.",
+          "why": "It is a T-junction near-miss under 0.75, and Batch 71 made the same move."
+        },
+        {
+          "issue": "Branch point at (229.8, 123.9): arch 1 (#162) and arch 2 (#161 segment 2) both meet stem 2 there (prototype resolution 8).",
+          "choice": "Arch 1 runs on into stem 2 (#161 segments 3 and 4); arch 2, stem 3 and the exit are a separate chain starting at the junction.",
+          "why": "Same as Batch 71: arch 1 flows down into the stem, arch 2 springs out of it."
+        },
+        {
+          "issue": "S1 straight piece in stem 2: the 6.7-unit lower piece stays straight while Batch 71 rebuilt both pieces as one cubic; the 3.8 degree split where arch 1 meets #162 is smoothed.",
+          "choice": "Keep the extractor's fixed rules (straight pieces of 5 units or more stay straight).",
+          "why": "Prototype comparison with production shows the difference is under 1.6 units."
+        }
+      ]
+    },
+    {
+      "char": "у",
+      "name": "lowercase u",
+      "row": 3,
+      "subpaths": [157, 158, 159, 160],
+      "chains": [
+        {
+          "pieces": ["158.2r entry", "158.1r body", "158.0r body", "159.1 body", "159.2 body"]
+        },
+        {
+          "pieces": ["159.0r body", "157.3 body", "157.0 body", "157.1 body", "157.2 body", "160.0r exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "S1 does not separate the entry from stem 1: it is the last segment of #158, the straight piece from (240.6, 128.45) up to the vertex (246.6, 121.45).",
+          "choice": "Tag #158 segment 2 as entry.",
+          "why": "The vertex (246.6, 121.45) at x-height is where the lead-in turns into stem 1, the inventory's optional strip point."
+        },
+        {
+          "issue": "Branch point at (251.05, 125.95) where the bowl (#158 segment 0) meets the right stem #159.",
+          "choice": "The bowl runs on into the top of the right stem (#159 segments 1 and 2, a 0.7 degree turn); the downstroke #159 segment 0, the descender loop and the exit are a second chain starting at the junction (the straight-stem run would turn 6.0 degrees).",
+          "why": "Continue through the smallest turn (group rule, as in т and щ's stem 2). The inventory's 2-unit overlap of #158 and #159 is this shared approach to the junction, not a duplicate (no segment pair within 0.3)."
+        },
+        {
+          "issue": "Descender loop #157 is closed and passes through the junction (248.1, 132.9) where the stem enters and the exit #160 leaves.",
+          "choice": "Chain stem into #157 segment 3, round the loop (segments 0, 1, 2) back to the junction, then out along #160.",
+          "why": "#157 segment 3 continues the stem's direction and #160 continues the loop's return direction; the loop is open in the chain (it crosses itself at the junction), so it is not marked closed."
+        }
+      ]
+    },
+    {
+      "char": "ф",
+      "name": "lowercase ef",
+      "row": 3,
+      "subpaths": [189, 190, 191, 192, 193, 194],
+      "chains": [
+        {
+          "pieces": ["191.0 entry"]
+        },
+        {
+          "pieces": ["189.0 body", "189.1 body", "189.2 body", "189.3 body", "189.4 body", "189.5 body", "189.6 body", "189.7 body", "189.8 body", "189.9 body", "189.10 body", "189.11 body"],
+          "closed": true
+        },
+        {
+          "pieces": ["192.0 body", "190.0 body", "190.1 body", "190.2 body", "190.3 body", "190.4 body", "190.5 body", "190.6 body", "190.7 body", "190.8 body", "190.9 body"]
+        },
+        {
+          "pieces": ["194.0 body"]
+        },
+        {
+          "pieces": ["193.0 exit"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "190.10",
+          "kind": "duplicate",
+          "of": "189.5",
+          "reason": "the right bowl's return up the shared middle, (262.75, 129.5) to (263.95, 126.75), lies within 0.071 of #189 segment 5, which the closed left bowl already draws"
+        },
+        {
+          "piece": "190.11",
+          "kind": "duplicate",
+          "of": "189.4",
+          "reason": "the right bowl's return up the shared middle, (263.95, 126.75) to (264.45, 125.5), lies within 0.071 of #189 segment 4, which the closed left bowl already draws"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Prototype form; inventory notes the right bowl #190 is not Z-closed in S1, so it is not a closed loop.",
+          "choice": "Chains taken from proto-rules.json: the left bowl #189 is a closed chain, the right bowl is #192 then #190 as an open chain ending at #190 segment 9; the one change from the prototype is that #190 segments 10 and 11 are dropped as duplicates (see below); roles unchanged.",
+          "why": "Matches the Phase 1 prototype apart from the Batch 73 duplicate correction."
+        },
+        {
+          "issue": "Shared middle (prototype resolution 9, corrected): the right bowl's left side and the left bowl's right side are the same stroke from (265, 124.1) down to (262.75, 129.5), which is #189 segments 3 to 5, not segment 3 alone as resolution 9 says.",
+          "choice": "Draw the shared middle once, as #189 segments 3 to 5 inside the closed left bowl. The right bowl touches it at both ends: #192 starts on it at (265, 124.1), and the right-bowl chain ends at #190 segment 9 where it meets it again at (262.75, 129.5).",
+          "why": "Drawing any of it twice would double the ink; resolution 9 only described the top of the shared middle."
+        },
+        {
+          "issue": "Near-threshold nodes: 27.6 and 26.6 degree kinks at S1 straight pieces (prototype resolution 10). The 27.6 degree kink (#189 segments 2 to 3) remains; the 26.6 degree kink was the turn from #190 segment 9 into the dropped #190 segment 10, so it no longer exists after the Batch 73 duplicate drop.",
+          "choice": "The 27.6 degree kink is smoothed, by the straight-piece rule.",
+          "why": "It is under 30 degrees and involves S1 straight pieces; S1's raster shows no corner there."
+        },
+        {
+          "issue": "Doubled ink in the prototype: #190 segments 10 and 11 (the right bowl's return up the shared middle, (262.75, 129.5) to (264.45, 125.5)) lie within 0.071 of #189 segments 5 and 4. The prototype drew about 4.3 units of the shared middle twice.",
+          "choice": "Drop #190 segment 10 as a duplicate of #189 segment 5 and #190 segment 11 as a duplicate of #189 segment 4; the right-bowl chain ends at #190 segment 9.",
+          "why": "Corrected in Batch 73 by orchestrator decision after review: the deviation (0.071) is far under the 0.3 duplicate limit, and the left bowl already draws that ink."
+        },
+        {
+          "issue": "The descender #194 is a separate free stem starting at (262.8, 130.45); there is no ascender in this S1 form.",
+          "choice": "Keep #194 as its own body chain.",
+          "why": "It is real ink and S1 draws it as a separate piece."
+        }
+      ]
+    },
+    {
+      "char": "х",
+      "name": "lowercase kha",
+      "row": 3,
+      "subpaths": [178, 179, 195, 196],
+      "chains": [
+        {
+          "pieces": ["196.0 body", "195.0 body", "195.1 body"]
+        },
+        {
+          "pieces": ["179.0 body", "178.0 body", "178.1 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "Whether х is one piece or two (inventory). The halves touch at the waist: #178's start is 0.676 from #195's curve.",
+          "choice": "Two chains, both owned by х; no snap (#178's start is a two-ended junction with #179, not a free end).",
+          "why": "S1 draws two separate halves whose ink touches within the stroke width; joining them would invent geometry."
+        },
+        {
+          "issue": "S1 has no separate entry for х; #196 starts as the top-left hook.",
+          "choice": "Tag #196 as body; no entry piece.",
+          "why": "There is no lead-in stroke to tag; the hook is part of the letter's left half."
+        },
+        {
+          "issue": "S1 does not separate the exit from the right half; #178 segment 1 runs from the bottom vertex (284.6, 131.85) to the free end. That vertex is 0.6 above the row-3 baseline (132.45); the pen touches the baseline inside the exit piece, at its lowest point about (287.0, 132.73).",
+          "choice": "Tag all of #178 segment 1 as exit, cut at the vertex.",
+          "why": "The vertex is the inventory's optional strip point; cutting at the actual baseline touch would need a split in the middle of the curve. So the baseline touch lies inside the exit piece, and stripping the exit removes the foot turn as well: a body-only х ends at the vertex, 0.6 above the baseline."
+        },
+        {
+          "issue": "The lower-left terminal of the left half (#195 segment 1, ending at (275.2, 129.45)) curls up like a hook rather than a lead-in.",
+          "choice": "Tag it body.",
+          "why": "It belongs to the letter's left half and does not lead in from the previous letter."
+        }
+      ]
+    },
+    {
+      "char": "ц",
+      "name": "lowercase tse",
+      "row": 3,
+      "subpaths": [180, 181, 182, 185, 186, 187, 188, 304, 305],
+      "chains": [
+        {
+          "pieces": ["180.4r entry", "180.3r body", "180.2r body", "180.1r body", "182.0r body"]
+        },
+        {
+          "pieces": ["180.0r body", "181.0r body", "305.0 tail", "304.0 tail", "304.1 tail", "304.2 tail", "188.0 tail", "185.0 tail", "185.1 tail"]
+        },
+        {
+          "pieces": ["186.0 exit"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "185.2",
+          "kind": "duplicate",
+          "of": "304.1",
+          "reason": "#185 segment 2 retraces the 0.5-unit drop at the tail crossing that #304 segment 1 already draws (deviation 0.071)"
+        },
+        {
+          "piece": "187.0",
+          "kind": "sliver",
+          "reason": "0.071-unit zigzag sliver at the tail crossing (305.9, 133.3), the counterpart of щ's #55"
+        },
+        {
+          "piece": "187.1",
+          "kind": "duplicate",
+          "of": "304.1",
+          "reason": "#187 segment 1 is identical to #304 segment 1 (deviation 0) at the tail crossing"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Roles of the tiny tail pieces #181, #305, #304, #187, #188, #185 (inventory). Order by path continuity: foot (303.6, 132.45), #181, #305 up, #304 down, #188, loop #185 back up to the crossing, exit #186.",
+          "choice": "One chain from the stem-2 junction (304.2, 124.2) down the stem to the foot and on through the whole tail to the end of the loop; the exit #186 is its own chain from the crossing.",
+          "why": "Same structure as the щ prototype, whose tail runs as one chain (#57 to #51) with #52 as a separate exit chain."
+        },
+        {
+          "issue": "Tail tagging: where the tail starts.",
+          "choice": "The foot piece #181 along the baseline, (303.6, 132.45) to (304.3, 132.35), is body. The tail starts at #305, where the stroke leaves the foot and rises at (304.3, 132.35) before going down to the descender loop, and runs through #185 segment 1; #186 is exit. This matches щ exactly (foot #57 body, tail from #299).",
+          "why": "Batch 73 role rule: the tail starts at the rise after the foot, not at the foot piece along the baseline. Ц and Щ start their tails the same way (#303, #300)."
+        },
+        {
+          "issue": "Three copies of the 0.5-unit drop from (305.95, 133.25) to (305.9, 133.8) at the tail crossing: #185 segment 2, #187 segment 1, #304 segment 1.",
+          "choice": "Keep #304 segment 1 (it lies on the tail path #304 down to #188); drop #185 segment 2 and #187 segment 1 as duplicates of it.",
+          "why": "All three lie within 0.071 of each other. They are longer than 0.4, so they are duplicates rather than slivers (щ's equivalents were under 0.4 and were dropped as slivers)."
+        },
+        {
+          "issue": "Corner at the bottom-left of the tail loop: #185 segments 0 and 1 meet at 41.6 degrees.",
+          "choice": "Kept as a corner (extractor rule, over 30 degrees).",
+          "why": "S1 draws the loop with a pointed lower-left turn; щ's loop has an 18.1 degree corner kept inside one curve at the same place, so the two tails are similar but not identical."
+        },
+        {
+          "issue": "#187 segment 0 is a 0.071-unit back-and-forth at the crossing.",
+          "choice": "Drop as a sliver.",
+          "why": "Crossing artefact, as щ's #55."
+        },
+        {
+          "issue": "#304 segment 2 is only 0.3 long (sliver candidate).",
+          "choice": "Keep it as tail.",
+          "why": "It is the real connector from the end of #304 segment 1 (305.9, 133.8) to the start of #188 (305.9, 134.1); dropping it would leave a gap in the tail."
+        },
+        {
+          "issue": "Branch point (304.2, 124.2): the rising stroke of the U-turn (#180 segment 1), the top of stem 2 (#182) and the stem-2 downstroke (#180 segment 0) meet.",
+          "choice": "Match щ's stem-2 structure: the entry, stem 1, the U-turn's rising stroke and the stem-2 top #182 are one chain (#180 segment 1 into #182, a 3.7 degree turn); the stem-2 downstroke (#180 segment 0) starts its own chain at the junction (#182 into #180 segment 0 would turn 2.4 degrees).",
+          "why": "Orchestrator decision after review: the prototype щ chains its rising stroke into the stem top (#60 segment 0 into #60 segment 1) with the downstroke #59 as a branch, and dump.js proposes the same chain for ц. This departs from the strict smallest-turn rule by 1.3 degrees; т is not comparable (no separate stem-top piece). The drawn shape is the same either way."
+        },
+        {
+          "issue": "S1 does not separate the entry from stem 1: it is the last segment of #180, from the vertex (299.6, 121.45) down to (294.6, 126.45).",
+          "choice": "Tag #180 segment 4 as entry.",
+          "why": "The vertex at x-height is the inventory's optional strip point, where the lead-in turns into stem 1."
+        },
+        {
+          "issue": "The tail loop is visually closed but not Z-closed (inventory); the loop's end (305.9, 133.3) is 0.071 from the exit's start.",
+          "choice": "Leave the loop open in the chain; the extractor moves the loop end 0.0707 onto the exit's start.",
+          "why": "Same as щ, where #51's end is moved 0.0707 onto #52's start (prototype resolution 3). Unlike щ, where stem 3 into its foot piece (#58 to #57) is a 41.5 degree corner kept (prototype resolution 10), ц's stem 2 into its foot piece (#180 segment 0 to #181) is 21.9 degrees and is smoothed. The foot into the tail rise (#181 to #305) is 19.1 degrees and smoothed, like щ's 20.7 (#57 to #299)."
+        }
+      ]
+    },
+    {
+      "char": "ч",
+      "name": "lowercase che",
+      "row": 3,
+      "subpaths": [183, 184],
+      "chains": [
+        {
+          "pieces": ["184.0 entry", "183.0 body", "183.1 body", "183.2 body", "183.3 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "S1 does not separate the exit from the body; #183 segment 3 runs from the bottom vertex (319.85, 133.0) to the free end.",
+          "choice": "Tag #183 segment 3 as exit.",
+          "why": "The vertex is the last point on the baseline, the inventory's optional strip point."
+        }
+      ]
+    },
+    {
+      "char": "ш",
+      "name": "lowercase sha",
+      "row": 3,
+      "subpaths": [69, 70, 71, 72, 73],
+      "chains": [
+        {
+          "pieces": ["73.0 entry"]
+        },
+        {
+          "pieces": ["70.0 body", "70.1 body", "69.0 body", "69.1 body", "69.2 body", "69.3 body", "69.4 body", "69.5 exit"]
+        },
+        {
+          "pieces": ["71.0 body"]
+        },
+        {
+          "pieces": ["72.0 body"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "73.1",
+          "kind": "duplicate",
+          "of": "70.1",
+          "reason": "exact duplicate of #70 segment 1 (stem 1)"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Exact duplicate: #73 segment 1 repeats #70 segment 1, where the entry retraces about 9 units of stem 1 (prototype resolution 1).",
+          "choice": "Drop #73 segment 1 and keep #70 segment 1; chains unchanged from the prototype.",
+          "why": "The duplicate is exact; drawing it twice would double the ink."
+        },
+        {
+          "issue": "Near-threshold node: #69 segments 4 to 5 meet at 30.9 degrees (prototype resolution 10).",
+          "choice": "Kept as a corner.",
+          "why": "It is above 30 degrees and inside one S1 curve anyway."
+        },
+        {
+          "issue": "S1 has no split between the body and the exit; #69 segment 5 runs from the bottom vertex (343.6, 132.45) to the free end (prototype resolution 13).",
+          "choice": "Tag #69 segment 5 as exit.",
+          "why": "It is the piece after the last touch on the baseline, the inventory's optional strip point."
+        },
+        {
+          "issue": "Stem tops #71 and #72 (from x-height) meet #69 at the U-turn tops.",
+          "choice": "Each is its own body chain, as in the prototype.",
+          "why": "They join #69 at branch points; the prototype chains are fixed."
+        }
+      ]
+    },
+    {
+      "char": "щ",
+      "name": "lowercase shcha",
+      "row": 3,
+      "subpaths": [51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 298, 299],
+      "chains": [
+        {
+          "pieces": ["65.0 entry"]
+        },
+        {
+          "pieces": ["63.0 body"]
+        },
+        {
+          "pieces": ["62.0 body", "61.0 body", "60.0 body", "60.1 body"]
+        },
+        {
+          "pieces": ["59.0 body", "58.0 body", "58.1 body", "57.0 body", "57.1 body", "299.0 tail", "298.0 tail", "298.1 tail", "298.2 tail", "56.0 tail", "54.0 tail", "53.0 tail", "51.0 tail", "51.1 tail"]
+        },
+        {
+          "pieces": ["64.0 body"]
+        },
+        {
+          "pieces": ["52.0 exit"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "64.1",
+          "kind": "duplicate",
+          "of": "58.1",
+          "reason": "exact duplicate of #58 segment 1 (stem 3)"
+        },
+        {
+          "piece": "51.2",
+          "kind": "sliver",
+          "reason": "0.25-unit sliver at the tail crossing"
+        },
+        {
+          "piece": "55",
+          "kind": "sliver",
+          "reason": "0.35-unit zigzag sliver at the tail crossing"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Exact duplicate: #58 segment 1 and #64 segment 1 are the same stem-3 curve (inventory; prototype resolution 1).",
+          "choice": "Drop #64 segment 1, keep #58 segment 1; chains unchanged from the prototype.",
+          "why": "Draw once."
+        },
+        {
+          "issue": "Crossing slivers at the tail crossing: #55 (0.35 units over its two segments) and #51 segment 2 (0.25 units) (prototype resolution 3).",
+          "choice": "Drop both as slivers; the extractor moves #51's end 0.0707 onto #52's start.",
+          "why": "They are crossing artefacts under 0.4 units."
+        },
+        {
+          "issue": "Tail order by continuity (inventory, inferred): foot (366.2, 132.65), #57, #299 up, #298 down, #56, #54, #53, loop #51 back up, #55, exit #52.",
+          "choice": "The prototype chain follows this order; #55 is dropped and #52 is its own exit chain.",
+          "why": "Prototype chains are fixed."
+        },
+        {
+          "issue": "Tail tagging (re-tag from the prototype, which had them as body).",
+          "choice": "The foot piece #57 (segments 0 and 1, along the baseline from (366.2, 132.65) to (367.45, 132.85)) stays body. The tail starts at #299, where the stroke leaves the foot and rises before going down to the descender loop, and runs through #51 segment 1; #52 stays exit. ц is tagged the same way (foot #181 body, tail from #305).",
+          "why": "Batch 73 role rule: the tail starts at the rise after the foot, not at the foot piece along the baseline. Ц and Щ start their tails the same way (#303, #300)."
+        },
+        {
+          "issue": "Near-threshold nodes (prototype resolution 10): stem 3 into the foot piece (#58 to #57) is 41.5 degrees and kept as a corner; the foot kinks of 27.4 degrees (#57 segment 0 to segment 1) and 20.7 degrees (#57 into the tail rise #299) are smoothed.",
+          "choice": "Left to the extractor's rules, as in the prototype.",
+          "why": "The 41.5 degree corner is worth a human check; ц's equivalent (stem 2 into its foot piece #181) is 21.9 degrees and smoothed, so the two feet differ slightly in shape there."
+        },
+        {
+          "issue": "Branch points at the stem junctions: #60 runs on into #60 segment 1 (stem 2 top) and the downstroke #59 starts a new chain; #64 (stem 3 top) and #63 (stem 1 top) are separate chains.",
+          "choice": "Unchanged from the prototype.",
+          "why": "Prototype chains are fixed."
+        }
+      ]
+    },
+    {
+      "char": "ъ",
+      "name": "lowercase hard sign",
+      "row": 3,
+      "subpaths": [49, 50],
+      "chains": [
+        {
+          "pieces": ["50.0 entry", "49.0 body", "49.1 body", "49.2 body", "49.3 body", "49.4 body", "49.5 body", "49.6 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "S1 has no exit for ъ: #49 ends inside the bowl at (384.6, 127.1) (inventory).",
+          "choice": "No exit piece; the whole of #49 is body.",
+          "why": "There is no lead-out stroke to tag."
+        },
+        {
+          "issue": "The bowl is visually closed but not Z-closed: its end (384.6, 127.1) is 1.19 from the stem (#49 segment 2).",
+          "choice": "Leave it open; no snap (the miss is over 0.75).",
+          "why": "Closing it would invent about 1.2 units of ink S1 does not draw."
+        },
+        {
+          "issue": "The top hook (#49 segments 0 and 1) runs from the entry over to the stem in the same subpath.",
+          "choice": "Tag it body, not bar.",
+          "why": "The bar role is for strokes S1 draws as a separate bar; ъ's hook is part of the one body subpath."
+        }
+      ]
+    },
+    {
+      "char": "ы",
+      "name": "lowercase yery",
+      "row": 3,
+      "subpaths": [66, 67, 68],
+      "chains": [
+        {
+          "pieces": ["67.0 entry", "66.0 body", "66.1 body", "66.2 body", "66.3 body"]
+        },
+        {
+          "pieces": ["68.0r body", "66.4 body", "66.5 exit"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "The second stroke is joined in S1 by a hairline (398.1, 125.65) to (405.4, 123.35) inside #66 (inventory).",
+          "choice": "Keep the connector (#66 segment 3) as body of ы, at the end of the first chain.",
+          "why": "Inventory resolution: it is part of ы."
+        },
+        {
+          "issue": "Branch point (405.4, 123.35): the connector (#66 segment 3), the top tip #68 and the second stroke (#66 segment 4) meet. The tip into the second stroke turns 1.2 degrees; the connector into the tip turns 6.3.",
+          "choice": "The second stroke runs straight through as one chain (#68 reversed, #66 segments 4 and 5); the entry, stem, bowl and connector are a chain ending at the junction.",
+          "why": "Continue through the smallest turn (group rule)."
+        },
+        {
+          "issue": "S1 does not separate the exit from the second stroke; #66 segment 5 runs from the bottom vertex (403.0, 131.25) to the free end. That vertex is 1.2 above the row-3 baseline (132.45); the pen touches the baseline inside the exit piece, at its lowest point about (404.1, 132.92).",
+          "choice": "Tag all of #66 segment 5 as exit, cut at the vertex.",
+          "why": "The vertex is the inventory's optional strip point; cutting at the actual baseline touch would need a split in the middle of the curve. So the baseline touch lies inside the exit piece, and stripping the exit removes the foot turn as well: a body-only ы ends at the vertex, 1.2 above the baseline."
+        },
+        {
+          "issue": "The bowl's top end at (398.1, 125.65) turns sharply into the connector.",
+          "choice": "Chained through (a two-ended junction inside #66); the extractor keeps it as a corner.",
+          "why": "S1 draws a cusp there."
+        }
+      ]
+    },
+    {
+      "char": "ь",
+      "name": "lowercase soft sign",
+      "row": 3,
+      "subpaths": [83, 84],
+      "chains": [
+        {
+          "pieces": ["84.0 entry", "83.0 body", "83.1 body", "83.2 body", "83.3 body"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "S1 has no exit for ь: the bowl ends at (415.6, 127.45) (inventory).",
+          "choice": "No exit piece; all of #83 is body.",
+          "why": "There is no lead-out stroke to tag."
+        },
+        {
+          "issue": "Near-miss loop closure: the bowl's end (415.6, 127.45) is 0.767 from the stem (#83 segment 0), just over the 0.75 snap limit.",
+          "choice": "Leave it open; no snap.",
+          "why": "The extractor's fixed threshold decides; the gap is under the 1.0 stroke width so the rendered ink still looks closed. Worth a glance."
+        },
+        {
+          "issue": "Near-threshold node: #83 segments 2 and 3 meet at 26.2 degrees at the bowl's upper right.",
+          "choice": "Kept as a corner (a corner drawn inside one S1 curve is kept).",
+          "why": "Extractor rule; the view matches S1's grey ink there."
+        }
+      ]
+    },
+    {
+      "char": "э",
+      "name": "lowercase e",
+      "row": 3,
+      "subpaths": [80, 81, 82],
+      "chains": [
+        {
+          "pieces": ["80.1r body", "80.0r body", "81.0 body", "81.1 body"]
+        },
+        {
+          "pieces": ["82.0 bar"]
+        }
+      ],
+      "dropped": [],
+      "ambiguities": [
+        {
+          "issue": "S1 has neither entry nor exit for э: the upper arc starts at a free hook end (427.6, 123.45) and the lower arc ends at the lower-left hook end (424.6, 130.45) (inventory).",
+          "choice": "No entry or exit pieces; both arcs are body.",
+          "why": "Neither terminal leads in from or out to a neighbour."
+        },
+        {
+          "issue": "Three pieces meet at (433.4, 126.0): upper arc #80, lower arc #81 and the bar #82. The arcs run on with a 0.8 degree turn; the bar meets them at about 73 and 107 degrees.",
+          "choice": "The two arcs are one chain; the bar is its own chain ending at the junction.",
+          "why": "Continue through the smallest turn (group rule)."
+        },
+        {
+          "issue": "Role of the middle bar #82 in lowercase э.",
+          "choice": "Tag it bar.",
+          "why": "S1 draws it as a separate bar, the same way as capital Э's middle bar, which the roles convention names; a reviewer may prefer body for lowercase."
+        }
+      ]
+    },
+    {
+      "char": "ю",
+      "name": "lowercase yu",
+      "row": 3,
+      "subpaths": [74, 85, 86, 87],
+      "chains": [
+        {
+          "pieces": ["87.0 entry", "85.0 body", "85.1 body"]
+        },
+        {
+          "pieces": ["86.0 bar"]
+        },
+        {
+          "pieces": ["74.0 body", "74.1 body", "74.2 body", "74.3 body", "74.4 body", "74.5 body", "74.6 body", "74.7 body"],
+          "closed": true
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "86.1",
+          "kind": "duplicate",
+          "of": "85.1",
+          "reason": "#86 retraces the lower stem after the bar; #86 segment 1 is identical to #85 segment 1 (deviation 0)"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "#86 is the bar plus a retrace down the lower stem (about 8 units on #85) (inventory).",
+          "choice": "Drop #86 segment 1 as a duplicate of #85 segment 1; keep the stem whole in #85.",
+          "why": "The duplicate is exact; keeping #85 lets the stem run as one chain."
+        },
+        {
+          "issue": "The oval #74 is a separate S1 component touching the bar's free end at 0.363 (inventory).",
+          "choice": "Keep the oval as ю's own closed chain; the extractor snaps the bar's free end 0.363 onto the oval.",
+          "why": "Inventory resolution: the oval is attached to ю by the bar contact. The snap is under 0.75."
+        },
+        {
+          "issue": "Role of the connecting bar #86 segment 0 in lowercase ю.",
+          "choice": "Tag it bar.",
+          "why": "S1 draws it as a separate bar, the same way as capital Ю's connecting bar, which the roles convention names; a reviewer may prefer body for lowercase."
+        },
+        {
+          "issue": "Branch point (439.1, 125.85): the bar meets the stem. The stem runs on with a 0.3 degree turn.",
+          "choice": "The stem is one chain (entry, #85 segments 0 and 1); the bar is its own chain.",
+          "why": "Continue through the smallest turn (group rule)."
+        },
+        {
+          "issue": "S1 has no exit for ю: it ends in the closed oval (inventory).",
+          "choice": "No exit piece.",
+          "why": "There is no lead-out stroke; я's baseline hook #78 belongs to я (я inventory)."
+        }
+      ]
+    },
+    {
+      "char": "я",
+      "name": "lowercase ya",
+      "row": 3,
+      "subpaths": [75, 76, 77, 78, 79],
+      "chains": [
+        {
+          "pieces": ["78.0 body", "76.0 body", "76.1 body"]
+        },
+        {
+          "pieces": ["77.0r body", "76.2 body", "76.3 exit"]
+        },
+        {
+          "pieces": ["75.0 body", "75.1 body"]
+        }
+      ],
+      "dropped": [
+        {
+          "piece": "79.0",
+          "kind": "sliver",
+          "reason": "0.071-unit degenerate junction piece between #76's stem junction (463.5, 125.7) and #77's start (463.55, 125.65)"
+        }
+      ],
+      "ambiguities": [
+        {
+          "issue": "Whether #78 is ю's exit or я's entry (inventory).",
+          "choice": "It belongs to я and is я's own baseline hook, tagged body; я has no entry piece.",
+          "why": "Inventory resolution: it has the same baseline-hook shape as л #296 and м #288, ю ends in a closed oval, and the gap is 2.49. Batch 73 role rule: л, м and я are hook letters whose baseline hook is part of the letter, so it is body, not entry. S1 draws #78 as one cubic from its free end (452.6, 129.45) down through the baseline (lowest point about (454.7, 132.6)) and up into the leg at (459.1, 130.45); there is no separate lead-in hairline before the hook, so nothing in я is entry."
+        },
+        {
+          "issue": "The inventory describes the entry as continuing up #76's first two straight segments to the stem junction (463.5, 125.7).",
+          "choice": "#78 (the hook) and #76 segments 0 and 1 (the diagonal leg) are all body.",
+          "why": "The leg is part of the letter (the inventory says #76 carries the leg), and under the hook-letter rule the hook is too, so the entry boundary the inventory describes does not apply."
+        },
+        {
+          "issue": "#79 is a 0.071-unit degenerate piece at the stem junction.",
+          "choice": "Drop it as a sliver; #76 segment 1 and #77 meet within 0.1 without it.",
+          "why": "Crossing artefact, like щ's #55 and ц's #187 segment 0."
+        },
+        {
+          "issue": "Branch point at the stem junction (463.5, 125.7): the leg (#76 segment 1), the stem top #77 and the stem (#76 segment 2) meet. The stem runs straight through with a 2.9 degree turn; the leg into the stem top would turn 7.1.",
+          "choice": "The stem is one chain (#77 reversed, #76 segments 2 and 3); the hook #78 and the leg (#76 segments 0 and 1) are a chain ending at the junction.",
+          "why": "Continue through the smallest turn (group rule)."
+        },
+        {
+          "issue": "Branch point (462.45, 127.1) where the bowl #75 starts on the leg. The leg runs on with an 8.1 degree turn; the bowl leaves at 47.6.",
+          "choice": "The leg is chained through; the bowl is its own chain starting at the junction.",
+          "why": "Continue through the smallest turn (group rule)."
+        },
+        {
+          "issue": "The bowl #75 is visually closed against the stem but not Z-closed (inventory); its free end (464.6, 121.45) is 0.676 from #77.",
+          "choice": "The extractor snaps the bowl's end onto #77.",
+          "why": "It is a T-junction near-miss under 0.75."
+        },
+        {
+          "issue": "Tiny junction fixes at the stem junction after dropping #79: #76 segment 2's start is merged 0.0707 onto #77's start, and the leg's end (#76 segment 1) is snapped 0.0226 onto the stem.",
+          "choice": "Accept the extractor's merge and snap.",
+          "why": "Both moves are under 0.1 and only close the gap left by the degenerate #79."
+        },
+        {
+          "issue": "Stem-top tick: #77 rises above the bowl junction to x-height (Phase 1 report notes я has the same tick as а and д).",
+          "choice": "Kept as body.",
+          "why": "It is real S1 ink; dropping it would be a shape change outside this batch."
+        },
+        {
+          "issue": "S1 does not separate the exit from the stem; #76 segment 3 runs from the bottom vertex (462.0, 131.45) to the free end. That vertex is 1.0 above the row-3 baseline (132.45); the pen touches the baseline inside the exit piece, at its lowest point about (463.7, 132.82).",
+          "choice": "Tag all of #76 segment 3 as exit, cut at the vertex.",
+          "why": "The vertex is the inventory's optional strip point; cutting at the actual baseline touch would need a split in the middle of the curve. So the baseline touch lies inside the exit piece, and stripping the exit removes the foot turn as well: a body-only я ends at the vertex, 1.0 above the baseline."
+        }
+      ]
+    }
+  ]
+}
