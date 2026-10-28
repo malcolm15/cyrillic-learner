@@ -690,8 +690,8 @@ window.initArticleQuizzes = initArticleQuizzes;
 // ==================== CURSIVE STROKE ORDER ====================
 // Single source of truth for cursive letterform paths.
 // Coordinate system: viewBox 0 0 240 200, baseline y=145, x-height y=45.
-// Paths are designed in straight coordinates; the engine applies skewX(-10)
-// to the letter group at render time for a natural rightward cursive slant.
+// Paths are designed in straight coordinates; the widget markup applies
+// skewX(-10) to the letter group for a natural rightward cursive slant.
 // и, ш, л and м build each arch from two cubics (rise and fall) with
 // horizontal tangents at the peak, for rounded tops. т and д are derived
 // from the Wikimedia Commons Russian cursive chart (public domain), with
@@ -729,18 +729,26 @@ var CURSIVE_STROKES = {
     ]
 };
 
-ArticleScripts['practice-writing-cyrillic'] = function () {
-    var pickerEl  = document.getElementById('cursive-picker');
-    var stageEl   = document.getElementById('cursive-stage');
-    var groupEl   = document.getElementById('cursive-letter-group');
-    var captionEl = document.getElementById('cursive-caption');
-    var replayBtn = document.getElementById('cursive-replay');
-    var slowBtn   = document.getElementById('cursive-slow');
-    var descGuide = document.getElementById('cursive-guide-descender');
+// One cursive widget. prefix scopes every element id it reads from the markup
+// (<prefix>-picker, -stage, -letter-group, -caption, -replay, -slow,
+// -guide-descender) and every id it generates (<prefix>-dot-start,
+// <prefix>-path-N, <prefix>-dot-tip-N). strokes is the widget's stroke table;
+// opts.initial is the letter preselected on load, opts.descenders the letters
+// that show the descender guide. Each widget is listed in CURSIVE_WIDGETS in
+// scripts/pre-render.js, which checks its table against its markup.
+function initCursiveWidget(prefix, strokes, opts) {
+    var table     = strokes;
+    var pickerEl  = document.getElementById(prefix + '-picker');
+    var stageEl   = document.getElementById(prefix + '-stage');
+    var groupEl   = document.getElementById(prefix + '-letter-group');
+    var captionEl = document.getElementById(prefix + '-caption');
+    var replayBtn = document.getElementById(prefix + '-replay');
+    var slowBtn   = document.getElementById(prefix + '-slow');
+    var descGuide = document.getElementById(prefix + '-guide-descender');
 
     if (!pickerEl || !stageEl || !groupEl || !captionEl) return;
 
-    var currentLetter = 'т';
+    var currentLetter = opts.initial;
     var slow          = false;
     var rafId         = null;
     var timeouts      = [];
@@ -775,36 +783,36 @@ ArticleScripts['practice-writing-cyrillic'] = function () {
     function buildGroup(letter) {
         while (groupEl.firstChild) groupEl.removeChild(groupEl.firstChild);
 
-        var strokes = CURSIVE_STROKES[letter];
+        var strokes = table[letter];
         if (!strokes) return;
 
         var pt0 = parseFirstPoint(strokes[0].d);
         groupEl.appendChild(makeSvgEl('circle', {
-            id: 'cursive-dot-start', class: 'cursive-dot-start',
+            id: prefix + '-dot-start', class: 'cursive-dot-start',
             cx: pt0.x, cy: pt0.y, r: '5', opacity: '0'
         }));
 
         strokes.forEach(function (stroke, i) {
             groupEl.appendChild(makeSvgEl('path', {
-                id: 'cursive-path-' + i,
+                id: prefix + '-path-' + i,
                 class: stroke.optional ? 'cursive-stroke cursive-stroke--opt' : 'cursive-stroke',
                 d: stroke.d,
                 fill: 'none'
             }));
             var pt = parseFirstPoint(stroke.d);
             groupEl.appendChild(makeSvgEl('circle', {
-                id: 'cursive-dot-tip-' + i, class: 'cursive-dot-tip',
+                id: prefix + '-dot-tip-' + i, class: 'cursive-dot-tip',
                 cx: pt.x, cy: pt.y, r: '5.5', opacity: '0'
             }));
         });
 
-        if (descGuide) descGuide.style.display = (letter === 'д') ? '' : 'none';
+        if (descGuide) descGuide.style.display = (opts.descenders.indexOf(letter) !== -1) ? '' : 'none';
     }
 
     function setDashState(letter, complete) {
-        var strokes = CURSIVE_STROKES[letter] || [];
+        var strokes = table[letter] || [];
         strokes.forEach(function (s, i) {
-            var p = document.getElementById('cursive-path-' + i);
+            var p = document.getElementById(prefix + '-path-' + i);
             if (!p) return;
             var len = p.getTotalLength();
             p.style.strokeDasharray  = len;
@@ -820,9 +828,9 @@ ArticleScripts['practice-writing-cyrillic'] = function () {
             return;
         }
 
-        var path     = document.getElementById('cursive-path-' + index);
-        var tipDot   = document.getElementById('cursive-dot-tip-' + index);
-        var startDot = (index === 0) ? document.getElementById('cursive-dot-start') : null;
+        var path     = document.getElementById(prefix + '-path-' + index);
+        var tipDot   = document.getElementById(prefix + '-dot-tip-' + index);
+        var startDot = (index === 0) ? document.getElementById(prefix + '-dot-start') : null;
 
         if (!path || !tipDot) {
             animateStroke(index + 1, duration, pause, strokes, letter);
@@ -874,7 +882,7 @@ ArticleScripts['practice-writing-cyrillic'] = function () {
         buildGroup(letter);
         setDashState(letter, false);
 
-        var strokes  = CURSIVE_STROKES[letter] || [];
+        var strokes  = table[letter] || [];
         var duration = slow ? STROKE_MS * SLOW_MULT : STROKE_MS;
         var pause    = slow ? PAUSE_MS * 2 : PAUSE_MS;
 
@@ -893,7 +901,7 @@ ArticleScripts['practice-writing-cyrillic'] = function () {
     }
 
     function selectLetter(letter, doAnimate) {
-        if (!CURSIVE_STROKES[letter]) return;
+        if (!table[letter]) return;
         currentLetter = letter;
 
         pickerEl.querySelectorAll('.cursive-letter-btn').forEach(function (btn) {
@@ -929,7 +937,11 @@ ArticleScripts['practice-writing-cyrillic'] = function () {
         slowBtn.classList.toggle('cursive-slow--active', slow);
     });
 
-    // Preselect t without autoplay; caption stays as the HTML placeholder
-    selectLetter('т', false);
+    // Preselect the initial letter without autoplay; caption stays as the HTML placeholder
+    selectLetter(opts.initial, false);
+}
+
+ArticleScripts['practice-writing-cyrillic'] = function () {
+    initCursiveWidget('cursive', CURSIVE_STROKES, { initial: 'т', descenders: ['д'] });
 };
 
