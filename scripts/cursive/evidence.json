@@ -1,0 +1,3643 @@
+{
+  "meta": {
+    "layer": "Layer 2 of 3: stroke evidence. What S2 (Middlebury Institute Russian handwriting guide, page 1) shows for each written form, in our own words and data. No S2 artwork, crops or coordinates. S2 is a reference only; see evidence-source.txt.",
+    "rule": "A segment's direction counts as shown if S2 draws an arrow on it (ARROWED) or the curve leaves only one way to go between shown segments (FORCED). Branch points, uncertain retraces and unsettled loop orientations are OPEN. Forms where S2's structure differs from S1's are never animated.",
+    "classifications": {
+      "ANIMATE-READY": "every segment ARROWED or FORCED and S2 applies to S1 as it stands",
+      "PARTIAL-INFERABLE": "could animate only with labelled inferred segments",
+      "PARTIAL-STATIC": "kept static"
+    },
+    "structure": {
+      "MATCH": "S1 and S2 draw the same structure",
+      "MINOR": "small differences; S2 still maps onto S1",
+      "STRUCTURAL": "S2's structure differs from S1's"
+    },
+    "readings": "Phase 1 of the cursive page work: two independent readers per half of the alphabet, agreeing on 61 of 63 forms; a third reader resolved к and Ю.",
+    "counts": {
+      "ANIMATE-READY": 43,
+      "PARTIAL-STATIC": 14,
+      "PARTIAL-INFERABLE": 6
+    }
+  },
+  "forms": [
+    {
+      "char": "А",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 below the baseline at bottom left, at the start of the lead-in hook"
+      },
+      "segments": [
+        {
+          "segment": "lead-in and rising diagonal at the baseline, up and right",
+          "direction": "ARROWED",
+          "basis": "up-right arrow under the lead-in and rising diagonal at the baseline"
+        },
+        {
+          "segment": "upper part of the rising diagonal to the apex, upward",
+          "direction": "FORCED",
+          "basis": "continues the arrowed lead-in; the apex is a cusp"
+        },
+        {
+          "segment": "right stem below the apex, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the right stem below the apex"
+        },
+        {
+          "segment": "inner upstroke from the stem foot to the top of the crossbar loop, up and left",
+          "direction": "FORCED",
+          "basis": "only continuation at the stem foot cusp"
+        },
+        {
+          "segment": "top of the small crossbar loop, right to left",
+          "direction": "ARROWED",
+          "basis": "leftward curved arrow over the top of the small crossbar loop"
+        },
+        {
+          "segment": "return of the loop and the crossbar running right to the exit",
+          "direction": "FORCED",
+          "basis": "single path after the arrowed loop top"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line continuing up and right from the right end of the crossbar (the second dotted line further right is lowercase а's entry)"
+      },
+      "hookMarker": false,
+      "openPoints": "none; the crossbar crosses the diagonal and the stem cleanly",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "8 subpaths (#239,#235,#234,#236,#238,#237,#240,#241). #239 lead-in starting with a small down-turning hook at left, rising into the left diagonal #235 to a sharp apex, right stem down to baseline. From the stem foot, #241+#240 rise as a curve up-left to meet the diagonal, #234 forms a closed loop to the left, #236, #238, #237 run right as the crossbar past the stem and end free.",
+        "s2": "One stroke (1): small hook lead-in at lower left, up the diagonal to apex, down the right stem to baseline, then a curve rising up-left from the stem foot into a loop on the left, then the crossbar to the right, continuing into the grey joining dots.",
+        "difference": "",
+        "consequence": "Applies as is. Only proportional differences (S1 loop larger, S1 crossbar ends free just past the stem where S2 runs on into the join)."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Б",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "numeral 1 left of the stem near its top (stroke 1 is the stem, starting at its top end); numeral 2 above the top left of the top bar (stroke 2 is the top bar, starting at its left hooked end)"
+      },
+      "segments": [
+        {
+          "segment": "stem, top to bottom (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the stem"
+        },
+        {
+          "segment": "stem into the bottom loop turn",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "left side of the narrow bottom loop, upward",
+          "direction": "ARROWED",
+          "basis": "upward curved arrow at bottom left on the left side of the narrow bottom loop"
+        },
+        {
+          "segment": "upper right of the bowl, clockwise, right then down",
+          "direction": "ARROWED",
+          "basis": "clockwise arrow at the upper right of the bowl going right and down"
+        },
+        {
+          "segment": "bottom of the bowl running left to the end",
+          "direction": "FORCED",
+          "basis": "continuation of the arrowed bowl"
+        },
+        {
+          "segment": "top bar from its left hooked end, left to right (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow above the top bar"
+        }
+      ],
+      "penLifts": "one lift, between stroke 1 (stem, bottom loop and bowl) and stroke 2 (top bar)",
+      "joiningMarks": {
+        "entry": "none attached to the capital",
+        "exit": "none attached to the capital (the dotted line between Б and б at bowl height is lowercase б's entry, confirmed on the pair view)"
+      },
+      "hookMarker": false,
+      "openPoints": "none; the stem crossing at the loop top is a smooth self-crossing, not a branch",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "5 subpaths. Top: #228 lead-in hook at left rising into #227, a straight top bar (separate piece). Body: #231 stem from below the bar down to the foot, #230 a wide loop at the foot rising to the stem-bowl junction, #229 bowl clockwise round the right and along the bottom, closing back onto the stem foot.",
+        "s2": "Stroke 1: stem from below the top line down to a narrow foot loop, back up and round the bowl clockwise, ending open just right of the stem foot. Stroke 2: lead-in hook at left then a wavy top bar.",
+        "difference": "S2 top bar is wavy, S1 top bar is straight. S2 bowl ends open just right of the stem foot, S1 bowl closes onto the stem foot. S2 foot loop narrower.",
+        "consequence": "S2 stroke order and directions (stem+loop+bowl as 1, hooked bar as 2) apply to the S1 pieces; only the bar curvature and the bowl end-gap differ."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "В",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 left of the stem near its top, marking the start at the stem's top end"
+      },
+      "segments": [
+        {
+          "segment": "stem, top to bottom",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the stem"
+        },
+        {
+          "segment": "left side of the narrow bottom loop, upward",
+          "direction": "ARROWED",
+          "basis": "upward curved arrow at bottom left on the left side of the narrow bottom loop"
+        },
+        {
+          "segment": "rise from the loop up through the stem crossing to the top",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "upper bowl round to the waist cusp",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "lower bowl round to the end at bottom left",
+          "direction": "FORCED",
+          "basis": "single path, no branch; the waist is a cusp"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "none attached to the capital",
+        "exit": "none attached to the capital (the dotted line to the right is lowercase в's entry)"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "4 subpaths. #226 short stem stub above the junction, #224 stem down to a closed foot loop and back up to the junction, #225, #223 upper bowl clockwise, cusp at the middle, lower bowl, ending free at bottom left of centre.",
+        "s2": "One stroke: stem from top (protruding above the bowl) down to a narrow foot loop, back up, upper bowl, middle cusp, lower bowl, open end at bottom.",
+        "difference": "",
+        "consequence": "Applies as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Г",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "numeral 1 left of the stem (stroke 1 is the stem, from its top end down to the bottom-left hook); numeral 2 above the top left of the top bar (stroke 2 is the top bar, from its left hooked end)"
+      },
+      "segments": [
+        {
+          "segment": "stem, top to bottom (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the stem"
+        },
+        {
+          "segment": "bottom-left hook at the stem foot",
+          "direction": "FORCED",
+          "basis": "end of the arrowed stem"
+        },
+        {
+          "segment": "top bar from its left hooked end, left to right (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow above the top bar"
+        }
+      ],
+      "penLifts": "one lift, between stroke 1 (stem) and stroke 2 (top bar)",
+      "joiningMarks": {
+        "entry": "none attached to the capital",
+        "exit": "none attached to the capital (the dotted line to the right leads into lowercase г)"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "4 subpaths. #209 lead-in hook at left rising into #210, a straight top bar. #233 stem starting on the bar and running down-left, #232 bottom curl ending with an upturn at left.",
+        "s2": "Stroke 1: stem starting just below the top line (not touching the bar) down to a bottom curl to the left. Stroke 2: lead-in hook then wavy top bar.",
+        "difference": "S2 bar is wavy vs straight in S1; S1 stem starts on the bar, S2 stem starts below it with a small gap.",
+        "consequence": "Applies: stem as stroke 1, hooked bar as stroke 2. Only the stem-top contact and bar curvature differ."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Д",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 left of the stem, marking the start at the stem's top end"
+      },
+      "segments": [
+        {
+          "segment": "stem, top to bottom",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the stem"
+        },
+        {
+          "segment": "small bottom-left loop, from the stem through the crossing along the lower strand, round the left end and out along the upper strand into the wave",
+          "direction": "FORCED",
+          "basis": "zoom shows the stem passes smoothly through the crossing into the loop's lower strand, round the left end and out along the upper strand into the wave"
+        },
+        {
+          "segment": "baseline wave at bottom right and the start of the right side, upward",
+          "direction": "ARROWED",
+          "basis": "up-right curved arrow under the baseline wave at bottom right, leading up the right side"
+        },
+        {
+          "segment": "rest of the right side, upward",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "top loop running left over the top and back right",
+          "direction": "FORCED",
+          "basis": "smooth continuation through the self-crossing"
+        },
+        {
+          "segment": "exit tail to the upper right",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "none attached to the capital (the dotted line between Д and д is lowercase д's entry, confirmed on the pair view)",
+        "exit": "none dotted; the capital ends in an undotted exit tail at top right"
+      },
+      "hookMarker": false,
+      "openPoints": "none; both loops are smooth self-crossings on a single path. Reader 2 notes that both loops are unarrowed and their orientation is settled only by smooth tangent continuity at clean crossings, counted as forced, not as a branch point; if unarrowed crossing loops were treated as open, Д would become PARTIAL with one conventional answer for each loop",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "4 subpaths. #206 open hook terminal at top left curving up into #208, a flat top joining the stem top. #205 closed: from that top junction down the right side bowl, along the bottom to the foot, and the diagonal stem back up to the top junction. #207 closed foot loop at lower left.",
+        "s2": "One stroke: stem starts free below the top, runs down to a foot loop at lower left, along the bottom, up the right side, then at the top makes a closed loop to the left, crosses, and exits as a tail to the upper right.",
+        "difference": "Top construction differs: S2 has a closed top loop plus an exit tail to the upper right; S1 has an open hook terminal at top left and no exit tail. S2 stem start is free below the top; S1 stem top is joined into the top junction (closed body).",
+        "consequence": "S2 stroke 1 can drive S1 only from the stem down to the top of the right side; the top loop and exit tail evidence has to be dropped and S1's top (bar plus left hook) would be an unevidenced ending (inferred reversal of the hook). Not verifiable as is."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's (top loop and exit tail versus S1's open top-left hook and closed body), so the form is not animated under the rule. On S2 alone nothing is missing (both loops unarrowed, orientation taken from crossing continuity)."
+    },
+    {
+      "char": "Е",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 just left of and below the small top-right curl, marking the start at the curl's free end"
+      },
+      "segments": [
+        {
+          "segment": "small top-right curl from its free end, up and right",
+          "direction": "ARROWED",
+          "basis": "up-right arrow under the top curl"
+        },
+        {
+          "segment": "upper arc running left over the top and down to the waist",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "waist cusp into the lower bowl",
+          "direction": "FORCED",
+          "basis": "single path"
+        },
+        {
+          "segment": "left side of the lower bowl, counterclockwise, down and left",
+          "direction": "ARROWED",
+          "basis": "counterclockwise arrow on the left of the lower bowl pointing down and left"
+        },
+        {
+          "segment": "bottom of the lower bowl to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line continuing up and right from the end of the lower bowl (the second dotted line further right is lowercase е's entry)"
+      },
+      "hookMarker": false,
+      "openPoints": "none beyond the forced out-and-back middle spur",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "2 subpaths. #204 starts as a plain terminal at top right, #203 runs over the top counterclockwise, down to a middle cusp or tongue, round the lower bowl, ending free at lower right.",
+        "s2": "One stroke: starts with a small tight curl (hook) at top right, then over the top, middle cusp or tongue, lower bowl, exit into joining dots.",
+        "difference": "S2 starts with a tight start curl at top right; S1 starts with a plain bent terminal.",
+        "consequence": "Stroke count, order and direction apply; the first few percent of the S2 stroke (the curl) has no S1 ink and must be trimmed when mapping."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Ё",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "numeral 1 left of the top curl (stroke 1 is the body, as Е); one numeral 2 immediately left of the left dot of the diaeresis; the right dot carries no numeral"
+      },
+      "segments": [
+        {
+          "segment": "small top-right curl from its free end, up and right (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "up-right arrow under the top curl"
+        },
+        {
+          "segment": "upper arc running left over the top and down to the waist",
+          "direction": "FORCED",
+          "basis": "body segments as Е: forced; reason not recorded"
+        },
+        {
+          "segment": "waist cusp into the lower bowl",
+          "direction": "FORCED",
+          "basis": "body segments as Е: single path"
+        },
+        {
+          "segment": "left side of the lower bowl, counterclockwise",
+          "direction": "ARROWED",
+          "basis": "counterclockwise arrow on the left of the lower bowl"
+        },
+        {
+          "segment": "bottom of the lower bowl to the exit",
+          "direction": "FORCED",
+          "basis": "body segments as Е: forced; reason not recorded"
+        },
+        {
+          "segment": "the two diaeresis dots (stroke 2), their order and the lift between them",
+          "direction": "OPEN",
+          "basis": "dots need no direction and carry no arrows, but they are two pen touches under one numeral 2 (at the left dot): the order of the dots (left then right is not shown) and the lift between them are not shown"
+        }
+      ],
+      "penLifts": "one lift between stroke 1 (body) and stroke 2 (dots) is shown; a second lift between the two dots is implied by two separate touches but not shown by a numeral",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line continuing up and right from the exit at the end of the lower bowl"
+      },
+      "hookMarker": false,
+      "openPoints": "the two dots are two pen touches but only one numeral 2 (at the left dot): the order of the dots and the lift between them are not shown",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "As Е (#202 start, #201 body) plus two dot subpaths #199 and #200 (closed) above.",
+        "s2": "Stroke 1 as Е with the start curl; stroke 2 the two dots.",
+        "difference": "Same start-curl difference as Е; dots present in both.",
+        "consequence": "Applies with the start curl trimmed; dots as stroke 2."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-INFERABLE",
+      "missing": "Its own numeral for the right dot: the order of the two dots and the lift between them are not shown."
+    },
+    {
+      "char": "Ж",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 at top left, at the start of the opening hook"
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over the opening hook"
+        },
+        {
+          "segment": "left descending curve from the top hook to the bottom-left loop",
+          "direction": "FORCED",
+          "basis": "between arrows (a) and (b)"
+        },
+        {
+          "segment": "bottom-left loop, right to left underneath",
+          "direction": "ARROWED",
+          "basis": "leftward arrow under the bottom-left loop"
+        },
+        {
+          "segment": "rising curve from the loop up and right to the top of the central stem",
+          "direction": "FORCED",
+          "basis": "the top is a cusp"
+        },
+        {
+          "segment": "central stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the central stem"
+        },
+        {
+          "segment": "diagonal from the central stem foot up to the top-right loop",
+          "direction": "FORCED",
+          "basis": "between arrows (c) and (d)"
+        },
+        {
+          "segment": "right side of the top-right loop, upward",
+          "direction": "ARROWED",
+          "basis": "upward arrow on the right side of the top-right loop"
+        },
+        {
+          "segment": "right stem, downward",
+          "direction": "FORCED",
+          "basis": "between arrows (d) and (e)"
+        },
+        {
+          "segment": "foot of the right stem, down and right",
+          "direction": "ARROWED",
+          "basis": "down-and-right arrow under the foot of the right stem"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line continuing up and right from the exit at the foot of the right stem (a second dotted line at mid height to the right is lowercase ж's entry)"
+      },
+      "hookMarker": false,
+      "openPoints": "none; crossings are smooth self-crossings and the central zigzag tips are cusps, no retrace",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "5 subpaths. #125 lead-in hook at top left into #124, the left stem down to a junction, #123 a loop at lower left back to that junction, #124 continues up-right to the central apex. #122 from apex down to the V bottom, then a long diagonal up-right ending in an OPEN hook terminal at top right. #126 the right stem branches off that diagonal at mid height and runs down to a bottom-right curl.",
+        "s2": "One stroke: hook lead-in, left stem down into a loop at lower left, back up crossing to the central apex, down to the V bottom, up-right into a CLOSED loop at top right, then down the right stem from that loop to a bottom curl and exit.",
+        "difference": "Top right differs: S2 has a closed loop that turns the diagonal into the right stem; S1 has an open hook terminal and its right stem starts as a branch from mid-diagonal.",
+        "consequence": "S2's single stroke cannot be followed on S1 without either adding a loop or splitting it: S1 would need the diagonal to end at the hook and the right stem as a separate stroke (or retrace), dropping S2's loop evidence."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's (closed top-right loop versus S1's open hook terminal and right stem branching from mid-diagonal), so the form is not animated under the rule. On S2 alone nothing is missing."
+    },
+    {
+      "char": "З",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 below and right of the small top-left curl, marking the start at the curl's free end"
+      },
+      "segments": [
+        {
+          "segment": "small top-left curl from its free end, upward",
+          "direction": "ARROWED",
+          "basis": "one upward curved arrow left of the curl"
+        },
+        {
+          "segment": "upper bowl over the top and down to the waist cusp",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "lower bowl round to the end at left",
+          "direction": "FORCED",
+          "basis": "single path"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "none attached to the capital",
+        "exit": "none attached to the capital"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "2 subpaths. #121 plain terminal at top left, #120 over the top right, middle cusp with tongue, lower bowl, ending with an upturn at lower left.",
+        "s2": "One stroke: tight start curl at top left, over the top, middle cusp, lower bowl, ending upturn at lower left.",
+        "difference": "S2 start curl vs S1 plain terminal.",
+        "consequence": "Applies with the start curl trimmed."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "И",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 left of the first stem, marking the start at the top-left hook's free end"
+      },
+      "segments": [
+        {
+          "segment": "opening hook over the top",
+          "direction": "FORCED",
+          "basis": "free end into the arrowed stem"
+        },
+        {
+          "segment": "left stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the left stem"
+        },
+        {
+          "segment": "cup, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow under the cup"
+        },
+        {
+          "segment": "upstroke from the cup merging into the right stem up to its top",
+          "direction": "FORCED",
+          "basis": "forced retrace: the stem top is a free end reachable only this way in the single stroke; thickened overlap visible"
+        },
+        {
+          "segment": "right stem from its top, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the right stem near its top"
+        },
+        {
+          "segment": "exit turn at the foot of the right stem",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line continuing up and right from the exit at the foot of the right stem (a further dotted line at bottom right is lowercase и's entry)"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "7 subpaths. #119 lead-in hook, #117 left stem down, #116 bottom turn, #115 up-line rising to meet the right stem at upper-mid height. #118 short stub at the right stem top, #113, #114 right stem down to a bottom curl.",
+        "s2": "One stroke: hook lead-in, left stem down, bottom turn, up-line merging into the right stem and continuing to the top, then retracing down the right stem to the bottom curl and exit.",
+        "difference": "",
+        "consequence": "Applies; S2's up-and-back retrace at the right stem top runs over S1's existing ink (S1 models it as a junction plus stub)."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Й",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "numeral 1 left of the first stem (stroke 1 is the И body); numeral 2 above the breve (stroke 2)"
+      },
+      "segments": [
+        {
+          "segment": "opening hook over the top (stroke 1)",
+          "direction": "FORCED",
+          "basis": "as И: free end into the arrowed stem"
+        },
+        {
+          "segment": "left stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow on the left stem"
+        },
+        {
+          "segment": "cup, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow under the cup"
+        },
+        {
+          "segment": "cup upstroke retracing up to the right stem top",
+          "direction": "FORCED",
+          "basis": "as И: forced retrace"
+        },
+        {
+          "segment": "right stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow on the right stem"
+        },
+        {
+          "segment": "breve, left to right (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow above the breve"
+        }
+      ],
+      "penLifts": "one lift, between stroke 1 (И body) and stroke 2 (breve)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the foot of the right stem"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "As И (#91,#90,#92,#93) plus breve #2, a concave-up arc above.",
+        "s2": "Stroke 1 as И; stroke 2 a concave-up breve above.",
+        "difference": "",
+        "consequence": "Applies as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "К",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "numeral 1 at top left at the start of the opening hook (stroke 1 is the hook, stem, bottom loop and upper arm); numeral 2 to the right of the arch, near its arrow (stroke 2 is the lower arch); this numeral is offset right of the arch's left end, and the start at the left end is given by the arrow direction"
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over the opening hook"
+        },
+        {
+          "segment": "stem, downward",
+          "direction": "FORCED",
+          "basis": "between arrows (a) and (b)"
+        },
+        {
+          "segment": "bottom-left loop, right to left underneath",
+          "direction": "ARROWED",
+          "basis": "leftward arrow under the bottom-left loop"
+        },
+        {
+          "segment": "rise from the loop through the crossing into the arm",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "upper diagonal arm, up and right",
+          "direction": "ARROWED",
+          "basis": "up-right arrow along the upper diagonal arm"
+        },
+        {
+          "segment": "lower arch from its left end, right then down (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "arrow over the lower arch going right and down; the start at the left end follows from this arrow, since the other end is the dotted exit"
+        },
+        {
+          "segment": "arch foot turn to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "one lift, between stroke 1 (hook, stem, loop and arm) and stroke 2 (lower arch)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the foot of the lower arch (stroke 2)"
+      },
+      "hookMarker": false,
+      "openPoints": "none material; stroke 2's numeral sits beside the arch rather than exactly at its start, so the start is inferred from the arrow direction (the other end is the dotted exit)",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "4 subpaths. #97 lead-in hook into #96, stem from top down through the junction to the bottom, ending in an OPEN upturned hook at lower left (no crossing). #94 arm from the junction up-right to a top-right hook. #95 leg from the junction right, down, bottom-right curl.",
+        "s2": "Stroke 1: hook lead-in, stem down to a CLOSED loop at lower left, back up crossing the stem at the junction and continuing as the arm to the top-right hook. Stroke 2: leg from the junction right, down, bottom curl, exit.",
+        "difference": "S2 foot is a closed loop that carries the stem into the arm in one stroke; S1 foot is an open upturned hook and the arm starts separately at the junction.",
+        "consequence": "S2 stroke 1 would have to be split into stem and arm on S1 (inferred extra pen lift), and the foot-loop evidence dropped; or S1 would need a loop added."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's (closed foot loop carrying the stem into the arm versus S1's open upturned hook with the arm starting separately), so the form is not animated under the rule. On S2 alone nothing is missing."
+    },
+    {
+      "char": "Л",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 below the baseline at bottom left, at the start of the bottom-left hook"
+      },
+      "segments": [
+        {
+          "segment": "rising diagonal from the bottom-left hook, up and right",
+          "direction": "ARROWED",
+          "basis": "up-right arrow under the rising diagonal"
+        },
+        {
+          "segment": "apex",
+          "direction": "FORCED",
+          "basis": "cusp"
+        },
+        {
+          "segment": "right stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the right stem"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the foot of the stem"
+      },
+      "hookMarker": false,
+      "openPoints": "none (the orange hook circle in this cell sits on lowercase л's start, not on the capital)",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "2 subpaths. #89 lead-in starting with a short downturn at lower left, #88 up the diagonal to a sharp apex, down the right stem to a bottom curl ending free.",
+        "s2": "One stroke: short downturn lead-in, diagonal up to apex, right stem down, bottom curl, exit into joining dots.",
+        "difference": "",
+        "consequence": "Applies as is (the circled hook on the S2 page belongs to lowercase л)."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "М",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 below the baseline at bottom left, at the start of the lead-in hook"
+      },
+      "segments": [
+        {
+          "segment": "lead-in, up and right",
+          "direction": "ARROWED",
+          "basis": "up-right arrow under the lead-in"
+        },
+        {
+          "segment": "lead-in rise merging into the first stem up to its top",
+          "direction": "FORCED",
+          "basis": "forced retrace: the stem is then arrowed down"
+        },
+        {
+          "segment": "first stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the first stem"
+        },
+        {
+          "segment": "cup upstroke merging into the second stem up to its top",
+          "direction": "FORCED",
+          "basis": "forced retrace"
+        },
+        {
+          "segment": "second stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the second stem"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the foot of the second stem"
+      },
+      "hookMarker": false,
+      "openPoints": "none (the orange hook circle in this cell belongs to lowercase м)",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "4 subpaths. #37 lead-in, #35 up to the first apex, down to a U bottom, up to the second apex tip. #38 second down stroke starts on that up-line at upper-mid height, #36 bottom curl.",
+        "s2": "One stroke: lead-in, up to apex 1, down, U bottom, up to apex 2, retrace down, bottom curl, exit.",
+        "difference": "",
+        "consequence": "Applies; S2's retrace at apex 2 runs over S1's shared upper segment (S1 models it as a junction)."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Н",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 at top left, at the start of the opening hook"
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over the opening hook"
+        },
+        {
+          "segment": "left stem down into the bottom-left loop",
+          "direction": "FORCED",
+          "basis": "between arrows (a) and (b)"
+        },
+        {
+          "segment": "start of the crossbar after the bottom loop, up and right",
+          "direction": "ARROWED",
+          "basis": "up-right arrow at lower left on the start of the crossbar after the bottom loop"
+        },
+        {
+          "segment": "crossbar continuing through the right-stem crossing into the top-right loop",
+          "direction": "FORCED",
+          "basis": "between arrows (b) and (c)"
+        },
+        {
+          "segment": "right side of the top-right loop, upward",
+          "direction": "ARROWED",
+          "basis": "upward arrow on the right side of the top-right loop"
+        },
+        {
+          "segment": "right stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the right stem"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the foot of the right stem"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "6 subpaths. #33 a STRAIGHT angular tick rising right, sharp corner into #31 left stem down to the junction, #32 closed foot loop, crossbar rising right to the right stem, #29 closed loop at top right, #31 continues down the right stem, #34 bottom curl.",
+        "s2": "One stroke: ROUNDED hook lead-in over the top, left stem down to a foot loop, up crossing into the crossbar, up into a loop at top right, down the right stem, bottom curl, exit.",
+        "difference": "Lead-in shape: S1 straight tick with a sharp corner, S2 rounded hook.",
+        "consequence": "Applies; same pieces and loops, only the lead-in curvature differs."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "О",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 above the top of the oval, at the tail of the direction arrow"
+      },
+      "segments": [
+        {
+          "segment": "top left of the oval, counterclockwise, down and left",
+          "direction": "ARROWED",
+          "basis": "one counterclockwise arrow at top left pointing down and left"
+        },
+        {
+          "segment": "left side, bottom and right side of the oval",
+          "direction": "FORCED",
+          "basis": "closed oval after the arrowed top"
+        },
+        {
+          "segment": "closing over the top into the small inner loop and out through the crossing to the exit tail",
+          "direction": "FORCED",
+          "basis": "the tail is the only free end"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "none",
+        "exit": "none dotted; the form ends in an undotted exit tail at top right"
+      },
+      "hookMarker": false,
+      "openPoints": "the exact start point is hidden where the oval top overlaps the inner loop (no visible free end except the exit tail); the numeral shows it is at the top. Reader 2: the start on the top arc (top centre versus the top-left junction) is not pinned, so the top arc may be drawn once or briefly twice; does not change path or direction",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "1 subpath, #242, a plain closed oval. No top loop, no entry or exit tail.",
+        "s2": "One stroke: starts at the top, runs counterclockwise round the oval, and finishes with a small closed loop at the top and an exit tail to the upper right.",
+        "difference": "S2 has a top loop and an exit tail; S1 is a bare closed oval.",
+        "consequence": "Only S2's direction (counterclockwise from the top) transfers; the top loop and tail evidence must be dropped, or S1 changed to add them. Start point on S1's closed oval would be inferred."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's (top loop and exit tail versus S1's bare closed oval), so the form is not animated under the rule. On S2 alone nothing material is missing (the precise start point within the top overlap is not pinned)."
+    },
+    {
+      "char": "П",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 3,
+        "shown": "numeral 1 right of the first stem's top; numeral 2 right of the second stem's top; numeral 3 above the top left of the top bar"
+      },
+      "segments": [
+        {
+          "segment": "stem 1, downward (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 1"
+        },
+        {
+          "segment": "stem 1 bottom-left hook",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "stem 2, downward (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 2"
+        },
+        {
+          "segment": "stem 2 foot turn",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "top bar, left to right (stroke 3)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow above the top bar"
+        }
+      ],
+      "penLifts": "two lifts: after stroke 1 (stem 1) and after stroke 2 (stem 2), before stroke 3 (top bar)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the foot of stem 2"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "6 subpaths. #243 lead-in hook into #244, a straight top bar. #246 left stem starting below the bar, #245 bottom curl with upturn at left. #252 right stem below the bar, #251 bottom curl right.",
+        "s2": "Stroke 1 left stem with bottom-left curl, stroke 2 right stem with bottom-right curl and exit, stroke 3 hook lead-in plus wavy top bar.",
+        "difference": "S2 bar wavy, S1 bar straight.",
+        "consequence": "Applies; three strokes map one-to-one onto S1's three pieces."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Р",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "numeral 1 right of the stem's top (stroke 1 is the stem, from the top down to the bottom-left hook); numeral 2 above the bowl's left (stroke 2 is the bowl, from its left free end)"
+      },
+      "segments": [
+        {
+          "segment": "stem, downward (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the stem"
+        },
+        {
+          "segment": "bowl top from its left free end, left to right (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow above the bowl top"
+        },
+        {
+          "segment": "bowl right side and return left to its end",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "one lift, between stroke 1 (stem) and stroke 2 (bowl)",
+      "joiningMarks": {
+        "entry": "none attached to the capital",
+        "exit": "none attached to the capital (the dotted mark at bottom right is lowercase р's entry)"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "4 subpaths. #250 stem from top down, #249 bottom curl with upturn at left. #248 bowl piece starting left of the stem rising, #247 over the top and clockwise round, ending free just right of the stem.",
+        "s2": "Stroke 1 stem down to bottom-left curl. Stroke 2 bowl starting left of the stem, over the top, clockwise round, ending at the stem.",
+        "difference": "",
+        "consequence": "Applies as is (bowl end gap slightly larger in S1)."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "С",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 right of the top-right curl"
+      },
+      "segments": [
+        {
+          "segment": "initial curl from the free end, down and up into the top",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "top, right to left",
+          "direction": "ARROWED",
+          "basis": "one leftward arrow over the top"
+        },
+        {
+          "segment": "left side and bottom to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the end of the bottom curve"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "2 subpaths. #211 plain terminal at top right, counterclockwise over the top and down, #212 ending free at lower right.",
+        "s2": "One stroke: tight start curl at top right, over the top, down, bottom, exit into joining dots.",
+        "difference": "S2 start curl vs S1 plain terminal.",
+        "consequence": "Applies with the start curl trimmed."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Т",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 4,
+        "shown": "numerals 1 to 3 to the right of the tops of stems 1 to 3 respectively; numeral 4 above the top left of the top bar"
+      },
+      "segments": [
+        {
+          "segment": "stem 1, downward (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 1"
+        },
+        {
+          "segment": "stem 1 bottom hook",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "stem 2, downward (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 2"
+        },
+        {
+          "segment": "stem 3, downward (stroke 3)",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 3"
+        },
+        {
+          "segment": "stem 3 foot turn",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "top bar, left to right (stroke 4)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow above the top bar"
+        }
+      ],
+      "penLifts": "three lifts: after each of strokes 1 to 3 (the stems), before stroke 4 (top bar)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the foot of stem 3"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "7 subpaths. #213 lead-in hook into #214, a straight top bar. #216, #215 left stem below the bar with bottom-left upturn curl, #3 straight middle stem, #222, #221 right stem with bottom-right curl.",
+        "s2": "Strokes 1 to 3 the three stems (left with bottom-left curl, middle straight, right with curl and exit), stroke 4 hook lead-in plus wavy top bar.",
+        "difference": "S2 bar wavy, S1 bar straight.",
+        "consequence": "Applies; four strokes map one-to-one onto S1's pieces."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "У",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 at top left, at the start of the opening hook"
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over the hook"
+        },
+        {
+          "segment": "left stem, downward",
+          "direction": "FORCED",
+          "basis": "between arrows (a) and (b)"
+        },
+        {
+          "segment": "cup, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow under the cup"
+        },
+        {
+          "segment": "cup upstroke merging into the right stem up to its top",
+          "direction": "FORCED",
+          "basis": "forced retrace"
+        },
+        {
+          "segment": "right stem from near its top, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the right stem near its top"
+        },
+        {
+          "segment": "descender curving left and up to the end",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "none attached to the capital",
+        "exit": "none attached to the capital (the dotted line at right is lowercase у's entry)"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "4 subpaths. #219 lead-in hook, #217 left limb down to a bowl at mid height, up to the top-right apex, then the long stem down to a bottom curl ending upturned at lower left. #218, #220 tiny pieces at the apex.",
+        "s2": "One stroke: hook lead-in, limb down to bowl, up into the right stem to the top, retrace down the long stem to a bottom curl ending upturned at left.",
+        "difference": "",
+        "consequence": "Applies as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Ф",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 3,
+        "shown": "numeral 1 at top left at the start of the top wave (stroke 1 is the top wave, stem and bottom-left hook); numeral 2 just left of the stem at the top of the left bowl; numeral 3 just right of the stem at the top of the right bowl"
+      },
+      "segments": [
+        {
+          "segment": "top wave, left to right (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over the top wave"
+        },
+        {
+          "segment": "stem from the apex cusp, downward",
+          "direction": "FORCED",
+          "basis": "between arrows (a) and (b)"
+        },
+        {
+          "segment": "stem foot, down and left",
+          "direction": "ARROWED",
+          "basis": "down-left arrow under the stem foot"
+        },
+        {
+          "segment": "left bowl from its top, counterclockwise, left then down (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "counterclockwise arrow from the top of the left bowl going left and down"
+        },
+        {
+          "segment": "remainder of the left bowl round to the stem at the bottom",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "right bowl from its top, clockwise, right then down (stroke 3)",
+          "direction": "ARROWED",
+          "basis": "clockwise arrow from the top of the right bowl going right and down"
+        },
+        {
+          "segment": "remainder of the right bowl round to the stem at the bottom",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "two lifts: after stroke 1 (wave and stem) and after stroke 2 (left bowl), before stroke 3 (right bowl)",
+      "joiningMarks": {
+        "entry": "none attached to the capital",
+        "exit": "none attached to the capital"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "7 subpaths. Stem from a plain pointed tip at top (#139, #134, #136) down via #138 to #135, a bottom-left upturn curl. #137 left lobe and #133 right lobe are closed teardrop loops both attached to the stem only in its upper part, sitting in the upper half of the letter. No top bar or wave.",
+        "s2": "Stroke 1: lead-in hook at top left, a wavy top bar running right to the stem top, then the stem down to a bottom-left curl. Stroke 2: left bowl. Stroke 3: right bowl. Each bowl meets the stem near its top and again near its bottom (the stem bisects an oval).",
+        "difference": "S1 has no top hook-and-wave (S2 stroke 1 starts with it). Lobe topology differs: S1 lobes are loops hanging from a single high junction on the stem; S2 bowls span the stem and rejoin it lower down.",
+        "consequence": "S2's top-wave evidence must be dropped and S2's bowl paths do not trace S1's lobes; would need S1 reshaped or new stroke evidence."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's (S2 top hook and wave absent in S1; S2 bowls span the stem while S1 lobes hang from one high junction), so the form is not animated under the rule. On S2 alone nothing is missing."
+    },
+    {
+      "char": "Х",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "numeral 1 left of the top-left hook start (stroke 1 is the right-bulging curve down to the bottom-right exit); numeral 2 at top right by the right free end (stroke 2 is the left-bulging curve down to bottom left)"
+      },
+      "segments": [
+        {
+          "segment": "top of stroke 1, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over stroke 1's top"
+        },
+        {
+          "segment": "middle of stroke 1 through the crossing",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "foot of stroke 1, right or up and right",
+          "direction": "ARROWED",
+          "basis": "right or up-right arrow at stroke 1's foot"
+        },
+        {
+          "segment": "top of stroke 2, right to left",
+          "direction": "ARROWED",
+          "basis": "leftward arrow over stroke 2's top"
+        },
+        {
+          "segment": "middle of stroke 2 through the crossing",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "foot of stroke 2, down and left",
+          "direction": "ARROWED",
+          "basis": "down-left arrow at stroke 2's foot"
+        }
+      ],
+      "penLifts": "one lift, between stroke 1 and stroke 2",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from stroke 1's exit at bottom right"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "6 subpaths. #130 lead-in hook at top left into #128, which runs down through the centre and on to a bottom-left upturn. #127 from the centre up-right to a top-right hook. #129, #132 from the centre down to a bottom-right curl. In the ink the two arcs overlap for a stretch through the centre.",
+        "s2": "Stroke 1: top-left hook, ')' arc down through the centre to the bottom-right curl and exit. Stroke 2: top-right hook arc leftward, down through the centre to the bottom-left upturn. The arcs overlap through the centre.",
+        "difference": "",
+        "consequence": "Applies. Inferred: S1's subpath segmentation pairs top-left with bottom-left, but the arms meet in a shared overlapping centre band, so S2's top-left to bottom-right pairing runs over the same ink without changing the shape."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Ц",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 at top left, at the start of the opening hook"
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over the hook"
+        },
+        {
+          "segment": "left stem, downward",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "cup, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow under the cup"
+        },
+        {
+          "segment": "cup upstroke merging into the right stem up to its top",
+          "direction": "FORCED",
+          "basis": "forced retrace"
+        },
+        {
+          "segment": "right stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the right stem"
+        },
+        {
+          "segment": "stem foot rising to the tail cusp",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "descender loop, down then curving left",
+          "direction": "ARROWED",
+          "basis": "arrow right of the descender loop going down and curving left"
+        },
+        {
+          "segment": "loop return up through the crossing to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit up and right after the descender loop"
+      },
+      "hookMarker": false,
+      "openPoints": "none (the tail top is a cusp, zoom checked)",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "13 subpaths. #148 hook lead-in, #146 left stem, #145 bottom turn, #144 up-line meeting the right stem at mid height; #147, #143 right stem from top down, bottom turn right, #303 up to a small peak, #153 descender down, #152 closed-looking loop at bottom, #151 back up crossing, #149 exit up-right.",
+        "s2": "One stroke: hook lead-in, left stem, bottom turn, up to the right stem top, retrace down, bottom turn right up to a small peak, descender down into a loop, back up crossing, exit up-right into joining dots.",
+        "difference": "",
+        "consequence": "Applies; S2's retrace at the right stem top runs over S1 ink."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Ч",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 at top left, at the start of the opening hook"
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over the hook"
+        },
+        {
+          "segment": "left stem, downward",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "cup, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow under the cup"
+        },
+        {
+          "segment": "cup upstroke merging into the right stem up to its top",
+          "direction": "FORCED",
+          "basis": "forced retrace"
+        },
+        {
+          "segment": "right stem, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the right stem"
+        },
+        {
+          "segment": "stem foot, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow under the stem foot"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the stem foot"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "3 subpaths. #141 hook lead-in, #140 limb down to bowl at mid height, curving up to the right stem, then down the stem to a bottom-right curl; #142 short stub from that junction up to the stem top.",
+        "s2": "One stroke: hook lead-in, limb down to bowl, up into the right stem to the top, retrace down, bottom curl, exit.",
+        "difference": "",
+        "consequence": "Applies; retrace up the stub and back is on S1 ink."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Ш",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "numeral 1 at top left at the start of the opening hook (stroke 1 is the hook and three stems); numeral 2 below the baseline at the left end of the underline bar (stroke 2)"
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over the hook"
+        },
+        {
+          "segment": "stem 1, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 1"
+        },
+        {
+          "segment": "first cup",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "cup upstroke merging into stem 2 up to its top",
+          "direction": "FORCED",
+          "basis": "forced retrace; the stem is arrowed down"
+        },
+        {
+          "segment": "stem 2, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 2"
+        },
+        {
+          "segment": "second cup",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "cup upstroke merging into stem 3 up to its top",
+          "direction": "FORCED",
+          "basis": "forced retrace; the stem is arrowed down"
+        },
+        {
+          "segment": "stem 3, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 3"
+        },
+        {
+          "segment": "underline bar, left to right (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow under the underline bar"
+        }
+      ],
+      "penLifts": "one lift, between stroke 1 (hook and three stems) and stroke 2 (underline bar)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the foot of stem 3"
+      },
+      "hookMarker": false,
+      "openPoints": "none (unlike lowercase ш, the capital's stems are all arrowed)",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "8 subpaths. #198 hook lead-in, #197 left stem, #103 bottom turn, #100 up to the middle stem, #101 stub to its top, #98 middle stem down, bottom turn, up to the right stem top, #102 right stem down, #99 bottom curl. No underline bar.",
+        "s2": "Stroke 1: hook lead-in, three stems with bottom turns and retraces, exit. Stroke 2: an underline bar (arc) below the baseline.",
+        "difference": "S2 adds stroke 2, an underline bar (arc) below the baseline, which S1's Ш does not have. Stroke 1 (hook lead-in, three stems, exit) matches S1.",
+        "consequence": "Stroke 1 transfers, but S2 stroke 2 must be dropped; the form is not verifiable as drawn by S2."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's: S2's stroke 2, the underline bar, has no S1 counterpart. Under the rule that forms whose S2 structure differs from S1's are never animated, the form stays static (owner's decision in Batch 73; the Phase 1 report had classed it PARTIAL, inferred). On S2 alone nothing is missing."
+    },
+    {
+      "char": "Щ",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 at top left, at the start of the opening hook"
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "rightward arrow over the hook"
+        },
+        {
+          "segment": "stem 1, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 1"
+        },
+        {
+          "segment": "cup upstroke merging into stem 2",
+          "direction": "FORCED",
+          "basis": "forced retrace"
+        },
+        {
+          "segment": "stem 2, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 2"
+        },
+        {
+          "segment": "cup upstroke merging into stem 3",
+          "direction": "FORCED",
+          "basis": "forced retrace"
+        },
+        {
+          "segment": "stem 3, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside stem 3"
+        },
+        {
+          "segment": "stem 3 foot to the tail cusp",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "descender loop, down then curving left",
+          "direction": "ARROWED",
+          "basis": "arrow right of the descender loop going down and curving left"
+        },
+        {
+          "segment": "loop return to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit after the descender loop"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "11 subpaths. #106 hook lead-in, #104 left stem, bottom turn, up to the middle stem, down, bottom turn, up to the right stem top; #107 middle stem top stub; #105 right stem down, #108, #301 bottom turn right up to a small peak, #297, #112 descender, #111 closed loop, #0 exit up-right. No underline bar.",
+        "s2": "One stroke: hook lead-in, three stems with bottom turns and retraces, bottom turn to a small peak, descender loop, exit. No underline bar on S2 Щ.",
+        "difference": "",
+        "consequence": "Applies as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Э",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "numeral 1 above the top, left of centre (stroke 1 is the arc from its left free end); numeral 2 left of the middle bar (stroke 2 is the bar)"
+      },
+      "segments": [
+        {
+          "segment": "top of the arc from its left free end, left to right (stroke 1)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow above the top"
+        },
+        {
+          "segment": "right side and bottom of the arc to its end",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "middle bar, left to right (stroke 2)",
+          "direction": "ARROWED",
+          "basis": "rightward arrow above the middle bar"
+        }
+      ],
+      "penLifts": "one lift, between stroke 1 (arc) and stroke 2 (middle bar)",
+      "joiningMarks": {
+        "entry": "none",
+        "exit": "none"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "3 subpaths. #110 plain terminal at upper left, #109 over the top, down the right side, bottom, ending upturned at lower left. #1 a separate straight crossbar reaching the right side.",
+        "s2": "Stroke 1 the arc from upper left over the top, down, bottom, upturn. Stroke 2 a short crossbar drawn rightward to the arc.",
+        "difference": "",
+        "consequence": "Applies as is (S1 crossbar longer)."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "Ю",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 only, left of the stem, just below and slightly left of the lead-in's free end at about x-height; it marks the start of the single stroke at the lead-in's free end, and a single 1 on a one-stroke form counts as evidence of no pen lift"
+      },
+      "segments": [
+        {
+          "segment": "lead-in from its free end up to the stem-top cusp",
+          "direction": "FORCED",
+          "basis": "the start numeral sits at the free end and the stem below is arrowed down"
+        },
+        {
+          "segment": "stem, downward along the slant",
+          "direction": "ARROWED",
+          "basis": "straight arrow beside the stem pointing down (down and left, along the slant)"
+        },
+        {
+          "segment": "bottom of the left loop, leftward",
+          "direction": "ARROWED",
+          "basis": "curved arrow under the bottom of the left loop sweeping down and left, head pointing left"
+        },
+        {
+          "segment": "rise from the bottom of the left loop up through the stem crossing and along the connecting bar to the oval junction",
+          "direction": "FORCED",
+          "basis": "one continuous curve between the arrowed loop bottom and the junction, with no branch point"
+        },
+        {
+          "segment": "upper left of the oval, between the bar junction and the oval top",
+          "direction": "OPEN",
+          "basis": "branch point: the bar meets the oval's left side about a third of the way down and the upper left is a thickened doubled line, so the pen covers it twice; path A (up from the bar to the top first, then the whole oval counterclockwise, ending at the top) and path B (down at the junction, round the bottom, up the right side, over the top and back down the upper left, ending at the junction) both fit all arrows and the numeral; whether the upward retrace happens and where the stroke ends are open. Inferred evidence for A, not shown by any numeral or arrow: the bar bends tangentially upward into the upper-left line, and the guide's own capital О starts at the top and runs counterclockwise"
+        },
+        {
+          "segment": "oval top, counterclockwise from the top right over to the left side",
+          "direction": "ARROWED",
+          "basis": "curved arrow inside the oval near the top right sweeping left over the top and then down, head pointing down and left"
+        },
+        {
+          "segment": "oval left side below the junction, downward",
+          "direction": "FORCED",
+          "basis": "shown by arrow (c) running into it and by the counterclockwise orientation that (c) and (d) together set"
+        },
+        {
+          "segment": "oval bottom right, counterclockwise, right then up",
+          "direction": "ARROWED",
+          "basis": "curved arrow under the oval's bottom right sweeping right and then up, head pointing up and right"
+        },
+        {
+          "segment": "oval right side, upward",
+          "direction": "FORCED",
+          "basis": "closed curve between the arrowed bottom (d) and the arrowed top (c)"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "none on the capital (the grey dotted line to its right is the lead-in of lowercase ю, ending at the top of ю's stem)",
+        "exit": "none; nothing joins out of the capital"
+      },
+      "hookMarker": false,
+      "openPoints": "the connecting bar meets the oval's left side at a branch point about a third of the way down; the oval's upper left from that junction to the top is a thickened doubled line, so the pen covers it twice. Two paths fit all the arrows and the numeral equally well, both drawing the oval counterclockwise: (A) up from the bar along the upper left to the top, back down the whole left side, round the bottom and up the right side, ending at the top; (B) down at the junction, round the bottom, up the right side, over the top and back down the upper left, ending at the junction. Neither arrows nor numeral choose, so the upward retrace and the stroke's end point are open. Inferred evidence for A, not shown by any numeral or arrow: the bar bends tangentially upward into the upper-left line, and the guide's own capital О starts at the top and runs counterclockwise",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "4 subpaths. #42 STRAIGHT angular tick lead-in, #41 stem down to the junction, #40 closed foot loop, #41 continues as the connecting bar rising right and ending free where it touches the ring's left side. #39 the ring, a separate closed oval.",
+        "s2": "One stroke: ROUNDED hook lead-in, stem down to foot loop, back up crossing into the connecting bar, which rides up along the ring's left side to the ring top, then the ring counterclockwise (back down the left side, bottom, up the right side) to close at the top.",
+        "difference": "Lead-in: S1 straight tick, S2 rounded hook. S1 bar stops at the ring's left side and the ring is a separate closed subpath; S2 runs the bar on up the ring's left side as one stroke.",
+        "consequence": "Applies with an inferred continuation: on S1, after the bar the pen continues up the ring's left side on existing ink to the top and then goes round counterclockwise. No ink is added or removed."
+      },
+      "confidence": "medium",
+      "readers": "two readers disagreed (Ю is the caps half's only disagreement); a third reader reconciled them, finding Reader 2's claim that the arrows fix travel from the top only half right: the arrows require counterclockwise travel, but both junction paths satisfy them",
+      "classification": "PARTIAL-INFERABLE",
+      "missing": "How the pen travels through the bar-oval junction: whether it retraces up the oval's upper left to the top before drawing the oval (A) or turns straight down (B); also where the stroke ends, at the oval top (A) or back at the junction (B)."
+    },
+    {
+      "char": "Я",
+      "case": "capital",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "one numeral 1 below the baseline at bottom left, at the start of the lead-in hook"
+      },
+      "segments": [
+        {
+          "segment": "lead-in, up and right",
+          "direction": "ARROWED",
+          "basis": "up-right arrow under the lead-in"
+        },
+        {
+          "segment": "lead-in rise merging with the stem up to the bowl junction",
+          "direction": "FORCED",
+          "basis": "drawn overlap"
+        },
+        {
+          "segment": "upper stem from the junction up to the top-right corner",
+          "direction": "FORCED",
+          "basis": "forced by elimination: the counterclockwise bowl must start at the corner, and descending first would end the single stroke without the bowl"
+        },
+        {
+          "segment": "top left of the bowl, leftward and counterclockwise",
+          "direction": "ARROWED",
+          "basis": "leftward, counterclockwise arrow over the top left of the bowl"
+        },
+        {
+          "segment": "bowl left side and bottom back to the junction",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "stem below the bowl junction, downward",
+          "direction": "ARROWED",
+          "basis": "down arrow beside the stem just below the bowl junction"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "not recorded",
+        "exit": "grey dotted line from the exit at the stem foot"
+      },
+      "hookMarker": false,
+      "openPoints": "the junction is a branch point, but it is settled by arrows (b) and (c) plus the single numeral (inferred by elimination); the orange hook circle in this cell belongs to lowercase я. The stem-bowl junction is a branch point settled only by elimination; if that counts as OPEN under the rule, the S2-only reading would be PARTIAL. The class is unaffected (PARTIAL-STATIC on structure).",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "6 subpaths. #46 lead-in, #43 leg rising to a sharp apex on the stem then the stem down to a bottom-right curl. #45 the stem continuing up from that apex to a PROTRUDING free tip above the bowl. Bowl: #47 from the leg (below the stem junction) left and up, #44 over a rounded top, meeting the stem at a T-junction below its tip.",
+        "s2": "One stroke: lead-in leg rises into the stem, up to a SHARP CORNER at the top where the flat bowl top meets it (no protrusion), bowl leftward counterclockwise round to the junction, then down the stem to a bottom curl and exit.",
+        "difference": "S1 stem pokes above the bowl as a free tip (about 2.7 S1 units, inferred from the subpath geometry) with the bowl meeting it at a T-junction; S2 bowl top and stem meet at a corner with no protrusion. S1 bowl top is rounded, S2 flat. S1 bowl foot joins the leg, not the stem junction.",
+        "consequence": "S2's path fits S1 only with an unevidenced up-and-back on the protruding tip, or by trimming S1's tip; neither is supported by S2."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's (S1 stem protrudes above the bowl as a free tip with a T-junction; S2 has a corner with no protrusion), so the form is not animated under the rule. On S2 alone nothing is missing."
+    },
+    {
+      "char": "а",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above the top right of the bowl, at the point where the bowl top meets the stem (stroke start)."
+      },
+      "segments": [
+        {
+          "segment": "bowl top, right to left (counterclockwise)",
+          "direction": "ARROWED",
+          "basis": "arrow over the bowl top pointing left"
+        },
+        {
+          "segment": "bowl left side, downward",
+          "direction": "FORCED",
+          "basis": "closed bowl between the arrowed top and the arrowed bottom"
+        },
+        {
+          "segment": "bowl bottom, left to right and up",
+          "direction": "ARROWED",
+          "basis": "arrow under the bowl bottom pointing right and up"
+        },
+        {
+          "segment": "bowl right side, rising back to the start",
+          "direction": "FORCED",
+          "basis": "continues the arrowed bottom"
+        },
+        {
+          "segment": "short overlap at the top before the stem descends (retrace)",
+          "direction": "FORCED",
+          "basis": "only continuation of the single stroke; the stem arrow points down"
+        },
+        {
+          "segment": "stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem pointing down"
+        },
+        {
+          "segment": "tail after the stem, to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left reaching the upper left of the bowl",
+        "exit": "grey dotted exit line rising to the right from the end of the tail"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Closed oval bowl (#13). A separate stem (#14, #15, #17, #12) starts as a free tick above the right side of the bowl at x-height, runs down the bowl's right side to the baseline, then exit hairline #11 rises to the right. No entry.",
+        "s2": "Stroke 1: starts at the bowl's top-right corner, goes counter-clockwise around the bowl, back up to that corner, down the stem, and ends in a baseline exit hook. Dotted joins on both sides.",
+        "difference": "S1's stem top sticks up as a small free tick above the point where the bowl rejoins it (the bowl closes partway down the stem). In S2 the bowl starts and ends exactly at the stem top, which is a sharp corner.",
+        "consequence": "Applicable. S2's order and directions (bowl counter-clockwise, then stem down, then exit) map onto S1. The S1 stem-top tick needs a short retrace up to it (inferred)."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-INFERABLE",
+      "missing": "Nothing under the rule on S2's page. Mapped onto S1, the S1 stem-top tick needs a short retrace up to it (inferred), so the form animates with a labelled inferred segment."
+    },
+    {
+      "char": "б",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above the bowl top, just left of the junction where the bowl top meets the rising stem (stroke start)."
+      },
+      "segments": [
+        {
+          "segment": "bowl top, right to left",
+          "direction": "ARROWED",
+          "basis": "arrow over the bowl top pointing left"
+        },
+        {
+          "segment": "bowl left side, downward",
+          "direction": "FORCED",
+          "basis": "closed bowl between the arrowed top and the arrowed bottom"
+        },
+        {
+          "segment": "bowl bottom, left to right and up",
+          "direction": "ARROWED",
+          "basis": "arrow under the bowl bottom pointing right and up"
+        },
+        {
+          "segment": "bowl right side, rising into the ascender",
+          "direction": "FORCED",
+          "basis": "one continuous curve after the arrowed bottom, no branch; the bowl right side flows smoothly into the ascender, so there is no choice at the junction"
+        },
+        {
+          "segment": "ascender, upward",
+          "direction": "FORCED",
+          "basis": "same continuous curve after the arrowed bottom, no branch"
+        },
+        {
+          "segment": "top flag, curving right",
+          "direction": "FORCED",
+          "basis": "same continuous curve after the arrowed bottom, no branch"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left reaching the upper left of the bowl",
+        "exit": "none"
+      },
+      "hookMarker": false,
+      "openPoints": "none (the bowl right side flows smoothly into the ascender, so there is no choice at the junction)",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Entry hairline #10 (continuing from а's exit) comes in at the upper left of a closed oval bowl (#8). A stem #16 rises from the bowl's right side to the top, and #9 is a flag that curls right at the ascender line.",
+        "s2": "Stroke 1: dotted join into the bowl's upper left, counter-clockwise around the bowl, up the right-side stem to a rightward flag at the top.",
+        "difference": "",
+        "consequence": "Applicable as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "в",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' to the right of the tall loop, beside its rising right-hand line, near the arrow tail and a little above the junction where the stroke begins."
+      },
+      "segments": [
+        {
+          "segment": "right line of the tall loop, upward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the right line of the tall loop pointing up"
+        },
+        {
+          "segment": "top turn of the tall loop",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "left line of the loop, descending into the bowl's left side",
+          "direction": "FORCED",
+          "basis": "continuation through a smooth crossing"
+        },
+        {
+          "segment": "bowl lower left and bottom, curving down and right",
+          "direction": "ARROWED",
+          "basis": "arrow at the lower left of the bowl curving down and right along the bottom"
+        },
+        {
+          "segment": "bowl right side, rising",
+          "direction": "FORCED",
+          "basis": "after the arrowed bottom"
+        },
+        {
+          "segment": "bowl top, going left to the inner nose",
+          "direction": "FORCED",
+          "basis": "single continuous curve; the alternative order at the right-side junction would arrive heading down, not toward the exit"
+        },
+        {
+          "segment": "U-turn at the inner nose",
+          "direction": "FORCED",
+          "basis": "same single continuous curve"
+        },
+        {
+          "segment": "inner lower line, going right to the exit",
+          "direction": "FORCED",
+          "basis": "same single continuous curve; inner-loop order judged forced by curve continuity and the exit position, not arrowed"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left reaching the junction at the foot of the tall loop's right line",
+        "exit": "grey dotted exit line to the upper right, leaving from where the inner closing stroke meets the bowl's right side"
+      },
+      "hookMarker": false,
+      "openPoints": "Numeral 1 sits beside the upstroke rather than exactly on the junction start point; the start is read as the foot of the arrowed upstroke (inferred placement). The inner loop orientation is settled only by geometry plus the exit position (judged forced).",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "Entry hairline #7 rises from lower left to a crossing, then a tall narrow loop (#5, closed) goes up the right side and comes down the left side as the stem. A lower bowl (#6) runs round the bottom, up the right side and over, and ends as an open inward-pointing terminal inside the bowl that does not touch the stem. No exit.",
+        "s2": "Stroke 1: dotted join, up into the tall loop, down the stem, round the lower bowl, then a small closed loop at the top of the bowl (it runs left to the stem and back right) and an exit to the right (dotted join).",
+        "difference": "S2 ends the bowl with an extra small closed loop at bowl-top height followed by a rightward exit. S1 ends the bowl with an open free terminal hook and has no exit.",
+        "consequence": "Not applicable as is. S2's closing loop and exit would have to be dropped, so the stroke would end at S1's open terminal. Top loop, stem and bowl direction evidence still holds, but the ending is unverified."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's: S2's closing loop and exit have no counterpart at S1's open terminal, so the form is not animated. On S2's own page nothing is open under the rule (inner-loop order judged forced by curve continuity, not arrowed)."
+    },
+    {
+      "char": "г",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above and left of the free start end at the upper left."
+      },
+      "segments": [
+        {
+          "segment": "top arch, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the top arch pointing right"
+        },
+        {
+          "segment": "stem, descending",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "bottom curve and tail, to the right",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start",
+        "exit": "grey dotted exit line rising right from the end at the baseline"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Inked entry hairline #25 arches up to the top left, then #24 makes the top arch, runs down a slanted stem, turns at the baseline and exits to the right.",
+        "s2": "Stroke 1: dotted join, top arch, down the stem, baseline turn, exit (dotted).",
+        "difference": "S1's lead-in is inked where S2 shows a dotted join. The topology is the same.",
+        "consequence": "Applicable as is. The S1 lead-in follows S2's join path."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "д",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above the top right of the bowl, at the stem top (stroke start)."
+      },
+      "segments": [
+        {
+          "segment": "bowl top, right to left",
+          "direction": "ARROWED",
+          "basis": "arrow over the bowl top pointing left"
+        },
+        {
+          "segment": "bowl left side, downward",
+          "direction": "FORCED",
+          "basis": "closed bowl between the arrowed top and the arrowed bottom"
+        },
+        {
+          "segment": "bowl lower left and bottom, curving right",
+          "direction": "ARROWED",
+          "basis": "arrow at the lower left of the bowl curving right along the bottom"
+        },
+        {
+          "segment": "bowl right side, rising and merging into the stem near its top",
+          "direction": "FORCED",
+          "basis": "only continuation of the single stroke; the stem arrow points down"
+        },
+        {
+          "segment": "short retrace down from the stem top",
+          "direction": "FORCED",
+          "basis": "only continuation of the single stroke; the stem arrow points down"
+        },
+        {
+          "segment": "stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem top pointing down"
+        },
+        {
+          "segment": "descender loop right side, downward (the straight stem continuing)",
+          "direction": "FORCED",
+          "basis": "one continuous curve from the stem, no branch"
+        },
+        {
+          "segment": "descender loop bottom",
+          "direction": "FORCED",
+          "basis": "same continuous curve, no branch"
+        },
+        {
+          "segment": "descender loop left side, rising across the stem to the exit",
+          "direction": "FORCED",
+          "basis": "same continuous curve, no branch"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left reaching the upper left of the bowl",
+        "exit": "grey dotted exit line to the upper right from the end of the loop's rising line"
+      },
+      "hookMarker": false,
+      "openPoints": "none under the rule (Batch 71 recorded the bowl left side and the loop as inferred; under this rule both are forced, not open)",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Entry hairline #22 meets the bowl's left side. Closed bowl #20. Stem #23 starts as a free tick above the bowl's right junction and runs below the baseline into a closed descender loop (#18, #19), which crosses the stem, and exit #21 rises to the right.",
+        "s2": "Stroke 1: starts at the bowl's top-right corner, bowl counter-clockwise, down the stem to a descender loop that swings left and back up across the stem, then exit up-right (dotted). Dotted join on the left.",
+        "difference": "As with а, S1's stem top projects as a small tick above where the bowl rejoins it. In S2 the bowl starts at the stem top as a sharp corner. Descender loop and exit are the same.",
+        "consequence": "Applicable. Map S2's start to S1's stem top with a short retrace (inferred)."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-INFERABLE",
+      "missing": "Nothing under the rule on S2's page. Mapped onto S1, S2's start goes to S1's stem-top tick with a short retrace (inferred), so the form animates with a labelled inferred segment."
+    },
+    {
+      "char": "е",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' inside the loop, above the rising crossline, near its start."
+      },
+      "segments": [
+        {
+          "segment": "inner rising line, up and to the right",
+          "direction": "ARROWED",
+          "basis": "arrow along the inner rising line pointing up-right"
+        },
+        {
+          "segment": "loop top, right to left",
+          "direction": "ARROWED",
+          "basis": "arrow over the loop top pointing left"
+        },
+        {
+          "segment": "loop left side, going down",
+          "direction": "FORCED",
+          "basis": "between the arrowed top and the arrowed bottom"
+        },
+        {
+          "segment": "bottom, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow under the bottom pointing right"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start at the left end of the rising line",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Short entry #28 at mid-left, then #26 is a rising stroke into a closed upper loop (around the top and down the left side). #27 is the bottom curve, which exits rising to the right.",
+        "s2": "Stroke 1: dotted join at mid-left, rises right into the loop, counter-clockwise round the top, down the left, bottom curve, exit right.",
+        "difference": "",
+        "consequence": "Applicable as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "ё",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "'1' inside the loop above the rising crossline (start of stroke 1); '2' to the left of the two dots above the letter (stroke 2, the dots)."
+      },
+      "segments": [
+        {
+          "segment": "inner rising line, up and to the right",
+          "direction": "ARROWED",
+          "basis": "arrow along the inner rising line pointing up-right"
+        },
+        {
+          "segment": "loop top, going left",
+          "direction": "FORCED",
+          "basis": "single curve between the arrowed rising line and the arrowed bottom, no branch (no arrow over the loop top)"
+        },
+        {
+          "segment": "loop left side, going down",
+          "direction": "FORCED",
+          "basis": "same single curve between the arrowed rising line and the arrowed bottom, no branch"
+        },
+        {
+          "segment": "bottom, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow under the bottom pointing right"
+        },
+        {
+          "segment": "stroke 2: the two dots",
+          "direction": "OPEN",
+          "basis": "no arrow on the dots; the two dots share one numeral '2', so the pen lift between them and their order are not shown (left then right is the convention, inferred)"
+        }
+      ],
+      "penLifts": "One lift between stroke 1 and stroke 2 (the dots). The lift between the two dots is not separately numbered.",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "The two dots share one numeral '2': the lift between the two dots is not separately numbered and their order (left then right) is not shown.",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Same as е (#276, #277, entry #278), plus two separate dot pieces (#275, #274) above.",
+        "s2": "Stroke 1 is е. Stroke 2 is two dots.",
+        "difference": "",
+        "consequence": "Applicable as is. The dots map to stroke 2."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-INFERABLE",
+      "missing": "Order of the two dots and the lift between them (no own numeral for the second dot)."
+    },
+    {
+      "char": "ж",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above and left of the start at the upper left."
+      },
+      "segments": [
+        {
+          "segment": "opening arch, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the opening arch pointing right"
+        },
+        {
+          "segment": "descent from the arch into the lower-left loop",
+          "direction": "FORCED",
+          "basis": "one continuous curve"
+        },
+        {
+          "segment": "lower-left loop",
+          "direction": "FORCED",
+          "basis": "one continuous curve through a smooth crossing; orientation settled by curve geometry and the arrowed ends, not by its own arrow"
+        },
+        {
+          "segment": "rising diagonal to the middle apex",
+          "direction": "FORCED",
+          "basis": "one continuous curve; the apex is a cusp on a single path"
+        },
+        {
+          "segment": "straight down-stroke to the sharp lower point",
+          "direction": "FORCED",
+          "basis": "one continuous curve; the lower point is a cusp on a single path"
+        },
+        {
+          "segment": "rising diagonal into the upper-right loop",
+          "direction": "FORCED",
+          "basis": "one continuous curve"
+        },
+        {
+          "segment": "upper-right loop",
+          "direction": "FORCED",
+          "basis": "one continuous curve through a smooth crossing; orientation settled by curve geometry and the arrowed ends, not by its own arrow"
+        },
+        {
+          "segment": "final descent",
+          "direction": "FORCED",
+          "basis": "one continuous curve"
+        },
+        {
+          "segment": "final bottom curve, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow under the final bottom curve pointing right"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start (a second dotted line further left belongs to the capital)",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "Loop orientations are settled by curve geometry and the arrowed ends, not by their own arrows; every middle segment depends on continuity alone.",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "Inked entry #272 arches from lower left up to the top left. Left stem goes down into a closed bottom-left loop (#271), then a diagonal rises to a top-middle cusp and drops to a bottom-middle cusp. A diagonal rises to a junction at about two thirds of the height. From there #270/#273 arch up over the top right and end as a free downward hook terminal, and a separate branch (#269) forms a c-curve down and round the bottom that exits right.",
+        "s2": "Stroke 1: small start hook at the top left, stem down, closed bottom-left loop, up to the top-middle cusp, down to the bottom-middle cusp, up into a closed loop at the top right, back down through it into the c-curve, exit right.",
+        "difference": "Right half: S2 draws a closed loop at the top right that flows continuously into the c-curve. S1 has no loop there, only an open arch ending in a free hook terminal, with the c-curve branching from a junction on the rising diagonal. Minor extra difference: S1's inked lead-in arch versus S2's short start hook.",
+        "consequence": "Not applicable as is. S2's right-half loop has no counterpart in S1. Drawing S1's free hook and branched c needs a pen lift or retrace that S2 does not give (inferred). Left half and middle cusps can use S2's evidence."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's: S2's right-half closed loop has no counterpart in S1, and S1's free hook and branched c-curve need a pen lift or retrace S2 does not give, so the form is not animated. On S2's own page nothing is open under the rule (many middle segments forced only by continuity)."
+    },
+    {
+      "char": "з",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above and left of the start at the upper left."
+      },
+      "segments": [
+        {
+          "segment": "top arch, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the top arch pointing right"
+        },
+        {
+          "segment": "upper bowl, descending to the waist cusp",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "lower part, curving right into the descent",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "right side of the descender loop, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the right side of the descender loop pointing down"
+        },
+        {
+          "segment": "loop bottom",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "loop left side, rising across to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start",
+        "exit": "grey dotted exit line to the upper right from the end of the loop's rising line"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "#268 rises from upper left into a top arch, comes down the right (#266, #265) to a leftward cusp tip at mid-height (#264), then a closed descender loop (#263), and exit #267 rises to the right from the crossing.",
+        "s2": "Stroke 1: dotted join, top arch, down to a leftward cusp near the baseline, descender loop, exit up-right (dotted).",
+        "difference": "",
+        "consequence": "Applicable as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "и",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' right of the first stem near its top (start at the stem top)."
+      },
+      "segments": [
+        {
+          "segment": "first stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the first stem pointing down"
+        },
+        {
+          "segment": "bottom curve, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow under the bottom curve pointing right"
+        },
+        {
+          "segment": "upstroke from the bottom curve, merging into the second stem and up to its top (retrace)",
+          "direction": "FORCED",
+          "basis": "the retrace is the only continuation; the stem top is a dead end and the stem is arrowed down"
+        },
+        {
+          "segment": "second stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the second stem top pointing down"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left reaching the lower part of the first stem",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "None for the standalone form. The entry join meets the first stem low, not at the numbered top start; in a joined context that would imply an upstroke along the stem, which is not shown with an arrow (joining variant only). Final tail after the second stem: not recorded.",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Inked entry #261 rises from lower left and meets the first stem about two thirds up. The stem top stands free above that point. Stem down, rounded baseline turn, up to the second stem top, down, baseline exit.",
+        "s2": "Stroke 1: dotted join merges into the lower part of the first stem. Stroke starts at the first stem top, goes down, baseline turn, up to the second stem top, down, exit (dotted).",
+        "difference": "Only that S1's lead-in is inked and meets the stem a bit higher than S2's dotted join.",
+        "consequence": "Applicable as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "й",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "'1' right of the first stem near its top (stroke 1 start); '2' above the breve (stroke 2)."
+      },
+      "segments": [
+        {
+          "segment": "first stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the first stem pointing down"
+        },
+        {
+          "segment": "bottom curve, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow under the bottom curve pointing right"
+        },
+        {
+          "segment": "upstroke into the second stem, up to its top (retrace)",
+          "direction": "FORCED",
+          "basis": "forced retrace, as in и: the stem top is a dead end and the stem is arrowed down"
+        },
+        {
+          "segment": "second stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the second stem top pointing down"
+        },
+        {
+          "segment": "stroke 2: breve, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the breve pointing right"
+        }
+      ],
+      "penLifts": "One lift between stroke 1 and stroke 2 (the breve).",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left reaching the lower part of the first stem",
+        "exit": "grey dotted exit line rising right from the end of stroke 1"
+      },
+      "hookMarker": false,
+      "openPoints": "none for the standalone form (same joined-entry note as и). Final tail after the second stem: not recorded.",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Same as и (#253, #254, #257, #255, entry #256), plus a separate breve piece #4 drawn as a cup.",
+        "s2": "Stroke 1 is и. Stroke 2 is the breve, a cup drawn left to right.",
+        "difference": "",
+        "consequence": "Applicable as is. The breve maps to stroke 2."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "к",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "'1' just left of the tail of the arrow over the lead-in, above the solid start of the lead-in (stroke 1 start). '2' to the right of the tail of the leg arrow, level with it and cradled by the arrow's arc, right of the arm/leg junction and below the arm tip; it labels the leg arrow, so it marks stroke 2 = the leg, which starts at the junction."
+      },
+      "segments": [
+        {
+          "segment": "lead-in, over the top curving right",
+          "direction": "ARROWED",
+          "basis": "arrow over the top curving right (verified)"
+        },
+        {
+          "segment": "stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow left of the stem pointing down (verified)"
+        },
+        {
+          "segment": "rising line from the stem foot up to the junction",
+          "direction": "FORCED",
+          "basis": "a separate drawn line, not a retrace; the arrowed stem ends at the foot, and the foot is a cusp with no branch, so the only way on is up this line"
+        },
+        {
+          "segment": "arm, up and to the right from the junction to the curled upper-right tip",
+          "direction": "ARROWED",
+          "basis": "arrow above the arm running up-right toward the curled tip, head pointing right (verified)"
+        },
+        {
+          "segment": "stroke 2: leg, from the junction right then down",
+          "direction": "ARROWED",
+          "basis": "arrow starting just right of the junction, curving right then down along the leg (verified)"
+        },
+        {
+          "segment": "leg baseline tail, into the exit",
+          "direction": "FORCED",
+          "basis": "continuity from the arrowed leg, with no branch before the exit dots"
+        }
+      ],
+      "penLifts": "One lift: stroke 1 ends at the arm's curled tip, the pen lifts, and stroke 2 starts the leg at the junction.",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the lower left into the start of the lead-in",
+        "exit": "grey dotted exit line rising right from the end of the leg's baseline tail"
+      },
+      "hookMarker": false,
+      "openPoints": "The junction where the leg leaves the arm line is a branch point, but the marks settle it: stroke 1 must arrive there from the foot (forced), the arm and leg arrows both point away from the junction, and numeral 2 sits on the leg arrow, so stroke 1 goes on up the arm to the curled tip, the pen lifts, and stroke 2 starts the leg at the junction. One soft spot: numeral 2 sits some way from its arrow tail rather than right on the junction; the leg has no other possible start, so no path choice is left open.",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Inked entry #294 rises from lower left to near the stem top. Stem #293 runs down to the baseline. From a mid-height junction, arm #292/#291 arcs up-right and ends in a downward curl, and leg #290 goes right, then down, round at the baseline, and exits right.",
+        "s2": "Stroke 1: a lead-in arc rises to the stem top, the stem goes down to a cusp at the foot, a separate line rises from the foot to the junction, and the arm runs up-right to its curled tip. Stroke 2 is the leg alone (from the junction right and down, baseline turn, exit). Both leave from the junction.",
+        "difference": "",
+        "consequence": "Applicable. The stroke 1 and 2 split and the arm/leg order follow S2. The detailed arm/leg sequencing is covered in the reconciled reading (third reader)."
+      },
+      "confidence": "medium",
+      "readers": "Two readers disagreed; resolved by a third reader (reconciled). Reader 1 missed the separate rising line from the stem foot to the junction, which is why its parse needed an unshown return from the arm tip to the junction.",
+      "classification": "ANIMATE-READY",
+      "missing": "Nothing under the rule. Stroke 1 = lead-in, stem down, cusp at the foot, rise to the junction, arm up-right to the curled tip. Stroke 2 = leg from the junction, right then down, baseline tail to the exit."
+    },
+    {
+      "char": "л",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' below the baseline, just right of the hook circle, under the start."
+      },
+      "segments": [
+        {
+          "segment": "initial hook, curving down then right",
+          "direction": "FORCED",
+          "basis": "start segment"
+        },
+        {
+          "segment": "rising diagonal, up and to the right",
+          "direction": "ARROWED",
+          "basis": "arrow under the rising diagonal pointing up-right"
+        },
+        {
+          "segment": "stem, downward from the sharp apex",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem pointing down"
+        },
+        {
+          "segment": "bottom curve and tail after the stem",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left ending inside the hook circle at the start",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": true,
+      "openPoints": "none (the apex is a sharp point, no retrace)",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Starting hook #296 comes down from about mid x-height round a cup at the baseline, then #295 runs up a diagonal to a sharp apex, down the stem, and out in a baseline exit.",
+        "s2": "Stroke 1: a small start hook (circled 'hook') just above the baseline, up a diagonal to the apex cusp, down, exit.",
+        "difference": "S1's starting hook begins higher (about mid x-height) and is a longer cup. S2's hook is a small curl near the baseline.",
+        "consequence": "Applicable. Same pieces and order; only the length of the start hook differs."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "м",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' below and left of the hook circle, under the start."
+      },
+      "segments": [
+        {
+          "segment": "initial hook",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "first rising stroke, up and to the right",
+          "direction": "ARROWED",
+          "basis": "arrow under the first rising stroke pointing up-right"
+        },
+        {
+          "segment": "first stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the first stem top pointing down"
+        },
+        {
+          "segment": "bottom of the first stem curving up into the second rising stroke, to the second apex",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "second stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the second stem top pointing down"
+        },
+        {
+          "segment": "final tail",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left ending inside the hook circle at the start",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": true,
+      "openPoints": "none (apexes are sharp, with at most a tiny forced overlap)",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Starting hook #288 comes down from mid-height round a baseline cup. #287 runs up to apex 1, down to a rounded baseline turn, #286 up to apex 2 (#289), down, exit.",
+        "s2": "Stroke 1: small start hook at the baseline, up to apex 1, down, rounded turn, up to apex 2, down, exit.",
+        "difference": "Same start-hook difference as л: S1's lead-in cup starts higher and is longer.",
+        "consequence": "Applicable."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "н",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above the opening hook at the upper left."
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the opening hook pointing right"
+        },
+        {
+          "segment": "first stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the first stem pointing down"
+        },
+        {
+          "segment": "retrace up the lower first stem, curving up and right toward the crossbar",
+          "direction": "ARROWED",
+          "basis": "arrow from the lower first stem curving up and right toward the crossbar"
+        },
+        {
+          "segment": "rise from the crossbar up the second stem to its top (retrace)",
+          "direction": "FORCED",
+          "basis": "the stem top is a dead end and the stem is arrowed down"
+        },
+        {
+          "segment": "second stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the second stem top pointing down"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "none. Final tail after the second stem: not recorded.",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Straight inked entry #285 rises to the left stem top, meeting it at a sharp cusp. Left stem runs to the baseline. Crossbar #284 runs from mid left stem up to the right stem. Right stem #281/#280 runs from its top down to the baseline, and exit #282 curls right.",
+        "s2": "Stroke 1: a rounded start hook over the left stem top, stem down, back up, wavy crossbar to the right stem, up to its top, down, exit.",
+        "difference": "The left stem top is a sharp cusp with a straight lead-in in S1 and a rounded hook in S2.",
+        "consequence": "Applicable. Same pieces and order; the start curl differs."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "о",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above the top right of the oval (start at the cut end at the top)."
+      },
+      "segments": [
+        {
+          "segment": "oval top, right to left (counterclockwise)",
+          "direction": "ARROWED",
+          "basis": "one arrow over the oval top pointing left"
+        },
+        {
+          "segment": "oval left side, downward",
+          "direction": "FORCED",
+          "basis": "single curve after the arrowed top"
+        },
+        {
+          "segment": "oval bottom, left to right",
+          "direction": "FORCED",
+          "basis": "same single curve after the arrowed top"
+        },
+        {
+          "segment": "oval right side, rising",
+          "direction": "FORCED",
+          "basis": "same single curve after the arrowed top"
+        },
+        {
+          "segment": "inner loop, over the top leftward",
+          "direction": "FORCED",
+          "basis": "smooth continuation at the right-side junction; the reverse order would not reach the exit"
+        },
+        {
+          "segment": "inner loop nose (turn)",
+          "direction": "FORCED",
+          "basis": "same smooth continuation"
+        },
+        {
+          "segment": "lower inner line, rightward to the exit",
+          "direction": "FORCED",
+          "basis": "same smooth continuation; inner loop orientation settled by geometry, not arrows"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left reaching the upper left of the oval",
+        "exit": "grey dotted exit line to the upper right, leaving the right side where the inner loop closes"
+      },
+      "hookMarker": false,
+      "openPoints": "Only one arrow; the rest rests on continuity. Inner loop orientation is settled by geometry, not arrows.",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "Inked entry #169 rises from lower left into the upper left of a plain closed oval (#167, #168). The oval has no inner loop and no exit.",
+        "s2": "Stroke 1: starts at the top, goes counter-clockwise round the oval, finishes with a small closed loop inside the top right, then exits right (dotted join).",
+        "difference": "S2 has an extra small closing loop at the top right and a rightward exit. S1's oval is plain, with no closing loop and no exit.",
+        "consequence": "Not applicable as is. S2's closing loop and exit would have to be dropped. Only the counter-clockwise oval direction carries over."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's: S2's closing loop and exit have no counterpart in S1's plain oval, so the form is not animated. On S2's own page nothing is open under the rule."
+    },
+    {
+      "char": "п",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above right of the opening upstroke near the first stem top, at the arrowhead of the opening arrow."
+      },
+      "segments": [
+        {
+          "segment": "opening upstroke, rightward",
+          "direction": "ARROWED",
+          "basis": "arrow over the opening upstroke pointing right"
+        },
+        {
+          "segment": "first stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the first stem pointing down"
+        },
+        {
+          "segment": "retrace up the first stem from the baseline to where the arch leaves it (about mid-height)",
+          "direction": "FORCED",
+          "basis": "the stem foot is a dead end and the arch is arrowed rightward from there"
+        },
+        {
+          "segment": "arch, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the arch pointing right"
+        },
+        {
+          "segment": "second stem, downward",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "tail",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "The arch leaves the stem gradually around mid-height; the exact retrace length is set by geometry, not marked.",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Inked entry #173 arches up to the stem top, meeting it at a sharp cusp. Stem down to the baseline, back up. #171 is an arch that branches from the upper part of the stem, goes over and down. #170 is the baseline turn and #172 the exit.",
+        "s2": "Stroke 1: rounded start hook at the stem top, stem down, retrace up, arch branching from the upper stem, down, baseline turn, exit.",
+        "difference": "Start: a sharp cusp with an inked lead-in in S1, a rounded hook in S2.",
+        "consequence": "Applicable."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "р",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' at the lower left, beside the start of the rising lead-in."
+      },
+      "segments": [
+        {
+          "segment": "rising lead-in, up toward the stem top",
+          "direction": "ARROWED",
+          "basis": "arrow beside the rising lead-in pointing up toward the stem top"
+        },
+        {
+          "segment": "stem, downward to the descender foot",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem top pointing down"
+        },
+        {
+          "segment": "long retrace from the descender foot back up to the arch junction at x-height",
+          "direction": "FORCED",
+          "basis": "single numeral means no lift; the descender foot is a dead end; the arch is arrowed from the junction"
+        },
+        {
+          "segment": "arch, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the arch pointing right"
+        },
+        {
+          "segment": "arch right side, downward",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "tail",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "The lead-in curves smoothly into the arch geometrically, but the arrows send it up the stem first; the long upward retrace is unarrowed and rests on the single-stroke rule rather than an arrow.",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Straight inked entry #177 rises to the stem top, meeting it at a cusp. The stem top is about level with the arch top. #175 is a long stem down to the descender. #174 is an arch branching at the upper stem, over, down, baseline turn, and #176 the exit.",
+        "s2": "Stroke 1: an inked lead-in rises and joins the stem near x-height. The stem rises above that point to a taller top, comes down to the descender, retraces up, then arch, down, exit.",
+        "difference": "S2's stem top stands well above the arch and above the lead-in join point. S1's stem top is the lead-in cusp, about level with the arch top.",
+        "consequence": "Applicable. The S2 overshoot is not present in S1, so the start runs straight from the lead-in cusp."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule (descender retrace forced, not arrowed)"
+    },
+    {
+      "char": "с",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' right of the free start end at the upper right."
+      },
+      "segments": [
+        {
+          "segment": "from the start, curving over the top, right to left",
+          "direction": "ARROWED",
+          "basis": "arrow from the start curving over the top pointing left"
+        },
+        {
+          "segment": "left side, downward",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "bottom, to the right",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left reaching the upper left side",
+        "exit": "grey dotted exit line rising right from the end at the lower right"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Inked entry #156 rises into the left side of a c-curve. #154/#155 run from a top-right terminal over the top, down the left, round the bottom, and exit right.",
+        "s2": "Stroke 1: starts at the top-right terminal, counter-clockwise over the top, down, round the bottom, exit. Dotted join on the left.",
+        "difference": "",
+        "consequence": "Applicable as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "т",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above the opening hook at the upper left."
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the opening hook pointing right"
+        },
+        {
+          "segment": "stem 1, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem pointing down"
+        },
+        {
+          "segment": "retrace up stem 1 to where arch 1 leaves",
+          "direction": "FORCED",
+          "basis": "the stem foot is a dead end and the stem is arrowed down"
+        },
+        {
+          "segment": "arch 1, going right",
+          "direction": "FORCED",
+          "basis": "only continuation after the retrace (no arrow on the arch)"
+        },
+        {
+          "segment": "stem 2, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem pointing down"
+        },
+        {
+          "segment": "retrace up stem 2 to where arch 2 leaves",
+          "direction": "FORCED",
+          "basis": "the stem foot is a dead end and the stem is arrowed down"
+        },
+        {
+          "segment": "arch 2, going right",
+          "direction": "FORCED",
+          "basis": "only continuation after the retrace (no arrow on the arch)"
+        },
+        {
+          "segment": "stem 3, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem pointing down"
+        },
+        {
+          "segment": "tail",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "none under the rule (Batch 71 recorded arch 2 as inferred; on the page arch 1 is also unarrowed, and under this rule both arches are forced)",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Straight inked entry #166 rises to the stem top, meeting it at a sharp cusp. Stem 1 runs down. #164 is arch 1 branching from the upper stem. #162 is stem 2 down, then arch 2, stem 3 down, baseline turn #161, and exit #163.",
+        "s2": "Stroke 1: rounded start hook, stem 1 down, retrace, arch, stem 2 down, retrace, arch, stem 3 down, exit.",
+        "difference": "Start curl only: a cusp with an inked lead-in in S1, a rounded hook in S2.",
+        "consequence": "Applicable."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "у",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above the opening hook at the upper left."
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the opening hook pointing right"
+        },
+        {
+          "segment": "cup left side, downward",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "cup bottom, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow under the cup bottom pointing right"
+        },
+        {
+          "segment": "cup right side, merging into the stem and up to its top (retrace)",
+          "direction": "FORCED",
+          "basis": "dead-end stem top, stem arrowed down"
+        },
+        {
+          "segment": "right stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the right stem top pointing down"
+        },
+        {
+          "segment": "descender loop bottom, curving down and left",
+          "direction": "ARROWED",
+          "basis": "arrow at the descender loop bottom curving down and left"
+        },
+        {
+          "segment": "loop left side, rising across the stem to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start",
+        "exit": "grey dotted exit line to the upper right from the end of the loop's rising line"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Straight lead-in rises to a sharp top-left cusp (part of #158). Down, rounded baseline turn, up to the right stem top, then down through the crossing into a closed descender loop (#157, #159), and exit #160 rises to the right.",
+        "s2": "Stroke 1: rounded start hook at the top left, down, baseline turn, up to the right stem, down to the descender loop, exit up-right.",
+        "difference": "Start: a sharp cusp with a lead-in in S1, a rounded hook in S2.",
+        "consequence": "Applicable."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "ф",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above the top of the stem, between the two bowls."
+      },
+      "segments": [
+        {
+          "segment": "left bowl top, right to left",
+          "direction": "ARROWED",
+          "basis": "arrow over the left bowl top pointing left"
+        },
+        {
+          "segment": "left bowl left side and bottom",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "where the left bowl rejoins the stem, and how far up it goes",
+          "direction": "OPEN",
+          "basis": "the left bowl merges into the stem low; the order of left bowl, stem and descender and how far the stem is retraced are not settled"
+        },
+        {
+          "segment": "upper stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow inside the left bowl beside the upper stem pointing down"
+        },
+        {
+          "segment": "descender, down and back up to the stem top before the right bowl",
+          "direction": "OPEN",
+          "basis": "no arrow on the descender; the return up the descender is open in extent and order, and how many times the stem is retraced is not shown"
+        },
+        {
+          "segment": "right bowl top right, curving clockwise down",
+          "direction": "ARROWED",
+          "basis": "arrow at the right bowl's top right curving clockwise down"
+        },
+        {
+          "segment": "right bowl lower part, to its inner curl",
+          "direction": "FORCED",
+          "basis": "after the arrowed top"
+        },
+        {
+          "segment": "exit from the right bowl",
+          "direction": "OPEN",
+          "basis": "the right bowl ends at a free inner curl while the exit join leaves from its bottom right"
+        }
+      ],
+      "penLifts": "none (one numeral); whether there are pen lifts between the bowls and the stem is not settled",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left reaching the left bowl's top left",
+        "exit": "grey dotted exit line rising right from the right bowl's bottom right"
+      },
+      "hookMarker": false,
+      "openPoints": "Order of left bowl, stem and descender; how many times and how far the stem is retraced (up to its top, and back up from the descender foot to the right bowl's spring point); whether there are pen lifts; the right bowl ends at a free inner curl while the exit join leaves from its bottom right.",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Inked entry #191 meets the left loop at its upper left. Left loop #189 is closed. #192/#190 form the closed right loop, which shares a centre point with the stem. Stem #194 runs down to the descender. Exit #193 leaves the right loop's right side about a third of the way down from the top as a short horizontal hairline.",
+        "s2": "Stroke 1: starts at the top centre, left loop counter-clockwise, stem down to the descender, right loop with a downward (clockwise) arrow on its right side. The exit (dotted) leaves the right loop at its lower right near the baseline. Dotted join at the upper left.",
+        "difference": "The exit leaves the right loop at a different point: high on the right side in S1, at the lower right in S2. Loops and stem match.",
+        "consequence": "Mostly applicable. Loop and stem directions transfer. The exit point and the final run of the right loop must follow S1's high exit and cannot be taken from S2 (S2 shows its exit only as a dotted join). Inferred: this needs a short retrace over the top of the right loop."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "Path order around the stem and the descender retrace (component order, pen lifts or retraces between the bowls and the stem)."
+    },
+    {
+      "char": "х",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "'1' left of the start of stroke 1 at the upper left; '2' right of the upper right end of the diagonal (stroke 2 start)."
+      },
+      "segments": [
+        {
+          "segment": "stroke 1 top, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the top of stroke 1 pointing right"
+        },
+        {
+          "segment": "stroke 1 descent through the middle",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "stroke 1 bottom curve, to the right",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "stroke 2: diagonal, top right to bottom left",
+          "direction": "ARROWED",
+          "basis": "arrow beside the diagonal pointing down-left"
+        }
+      ],
+      "penLifts": "One lift between stroke 1 and stroke 2 (the diagonal).",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start of stroke 1",
+        "exit": "grey dotted exit line rising right from the end of stroke 1"
+      },
+      "hookMarker": false,
+      "openPoints": "none (the exit join leaves from stroke 1 though stroke 2 is drawn last; recorded, not a direction gap)",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "Two opposed curves that touch in the middle. A reversed-c (ɔ) #196/#195 runs from a top-left tick over to the right, down through the centre and round to a bottom-left upturned terminal. A c-curve #179/#178 runs from a top-right terminal over to the left, down through the centre, round the bottom and exits right. No straight stroke.",
+        "s2": "Stroke 1: one S-curve from the upper left, arching over and down through the centre into a bottom-right curl and exit. Stroke 2: a straight diagonal from top right to bottom left.",
+        "difference": "S2's stroke 2 is a straight diagonal bar, and stroke 1 joins half of each curve into one S. S1 has no straight diagonal. It has two full opposed curves, each with its own end terminals (top-left tick and bottom-left hook on the ɔ; top-right terminal on the c).",
+        "consequence": "Not applicable. S2's two strokes do not divide S1's shape. Either S1's shape changes to S-curve plus bar, or S2's evidence is dropped."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's: S2's S-curve plus straight bar does not divide S1's two opposed curves, so the form is not animated. On S2's own page nothing is open under the rule."
+    },
+    {
+      "char": "ц",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' left of the start at the upper left."
+      },
+      "segments": [
+        {
+          "segment": "opening hook, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the opening hook pointing right"
+        },
+        {
+          "segment": "cup left side, downward",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "cup bottom, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow under the cup bottom pointing right"
+        },
+        {
+          "segment": "cup right side, up the stem to its top (retrace)",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "right stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the right stem top pointing down"
+        },
+        {
+          "segment": "stem foot, curving right to the cusp",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "small descender loop, curving down and left",
+          "direction": "ARROWED",
+          "basis": "arrow at the small descender loop curving down and left"
+        },
+        {
+          "segment": "rest of the loop and rise to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the start",
+        "exit": "grey dotted exit line to the upper right from the end of the loop's rising line"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Straight lead-in to a sharp top-left cusp. #180 runs down, round a baseline turn and up to stem 2's top (#182), then down to the baseline. Tail: the base turns right into a small upward cusp (#181, #305), then down into a closed narrow descender loop (#304, #187, #188, #185), and exit #186 rises to the right.",
+        "s2": "Stroke 1: rounded start hook, down, baseline turn, up to stem 2, down. The base curves right to a small cusp, then a descender loop, then exit up-right (dotted).",
+        "difference": "Start curl only: a cusp with a lead-in in S1, a rounded hook in S2. The tail is built the same way (cusp, descender loop, exit). S1's loop is narrower.",
+        "consequence": "Applicable."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "ч",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' below the opening peak at the left, a little right of the lead-in start."
+      },
+      "segments": [
+        {
+          "segment": "short lead-in, rising to the peak",
+          "direction": "FORCED",
+          "basis": "start segment"
+        },
+        {
+          "segment": "cusp, then descent into the cup",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "cup, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow under the cup pointing right"
+        },
+        {
+          "segment": "cup rising to the stem top",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem top pointing down"
+        },
+        {
+          "segment": "tail",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the short lead-in",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "The numeral sits under the peak rather than exactly at the lead-in end (minor).",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Straight inked entry #184 rises to the top-left cusp. #183 runs down and turns right into a shallow cup at mid x-height, rises to a cusp at the right stem top, then the stem runs down, round a baseline turn, and exits right.",
+        "s2": "Stroke 1: dotted join from the left meets the top-left start. Down, cup, up to the right stem top, cusp, down, baseline turn, exit.",
+        "difference": "S1 starts with an inked straight lead-in from lower left to a sharp cusp. S2's join arrives from the left near x-height and its ink starts at the top left.",
+        "consequence": "Applicable."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "ш",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "'1' left of the first stem at mid height, above the entry arrow; '2' at the left end of the underline bar below the letter."
+      },
+      "segments": [
+        {
+          "segment": "entry join, up and to the right toward the first stem",
+          "direction": "ARROWED",
+          "basis": "arrow beside the entry join pointing up-right toward the first stem"
+        },
+        {
+          "segment": "stem 1",
+          "direction": "OPEN",
+          "basis": "no direction arrow on the stem; whether the pen climbs stem 1 from the join and retraces down is not shown"
+        },
+        {
+          "segment": "cup between stems 1 and 2",
+          "direction": "FORCED",
+          "basis": "forced only once stem directions are fixed"
+        },
+        {
+          "segment": "stem 2, with the retrace up to its top and back down",
+          "direction": "OPEN",
+          "basis": "no direction arrow on the stem; whether stem 2 is retraced up and down is not shown"
+        },
+        {
+          "segment": "cup between stems 2 and 3",
+          "direction": "FORCED",
+          "basis": "forced only once stem directions are fixed"
+        },
+        {
+          "segment": "stem 3, with the retrace up to its top and back down",
+          "direction": "OPEN",
+          "basis": "no direction arrow on the stem; whether stem 3 is retraced up and down is not shown"
+        },
+        {
+          "segment": "stroke 2: underline bar, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow under the bar pointing right"
+        }
+      ],
+      "penLifts": "One lift between stroke 1 and stroke 2 (the underline bar).",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the lower left meeting the lower part of the first stem (a second dotted line further left belongs to the capital)",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": false,
+      "openPoints": "Whether the pen climbs stem 1 from the join and retraces down, and whether stems 2 and 3 are retraced up and down; matches the known anchor (PARTIAL).",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "Inked entry #73 meets stem 1 partway up. Then #70 stem 1, #69 rounded turn, #71 stem 2, turn, #72 stem 3, exit. No underline bar.",
+        "s2": "Stroke 1: three stems joined by baseline turns, with an exit. Stroke 2: a separate arched underline bar below the baseline, drawn left to right.",
+        "difference": "S2 adds stroke 2, a separate arched underline bar below the baseline, drawn left to right, which S1's ш does not have. Stroke 1 (three stems with baseline turns and an exit) matches S1.",
+        "consequence": "Not applicable as is. Stroke 2 must be dropped. Stroke 1 transfers to S1's body."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "S2's structure differs from S1's: S2's stroke 2, the underline bar, has no S1 counterpart. Under the rule that forms whose S2 structure differs from S1's are never animated, the form stays static (owner's decision in Batch 73; the Phase 1 report had classed it PARTIAL, inferred). On S2 alone, the stem directions and retraces are also open (no arrows on the stems). The live practice-writing ш is a separate, earlier decision (Batch 71) and is not changed by this record."
+    },
+    {
+      "char": "щ",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' left of the first stem at mid height, above the entry arrow."
+      },
+      "segments": [
+        {
+          "segment": "entry join, up and to the right toward stem 1",
+          "direction": "ARROWED",
+          "basis": "arrow beside the entry join pointing up-right toward stem 1"
+        },
+        {
+          "segment": "climb up stem 1 from the join to its top",
+          "direction": "FORCED",
+          "basis": "up arrow at the join, down arrow at the top"
+        },
+        {
+          "segment": "stem 1, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem 1 top pointing down"
+        },
+        {
+          "segment": "cup rise up stem 2 to its top (retrace)",
+          "direction": "FORCED",
+          "basis": "dead-end top, stem arrowed down"
+        },
+        {
+          "segment": "stem 2, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem 2 top pointing down"
+        },
+        {
+          "segment": "cup rise up stem 3 to its top (retrace)",
+          "direction": "FORCED",
+          "basis": "dead-end top, stem arrowed down"
+        },
+        {
+          "segment": "stem 3, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem 3 top pointing down"
+        },
+        {
+          "segment": "stem 3 foot, to the cusp",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "descender loop, curving down and left",
+          "direction": "ARROWED",
+          "basis": "arrow at the descender loop curving down and left"
+        },
+        {
+          "segment": "rest of the loop and rise to the exit",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the lower left meeting the lower part of stem 1",
+        "exit": "grey dotted exit line rising right from the end of the loop's rising line"
+      },
+      "hookMarker": false,
+      "openPoints": "The start is the join point on stem 1 rather than an ink end (judged shown by numeral plus up arrow). Unlike ш, the stems carry arrows.",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Inked entry #65 meets stem 1 partway up. Three stems with rounded baseline turns (#63, #62, #61, #60, #59, #58, #64). Tail: stem 3's base turns right into a small upward cusp, then a closed descender loop (#57, #299, #298, #56, #54, #53, #51, #55), and exit #52 rises to the right. No underline bar.",
+        "s2": "Stroke 1: dotted join, three stems with baseline turns, stem 3's base curves right to a small cusp, then a descender loop, exit up-right. No underline bar in lowercase щ.",
+        "difference": "S1's lead-in is inked where S2 shows a dotted join. Tail and stem count are the same.",
+        "consequence": "Applicable as is."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "ъ",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' above the opening hook at the upper left."
+      },
+      "segments": [
+        {
+          "segment": "opening flick, up to the cusp",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "opening hook, to the right",
+          "direction": "ARROWED",
+          "basis": "arrow over the opening hook pointing right"
+        },
+        {
+          "segment": "curve up to the stem top",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem pointing down"
+        },
+        {
+          "segment": "bowl: bottom to the right, right side up, top going left back to the stem",
+          "direction": "FORCED",
+          "basis": "single curve from the arrowed stem foot, ending against the stem (no arrow on the bowl)"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "none",
+        "exit": "none"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Inked lead-in rises to a top-left cusp. #49 then dips to a small flag, rises to the stem top, runs down the stem, round the bowl's bottom and right side, and over. It ends as a free inward hook terminal just short of the stem. No exit.",
+        "s2": "Stroke 1: a short upward start tick to the top-left cusp, flag dip, up to the stem top, stem down, bowl round, and the bowl top runs back into the stem, closing the bowl.",
+        "difference": "The bowl ends as a free terminal stopping just short of the stem in S1 and touches the stem in S2. S1's lead-in is longer than S2's start tick.",
+        "consequence": "Applicable. Same pieces and order; the stroke simply ends at S1's terminal."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "ы",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' left of the first stem at mid height (start at the stem top)."
+      },
+      "segments": [
+        {
+          "segment": "first stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the first stem pointing down"
+        },
+        {
+          "segment": "bowl bottom, left to right and up",
+          "direction": "ARROWED",
+          "basis": "arrow under the bowl bottom pointing right and up"
+        },
+        {
+          "segment": "bowl right side, rising",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "bowl top, curving left to its free inner end",
+          "direction": "FORCED",
+          "basis": "single numeral means no lift; the free end is a dead end (this leftward pass is not drawn as such and rests on the single-stroke rule)"
+        },
+        {
+          "segment": "bowl top, back to the right (retrace)",
+          "direction": "ARROWED",
+          "basis": "arrow over the bowl top pointing right, showing the rightward return"
+        },
+        {
+          "segment": "connector, rising to the second stem top",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "second stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the second stem top pointing down"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the first stem top",
+        "exit": "grey dotted exit line rising right from the end of the second stem"
+      },
+      "hookMarker": false,
+      "openPoints": "The outward leftward pass over the bowl top and the retrace are not drawn as such; the top arrow shows only the rightward pass.",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Inked entry #67 rises to the cusp at stem 1's top. #66 runs down stem 1, round the bowl, and up to a sharp cusp at the bowl's top left. From there a connector runs right over the bowl top to the top of stem 2 (#68), which comes down to a baseline turn and exit.",
+        "s2": "Stroke 1: dotted join, stem down, bowl round, cusp at the bowl's top left, connector right (arrow) to stem 2's top, down, exit.",
+        "difference": "",
+        "consequence": "Applicable as is."
+      },
+      "confidence": "low",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule (bowl-top retrace forced only by the single numeral)"
+    },
+    {
+      "char": "ь",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' left of the stem at mid height (start at the stem top)."
+      },
+      "segments": [
+        {
+          "segment": "stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem pointing down"
+        },
+        {
+          "segment": "bowl bottom, left to right and up",
+          "direction": "ARROWED",
+          "basis": "arrow under the bowl bottom pointing right and up"
+        },
+        {
+          "segment": "bowl right side up, and top going left back to the stem",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the stem top",
+        "exit": "none"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "Straight inked entry #84 rises to the cusp at the stem top. #83 runs down the stem, round the bowl, and the bowl top returns to touch the stem. No exit.",
+        "s2": "Stroke 1: dotted join to the stem top, stem down, bowl round (arrow up at its lower right), closing into the stem.",
+        "difference": "S1's lead-in is inked where S2 shows a dotted join.",
+        "consequence": "Applicable as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "э",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 2,
+        "shown": "'1' above left of the top arc (stroke 1 start at the upper left free end); '2' left of the bar (stroke 2 start)."
+      },
+      "segments": [
+        {
+          "segment": "top arc, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow over the top pointing right"
+        },
+        {
+          "segment": "right side down, and bottom going left to the free end",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "stroke 2: middle bar, left to right",
+          "direction": "ARROWED",
+          "basis": "arrow beside the bar pointing right"
+        }
+      ],
+      "penLifts": "One lift between stroke 1 (the arc) and stroke 2 (the bar).",
+      "joiningMarks": {
+        "entry": "none",
+        "exit": "none"
+      },
+      "hookMarker": false,
+      "openPoints": "none",
+      "structure": {
+        "comparison": "MATCH",
+        "s1": "#80/#81 form a reversed-c arc from a top-left terminal over the right side and round to a bottom-left terminal. #82 is a horizontal middle bar from the left that ends on the arc's right side.",
+        "s2": "Stroke 1: arc from the upper left, over the right, down to the lower left. Stroke 2: middle bar drawn left to right to the arc.",
+        "difference": "",
+        "consequence": "Applicable as is."
+      },
+      "confidence": "high",
+      "readers": "two readers agreed",
+      "classification": "ANIMATE-READY",
+      "missing": "nothing under the rule"
+    },
+    {
+      "char": "ю",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' left of the stem's lower half, beside the down arrow."
+      },
+      "segments": [
+        {
+          "segment": "stem, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem pointing down"
+        },
+        {
+          "segment": "from the lower stem, curving up and right toward the connector",
+          "direction": "ARROWED",
+          "basis": "arrow from the lower stem curving up and right toward the connector"
+        },
+        {
+          "segment": "connector meeting the oval's left side at a T junction",
+          "direction": "OPEN",
+          "basis": "branch point: whether the pen enters the oval going up or down the left side is not shown"
+        },
+        {
+          "segment": "upper left side of the oval, between the T junction and the top",
+          "direction": "OPEN",
+          "basis": "needs a retrace; when and which way is not shown, and at least two orders fit all the arrows"
+        },
+        {
+          "segment": "oval upper left, going down (counterclockwise)",
+          "direction": "ARROWED",
+          "basis": "arrow inside the oval's upper left pointing down"
+        },
+        {
+          "segment": "oval bottom and right side",
+          "direction": "FORCED",
+          "basis": "forced once the counterclockwise direction is taken"
+        },
+        {
+          "segment": "inner loop, to the exit",
+          "direction": "FORCED",
+          "basis": "recorded as forced; the order of the top arc versus the closing curl is part of the open points"
+        },
+        {
+          "segment": "upper right, curving out to the right (exit)",
+          "direction": "ARROWED",
+          "basis": "arrow at the upper right curving out to the right"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left into the stem top",
+        "exit": "grey dotted exit line to the upper right from where the inner loop meets the oval's right side"
+      },
+      "hookMarker": false,
+      "openPoints": "How the stroke enters the oval from the connector and where the retrace of the oval's upper left side happens; at least two orders fit all the arrows. The bar meets the oval at mid-left (a branch point) and the closing curl springs from the top left and ends on the right side (two more branch points), so the entry direction into the oval, whether the upper left of the oval is retraced, and the order of top arc versus closing curl are not settled by the arrows.",
+      "structure": {
+        "comparison": "STRUCTURAL",
+        "s1": "Inked entry #87 curves up to the cusp at the stem top. #85 runs the stem down to the baseline. #86 is a straight horizontal bar from mid-stem to the oval's left side. Plain closed oval #74, with no inner loop and no exit.",
+        "s2": "Stroke 1: stem down (dotted join at the top), retrace up from the bottom, then a curved bar arching right into the oval, oval counter-clockwise, finishing with a small closed loop inside the top right and an exit to the right (dotted).",
+        "difference": "S2's oval ends with an extra closing loop and an exit. S1's oval is plain with no exit. Lesser differences: S2's bar is a curve rising from low on the stem, and S1's is a straight level bar. S1 starts with an inked lead-in cusp.",
+        "consequence": "Not applicable as is. S2's closing loop and exit must be dropped, and the bar path differs. Stem-then-bar-then-oval order and the oval direction may carry over."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-STATIC",
+      "missing": "Oval entry and retrace order (entry direction into the oval, order of the top arc and closing curl). S2's structure also differs from S1's (closing loop and exit not in S1, bar path differs), so the form is not animated."
+    },
+    {
+      "char": "я",
+      "case": "lowercase",
+      "strokeNumbers": {
+        "count": 1,
+        "shown": "'1' below the hook circle at the lower left (start)."
+      },
+      "segments": [
+        {
+          "segment": "rising base stroke, up and to the right",
+          "direction": "ARROWED",
+          "basis": "arrow under the rising base stroke pointing up-right"
+        },
+        {
+          "segment": "rising line continuing up the stem from the junction to the stem top",
+          "direction": "FORCED",
+          "basis": "going down first would leave the bowl undrawn; clockwise would contradict the top arrow"
+        },
+        {
+          "segment": "bowl top, right to left",
+          "direction": "ARROWED",
+          "basis": "arrow over the bowl top pointing left"
+        },
+        {
+          "segment": "bowl left side and lower line, back to the junction",
+          "direction": "FORCED",
+          "basis": "forced; reason not recorded"
+        },
+        {
+          "segment": "stem below the bowl junction, downward",
+          "direction": "ARROWED",
+          "basis": "arrow beside the stem below the bowl junction pointing down"
+        },
+        {
+          "segment": "final tail, to the right",
+          "direction": "ARROWED",
+          "basis": "arrow under the final tail pointing right"
+        }
+      ],
+      "penLifts": "none (one numeral)",
+      "joiningMarks": {
+        "entry": "grey dotted entry line from the left ending inside the hook circle",
+        "exit": "grey dotted exit line rising right from the end"
+      },
+      "hookMarker": true,
+      "openPoints": "none. Start hook inside the hook circle: direction not recorded.",
+      "structure": {
+        "comparison": "MINOR",
+        "s1": "Starting hook #78 comes down from about mid-height round a baseline cup and up a diagonal to a junction. #76/#75 form the bowl, running left from the junction, round the left and over the top. The bowl top meets the stem just below the stem's free top tick (#79). #77 runs the stem down through the junction to a baseline turn and exit.",
+        "s2": "Stroke 1: small circled start hook at the baseline, up to the junction, on up to a sharp top-right corner, bowl counter-clockwise back to the junction, stem down from the junction, baseline turn, exit.",
+        "difference": "S1's stem top projects as a small tick above the point where the bowl meets it, where S2 has a sharp corner. S1's start hook begins higher and is longer.",
+        "consequence": "Applicable. Same pieces and order; only a short retrace to S1's stem-top tick is needed (inferred)."
+      },
+      "confidence": "medium",
+      "readers": "two readers agreed",
+      "classification": "PARTIAL-INFERABLE",
+      "missing": "Nothing under the rule on S2's page. Mapped onto S1, a short retrace to S1's stem-top tick is needed (inferred), so the form animates with a labelled inferred segment."
+    }
+  ]
+}

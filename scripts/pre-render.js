@@ -1609,6 +1609,48 @@ function assertCursiveStrokes(articles) {
                 'and one bare letter group; no transform, translate, rotate, scale, style or viewBox write in the cursive section, and no letter-group reference outside it.');
 }
 
+// The cursive data in scripts/cursive/ (never served): shapes.json (layer 1,
+// S1's shapes) and evidence.json (layer 2, what S2 shows) must parse, each hold
+// exactly the 63 written forms, and agree on the set. The 63-form
+// school-handwriting reference omits written capitals of Ъ, Ы and Ь, so those
+// three appear only as lowercase.
+const CURSIVE_FORMS = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЮЯ' + 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+
+function assertCursiveData() {
+    const expected = CURSIVE_FORMS.split('');
+    const read = function (name) {
+        const file = path.join('scripts', 'cursive', name);
+        let data;
+        try {
+            data = JSON.parse(fs.readFileSync(path.join(ROOT, file), 'utf8'));
+        } catch (e) {
+            fail(file + ' does not parse: ' + e.message);
+        }
+        if (!data || !Array.isArray(data.forms)) fail(file + ' has no "forms" array');
+        const chars = data.forms.map(function (f) { return f && f.char; });
+        const dupes = chars.filter(function (c, i) { return chars.indexOf(c) !== i; });
+        if (dupes.length) fail(file + ': duplicate form(s) ' + dupes.join(' '));
+        const extra = chars.filter(function (c) { return expected.indexOf(c) === -1; });
+        if (extra.length) {
+            const caps = extra.filter(function (c) { return 'ЪЫЬ'.indexOf(c) !== -1; });
+            fail(file + ': unexpected form(s) ' + extra.join(' ') + (caps.length ? ' (the 63-form school-handwriting reference omits written capitals of Ъ, Ы and Ь)' : ''));
+        }
+        return chars;
+    };
+    const shapes = read('shapes.json');
+    const evidence = read('evidence.json');
+    const onlyShapes = shapes.filter(function (c) { return evidence.indexOf(c) === -1; });
+    const onlyEvidence = evidence.filter(function (c) { return shapes.indexOf(c) === -1; });
+    if (onlyShapes.length || onlyEvidence.length) {
+        fail('scripts/cursive/shapes.json and evidence.json disagree: only in shapes.json: ' + (onlyShapes.join(' ') || 'none') +
+             '; only in evidence.json: ' + (onlyEvidence.join(' ') || 'none'));
+    }
+    const missing = expected.filter(function (c) { return shapes.indexOf(c) === -1; });
+    if (missing.length) fail('scripts/cursive/shapes.json and evidence.json: missing form(s) ' + missing.join(' '));
+    console.log('Cursive data passed: scripts/cursive/shapes.json and evidence.json parse and hold the same ' + expected.length +
+                ' forms (30 capitals, 33 lowercase; the 63-form school-handwriting reference omits written capitals of Ъ, Ы and Ь).');
+}
+
 function main() {
     assertNoDependencies();
     assertSecurityHeaders();
@@ -1653,6 +1695,7 @@ function main() {
         fail('parsed ' + articles.length + ' articles but article-heads.ts has ' + Object.keys(HEADS).length + ' entries');
     }
     assertCursiveStrokes(articles);
+    assertCursiveData();
 
     // ---- data: shared page-head artifact for the SPA routes (same file the edge function imports) ----
     // PAGE_META in core.js is the source of truth; the artifact must equal it,
