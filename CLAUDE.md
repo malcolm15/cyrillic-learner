@@ -1065,7 +1065,8 @@ translation guards (see "Article letter tools" above).
 article-scripts.js is the single source of truth for the six letterform paths
 (т и ш л м д). Engine uses rAF stroke-dashoffset animation with a moving pen-tip
 dot, applied to SVG paths in a `skewX(-10)` group for cursive slant. Respects
-`prefers-reduced-motion`. GA event: `cursive_animation_played`. Sources and
+`prefers-reduced-motion` for letter taps and Replay alike (see the factory
+below). GA event: `cursive_animation_played`. Sources and
 evidence for the letterforms: т and д: shape derived from the Wikimedia Commons
 Russian cursive chart (public domain); stroke order checked against the
 Middlebury Institute Russian handwriting guide, with inferred joining movements
@@ -1089,9 +1090,12 @@ as the HTML placeholder) and `opts.descenders` the array of letters that show
 the descender guide (empty if none). Classes are shared (`.cursive-stroke`,
 `.cursive-letter-btn` and so on), so every widget takes the same stroke widths.
 The engine reads no geometry: the viewBox, guide lines and slant live only in
-each widget's markup. Replay plays even under `prefers-reduced-motion` (letter
-taps fall back to the static letter); that is existing behaviour, logged
-separately, not part of the factory.
+each widget's markup. A letter tap and Replay both go through `drawLetter`:
+under `prefers-reduced-motion` it draws the finished letter at once (no
+animation frames and no `cursive_animation_played` event), otherwise it
+animates. The setting is read at each tap and each Replay, never cached, so a
+visitor who changes it with the page open gets the new behaviour on the next
+one.
 
 **Adding a cursive widget.** (1) Markup in the article's content, copied from
 practice-writing-cyrillic with every id renamed to the new prefix; its own
