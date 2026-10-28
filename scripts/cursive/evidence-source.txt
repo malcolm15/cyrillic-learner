@@ -1,0 +1,21 @@
+S2: the reference behind scripts/cursive/evidence.json (stroke evidence)
+
+Document: Middlebury Institute of International Studies, "Russian handwriting and
+          pronunciation guide" (RUS 101 cursive chart, worksheets, pronunciation
+          tables). Page 1, the cursive chart, is the only page recorded here.
+URL:      https://www.middlebury.edu/institute/sites/default/files/2021-01/Russian-handwriting-and-pronounciation-guide.pdf
+Viewed:   2026-10-27.
+Terms:    no statement found. Page 1 carries no licence, copyright notice or
+          credit line, the PDF's metadata names no author or rights holder, and
+          no terms of use for the file were found.
+
+Use: REFERENCE ONLY. S2 is evidence about stroke order and direction, never a
+source of shapes. Nothing from it is traced, embedded, cropped or copied into
+this repository: evidence.json records, in our own words and data, what page 1
+shows for each form (stroke numbers, arrows, joining marks, the continuity
+reading of each segment, and how S2's structure compares with S1's). It holds
+no S2 artwork, no image crops and no coordinates taken from S2.
+
+The readings were made in Phase 1 of the cursive page work by two independent
+readers per half of the alphabet, who agreed on 61 of 63 forms; a third reader
+resolved к and Ю.
