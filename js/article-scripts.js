@@ -896,8 +896,16 @@ function initCursiveWidget(prefix, strokes, opts) {
     }
 
     function showStatic(letter) {
+        stopAll();
         buildGroup(letter);
         setDashState(letter, true);
+    }
+
+    // A letter tap or Replay: the animation, or under reduced motion the
+    // finished letter at once. The setting is read at each action, so a change
+    // made with the page open applies to the next tap or Replay.
+    function drawLetter(letter) {
+        prefersReduced() ? showStatic(letter) : play(letter);
     }
 
     function selectLetter(letter, doAnimate) {
@@ -919,7 +927,7 @@ function initCursiveWidget(prefix, strokes, opts) {
         stopAll();
 
         if (doAnimate) {
-            prefersReduced() ? showStatic(letter) : play(letter);
+            drawLetter(letter);
         } else {
             showStatic(letter);
         }
@@ -930,7 +938,7 @@ function initCursiveWidget(prefix, strokes, opts) {
         if (btn && btn.dataset.letter) selectLetter(btn.dataset.letter, true);
     });
 
-    if (replayBtn) replayBtn.addEventListener('click', function () { play(currentLetter); });
+    if (replayBtn) replayBtn.addEventListener('click', function () { drawLetter(currentLetter); });
 
     if (slowBtn) slowBtn.addEventListener('click', function () {
         slow = !slow;
