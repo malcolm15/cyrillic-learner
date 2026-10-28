@@ -1,0 +1,1273 @@
+{
+  "about": [
+    "Stroke plans for the russian-cursive widget: for each letter, its strokes as S1 pieces (shapes.json names) in drawing order, read by build-strokes.js.",
+    "Each stroke is a list of steps. A step names the evidence.json record it follows and copies that record's text word for word in 'evidence' (build-strokes.js checks it), gives the direction, and lists its pieces in order, each with 'reverse' (true draws the piece against its stored direction in shapes.json).",
+    "follows: 'segments[N]' for a segment of the letter's evidence.json record, or one of joiningMarks.entry, joiningMarks.exit, openPoints, penLifts, structure.difference, structure.consequence.",
+    "Every evidence segment is cited, in evidence order. Every S1 piece of the form is drawn. A piece drawn a second time sits in a step with 'retrace': true. Consecutive pieces meet within 0.01 S1 units.",
+    "Entry and exit pieces are kept (the Batch 71 precedent for т): S1 inks the joining strokes that S2 shows as grey dotted lines.",
+    "A plan may cut an S1 piece in 'splits', only where another piece of the form starts or ends on it (build-strokes.js checks the point lies on the piece within 0.01 S1 units); the halves are named <piece>/1 and <piece>/2. shapes.json is not changed.",
+    "A step may cite several consecutive segments (lists in 'follows', 'evidence' and 'direction') when one S1 piece draws them all."
+  ],
+  "directions": {
+    "ARROWED": "the cited segment's direction is shown by an arrow on S2 (copied from evidence.json)",
+    "FORCED": "the cited segment's direction follows from its neighbours (copied from evidence.json)",
+    "JOIN": "an entry or exit piece: S1 inks it, S2 shows it only as a grey dotted joining line; drawn into the letter (entry) or out of it (exit)",
+    "INFERRED": "not recorded as a segment in evidence.json; the only continuation without a pen lift. Each one says why, for the owner's review"
+  },
+  "letters": {
+    "и": {
+      "evidence": "evidence.json, lowercase и (ANIMATE-READY, MATCH, one stroke)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "joiningMarks.entry",
+              "evidence": "grey dotted entry line from the left reaching the lower part of the first stem",
+              "direction": "JOIN",
+              "pieces": [
+                {
+                  "piece": "261.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "openPoints",
+              "evidence": "None for the standalone form. The entry join meets the first stem low, not at the numbered top start; in a joined context that would imply an upstroke along the stem, which is not shown with an arrow (joining variant only). Final tail after the second stem: not recorded.",
+              "direction": "INFERRED",
+              "why": "S1's entry meets stem 1 below its top, where S2 puts the numbered start. Climbing the stem to its top is the only way on without a pen lift; the evidence names this upstroke as implied by the join but not arrowed. щ records the same move as a FORCED segment.",
+              "pieces": [
+                {
+                  "piece": "258.0r",
+                  "reverse": true
+                },
+                {
+                  "piece": "258.1r",
+                  "reverse": true
+                },
+                {
+                  "piece": "258.2r",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[0]",
+              "evidence": "first stem, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "258.2r",
+                  "reverse": false
+                },
+                {
+                  "piece": "258.1r",
+                  "reverse": false
+                },
+                {
+                  "piece": "258.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[0]",
+              "evidence": "first stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "259.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[1]",
+              "evidence": "bottom curve, left to right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "259.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "upstroke from the bottom curve, merging into the second stem and up to its top (retrace)",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "259.2",
+                  "reverse": false
+                },
+                {
+                  "piece": "262.0r",
+                  "reverse": true
+                },
+                {
+                  "piece": "260.0r",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "second stem, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "260.0r",
+                  "reverse": false
+                },
+                {
+                  "piece": "262.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "second stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "259.3",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "joiningMarks.exit",
+              "evidence": "grey dotted exit line rising right from the end",
+              "direction": "JOIN",
+              "pieces": [
+                {
+                  "piece": "259.4",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "й": {
+      "evidence": "evidence.json, lowercase й (ANIMATE-READY, MATCH, two strokes)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "joiningMarks.entry",
+              "evidence": "grey dotted entry line from the left reaching the lower part of the first stem",
+              "direction": "JOIN",
+              "pieces": [
+                {
+                  "piece": "256.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "openPoints",
+              "evidence": "none for the standalone form (same joined-entry note as и). Final tail after the second stem: not recorded.",
+              "direction": "INFERRED",
+              "why": "S1's entry meets stem 1 below its top, where S2 puts the numbered start ('1' right of the first stem near its top). Climbing the stem to its top is the only way on without a pen lift; the evidence refers to и's joined-entry note, which names this upstroke as implied by the join but not arrowed. Same move as the и plan.",
+              "pieces": [
+                {
+                  "piece": "253.0r",
+                  "reverse": true
+                },
+                {
+                  "piece": "253.1r",
+                  "reverse": true
+                },
+                {
+                  "piece": "253.2r",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[0]",
+              "evidence": "first stem, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "253.2r",
+                  "reverse": false
+                },
+                {
+                  "piece": "253.1r",
+                  "reverse": false
+                },
+                {
+                  "piece": "253.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[0]",
+              "evidence": "first stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "254.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[1]",
+              "evidence": "bottom curve, left to right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "254.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "upstroke into the second stem, up to its top (retrace)",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "254.2",
+                  "reverse": false
+                },
+                {
+                  "piece": "257.0r",
+                  "reverse": true
+                },
+                {
+                  "piece": "255.0r",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "second stem, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "255.0r",
+                  "reverse": false
+                },
+                {
+                  "piece": "257.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "second stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "254.3",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "joiningMarks.exit",
+              "evidence": "grey dotted exit line rising right from the end of stroke 1",
+              "direction": "JOIN",
+              "pieces": [
+                {
+                  "piece": "254.4",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stroke": 2,
+          "steps": [
+            {
+              "follows": "segments[4]",
+              "evidence": "stroke 2: breve, left to right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "4.0",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "л": {
+      "evidence": "evidence.json, lowercase л (ANIMATE-READY, MINOR, one stroke)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "segments[0]",
+              "evidence": "initial hook, curving down then right",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "296.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[1]",
+              "evidence": "rising diagonal, up and to the right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "295.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "stem, downward from the sharp apex",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "295.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "bottom curve and tail after the stem",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "295.2",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "м": {
+      "evidence": "evidence.json, lowercase м (ANIMATE-READY, MINOR, one stroke)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "segments[0]",
+              "evidence": "initial hook",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "288.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[1]",
+              "evidence": "first rising stroke, up and to the right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "287.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "286.0r",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "first stem, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "286.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "first stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "287.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "bottom of the first stem curving up into the second rising stroke, to the second apex",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "287.2",
+                  "reverse": false
+                },
+                {
+                  "piece": "287.3",
+                  "reverse": false
+                },
+                {
+                  "piece": "289.0",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "second stem, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "289.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "second stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "287.4",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[5]",
+              "evidence": "final tail",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "287.5",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "п": {
+      "evidence": "evidence.json, lowercase п (ANIMATE-READY, MINOR, one stroke)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "segments[0]",
+              "evidence": "opening upstroke, rightward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "173.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[1]",
+              "evidence": "first stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "171.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "170.3r",
+                  "reverse": true
+                },
+                {
+                  "piece": "170.4r",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "retrace up the first stem from the baseline to where the arch leaves it (about mid-height)",
+              "direction": "FORCED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "170.4r",
+                  "reverse": false
+                },
+                {
+                  "piece": "170.3r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "arch, left to right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "170.2r",
+                  "reverse": false
+                },
+                {
+                  "piece": "170.1r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "second stem, downward",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "170.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[5]",
+              "evidence": "tail",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "172.0r",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "т": {
+      "evidence": "evidence.json, lowercase т (ANIMATE-READY, MINOR, one stroke)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "segments[0]",
+              "evidence": "opening hook, left to right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "166.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[1]",
+              "evidence": "stem 1, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "165.0/1",
+                  "reverse": false
+                },
+                {
+                  "piece": "165.0/2",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "retrace up stem 1 to where arch 1 leaves",
+              "direction": "FORCED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "165.0/2",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "arch 1, going right",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "164.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "stem 2, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "162.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "161.3",
+                  "reverse": false
+                },
+                {
+                  "piece": "161.4",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[5]",
+              "evidence": "retrace up stem 2 to where arch 2 leaves",
+              "direction": "FORCED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "161.4",
+                  "reverse": true
+                },
+                {
+                  "piece": "161.3",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[6]",
+              "evidence": "arch 2, going right",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "161.2r",
+                  "reverse": false
+                },
+                {
+                  "piece": "161.1r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[7]",
+              "evidence": "stem 3, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "161.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[8]",
+              "evidence": "tail",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "163.0r",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "splits": [
+        {
+          "piece": "165.0",
+          "at": {
+            "startOf": "164.0"
+          },
+          "why": "Arch 1 (S1 piece 164.0) leaves stem 1 partway down, where 164.0 starts on 165.0. The recorded retrace (segments[2]) goes back up stem 1 only to that point, so 165.0 is cut there."
+        }
+      ]
+    },
+    "ц": {
+      "evidence": "evidence.json, lowercase ц (ANIMATE-READY, MINOR, one stroke)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "segments[0]",
+              "evidence": "opening hook, left to right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "180.4r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[1]",
+              "evidence": "cup left side, downward",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "180.3r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "cup bottom, left to right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "180.2r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "cup right side, up the stem to its top (retrace)",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "180.1r",
+                  "reverse": false
+                },
+                {
+                  "piece": "182.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "right stem, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "182.0r",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "right stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "180.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[5]",
+              "evidence": "stem foot, curving right to the cusp",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "181.0r",
+                  "reverse": false
+                },
+                {
+                  "piece": "305.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[6]",
+              "evidence": "small descender loop, curving down and left",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "304.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "304.1",
+                  "reverse": false
+                },
+                {
+                  "piece": "304.2",
+                  "reverse": false
+                },
+                {
+                  "piece": "188.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "185.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[7]",
+              "evidence": "rest of the loop and rise to the exit",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "185.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "joiningMarks.exit",
+              "evidence": "grey dotted exit line to the upper right from the end of the loop's rising line",
+              "direction": "JOIN",
+              "pieces": [
+                {
+                  "piece": "186.0",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "ч": {
+      "evidence": "evidence.json, lowercase ч (ANIMATE-READY, MINOR, one stroke)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "segments[0]",
+              "evidence": "short lead-in, rising to the peak",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "184.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": [
+                "segments[1]",
+                "segments[2]",
+                "segments[3]"
+              ],
+              "evidence": [
+                "cusp, then descent into the cup",
+                "cup, left to right",
+                "cup rising to the stem top"
+              ],
+              "direction": [
+                "FORCED",
+                "ARROWED",
+                "FORCED"
+              ],
+              "pieces": [
+                {
+                  "piece": "183.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "183.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[5]",
+              "evidence": "tail",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "183.2",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "joiningMarks.exit",
+              "evidence": "grey dotted exit line rising right from the end",
+              "direction": "JOIN",
+              "pieces": [
+                {
+                  "piece": "183.3",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "щ": {
+      "evidence": "evidence.json, lowercase щ (ANIMATE-READY, MATCH, one stroke)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "segments[0]",
+              "evidence": "entry join, up and to the right toward stem 1",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "65.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[1]",
+              "evidence": "climb up stem 1 from the join to its top",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "63.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "stem 1, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "63.0",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "stem 1, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "62.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "cup rise up stem 2 to its top (retrace)",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "61.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "60.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "60.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "stem 2, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "60.1",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "stem 2, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "59.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[5]",
+              "evidence": "cup rise up stem 3 to its top (retrace)",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "58.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "64.0",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[6]",
+              "evidence": "stem 3, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "64.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[6]",
+              "evidence": "stem 3, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "58.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[7]",
+              "evidence": "stem 3 foot, to the cusp",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "57.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "57.1",
+                  "reverse": false
+                },
+                {
+                  "piece": "299.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[8]",
+              "evidence": "descender loop, curving down and left",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "298.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "298.1",
+                  "reverse": false
+                },
+                {
+                  "piece": "298.2",
+                  "reverse": false
+                },
+                {
+                  "piece": "56.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "54.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "53.0",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[9]",
+              "evidence": "rest of the loop and rise to the exit",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "51.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "51.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "joiningMarks.exit",
+              "evidence": "grey dotted exit line rising right from the end of the loop's rising line",
+              "direction": "JOIN",
+              "pieces": [
+                {
+                  "piece": "52.0",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "у": {
+      "evidence": "evidence.json, lowercase у (ANIMATE-READY, MINOR, one stroke)",
+      "strokes": [
+        {
+          "stroke": 1,
+          "steps": [
+            {
+              "follows": "segments[0]",
+              "evidence": "opening hook, left to right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "158.2r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[1]",
+              "evidence": "cup left side, downward",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "158.1r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[2]",
+              "evidence": "cup bottom, left to right",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "158.0r",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[3]",
+              "evidence": "cup right side, merging into the stem and up to its top (retrace)",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "159.1",
+                  "reverse": false
+                },
+                {
+                  "piece": "159.2",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "right stem, downward",
+              "direction": "ARROWED",
+              "retrace": true,
+              "pieces": [
+                {
+                  "piece": "159.2",
+                  "reverse": true
+                },
+                {
+                  "piece": "159.1",
+                  "reverse": true
+                }
+              ]
+            },
+            {
+              "follows": "segments[4]",
+              "evidence": "right stem, downward",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "159.0r",
+                  "reverse": false
+                },
+                {
+                  "piece": "157.3",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[5]",
+              "evidence": "descender loop bottom, curving down and left",
+              "direction": "ARROWED",
+              "pieces": [
+                {
+                  "piece": "157.0",
+                  "reverse": false
+                },
+                {
+                  "piece": "157.1",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "segments[6]",
+              "evidence": "loop left side, rising across the stem to the exit",
+              "direction": "FORCED",
+              "pieces": [
+                {
+                  "piece": "157.2",
+                  "reverse": false
+                }
+              ]
+            },
+            {
+              "follows": "joiningMarks.exit",
+              "evidence": "grey dotted exit line to the upper right from the end of the loop's rising line",
+              "direction": "JOIN",
+              "pieces": [
+                {
+                  "piece": "160.0r",
+                  "reverse": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
