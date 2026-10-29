@@ -1,46 +1,23 @@
 # Cyrilica
 
-[cyrilica.com](https://cyrilica.com) is a free web app for learning to read Cyrillic:
-an interactive letter quiz with audio, plus 27 articles grouped as Getting Started,
-Alphabet Variants, History & Culture, and Learning Tools & Resources.
+[cyrilica.com](https://cyrilica.com) is a free site for learning to read Cyrillic: an interactive letter quiz with audio, articles on Russian and the other Cyrillic alphabets, and a Russian cursive reference with stroke animations and printable worksheets.
 
-## Stack
+## How it's built
 
-- Vanilla JavaScript, HTML and CSS. No framework and no package.json.
-- Path-based routing with the History API (for example `/articles/getting-started`).
-  `_redirects` rewrites each of the seven app routes to `index.html`. Each article is
-  a real pre-rendered file, and any other path gets a real 404 from `404.html`.
-- Hosted on Netlify. The build command in `netlify.toml` runs
-  `scripts/generate-article-heads.js` (writes `netlify/lib/article-heads.ts` and
-  `netlify/lib/page-heads.ts`), then
-  `scripts/pre-render.js` (writes the 27 article pages to `articles/`, gitignored).
-- One edge function, `netlify/edge-functions/head-rewrite.ts`, rewrites the head of
-  each page (canonical, robots, title, description, and on the six non-home app
-  routes also the og and twitter tags) for crawlers that read raw HTML.
+- Vanilla JavaScript, HTML and CSS. No framework and no package dependencies; a few hand-run tools need Pillow or Google Chrome.
+- Static hosting on Netlify. Articles are pre-rendered at build time, and one edge function sets the head of the pages served by the app shell, for crawlers that read raw HTML.
+- The build checks its own output and fails closed: article structure, metadata, links, generated data and served files are asserted on every deploy.
 
-## Layout
-
-- `index.html`: the app shell and every static page
-- `js/core.js`: routing, settings, article metadata and order
-- `js/articles.js`: the 27 articles
-- `js/article-scripts.js`: quizzes, the copy-paste tool, per-article features
-- `css/styles.css`: all styles, including dark mode
-- `scripts/`, `netlify/`: build scripts, edge function, generated heads
-- `images/`, `audio/`: article images and letter audio
-- `scripts/images/make_*_image.py`: Pillow scripts for four of the comparison
-  images, run by hand, not by the build
+Built by [Malcolm](https://github.com/malcolm15), directing Claude Code through audited, gated batches.
 
 ## Running locally
 
-No install step. Serve the folder, for example `python3 -m http.server 8000`, and
-open http://localhost:8000. Deep links depend on the Netlify `_redirects` rule, so
-start at the home page and navigate from there. To regenerate the build output, run
-`node scripts/generate-article-heads.js && node scripts/pre-render.js`.
+No install step. From the repo root, run `python3 -m http.server 8000` and open http://localhost:8000. Deep links rely on Netlify's redirect rules, so start at the home page and navigate from there. To regenerate the build output, run `node scripts/generate-article-heads.js && node scripts/pre-render.js`.
 
 ## Working on it
 
-Conventions, checks and editorial rules are in `CLAUDE.md`. Read it before changing
-content.
+Conventions, checks and editorial rules are in `CLAUDE.md`. Read it before changing anything.
 
-© 2026 Cyrilica. All rights reserved. Content, images and code are not licensed for
-reuse without permission.
+## Rights
+
+© 2026 Cyrilica. All rights reserved: content, images and code are not licensed for reuse without permission, except material credited to others. Two article photos are used under Creative Commons BY-SA licences and credited on their pages. The Russian cursive letterforms come from a public-domain chart on Wikimedia Commons; provenance is in `scripts/cursive/source/source.txt`.
