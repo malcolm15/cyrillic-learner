@@ -78,6 +78,11 @@ Orientation for Claude Code (CC). Read this at the start of every session.
   finds four, not five, is correct and is not a missed cleanup.
 - **Commit separately, push together.** Logically distinct changes get their own
   commits with clear messages, pushed as a batch.
+- **Commit identity.** Commits use the author email
+  29524210+malcolm15@users.noreply.github.com, set in this repo's git config.
+  GitHub keeps the personal address private and rejects any push that exposes it.
+  Before every push, check the author and committer lines of the push range: only
+  the noreply address, no trailers.
 - **Desktop and mobile are separate concerns.** Desktop-only changes go inside
   @media (min-width: 769px). Mobile uses @media (max-width: 768px). Do not alter
   mobile when the task is desktop-only.
