@@ -71,6 +71,9 @@ export const config: Config = {
     // Content-Range. A function that reads and rewrites the response body cannot
     // pass that through, so /media/* must never reach it.
     "/media/*",
+    // Printable worksheets (PDF). Never HTML, and a PDF viewer asks for byte
+    // ranges, which this function could not pass through.
+    "/downloads/*",
     "/css/*",
     "/js/*",
     "/scripts/*",

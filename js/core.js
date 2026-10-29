@@ -623,6 +623,7 @@ const ARTICLE_ORDER = [
     'how-to-type-cyrillic',
     'russian-alphabet-chart',
     'practice-writing-cyrillic',
+    'russian-cursive',
     'cyrillic-learning-resources'
 ];
 
@@ -658,8 +659,9 @@ const ARTICLE_META = {
     // Learning Tools & Resources
     'cyrillic-copy-paste':      { section: 'Learning Tools & Resources', published: '2026-03-01', modified: '2026-10-10', keywords: ['cyrillic copy paste', 'russian letters clipboard', 'cyrillic characters', 'accented cyrillic vowels', 'russian stress marks', 'pre-reform russian letters', 'yat letter', 'copy tool'] },
     'how-to-type-cyrillic':     { section: 'Learning Tools & Resources', published: '2026-04-15', modified: '2026-09-20', keywords: ['how to type russian', 'russian keyboard setup', 'cyrillic keyboard windows', 'cyrillic keyboard mac', 'russian keyboard iphone', 'russian keyboard android', 'phonetic russian keyboard', 'type cyrillic letters'] },
-    'russian-alphabet-chart':   { section: 'Learning Tools & Resources', published: '2026-02-12', modified: '2026-09-20', keywords: ['russian alphabet chart', '33 letters', 'pronunciation guide', 'interactive chart', 'printable russian alphabet chart', 'russian alphabet chart pdf'] },
-    'practice-writing-cyrillic':{ section: 'Learning Tools & Resources', published: '2026-02-28', modified: '2026-10-27', keywords: ['write cyrillic', 'handwriting practice', 'cyrillic cursive', 'penmanship', 'russian cursive stroke order', 'how to write russian cursive letters'] },
+    'russian-alphabet-chart':   { section: 'Learning Tools & Resources', published: '2026-02-12', modified: '2026-10-28', keywords: ['russian alphabet chart', '33 letters', 'pronunciation guide', 'interactive chart', 'printable russian alphabet chart', 'russian alphabet chart pdf'] },
+    'practice-writing-cyrillic':{ section: 'Learning Tools & Resources', published: '2026-02-28', modified: '2026-10-28', keywords: ['write cyrillic', 'handwriting practice', 'cyrillic cursive', 'penmanship', 'russian cursive stroke order', 'how to write russian cursive letters'] },
+    'russian-cursive':          { section: 'Learning Tools & Resources', published: '2026-10-28', modified: '2026-10-28', keywords: ['russian cursive', 'russian cursive alphabet', 'russian handwriting', 'russian cursive chart', 'cursive worksheets', 'stroke order'] },
     'cyrillic-learning-resources':{ section: 'Learning Tools & Resources', published: '2026-03-04', modified: '2026-09-18', keywords: ['learning resources', 'best apps', 'cyrillic tools', 'study materials'] }
 };
 

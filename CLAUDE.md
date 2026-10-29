@@ -130,10 +130,16 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
   `stacked_row_lines()` implements the row-308 rule, where every band in a row
   shares one ink-top line set below the deepest ink in that row. New or rebuilt
   image scripts import from it and must not reimplement either rule.
-- `scripts/cursive/`: the cursive alphabet data (S1 shapes, S2 stroke evidence)
-  and its hand-run generators. INTERNAL: never served (the `/scripts/*` 404 rule
-  covers it) and never run by the build, which only checks its two JSON files.
-  See "Cursive data (scripts/cursive/)".
+- `scripts/cursive/`: the cursive alphabet data (S1 shapes, S2 stroke evidence,
+  the stroke plans) and its hand-run generators. INTERNAL: never served (the
+  `/scripts/*` 404 rule covers it). The build runs none of the generators that
+  write files, but it does load `build-strokes.js` (and through it `output.js`)
+  to check the data: the two JSON files agree, every stroke plan passes its
+  evidence checks, and the generated stroke table is current. So both modules
+  must stay safe to load with no harness present. See "Cursive data
+  (scripts/cursive/)".
+- `downloads/`: the printable worksheets (PDF). SITE. See "Downloads
+  (/downloads/)".
 - `images/`, `audio/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
   namespace).
 
@@ -164,7 +170,7 @@ Two cross-file gotchas:
   string through `innerHTML`, so an escape makes the attribute differ between the
   static page and the hydrated DOM. The build enforces this, and also that each
   article has exactly four share handlers (`copyArticleLink`, `shareToBluesky`,
-  `shareToReddit`, `nativeShare`), each passing its own slug, 108 in total, and
+  `shareToReddit`, `nativeShare`), each passing its own slug, 112 in total, and
   that every `onclick` in every emitted page parses as JavaScript.
 - **Share labels and index cards may differ from the article title.**
   Batch 56 Phase 1 checked all 27 articles and found 6 differing labels, on
@@ -205,7 +211,7 @@ Two cross-file gotchas:
   `EXPECTED_KEYS` in `scripts/page-meta.js`, whose fail-closed parser rejects any
   other entry count.
 - **Why the `.html` article redirect lives in the edge function.** Both places
-  could do it: `_redirects` would need 27 forced rules, one per slug, generated at
+  could do it: `_redirects` would need 28 forced rules, one per slug, generated at
   build time. The edge function needs none, because it already imports the
   generated `HEADS` map and can test a slug against it, so the redirect set tracks
   the article set with no second list to keep in step. That is a maintenance
@@ -214,7 +220,7 @@ Two cross-file gotchas:
 - **`404.html` rules.** No AdSense script (policy: no Google-served ads on error
   screens), no canonical, `noindex, follow`, and its pre-paint theme snippet
   byte-identical to the one in `index.html`. All four are asserted by the build.
-- **Post-deploy check after any routing change.** Confirm all 27 article URLs
+- **Post-deploy check after any routing change.** Confirm all 28 article URLs
   return 200 with their pre-rendered body, not the shell. Extensionless resolution
   is default Netlify behaviour that the article URLs depend on, and it is not
   something this repo controls, so it is checked rather than assumed:
@@ -235,6 +241,21 @@ Two cross-file gotchas:
   acceptable any more, and the fix is a publish directory: `publish` pointing at a
   build output folder that holds only SITE files, so the site serves what is copied
   in rather than blocking known internal paths.
+- **Downloads (/downloads/).** A SITE folder of committed PDFs, today the six
+  cursive worksheets linked from russian-cursive. Every name carries a version
+  (`...-v1.pdf`), so a changed file ships under a new name, which is what makes
+  the `/downloads/*` rule in `_headers` safe: `Cache-Control: public,
+  max-age=31536000, immutable`, plus `X-Robots-Tag: noindex` so the PDFs stay out
+  of search and the article that links them is what ranks. `/downloads/*` is in
+  the edge function's `excludedPath`, because a PDF viewer asks for byte ranges,
+  and the PDFs are not in the sitemap. The files come only from
+  `scripts/cursive/build-worksheets.js`, copied in by a reviewed batch. The build
+  (`assertDownloads()`) fails unless, while the folder exists, every file is a PDF
+  with a `-v<N>` name under 512 KB, the `_headers` rule holds exactly those two
+  values, the edge exclusion is present, no `_redirects` rule answers first, and
+  every article link to a download names a file that is there and carries the
+  `download` attribute. Each link fires `worksheet_downloaded` with `file` and
+  `paper`.
 - **Content containers.** Any list or table a reader should see must be static HTML
   in articles.js, guarded by a pre-render assertion. Scripts attach to existing
   markup; they do not build readable content into empty containers.
@@ -398,7 +419,7 @@ scripts/generate-article-heads.js then scripts/pre-render.js. The pre-renderer
 reads index.html as the template and emits articles/SLUG.html (flat files: a
 SLUG/index.html directory layout makes Netlify 301 the extensionless URL to the
 trailing-slash form, adding a redirect hop on every indexed article URL) for all
-27 articles: per-article head (title, description, canonical, og and twitter),
+28 articles: per-article head (title, description, canonical, og and twitter),
 article body in the DOM, prev/next, related-articles grid, and Article plus
 BreadcrumbList JSON-LD with id="article-schema" / id="breadcrumb-schema" so the
 JS render replaces them instead of duplicating. Those ids are load-bearing: a
@@ -672,7 +693,7 @@ prose is never guarded.
 
 **Article letter tools (translation guards).** On production a translator
 changed all 92 copy tiles, 21 of 33 chart letters, 22 of 33 big-letter cells
-and 11 of 33 chart sounds ("И" to "Y", "g" to "gramo"). The tools in 8
+and 11 of 33 chart sounds ("И" to "Y", "g" to "gramo"). The tools in 9
 articles now carry translate="no"
 plus the notranslate class, listed in `ARTICLE_GUARDS`, `PARTIAL_WRAPS` and
 `MINI_QUIZZES` in `scripts/pre-render.js`. Three rules:
@@ -1064,8 +1085,8 @@ translation guards (see "Article letter tools" above).
 **Cursive stroke-order** (practice-writing-cyrillic): `CURSIVE_STROKES` in
 article-scripts.js is the single source of truth for the six letterform paths
 (т и ш л м д). Engine uses rAF stroke-dashoffset animation with a moving pen-tip
-dot, applied to SVG paths in a `skewX(-10)` group for cursive slant. Respects
-`prefers-reduced-motion`. GA event: `cursive_animation_played`. Sources and
+dot, applied to SVG paths in a `skewX(-10)` group for cursive slant. GA event:
+`cursive_animation_played`. Sources and
 evidence for the letterforms: т and д: shape derived from the Wikimedia Commons
 Russian cursive chart (public domain); stroke order checked against the
 Middlebury Institute Russian handwriting guide, with inferred joining movements
@@ -1089,9 +1110,10 @@ as the HTML placeholder) and `opts.descenders` the array of letters that show
 the descender guide (empty if none). Classes are shared (`.cursive-stroke`,
 `.cursive-letter-btn` and so on), so every widget takes the same stroke widths.
 The engine reads no geometry: the viewBox, guide lines and slant live only in
-each widget's markup. Replay plays even under `prefers-reduced-motion` (letter
-taps fall back to the static letter); that is existing behaviour, logged
-separately, not part of the factory.
+each widget's markup. Under prefers-reduced-motion, selecting a letter shows the
+finished letter and starts no animation. Replay (labelled Watch again on
+russian-cursive) always animates, because pressing it is an explicit request to
+see the stroke order. This is intended design; keep it for every widget.
 
 **Adding a cursive widget.** (1) Markup in the article's content, copied from
 practice-writing-cyrillic with every id renamed to the new prefix; its own
@@ -1104,7 +1126,31 @@ A line in `CURSIVE_WIDGETS` in `scripts/pre-render.js` with the article slug,
 prefix and table name. (5) The article's `.cursive-letter-btn` count in
 `ARTICLE_GUARDS`. Missing any of (1) to (4) fails the build. A second table that
 repeats letters in the same coordinate system as `CURSIVE_STROKES` is two copies
-that can drift; share the table instead unless the coordinates differ.
+that can drift; share the table instead unless the coordinates differ. A
+generated table (the russian-cursive pattern, below) adds a stroke plan per
+letter and a frame, and its build check also pins the widget's viewBox and
+letter-group transform to the frame.
+
+**Russian cursive page** (russian-cursive): the full 63-form chart, a ten-letter
+widget and the worksheet downloads. The chart is a `<picture>`: the narrow image
+(`images/russian-cursive-alphabet-chart-narrow-v2.png`, 720 x 2965) for 768 px
+and below and the wide one (`images/russian-cursive-alphabet-chart-v2.png`,
+1600 x 1368) otherwise, the `<source>` and the `<img>` each carrying its own
+`width` and `height` so each variant reserves its own space. It is not
+lazy-loaded, because it starts inside the first viewport at 1280 x 900 and
+390 x 844. Chart images carry the layout version in their names, so a
+regenerated chart ships under a new name and a cached copy is never stale. The
+widget, `initCursiveWidget('cursive-ru', CURSIVE_STROKES_RUSSIAN, { initial:
+'т', descenders: ['у', 'ц', 'щ'] })`, draws и й л м п т ц ч щ у, and its Replay
+control reads "Watch again". Its table is never edited by hand:
+`scripts/cursive/build-strokes.js` generates it from `shapes.json`,
+`stroke-plans.json` and `stroke-frame.json` (viewBox 0 0 240 240, baseline 139,
+x-height 100, letter group `translate(57.58, 0) skewX(-22.5)`, which restores
+S1's own slant), and it is pasted in unchanged. `assertCursiveTableDerived()` in
+`scripts/pre-render.js` fails the build unless the table is that output byte
+for byte and the widget's viewBox and transform equal the frame's. The
+practice-writing-cyrillic widget keeps its hand-drawn `CURSIVE_STROKES` until
+its own migration batch.
 
 **The stroke-path build check** (`assertCursiveStrokes()` in
 `scripts/pre-render.js`, run on every build right after the articles are parsed,
@@ -1243,16 +1289,54 @@ stem-2 tips of И and Й). `node scripts/cursive/build-chart.js` reads
 `shapes.json` and `layout.json` (x-height, S1's 22.5 degree slant, cell size,
 version) and writes the chart's HTML block, a page holding it and the chart PNG
 (headless Chrome on 127.0.0.1, throwaway profile) into
-`~/.cyrilica/harness/cursive/b73/chart/`. It refuses any other destination, the
-repo included, unless given `--allow-output-outside-harness`, and never
-overwrites: raise `version` in `layout.json` for new names. Its output goes live
-only by being copied into the site in a reviewed batch, never by the generator
-writing there.
+`~/.cyrilica/harness/cursive/chart/`, or the folder given with `--out`, which
+must be under `~/.cyrilica/harness/cursive/`. With a `narrow` entry in
+`layout.json` it also renders the small-screen variant (layout version 2: device
+scale 1, narrow page 720 px). It refuses any other destination, the repo
+included, unless given `--allow-output-outside-harness`, and never overwrites:
+raise `version` in `layout.json` for new names. Its output goes live only by
+being copied into the site in a reviewed batch, never by the generator writing
+there. The generators that use Chrome share `chrome.js` (127.0.0.1 only,
+throwaway profile, no network, `--disable-gpu`, because GPU raster made the
+same page come out as one of two PNGs). build-chart.js, build-strokes.js and
+build-worksheets.js share `output.js`, the harness-only output rule; extract.js
+does not use it, and by default writes `scripts/cursive/shapes.json` in the
+repo.
+
+**Stroke plans** (`stroke-plans.json`, read by `build-strokes.js`). For each
+animated letter, its strokes as S1 pieces in drawing order, each with a reverse
+flag. Every step names the evidence.json record it follows and copies its text
+word for word. ARROWED and FORCED are copied from evidence.json; JOIN marks an
+entry or exit piece (S1 inks the joins that S2 shows as dotted lines, and they
+are kept, as for т); INFERRED marks a move evidence.json does not record, with
+a reason. The climb up the first stem of и and й is INFERRED and stays labelled
+so unless stronger stroke-order evidence appears. A plan may split a piece only
+where another piece of the form starts or ends on it, and one step may cite
+several consecutive segments when a single piece draws them all.
+build-strokes.js fails closed unless every evidence segment is cited in order,
+every piece is drawn, every second drawing sits in a step marked as a retrace,
+consecutive pieces meet within 0.01 S1 units, the stroke count matches the
+evidence, and every letter fits the frame's viewBox with integer, non-negative
+coordinates. It is deterministic; `--check FILE` confirms a file holds the
+table, and `--report` prints each letter's clearance.
+
+**Worksheets** (`build-worksheets.js`, spec `worksheets.json`). Prints the
+cursive worksheets as US Letter and A4 PDFs (headless Chrome, tagged PDF), one
+document per set in the spec. Trace rows take any of the 63 forms, with numbered
+start dots only for letters whose stroke plan validates: a letter with no entry
+in `stroke-plans.json` gets no dots, and an entry that fails validation stops
+the run. Word rows are printed type only, because shapes.json holds isolated
+letterforms, not verified joined writing; a spec asking for a cursive word model
+fails. Row height comes from the case (capital rows from the capital height),
+the layout from the paper size, and a page that does not fit fails instead of
+clipping. Output goes only to the harness; the PDFs reach `downloads/` by a
+reviewed copy, under their versioned names.
 
 **The build check.** `assertCursiveData()` in `scripts/pre-render.js` requires
 both JSON files to parse, each to hold exactly the 63 forms (no duplicates, and
 none of the capitals Ъ, Ы and Ь that the reference omits) and the two to agree
-on the set. It checks nothing else.
+on the set. `assertCursiveTableDerived()` (see "Russian cursive page" above) also
+requires the generated stroke table to be current.
 
 ## Dependency and tool supply-chain safety
 - Prefer Node built-ins, browser APIs and tools already approved for this repo.
@@ -1337,12 +1421,13 @@ Its limits, which are why it is not a malware scanner:
 - Hash validation regex before querySelector, a `VALID_PAGES` whitelist, and a
   `safeGetNavLink()` helper.
 - Google Analytics events: quiz_started, question_answered, question_skipped,
-  quiz_reset, setting_changed, chart_printed, cursive_animation_played.
+  quiz_reset, setting_changed, chart_printed, cursive_animation_played,
+  worksheet_downloaded.
 
 ## Monetization status
 AdSense has been rejected roughly four times, all of which happened before the site's
 pages were meaningfully indexed (the GitHub Pages 404 problem above). The site is now
-far stronger (27 articles, indexed, structured data, interactive tools, cleaned-up
+far stronger (28 articles, indexed, structured data, interactive tools, cleaned-up
 canonicals). Plan: reapply, but deliberately wait until the recent SEO improvements
 have settled and been recrawled rather than reapplying immediately after the prior
 rejections.

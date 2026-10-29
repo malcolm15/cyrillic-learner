@@ -1093,7 +1093,8 @@ const SECURITY_HEADERS = [
 ];
 const MEDIA_HEADERS = ['Cache-Control: public, max-age=31536000, immutable'];
 
-function assertSecurityHeaders() {
+// _headers as rules: { path, headers: [lines] }, in file order.
+function readHeaderRules() {
     const headersPath = path.join(ROOT, '_headers');
     if (!fs.existsSync(headersPath)) fail('_headers does not exist; it must carry the /* security headers rule.');
     const rules = [];
@@ -1103,6 +1104,11 @@ function assertSecurityHeaders() {
         if (!rules.length) fail('_headers line ' + (n + 1) + ': an indented header line before any path.');
         rules[rules.length - 1].headers.push(raw.trim());
     });
+    return rules;
+}
+
+function assertSecurityHeaders() {
+    const rules = readHeaderRules();
     [['/*', SECURITY_HEADERS], ['/media/*', MEDIA_HEADERS]].forEach(function (want) {
         const found = rules.filter(function (r) { return r.path === want[0]; });
         if (found.length !== 1) fail('_headers: expected exactly one "' + want[0] + '" rule, found ' + found.length + '.');
@@ -1170,6 +1176,112 @@ function assertReplaceCallbacks() {
     console.log('Edge function replace checks passed: ' + calls + ' .replace/.replaceAll calls in ' + file + ', every one with a function as its second argument.');
 }
 
+// ---- cursive: a generated stroke table is the generator's output ----
+//
+// CURSIVE_STROKES_RUSSIAN is never written by hand: scripts/cursive/build-strokes.js
+// derives it from shapes.json, stroke-plans.json and stroke-frame.json, and
+// validates every plan against evidence.json on the way. The table in
+// js/article-scripts.js must be that output byte for byte, and the widget that
+// draws it must carry the frame's viewBox and letter-group transform, so the
+// geometry the generator checked is the geometry the browser draws.
+function assertCursiveTableDerived(articlesSrc) {
+    const strokeTable = require('./cursive/build-strokes.js');
+    const scriptsSrc = fs.readFileSync(path.join(ROOT, 'js', 'article-scripts.js'), 'utf8');
+    let inputs, check;
+    try {
+        inputs = strokeTable.loadInputs();
+        check = strokeTable.checkTable(scriptsSrc, inputs);
+    } catch (e) {
+        if (e instanceof strokeTable.PlanError) fail('scripts/cursive/build-strokes.js: ' + e.message);
+        throw e;
+    }
+    const name = inputs.frame.table;
+    if (!check.ok) {
+        fail('js/article-scripts.js: ' + name + ' is not the output of scripts/cursive/build-strokes.js ' +
+             (check.found === null ? '(no single "var ' + name + ' = {" block)' : '(it differs; regenerate it with node scripts/cursive/build-strokes.js and paste it unchanged)'));
+    }
+    const widgets = CURSIVE_WIDGETS.filter(function (w) { return w.table === name; });
+    if (widgets.length !== 1) fail('scripts/pre-render.js: CURSIVE_WIDGETS must list exactly one widget drawing ' + name + ', found ' + widgets.length);
+    const w = widgets[0];
+    const want = strokeTable.groupMarkup(inputs.frame);
+    const svg = new RegExp('<svg\\b[^>]*\\sid="' + w.prefix + '-stage"[^>]*>').exec(articlesSrc);
+    const vb = svg && /\sviewBox="([^"]*)"/.exec(svg[0]);
+    if (!vb || vb[1] !== want.viewBox) {
+        fail('js/articles.js: the ' + w.prefix + '-stage viewBox must be "' + want.viewBox + '" (scripts/cursive/stroke-frame.json), found ' + JSON.stringify(vb && vb[1]));
+    }
+    const g = new RegExp('<g id="' + w.prefix + '-letter-group" transform="([^"]*)"></g>').exec(articlesSrc);
+    if (!g || g[1] !== want.transform) {
+        fail('js/articles.js: the ' + w.prefix + '-letter-group transform must be "' + want.transform + '" (scripts/cursive/stroke-frame.json), found ' + JSON.stringify(g && g[1]));
+    }
+    console.log('Cursive table passed: ' + name + ' in js/article-scripts.js is the output of scripts/cursive/build-strokes.js byte for byte (' +
+                Buffer.byteLength(check.expected) + ' bytes), and the ' + w.prefix + ' widget carries the frame\'s viewBox ' + want.viewBox + ' and transform ' + want.transform + '.');
+}
+
+// ---- downloads: the printable worksheets under /downloads/ ----
+//
+// downloads/ is a SITE folder of committed, versioned PDFs (the cursive
+// worksheets, made by scripts/cursive/build-worksheets.js and copied in by a
+// reviewed batch). Asserted while the folder exists: every file is a PDF with
+// a -v<N> name and under the size cap; _headers caches /downloads/* immutably
+// and keeps it out of search with X-Robots-Tag: noindex; the edge function
+// never sees it (a PDF viewer asks for byte ranges, which a body-rewriting
+// function cannot pass through); no _redirects rule answers first; and every
+// link to a download in article content names a file that is there, by its
+// versioned name, with the download attribute.
+const DOWNLOADS_DIR = 'downloads';
+const DOWNLOAD_NAME = /^[a-z0-9]+(?:-[a-z0-9]+)*-v[1-9][0-9]*\.pdf$/;
+const DOWNLOAD_MAX_BYTES = 512 * 1024;
+const DOWNLOAD_HEADERS = ['Cache-Control: public, max-age=31536000, immutable', 'X-Robots-Tag: noindex'];
+
+function assertDownloads(articlesSrc, edgeSrc, redirectRules) {
+    const dir = path.join(ROOT, DOWNLOADS_DIR);
+    const links = [];
+    const linkRe = /<a\b[^>]*\shref="(\/downloads\/[^"]*)"[^>]*>/g;
+    let m;
+    while ((m = linkRe.exec(articlesSrc)) !== null) links.push({ href: m[1], tag: m[0] });
+    if (!fs.existsSync(dir)) {
+        if (links.length) fail('js/articles.js links to ' + links[0].href + ' but there is no downloads/ folder');
+        return;
+    }
+    const files = fs.readdirSync(dir).sort();
+    if (!files.length) fail('downloads/ exists but is empty');
+    let largest = 0;
+    files.forEach(function (f) {
+        const full = path.join(dir, f);
+        const st = fs.statSync(full);
+        if (!st.isFile()) fail('downloads/' + f + ' is not a file; downloads/ holds only versioned PDFs');
+        if (!DOWNLOAD_NAME.test(f)) fail('downloads/' + f + ': expected a lowercase hyphenated name ending -v<N>.pdf, so a changed file ships under a new name');
+        if (st.size > DOWNLOAD_MAX_BYTES) fail('downloads/' + f + ' is ' + st.size + ' bytes, over the ' + DOWNLOAD_MAX_BYTES + '-byte cap');
+        const fd = fs.openSync(full, 'r');
+        const head = Buffer.alloc(5);
+        fs.readSync(fd, head, 0, 5, 0);
+        fs.closeSync(fd);
+        if (head.toString('latin1') !== '%PDF-') fail('downloads/' + f + ' does not start with %PDF-');
+        largest = Math.max(largest, st.size);
+    });
+    const rule = readHeaderRules().filter(function (r) { return r.path === '/' + DOWNLOADS_DIR + '/*'; });
+    if (rule.length !== 1) fail('_headers: expected exactly one "/' + DOWNLOADS_DIR + '/*" rule while downloads/ exists, found ' + rule.length);
+    if (rule[0].headers.join('\n') !== DOWNLOAD_HEADERS.join('\n')) {
+        fail('_headers: the "/' + DOWNLOADS_DIR + '/*" rule must be exactly ' + JSON.stringify(DOWNLOAD_HEADERS) + ', found ' + JSON.stringify(rule[0].headers));
+    }
+    if (parseExcludedPath(edgeSrc).indexOf('/' + DOWNLOADS_DIR + '/*') === -1) {
+        fail('netlify/edge-functions/head-rewrite.ts: "/' + DOWNLOADS_DIR + '/*" must be in excludedPath; a PDF is fetched with byte ranges');
+    }
+    const clashing = redirectRules.filter(function (r) { return r.source === '/*' || r.source.indexOf('/' + DOWNLOADS_DIR + '/') === 0; });
+    if (clashing.length) fail('_redirects: ' + clashing.map(function (r) { return r.source; }).join(', ') + ' would answer before a download');
+    const linked = new Set();
+    links.forEach(function (l) {
+        const name = l.href.slice(DOWNLOADS_DIR.length + 2);
+        if (!DOWNLOAD_NAME.test(name)) fail('js/articles.js: ' + l.href + ' is not a versioned PDF name');
+        if (files.indexOf(name) === -1) fail('js/articles.js links to ' + l.href + ', which is not in downloads/');
+        if (!/\sdownload(?=[\s>])/.test(l.tag)) fail('js/articles.js: the link to ' + l.href + ' must carry the download attribute');
+        linked.add(name);
+    });
+    console.log('Downloads passed: ' + files.length + ' versioned PDFs in downloads/ (largest ' + largest + ' bytes, cap ' + DOWNLOAD_MAX_BYTES +
+                '), ' + links.length + ' links in article content to ' + linked.size + ' of them, each present and carrying download; /' + DOWNLOADS_DIR +
+                '/* is cached immutably with X-Robots-Tag noindex, excluded from the edge function, and no _redirects rule answers first.');
+}
+
 // ---- cursive stroke paths: they parse, and they stay inside the widget box ----
 //
 // CURSIVE_STROKES in js/article-scripts.js holds the paths the
@@ -1188,6 +1300,7 @@ function assertReplaceCallbacks() {
 // js/article-scripts.js. A widget that is not listed here fails the build.
 const CURSIVE_WIDGETS = [
     { article: 'practice-writing-cyrillic', prefix: 'cursive', table: 'CURSIVE_STROKES' },
+    { article: 'russian-cursive', prefix: 'cursive-ru', table: 'CURSIVE_STROKES_RUSSIAN' },
 ];
 // Stroke tables are named CURSIVE_STROKES or CURSIVE_STROKES_<NAME>, so an
 // unregistered one can be found by its declaration.
@@ -1696,6 +1809,8 @@ function main() {
     }
     assertCursiveStrokes(articles);
     assertCursiveData();
+    assertCursiveTableDerived(articlesSrc);
+    assertDownloads(articlesSrc, edgeSrc, redirectRules);
 
     // ---- data: shared page-head artifact for the SPA routes (same file the edge function imports) ----
     // PAGE_META in core.js is the source of truth; the artifact must equal it,
@@ -2095,7 +2210,7 @@ function main() {
         { cls: 'letter-sound', lang: null, counts: { 'russian-alphabet-chart': 33 } },
         { cls: 'big-letter', lang: 'row', counts: { 'cyrillic-letters-not-in-russian': 33 } },
         { cls: 'ff-letter', lang: 'ru', counts: { 'false-friends': 6, 'backwards-r-myth': 8 } },
-        { cls: 'cursive-letter-btn', lang: 'ru', counts: { 'practice-writing-cyrillic': 6 } },
+        { cls: 'cursive-letter-btn', lang: 'ru', counts: { 'practice-writing-cyrillic': 6, 'russian-cursive': 10 } },
         // The glyph inside each copy tile; the tile and its "Copied!" stay translatable.
         { cls: 'copy-glyph', lang: 'ru', counts: { 'cyrillic-copy-paste': 92 } },
     ];

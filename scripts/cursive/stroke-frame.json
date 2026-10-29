@@ -1,0 +1,13 @@
+{
+  "about": "The frame for the russian-cursive widget's stroke table (build-strokes.js). S1 is unslanted about each form's baseline and scaled so its 12-unit x-height becomes xHeightUnits; the baseline goes to baselineY and each letter is centred on centerX as drawn. The widget markup applies translate(translateX, 0) skewX(skewXDeg), which restores S1's 22.5 degree slant; translateX is tan(22.5 degrees) times baselineY, rounded, so points on the baseline do not move. strokeWidth is .cursive-stroke's width in css/styles.css, used only for the clearance check (the build check reads the CSS itself).",
+  "table": "CURSIVE_STROKES_RUSSIAN",
+  "letters": ["и", "й", "л", "м", "п", "т", "ц", "ч", "щ", "у"],
+  "s1SlantDeg": 22.5,
+  "xHeightUnits": 100,
+  "viewBox": [0, 0, 240, 240],
+  "baselineY": 139,
+  "centerX": 120,
+  "translateX": 57.58,
+  "skewXDeg": -22.5,
+  "strokeWidth": 7
+}
