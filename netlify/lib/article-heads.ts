@@ -67,6 +67,10 @@ const ARTICLE_HEADS: Record<string, { title: string; description: string }> = {
     "title": "How to Practice Writing Cyrillic by Hand | Cyrilica",
     "description": "Learning to read Cyrillic is one thing. Learning to write it by hand (especially in cursive) is a completely different challenge. While digital typing..."
   },
+  "russian-cursive": {
+    "title": "Russian Cursive Alphabet: Chart and Worksheets | Cyrilica",
+    "description": "Here is the full Russian cursive alphabet in one chart, ten letters you can watch being written, and free printable worksheets for US Letter and A4."
+  },
   "kazakhstan-latin-transition": {
     "title": "Kazakhstan's Alphabet Transition: From Cyrillic to Latin by 2031 | Cyrilica",
     "description": "In one of the most ambitious language reforms of the 21st century, Kazakhstan is in the process of switching its entire writing system from Cyrillic to..."

@@ -2226,6 +2226,181 @@ const ARTICLES = [
         `
     },
     {
+        id: 'russian-cursive',
+        title: 'Russian Cursive Alphabet: Chart and Worksheets',
+        relatedArticles: ['practice-writing-cyrillic', 'russian-alphabet-chart', 'common-mistakes'],
+        content: `
+            <p>Here is the full Russian cursive alphabet in one chart, ten letters you can watch being written, and free printable worksheets for US Letter and A4.</p>
+
+            <p>If you learned Russian from printed text, a handwritten note can look like a different alphabet. Most handwritten Russian, from schoolwork to personal notes, uses cursive, and Russian children generally begin learning it in first grade. Print is what you see in books and on screens, so reading handwriting is a skill of its own.</p>
+
+            <h3>The Russian cursive alphabet</h3>
+
+            <figure class="article-image">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="/images/russian-cursive-alphabet-chart-narrow-v2.png" width="720" height="2965">
+                    <img src="/images/russian-cursive-alphabet-chart-v2.png" alt="Russian cursive alphabet chart: 63 handwritten forms, capital and lowercase, each beside its printed letter, on handwriting guide lines." width="1600" height="1368">
+                </picture>
+                <figcaption>The handwritten Russian alphabet, capitals and lowercase, each beside its printed letter. Letterforms from a public-domain chart on Wikimedia Commons.</figcaption>
+            </figure>
+
+            <p>The chart shows each handwritten form next to its printed letter: 30 capitals and 33 lowercase letters. The source chart omits the handwritten capitals of Ъ, Ы and Ь. Those capital letters do exist in Russian; this reference simply does not include them.</p>
+
+            <p>Three things stand out when you compare the columns. Most handwritten letters lean to the right, about 22.5 degrees in this chart. Many lowercase letters have a small stroke leading in or out, which is where they join their neighbours in a word. And a handful of lowercase letters look nothing like their printed forms, which is where most reading trouble starts.</p>
+
+            <h3>Letters that look like Latin letters</h3>
+
+            <p>Four lowercase cursive letters look like Latin letters with completely different sounds:</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Letter</th><th>Handwritten, it looks like</th><th>Actually sounds like</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>т</td><td>m</td><td>t, as in top</td></tr>
+                    <tr><td>и</td><td>u</td><td>ee, as in see</td></tr>
+                    <tr><td>п</td><td>n</td><td>p, as in pen</td></tr>
+                    <tr><td>д</td><td>g</td><td>d, as in dog</td></tr>
+                </tbody>
+            </table>
+
+            <p>Once you know these four, a lot of handwriting stops looking like code.</p>
+
+            <h3>Why Russian handwriting can look unreadable</h3>
+
+            <p>The bigger problem is a single shape. Lowercase и, л, м, ш, щ and ы are built largely from the same narrow down-and-up stroke, so a run of them turns into a row of identical humps. The word лишишь ("you will deprive") is written almost entirely in that stroke, which shows the problem at its worst.</p>
+
+            <p>The letters differ only in small details:</p>
+
+            <ul>
+                <li>л and м start with a small hook. и does not.</li>
+                <li>ш is three humps. т, in its handwritten form, is also three humps, joined over the top instead of at the bottom.</li>
+                <li>Depending on the writer, some combinations can look the same. In many hands лш and ми are hard to tell apart, and so are the words мщу ("I avenge") and лицу ("to the face").</li>
+            </ul>
+
+            <p>Russian writers know this, and many help the reader out. A bar over т and a line under ш are common ways to tell them apart, and some people simply write т as a printed T. Use the bars in your own writing until your letters are consistent. Context does the rest: a native reader rarely stops at лишишь, because the sentence around it gives it away.</p>
+
+            <h3>Watch the letters being written</h3>
+
+            <div id="cursive-ru-picker" class="cursive-picker">
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="и" data-caption="и (sounds like ee): two stems joined at the bottom, in one stroke." aria-pressed="false">и</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="й" data-caption="й: written like и, then a second stroke for the small curved mark on top." aria-pressed="false">й</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="л" data-caption="л: a small hook, a rise to a sharp point, then straight down." aria-pressed="false">л</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="м" data-caption="м: like л with a second peak, starting with the same small hook." aria-pressed="false">м</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="п" data-caption="п (sounds like p): looks like a Latin n. Down, back up, over the arch, down." aria-pressed="false">п</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="т" data-caption="т (sounds like t): looks like a Latin m. Three stems joined by two arches." aria-pressed="false">т</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="ц" data-caption="ц: a cup and a stem, then a small loop below the line." aria-pressed="false">ц</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="ч" data-caption="ч: a short lead-in, a cup, then a stem straight down." aria-pressed="false">ч</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="щ" data-caption="щ: three stems joined at the bottom, then a small loop below the line." aria-pressed="false">щ</button>
+                <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="у" data-caption="у: a cup, then a stem that loops below the line." aria-pressed="false">у</button>
+            </div>
+
+            <div class="cursive-stage-wrap">
+                <svg id="cursive-ru-stage" class="cursive-stage" viewBox="0 0 240 240" aria-label="Animated cursive letter">
+                    <line class="cursive-guide" x1="0" y1="39" x2="240" y2="39"/>
+                    <line class="cursive-guide" x1="0" y1="139" x2="240" y2="139"/>
+                    <line class="cursive-guide" id="cursive-ru-guide-descender" x1="0" y1="227" x2="240" y2="227" style="display:none"/>
+                    <g id="cursive-ru-letter-group" transform="translate(57.58, 0) skewX(-22.5)"></g>
+                </svg>
+                <div class="cursive-stage-controls">
+                    <button id="cursive-ru-replay" class="cursive-ctrl-btn">Watch again</button>
+                    <button id="cursive-ru-slow" class="cursive-ctrl-btn">Slow</button>
+                </div>
+            </div>
+
+            <p id="cursive-ru-caption" class="cursive-caption">Tap a letter to watch it being written.</p>
+
+            <p>Press Watch again to see a letter once more, and Slow to follow it more easily.</p>
+
+            <p>A few things to notice as you watch:</p>
+
+            <ul>
+                <li>Most of these letters are written in one stroke, without lifting the pen. Only й needs a second stroke, for the small curved mark on top.</li>
+                <li>The pen often goes back up a line it has just drawn before setting off in a new direction. In т it climbs part of the way back up each stem before drawing the next arch.</li>
+                <li>ц, щ and у end in a loop below the line, which leads into the next letter.</li>
+            </ul>
+
+            <p>We animate a letter once its stroke plan has been checked against a published guide, and these ten are the first. Other letters will be added as we confirm their stroke order. Every letter is in the chart above and in the worksheets below.</p>
+
+            <h3>Joining letters into words</h3>
+
+            <p>In the copybook style shown here, the letters of a word are joined. The lead-in and exit strokes you can see in the chart are the joins: the end of one letter becomes the start of the next.</p>
+
+            <p>Two habits make joined writing easier:</p>
+
+            <ul>
+                <li>Keep your letters the same height. The x-height line is what lets a reader see where one hump ends and the next begins.</li>
+                <li>Do not rush the hooks. The hook at the start of л and м is what tells a reader they are not и. If you skip it, the word becomes a guessing game.</li>
+            </ul>
+
+            <h3>Free Russian cursive worksheets</h3>
+
+            <ul>
+                <li>Lowercase letters (8 pages)
+                    <ul>
+                        <li><a href="/downloads/russian-cursive-worksheets-lowercase-letter-v1.pdf" download>US Letter (PDF)</a></li>
+                        <li><a href="/downloads/russian-cursive-worksheets-lowercase-a4-v1.pdf" download>A4 (PDF)</a></li>
+                    </ul>
+                </li>
+                <li>Capital letters (6 pages)
+                    <ul>
+                        <li><a href="/downloads/russian-cursive-worksheets-capitals-letter-v1.pdf" download>US Letter (PDF)</a></li>
+                        <li><a href="/downloads/russian-cursive-worksheets-capitals-a4-v1.pdf" download>A4 (PDF)</a></li>
+                    </ul>
+                </li>
+                <li>Words to write (4 pages)
+                    <ul>
+                        <li><a href="/downloads/russian-cursive-worksheets-words-letter-v1.pdf" download>US Letter (PDF)</a></li>
+                        <li><a href="/downloads/russian-cursive-worksheets-words-a4-v1.pdf" download>A4 (PDF)</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p>The lowercase pages are not in alphabetical order. They start with the simplest movements, stems and cups, then move on to peaks and arches, ovals, and finally the letters with loops and strokes below the line. Working through them in order builds each movement before you need it.</p>
+
+            <p>On each trace page, write over the grey letters first, then write the letter on your own on the blank lines. The ten letters animated above also have dots that show where to start your pen, taken from their reviewed stroke plans. Other letters have no dots yet, so the sheets never suggest a starting point we have not checked.</p>
+
+            <p>The word pages give each word in print, with space to write it in cursive. They do not yet show a handwritten model of the joined word; that needs verified examples of how the letters join, which we plan to add.</p>
+
+            <h3>A simple way to practise</h3>
+
+            <p>Aim for ten minutes a day rather than an occasional long session.</p>
+
+            <ol>
+                <li>Print the first lowercase page and work through it slowly.</li>
+                <li>Watch the animations for any letter that feels awkward, at Slow speed.</li>
+                <li>Move to the next page when the letters on the current one look the same every time.</li>
+                <li>Once you have finished the lowercase pages, start the word pages, then the capitals.</li>
+                <li>Write your own name and address in cursive. You will use them more than any other words.</li>
+            </ol>
+
+            <p>For a wider handwriting routine, including printed Cyrillic, see <a href="/articles/practice-writing-cyrillic" onclick="navTo(event, null, 'practice-writing-cyrillic')">How to Practice Writing Cyrillic by Hand</a>.</p>
+
+            <h3>Where these letterforms come from</h3>
+
+            <p>The chart, the animations and the worksheets all use one set of letterforms: a public-domain chart of the Russian cursive alphabet on Wikimedia Commons. The ten animations combine these letterforms with stroke-order guidance from a published handwriting reference. Where a connecting movement is not shown in the guide and has to be inferred, such as the short climb up the first stem of и and й, our data records it as inferred rather than presenting it as shown. We never trace or copy the guide.</p>
+
+            <p>Sources:</p>
+
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Russian_cursive" target="_blank" rel="noopener">Russian cursive</a>, Wikipedia</li>
+                <li><a href="https://elon.io/grammar/russian/writing-system/cursive-handwriting" target="_blank" rel="noopener">Russian cursive and handwriting</a>, Elon.io</li>
+                <li><a href="https://www.middlebury.edu/institute/sites/default/files/2021-01/Russian-handwriting-and-pronounciation-guide.pdf" target="_blank" rel="noopener">Russian handwriting and pronunciation guide</a>, Middlebury Institute of International Studies</li>
+                <li><a href="https://commons.wikimedia.org/wiki/File:Russian_Cursive_Cyrillic.svg" target="_blank" rel="noopener">Russian cursive Cyrillic chart</a>, Wikimedia Commons</li>
+            </ul>
+        
+            <div class="share-section">
+                <p>Found this helpful? Share it:</p>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyArticleLink('russian-cursive', 'Russian Cursive Alphabet: Chart and Worksheets')"><i class="fas fa-link"></i> Copy Link</button>
+                    <a href="#" class="share-btn" onclick="shareToBluesky('russian-cursive', 'Russian Cursive Alphabet: Chart and Worksheets'); return false;"><svg width="14" height="14" viewBox="0 0 568 501" fill="currentColor" aria-hidden="true" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M123.121 33.664C188.241 82.553 258.281 181.68 284 234.873c25.719-53.193 95.759-152.32 160.879-201.21C491.866-1.611 568-28.906 568 57.947c0 17.346-9.945 145.713-15.778 166.555-20.275 72.453-94.155 90.933-159.875 79.748C507.222 323.8 536.444 388.56 473.333 453.32c-119.86 122.992-172.272-30.859-185.702-70.281-2.462-7.227-3.614-10.608-3.631-7.733-.017-2.875-1.169.506-3.631 7.733-13.43 39.422-65.842 193.273-185.702 70.281-63.111-64.76-33.89-129.52 80.986-149.071-65.72 11.185-139.6-7.295-159.875-79.748C9.945 203.66 0 75.293 0 57.947 0-28.906 76.135-1.611 123.121 33.664Z"/></svg> Bluesky</a>
+                    <a href="#" class="share-btn" onclick="shareToReddit('russian-cursive', 'Russian Cursive Alphabet: Chart and Worksheets'); return false;"><i class="fab fa-reddit"></i> Reddit</a>
+                    <button class="share-btn" onclick="nativeShare('russian-cursive', 'Russian Cursive Alphabet: Chart and Worksheets')"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        `
+    },
+    {
         id: 'kazakhstan-latin-transition',
         title: 'Kazakhstan\'s Alphabet Transition: From Cyrillic to Latin by 2031',
         relatedArticles: ['latin-vs-cyrillic-slavic', 'history-of-cyrillic', 'serbian-cyrillic-vs-latin'],

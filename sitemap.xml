@@ -12,7 +12,7 @@
     <!-- Main Pages -->
     <url>
         <loc>https://cyrilica.com/articles</loc>
-        <lastmod>2026-09-20</lastmod>
+        <lastmod>2026-10-28</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -112,6 +112,17 @@
         <image:image>
             <image:loc>https://cyrilica.com/images/cyrillic-handwriting-chart.png</image:loc>
             <image:title>Russian Cyrillic Printed vs Cursive Handwriting Comparison Chart</image:title>
+        </image:image>
+    </url>
+
+    <url>
+        <loc>https://cyrilica.com/articles/russian-cursive</loc>
+        <lastmod>2026-10-28</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://cyrilica.com/images/russian-cursive-alphabet-chart-v2.png</image:loc>
+            <image:title>Russian Cursive Alphabet Chart</image:title>
         </image:image>
     </url>
     

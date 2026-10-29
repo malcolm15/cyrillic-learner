@@ -1176,6 +1176,47 @@ function assertReplaceCallbacks() {
     console.log('Edge function replace checks passed: ' + calls + ' .replace/.replaceAll calls in ' + file + ', every one with a function as its second argument.');
 }
 
+// ---- cursive: a generated stroke table is the generator's output ----
+//
+// CURSIVE_STROKES_RUSSIAN is never written by hand: scripts/cursive/build-strokes.js
+// derives it from shapes.json, stroke-plans.json and stroke-frame.json, and
+// validates every plan against evidence.json on the way. The table in
+// js/article-scripts.js must be that output byte for byte, and the widget that
+// draws it must carry the frame's viewBox and letter-group transform, so the
+// geometry the generator checked is the geometry the browser draws.
+function assertCursiveTableDerived(articlesSrc) {
+    const strokeTable = require('./cursive/build-strokes.js');
+    const scriptsSrc = fs.readFileSync(path.join(ROOT, 'js', 'article-scripts.js'), 'utf8');
+    let inputs, check;
+    try {
+        inputs = strokeTable.loadInputs();
+        check = strokeTable.checkTable(scriptsSrc, inputs);
+    } catch (e) {
+        if (e instanceof strokeTable.PlanError) fail('scripts/cursive/build-strokes.js: ' + e.message);
+        throw e;
+    }
+    const name = inputs.frame.table;
+    if (!check.ok) {
+        fail('js/article-scripts.js: ' + name + ' is not the output of scripts/cursive/build-strokes.js ' +
+             (check.found === null ? '(no single "var ' + name + ' = {" block)' : '(it differs; regenerate it with node scripts/cursive/build-strokes.js and paste it unchanged)'));
+    }
+    const widgets = CURSIVE_WIDGETS.filter(function (w) { return w.table === name; });
+    if (widgets.length !== 1) fail('scripts/pre-render.js: CURSIVE_WIDGETS must list exactly one widget drawing ' + name + ', found ' + widgets.length);
+    const w = widgets[0];
+    const want = strokeTable.groupMarkup(inputs.frame);
+    const svg = new RegExp('<svg\\b[^>]*\\sid="' + w.prefix + '-stage"[^>]*>').exec(articlesSrc);
+    const vb = svg && /\sviewBox="([^"]*)"/.exec(svg[0]);
+    if (!vb || vb[1] !== want.viewBox) {
+        fail('js/articles.js: the ' + w.prefix + '-stage viewBox must be "' + want.viewBox + '" (scripts/cursive/stroke-frame.json), found ' + JSON.stringify(vb && vb[1]));
+    }
+    const g = new RegExp('<g id="' + w.prefix + '-letter-group" transform="([^"]*)"></g>').exec(articlesSrc);
+    if (!g || g[1] !== want.transform) {
+        fail('js/articles.js: the ' + w.prefix + '-letter-group transform must be "' + want.transform + '" (scripts/cursive/stroke-frame.json), found ' + JSON.stringify(g && g[1]));
+    }
+    console.log('Cursive table passed: ' + name + ' in js/article-scripts.js is the output of scripts/cursive/build-strokes.js byte for byte (' +
+                Buffer.byteLength(check.expected) + ' bytes), and the ' + w.prefix + ' widget carries the frame\'s viewBox ' + want.viewBox + ' and transform ' + want.transform + '.');
+}
+
 // ---- downloads: the printable worksheets under /downloads/ ----
 //
 // downloads/ is a SITE folder of committed, versioned PDFs (the cursive
@@ -1259,6 +1300,7 @@ function assertDownloads(articlesSrc, edgeSrc, redirectRules) {
 // js/article-scripts.js. A widget that is not listed here fails the build.
 const CURSIVE_WIDGETS = [
     { article: 'practice-writing-cyrillic', prefix: 'cursive', table: 'CURSIVE_STROKES' },
+    { article: 'russian-cursive', prefix: 'cursive-ru', table: 'CURSIVE_STROKES_RUSSIAN' },
 ];
 // Stroke tables are named CURSIVE_STROKES or CURSIVE_STROKES_<NAME>, so an
 // unregistered one can be found by its declaration.
@@ -1767,6 +1809,7 @@ function main() {
     }
     assertCursiveStrokes(articles);
     assertCursiveData();
+    assertCursiveTableDerived(articlesSrc);
     assertDownloads(articlesSrc, edgeSrc, redirectRules);
 
     // ---- data: shared page-head artifact for the SPA routes (same file the edge function imports) ----
@@ -2167,7 +2210,7 @@ function main() {
         { cls: 'letter-sound', lang: null, counts: { 'russian-alphabet-chart': 33 } },
         { cls: 'big-letter', lang: 'row', counts: { 'cyrillic-letters-not-in-russian': 33 } },
         { cls: 'ff-letter', lang: 'ru', counts: { 'false-friends': 6, 'backwards-r-myth': 8 } },
-        { cls: 'cursive-letter-btn', lang: 'ru', counts: { 'practice-writing-cyrillic': 6 } },
+        { cls: 'cursive-letter-btn', lang: 'ru', counts: { 'practice-writing-cyrillic': 6, 'russian-cursive': 10 } },
         // The glyph inside each copy tile; the tile and its "Copied!" stay translatable.
         { cls: 'copy-glyph', lang: 'ru', counts: { 'cyrillic-copy-paste': 92 } },
     ];
