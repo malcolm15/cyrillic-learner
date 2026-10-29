@@ -2021,7 +2021,7 @@ const ARTICLES = [
     {
         id: 'practice-writing-cyrillic',
         title: 'How to Practice Writing Cyrillic by Hand',
-        relatedArticles: ['russian-alphabet-chart', 'how-to-type-cyrillic', 'getting-started'],
+        relatedArticles: ['russian-alphabet-chart', 'russian-cursive', 'getting-started'],
         content: `
             <p>Learning to read Cyrillic is one thing. Learning to write it by hand (especially in cursive) is a completely different challenge. While digital typing dominates modern communication, handwriting Cyrillic helps cement the letters in your memory and opens up the ability to take notes, write letters, or simply understand handwritten Russian text.</p>
 
@@ -2172,6 +2172,8 @@ const ARTICLES = [
             
             <p><strong>Russian Children's Workbooks:</strong><br>
             Books titled "Прописи" are designed for Russian first-graders learning to write. Perfect for adult learners too!</p>
+
+            <p>For the full handwritten alphabet and free printable worksheets, see <a href="/articles/russian-cursive" onclick="navTo(event, null, 'russian-cursive')">Russian Cursive Alphabet: Chart and Worksheets</a>.</p>
 
             <h3>Common Handwriting Mistakes</h3>
             
@@ -4270,6 +4272,8 @@ const ARTICLES = [
                     <div><span class="legend-swatch legend-swatch--hard"></span> <strong>Tricky sound</strong> - A sound that is unusual in English, or no sound of its own</div>
                 </div>
             </div>
+
+            <p>To see every letter in handwriting, see <a href="/articles/russian-cursive" onclick="navTo(event, null, 'russian-cursive')">Russian Cursive Alphabet: Chart and Worksheets</a>.</p>
 
             <div class="quiz-cta">
                 <p>Hearing the letters is step one. Making them stick is step two. Our free study tool quizzes you letter by letter, tracks your streak, and needs no signup.</p>
