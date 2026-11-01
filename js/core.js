@@ -1053,26 +1053,13 @@ function showArticle(articleId, opts) {
     }, 200);
 }
 
+// The listing is a page like any other, so showPage does all of it: the real
+// page load when the listing is not in this document (a pre-rendered article),
+// the pending-article reset, hiding the article view, the history entry and the
+// /articles head from PAGE_META. Doing it by hand here left the homepage's
+// title, description, canonical, og and twitter tags in place.
 function showArticleIndex(opts) {
-    const push = !(opts && opts.push === false);
-    clearPendingArticle();
-    // Same fallback as showPage: the listing is not in pre-rendered article
-    // documents, so go to the real /articles page.
-    if (!document.getElementById('articles-index')) {
-        window.location.assign('/articles');
-        return;
-    }
-    setDisplay('articles-index', 'block');
-    document.getElementById('article-view').style.display = 'none';
-    
-    // Remove article-specific structured data
-    removeArticleSchema();
-    
-    // Update URL
-    if (push) window.history.pushState({ page: 'articles' }, '', '/articles');
-    
-    // Scroll to top
-    window.scrollTo(0, 0);
+    showPage('articles', opts);
 }
 
 // The "Back" controls and the tool CTA are real links so crawlers can follow

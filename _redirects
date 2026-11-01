@@ -3,7 +3,8 @@
 # 1. the apex redirect, forced, so it beats the real files on the netlify.app host
 # 2. internal files, forced, so they lose to nothing
 # 3. retired URLs, 301
-# 4. the seven SPA routes, rewritten to the shell
+# 4. the seven SPA routes: six rewritten to the shell, /articles to its own
+#    emitted document
 #
 # There is deliberately no /* catch-all. Anything that matches no rule and no
 # file on disk now falls through to 404.html with a real 404 status, which is
@@ -36,11 +37,19 @@ https://dapper-axolotl-1f65df.netlify.app/* https://cyrilica.com/:splat 301!
 # the shell, and that no rule serves /<slug>/ with a 200.
 /teachers.html /teachers  301!
 /es.html /es  301!
+# The /articles listing is emitted to articles.html at the root as well, so
+# its own path would be a duplicate at 200. A forced 301 on a rewrite target
+# does not affect the rewrite: / and /index.html below already pair the two
+# the same way. scripts/pre-render.js asserts this rule and the rewrite.
+/articles.html /articles  301!
 
 # The seven SPA routes. Generated from VALID_PAGES in js/core.js and asserted
-# against it at build time, so this list cannot drift from the router.
+# against it at build time, so this list cannot drift from the router. Six are
+# rewritten to the shell. /articles is rewritten to articles.html, the listing
+# emitted by scripts/pre-render.js as its own document; on the shell the router
+# still shows the listing in-app.
 /            /index.html  200
-/articles    /index.html  200
+/articles    /articles.html  200
 /settings    /index.html  200
 /about       /index.html  200
 /contact     /index.html  200

@@ -121,8 +121,8 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
 - `scripts/`: dependency-free node generators run by the Netlify build command
   (netlify.toml): generate-article-heads.js (which writes both
   `netlify/lib/article-heads.ts` and `netlify/lib/page-heads.ts`, committed) then
-  pre-render.js. The articles/ output directory is a gitignored deploy artifact,
-  never committed.
+  pre-render.js. The articles/ output directory and `articles.html` (the /articles
+  listing document) are gitignored deploy artifacts, never committed.
 - `scripts/images/`: Pillow (Python) generators for five comparison images:
   `make_ukrainian_image.py`, `make_belarusian_image.py`,
   `make_bulgarian_image.py`, and the two Serbian ones, `make_serbian_image.py`
@@ -157,8 +157,9 @@ Two cross-file gotchas:
   `removeArticleSchema()`), plus the article BreadcrumbList. Both removal paths look
   the blocks up by `id` (`article-schema`, `breadcrumb-schema`), so any JSON-LD
   without one of those ids can never be removed or replaced on render.
-- **The shell carries no BreadcrumbList.** One `index.html` serves all seven SPA
-  routes, so any trail baked into it is wrong for at least six of them. Articles
+- **The shell carries no BreadcrumbList.** One `index.html` serves six SPA routes
+  and is the template for every emitted document, so any trail baked into it is
+  wrong for at least five of them. Articles
   carry exactly one, with `id="breadcrumb-schema"`, emitted by
   `scripts/pre-render.js` and replaced one for one by `injectArticleSchema()`.
   The build asserts both: zero BreadcrumbList objects in `index.html`, exactly one
@@ -196,10 +197,12 @@ Two cross-file gotchas:
   whose preview built. It does not protect against a compromised admin credential,
   which can change the rules or merge a PR, and any tool holding the `gh` login has
   that power. GitHub Actions are disabled for the repo.
-- **Routing. There is no `/*` catch-all.** `_redirects` has an explicit
-  `/<route> /index.html 200` rewrite for each of the seven SPA routes, and
-  `scripts/pre-render.js` fails the build if that set does not match `VALID_PAGES`
-  in `js/core.js` exactly, so the two cannot disagree without failing the build. Articles are
+- **Routing. There is no `/*` catch-all.** `_redirects` has an explicit rewrite
+  for each of the seven SPA routes: `/<route> /index.html 200` for six of them,
+  and `/articles /articles.html 200` for the listing, which has its own emitted
+  document (see "The /articles document"). `scripts/pre-render.js` fails the
+  build if that set does not match `VALID_PAGES` in `js/core.js` exactly, so the
+  two cannot disagree without failing the build. Articles are
   not listed: `articles/<slug>.html` is a real file and Netlify serves an HTML file
   at its extensionless path by default, so `/articles/<slug>` resolves with no rule.
   Everything matching no rule and no file gets a real 404 from `404.html`, which
@@ -230,7 +233,9 @@ Two cross-file gotchas:
   is default Netlify behaviour that the article URLs depend on, and it is not
   something this repo controls, so it is checked rather than assumed:
   `curl -s -o /dev/null -w "%{http_code} " https://cyrilica.com/articles/<slug>`
-  for each slug, and confirm one body contains `data-prerendered=`.
+  for each slug, and confirm one body contains `data-prerendered=`. Also confirm
+  `/articles` returns 200 with the listing document (one `<h1>Articles</h1>`, no
+  `id="home-page"`) and `/articles.html` returns a 301 to `/articles`.
 - **Served files.** Netlify publishes the repo root (`publish = "."`), so every
   committed file is public unless blocked. Any new file at the repo root, and any new
   top-level folder, must be classified SITE (needed by visitors or crawlers) or
@@ -433,8 +438,9 @@ and fails the build unless each article has exactly one BreadcrumbList object an
 it sits inside id="breadcrumb-schema", and unless index.html has none. Netlify
 serves these real files at their extensionless paths (there has been no /*
 catch-all since Batch 50), so crawlers get full article content in raw HTML. The
-/articles listing, homepage, and utility pages stay SPA-shell (their content is
-already static in index.html).
+homepage and utility pages stay SPA-shell (their content is already static in
+index.html). The /articles listing has its own document; see "The /articles
+document" below.
 
 Fail-loud by design: every template replacement is an exact-match assertion and
 any mismatch fails the build, which keeps the last good deploy live. This is a
@@ -460,8 +466,52 @@ Article-to-article navigation on a pre-rendered page stays client-side.
 
 The edge function is unchanged and verified no-op on pre-rendered pages: their
 heads no longer contain its byte-for-byte match targets, so every replace
-misses safely. It still does real work for the homepage, /articles, utility
-noindex, and the seven SPA routes that are rewritten to the shell.
+misses safely. That includes the /articles listing document. It still does real
+work for the homepage, utility noindex, and the six SPA routes that are
+rewritten to the shell. The `/articles` entry stays in its `VALID_PAGES` copy and
+in `page-heads.ts`, where it is the parity record the listing document's head is
+asserted against.
+
+### The /articles document
+
+`scripts/pre-render.js` also emits `articles.html` at the site root, and
+`_redirects` rewrites `/articles` to it (`/articles /articles.html 200`), with a
+forced `/articles.html /articles 301!` so the file's own path is not a duplicate
+at 200. A forced 301 on a rewrite target does not affect the rewrite: `/` and
+`/index.html` already pair the two the same way.
+
+It is built from `index.html` like an article: the head needles set to the
+`/articles` entry of `page-heads.ts` (asserted equal to `PAGE_META.articles`),
+home and About through Terms cut out, `#articles-page` active and wrapped in
+`<main>`, the listing heading `<h2>Articles</h2>` emitted as `<h1>Articles</h1>`,
+and Articles marked active in the nav. The listing is copied from `index.html`
+byte for byte (asserted), so `index.html` stays the one place it is edited. The
+empty, hidden `#article-view` stays, because the listing's links open articles
+in-app through `showArticle`, which needs it. The duplicated closing `</div>`
+pair after the listing in `index.html` (ledger row 364) is dropped from this
+document only. `#articles-index h1` shares the `h2` rule in `css/styles.css`, so
+the page looks as it did. The build asserts one `<h1>`, one `<main>`, no other
+route's section, equal `<div>` open and close counts, the head, the nav state,
+the 28 listing links, no BreadcrumbList and no `data-prerendered`, plus the
+routing rules and the `.gitignore` entry.
+
+Scope: a directly loaded /articles now has a visible h1 and a main landmark,
+with or without JavaScript, and its raw HTML is the listing alone. The listing
+reached in-app from the homepage or any other shell route is still the shell's:
+it uses the shell's h2 and has no main (ledger row 367). This does not fix
+accessibility on every navigation path.
+
+`/articles` stays in `VALID_PAGES` and the router is unchanged. On the listing
+document, listing links, previous and next, the Back links, the header link to
+Articles and browser Back and Forward stay in-app; Home and the other shell
+routes are real page loads, as they are from an article.
+
+**The listing check.** The build parses the listing in `index.html` and asserts
+that its order is `ARTICLE_ORDER`, each href equals its `navTo` slug, its
+categories are the `ARTICLE_META` sections in order, every label equals the
+article's title except the entries in `LISTING_LABELS` in
+`scripts/pre-render.js` (an entry must be in use and must differ from the
+title), and every blurb and category description is non-empty plain text.
 
 ## Standalone pages
 
@@ -932,7 +982,10 @@ A new article touches FIVE places, all using the identical slug:
    both dates together if the change materially alters the page's content or
    navigation. Either way, state the decision and the reason in the commit body.
    (Decided in Batch 57, 2026-10-11.)
-3. `index.html`: an `.article-item` block in the right category group.
+3. `index.html`: an `.article-item` block in the right category group, at the
+   position `ARTICLE_ORDER` gives it and labelled with the article's title. The
+   build checks both; a deliberately different label goes in `LISTING_LABELS` in
+   `scripts/pre-render.js`.
 4. `sitemap.xml`: a new `<url>` entry (add an `<image:image>` entry too if the
    article has an image).
 5. Nothing manual for heads or pre-rendering: the deploy build regenerates
@@ -1050,7 +1103,8 @@ like any other failure.
 **Homepage and /articles lastmod.** Bump the home `<lastmod>` in sitemap.xml
 whenever visible homepage body copy changes, and the `/articles` `<lastmod>`
 whenever visible listing copy on /articles changes, in the same push. Both live in
-index.html: the homepage is `#home-page`, the listing is `#articles-page`.
+index.html: the homepage is `#home-page`, the listing is `#articles-page`, which
+the build copies into `articles.html`.
 
 **The ledger.** Audit findings, fixes and their sources are tracked in the
 audit ledger at https://claude.ai/artifact/M46nX3e969NgxikPqtVWQD. "A source

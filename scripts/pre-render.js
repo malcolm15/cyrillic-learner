@@ -29,6 +29,12 @@
 // page load: core.js showPage / showArticleIndex fall back to
 // window.location.assign when a route's section is absent.
 //
+// THE /articles LISTING: emitted the same way to articles.html at the repo
+// root, with only the listing (and the empty, hidden article view the router
+// needs) inside <main> and the listing heading as the one <h1>. _redirects
+// rewrites /articles to it. /articles stays in VALID_PAGES, so the shell still
+// shows the listing in-app.
+//
 // PARITY RULES (all fail-loud):
 // - Head title and description come from netlify/lib/article-heads.ts, the
 //   same artifact the edge function imports, so the static file, the edge
@@ -70,6 +76,8 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://cyrilica.com';
 const OUT_ROOT = path.join(ROOT, 'articles');
+// The /articles listing document. _redirects rewrites /articles to it.
+const LISTING_OUT = path.join(ROOT, 'articles.html');
 // Build-time only, never served: _redirects answers /scripts/* with a 404.
 const STANDALONE_PAGES = require('./standalone-pages.js');
 const { parsePageMeta } = require('./page-meta.js');
@@ -786,6 +794,119 @@ function derivePreview(content) {
     const m = content.match(/<p\b[^>]*>([\s\S]*?)<\/p>/);
     const text = m ? textContentOf(m[1]) : '';
     return text.substring(0, 120).trim() + '...';
+}
+
+// ---- the /articles listing: one hand-written copy, checked against the data ----
+//
+// The listing in index.html is the only copy of the blurbs and the category
+// descriptions, so it stays hand-written. Everything it shares with the data is
+// asserted instead of restated: the order is ARTICLE_ORDER, the categories are
+// ARTICLE_META sections, and each label is the article's title. Two labels are
+// deliberately shorter than their titles; they are listed here, and an entry
+// that is not in use or that equals the title fails the build, so the list
+// cannot go stale.
+const LISTING_LABELS = {
+    'history-of-cyrillic': 'The History of the Cyrillic Alphabet',
+    'how-to-type-cyrillic': 'How to Type Cyrillic on Any Device',
+};
+const LISTING_START = '<div class="articles-list">';
+const LISTING_END = '<!-- Individual Article View';
+
+// The listing region of a document: from the list's opening tag to the
+// article-view comment. Both markers must occur exactly once, in order.
+function listingRegion(html, label) {
+    if (countOccurrences(html, LISTING_START) !== 1 || countOccurrences(html, LISTING_END) !== 1) {
+        fail(label + ': expected exactly one ' + LISTING_START + ' and one ' + LISTING_END + ' around the articles listing');
+    }
+    const s = html.indexOf(LISTING_START);
+    const e = html.indexOf(LISTING_END);
+    if (e <= s) fail(label + ': the articles listing markers are out of order');
+    return html.slice(s, e);
+}
+
+function assertArticleListing(template, order, meta, byId) {
+    const list = listingRegion(template, 'index.html');
+    // Strict matchers plus permissive counts, so markup the matcher cannot read
+    // (a tag inside a blurb, a reordered attribute) fails instead of being skipped.
+    const catRe = /<div class="article-category">\s*<div class="article-category-header">\s*<span>([^<]*)<\/span>\s*<\/div>\s*<div class="article-category-desc">([^<]*)<\/div>/g;
+    const itemRe = /<a class="article-item" href="\/articles\/([a-z0-9-]+)" onclick="navTo\(event, null, '([a-z0-9-]+)'\)">\s*<div class="article-item-content">\s*<h3>([^<]*)<\/h3>\s*<p>([^<]*)<\/p>\s*<\/div>\s*<\/a>/g;
+    const cats = [];
+    let m;
+    while ((m = catRe.exec(list)) !== null) cats.push({ name: decodeHeads(m[1]), desc: m[2].trim(), at: m.index });
+    const catTags = countOccurrences(list, '<div class="article-category">');
+    if (cats.length !== catTags) {
+        fail('index.html listing: ' + catTags + ' <div class="article-category"> but only ' + cats.length +
+             ' match the expected header and description markup');
+    }
+    const items = [];
+    while ((m = itemRe.exec(list)) !== null) {
+        const cat = cats.filter(function (c) { return c.at < m.index; }).pop();
+        items.push({ slug: m[1], onclickSlug: m[2], label: decodeHeads(m[3]), blurb: m[4].trim(), category: cat ? cat.name : null });
+    }
+    const itemTags = countOccurrences(list, 'class="article-item"');
+    if (items.length !== itemTags) {
+        fail('index.html listing: ' + itemTags + ' article-item links but only ' + items.length +
+             ' match the expected markup (href, navTo onclick, then an h3 and a plain-text p, with no tags inside either)');
+    }
+
+    if (items.length !== order.length) {
+        fail('index.html listing: ' + items.length + ' articles listed but ARTICLE_ORDER has ' + order.length);
+    }
+    items.forEach(function (it, i) {
+        if (it.slug !== order[i]) {
+            fail('index.html listing: position ' + (i + 1) + ' is "' + it.slug + '" but ARTICLE_ORDER has "' + order[i] +
+                 '" there. The listing and ARTICLE_ORDER must list the articles in the same order.');
+        }
+        if (it.onclickSlug !== it.slug) {
+            fail('index.html listing: the link to /articles/' + it.slug + ' opens "' + it.onclickSlug + '" in its onclick');
+        }
+        if (!it.category) fail('index.html listing: "' + it.slug + '" comes before any category header');
+        if (it.category !== meta[it.slug].section) {
+            fail('index.html listing: "' + it.slug + '" is listed under "' + it.category + '" but its ARTICLE_META section is "' +
+                 meta[it.slug].section + '"');
+        }
+        const title = byId[it.slug].title;
+        if (Object.prototype.hasOwnProperty.call(LISTING_LABELS, it.slug)) {
+            if (LISTING_LABELS[it.slug] === title) {
+                fail('LISTING_LABELS: the entry for "' + it.slug + '" equals the article title, so it is not an exception. Remove it.');
+            }
+            if (it.label !== LISTING_LABELS[it.slug]) {
+                fail('index.html listing: "' + it.slug + '" is labelled "' + it.label + '" but LISTING_LABELS says "' +
+                     LISTING_LABELS[it.slug] + '"');
+            }
+        } else if (it.label !== title) {
+            fail('index.html listing: "' + it.slug + '" is labelled "' + it.label + '" but its title in js/articles.js is "' +
+                 title + '". Use the title, or list the label in LISTING_LABELS in scripts/pre-render.js.');
+        }
+        if (!it.blurb) fail('index.html listing: "' + it.slug + '" has an empty blurb');
+    });
+    Object.keys(LISTING_LABELS).forEach(function (slug) {
+        if (order.indexOf(slug) === -1) fail('LISTING_LABELS: "' + slug + '" is not in ARTICLE_ORDER. Remove the stale entry.');
+    });
+
+    // The categories are the ARTICLE_META sections, in the order ARTICLE_ORDER
+    // first reaches each, with every section contiguous.
+    const sections = [];
+    order.forEach(function (slug) {
+        const s = meta[slug].section;
+        if (sections[sections.length - 1] !== s) {
+            if (sections.indexOf(s) !== -1) fail('ARTICLE_ORDER: the "' + s + '" articles are not contiguous, so the listing cannot group them');
+            sections.push(s);
+        }
+    });
+    const catNames = cats.map(function (c) { return c.name; });
+    if (catNames.join(' | ') !== sections.join(' | ')) {
+        fail('index.html listing: the categories are "' + catNames.join(' | ') + '" but the ARTICLE_META sections in ARTICLE_ORDER are "' +
+             sections.join(' | ') + '"');
+    }
+    cats.forEach(function (c) {
+        if (!c.desc) fail('index.html listing: the "' + c.name + '" category has an empty description');
+    });
+    return 'Articles listing passed: ' + items.length + ' articles in ARTICLE_ORDER order under ' + cats.length +
+           ' categories matching their ARTICLE_META sections, every href equal to its navTo slug, ' +
+           (items.length - Object.keys(LISTING_LABELS).length) + ' labels equal to the article title and ' +
+           Object.keys(LISTING_LABELS).length + ' listed exceptions (' + Object.keys(LISTING_LABELS).join(', ') +
+           '), every blurb and category description non-empty plain text.';
 }
 
 // ---- accidental-dependency guard ----
@@ -2642,6 +2763,7 @@ function main() {
         navHome: '<li><a href="/" class="active" onclick="navTo(event, \'home\', null)">Home</a></li>',
         navArticles: '<li><a href="/articles" onclick="navTo(event, \'articles\', null)">Articles</a></li>',
         articleTitle: '<h2 id="article-title"></h2>',
+        listingTitle: '<h2>Articles</h2>',
         contentBlock: '<div class="article-content content-text" id="article-content">\n' +
             '                                <!-- Article content loaded here -->\n' +
             '                            </div>',
@@ -2673,7 +2795,7 @@ function main() {
     // ---- internal links: the shell, then every emitted page below ----
     // Every path this script writes, derived from the write paths themselves so
     // the file-on-disk class cannot answer differently on a built tree.
-    const scriptOutputs = [OUT_ROOT].concat(STANDALONE_PAGES.map(function (sp) {
+    const scriptOutputs = [OUT_ROOT, LISTING_OUT].concat(STANDALONE_PAGES.map(function (sp) {
         return path.join(ROOT, sp.slug + '.html');
     }));
     // ids per document, filled as each one is built, for cross-page fragments.
@@ -2778,6 +2900,8 @@ function main() {
     console.log('Share handler checks passed: ' + ARTICLE_ORDER.length + ' articles, ' +
                 shareHandlerTotal + ' handlers, 0 backslashes in any onclick, ' +
                 contentOnclickTotal + ' onclick attributes in article content covered.');
+
+    console.log(assertArticleListing(template, ARTICLE_ORDER, ARTICLE_META, byId));
 
     // ---- emit each article ----
     fs.mkdirSync(OUT_ROOT, { recursive: true });
@@ -3016,6 +3140,122 @@ function main() {
         fs.writeFileSync(path.join(OUT_ROOT, slug + '.html'), page, 'utf8');
         emitted += 1;
     });
+
+    // ---- the /articles listing as its own document ----
+    //
+    // /articles stays a route in VALID_PAGES: on the shell the router still shows
+    // the listing in-app. A request for /articles is answered by this file
+    // instead (_redirects: /articles /articles.html 200), so its raw HTML is the
+    // listing alone. It is built like an article: the shell's head needles set to
+    // the /articles entry of page-heads.ts (asserted equal to PAGE_META above),
+    // home and about through terms cut out, the articles page wrapped in <main>,
+    // and the listing heading made the document's one <h1>. The listing itself is
+    // copied from index.html untouched, so there is no second list to maintain.
+    // The empty, hidden #article-view stays: the listing's links open articles
+    // in-app through showArticle, which needs it.
+    const listingHead = PAGE_HEADS['/articles'];
+    if (!listingHead) fail('articles.html: page-heads.ts has no /articles entry');
+    const listingUrl = SITE + '/articles';
+    // index.html closes the listing with one pair of </div> too many, which
+    // closes #articles-page, .container and .main-content early (ledger row 364).
+    // Articles never carry it, because their listing cut removes it; this
+    // document keeps the listing, so it drops the extra pair here instead.
+    const LISTING_CLOSE = '                                </div>\n                            </div>\n';
+    const LISTING_CLOSE_DOUBLED = LISTING_CLOSE + '\n' + LISTING_CLOSE;
+    let listing = template;
+    listing = replaceOnce(listing, T.title, '<title>' + listingHead.title + '</title>', 'articles.html/title');
+    listing = replaceOnce(listing, T.desc, '<meta name="description" content="' + listingHead.description + '">', 'articles.html/description');
+    listing = replaceOnce(listing, T.canonical, '<link rel="canonical" href="' + listingUrl + '">', 'articles.html/canonical');
+    listing = replaceOnce(listing, T.ogUrl, '<meta property="og:url" content="' + listingUrl + '">', 'articles.html/og:url');
+    listing = replaceOnce(listing, T.ogTitle, '<meta property="og:title" content="' + listingHead.title + '">', 'articles.html/og:title');
+    listing = replaceOnce(listing, T.ogDesc, '<meta property="og:description" content="' + listingHead.description + '">', 'articles.html/og:description');
+    listing = replaceOnce(listing, T.twUrl, '<meta property="twitter:url" content="' + listingUrl + '">', 'articles.html/twitter:url');
+    listing = replaceOnce(listing, T.twTitle, '<meta property="twitter:title" content="' + listingHead.title + '">', 'articles.html/twitter:title');
+    listing = replaceOnce(listing, T.twDesc, '<meta property="twitter:description" content="' + listingHead.description + '">', 'articles.html/twitter:description');
+    listing = replaceOnce(listing, T.articlesPage, '<div id="articles-page" class="page-content active">', 'articles.html/articles-page state');
+    listing = replaceOnce(listing, T.navHome, '<li><a href="/" onclick="navTo(event, \'home\', null)">Home</a></li>', 'articles.html/nav home');
+    listing = replaceOnce(listing, T.navArticles, '<li><a href="/articles" class="active" onclick="navTo(event, \'articles\', null)">Articles</a></li>', 'articles.html/nav articles');
+    listing = replaceOnce(listing, T.listingTitle, '<h1>Articles</h1>', 'articles.html/listing heading');
+    listing = replaceOnce(listing, LISTING_CLOSE_DOUBLED, LISTING_CLOSE + '\n', 'articles.html/listing close');
+    listing = cutBetween(listing, '                <!-- HOME PAGE -->', '                <!-- ARTICLES PAGE -->', 'articles.html/strip home');
+    listing = cutBetween(listing, '                <!-- ABOUT PAGE -->', FOOTER_TAIL, 'articles.html/strip about through terms');
+    listing = replaceOnce(listing,
+        '                <!-- ARTICLES PAGE -->\n                <div id="articles-page" class="page-content active">',
+        '                <main>\n                <div id="articles-page" class="page-content active">',
+        'articles.html/main open');
+    listing = replaceOnce(listing, FOOTER_TAIL, '\n                </main>' + FOOTER_TAIL, 'articles.html/main close');
+
+    // Structural assertions on the finished document.
+    ['home-page', 'about-page', 'settings-page', 'contact-page', 'privacy-page', 'terms-page'].forEach(function (id) {
+        if (listing.indexOf('id="' + id + '"') !== -1) fail('articles.html: stripped section #' + id + ' still present');
+    });
+    ['articles-page', 'articles-index', 'article-view'].forEach(function (id) {
+        if (countOccurrences(listing, 'id="' + id + '"') !== 1) fail('articles.html: expected exactly one #' + id);
+    });
+    const listingH1s = countOccurrences(listing, '<h1');
+    if (listingH1s !== 1) fail('articles.html: expected exactly one <h1>, found ' + listingH1s);
+    const h1At = listing.indexOf('<h1>Articles</h1>');
+    if (!(h1At > listing.indexOf('id="articles-index"') && h1At < listing.indexOf('id="article-view"'))) {
+        fail('articles.html: the <h1> must be the listing heading, <h1>Articles</h1>, inside #articles-index');
+    }
+    if (countOccurrences(listing, '<main>') !== 1 || countOccurrences(listing, '</main>') !== 1 ||
+        countOccurrences(listing, '<main>\n                <div id="articles-page" class="page-content active">') !== 1) {
+        fail('articles.html: expected exactly one <main> element, opening on the active #articles-page');
+    }
+    const divOpens = (listing.match(/<div\b/g) || []).length;
+    const divCloses = countOccurrences(listing, '</div>');
+    if (divOpens !== divCloses) fail('articles.html: ' + divOpens + ' <div> opened but ' + divCloses + ' closed');
+    // The head is the /articles entry of PAGE_META, decoded the same way the
+    // page-heads.ts parity check above decodes it.
+    const listingMeta = pageMeta.routes.filter(function (r) { return r.key === 'articles'; })[0];
+    [
+        ['title', '<title>' + escapeHtml(listingMeta.title) + '</title>'],
+        ['description', '<meta name="description" content="' + escapeHtml(listingMeta.desc) + '">'],
+        ['canonical', '<link rel="canonical" href="' + listingMeta.url + '">'],
+        ['og:url', '<meta property="og:url" content="' + listingMeta.url + '">'],
+        ['og:title', '<meta property="og:title" content="' + escapeHtml(listingMeta.title) + '">'],
+        ['og:description', '<meta property="og:description" content="' + escapeHtml(listingMeta.desc) + '">'],
+        ['twitter:url', '<meta property="twitter:url" content="' + listingMeta.url + '">'],
+        ['twitter:title', '<meta property="twitter:title" content="' + escapeHtml(listingMeta.title) + '">'],
+        ['twitter:description', '<meta property="twitter:description" content="' + escapeHtml(listingMeta.desc) + '">'],
+        ['robots', '<meta name="robots" content="index, follow">'],
+    ].forEach(function (pair) {
+        if (countOccurrences(listing, pair[1]) !== 1) fail('articles.html: the ' + pair[0] + ' is not PAGE_META.articles; expected exactly one ' + pair[1]);
+    });
+    ['<title>', '<meta name="description"', '<link rel="canonical"', '<meta property="og:url"', '<meta property="og:title"',
+     '<meta property="og:description"', '<meta property="twitter:url"', '<meta property="twitter:title"',
+     '<meta property="twitter:description"', '<meta name="robots"'].forEach(function (tag) {
+        if (countOccurrences(listing, tag) !== 1) fail('articles.html: expected exactly one ' + tag + ', found ' + countOccurrences(listing, tag));
+    });
+    const navList = listing.slice(listing.indexOf(T.navListOpen), listing.indexOf('</ul>', listing.indexOf(T.navListOpen)));
+    if (countOccurrences(navList, 'class="active"') !== 1 || countOccurrences(navList, '<a href="/articles" class="active"') !== 1) {
+        fail('articles.html: the nav must mark Articles, and only Articles, active');
+    }
+    // The listing is index.html's, byte for byte, apart from the extra pair.
+    if (listingRegion(listing, 'articles.html') !== listingRegion(template, 'index.html').replace(LISTING_CLOSE_DOUBLED, LISTING_CLOSE + '\n')) {
+        fail('articles.html: the listing differs from the one in index.html');
+    }
+    if (countOccurrences(listing, 'class="article-item"') !== ARTICLE_ORDER.length) {
+        fail('articles.html: expected ' + ARTICLE_ORDER.length + ' article-item links, found ' + countOccurrences(listing, 'class="article-item"'));
+    }
+    const listingBreadcrumbs = ldBlocks(listing, 'articles.html').reduce(function (acc, b) { return acc + breadcrumbNodes(b.data).length; }, 0);
+    if (listingBreadcrumbs !== 0) fail('articles.html: expected no BreadcrumbList, found ' + listingBreadcrumbs);
+    if (countOccurrences(listing, 'data-prerendered') !== 0) fail('articles.html: carries data-prerendered, which marks an article document');
+    pageOnclickTotal += assertOnclickCoverage(listing, 'articles.html (emitted page)');
+    onclickAttrs(listing).forEach(function (o) {
+        const err = onclickParses(o.attr);
+        if (err) fail('articles.html: onclick attribute does not parse as JavaScript: ' + err + '. Attribute: ' + o.attr);
+    });
+    scriptContractChecked += assertScriptContract(listing, 'articles.html (emitted page)');
+    internalLinksChecked += assertInternalLinks(listing, 'articles.html (emitted page)', linkRefs);
+    // /articles is answered by this document now, not by the shell.
+    idsByPath['/articles'] = idsIn(listing);
+    emittedPages.push({ label: 'articles.html (emitted page)', html: listing });
+    fs.writeFileSync(LISTING_OUT, listing, 'utf8');
+    const listingSummary = 'Articles document passed: articles.html, ' + Buffer.byteLength(listing, 'utf8') + ' bytes, one <h1>Articles</h1> ' +
+        'inside #articles-index, one <main> on the active #articles-page, no other route section, ' + divOpens + ' divs opened and closed, ' +
+        'head equal to PAGE_META.articles, Articles active in the nav, the listing byte for byte from index.html with its ' +
+        ARTICLE_ORDER.length + ' article links, no BreadcrumbList.';
 
     // ---- standalone pages ----
     //
@@ -3783,7 +4023,13 @@ function main() {
     // that cost this site its indexing on GitHub Pages, so it fails the build
     // here instead of reaching production. VALID_PAGES in js/core.js is the one
     // source of truth; this asserts against it rather than keeping a second list.
+    // /articles is the one route answered by its own emitted document rather
+    // than the shell, so it is the one VALID_PAGES route with no shell rewrite.
     const expectedRoutes = validPages.map(function (p) { return p === 'home' ? '/' : '/' + p; }).sort();
+    if (expectedRoutes.indexOf('/articles') === -1) {
+        fail('VALID_PAGES in js/core.js has no articles route, but articles.html is emitted for /articles');
+    }
+    const expectedShellRoutes = expectedRoutes.filter(function (r) { return r !== '/articles'; });
 
     const shellRewrites = redirectsSrc.split('\n')
         .map(function (l) { return l.trim(); })
@@ -3793,10 +4039,27 @@ function main() {
         .map(function (f) { return f[0]; })
         .sort();
 
-    if (shellRewrites.join(' ') !== expectedRoutes.join(' ')) {
-        fail('_redirects SPA rewrites do not match VALID_PAGES in js/core.js.\n' +
+    if (shellRewrites.join(' ') !== expectedShellRoutes.join(' ')) {
+        fail('_redirects SPA rewrites do not match VALID_PAGES in js/core.js (every route but /articles, which has its own document).\n' +
              '  _redirects: ' + shellRewrites.join(' ') + '\n' +
-             '  VALID_PAGES: ' + expectedRoutes.join(' '));
+             '  expected:   ' + expectedShellRoutes.join(' '));
+    }
+    // /articles is rewritten to its document, and the document's own path is
+    // forced to 301 to /articles, or it would be a duplicate at 200.
+    const listingRules = redirectRules.filter(function (r) { return r.source === '/articles'; });
+    if (listingRules.length !== 1 || listingRules[0].target !== '/articles.html' || listingRules[0].status !== '200' || listingRules[0].forced) {
+        fail('_redirects: expected exactly one rule for /articles, "/articles /articles.html 200", found ' +
+             (listingRules.length ? listingRules.map(function (r) { return '"' + r.source + ' ' + r.target + ' ' + r.status + (r.forced ? '!' : '') + '"'; }).join(', ') : 'none') +
+             '. Without it /articles is a 404.');
+    }
+    const listingHtmlRules = redirectRules.filter(function (r) { return r.source === '/articles.html'; });
+    if (listingHtmlRules.length !== 1 || listingHtmlRules[0].target !== '/articles' || listingHtmlRules[0].status !== '301' || !listingHtmlRules[0].forced) {
+        fail('_redirects: expected exactly one rule for /articles.html, "/articles.html /articles 301!", found ' + listingHtmlRules.length +
+             '. Without it /articles.html serves a byte-for-byte duplicate at 200.');
+    }
+    if (!fs.existsSync(LISTING_OUT)) fail('articles.html was not written, so /articles would 404');
+    if (gitignoreLines.indexOf('articles.html') === -1 && gitignoreLines.indexOf('/articles.html') === -1) {
+        fail('.gitignore: articles.html is build output and must be ignored');
     }
     // A catch-all is a rule whose SOURCE path is exactly /*. Checking for the
     // substring would also match /scripts/* and /netlify/*, which are fine.
@@ -3843,8 +4106,9 @@ function main() {
         fail('the pre-paint theme snippet in 404.html does not match index.html byte for byte');
     }
 
-    const totalEmitted = emitted + standaloneEmitted;
+    const totalEmitted = emitted + 1 + standaloneEmitted;
     console.log('Pre-rendered ' + emitted + ' article pages into articles/');
+    console.log(listingSummary);
     console.log('Pre-rendered ' + standaloneEmitted + ' standalone page' + (standaloneEmitted === 1 ? '' : 's') +
                 ' into the site root: ' + standaloneNames.join(', '));
     console.log('Onclick coverage: ' + pageOnclickTotal + ' attributes across the emitted pages, strict and permissive counts equal on every page.');
@@ -3950,7 +4214,8 @@ function main() {
                     return '; /' + sp.slug + ' <main>: ' + sp.__cyrillicRuns + ' Cyrillic text runs, all guarded (' +
                            sp.__proseRuns + ' in lang="ru" prose spans)';
                 }).join('') + '.');
-    console.log('Routing checks passed: ' + expectedRoutes.length + ' SPA routes match VALID_PAGES, ' +
+    console.log('Routing checks passed: ' + expectedShellRoutes.length + ' shell rewrites match VALID_PAGES, /articles rewritten to articles.html ' +
+                'and /articles.html forced to 301 back, ' +
                 ARTICLE_ORDER.length + ' article files on disk, ' + standaloneEmitted + ' standalone file' +
                 (standaloneEmitted === 1 ? '' : 's') + ' on disk, 404.html clean.');
 }
