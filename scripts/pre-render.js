@@ -219,6 +219,49 @@ function assertAdsenseAbsent(docs) {
     return files.length;
 }
 
+// ---- display ads: the Journey by Mediavine script ----
+//
+// The ad script, byte for byte as the Journey dashboard gives it (Settings > Ad
+// Setup). Journey's onboarding asks for it "just before the closing </head>
+// tag", so index.html carries it as the last element in <head>, inside
+// JOURNEY_BLOCK, and every page emitted from the template inherits it. The
+// schema blocks and /es's QUIZ_PAGE script are inserted before the block
+// (T.adTail), never after it, so the tag stays last there too. 404.html is
+// written by hand and never carries it: error and dead-end screens carry no ads.
+const JOURNEY_TAG = '<script type="text/javascript" async="async" data-noptimize="1" data-cfasync="false" ' +
+    'src="//scripts.scriptwrapper.com/tags/0f4d724d-efc6-493d-9d37-0ec09bb2dbc1.js"></script>';
+const JOURNEY_BLOCK = '    <!-- Journey by Mediavine: display ads. Keep this the last element in <head>; see CLAUDE.md. -->\n' +
+    '    ' + JOURNEY_TAG + '\n</head>';
+// Counted anywhere in a document, so a second copy or a variant of the tag
+// (another site id, another protocol, a commented-out copy) fails too.
+const JOURNEY_HOST = 'scriptwrapper';
+
+// docs: [label, html] pairs for index.html and every emitted page. Returns the
+// number of documents checked.
+function assertDisplayAds(docs, notFound) {
+    docs.forEach(function (d) {
+        const label = d[0], html = d[1];
+        const tags = countOccurrences(html, JOURNEY_TAG);
+        if (tags !== 1) {
+            fail(label + ': expected the Journey ad script exactly once, byte for byte as JOURNEY_TAG, found ' + tags);
+        }
+        const hosts = countOccurrences(html, JOURNEY_HOST);
+        if (hosts !== 1) {
+            fail(label + ': "' + JOURNEY_HOST + '" appears ' + hosts + ' times; only the one Journey tag may name it');
+        }
+        const heads = countOccurrences(html, '</head>');
+        if (heads !== 1) fail(label + ': expected exactly one </head>, found ' + heads);
+        if (countOccurrences(html, JOURNEY_TAG + '\n</head>') !== 1) {
+            fail(label + ': the Journey ad script must be the last element in <head>, directly before </head>');
+        }
+    });
+    const in404 = countOccurrences(notFound, JOURNEY_HOST);
+    if (in404 !== 0) {
+        fail('404.html: carries "' + JOURNEY_HOST + '" ' + in404 + ' time(s); error and dead-end screens carry no ads');
+    }
+    return docs.length;
+}
+
 // Every onclick="..." attribute in `html`, as raw attribute text plus its offset.
 // This is the strict matcher the two rules below read. It only recognises the one
 // spelling the codebase uses, which is why onclickOccurrences() exists to prove
@@ -2784,7 +2827,7 @@ function main() {
         twUrl: '<meta property="twitter:url" content="https://cyrilica.com/">',
         twTitle: '<meta property="twitter:title" content="Learn the Russian Alphabet Free — Cyrillic Tool | Cyrilica">',
         twDesc: '<meta property="twitter:description" content="Free interactive tool to learn the Russian alphabet. Practice all 33 Cyrillic letters with instant feedback, pronunciation audio, and progress tracking. No signup required.">',
-        headClose: '</head>',
+        adTail: JOURNEY_BLOCK,  // the ad script's block, then </head>; insertions go before it
         body: '<body>',  // replaced with the data-prerendered marker
         homePage: '<div id="home-page" class="page-content active">',
         articlesPage: '<div id="articles-page" class="page-content">',
@@ -3030,7 +3073,7 @@ function main() {
         page = replaceOnce(page, T.twUrl, '<meta property="twitter:url" content="' + articleUrl + '">', slug + '/twitter:url');
         page = replaceOnce(page, T.twTitle, '<meta property="twitter:title" content="' + escTitleAttr + '">', slug + '/twitter:title');
         page = replaceOnce(page, T.twDesc, '<meta property="twitter:description" content="' + head.description + '">', slug + '/twitter:description');
-        page = replaceOnce(page, T.headClose, schemaScripts + '</head>', slug + '/schema');
+        page = replaceOnce(page, T.adTail, schemaScripts + T.adTail, slug + '/schema');
         page = replaceOnce(page, T.homePage, '<div id="home-page" class="page-content">', slug + '/home-page state');
         page = replaceOnce(page, T.articlesPage, '<div id="articles-page" class="page-content active">', slug + '/articles-page state');
         page = replaceOnce(page, T.articlesIndex, '<div id="articles-index" class="articles-view active" style="display: none;">', slug + '/articles-index state');
@@ -3482,7 +3525,7 @@ function main() {
         page = replaceOnce(page, T.twUrl, '<meta property="twitter:url" content="' + url + '">', sp.slug + '/twitter:url');
         page = replaceOnce(page, T.twTitle, '<meta property="twitter:title" content="' + escTitle + '">', sp.slug + '/twitter:title');
         page = replaceOnce(page, T.twDesc, '<meta property="twitter:description" content="' + escDesc + '">', sp.slug + '/twitter:description');
-        page = replaceOnce(page, T.headClose, schemaScripts + quizPageScript + '</head>', sp.slug + '/schema');
+        page = replaceOnce(page, T.adTail, schemaScripts + quizPageScript + T.adTail, sp.slug + '/schema');
         // data-standalone, never data-prerendered: that attribute means "an
         // article is already painted here" and is read by handleInitialURL.
         page = replaceOnce(page, T.body, '<body data-standalone="' + sp.slug + '">', sp.slug + '/body marker');
@@ -4117,6 +4160,9 @@ function main() {
     // ---- no AdSense anywhere (404.html included) ----
     const adsenseChecked = assertAdsenseAbsent([['index.html', template], ['404.html', notFoundSrc]]
         .concat(emittedPages.map(function (r) { return [r.label, r.html]; })));
+    // ---- the Journey ad script: once, last in <head>, never on 404.html ----
+    const displayAdsChecked = assertDisplayAds([['index.html', template]]
+        .concat(emittedPages.map(function (r) { return [r.label, r.html]; })), notFoundSrc);
 
     // ---- the 404 page ----
     const notFound = notFoundSrc;
@@ -4148,6 +4194,9 @@ function main() {
     console.log('AdSense absent passed: none of ' + ADSENSE_NEEDLES.length + ' AdSense strings in ' + adsenseChecked +
                 ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
                 ' scripts in js/); ads.txt is exempt until Release 2.');
+    console.log('Display ads passed: the Journey by Mediavine ad script once, byte for byte, as the last element in <head> on ' +
+                displayAdsChecked + ' documents (index.html and ' + (displayAdsChecked - 1) + ' emitted pages), and "' +
+                JOURNEY_HOST + '" nowhere else in them; absent from 404.html.');
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
