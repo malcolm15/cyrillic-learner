@@ -2,8 +2,9 @@
 #
 # 1. the apex redirect, forced, so it beats the real files on the netlify.app host
 # 2. internal files, forced, so they lose to nothing
-# 3. retired URLs, 301
-# 4. the seven SPA routes: six rewritten to the shell, /articles to its own
+# 3. ads.txt, forced 301 to Journey by Mediavine's hosted file
+# 4. retired URLs, 301
+# 5. the seven SPA routes: six rewritten to the shell, /articles to its own
 #    emitted document
 #
 # There is deliberately no /* catch-all. Anything that matches no rule and no
@@ -20,6 +21,12 @@ https://dapper-axolotl-1f65df.netlify.app/* https://cyrilica.com/:splat 301!
 /CLAUDE.md                      /404.html  404!
 /README.md                      /404.html  404!
 /SECURITY.md                    /404.html  404!
+
+# ads.txt is Journey by Mediavine's hosted file, which Journey keeps current, so
+# the site serves no copy of its own. Written in lowercase. scripts/pre-render.js
+# asserts this is the only ads.txt rule, that its target is ADS_TXT_URL, that no
+# earlier rule matches /ads.txt, and that no ads.txt sits at the root.
+/ads.txt https://adstxt.journeymv.com/sites/0f4d724d-efc6-493d-9d37-0ec09bb2dbc1/ads.txt 301!
 
 /articles/cyrillic-alphabet-chart /articles/russian-alphabet-chart 301
 /articles/cyrillic-handwriting /articles/practice-writing-cyrillic 301
