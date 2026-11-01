@@ -353,6 +353,34 @@ function assertJourneyContent(withView, without, others) {
     return withView.length;
 }
 
+// ---- analytics: no free text ----
+//
+// Google Analytics receives what happened (a result, a letter), never what a
+// visitor typed. The quiz's incorrect-answer event used to send the typed answer
+// as user_answer, so whatever went into the answer box, a name or an email
+// address included, went to Google with it (ledger row 368). No served document
+// or script may name that parameter again. The scripts are the same three
+// ADSENSE_SCRIPTS lists.
+const ANALYTICS_FREE_TEXT = ['user_answer'];
+
+// docs: [label, html] pairs for index.html, 404.html and every emitted page.
+// Returns the number of files checked.
+function assertNoFreeTextAnalytics(docs) {
+    const files = docs.concat(ADSENSE_SCRIPTS.map(function (f) {
+        return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
+    }));
+    files.forEach(function (d) {
+        ANALYTICS_FREE_TEXT.forEach(function (name) {
+            const n = countOccurrences(d[1], name);
+            if (n !== 0) {
+                fail(d[0] + ': carries "' + name + '" ' + n + ' time(s). Free-text answers must never be sent to ' +
+                     'analytics: send the result and the letter, never what the visitor typed.');
+            }
+        });
+    });
+    return files.length;
+}
+
 // Every onclick="..." attribute in `html`, as raw attribute text plus its offset.
 // This is the strict matcher the two rules below read. It only recognises the one
 // spelling the codebase uses, which is why onclickOccurrences() exists to prove
@@ -4262,6 +4290,9 @@ function main() {
         ['css/styles.css', 'js/core.js', 'js/articles.js', 'js/article-scripts.js'].map(function (f) {
             return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
         }));
+    // ---- analytics: no typed answer in any served document or script ----
+    const freeTextChecked = assertNoFreeTextAnalytics([['index.html', template], ['404.html', notFoundSrc]]
+        .concat(emittedPages.map(function (r) { return [r.label, r.html]; })));
 
     // ---- the 404 page ----
     const notFound = notFoundSrc;
@@ -4301,6 +4332,9 @@ function main() {
     console.log('Content marker passed: journey-content once, on the #article-content element, in ' + contentMarked +
                 ' documents (index.html, articles.html and ' + (contentMarked - 2) + ' articles); absent from 404.html and ' +
                 STANDALONE_PAGES.length + ' standalone pages; journey-sidebar nowhere.');
+    console.log('Analytics free text passed: no "' + ANALYTICS_FREE_TEXT.join('", "') + '" in ' + freeTextChecked +
+                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
+                ' scripts in js/); events carry results and letters, never typed text.');
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
