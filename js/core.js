@@ -1520,8 +1520,7 @@ function checkAnswer() {
         if (typeof gtag !== 'undefined') {
             gtag('event', 'question_answered', {
                 'result': 'incorrect',
-                'character': currentChar,
-                'user_answer': input
+                'character': currentChar
             });
         }
         
