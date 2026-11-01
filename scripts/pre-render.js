@@ -189,6 +189,36 @@ function assertScriptContract(html, label) {
     return tags.length;
 }
 
+// ---- display ads: no AdSense ----
+//
+// Journey by Mediavine is exclusive for display ads, and its onboarding searches
+// page source for ad code left over from a previous network. So no document the
+// site serves, and none of the three scripts in js/, may carry any of these
+// strings: the AdSense script's name and host, an AdSense client id, and this
+// site's old AdSense account. ads.txt is the one exception. It keeps its AdSense
+// line until Release 2 replaces the file with a 301 to Journey's hosted ads.txt
+// (CLAUDE.md, "Display ads"), so it is deliberately not read here.
+const ADSENSE_NEEDLES = ['adsbygoogle', 'pagead2', 'googlesyndication.com', 'ca-pub-', 'pub-5821564771189825'];
+const ADSENSE_SCRIPTS = ['js/core.js', 'js/articles.js', 'js/article-scripts.js'];
+
+// docs: [label, html] pairs for index.html, 404.html and every emitted page.
+// Returns the number of files checked.
+function assertAdsenseAbsent(docs) {
+    const files = docs.concat(ADSENSE_SCRIPTS.map(function (f) {
+        return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
+    }));
+    files.forEach(function (d) {
+        ADSENSE_NEEDLES.forEach(function (needle) {
+            const n = countOccurrences(d[1], needle);
+            if (n !== 0) {
+                fail(d[0] + ': carries "' + needle + '" ' + n + ' time(s). AdSense is removed: Journey by Mediavine ' +
+                     'is exclusive for display ads, and its onboarding rejects leftover ad code.');
+            }
+        });
+    });
+    return files.length;
+}
+
 // Every onclick="..." attribute in `html`, as raw attribute text plus its offset.
 // This is the strict matcher the two rules below read. It only recognises the one
 // spelling the codebase uses, which is why onclickOccurrences() exists to prove
@@ -4084,11 +4114,12 @@ function main() {
         }
     });
 
+    // ---- no AdSense anywhere (404.html included) ----
+    const adsenseChecked = assertAdsenseAbsent([['index.html', template], ['404.html', notFoundSrc]]
+        .concat(emittedPages.map(function (r) { return [r.label, r.html]; })));
+
     // ---- the 404 page ----
     const notFound = notFoundSrc;
-    if (countOccurrences(notFound, 'adsbygoogle') !== 0) {
-        fail('404.html carries the AdSense script; Google does not allow ads on error screens');
-    }
     if (countOccurrences(notFound, '<link rel="canonical"') !== 0) {
         fail('404.html declares a canonical; it stands for no URL of its own');
     }
@@ -4114,6 +4145,9 @@ function main() {
     console.log('Onclick coverage: ' + pageOnclickTotal + ' attributes across the emitted pages, strict and permissive counts equal on every page.');
     console.log('Script contract passed: ' + scriptContractChecked + ' core script tags across index.html and ' +
                 totalEmitted + ' emitted pages, all three present once each, in order, classic, no async or defer.');
+    console.log('AdSense absent passed: none of ' + ADSENSE_NEEDLES.length + ' AdSense strings in ' + adsenseChecked +
+                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
+                ' scripts in js/); ads.txt is exempt until Release 2.');
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
