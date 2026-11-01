@@ -1521,23 +1521,49 @@ releases.
   never names `scriptwrapper`. "AdSense absent passed": none of the strings in
   `ADSENSE_NEEDLES` (the AdSense script's name and host, the client id prefix,
   the old account id) appears in `index.html`, `404.html`, any emitted page or
-  the three scripts in `js/`.
-- **ads.txt** still carries the old AdSense line. It is exempt from the AdSense
-  check, by a comment in `scripts/pre-render.js`, until Release 2 replaces the
-  file; the exemption goes with it.
+  the three scripts in `js/`, and no `ads.txt` exists at the root (Release 2).
 - **Privacy and terms.** The privacy policy names Journey by Mediavine and refers
   to "Mediavine's advertising privacy notice", which Journey's script injects
   into `/privacy`. Our own text must be accurate before that happens: never say
   where on the page the notice appears. The terms say advertising on the site is
   provided by Journey by Mediavine.
 
-**Release 2: after the wizard verifies the script.** `ads.txt` becomes a forced
-301 in `_redirects` to the exact hosted-file URL the wizard gives, with the root
-file deleted, the exemption removed and the rule asserted. `#article-content`
-gains a `journey-content` class: it is the direct parent of the article content,
-which is where Journey wants that marker, and appears once per document. Then
-the dashboard's Content Selector and Mobile Header Offset (the fixed nav is 74 px
-tall) are set, and Journey's page-load listeners for custom sites are requested.
+**Release 2: ads.txt and the content marker.**
+- **ads.txt is Journey's hosted file.** There is no `ads.txt` in the repo.
+  `_redirects` carries one forced rule, in lowercase, after the internal-file
+  denies: `/ads.txt https://adstxt.journeymv.com/sites/0f4d724d-efc6-493d-9d37-0ec09bb2dbc1/ads.txt 301!`,
+  the exact URL the Journey wizard gives, held in `scripts/pre-render.js` as
+  `ADS_TXT_URL`. Journey keeps that file current, so the site never serves a
+  copy: a local file would go stale, and would win silently if the rule were
+  ever lost. "ads.txt passed": no `ads.txt` at the root in any letter case;
+  exactly one `/ads.txt` rule, written `/ads.txt`, status `301!`, target
+  `ADS_TXT_URL` (https, off this site); no earlier path rule matches `/ads.txt`;
+  and the edge function keeps `/*.txt` in `excludedPath`. A new URL from Journey
+  means changing the rule and `ADS_TXT_URL` together, or the build fails.
+  Crawlers may follow same-site hops (http to https, www to the apex) and then
+  exactly one hop off the site (the IAB ads.txt 1.1 rule), so Journey's URL must
+  answer 200 without a further redirect; that is checked on every Deploy Preview
+  and after the merge, not by the build.
+- **journey-content.** The element `id="article-content"` carries the class
+  `journey-content` (`JOURNEY_CONTENT_TAG` in `scripts/pre-render.js`, used for
+  both the `T.contentBlock` needle and the emitted article container). It is the
+  direct parent of the article content, which is where Journey wants the marker,
+  and it is in `index.html` (the shell's article view), every emitted article
+  and `articles.html` (whose hidden, empty article view stays for in-app
+  opening). "Content marker passed": the class appears exactly once, on that
+  element, in `index.html`, `articles.html` and each of the 28 articles; never in
+  `404.html`, `/teachers` or `/es`; and `journey-sidebar` appears nowhere, because
+  the site has no sidebar. Nothing styles or scripts the class.
+
+**Dashboard settings: decisions still open, none applied.**
+- Content Selector: left blank unless placement tests (`?test=placeholders`,
+  checked by Malc in a normal browser) show Journey's automatic targeting
+  failing; then `.journey-content` is the selector to use.
+- Mobile Header Offset: set to the fixed nav's height (measured at 74 px at 1280
+  and 390 wide) only if placements show ads under the nav.
+- Journey's custom page-load listeners: requested only if in-app navigation shows
+  a problem.
+- Event-driven ads: stay off.
 
 **How the SPA meets the script.** Journey puts no content ads on the homepage,
 and its documentation places in-content ads between the direct children of the
@@ -1579,8 +1605,10 @@ Display ads: Journey Release 1 removed the AdSense tag and installed the Journey
 by Mediavine script on every page except 404.html; the privacy policy and terms
 name Journey by Mediavine. The certified EEA, UK and Switzerland consent message
 that the AdSense tag delivered went with it; Journey's own consent platform
-replaces it once Journey serves. Open: Release 2 (the ads.txt 301 and the
-journey-content class) after the onboarding wizard verifies the script.
+replaces it once Journey serves. Release 2 sent /ads.txt to Journey's hosted
+file with a forced 301 (the root file deleted) and marked `#article-content`
+with `journey-content`. Open: the dashboard settings listed under "Display ads",
+decided from placement tests in a normal browser.
 Possible cursive phase B (more
 letters or a tracing mode) if engagement data justifies it. Audio for non-Russian
 letters is deferred and viable. Explicitly ruled out (do not re-propose): a faux

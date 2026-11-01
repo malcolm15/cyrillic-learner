@@ -195,15 +195,19 @@ function assertScriptContract(html, label) {
 // page source for ad code left over from a previous network. So no document the
 // site serves, and none of the three scripts in js/, may carry any of these
 // strings: the AdSense script's name and host, an AdSense client id, and this
-// site's old AdSense account. ads.txt is the one exception. It keeps its AdSense
-// line until Release 2 replaces the file with a 301 to Journey's hosted ads.txt
-// (CLAUDE.md, "Display ads"), so it is deliberately not read here.
+// site's old AdSense account. ads.txt, which carried the old account's line, is
+// no longer a file at all (see ADS_TXT_URL below), and must stay that way.
 const ADSENSE_NEEDLES = ['adsbygoogle', 'pagead2', 'googlesyndication.com', 'ca-pub-', 'pub-5821564771189825'];
 const ADSENSE_SCRIPTS = ['js/core.js', 'js/articles.js', 'js/article-scripts.js'];
 
 // docs: [label, html] pairs for index.html, 404.html and every emitted page.
 // Returns the number of files checked.
 function assertAdsenseAbsent(docs) {
+    const strayAdsTxt = rootAdsTxtFiles();
+    if (strayAdsTxt.length) {
+        fail(strayAdsTxt.join(', ') + ' exists at the site root; ads.txt is Journey\'s hosted file, ' +
+             'reached through the /ads.txt rule in _redirects, and a local copy is where the old AdSense line lived.');
+    }
     const files = docs.concat(ADSENSE_SCRIPTS.map(function (f) {
         return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
     }));
@@ -217,6 +221,61 @@ function assertAdsenseAbsent(docs) {
         });
     });
     return files.length;
+}
+
+// ---- display ads: ads.txt ----
+//
+// ads.txt is Journey by Mediavine's hosted file, which Journey keeps current.
+// _redirects sends /ads.txt there with a forced 301 and the site serves no copy
+// of its own: a stale local file would win silently if the rule were ever lost.
+// This is the exact URL the Journey onboarding wizard gives.
+const ADS_TXT_URL = 'https://adstxt.journeymv.com/sites/0f4d724d-efc6-493d-9d37-0ec09bb2dbc1/ads.txt';
+
+// Netlify serves a static file whatever the case of the request, so any
+// spelling of ads.txt at the root counts.
+function rootAdsTxtFiles() {
+    return fs.readdirSync(ROOT).filter(function (n) { return n.toLowerCase() === 'ads.txt'; });
+}
+
+function assertAdsTxt(redirectRules, edgeSrc) {
+    const files = rootAdsTxtFiles();
+    if (files.length) {
+        fail(files.join(', ') + ' exists at the site root. /ads.txt is a forced 301 to Journey\'s hosted file ' +
+             '(ADS_TXT_URL); a copy here would go stale, and would be served if the rule were lost.');
+    }
+    const at = [];
+    redirectRules.forEach(function (r, i) {
+        if (r.source.toLowerCase().replace(/\/$/, '') === '/ads.txt') at.push(i);
+    });
+    if (at.length !== 1) fail('_redirects: expected exactly one /ads.txt rule, found ' + at.length);
+    const rule = redirectRules[at[0]];
+    if (rule.source !== '/ads.txt') {
+        fail('_redirects: the ads.txt rule must be written "/ads.txt", in lowercase, found "' + rule.source + '"');
+    }
+    if (rule.target !== ADS_TXT_URL) {
+        fail('_redirects: /ads.txt must point at ADS_TXT_URL (' + ADS_TXT_URL + '), found "' + rule.target + '"');
+    }
+    if (rule.status !== '301' || !rule.forced) {
+        fail('_redirects: the /ads.txt rule must be "301!" (forced), found "' + rule.status + (rule.forced ? '!' : '') + '"');
+    }
+    let url = null;
+    try { url = new URL(ADS_TXT_URL); } catch (e) { fail('ADS_TXT_URL is not a URL: ' + e.message); }
+    const host = url.hostname.toLowerCase();
+    if (url.protocol !== 'https:' || host === 'cyrilica.com' || /\.cyrilica\.com$/.test(host) || /\.netlify\.app$/.test(host)) {
+        fail('ADS_TXT_URL must be an https URL off this site: ' + ADS_TXT_URL);
+    }
+    // Netlify takes the first match. A source that is a full URL (the Netlify
+    // subdomain rule) applies to that host only, so it is not a path match.
+    redirectRules.slice(0, at[0]).forEach(function (r) {
+        if (r.source.charAt(0) !== '/') return;
+        const s = r.source.toLowerCase();
+        const hit = s.slice(-2) === '/*' ? '/ads.txt'.indexOf(s.slice(0, -1)) === 0 : s.replace(/\/$/, '') === '/ads.txt';
+        if (hit) fail('_redirects: "' + r.source + '" comes before the /ads.txt rule and also matches /ads.txt');
+    });
+    if (parseExcludedPath(edgeSrc).indexOf('/*.txt') === -1) {
+        fail('netlify/edge-functions/head-rewrite.ts: "/*.txt" must stay in excludedPath, so the edge function ' +
+             'never handles ads.txt or the IndexNow key file.');
+    }
 }
 
 // ---- display ads: the Journey by Mediavine script ----
@@ -260,6 +319,38 @@ function assertDisplayAds(docs, notFound) {
         fail('404.html: carries "' + JOURNEY_HOST + '" ' + in404 + ' time(s); error and dead-end screens carry no ads');
     }
     return docs.length;
+}
+
+// ---- display ads: the content marker ----
+//
+// Journey places in-content ads inside the container whose direct children are
+// the content itself (paragraphs, headings, widgets), and prefers to find it by a
+// journey-content class. That container is #article-content: the shell's article
+// view, every emitted article, and the hidden, empty view articles.html keeps
+// for in-app opening. The class must be unique per document, so it appears
+// exactly once, on that element. 404.html and the standalone pages have no
+// article view and carry none. The site has no sidebar, so journey-sidebar
+// appears nowhere.
+const JOURNEY_CONTENT_TAG = '<div class="article-content content-text journey-content" id="article-content">';
+
+// withView and without: [label, html] pairs. others: more [label, text] pairs
+// that must not name journey-sidebar. Returns the number of marked documents.
+function assertJourneyContent(withView, without, others) {
+    withView.forEach(function (d) {
+        const n = countOccurrences(d[1], 'journey-content');
+        if (n !== 1) fail(d[0] + ': expected the journey-content class exactly once, found ' + n);
+        if (countOccurrences(d[1], JOURNEY_CONTENT_TAG) !== 1) {
+            fail(d[0] + ': journey-content must sit on the #article-content element: ' + JOURNEY_CONTENT_TAG);
+        }
+    });
+    without.forEach(function (d) {
+        const n = countOccurrences(d[1], 'journey-content');
+        if (n !== 0) fail(d[0] + ': carries journey-content ' + n + ' time(s); only a document with an article view may');
+    });
+    withView.concat(without, others).forEach(function (d) {
+        if (countOccurrences(d[1], 'journey-sidebar') !== 0) fail(d[0] + ': names journey-sidebar, but the site has no sidebar');
+    });
+    return withView.length;
 }
 
 // Every onclick="..." attribute in `html`, as raw attribute text plus its offset.
@@ -2005,6 +2096,7 @@ function main() {
     assertCursiveData();
     assertCursiveTableDerived(articlesSrc);
     assertDownloads(articlesSrc, edgeSrc, redirectRules);
+    assertAdsTxt(redirectRules, edgeSrc);
 
     // ---- data: shared page-head artifact for the SPA routes (same file the edge function imports) ----
     // PAGE_META in core.js is the source of truth; the artifact must equal it,
@@ -2837,7 +2929,7 @@ function main() {
         navArticles: '<li><a href="/articles" onclick="navTo(event, \'articles\', null)">Articles</a></li>',
         articleTitle: '<h2 id="article-title"></h2>',
         listingTitle: '<h2>Articles</h2>',
-        contentBlock: '<div class="article-content content-text" id="article-content">\n' +
+        contentBlock: JOURNEY_CONTENT_TAG + '\n' +
             '                                <!-- Article content loaded here -->\n' +
             '                            </div>',
         relatedOpen: '<div class="related-articles" id="related-articles-section" style="display: none;">',
@@ -3082,7 +3174,7 @@ function main() {
         page = replaceOnce(page, T.navArticles, '<li><a href="/articles" class="active" onclick="navTo(event, \'articles\', null)">Articles</a></li>', slug + '/nav articles');
         page = replaceOnce(page, T.articleTitle, '<h1 id="article-title">' + escapeHtml(article.title) + '</h1>', slug + '/article title');
         page = replaceOnce(page, T.contentBlock,
-            '<div class="article-content content-text" id="article-content">' + article.content + '</div>',
+            JOURNEY_CONTENT_TAG + article.content + '</div>',
             slug + '/article content');
         page = replaceOnce(page, T.relatedOpen, '<div class="related-articles" id="related-articles-section" style="display: block;">', slug + '/related section state');
         page = replaceOnce(page, T.relatedPlaceholder, relatedCards, slug + '/related cards');
@@ -4163,6 +4255,13 @@ function main() {
     // ---- the Journey ad script: once, last in <head>, never on 404.html ----
     const displayAdsChecked = assertDisplayAds([['index.html', template]]
         .concat(emittedPages.map(function (r) { return [r.label, r.html]; })), notFoundSrc);
+    // ---- journey-content: once, on #article-content, wherever an article view exists ----
+    const contentMarked = assertJourneyContent(
+        [['index.html', template]].concat(emittedPages.filter(function (r) { return !r.slug; }).map(function (r) { return [r.label, r.html]; })),
+        [['404.html', notFoundSrc]].concat(emittedPages.filter(function (r) { return r.slug; }).map(function (r) { return [r.label, r.html]; })),
+        ['css/styles.css', 'js/core.js', 'js/articles.js', 'js/article-scripts.js'].map(function (f) {
+            return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
+        }));
 
     // ---- the 404 page ----
     const notFound = notFoundSrc;
@@ -4193,10 +4292,15 @@ function main() {
                 totalEmitted + ' emitted pages, all three present once each, in order, classic, no async or defer.');
     console.log('AdSense absent passed: none of ' + ADSENSE_NEEDLES.length + ' AdSense strings in ' + adsenseChecked +
                 ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
-                ' scripts in js/); ads.txt is exempt until Release 2.');
+                ' scripts in js/), and no ads.txt at the root.');
+    console.log('ads.txt passed: no ads.txt at the root; one forced rule sends /ads.txt to ' + ADS_TXT_URL +
+                ' (301!, https, off-site), no earlier rule matches /ads.txt, and the edge function still excludes /*.txt.');
     console.log('Display ads passed: the Journey by Mediavine ad script once, byte for byte, as the last element in <head> on ' +
                 displayAdsChecked + ' documents (index.html and ' + (displayAdsChecked - 1) + ' emitted pages), and "' +
                 JOURNEY_HOST + '" nowhere else in them; absent from 404.html.');
+    console.log('Content marker passed: journey-content once, on the #article-content element, in ' + contentMarked +
+                ' documents (index.html, articles.html and ' + (contentMarked - 2) + ' articles); absent from 404.html and ' +
+                STANDALONE_PAGES.length + ' standalone pages; journey-sidebar nowhere.');
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
