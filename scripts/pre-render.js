@@ -321,6 +321,38 @@ function assertDisplayAds(docs, notFound) {
     return docs.length;
 }
 
+// ---- display ads: the content marker ----
+//
+// Journey places in-content ads inside the container whose direct children are
+// the content itself (paragraphs, headings, widgets), and prefers to find it by a
+// journey-content class. That container is #article-content: the shell's article
+// view, every emitted article, and the hidden, empty view articles.html keeps
+// for in-app opening. The class must be unique per document, so it appears
+// exactly once, on that element. 404.html and the standalone pages have no
+// article view and carry none. The site has no sidebar, so journey-sidebar
+// appears nowhere.
+const JOURNEY_CONTENT_TAG = '<div class="article-content content-text journey-content" id="article-content">';
+
+// withView and without: [label, html] pairs. others: more [label, text] pairs
+// that must not name journey-sidebar. Returns the number of marked documents.
+function assertJourneyContent(withView, without, others) {
+    withView.forEach(function (d) {
+        const n = countOccurrences(d[1], 'journey-content');
+        if (n !== 1) fail(d[0] + ': expected the journey-content class exactly once, found ' + n);
+        if (countOccurrences(d[1], JOURNEY_CONTENT_TAG) !== 1) {
+            fail(d[0] + ': journey-content must sit on the #article-content element: ' + JOURNEY_CONTENT_TAG);
+        }
+    });
+    without.forEach(function (d) {
+        const n = countOccurrences(d[1], 'journey-content');
+        if (n !== 0) fail(d[0] + ': carries journey-content ' + n + ' time(s); only a document with an article view may');
+    });
+    withView.concat(without, others).forEach(function (d) {
+        if (countOccurrences(d[1], 'journey-sidebar') !== 0) fail(d[0] + ': names journey-sidebar, but the site has no sidebar');
+    });
+    return withView.length;
+}
+
 // Every onclick="..." attribute in `html`, as raw attribute text plus its offset.
 // This is the strict matcher the two rules below read. It only recognises the one
 // spelling the codebase uses, which is why onclickOccurrences() exists to prove
@@ -2897,7 +2929,7 @@ function main() {
         navArticles: '<li><a href="/articles" onclick="navTo(event, \'articles\', null)">Articles</a></li>',
         articleTitle: '<h2 id="article-title"></h2>',
         listingTitle: '<h2>Articles</h2>',
-        contentBlock: '<div class="article-content content-text" id="article-content">\n' +
+        contentBlock: JOURNEY_CONTENT_TAG + '\n' +
             '                                <!-- Article content loaded here -->\n' +
             '                            </div>',
         relatedOpen: '<div class="related-articles" id="related-articles-section" style="display: none;">',
@@ -3142,7 +3174,7 @@ function main() {
         page = replaceOnce(page, T.navArticles, '<li><a href="/articles" class="active" onclick="navTo(event, \'articles\', null)">Articles</a></li>', slug + '/nav articles');
         page = replaceOnce(page, T.articleTitle, '<h1 id="article-title">' + escapeHtml(article.title) + '</h1>', slug + '/article title');
         page = replaceOnce(page, T.contentBlock,
-            '<div class="article-content content-text" id="article-content">' + article.content + '</div>',
+            JOURNEY_CONTENT_TAG + article.content + '</div>',
             slug + '/article content');
         page = replaceOnce(page, T.relatedOpen, '<div class="related-articles" id="related-articles-section" style="display: block;">', slug + '/related section state');
         page = replaceOnce(page, T.relatedPlaceholder, relatedCards, slug + '/related cards');
@@ -4223,6 +4255,13 @@ function main() {
     // ---- the Journey ad script: once, last in <head>, never on 404.html ----
     const displayAdsChecked = assertDisplayAds([['index.html', template]]
         .concat(emittedPages.map(function (r) { return [r.label, r.html]; })), notFoundSrc);
+    // ---- journey-content: once, on #article-content, wherever an article view exists ----
+    const contentMarked = assertJourneyContent(
+        [['index.html', template]].concat(emittedPages.filter(function (r) { return !r.slug; }).map(function (r) { return [r.label, r.html]; })),
+        [['404.html', notFoundSrc]].concat(emittedPages.filter(function (r) { return r.slug; }).map(function (r) { return [r.label, r.html]; })),
+        ['css/styles.css', 'js/core.js', 'js/articles.js', 'js/article-scripts.js'].map(function (f) {
+            return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
+        }));
 
     // ---- the 404 page ----
     const notFound = notFoundSrc;
@@ -4259,6 +4298,9 @@ function main() {
     console.log('Display ads passed: the Journey by Mediavine ad script once, byte for byte, as the last element in <head> on ' +
                 displayAdsChecked + ' documents (index.html and ' + (displayAdsChecked - 1) + ' emitted pages), and "' +
                 JOURNEY_HOST + '" nowhere else in them; absent from 404.html.');
+    console.log('Content marker passed: journey-content once, on the #article-content element, in ' + contentMarked +
+                ' documents (index.html, articles.html and ' + (contentMarked - 2) + ' articles); absent from 404.html and ' +
+                STANDALONE_PAGES.length + ' standalone pages; journey-sidebar nowhere.');
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
