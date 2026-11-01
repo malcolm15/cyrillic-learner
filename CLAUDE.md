@@ -6,7 +6,8 @@ Orientation for Claude Code (CC). Read this at the start of every session.
 - **Site:** https://cyrilica.com, a free Cyrillic alphabet learning SPA
 - **Repo:** github.com/malcolm15/cyrillic-learner
 - **Owner:** Malc (malcolm15)
-- **Goal:** organic search growth toward eventual Google AdSense monetization.
+- **Goal:** organic search growth, monetized with display ads from Journey by
+  Mediavine (see "Display ads (Journey by Mediavine)").
 
 ## Workflow and who does what
 - Malc directs all strategy and editorial and is the sole decision-maker. He does
@@ -34,7 +35,13 @@ Orientation for Claude Code (CC). Read this at the start of every session.
   verified first.)
 - **Browser tests against production.** Automated browser tests against
   production must block Google Analytics, Google Tag Manager, and Google
-  advertising network requests, including applicable subdomains. Verify analytics
+  advertising network requests, including applicable subdomains, and the Journey
+  by Mediavine ad script's host, `scriptwrapper.com` (blocking the script stops
+  every ad request it would make). This applies to every harness tool, not only
+  the demo recorder (`scripts/demo/block.mjs`). Never generate automated ad
+  traffic: Journey counts visits from bots and scripts as invalid traffic.
+  Mediavine's injected privacy notice and consent controls are checked by Malc in
+  a normal browser, never by a harness. Verify analytics
   instrumentation locally through dataLayer where possible, without sending
   synthetic page views or events to Google. Report any test that requires an
   exception.
@@ -225,9 +232,10 @@ Two cross-file gotchas:
   the article set with no second list to keep in step. That is a maintenance
   argument, not a capability one: no measurement in Batch 50 showed `_redirects`
   unable to do the job.
-- **`404.html` rules.** No AdSense script (policy: no Google-served ads on error
-  screens), no canonical, `noindex, follow`, and its pre-paint theme snippet
-  byte-identical to the one in `index.html`. All four are asserted by the build.
+- **`404.html` rules.** No ad script (error and dead-end screens carry no ads:
+  never the Journey tag, and no AdSense string), no canonical, `noindex, follow`,
+  and its pre-paint theme snippet byte-identical to the one in `index.html`. All
+  four are asserted by the build.
 - **Post-deploy check after any routing change.** Confirm all 28 article URLs
   return 200 with their pre-rendered body, not the shell. Extensionless resolution
   is default Netlify behaviour that the article URLs depend on, and it is not
@@ -1481,15 +1489,76 @@ Its limits, which are why it is not a malware scanner:
   `safeGetNavLink()` helper.
 - Google Analytics events: quiz_started, question_answered, question_skipped,
   quiz_reset, setting_changed, chart_printed, cursive_animation_played,
-  worksheet_downloaded.
+  worksheet_downloaded, letter_audio_played (letter, audio_source: chart or
+  lookalike), letter_audio_failed (letter, audio_source, error: the error's
+  name) and lookalike_used (letter, action: listen or copy).
+
+## Display ads (Journey by Mediavine)
+
+Display ads come from Journey by Mediavine. Journey is exclusive: no other
+programmatic ad code may run on the site, and its onboarding rejects ad code
+left over from a previous network. The onboarding wizard verifies each step
+against the live site before it shows the next, so the install ships in two
+releases.
+
+**Release 1: the script.**
+- **The tag.** `index.html` carries the Journey script byte for byte as the
+  Journey dashboard gives it (Settings > Ad Setup), as the last element in
+  `<head>`, after a one-line comment. Every document built from the template
+  inherits it: the six shell routes, the 28 articles, `/articles`, `/teachers`
+  and `/es`. `404.html` never carries it: error and dead-end screens carry no
+  ads. Do not move it, defer it, load it from another script, or add anything
+  after it in `<head>`.
+- **Emitted pages.** `scripts/pre-render.js` holds the tag as `JOURNEY_TAG` and
+  the comment, tag and `</head>` as `JOURNEY_BLOCK`. Its template needle
+  `T.adTail` is that block, and the article schema blocks and `/es`'s
+  `QUIZ_PAGE` script are inserted before it, so the tag stays last in `<head>`
+  on every emitted document. A new tag from the dashboard (a new site id) means
+  changing `index.html` and `JOURNEY_TAG` together, or the build fails.
+- **The checks.** "Display ads passed": on `index.html` and the 31 emitted pages
+  the tag appears exactly once, byte for byte, `scriptwrapper` appears exactly
+  once, there is one `</head>`, and the tag sits directly before it; `404.html`
+  never names `scriptwrapper`. "AdSense absent passed": none of the strings in
+  `ADSENSE_NEEDLES` (the AdSense script's name and host, the client id prefix,
+  the old account id) appears in `index.html`, `404.html`, any emitted page or
+  the three scripts in `js/`.
+- **ads.txt** still carries the old AdSense line. It is exempt from the AdSense
+  check, by a comment in `scripts/pre-render.js`, until Release 2 replaces the
+  file; the exemption goes with it.
+- **Privacy and terms.** The privacy policy names Journey by Mediavine and refers
+  to "Mediavine's advertising privacy notice", which Journey's script injects
+  into `/privacy`. Our own text must be accurate before that happens: never say
+  where on the page the notice appears. The terms say advertising on the site is
+  provided by Journey by Mediavine.
+
+**Release 2: after the wizard verifies the script.** `ads.txt` becomes a forced
+301 in `_redirects` to the exact hosted-file URL the wizard gives, with the root
+file deleted, the exemption removed and the rule asserted. `#article-content`
+gains a `journey-content` class: it is the direct parent of the article content,
+which is where Journey wants that marker, and appears once per document. Then
+the dashboard's Content Selector and Mobile Header Offset (the fixed nav is 74 px
+tall) are set, and Journey's page-load listeners for custom sites are requested.
+
+**How the SPA meets the script.** Journey puts no content ads on the homepage,
+and its documentation places in-content ads between the direct children of the
+content container (wrapping elements in one `<div>` keeps an ad from landing
+between them). In-app moves (the shell routes, listing to article, prev/next,
+related cards, Back and Forward) change the URL with `pushState` and no page
+load; Journey's documented answer for custom sites is those page-load listeners,
+enabled on request, not code on our side. A directly loaded article re-renders
+`#article-content` at DOMContentLoaded, so ads the async script placed before
+that would be lost: check with `?test=placeholders` once Journey serves
+placeholders.
+
+**Testing.** No harness run may load the script or make an ad request; see
+"Browser tests against production" above.
 
 ## Monetization status
-AdSense has been rejected roughly four times, all of which happened before the site's
-pages were meaningfully indexed (the GitHub Pages 404 problem above). The site is now
-far stronger (28 articles, indexed, structured data, interactive tools, cleaned-up
-canonicals). Plan: reapply, but deliberately wait until the recent SEO improvements
-have settled and been recrawled rather than reapplying immediately after the prior
-rejections.
+AdSense was rejected roughly four times, all before the site's pages were
+meaningfully indexed (the GitHub Pages 404 problem above). The site was later
+approved for Journey by Mediavine, which is exclusive for display ads, so the
+AdSense tag was removed in Journey Release 1 (November 2026). See "Display ads
+(Journey by Mediavine)".
 
 ## Current state and open threads
 Recently completed: migration to Netlify (fixing indexing), AMOLED dark mode,
@@ -1506,11 +1575,12 @@ chart generator, cursive stroke-order section (six letters, rAF engine), edge
 function for per-route canonical and robots in raw HTML, /reference page retired
 with a 301 to russian-alphabet-chart and homepage link re-pointed to the chart.
 
-AdSense: the adsbygoogle script (client ca-pub-5821564771189825) is live on
-every page except 404.html (restored 2026-09-23, 193aa5d), and the privacy page
-discloses its cookies. The certified EEA, UK and Switzerland consent message
-(published 2026-02-10) is delivered by that tag, so removing the tag removes the
-consent prompt. Open: the reapplication itself.
+Display ads: Journey Release 1 removed the AdSense tag and installed the Journey
+by Mediavine script on every page except 404.html; the privacy policy and terms
+name Journey by Mediavine. The certified EEA, UK and Switzerland consent message
+that the AdSense tag delivered went with it; Journey's own consent platform
+replaces it once Journey serves. Open: Release 2 (the ads.txt 301 and the
+journey-content class) after the onboarding wizard verifies the script.
 Possible cursive phase B (more
 letters or a tracing mode) if engagement data justifies it. Audio for non-Russian
 letters is deferred and viable. Explicitly ruled out (do not re-propose): a faux

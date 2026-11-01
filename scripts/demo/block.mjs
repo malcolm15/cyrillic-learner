@@ -1,6 +1,7 @@
-// Abort every request to Google analytics and advertising hosts, so headless
-// runs contribute no traffic. Matching is on the request URL's hostname, never
-// a substring of the full URL.
+// Abort every request to Google analytics and advertising hosts, and to the
+// Journey by Mediavine ad script, so headless runs contribute no traffic.
+// Blocking the script's host stops every ad request it would make. Matching is
+// on the request URL's hostname, never a substring of the full URL.
 const SUFFIXES = [
   'google-analytics.com',
   'analytics.google.com',
@@ -9,6 +10,7 @@ const SUFFIXES = [
   'doubleclick.net',
   'googleadservices.com',
   'fundingchoicesmessages.google.com',
+  'scriptwrapper.com',
 ];
 const ADSERVICE = /^adservice\.google\.[a-z0-9.-]+$/;
 
