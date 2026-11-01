@@ -1487,11 +1487,20 @@ Its limits, which are why it is not a malware scanner:
 ## Security and analytics
 - Hash validation regex before querySelector, a `VALID_PAGES` whitelist, and a
   `safeGetNavLink()` helper.
-- Google Analytics events: quiz_started, question_answered, question_skipped,
-  quiz_reset, setting_changed, chart_printed, cursive_animation_played,
-  worksheet_downloaded, letter_audio_played (letter, audio_source: chart or
-  lookalike), letter_audio_failed (letter, audio_source, error: the error's
-  name) and lookalike_used (letter, action: listen or copy).
+- Google Analytics events: quiz_started, question_answered (result, character
+  and streak on a correct answer; result and character on an incorrect one),
+  question_skipped, quiz_reset, setting_changed, chart_printed,
+  cursive_animation_played, worksheet_downloaded, letter_audio_played (letter,
+  audio_source: chart or lookalike), letter_audio_failed (letter, audio_source,
+  error: the error's name) and lookalike_used (letter, action: listen or copy).
+- **No free text to analytics.** Events carry what happened (a result, a
+  letter, a setting), never what a visitor typed: the answer box takes anything,
+  a name or an email address included. The incorrect-answer event used to send
+  the typed answer as `user_answer`; ledger row 368 removed it. "Analytics free
+  text passed" (`ANALYTICS_FREE_TEXT` in `scripts/pre-render.js`) fails the build
+  if `user_answer` appears in `index.html`, `404.html`, any emitted page or the
+  three scripts in `js/`. A new event parameter that could carry typed text
+  must not be added; add any such name to `ANALYTICS_FREE_TEXT`.
 
 ## Display ads (Journey by Mediavine)
 
