@@ -788,6 +788,119 @@ function derivePreview(content) {
     return text.substring(0, 120).trim() + '...';
 }
 
+// ---- the /articles listing: one hand-written copy, checked against the data ----
+//
+// The listing in index.html is the only copy of the blurbs and the category
+// descriptions, so it stays hand-written. Everything it shares with the data is
+// asserted instead of restated: the order is ARTICLE_ORDER, the categories are
+// ARTICLE_META sections, and each label is the article's title. Two labels are
+// deliberately shorter than their titles; they are listed here, and an entry
+// that is not in use or that equals the title fails the build, so the list
+// cannot go stale.
+const LISTING_LABELS = {
+    'history-of-cyrillic': 'The History of the Cyrillic Alphabet',
+    'how-to-type-cyrillic': 'How to Type Cyrillic on Any Device',
+};
+const LISTING_START = '<div class="articles-list">';
+const LISTING_END = '<!-- Individual Article View';
+
+// The listing region of a document: from the list's opening tag to the
+// article-view comment. Both markers must occur exactly once, in order.
+function listingRegion(html, label) {
+    if (countOccurrences(html, LISTING_START) !== 1 || countOccurrences(html, LISTING_END) !== 1) {
+        fail(label + ': expected exactly one ' + LISTING_START + ' and one ' + LISTING_END + ' around the articles listing');
+    }
+    const s = html.indexOf(LISTING_START);
+    const e = html.indexOf(LISTING_END);
+    if (e <= s) fail(label + ': the articles listing markers are out of order');
+    return html.slice(s, e);
+}
+
+function assertArticleListing(template, order, meta, byId) {
+    const list = listingRegion(template, 'index.html');
+    // Strict matchers plus permissive counts, so markup the matcher cannot read
+    // (a tag inside a blurb, a reordered attribute) fails instead of being skipped.
+    const catRe = /<div class="article-category">\s*<div class="article-category-header">\s*<span>([^<]*)<\/span>\s*<\/div>\s*<div class="article-category-desc">([^<]*)<\/div>/g;
+    const itemRe = /<a class="article-item" href="\/articles\/([a-z0-9-]+)" onclick="navTo\(event, null, '([a-z0-9-]+)'\)">\s*<div class="article-item-content">\s*<h3>([^<]*)<\/h3>\s*<p>([^<]*)<\/p>\s*<\/div>\s*<\/a>/g;
+    const cats = [];
+    let m;
+    while ((m = catRe.exec(list)) !== null) cats.push({ name: decodeHeads(m[1]), desc: m[2].trim(), at: m.index });
+    const catTags = countOccurrences(list, '<div class="article-category">');
+    if (cats.length !== catTags) {
+        fail('index.html listing: ' + catTags + ' <div class="article-category"> but only ' + cats.length +
+             ' match the expected header and description markup');
+    }
+    const items = [];
+    while ((m = itemRe.exec(list)) !== null) {
+        const cat = cats.filter(function (c) { return c.at < m.index; }).pop();
+        items.push({ slug: m[1], onclickSlug: m[2], label: decodeHeads(m[3]), blurb: m[4].trim(), category: cat ? cat.name : null });
+    }
+    const itemTags = countOccurrences(list, 'class="article-item"');
+    if (items.length !== itemTags) {
+        fail('index.html listing: ' + itemTags + ' article-item links but only ' + items.length +
+             ' match the expected markup (href, navTo onclick, then an h3 and a plain-text p, with no tags inside either)');
+    }
+
+    if (items.length !== order.length) {
+        fail('index.html listing: ' + items.length + ' articles listed but ARTICLE_ORDER has ' + order.length);
+    }
+    items.forEach(function (it, i) {
+        if (it.slug !== order[i]) {
+            fail('index.html listing: position ' + (i + 1) + ' is "' + it.slug + '" but ARTICLE_ORDER has "' + order[i] +
+                 '" there. The listing and ARTICLE_ORDER must list the articles in the same order.');
+        }
+        if (it.onclickSlug !== it.slug) {
+            fail('index.html listing: the link to /articles/' + it.slug + ' opens "' + it.onclickSlug + '" in its onclick');
+        }
+        if (!it.category) fail('index.html listing: "' + it.slug + '" comes before any category header');
+        if (it.category !== meta[it.slug].section) {
+            fail('index.html listing: "' + it.slug + '" is listed under "' + it.category + '" but its ARTICLE_META section is "' +
+                 meta[it.slug].section + '"');
+        }
+        const title = byId[it.slug].title;
+        if (Object.prototype.hasOwnProperty.call(LISTING_LABELS, it.slug)) {
+            if (LISTING_LABELS[it.slug] === title) {
+                fail('LISTING_LABELS: the entry for "' + it.slug + '" equals the article title, so it is not an exception. Remove it.');
+            }
+            if (it.label !== LISTING_LABELS[it.slug]) {
+                fail('index.html listing: "' + it.slug + '" is labelled "' + it.label + '" but LISTING_LABELS says "' +
+                     LISTING_LABELS[it.slug] + '"');
+            }
+        } else if (it.label !== title) {
+            fail('index.html listing: "' + it.slug + '" is labelled "' + it.label + '" but its title in js/articles.js is "' +
+                 title + '". Use the title, or list the label in LISTING_LABELS in scripts/pre-render.js.');
+        }
+        if (!it.blurb) fail('index.html listing: "' + it.slug + '" has an empty blurb');
+    });
+    Object.keys(LISTING_LABELS).forEach(function (slug) {
+        if (order.indexOf(slug) === -1) fail('LISTING_LABELS: "' + slug + '" is not in ARTICLE_ORDER. Remove the stale entry.');
+    });
+
+    // The categories are the ARTICLE_META sections, in the order ARTICLE_ORDER
+    // first reaches each, with every section contiguous.
+    const sections = [];
+    order.forEach(function (slug) {
+        const s = meta[slug].section;
+        if (sections[sections.length - 1] !== s) {
+            if (sections.indexOf(s) !== -1) fail('ARTICLE_ORDER: the "' + s + '" articles are not contiguous, so the listing cannot group them');
+            sections.push(s);
+        }
+    });
+    const catNames = cats.map(function (c) { return c.name; });
+    if (catNames.join(' | ') !== sections.join(' | ')) {
+        fail('index.html listing: the categories are "' + catNames.join(' | ') + '" but the ARTICLE_META sections in ARTICLE_ORDER are "' +
+             sections.join(' | ') + '"');
+    }
+    cats.forEach(function (c) {
+        if (!c.desc) fail('index.html listing: the "' + c.name + '" category has an empty description');
+    });
+    return 'Articles listing passed: ' + items.length + ' articles in ARTICLE_ORDER order under ' + cats.length +
+           ' categories matching their ARTICLE_META sections, every href equal to its navTo slug, ' +
+           (items.length - Object.keys(LISTING_LABELS).length) + ' labels equal to the article title and ' +
+           Object.keys(LISTING_LABELS).length + ' listed exceptions (' + Object.keys(LISTING_LABELS).join(', ') +
+           '), every blurb and category description non-empty plain text.';
+}
+
 // ---- accidental-dependency guard ----
 // Cyrilica has no package dependencies, and that is deliberate (CLAUDE.md,
 // "Dependency and tool supply-chain safety"). This guard fails the build if a
@@ -2778,6 +2891,8 @@ function main() {
     console.log('Share handler checks passed: ' + ARTICLE_ORDER.length + ' articles, ' +
                 shareHandlerTotal + ' handlers, 0 backslashes in any onclick, ' +
                 contentOnclickTotal + ' onclick attributes in article content covered.');
+
+    console.log(assertArticleListing(template, ARTICLE_ORDER, ARTICLE_META, byId));
 
     // ---- emit each article ----
     fs.mkdirSync(OUT_ROOT, { recursive: true });
