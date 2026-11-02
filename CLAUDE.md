@@ -1582,15 +1582,93 @@ releases.
   `404.html`, `/teachers` or `/es`; and `journey-sidebar` appears nowhere, because
   the site has no sidebar. Nothing styles or scripts the class.
 
-**Dashboard settings: decisions still open, none applied.**
-- Content Selector: left blank unless placement tests (`?test=placeholders`,
-  checked by Malc in a normal browser) show Journey's automatic targeting
-  failing; then `.journey-content` is the selector to use.
-- Mobile Header Offset: set to the fixed nav's height (measured at 74 px at 1280
-  and 390 wide) only if placements show ads under the nav.
-- Journey's custom page-load listeners: requested only if in-app navigation shows
-  a problem.
-- Event-driven ads: stay off.
+**Page controls: the /teachers blocklist and keep-together wrappers (ledger row 375).**
+- **/teachers carries no Journey ads** (the owner's decision: the page
+  encourages teachers to recommend Cyrilica to their students, ads could
+  undermine that experience, and the expected revenue sacrifice is small
+  relative to the educational benefit). Journey removes its units from any
+  page whose content holds its blocklist div, and
+  `data-blocklist-all="1"` removes every unit there, the adhesion banner and the
+  video player included. The div is exactly
+  `<div id="ad-management-config-settings" data-blocklist-all="1"></div>`, the
+  first line of the teachers entry's `bodyHtml` in `scripts/standalone-pages.js`,
+  so it sits inside `<main>`, in that page's own content. The Journey tag itself
+  stays in `<head>` on `/teachers`, as on every page built from the template.
+- **Never move it into anything shared.** Journey reads only one blocklist div
+  per page, and its documentation says never to put it in a site-wide header,
+  sidebar or footer. In `index.html` (head, nav, footer), the standalone page
+  wrapper in `scripts/pre-render.js` or a module-level string in
+  `scripts/standalone-pages.js` it would reach other pages and remove their ads.
+  Another page that should carry no ads gets its own div in its own content, and
+  `AD_BLOCKLIST_PAGE` and its check change with it.
+- **"Ad blocklist passed"** (`assertAdBlocklist`): on `/teachers`,
+  `id="ad-management-config-settings"` and the loose string each appear exactly
+  once, the element is exactly the div above (so no other attribute, `data-` or
+  otherwise, rides along), it sits between `<main>` and `</main>`, and it is the
+  first child of `#teachers-content` (so it cannot hide in a comment or a
+  `<template>`, which never reach the DOM);
+  `ad-management-config-settings` appears in none of `index.html`, `404.html`,
+  `articles.html`, `/es`, the 28 articles or the scripts in `js/`.
+- **Keep-together wrappers.** Journey places in-content ads between the direct
+  children of `#article-content` and will not place one inside a single `<div>`.
+  So every interactive tool built from several sibling parts is wrapped in one
+  `<div class="keep-together">` in `js/articles.js`, opened just before its first
+  part and closed just after its last, contents not re-indented: the alphabet
+  chart (`#alphabet-controls`, `#print-controls`, `#alphabet-grid`,
+  `#letter-legend`), both cursive widgets (picker, `.cursive-stage-wrap`,
+  caption), and on the copy-paste page each `p.copy-section-label` with the grid
+  it names (five wrappers). A copy-paste label is wrapped with its grid, never
+  the whole tool: the text builder and `#prereform-container` are single
+  elements already. Ordinary prose and headings are never wrapped to keep ads
+  out. The class has no CSS and no script reads it. A wrapper changes what a
+  structural selector (`:first-of-type`, `:first-child`, `>`) matches inside it:
+  `.copy-section-label:first-of-type`, which matched no label before the
+  wrappers, would have matched all five inside them, so it was removed. The
+  build check cannot see CSS, so compare rendered layout before and after any
+  new wrapper.
+- **"Keep-together passed"** (`assertKeepTogether`, groups in `KEEP_TOGETHER`):
+  in each listed built article, every part of a group is a child of one
+  `<div class="keep-together">` that is a direct child of `#article-content`,
+  the wrapper holds exactly those parts in order and nothing else, each group
+  has its own wrapper, and `keep-together` appears once per group there and in
+  no other emitted page, `index.html`, `404.html`, `css/styles.css`, `js/core.js`
+  or `js/article-scripts.js`. A new multi-part tool gets its wrapper and its
+  `KEEP_TOGETHER` entry in the same change. The check's tag scanner is strict
+  inside `#article-content` of a listed article: a stray, mismatched or omitted
+  closing tag fails the build, and so does `<div ... />` (browsers ignore the
+  `/` on HTML elements, so it would stay open; `/>` is honoured only inside
+  SVG or MathML).
+- Both are invisible markup: adding or moving them is no content change, so no
+  `modified` or `lastmod` bump and no IndexNow submission.
+
+**Dashboard settings: what the owner observed in the Journey dashboard.**
+- Content Selector: shows `#article-content` (observed 2026-11-01). It was
+  blank at setup; Journey appears to have filled it in. It matches our content
+  container. Leave it. If placements ever fail, `.journey-content` (the class
+  on `#article-content`) is the alternative selector to try.
+- Mobile Header Offset: shows 79 (observed 2026-11-01). Journey appears to have
+  set it. Leave it unless an ad is seen overlapping the fixed header on mobile.
+  Our own measurement of the fixed nav was 74 px at 1280 and 390 wide; start
+  from that if an offset needs changing.
+- Sidebar Selector and the other sidebar settings: show Journey's defaults
+  (observed 2026-11-01). The site has no sidebar, so they do nothing.
+- Ad Density: lowered one step, from Optimal to Medium, by the owner on
+  2026-11-01 (ledger row 374), to protect the reader experience. Journey says
+  density below Optimal will likely lower revenue and RPM. Compare RPM and
+  article engagement either side of that date before changing it again.
+- Video player: no control to turn it off or to mute it on play was visible in
+  the owner's Journey dashboard as of 2026-11-02. Questions about muting,
+  placement and publisher-supplied video are with Journey support. The
+  blocklist div (see "Page controls" above) is the only per-page removal method
+  we know of.
+- Google Analytics: the GA4 property is connected to Journey, with its
+  reporting time zone set to America/New_York on 2026-11-01, as Journey
+  requires.
+- Journey's custom page-load listeners: not used. Articles reached through
+  in-app links load as full pages instead (ledger row 372, see "Article links
+  load full pages"), so Journey places its units on every article load without
+  a listener.
+- Event-driven ads: stay off. Unverified against the current dashboard.
 
 **How the SPA meets the script.** Journey puts no content ads on the homepage,
 and its documentation places in-content ads between the direct children of the
@@ -1636,8 +1714,8 @@ name Journey by Mediavine. The certified EEA, UK and Switzerland consent message
 that the AdSense tag delivered went with it; Journey's own consent platform
 replaces it once Journey serves. Release 2 sent /ads.txt to Journey's hosted
 file with a forced 301 (the root file deleted) and marked `#article-content`
-with `journey-content`. Open: the dashboard settings listed under "Display ads",
-decided from placement tests in a normal browser.
+with `journey-content`. Dashboard settings: see "Display ads" for what the owner
+observed in the Journey dashboard.
 Possible cursive phase B (more
 letters or a tracing mode) if engagement data justifies it. Audio for non-Russian
 letters is deferred and viable. Explicitly ruled out (do not re-propose): a faux
