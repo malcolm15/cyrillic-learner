@@ -421,7 +421,7 @@ function assertAdBlocklist(page, others) {
 const KEEP_TOGETHER_TAG = '<div class="keep-together">';
 const KEEP_TOGETHER = [
     { article: 'russian-alphabet-chart', groups: [
-        ['<div id="alphabet-controls"', '<div id="print-controls"', '<div id="alphabet-grid"', '<div id="letter-legend"'],
+        ['<div id="alphabet-controls"', '<div id="alphabet-grid"', '<div id="letter-legend"', '<div id="print-controls"'],
     ] },
     { article: 'practice-writing-cyrillic', groups: [
         ['<div id="cursive-picker"', '<div class="cursive-stage-wrap"', '<p id="cursive-caption"'],

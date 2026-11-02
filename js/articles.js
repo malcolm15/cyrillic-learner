@@ -3944,10 +3944,6 @@ const ARTICLES = [
         content: `
             <p>The Russian alphabet has 33 letters, and this interactive chart lets you hear every one of them. Click any letter to play its pronunciation, filter by vowels or consonants, and see how each Russian Cyrillic letter maps to its sound in English.</p>
 
-            <p>If you are just starting out, this is the page to bookmark. Some Russian letters look exactly like English ones and sound the same, a few look familiar but sound completely different, and a handful are brand new shapes. The chart below groups all 33 so you can see those patterns at a glance instead of memorizing a random list.</p>
-
-            <p>Use it however helps most. Tap through the vowels first to get the foundation, drill the consonants, or jump straight to the letters you keep forgetting. Every letter plays real recorded audio, so you are learning how Russian actually sounds, not guessing from a transliteration. When you are ready to make them stick, the <a href="/" onclick="navTo(event, 'home', null)">free study quiz</a> drills you on these exact letters until reading them is automatic.</p>
-
             <div class="keep-together">
             <div id="alphabet-controls" style="margin: 30px 0; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
                 <div style="display: flex; gap: 10px;">
@@ -3957,17 +3953,6 @@ const ARTICLES = [
                 </div>
                 <div class="letter-count">
                     <span id="letter-count">33 letters</span>
-                </div>
-            </div>
-
-            <div id="print-controls">
-                <p class="print-intro">Need a paper copy? A printable one-page version of the full chart is one click away, or save it as a PDF.</p>
-                <div class="print-actions">
-                    <label>
-                        <input type="checkbox" id="print-examples-checkbox" checked>
-                        Include example words
-                    </label>
-                    <button class="btn-print" onclick="printChart()">Print / Save as PDF</button>
                 </div>
             </div>
 
@@ -4279,7 +4264,20 @@ const ARTICLES = [
                     <div><span class="legend-swatch legend-swatch--hard"></span> <strong>Tricky sound</strong> - A sound that is unusual in English, or no sound of its own</div>
                 </div>
             </div>
+
+            <div id="print-controls">
+                <p class="print-intro">Need a paper copy? A printable one-page version of the full chart is one click away, or save it as a PDF.</p>
+                <div class="print-actions">
+                    <label>
+                        <input type="checkbox" id="print-examples-checkbox" checked>
+                        Include example words
+                    </label>
+                    <button class="btn-print" onclick="printChart()">Print / Save as PDF</button>
+                </div>
             </div>
+            </div>
+
+            <p>Some Russian letters look exactly like English ones and sound the same, a few look familiar but sound completely different, and a handful are brand new shapes. The colours on the chart show what makes each letter tricky, as the key above explains, so you can see which letters may need extra attention at a glance instead of memorizing a random list.</p>
 
             <p>To see every letter in handwriting, see <a href="/articles/russian-cursive" onclick="navTo(event, null, 'russian-cursive')">Russian Cursive Alphabet: Chart and Worksheets</a>.</p>
 
@@ -4290,7 +4288,7 @@ const ARTICLES = [
 
             <h3>How to Use This Chart</h3>
 
-            <p>This isn't just a reference chart. It's a learning tool. Here's how to actually use it.</p>
+            <p>Use it however helps most. Tap through the vowels first to get the foundation, drill the consonants, or jump straight to the letters you keep forgetting. Every letter plays real recorded audio, so you are learning how Russian actually sounds, not guessing from a transliteration.</p>
 
             <p><strong>For complete beginners:</strong> Start by filtering to "Vowels Only." Learn those 10 letters first. Click each one to hear the pronunciation. Write them down. Then switch to "Consonants Only" and tackle those in groups of 5 or 6.</p>
 
