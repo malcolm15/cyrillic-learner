@@ -285,10 +285,22 @@ Two cross-file gotchas:
   pre-render.
 - **History entries.** showPage, showArticle and showArticleIndex push a history
   entry by default. Any code reacting to a URL the browser has already changed
-  (popstate) must pass { push: false }. Intermediate steps that are not
-  destinations (navToArticle's listing step) also pass { push: false }. Pushing on
-  Back/Forward erases forward history and records page views the visitor never
-  chose.
+  (popstate) must pass { push: false }. Pushing on Back/Forward erases forward
+  history and records page views the visitor never chose. Article links push
+  nothing: the full page load they trigger adds the one entry itself.
+- **Article links load full pages.** Every in-app link into an article (the
+  listing, links inside articles, related cards, previous and next, the homepage
+  quick-start strip) goes through `navTo`, `navToArticle` or `navigateArticle`,
+  which hand the slug to `loadArticle()` in `js/core.js`: a full document load of
+  `articlePath(slug)`, the one builder of an article's clean URL (the history
+  entry `showArticle` pushes uses it too). Nothing is shown or pushed first.
+  Journey by Mediavine places its in-article units, video player and related
+  units only on a document load, so an article swapped in place got none
+  (ledger row 372). Every other route stays in place: the shell routes, the
+  in-app listing, article to listing, quiz and Settings, and Back/Forward
+  between those entries. `showArticle` still renders an article on a direct load
+  (`handleInitialURL`) and on popstate. Modifier clicks still fall through to the
+  browser. GA4 counts one page view per article load, from the load itself.
 - **Cloudflare caches JS, CSS, and media files (the А audio swap required a purge).**
   After a push, a hard refresh or Cloudflare purge may be needed to see changes. If a
   code change appears not to have taken effect, suspect cache before suspecting the
@@ -470,7 +482,8 @@ homepage's. Consequence for the SPA: core.js boot code is null-guarded (the
 on / setToggle / setDisplay helpers), and showPage / showArticleIndex fall back
 to a real page load (window.location.assign) when a route's section is absent.
 On shell routes every element exists, so those guards are no-ops there.
-Article-to-article navigation on a pre-rendered page stays client-side.
+Article-to-article navigation is a full page load, like every in-app link into an
+article (see "Article links load full pages").
 
 The edge function is unchanged and verified no-op on pre-rendered pages: their
 heads no longer contain its byte-for-byte match targets, so every replace
@@ -494,8 +507,10 @@ home and About through Terms cut out, `#articles-page` active and wrapped in
 `<main>`, the listing heading `<h2>Articles</h2>` emitted as `<h1>Articles</h1>`,
 and Articles marked active in the nav. The listing is copied from `index.html`
 byte for byte (asserted), so `index.html` stays the one place it is edited. The
-empty, hidden `#article-view` stays, because the listing's links open articles
-in-app through `showArticle`, which needs it. The duplicated closing `</div>`
+empty, hidden `#article-view` is still emitted and asserted. Since ledger row 372
+the listing's links load articles as full pages, so nothing on this document
+opens an article in place any more; removing the view would be a separate
+cleanup. The duplicated closing `</div>`
 pair after the listing in `index.html` (ledger row 364) is dropped from this
 document only. `#articles-index h1` shares the `h2` rule in `css/styles.css`, so
 the page looks as it did. The build asserts one `<h1>`, one `<main>`, no other
@@ -510,9 +525,10 @@ it uses the shell's h2 and has no main (ledger row 367). This does not fix
 accessibility on every navigation path.
 
 `/articles` stays in `VALID_PAGES` and the router is unchanged. On the listing
-document, listing links, previous and next, the Back links, the header link to
-Articles and browser Back and Forward stay in-app; Home and the other shell
-routes are real page loads, as they are from an article.
+document, the header link to Articles and browser Back and Forward stay in
+place; listing links load the article as a full page (see "Article links load
+full pages"), and Home and the other shell routes are real page loads, as they
+are from an article.
 
 **The listing check.** The build parses the listing in `index.html` and asserts
 that its order is `ARTICLE_ORDER`, each href equals its `navTo` slug, its
@@ -1010,12 +1026,14 @@ action with no destination: the Bluesky and Reddit share buttons in each article
 share-section use `href="#"` because they have no URL for a modifier-click to open.
 Three patterns:
 - Article-to-article links: `<a href="/articles/SLUG" onclick="navTo(event, null, 'SLUG')">text</a>`
-- Homepage quick-start strip (two-step navigation): `<a href="/articles/SLUG" onclick="navToArticle(event, 'SLUG')">text</a>`
+- Homepage quick-start strip: `<a href="/articles/SLUG" onclick="navToArticle(event, 'SLUG')">text</a>`
 - Page links (about, settings, etc.): `<a href="/PAGE" onclick="navTo(event, 'PAGE', null)">label</a>`
 
 The real href is required so right-click, middle-click, and Cmd/Ctrl-click open in a
-new tab. `navTo` and `navToArticle` intercept plain left-clicks for fast in-app SPA
-navigation; modifier-clicks fall through to the browser. In-article section
+new tab. `navTo` and `navToArticle` intercept plain left-clicks: a page link
+switches the page in place, and an article link loads the article as a full page
+(see "Article links load full pages"); modifier-clicks fall through to the
+browser. In-article section
 headings are `<h3>`. Comparison tables use the `.comparison-table` class with
 `.big-letter` spans for Cyrillic characters (light, dark, and mobile styles exist).
 `.big-letter` is a guarded letter tool (see "Article letter tools"): it carries
@@ -1558,8 +1576,8 @@ releases.
   both the `T.contentBlock` needle and the emitted article container). It is the
   direct parent of the article content, which is where Journey wants the marker,
   and it is in `index.html` (the shell's article view), every emitted article
-  and `articles.html` (whose hidden, empty article view stays for in-app
-  opening). "Content marker passed": the class appears exactly once, on that
+  and `articles.html` (whose hidden, empty article view is still emitted).
+  "Content marker passed": the class appears exactly once, on that
   element, in `index.html`, `articles.html` and each of the 28 articles; never in
   `404.html`, `/teachers` or `/es`; and `journey-sidebar` appears nowhere, because
   the site has no sidebar. Nothing styles or scripts the class.
@@ -1577,10 +1595,12 @@ releases.
 **How the SPA meets the script.** Journey puts no content ads on the homepage,
 and its documentation places in-content ads between the direct children of the
 content container (wrapping elements in one `<div>` keeps an ad from landing
-between them). In-app moves (the shell routes, listing to article, prev/next,
-related cards, Back and Forward) change the URL with `pushState` and no page
-load; Journey's documented answer for custom sites is those page-load listeners,
-enabled on request, not code on our side. A directly loaded article re-renders
+between them). Journey placed no in-article units on an article swapped in place,
+so articles reached through in-app links load as full pages (ledger row 372; see
+"Article links load full pages"). The moves that stay in place (the shell
+routes, the in-app listing, article to listing, and Back and Forward between
+those) change the URL with `pushState` and no page load, on pages where Journey
+places no in-content units. A directly loaded article re-renders
 `#article-content` at DOMContentLoaded, so ads the async script placed before
 that would be lost: check with `?test=placeholders` once Journey serves
 placeholders.
