@@ -56,6 +56,9 @@
                their own 8px inset and supply the rest through their padding. */
             --text-gutter-mobile: 20px;
             --border-radius-lg: 16px;
+            /* The fixed nav's full height: the 70px bar (.nav-container) plus its
+               4px bottom border. The one source for that height. */
+            --nav-height: 74px;
             
             --shadow-sm: 0 1px 3px rgba(44, 44, 44, 0.12), 0 1px 2px rgba(44, 44, 44, 0.08);
             --shadow-md: 0 4px 6px rgba(44, 44, 44, 0.1), 0 2px 4px rgba(44, 44, 44, 0.06);
@@ -151,7 +154,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
+            height: calc(var(--nav-height) - 4px);
+        }
+
+        /* In-page anchor targets clear the fixed nav with a 12px gap, the same gap
+           as the quiz landing. Every anchor target on the site is listed here: the
+           history-of-cyrillic contents headings and the chart's print row. */
+        #article-content h3[id],
+        #print-controls {
+            scroll-margin-top: calc(var(--nav-height) + 12px);
         }
 
         .nav-logo {
