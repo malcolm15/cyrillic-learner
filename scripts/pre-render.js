@@ -405,6 +405,133 @@ function assertAdBlocklist(page, others) {
     return others.length;
 }
 
+// ---- display ads: keep-together wrappers ----
+//
+// Journey will not place an in-content ad inside a single div among the direct
+// children of #article-content. A tool built from several sibling elements
+// (controls, a grid, a caption) could otherwise be split by an ad, so each one
+// is wrapped in one <div class="keep-together">. The class has no CSS and no
+// script reads it. Each group lists its parts, in order, by a string found once
+// in the article. The parts must be the wrapper's only children, the wrapper
+// must be a direct child of #article-content, and each group has its own. A
+// copy-paste label goes with the grid it names; the text builder, the
+// pre-reform grid and the tool as a whole are not wrapped. No other document
+// carries the class, so no prose or heading is wrapped to keep ads out.
+const KEEP_TOGETHER_TAG = '<div class="keep-together">';
+const KEEP_TOGETHER = [
+    { article: 'russian-alphabet-chart', groups: [
+        ['<div id="alphabet-controls"', '<div id="print-controls"', '<div id="alphabet-grid"', '<div id="letter-legend"'],
+    ] },
+    { article: 'practice-writing-cyrillic', groups: [
+        ['<div id="cursive-picker"', '<div class="cursive-stage-wrap"', '<p id="cursive-caption"'],
+    ] },
+    { article: 'russian-cursive', groups: [
+        ['<div id="cursive-ru-picker"', '<div class="cursive-stage-wrap"', '<p id="cursive-ru-caption"'],
+    ] },
+    { article: 'cyrillic-copy-paste', groups: [
+        ['<p class="copy-section-label">Uppercase</p>', '<div id="uppercase-container"'],
+        ['<p class="copy-section-label">Lowercase</p>', '<div id="lowercase-container"'],
+        ['<p class="copy-section-label">Special Characters', '<div id="special-container"'],
+        ['<p class="copy-section-label">Uppercase Accented</p>', '<div id="accented-upper-container"'],
+        ['<p class="copy-section-label">Lowercase Accented</p>', '<div id="accented-lower-container"'],
+    ] },
+];
+
+// The direct children of #article-content in an emitted article: each one's
+// opening tag, its [start, end) offsets in `html`, and the start offsets of its
+// own children. The same small scanner as cyrillicTextRuns, but strict: every
+// close must match the element open above it, so a stray or missing tag fails
+// the build instead of moving a boundary.
+function articleContentChildren(html, label) {
+    const VOID = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'];
+    const tagRe = /<!--[\s\S]*?-->|<(\/?)([a-zA-Z][a-zA-Z0-9-]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g;
+    if (countOccurrences(html, JOURNEY_CONTENT_TAG) !== 1) fail(label + ': expected one ' + JOURNEY_CONTENT_TAG);
+    tagRe.lastIndex = html.indexOf(JOURNEY_CONTENT_TAG) + JOURNEY_CONTENT_TAG.length;
+    const stack = [];
+    const children = [];
+    let m;
+    while ((m = tagRe.exec(html)) !== null) {
+        if (m[0].indexOf('<!--') === 0) continue;
+        const name = m[2].toLowerCase();
+        if (m[1]) {
+            if (stack.length === 0) {
+                if (name !== 'div') fail(label + ': #article-content closes with </' + name + '>');
+                return children;
+            }
+            const open = stack.pop();
+            if (open !== name) fail(label + ': </' + name + '> closes <' + open + '> inside #article-content');
+            if (stack.length === 0) children[children.length - 1].end = tagRe.lastIndex;
+            continue;
+        }
+        // A browser ignores "/>" on an HTML element (only void elements never
+        // open) and honours it only on SVG and MathML, so a <div ... /> stays
+        // open and would swallow what follows. It fails rather than being
+        // read as closed.
+        const selfClosing = /\/\s*$/.test(m[3]);
+        const foreign = name === 'svg' || name === 'math' || stack.indexOf('svg') !== -1 || stack.indexOf('math') !== -1;
+        if (selfClosing && !foreign && VOID.indexOf(name) === -1) {
+            fail(label + ': <' + name + ' ... /> inside #article-content does not close in HTML; write <' + name + '></' + name + '>');
+        }
+        const isVoid = VOID.indexOf(name) !== -1 || selfClosing;
+        if (stack.length === 0) children.push({ tag: m[0], start: m.index, end: isVoid ? tagRe.lastIndex : -1, kids: [] });
+        else if (stack.length === 1) children[children.length - 1].kids.push(m.index);
+        if (isVoid) continue;
+        stack.push(name);
+        if (name === 'script' || name === 'style') {
+            const end = html.indexOf('</' + name, tagRe.lastIndex);
+            if (end === -1) fail(label + ': <' + name + '> never closes inside #article-content');
+            tagRe.lastIndex = end;
+        }
+    }
+    fail(label + ': #article-content never closes');
+}
+
+// pages: [label, html] pairs for every emitted page (the articles are found by
+// their body marker). others: [label, text] pairs that must not carry the class.
+// Returns the number of wrappers checked.
+function assertKeepTogether(pages, others) {
+    let wrappers = 0;
+    const wrapped = [];
+    KEEP_TOGETHER.forEach(function (entry) {
+        const marker = '<body data-prerendered="' + entry.article + '">';
+        const found = pages.filter(function (d) { return countOccurrences(d[1], marker) === 1; });
+        if (found.length !== 1) fail('keep-together: expected one emitted page for ' + entry.article + ', found ' + found.length);
+        const label = found[0][0], html = found[0][1];
+        wrapped.push(label);
+        const children = articleContentChildren(html, label);
+        const used = [];
+        entry.groups.forEach(function (parts) {
+            const starts = parts.map(function (needle) {
+                const n = countOccurrences(html, needle);
+                if (n !== 1) fail(label + ': expected ' + needle + ' once, found ' + n);
+                return html.indexOf(needle);
+            });
+            const wrapper = children.filter(function (c) { return c.start < starts[0] && starts[0] < c.end; })[0];
+            if (!wrapper || wrapper.tag !== KEEP_TOGETHER_TAG) {
+                fail(label + ': ' + parts[0] + ' must sit in a ' + KEEP_TOGETHER_TAG + ' that is a direct child of ' +
+                     '#article-content, so an ad cannot split its tool');
+            }
+            if (wrapper.kids.join() !== starts.join()) {
+                fail(label + ': the ' + KEEP_TOGETHER_TAG + ' around ' + parts[0] + ' must hold exactly, in order: ' +
+                     parts.join(', ') + '. Every part of the tool goes inside it, and nothing else does.');
+            }
+            if (used.indexOf(wrapper) !== -1) fail(label + ': two groups share one ' + KEEP_TOGETHER_TAG + '; each has its own');
+            used.push(wrapper);
+            wrappers++;
+        });
+        const n = countOccurrences(html, 'keep-together');
+        if (n !== entry.groups.length) {
+            fail(label + ': "keep-together" appears ' + n + ' time(s), expected one per group in KEEP_TOGETHER (' +
+                 entry.groups.length + '). A new wrapper is listed there; prose and headings are never wrapped.');
+        }
+    });
+    pages.filter(function (d) { return wrapped.indexOf(d[0]) === -1; }).concat(others).forEach(function (d) {
+        const n = countOccurrences(d[1], 'keep-together');
+        if (n !== 0) fail(d[0] + ': carries "keep-together" ' + n + ' time(s); only the tools listed in KEEP_TOGETHER are wrapped');
+    });
+    return wrappers;
+}
+
 // ---- analytics: no free text ----
 //
 // Google Analytics receives what happened (a result, a letter), never what a
@@ -4351,6 +4478,11 @@ function main() {
         [['index.html', template], ['404.html', notFoundSrc]]
             .concat(emittedPages.filter(function (r) { return r.slug !== AD_BLOCKLIST_PAGE; }).map(function (r) { return [r.label, r.html]; }))
             .concat(blocklistScripts));
+    // ---- keep-together: each multi-part article tool is one direct child ----
+    const keepTogetherChecked = assertKeepTogether(emittedPages.map(function (r) { return [r.label, r.html]; }),
+        [['index.html', template], ['404.html', notFoundSrc]].concat(['css/styles.css', 'js/core.js', 'js/article-scripts.js'].map(function (f) {
+            return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
+        })));
     // ---- analytics: no typed answer in any served document or script ----
     const freeTextChecked = assertNoFreeTextAnalytics([['index.html', template], ['404.html', notFoundSrc]]
         .concat(emittedPages.map(function (r) { return [r.label, r.html]; })));
@@ -4396,6 +4528,9 @@ function main() {
     console.log('Ad blocklist passed: ' + AD_BLOCKLIST_TAG + '</div> once, inside <main>, on /' + AD_BLOCKLIST_PAGE +
                 '; "' + AD_BLOCKLIST_ID + '" in none of ' + blocklistOthers + ' other files (index.html, 404.html, ' +
                 (totalEmitted - 1) + ' emitted pages and the ' + blocklistScripts.length + ' scripts in js/).');
+    console.log('Keep-together passed: ' + keepTogetherChecked + ' wrappers in ' + KEEP_TOGETHER.length + ' articles (' +
+                KEEP_TOGETHER.map(function (e) { return e.article; }).join(', ') + '), each a direct child of #article-content ' +
+                'holding exactly its tool\'s parts; "keep-together" in no other emitted page, index.html, 404.html, the CSS or the other scripts.');
     console.log('Analytics free text passed: no "' + ANALYTICS_FREE_TEXT.join('", "') + '" in ' + freeTextChecked +
                 ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
                 ' scripts in js/); events carry results and letters, never typed text.');

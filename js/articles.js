@@ -2112,6 +2112,7 @@ const ARTICLES = [
 
             <p>Reading about cursive only gets you so far. The six letters below cause most of the confusion, and the fastest way to make sense of them is to watch the pen. Tap a letter to see it drawn stroke by stroke, and slow it down if you want to follow the direction. The shapes are checked against the public-domain Russian cursive chart on Wikimedia Commons, and the stroke order against the Middlebury Institute's Russian handwriting guide.</p>
 
+            <div class="keep-together">
             <div id="cursive-picker" class="cursive-picker">
                 <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="т" data-caption="Three downstrokes joined by two arches on top, like a Latin m. Some writers add a bar above it." aria-pressed="false">т</button>
                 <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="и" data-caption="Two cups, rounded on the bottom, like a Latin u." aria-pressed="false">и</button>
@@ -2135,6 +2136,7 @@ const ARTICLES = [
             </div>
 
             <p id="cursive-caption" class="cursive-caption">Tap a letter above to watch it being written.</p>
+            </div>
 
             <p>The pattern worth noticing: т is rounded on top, two humps like a Latin m. и and ш are rounded on the bottom, two cups and three. л and м lean in with a small hook before their first stroke, and that hook is what separates them from the hump letters around them. д drops a loop below the line like a Latin g. Some writers also add a small bar above т and a line below ш to tell them apart. Once you can spot humps, cups, hooks, and tails, words like лишишься stop being a wall of identical bumps.</p>
 
@@ -2284,6 +2286,7 @@ const ARTICLES = [
 
             <h3>Watch the letters being written</h3>
 
+            <div class="keep-together">
             <div id="cursive-ru-picker" class="cursive-picker">
                 <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="и" data-caption="и (sounds like ee): two stems joined at the bottom, in one stroke." aria-pressed="false">и</button>
                 <button class="cursive-letter-btn notranslate" translate="no" lang="ru" data-letter="й" data-caption="й: written like и, then a second stroke for the small curved mark on top." aria-pressed="false">й</button>
@@ -2311,6 +2314,7 @@ const ARTICLES = [
             </div>
 
             <p id="cursive-ru-caption" class="cursive-caption">Tap a letter to watch it being written.</p>
+            </div>
 
             <p>Press Watch again to see a letter once more, and Slow to follow it more easily.</p>
 
@@ -3772,6 +3776,7 @@ const ARTICLES = [
             </div>
 
             <h3>Standard Russian Alphabet</h3>
+            <div class="keep-together">
             <p class="copy-section-label">Uppercase</p>
             <div id="uppercase-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="А"><span class="copy-glyph notranslate" translate="no" lang="ru">А</span><span class="copy-feedback">Copied!</span></button>
@@ -3802,7 +3807,9 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="Щ"><span class="copy-glyph notranslate" translate="no" lang="ru">Щ</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
+            </div>
 
+            <div class="keep-together">
             <p class="copy-section-label">Lowercase</p>
             <div id="lowercase-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="а"><span class="copy-glyph notranslate" translate="no" lang="ru">а</span><span class="copy-feedback">Copied!</span></button>
@@ -3833,7 +3840,9 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="щ"><span class="copy-glyph notranslate" translate="no" lang="ru">щ</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
+            </div>
 
+            <div class="keep-together">
             <p class="copy-section-label">Special Characters (Ё, Signs, Ы, Э, Ю, Я)</p>
             <div id="special-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="Ё"><span class="copy-glyph notranslate" translate="no" lang="ru">Ё</span><span class="copy-feedback">Copied!</span></button>
@@ -3852,9 +3861,11 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="я"><span class="copy-glyph notranslate" translate="no" lang="ru">я</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
+            </div>
 
             <h3>Accented Letters (Stress Marks)</h3>
             <p>Russian dictionaries and textbooks use acute accents to mark stressed syllables. These are hard to type. Here they are ready to copy.</p>
+            <div class="keep-together">
             <p class="copy-section-label">Uppercase Accented</p>
             <div id="accented-upper-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="А́"><span class="copy-glyph notranslate" translate="no" lang="ru">А́</span><span class="copy-feedback">Copied!</span></button>
@@ -3868,6 +3879,8 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="Я́"><span class="copy-glyph notranslate" translate="no" lang="ru">Я́</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
+            </div>
+            <div class="keep-together">
             <p class="copy-section-label">Lowercase Accented</p>
             <div id="accented-lower-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="а́"><span class="copy-glyph notranslate" translate="no" lang="ru">а́</span><span class="copy-feedback">Copied!</span></button>
@@ -3880,6 +3893,7 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="ю́"><span class="copy-glyph notranslate" translate="no" lang="ru">ю́</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn" data-char="я́"><span class="copy-glyph notranslate" translate="no" lang="ru">я́</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
+            </div>
             </div>
 
             <h3>Pre-Reform Letters (Pre-1918)</h3>
@@ -3942,6 +3956,7 @@ const ARTICLES = [
 
             <p>Use it however helps most. Tap through the vowels first to get the foundation, drill the consonants, or jump straight to the letters you keep forgetting. Every letter plays real recorded audio, so you are learning how Russian actually sounds, not guessing from a transliteration. When you are ready to make them stick, the <a href="/" onclick="navTo(event, 'home', null)">free study quiz</a> drills you on these exact letters until reading them is automatic.</p>
 
+            <div class="keep-together">
             <div id="alphabet-controls" style="margin: 30px 0; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
                 <div style="display: flex; gap: 10px;">
                     <button class="filter-btn active" data-filter="all">All Letters</button>
@@ -4271,6 +4286,7 @@ const ARTICLES = [
                     <div><span class="legend-swatch legend-swatch--medium"></span> <strong>Tricky shape</strong> - Looks like a different English letter, or like nothing in English</div>
                     <div><span class="legend-swatch legend-swatch--hard"></span> <strong>Tricky sound</strong> - A sound that is unusual in English, or no sound of its own</div>
                 </div>
+            </div>
             </div>
 
             <p>To see every letter in handwriting, see <a href="/articles/russian-cursive" onclick="navTo(event, null, 'russian-cursive')">Russian Cursive Alphabet: Chart and Worksheets</a>.</p>

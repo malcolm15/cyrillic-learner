@@ -2870,9 +2870,6 @@
         body.dark-mode .copy-section-label {
             color: var(--dark-text-dim);
         }
-        .copy-section-label:first-of-type {
-            margin-top: 0;
-        }
         #copy-text-builder {
             background: white;
             border: 2px solid var(--dark-blue);
