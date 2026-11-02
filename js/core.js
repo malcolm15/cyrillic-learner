@@ -846,21 +846,39 @@ function isModifiedClick(event) {
         (typeof event.button === 'number' && event.button !== 0));
 }
 
+// An article's clean URL. The one place that path is built, for both the history
+// entry showArticle pushes and the full loads below.
+function articlePath(slug) {
+    return '/articles/' + slug;
+}
+
+// Articles reached through an in-app link open as full documents, never as an
+// in-place swap: Journey by Mediavine places its in-article units, video player
+// and related units only on a document load, so an article shown by showArticle
+// on an existing page got none (ledger row 372). Every other route stays in
+// place. Nothing is pushed first, so the load adds the one history entry and
+// GA4 counts the one page view, on load.
+function loadArticle(slug) {
+    window.location.assign(articlePath(slug));
+}
+
 function navTo(event, path, slug) {
     if (isModifiedClick(event)) return;
     event.preventDefault();
     if (slug) {
-        showArticle(slug);
+        loadArticle(slug);
     } else {
         showPage(path);
     }
 }
 
+// The homepage quick-start links. They used to show the listing first and open
+// the article 100 ms later; now they load the article straight away, like
+// every other article link.
 function navToArticle(event, slug) {
     if (isModifiedClick(event)) return;
     event.preventDefault();
-    showPage('articles', { push: false });
-    setTimeout(() => showArticle(slug), 100);
+    loadArticle(slug);
 }
 
 // Article navigation functions
@@ -929,7 +947,7 @@ function showArticle(articleId, opts) {
     injectArticleSchema(articleId, article);
     
     // Update URL (only if different)
-    const articleUrl = `/articles/${articleId}`;
+    const articleUrl = articlePath(articleId);
     if (push && window.location.pathname !== articleUrl) {
         window.history.pushState({ page: 'articles', article: articleId }, '', articleUrl);
     }
@@ -1170,9 +1188,16 @@ function navigateArticle(event, direction) {
     if (isModifiedClick(event)) return;
     event.preventDefault();
     const link = direction === 'prev' ? document.getElementById('prev-article') : document.getElementById('next-article');
-    const articleId = link.getAttribute('data-article-id');
+    // data-article-id is set by showArticle on the shell and written by the
+    // pre-renderer on article pages; the href is the fallback.
+    let articleId = link.getAttribute('data-article-id');
+    if (!articleId) {
+        const href = link.getAttribute('href') || '';
+        const prefix = articlePath('');
+        if (href.indexOf(prefix) === 0) articleId = href.slice(prefix.length);
+    }
     if (articleId) {
-        showArticle(articleId);
+        loadArticle(articleId);
     }
 }
 
