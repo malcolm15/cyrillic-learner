@@ -414,9 +414,10 @@ function assertAdBlocklist(page, others) {
 // script reads it. Each group lists its parts, in order, by a string found once
 // in the article. The parts must be the wrapper's only children, the wrapper
 // must be a direct child of #article-content, and each group has its own. A
-// copy-paste label goes with the grid it names; the text builder, the
-// pre-reform grid and the tool as a whole are not wrapped. No other document
-// carries the class, so no prose or heading is wrapped to keep ads out.
+// tool whose parts work together is one unit from its first control to its
+// last, headings and short instructions inside it included; prose before and
+// after it stays outside. No other document carries the class, so no prose or
+// heading outside a tool is wrapped to keep ads out.
 const KEEP_TOGETHER_TAG = '<div class="keep-together">';
 const KEEP_TOGETHER = [
     { article: 'russian-alphabet-chart', groups: [
@@ -428,12 +429,19 @@ const KEEP_TOGETHER = [
     { article: 'russian-cursive', groups: [
         ['<div id="cursive-ru-picker"', '<div class="cursive-stage-wrap"', '<p id="cursive-ru-caption"'],
     ] },
+    // Every grid feeds the text builder at the top, so the whole tool is one
+    // unit, its headings and short instructions included.
     { article: 'cyrillic-copy-paste', groups: [
-        ['<p class="copy-section-label">Uppercase</p>', '<div id="uppercase-container"'],
-        ['<p class="copy-section-label">Lowercase</p>', '<div id="lowercase-container"'],
-        ['<p class="copy-section-label">Special Characters', '<div id="special-container"'],
-        ['<p class="copy-section-label">Uppercase Accented</p>', '<div id="accented-upper-container"'],
-        ['<p class="copy-section-label">Lowercase Accented</p>', '<div id="accented-lower-container"'],
+        ['<div id="copy-text-builder"',
+         '<h3>Standard Russian Alphabet</h3>',
+         '<p class="copy-section-label">Uppercase</p>', '<div id="uppercase-container"',
+         '<p class="copy-section-label">Lowercase</p>', '<div id="lowercase-container"',
+         '<p class="copy-section-label">Special Characters', '<div id="special-container"',
+         '<h3>Accented Letters (Stress Marks)</h3>', '<p>Russian dictionaries and textbooks use acute accents',
+         '<p class="copy-section-label">Uppercase Accented</p>', '<div id="accented-upper-container"',
+         '<p class="copy-section-label">Lowercase Accented</p>', '<div id="accented-lower-container"',
+         '<h3>Pre-Reform Letters (Pre-1918)</h3>', '<p>These letters dropped out of Russian with the 1918 spelling reform.',
+         '<div id="prereform-container"'],
     ] },
 ];
 

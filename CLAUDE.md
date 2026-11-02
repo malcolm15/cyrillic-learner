@@ -1616,16 +1616,28 @@ releases.
   part and closed just after its last, contents not re-indented: the alphabet
   chart (`#alphabet-controls`, `#print-controls`, `#alphabet-grid`,
   `#letter-legend`), both cursive widgets (picker, `.cursive-stage-wrap`,
-  caption), and on the copy-paste page each `p.copy-section-label` with the grid
-  it names (five wrappers). A copy-paste label is wrapped with its grid, never
-  the whole tool: the text builder and `#prereform-container` are single
-  elements already. Ordinary prose and headings are never wrapped to keep ads
-  out. The class has no CSS and no script reads it. A wrapper changes what a
+  caption), and the whole copy-paste tool, from `#copy-text-builder` through
+  `#prereform-container` (four wrappers in all). A tool whose parts work
+  together, such as the copy-paste page where every grid feeds the text builder
+  at the top, is wrapped as one unit from its first control to its last,
+  including the headings and short instructions inside it. Prose before and
+  after the tool stays unwrapped. Ordinary prose and headings outside a tool are
+  never wrapped to keep ads out.
+- **Why the copy-paste tool is one unit.** Row 375 first wrapped each copy-paste
+  label with its grid (five wrappers). On production (2026-11-02) Journey then
+  placed an ad and the video player between the copy-paste grids, which
+  separated the tiles from the text builder they feed, so the five pair
+  wrappers became one wrapper around the whole tool.
+- **What a wrapper does not cover.** Keep-together prevents in-content units and
+  the in-content video inside a tool, but does not affect the page-level
+  adhesion (sticky footer) ad. Removing that from a page needs the blocklist,
+  which is a separate decision.
+- The class has no CSS and no script reads it. A wrapper changes what a
   structural selector (`:first-of-type`, `:first-child`, `>`) matches inside it:
-  `.copy-section-label:first-of-type`, which matched no label before the
-  wrappers, would have matched all five inside them, so it was removed. The
-  build check cannot see CSS, so compare rendered layout before and after any
-  new wrapper.
+  `.copy-section-label:first-of-type`, which matched no label before the row 375
+  wrappers but would have matched labels inside them, was removed. The build
+  check cannot see CSS, so compare rendered layout before and after any new or
+  changed wrapper.
 - **"Keep-together passed"** (`assertKeepTogether`, groups in `KEEP_TOGETHER`):
   in each listed built article, every part of a group is a child of one
   `<div class="keep-together">` that is a direct child of `#article-content`,

@@ -3762,6 +3762,7 @@ const ARTICLES = [
         content: `
             <p>Copy any Cyrillic character to your clipboard with one click: standard Russian letters, accented vowels with stress marks, and pre-reform characters from before 1918. Click a letter to copy it individually, or use the text builder to assemble full words and phrases.</p>
 
+            <div class="keep-together">
             <div id="copy-text-builder">
                 <div class="text-builder-header">
                     <span class="text-builder-label">Text Builder</span>
@@ -3776,7 +3777,6 @@ const ARTICLES = [
             </div>
 
             <h3>Standard Russian Alphabet</h3>
-            <div class="keep-together">
             <p class="copy-section-label">Uppercase</p>
             <div id="uppercase-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="А"><span class="copy-glyph notranslate" translate="no" lang="ru">А</span><span class="copy-feedback">Copied!</span></button>
@@ -3807,9 +3807,7 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="Щ"><span class="copy-glyph notranslate" translate="no" lang="ru">Щ</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
-            </div>
 
-            <div class="keep-together">
             <p class="copy-section-label">Lowercase</p>
             <div id="lowercase-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="а"><span class="copy-glyph notranslate" translate="no" lang="ru">а</span><span class="copy-feedback">Copied!</span></button>
@@ -3840,9 +3838,7 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="щ"><span class="copy-glyph notranslate" translate="no" lang="ru">щ</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
-            </div>
 
-            <div class="keep-together">
             <p class="copy-section-label">Special Characters (Ё, Signs, Ы, Э, Ю, Я)</p>
             <div id="special-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="Ё"><span class="copy-glyph notranslate" translate="no" lang="ru">Ё</span><span class="copy-feedback">Copied!</span></button>
@@ -3861,11 +3857,9 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="я"><span class="copy-glyph notranslate" translate="no" lang="ru">я</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
-            </div>
 
             <h3>Accented Letters (Stress Marks)</h3>
             <p>Russian dictionaries and textbooks use acute accents to mark stressed syllables. These are hard to type. Here they are ready to copy.</p>
-            <div class="keep-together">
             <p class="copy-section-label">Uppercase Accented</p>
             <div id="accented-upper-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="А́"><span class="copy-glyph notranslate" translate="no" lang="ru">А́</span><span class="copy-feedback">Copied!</span></button>
@@ -3879,8 +3873,6 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="Я́"><span class="copy-glyph notranslate" translate="no" lang="ru">Я́</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
             </div>
-            </div>
-            <div class="keep-together">
             <p class="copy-section-label">Lowercase Accented</p>
             <div id="accented-lower-container" class="copy-grid">
                 <button type="button" class="copy-char-btn" data-char="а́"><span class="copy-glyph notranslate" translate="no" lang="ru">а́</span><span class="copy-feedback">Copied!</span></button>
@@ -3893,7 +3885,6 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="ю́"><span class="copy-glyph notranslate" translate="no" lang="ru">ю́</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn" data-char="я́"><span class="copy-glyph notranslate" translate="no" lang="ru">я́</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
-            </div>
             </div>
 
             <h3>Pre-Reform Letters (Pre-1918)</h3>
@@ -3908,6 +3899,7 @@ const ARTICLES = [
                 <button type="button" class="copy-char-btn" data-char="Ѵ"><span class="copy-glyph notranslate" translate="no" lang="ru">Ѵ</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn" data-char="ѵ"><span class="copy-glyph notranslate" translate="no" lang="ru">ѵ</span><span class="copy-feedback">Copied!</span></button>
                 <button type="button" class="copy-char-btn copy-space-tile" aria-label="Insert space">Space</button>
+            </div>
             </div>
 
             <h3>How to Use</h3>
