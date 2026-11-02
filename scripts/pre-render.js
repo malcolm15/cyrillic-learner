@@ -2518,6 +2518,15 @@ function main() {
     if (extra.length) fail('russian-alphabet-chart: letters in the chart that are not Russian: ' + extra.join(' '));
     const noAudio = cardLetters.filter(function (ch) { return !audioLetters.has(ch); });
     if (noAudio.length) fail('russian-alphabet-chart: card letters absent from CYRILLIC_DATA (no audio): ' + noAudio.join(' '));
+    // The cards are in standard alphabetical order, RUSSIAN_LETTERS's order. The
+    // filters only hide cards and the print chart reads them in document order,
+    // so every view keeps it.
+    if (cardLetters.join('') !== RUSSIAN_LETTERS.join('')) {
+        fail('russian-alphabet-chart: the cards must be in standard alphabetical order (' + RUSSIAN_LETTERS.join(' ') +
+             '), found ' + cardLetters.join(' '));
+    }
+    console.log('Chart order passed: the 33 russian-alphabet-chart cards are in standard alphabetical order, ' +
+                RUSSIAN_LETTERS[0] + ' to ' + RUSSIAN_LETTERS[32] + ', in document order.');
 
     // Every card carries exactly one name line and one IPA line, with the expected text.
     const nameById = {};
