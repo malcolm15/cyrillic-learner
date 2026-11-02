@@ -3944,10 +3944,6 @@ const ARTICLES = [
         content: `
             <p>The Russian alphabet has 33 letters, and this interactive chart lets you hear every one of them. Click any letter to play its pronunciation, filter by vowels or consonants, and see how each Russian Cyrillic letter maps to its sound in English.</p>
 
-            <p>If you are just starting out, this is the page to bookmark. Some Russian letters look exactly like English ones and sound the same, a few look familiar but sound completely different, and a handful are brand new shapes. The chart below groups all 33 so you can see those patterns at a glance instead of memorizing a random list.</p>
-
-            <p>Use it however helps most. Tap through the vowels first to get the foundation, drill the consonants, or jump straight to the letters you keep forgetting. Every letter plays real recorded audio, so you are learning how Russian actually sounds, not guessing from a transliteration. When you are ready to make them stick, the <a href="/" onclick="navTo(event, 'home', null)">free study quiz</a> drills you on these exact letters until reading them is automatic.</p>
-
             <div class="keep-together">
             <div id="alphabet-controls" style="margin: 30px 0; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
                 <div style="display: flex; gap: 10px;">
@@ -3960,17 +3956,6 @@ const ARTICLES = [
                 </div>
             </div>
 
-            <div id="print-controls">
-                <p class="print-intro">Need a paper copy? A printable one-page version of the full chart is one click away, or save it as a PDF.</p>
-                <div class="print-actions">
-                    <label>
-                        <input type="checkbox" id="print-examples-checkbox" checked>
-                        Include example words
-                    </label>
-                    <button class="btn-print" onclick="printChart()">Print / Save as PDF</button>
-                </div>
-            </div>
-
             <div id="alphabet-grid" class="alphabet-grid">
                     <button type="button" class="letter-card easy" data-letter="А" data-type="vowel" aria-labelledby="play-label-1">
                         <span id="play-label-1" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> А</span></span>
@@ -3980,87 +3965,6 @@ const ARTICLES = [
                         <div class="letter-sound notranslate" translate="no">ah</div>
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">автобус </span>(bus)</div>
                         <div class="letter-ipa">/a/</div>
-                    </button>
-                    <button type="button" class="letter-card easy" data-letter="Е" data-type="vowel" aria-labelledby="play-label-2">
-                        <span id="play-label-2" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Е</span></span>
-                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars notranslate" translate="no" lang="ru">Е е</div>
-                        <div class="letter-name notranslate" translate="no" lang="ru">е</div>
-                        <div class="letter-sound notranslate" translate="no">yeh</div>
-                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">есть </span>(to eat)</div>
-                        <div class="letter-ipa">/je/</div>
-                    </button>
-                    <button type="button" class="letter-card medium" data-letter="Ё" data-type="vowel" aria-labelledby="play-label-3">
-                        <span id="play-label-3" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ё</span></span>
-                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars notranslate" translate="no" lang="ru">Ё ё</div>
-                        <div class="letter-name notranslate" translate="no" lang="ru">ё</div>
-                        <div class="letter-sound notranslate" translate="no">yo</div>
-                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">ёлка </span>(tree)</div>
-                        <div class="letter-ipa">/jo/</div>
-                    </button>
-                    <button type="button" class="letter-card medium" data-letter="И" data-type="vowel" aria-labelledby="play-label-4">
-                        <span id="play-label-4" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> И</span></span>
-                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars notranslate" translate="no" lang="ru">И и</div>
-                        <div class="letter-name notranslate" translate="no" lang="ru">и (ee)</div>
-                        <div class="letter-sound notranslate" translate="no">ee</div>
-                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">имя </span>(name)</div>
-                        <div class="letter-ipa">/i/</div>
-                    </button>
-                    <button type="button" class="letter-card easy" data-letter="О" data-type="vowel" aria-labelledby="play-label-5">
-                        <span id="play-label-5" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> О</span></span>
-                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars notranslate" translate="no" lang="ru">О о</div>
-                        <div class="letter-name notranslate" translate="no" lang="ru">о</div>
-                        <div class="letter-sound notranslate" translate="no">oh</div>
-                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">окно </span>(window)</div>
-                        <div class="letter-ipa">/o/</div>
-                    </button>
-                    <button type="button" class="letter-card medium" data-letter="У" data-type="vowel" aria-labelledby="play-label-6">
-                        <span id="play-label-6" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> У</span></span>
-                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars notranslate" translate="no" lang="ru">У у</div>
-                        <div class="letter-name notranslate" translate="no" lang="ru">у (oo)</div>
-                        <div class="letter-sound notranslate" translate="no">oo</div>
-                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">утро </span>(morning)</div>
-                        <div class="letter-ipa">/u/</div>
-                    </button>
-                    <button type="button" class="letter-card hard" data-letter="Ы" data-type="vowel" aria-labelledby="play-label-7">
-                        <span id="play-label-7" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ы</span></span>
-                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars notranslate" translate="no" lang="ru">Ы ы</div>
-                        <div class="letter-name notranslate" translate="no" lang="ru">ы</div>
-                        <div class="letter-sound notranslate" translate="no">ih</div>
-                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">мы </span>(we)</div>
-                        <div class="letter-ipa">/ɨ/</div>
-                    </button>
-                    <button type="button" class="letter-card medium" data-letter="Э" data-type="vowel" aria-labelledby="play-label-8">
-                        <span id="play-label-8" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Э</span></span>
-                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars notranslate" translate="no" lang="ru">Э э</div>
-                        <div class="letter-name notranslate" translate="no" lang="ru">э (e)</div>
-                        <div class="letter-sound notranslate" translate="no">eh</div>
-                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">это </span>(this)</div>
-                        <div class="letter-ipa">/ɛ/</div>
-                    </button>
-                    <button type="button" class="letter-card medium" data-letter="Ю" data-type="vowel" aria-labelledby="play-label-9">
-                        <span id="play-label-9" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ю</span></span>
-                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars notranslate" translate="no" lang="ru">Ю ю</div>
-                        <div class="letter-name notranslate" translate="no" lang="ru">ю (ew)</div>
-                        <div class="letter-sound notranslate" translate="no">yoo</div>
-                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">юг </span>(south)</div>
-                        <div class="letter-ipa">/ju/</div>
-                    </button>
-                    <button type="button" class="letter-card medium" data-letter="Я" data-type="vowel" aria-labelledby="play-label-10">
-                        <span id="play-label-10" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Я</span></span>
-                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
-                        <div class="letter-chars notranslate" translate="no" lang="ru">Я я</div>
-                        <div class="letter-name notranslate" translate="no" lang="ru">я</div>
-                        <div class="letter-sound notranslate" translate="no">ya</div>
-                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">яблоко </span>(apple)</div>
-                        <div class="letter-ipa">/ja/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="Б" data-type="consonant" aria-labelledby="play-label-11">
                         <span id="play-label-11" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Б</span></span>
@@ -4098,6 +4002,24 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">дом </span>(house)</div>
                         <div class="letter-ipa">/dɛ/</div>
                     </button>
+                    <button type="button" class="letter-card easy" data-letter="Е" data-type="vowel" aria-labelledby="play-label-2">
+                        <span id="play-label-2" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Е</span></span>
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Е е</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">е</div>
+                        <div class="letter-sound notranslate" translate="no">yeh</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">есть </span>(to eat)</div>
+                        <div class="letter-ipa">/je/</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Ё" data-type="vowel" aria-labelledby="play-label-3">
+                        <span id="play-label-3" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ё</span></span>
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ё ё</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ё</div>
+                        <div class="letter-sound notranslate" translate="no">yo</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">ёлка </span>(tree)</div>
+                        <div class="letter-ipa">/jo/</div>
+                    </button>
                     <button type="button" class="letter-card hard" data-letter="Ж" data-type="consonant" aria-labelledby="play-label-15">
                         <span id="play-label-15" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ж</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
@@ -4115,6 +4037,15 @@ const ARTICLES = [
                         <div class="letter-sound notranslate" translate="no">z</div>
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">зима </span>(winter)</div>
                         <div class="letter-ipa">/zɛ/</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="И" data-type="vowel" aria-labelledby="play-label-4">
+                        <span id="play-label-4" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> И</span></span>
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">И и</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">и (ee)</div>
+                        <div class="letter-sound notranslate" translate="no">ee</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">имя </span>(name)</div>
+                        <div class="letter-ipa">/i/</div>
                     </button>
                     <button type="button" class="letter-card medium" data-letter="Й" data-type="consonant" aria-labelledby="play-label-17">
                         <span id="play-label-17" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Й</span></span>
@@ -4161,6 +4092,15 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">нет </span>(no)</div>
                         <div class="letter-ipa">/ɛn/</div>
                     </button>
+                    <button type="button" class="letter-card easy" data-letter="О" data-type="vowel" aria-labelledby="play-label-5">
+                        <span id="play-label-5" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> О</span></span>
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">О о</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">о</div>
+                        <div class="letter-sound notranslate" translate="no">oh</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">окно </span>(window)</div>
+                        <div class="letter-ipa">/o/</div>
+                    </button>
                     <button type="button" class="letter-card easy" data-letter="П" data-type="consonant" aria-labelledby="play-label-22">
                         <span id="play-label-22" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> П</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
@@ -4196,6 +4136,15 @@ const ARTICLES = [
                         <div class="letter-sound notranslate" translate="no">t</div>
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">там </span>(there)</div>
                         <div class="letter-ipa">/tɛ/</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="У" data-type="vowel" aria-labelledby="play-label-6">
+                        <span id="play-label-6" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> У</span></span>
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">У у</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">у (oo)</div>
+                        <div class="letter-sound notranslate" translate="no">oo</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">утро </span>(morning)</div>
+                        <div class="letter-ipa">/u/</div>
                     </button>
                     <button type="button" class="letter-card easy" data-letter="Ф" data-type="consonant" aria-labelledby="play-label-26">
                         <span id="play-label-26" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ф</span></span>
@@ -4260,6 +4209,15 @@ const ARTICLES = [
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">объект </span>(object)</div>
                         <div class="letter-ipa">/ˈtvʲɵrdɨj znak/</div>
                     </button>
+                    <button type="button" class="letter-card hard" data-letter="Ы" data-type="vowel" aria-labelledby="play-label-7">
+                        <span id="play-label-7" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ы</span></span>
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ы ы</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ы</div>
+                        <div class="letter-sound notranslate" translate="no">ih</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">мы </span>(we)</div>
+                        <div class="letter-ipa">/ɨ/</div>
+                    </button>
                     <button type="button" class="letter-card hard" data-letter="Ь" data-type="sign" aria-labelledby="play-label-33">
                         <span id="play-label-33" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ь</span></span>
                         <span class="letter-audio-icon" aria-hidden="true">🔊</span>
@@ -4268,6 +4226,33 @@ const ARTICLES = [
                         <div class="letter-sound notranslate" translate="no">soft sign</div>
                         <div class="letter-example"><span lang="ru" translate="no" class="notranslate">день </span>(day)</div>
                         <div class="letter-ipa">/ˈmʲæxʲkʲɪj znak/</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Э" data-type="vowel" aria-labelledby="play-label-8">
+                        <span id="play-label-8" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Э</span></span>
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Э э</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">э (e)</div>
+                        <div class="letter-sound notranslate" translate="no">eh</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">это </span>(this)</div>
+                        <div class="letter-ipa">/ɛ/</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Ю" data-type="vowel" aria-labelledby="play-label-9">
+                        <span id="play-label-9" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Ю</span></span>
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Ю ю</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">ю (ew)</div>
+                        <div class="letter-sound notranslate" translate="no">yoo</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">юг </span>(south)</div>
+                        <div class="letter-ipa">/ju/</div>
+                    </button>
+                    <button type="button" class="letter-card medium" data-letter="Я" data-type="vowel" aria-labelledby="play-label-10">
+                        <span id="play-label-10" class="sr-only" aria-hidden="true">Play pronunciation of<span lang="ru" translate="no" class="notranslate"> Я</span></span>
+                        <span class="letter-audio-icon" aria-hidden="true">🔊</span>
+                        <div class="letter-chars notranslate" translate="no" lang="ru">Я я</div>
+                        <div class="letter-name notranslate" translate="no" lang="ru">я</div>
+                        <div class="letter-sound notranslate" translate="no">ya</div>
+                        <div class="letter-example"><span lang="ru" translate="no" class="notranslate">яблоко </span>(apple)</div>
+                        <div class="letter-ipa">/ja/</div>
                     </button>
                 </div>
 
@@ -4279,7 +4264,20 @@ const ARTICLES = [
                     <div><span class="legend-swatch legend-swatch--hard"></span> <strong>Tricky sound</strong> - A sound that is unusual in English, or no sound of its own</div>
                 </div>
             </div>
+
+            <div id="print-controls">
+                <p class="print-intro">Need a paper copy? A printable one-page version of the full chart is one click away, or save it as a PDF.</p>
+                <div class="print-actions">
+                    <label>
+                        <input type="checkbox" id="print-examples-checkbox" checked>
+                        Include example words
+                    </label>
+                    <button class="btn-print" onclick="printChart()">Print / Save as PDF</button>
+                </div>
             </div>
+            </div>
+
+            <p>Some Russian letters look exactly like English ones and sound the same, a few look familiar but sound completely different, and a handful are brand new shapes. The colours on the chart show what makes each letter tricky, as the key above explains, so you can see which letters may need extra attention at a glance instead of memorizing a random list.</p>
 
             <p>To see every letter in handwriting, see <a href="/articles/russian-cursive" onclick="navTo(event, null, 'russian-cursive')">Russian Cursive Alphabet: Chart and Worksheets</a>.</p>
 
@@ -4290,7 +4288,7 @@ const ARTICLES = [
 
             <h3>How to Use This Chart</h3>
 
-            <p>This isn't just a reference chart. It's a learning tool. Here's how to actually use it.</p>
+            <p>Use it however helps most. Tap through the vowels first to get the foundation, drill the consonants, or jump straight to the letters you keep forgetting. Every letter plays real recorded audio, so you are learning how Russian actually sounds, not guessing from a transliteration.</p>
 
             <p><strong>For complete beginners:</strong> Start by filtering to "Vowels Only." Learn those 10 letters first. Click each one to hear the pronunciation. Write them down. Then switch to "Consonants Only" and tackle those in groups of 5 or 6.</p>
 
@@ -4332,7 +4330,7 @@ const ARTICLES = [
 
             <h3>The Two Weird Signs</h3>
 
-            <p>At the bottom of the chart, you'll see Ъ (hard sign) and Ь (soft sign). These don't make sounds on their own. They modify how you pronounce the letters around them.</p>
+            <p>Near the end of the alphabet you'll see Ъ (hard sign) and Ь (soft sign), with Ы between them. These don't make sounds on their own. They modify how you pronounce the letters around them.</p>
 
             <p>The soft sign (Ь) makes consonants "soft." If you see a consonant followed by Ь, you soften that consonant sound. The hard sign (Ъ) creates a separation between syllables and keeps consonants "hard."</p>
 
