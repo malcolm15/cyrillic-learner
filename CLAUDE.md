@@ -152,13 +152,33 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
   (scripts/cursive/)".
 - `downloads/`: the printable worksheets (PDF). SITE. See "Downloads
   (/downloads/)".
-- `images/`, `audio/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
+- `audio/`: the 33 letter pronunciation files (MP3), referenced from
+  `CYRILLIC_DATA` in `js/core.js`. They are human recordings by a professional
+  voice actor the owner commissioned through Upwork; `a.mp3` was re-recorded by
+  the same voice actor on 2026-07-17 (a299be5), as confirmed by the owner. This
+  is the source for the site's "real recorded audio" wording.
+- `images/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
   namespace).
 
-Two cross-file gotchas:
+Cross-file gotchas:
 - **Audio is triggered in two places:** `playPronunciation()` in core.js (study quiz
   and chart) and `playAudio()` in article-scripts.js (article pages). Changes to
   audio behavior usually need to be applied in both.
+- **The fixed nav's height has one source:** `--nav-height` (74px: the 70px bar
+  plus its 4px bottom border) on `:root` in `css/styles.css`, and
+  `.nav-container` derives its height from it. In-page anchor targets clear the
+  nav through `scroll-margin-top: calc(var(--nav-height) + 12px)` in one rule
+  (`#article-content h3[id], #print-controls`, the history-of-cyrillic contents
+  headings and the chart's print row); any new anchor target must be added to
+  that rule's selector. `scroll-padding` on the root is deliberately not used:
+  it would also change the quiz's focus scrolls. A load with a hash
+  (`showArticle` in `js/core.js`) switches smooth scrolling off until its scroll
+  is done, waits for the window load event, finishes the article card's 0.6s
+  `fadeIn` entrance animation if it is still running (its transform shift is
+  not corrected by scroll anchoring), then scrolls instantly and restores smooth
+  scrolling, so the target lands clear of the nav (ledger row 380). Only that
+  animation is finished; normal loads keep the fade-in, and the contents links
+  keep their smooth scroll.
 - Per-page meta, canonical, Open Graph, Twitter, and Article JSON-LD schema are
   injected dynamically by core.js based on the active page (`injectArticleSchema()` /
   `removeArticleSchema()`), plus the article BreadcrumbList. Both removal paths look

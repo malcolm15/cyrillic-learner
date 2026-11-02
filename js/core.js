@@ -1020,15 +1020,42 @@ function showArticle(articleId, opts) {
         relatedSection.style.display = 'none';
     }
     
-    // Scroll to top or to anchor if hash present
+    // Scroll to top or to anchor if hash present. A hash load switches smooth
+    // scrolling off until its scroll is done (html sets scroll-behavior: smooth,
+    // and the browser's own scroll to the fragment would otherwise animate),
+    // waits for the window load event, finishes the article card's fadeIn
+    // entrance animation if it is still running (its translateY is part of the
+    // target's measured position, and a transform shift is not corrected by
+    // scroll anchoring), then scrolls instantly and restores smooth scrolling.
+    // Only that animation is finished. The target clears the fixed nav through
+    // its scroll-margin-top in css/styles.css (ledger row 380). An unknown hash
+    // does nothing.
     const hash = window.location.hash;
     if (hash && /^#[a-zA-Z0-9_-]+$/.test(hash)) {
-        setTimeout(() => {
-            const target = document.getElementById(hash.substring(1));
-            if (target) {
-                target.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+        const root = document.documentElement;
+        const previous = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+        const scrollToHash = () => {
+            try {
+                const target = document.getElementById(hash.substring(1));
+                if (!target) return;
+                const card = target.closest('.card');
+                try {
+                    if (card && card.getAnimations) {
+                        card.getAnimations().forEach(a => {
+                            if (a.animationName === 'fadeIn' && a.playState === 'running') a.finish();
+                        });
+                    }
+                } catch (e) {
+                    // Finishing the fade-in only refines the landing; the scroll still runs.
+                }
+                target.scrollIntoView({ block: 'start' });
+            } finally {
+                root.style.scrollBehavior = previous;
             }
-        }, 100);
+        };
+        if (document.readyState === 'complete') scrollToHash();
+        else window.addEventListener('load', scrollToHash, { once: true });
     } else {
         window.scrollTo(0, 0);
     }
