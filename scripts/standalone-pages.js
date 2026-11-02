@@ -110,7 +110,8 @@ module.exports = [
         published: '2026-10-19',
         modified: '2026-10-20',
         breadcrumbName: 'For Teachers',
-        bodyHtml: `                    <div class="card">
+        bodyHtml: `                    <div id="ad-management-config-settings" data-blocklist-all="1"></div>
+                    <div class="card">
                         <h1>Cyrilica for Teachers</h1>
 
                         <div class="content-text">

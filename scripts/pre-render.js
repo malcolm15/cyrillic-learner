@@ -353,6 +353,58 @@ function assertJourneyContent(withView, without, others) {
     return withView.length;
 }
 
+// ---- display ads: the /teachers blocklist ----
+//
+// Journey removes its units from any page whose content holds its blocklist
+// div, and reads only one per page; data-blocklist-all="1" removes every unit.
+// /teachers carries it, and nothing else does. The div is the first line of the
+// teachers entry's bodyHtml in scripts/standalone-pages.js, so it sits inside
+// <main>, in that page's own content. In the shared template (the head, nav or
+// footer of index.html) it would remove the ads from every page.
+const AD_BLOCKLIST_ID = 'ad-management-config-settings';
+const AD_BLOCKLIST_TAG = '<div id="' + AD_BLOCKLIST_ID + '" data-blocklist-all="1">';
+const AD_BLOCKLIST_PAGE = 'teachers';
+
+// page: the [label, html] pair for /teachers. others: [label, text] pairs for
+// every other document and the scripts in js/. Matching the whole opening tag
+// means no other attribute, data- or otherwise, can ride along.
+function assertAdBlocklist(page, others) {
+    const label = page[0], html = page[1];
+    const strict = countOccurrences(html, 'id="' + AD_BLOCKLIST_ID + '"');
+    const loose = countOccurrences(html, AD_BLOCKLIST_ID);
+    if (strict !== 1 || loose !== 1) {
+        fail(label + ': expected the Journey blocklist div exactly once, found id="' + AD_BLOCKLIST_ID + '" ' + strict +
+             ' time(s) and "' + AD_BLOCKLIST_ID + '" ' + loose + ' time(s). Journey reads only one per page.');
+    }
+    const tag = openingTagWithId(html, AD_BLOCKLIST_ID, label);
+    if (tag !== AD_BLOCKLIST_TAG || countOccurrences(html, AD_BLOCKLIST_TAG + '</div>') !== 1) {
+        fail(label + ': the blocklist div must be exactly ' + AD_BLOCKLIST_TAG + '</div>, found ' + tag);
+    }
+    const at = html.indexOf(AD_BLOCKLIST_TAG);
+    if (countOccurrences(html, '<main>') !== 1 || countOccurrences(html, '</main>') !== 1 ||
+        !(html.indexOf('<main>') < at && at < html.indexOf('</main>'))) {
+        fail(label + ': the blocklist div must sit between <main> and </main>, in the page\'s own content. In the ' +
+             'shared head, nav or footer it would remove the ads from every page.');
+    }
+    // The string checks above would also pass a div inside a comment or a
+    // <template>, which never reaches the DOM. Requiring it to be the first
+    // thing in the page's own container rules both out.
+    const container = '<div id="' + AD_BLOCKLIST_PAGE + '-content" class="page-content active">';
+    const afterContainer = html.slice(html.indexOf(container) + container.length).replace(/^\s*/, '');
+    if (countOccurrences(html, container) !== 1 || afterContainer.indexOf(AD_BLOCKLIST_TAG + '</div>') !== 0) {
+        fail(label + ': the blocklist div must be the first child of ' + container + ', as the first line of the ' +
+             'page\'s bodyHtml, not inside a comment, a <template> or another element');
+    }
+    others.forEach(function (d) {
+        const n = countOccurrences(d[1], AD_BLOCKLIST_ID);
+        if (n !== 0) {
+            fail(d[0] + ': carries "' + AD_BLOCKLIST_ID + '" ' + n + ' time(s). Only /' + AD_BLOCKLIST_PAGE +
+                 ' carries the Journey blocklist; anywhere shared it would remove the ads from every page.');
+        }
+    });
+    return others.length;
+}
+
 // ---- analytics: no free text ----
 //
 // Google Analytics receives what happened (a result, a letter), never what a
@@ -4290,6 +4342,15 @@ function main() {
         ['css/styles.css', 'js/core.js', 'js/articles.js', 'js/article-scripts.js'].map(function (f) {
             return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
         }));
+    // ---- the Journey blocklist: once, inside <main> on /teachers, nowhere else ----
+    const blocklistPages = emittedPages.filter(function (r) { return r.slug === AD_BLOCKLIST_PAGE; });
+    if (blocklistPages.length !== 1) fail('expected one emitted /' + AD_BLOCKLIST_PAGE + ' page, found ' + blocklistPages.length);
+    const blocklistScripts = fs.readdirSync(path.join(ROOT, 'js')).filter(function (n) { return /\.js$/.test(n); }).sort()
+        .map(function (n) { return ['js/' + n, fs.readFileSync(path.join(ROOT, 'js', n), 'utf8')]; });
+    const blocklistOthers = assertAdBlocklist([blocklistPages[0].label, blocklistPages[0].html],
+        [['index.html', template], ['404.html', notFoundSrc]]
+            .concat(emittedPages.filter(function (r) { return r.slug !== AD_BLOCKLIST_PAGE; }).map(function (r) { return [r.label, r.html]; }))
+            .concat(blocklistScripts));
     // ---- analytics: no typed answer in any served document or script ----
     const freeTextChecked = assertNoFreeTextAnalytics([['index.html', template], ['404.html', notFoundSrc]]
         .concat(emittedPages.map(function (r) { return [r.label, r.html]; })));
@@ -4332,6 +4393,9 @@ function main() {
     console.log('Content marker passed: journey-content once, on the #article-content element, in ' + contentMarked +
                 ' documents (index.html, articles.html and ' + (contentMarked - 2) + ' articles); absent from 404.html and ' +
                 STANDALONE_PAGES.length + ' standalone pages; journey-sidebar nowhere.');
+    console.log('Ad blocklist passed: ' + AD_BLOCKLIST_TAG + '</div> once, inside <main>, on /' + AD_BLOCKLIST_PAGE +
+                '; "' + AD_BLOCKLIST_ID + '" in none of ' + blocklistOthers + ' other files (index.html, 404.html, ' +
+                (totalEmitted - 1) + ' emitted pages and the ' + blocklistScripts.length + ' scripts in js/).');
     console.log('Analytics free text passed: no "' + ANALYTICS_FREE_TEXT.join('", "') + '" in ' + freeTextChecked +
                 ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
                 ' scripts in js/); events carry results and letters, never typed text.');
