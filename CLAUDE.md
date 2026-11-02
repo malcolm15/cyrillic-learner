@@ -1331,7 +1331,15 @@ in `css/styles.css`, and the `/teachers` demo clip, which keeps its own
 
 **Alphabet chart cards** (russian-alphabet-chart): the full card is the audio tap
 target (`button` elements, `.letter-card` class, dark mode handled). No separate
-Listen buttons.
+Listen buttons. The 33 cards are in standard alphabetical order (А Б В ... Э Ю
+Я): "Chart order passed" in `scripts/pre-render.js` asserts that the cards, in
+document order, equal `RUSSIAN_LETTERS`, the same list the set check uses. The
+filters only hide cards, so Vowels Only and Consonants Only keep that order
+(Ъ and Ь show only under All Letters), and the print chart reads the same
+cards in document order. Inside the keep-together wrapper the parts run
+`#alphabet-controls`, `#alphabet-grid`, `#letter-legend`, `#print-controls`:
+the print row sits after the legend, so the first cards come straight after
+the filter row (ledger row 376).
 
 ## Cursive data (scripts/cursive/)
 
@@ -1614,8 +1622,8 @@ releases.
   So every interactive tool built from several sibling parts is wrapped in one
   `<div class="keep-together">` in `js/articles.js`, opened just before its first
   part and closed just after its last, contents not re-indented: the alphabet
-  chart (`#alphabet-controls`, `#print-controls`, `#alphabet-grid`,
-  `#letter-legend`), both cursive widgets (picker, `.cursive-stage-wrap`,
+  chart (`#alphabet-controls`, `#alphabet-grid`, `#letter-legend`,
+  `#print-controls`), both cursive widgets (picker, `.cursive-stage-wrap`,
   caption), and the whole copy-paste tool, from `#copy-text-builder` through
   `#prereform-container` (four wrappers in all). A tool whose parts work
   together, such as the copy-paste page where every grid feeds the text builder
