@@ -189,6 +189,12 @@ function assertScriptContract(html, label) {
     return tags.length;
 }
 
+// Run before anything is emitted: the Journey blocklist list and its source.
+function assertStandaloneOptions() {
+    assertAdBlocklistPages(STANDALONE_PAGES.map(function (sp) { return sp.slug; }));
+    assertAdBlocklistSource(fs.readFileSync(path.join(ROOT, 'scripts', 'standalone-pages.js'), 'utf8'));
+}
+
 // ---- display ads: no AdSense ----
 //
 // Journey by Mediavine is exclusive for display ads, and its onboarding searches
@@ -353,56 +359,127 @@ function assertJourneyContent(withView, without, others) {
     return withView.length;
 }
 
-// ---- display ads: the /teachers blocklist ----
+// ---- display ads: the Journey blocklist ----
 //
 // Journey removes its units from any page whose content holds its blocklist
-// div, and reads only one per page; data-blocklist-all="1" removes every unit.
-// /teachers carries it, and nothing else does. The div is the first line of the
-// teachers entry's bodyHtml in scripts/standalone-pages.js, so it sits inside
-// <main>, in that page's own content. In the shared template (the head, nav or
-// footer of index.html) it would remove the ads from every page.
+// div, and reads only one per page. Each attribute on the div removes a unit:
+// data-blocklist-all="1" removes every unit, and the two universal-player
+// attributes remove the video player on desktop and on mobile, leaving the
+// rest. The attribute names are Journey's (CLAUDE.md records the source).
+// Only the pages in AD_BLOCKLIST_PAGES carry the div, each with exactly its
+// listed attributes, in that order. The div is the first line of the page's
+// bodyHtml in scripts/standalone-pages.js, so it sits inside <main>, in that
+// page's own content. In the shared template (the head, nav or footer of
+// index.html) it would remove the ads from every page.
 const AD_BLOCKLIST_ID = 'ad-management-config-settings';
-const AD_BLOCKLIST_TAG = '<div id="' + AD_BLOCKLIST_ID + '" data-blocklist-all="1">';
-const AD_BLOCKLIST_PAGE = 'teachers';
+const AD_BLOCKLIST_VOCABULARY = ['data-blocklist-all', 'data-blocklist-universal-player-desktop', 'data-blocklist-universal-player-mobile'];
+const AD_BLOCKLIST_PAGES = [
+    { slug: 'teachers', attrs: 'data-blocklist-all="1"' },
+];
 
-// page: the [label, html] pair for /teachers. others: [label, text] pairs for
-// every other document and the scripts in js/. Matching the whole opening tag
-// means no other attribute, data- or otherwise, can ride along.
-function assertAdBlocklist(page, others) {
-    const label = page[0], html = page[1];
-    const strict = countOccurrences(html, 'id="' + AD_BLOCKLIST_ID + '"');
-    const loose = countOccurrences(html, AD_BLOCKLIST_ID);
-    if (strict !== 1 || loose !== 1) {
-        fail(label + ': expected the Journey blocklist div exactly once, found id="' + AD_BLOCKLIST_ID + '" ' + strict +
-             ' time(s) and "' + AD_BLOCKLIST_ID + '" ' + loose + ' time(s). Journey reads only one per page.');
-    }
-    const tag = openingTagWithId(html, AD_BLOCKLIST_ID, label);
-    if (tag !== AD_BLOCKLIST_TAG || countOccurrences(html, AD_BLOCKLIST_TAG + '</div>') !== 1) {
-        fail(label + ': the blocklist div must be exactly ' + AD_BLOCKLIST_TAG + '</div>, found ' + tag);
-    }
-    const at = html.indexOf(AD_BLOCKLIST_TAG);
-    if (countOccurrences(html, '<main>') !== 1 || countOccurrences(html, '</main>') !== 1 ||
-        !(html.indexOf('<main>') < at && at < html.indexOf('</main>'))) {
-        fail(label + ': the blocklist div must sit between <main> and </main>, in the page\'s own content. In the ' +
-             'shared head, nav or footer it would remove the ads from every page.');
-    }
-    // The string checks above would also pass a div inside a comment or a
-    // <template>, which never reaches the DOM. Requiring it to be the first
-    // thing in the page's own container rules both out.
-    const container = '<div id="' + AD_BLOCKLIST_PAGE + '-content" class="page-content active">';
-    const afterContainer = html.slice(html.indexOf(container) + container.length).replace(/^\s*/, '');
-    if (countOccurrences(html, container) !== 1 || afterContainer.indexOf(AD_BLOCKLIST_TAG + '</div>') !== 0) {
-        fail(label + ': the blocklist div must be the first child of ' + container + ', as the first line of the ' +
-             'page\'s bodyHtml, not inside a comment, a <template> or another element');
-    }
-    others.forEach(function (d) {
-        const n = countOccurrences(d[1], AD_BLOCKLIST_ID);
-        if (n !== 0) {
-            fail(d[0] + ': carries "' + AD_BLOCKLIST_ID + '" ' + n + ' time(s). Only /' + AD_BLOCKLIST_PAGE +
-                 ' carries the Journey blocklist; anywhere shared it would remove the ads from every page.');
+// The exact opening tag for an approved entry. Matching the whole tag means no
+// other attribute, data- or otherwise, can ride along, and the order and the
+// values are pinned.
+function adBlocklistTag(entry) {
+    return '<div id="' + AD_BLOCKLIST_ID + '" ' + entry.attrs + '>';
+}
+
+// The attribute names in an entry's attrs string, in order.
+function adBlocklistNames(entry) {
+    return entry.attrs.split(' ').map(function (a) { return a.slice(0, a.indexOf('=')); });
+}
+
+// Run before anything is emitted. slugs: every STANDALONE_PAGES slug.
+function assertAdBlocklistPages(slugs) {
+    const seen = [];
+    AD_BLOCKLIST_PAGES.forEach(function (entry) {
+        const where = 'AD_BLOCKLIST_PAGES entry ' + JSON.stringify(entry);
+        if (Object.keys(entry).sort().join() !== 'attrs,slug' || typeof entry.slug !== 'string' || typeof entry.attrs !== 'string') {
+            fail(where + ': an entry is exactly { slug, attrs }, both strings');
+        }
+        if (seen.indexOf(entry.slug) !== -1) fail(where + ': /' + entry.slug + ' is listed twice; Journey reads only one div per page');
+        seen.push(entry.slug);
+        if (slugs.indexOf(entry.slug) === -1) {
+            fail(where + ': "' + entry.slug + '" is not a standalone page in scripts/standalone-pages.js. Only a standalone page ' +
+                 'carries the blocklist; an article or a shared document would take it to other pages.');
+        }
+        if (!/^[a-z-]+="1"(?: [a-z-]+="1")*$/.test(entry.attrs)) {
+            fail(where + ': attrs must be one or more name="1" pairs separated by single spaces, found ' + JSON.stringify(entry.attrs));
+        }
+        const names = adBlocklistNames(entry);
+        names.forEach(function (n, i) {
+            if (AD_BLOCKLIST_VOCABULARY.indexOf(n) === -1) {
+                fail(where + ': "' + n + '" is not a Journey blocklist attribute. Allowed: ' + AD_BLOCKLIST_VOCABULARY.join(', '));
+            }
+            if (names.indexOf(n) !== i) fail(where + ': "' + n + '" is listed twice');
+        });
+        if (names.indexOf('data-blocklist-all') !== -1 && names.length !== 1) {
+            fail(where + ': data-blocklist-all already removes every unit, so it is only ever used alone');
         }
     });
+}
+
+// blocked: [label, html, entry] for each approved page. others: [label, text]
+// pairs for every other document, the scripts in js/ and the CSS. Returns the
+// number of other files checked.
+function assertAdBlocklist(blocked, others) {
+    blocked.forEach(function (b) {
+        const label = b[0], html = b[1], entry = b[2];
+        const tag = adBlocklistTag(entry);
+        const strict = countOccurrences(html, 'id="' + AD_BLOCKLIST_ID + '"');
+        const loose = countOccurrences(html, AD_BLOCKLIST_ID);
+        if (strict !== 1 || loose !== 1) {
+            fail(label + ': expected the Journey blocklist div exactly once, found id="' + AD_BLOCKLIST_ID + '" ' + strict +
+                 ' time(s) and "' + AD_BLOCKLIST_ID + '" ' + loose + ' time(s). Journey reads only one per page.');
+        }
+        const found = openingTagWithId(html, AD_BLOCKLIST_ID, label);
+        if (found !== tag || countOccurrences(html, tag + '</div>') !== 1) {
+            fail(label + ': the blocklist div must be exactly ' + tag + '</div>, found ' + found);
+        }
+        const names = adBlocklistNames(entry);
+        const attrCount = countOccurrences(html, 'data-blocklist-');
+        if (attrCount !== names.length) {
+            fail(label + ': "data-blocklist-" appears ' + attrCount + ' time(s), expected ' + names.length +
+                 ', the attributes on its one blocklist div and nowhere else');
+        }
+        const at = html.indexOf(tag);
+        if (countOccurrences(html, '<main>') !== 1 || countOccurrences(html, '</main>') !== 1 ||
+            !(html.indexOf('<main>') < at && at < html.indexOf('</main>'))) {
+            fail(label + ': the blocklist div must sit between <main> and </main>, in the page\'s own content. In the ' +
+                 'shared head, nav or footer it would remove the ads from every page.');
+        }
+        // The string checks above would also pass a div inside a comment or a
+        // <template>, which never reaches the DOM. Requiring it to be the first
+        // thing in the page's own container rules both out.
+        const container = '<div id="' + entry.slug + '-content" class="page-content active">';
+        const afterContainer = html.slice(html.indexOf(container) + container.length).replace(/^\s*/, '');
+        if (countOccurrences(html, container) !== 1 || afterContainer.indexOf(tag + '</div>') !== 0) {
+            fail(label + ': the blocklist div must be the first child of ' + container + ', as the first line of the ' +
+                 'page\'s bodyHtml, not inside a comment, a <template> or another element');
+        }
+    });
+    const approved = AD_BLOCKLIST_PAGES.map(function (e) { return '/' + e.slug; }).join(', ');
+    others.forEach(function (d) {
+        [AD_BLOCKLIST_ID, 'data-blocklist-'].forEach(function (needle) {
+            const n = countOccurrences(d[1], needle);
+            if (n !== 0) {
+                fail(d[0] + ': carries "' + needle + '" ' + n + ' time(s). Only the pages in AD_BLOCKLIST_PAGES (' + approved +
+                     ') carry the Journey blocklist; anywhere shared it would remove ads from every page.');
+            }
+        });
+    });
     return others.length;
+}
+
+// The div lives in each approved entry's bodyHtml and nowhere else in
+// scripts/standalone-pages.js, so no shared string can carry it into a second
+// page. src: that file's text.
+function assertAdBlocklistSource(src) {
+    const n = countOccurrences(src, AD_BLOCKLIST_ID);
+    if (n !== AD_BLOCKLIST_PAGES.length) {
+        fail('scripts/standalone-pages.js: "' + AD_BLOCKLIST_ID + '" appears ' + n + ' time(s), expected ' +
+             AD_BLOCKLIST_PAGES.length + ', once in the bodyHtml of each page in AD_BLOCKLIST_PAGES');
+    }
 }
 
 // ---- display ads: keep-together wrappers ----
@@ -2268,6 +2345,7 @@ function main() {
     assertNoDependencies();
     assertSecurityHeaders();
     assertReplaceCallbacks();
+    assertStandaloneOptions();
     const template = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     let scriptContractChecked = assertScriptContract(template, 'index.html');
     const articlesSrc = fs.readFileSync(path.join(ROOT, 'js', 'articles.js'), 'utf8');
@@ -4486,14 +4564,19 @@ function main() {
         ['css/styles.css', 'js/core.js', 'js/articles.js', 'js/article-scripts.js'].map(function (f) {
             return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
         }));
-    // ---- the Journey blocklist: once, inside <main> on /teachers, nowhere else ----
-    const blocklistPages = emittedPages.filter(function (r) { return r.slug === AD_BLOCKLIST_PAGE; });
-    if (blocklistPages.length !== 1) fail('expected one emitted /' + AD_BLOCKLIST_PAGE + ' page, found ' + blocklistPages.length);
+    // ---- the Journey blocklist: on the approved pages only, each with its exact div ----
+    const blocklistSlugs = AD_BLOCKLIST_PAGES.map(function (e) { return e.slug; });
+    const blocklistPages = AD_BLOCKLIST_PAGES.map(function (e) {
+        const found = emittedPages.filter(function (r) { return r.slug === e.slug; });
+        if (found.length !== 1) fail('expected one emitted /' + e.slug + ' page, found ' + found.length);
+        return [found[0].label, found[0].html, e];
+    });
     const blocklistScripts = fs.readdirSync(path.join(ROOT, 'js')).filter(function (n) { return /\.js$/.test(n); }).sort()
-        .map(function (n) { return ['js/' + n, fs.readFileSync(path.join(ROOT, 'js', n), 'utf8')]; });
-    const blocklistOthers = assertAdBlocklist([blocklistPages[0].label, blocklistPages[0].html],
+        .map(function (n) { return 'js/' + n; }).concat(['css/styles.css'])
+        .map(function (f) { return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')]; });
+    const blocklistOthers = assertAdBlocklist(blocklistPages,
         [['index.html', template], ['404.html', notFoundSrc]]
-            .concat(emittedPages.filter(function (r) { return r.slug !== AD_BLOCKLIST_PAGE; }).map(function (r) { return [r.label, r.html]; }))
+            .concat(emittedPages.filter(function (r) { return blocklistSlugs.indexOf(r.slug) === -1; }).map(function (r) { return [r.label, r.html]; }))
             .concat(blocklistScripts));
     // ---- keep-together: each multi-part article tool is one direct child ----
     const keepTogetherChecked = assertKeepTogether(emittedPages.map(function (r) { return [r.label, r.html]; }),
@@ -4542,9 +4625,11 @@ function main() {
     console.log('Content marker passed: journey-content once, on the #article-content element, in ' + contentMarked +
                 ' documents (index.html, articles.html and ' + (contentMarked - 2) + ' articles); absent from 404.html and ' +
                 STANDALONE_PAGES.length + ' standalone pages; journey-sidebar nowhere.');
-    console.log('Ad blocklist passed: ' + AD_BLOCKLIST_TAG + '</div> once, inside <main>, on /' + AD_BLOCKLIST_PAGE +
-                '; "' + AD_BLOCKLIST_ID + '" in none of ' + blocklistOthers + ' other files (index.html, 404.html, ' +
-                (totalEmitted - 1) + ' emitted pages and the ' + blocklistScripts.length + ' scripts in js/).');
+    console.log('Ad blocklist passed: ' + AD_BLOCKLIST_PAGES.map(function (e) { return '/' + e.slug + ' (' + e.attrs + ')'; }).join(', ') +
+                ', each with its exact div once, as the first child of its content inside <main>; "' + AD_BLOCKLIST_ID +
+                '" and "data-blocklist-" in none of ' + blocklistOthers + ' other files (index.html, 404.html, ' +
+                (totalEmitted - AD_BLOCKLIST_PAGES.length) + ' emitted pages, the ' + (blocklistScripts.length - 1) +
+                ' scripts in js/ and css/styles.css); the id once per approved page in scripts/standalone-pages.js.');
     console.log('Keep-together passed: ' + keepTogetherChecked + ' wrappers in ' + KEEP_TOGETHER.length + ' articles (' +
                 KEEP_TOGETHER.map(function (e) { return e.article; }).join(', ') + '), each a direct child of #article-content ' +
                 'holding exactly its tool\'s parts; "keep-together" in no other emitted page, index.html, 404.html, the CSS or the other scripts.');
