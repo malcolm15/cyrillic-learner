@@ -199,12 +199,15 @@ function assertStandaloneOptions() {
 //
 // Journey by Mediavine is exclusive for display ads, and its onboarding searches
 // page source for ad code left over from a previous network. So no document the
-// site serves, and none of the three scripts in js/, may carry any of these
-// strings: the AdSense script's name and host, an AdSense client id, and this
-// site's old AdSense account. ads.txt, which carried the old account's line, is
-// no longer a file at all (see ADS_TXT_URL below), and must stay that way.
+// site serves, and no script in js/, may carry any of these strings: the
+// AdSense script's name and host, an AdSense client id, and this site's old
+// AdSense account. ads.txt, which carried the old account's line, is no longer
+// a file at all (see ADS_TXT_URL below), and must stay that way.
 const ADSENSE_NEEDLES = ['adsbygoogle', 'pagead2', 'googlesyndication.com', 'ca-pub-', 'pub-5821564771189825'];
-const ADSENSE_SCRIPTS = ['js/core.js', 'js/articles.js', 'js/article-scripts.js'];
+// Every .js file in js/, read from the folder and sorted, so a new script
+// cannot escape this scan or the free-text scan below.
+const ADSENSE_SCRIPTS = fs.readdirSync(path.join(ROOT, 'js')).filter(function (n) { return /\.js$/.test(n); }).sort()
+    .map(function (n) { return 'js/' + n; });
 
 // docs: [label, html] pairs for index.html, 404.html and every emitted page.
 // Returns the number of files checked.
@@ -623,8 +626,8 @@ function assertKeepTogether(pages, others) {
 // visitor typed. The quiz's incorrect-answer event used to send the typed answer
 // as user_answer, so whatever went into the answer box, a name or an email
 // address included, went to Google with it (ledger row 368). No served document
-// or script may name that parameter again. The scripts are the same three
-// ADSENSE_SCRIPTS lists.
+// or script may name that parameter again. The scripts are every one in js/,
+// the same ADSENSE_SCRIPTS list.
 const ANALYTICS_FREE_TEXT = ['user_answer'];
 
 // docs: [label, html] pairs for index.html, 404.html and every emitted page.
@@ -4571,8 +4574,7 @@ function main() {
         if (found.length !== 1) fail('expected one emitted /' + e.slug + ' page, found ' + found.length);
         return [found[0].label, found[0].html, e];
     });
-    const blocklistScripts = fs.readdirSync(path.join(ROOT, 'js')).filter(function (n) { return /\.js$/.test(n); }).sort()
-        .map(function (n) { return 'js/' + n; }).concat(['css/styles.css'])
+    const blocklistScripts = ADSENSE_SCRIPTS.concat(['css/styles.css'])
         .map(function (f) { return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')]; });
     const blocklistOthers = assertAdBlocklist(blocklistPages,
         [['index.html', template], ['404.html', notFoundSrc]]
@@ -4615,8 +4617,8 @@ function main() {
     console.log('Script contract passed: ' + scriptContractChecked + ' core script tags across index.html and ' +
                 totalEmitted + ' emitted pages, all three present once each, in order, classic, no async or defer.');
     console.log('AdSense absent passed: none of ' + ADSENSE_NEEDLES.length + ' AdSense strings in ' + adsenseChecked +
-                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
-                ' scripts in js/), and no ads.txt at the root.');
+                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and every script in js/, read from the folder: ' +
+                ADSENSE_SCRIPTS.join(', ') + '), and no ads.txt at the root.');
     console.log('ads.txt passed: no ads.txt at the root; one forced rule sends /ads.txt to ' + ADS_TXT_URL +
                 ' (301!, https, off-site), no earlier rule matches /ads.txt, and the edge function still excludes /*.txt.');
     console.log('Display ads passed: the Journey by Mediavine ad script once, byte for byte, as the last element in <head> on ' +
@@ -4628,14 +4630,14 @@ function main() {
     console.log('Ad blocklist passed: ' + AD_BLOCKLIST_PAGES.map(function (e) { return '/' + e.slug + ' (' + e.attrs + ')'; }).join(', ') +
                 ', each with its exact div once, as the first child of its content inside <main>; "' + AD_BLOCKLIST_ID +
                 '" and "data-blocklist-" in none of ' + blocklistOthers + ' other files (index.html, 404.html, ' +
-                (totalEmitted - AD_BLOCKLIST_PAGES.length) + ' emitted pages, the ' + (blocklistScripts.length - 1) +
+                (totalEmitted - AD_BLOCKLIST_PAGES.length) + ' emitted pages, the ' + ADSENSE_SCRIPTS.length +
                 ' scripts in js/ and css/styles.css); the id once per approved page in scripts/standalone-pages.js.');
     console.log('Keep-together passed: ' + keepTogetherChecked + ' wrappers in ' + KEEP_TOGETHER.length + ' articles (' +
                 KEEP_TOGETHER.map(function (e) { return e.article; }).join(', ') + '), each a direct child of #article-content ' +
                 'holding exactly its tool\'s parts; "keep-together" in no other emitted page, index.html, 404.html, the CSS or the other scripts.');
     console.log('Analytics free text passed: no "' + ANALYTICS_FREE_TEXT.join('", "') + '" in ' + freeTextChecked +
-                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
-                ' scripts in js/); events carry results and letters, never typed text.');
+                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and every script in js/, read from the folder: ' +
+                ADSENSE_SCRIPTS.join(', ') + '); events carry results and letters, never typed text.');
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
