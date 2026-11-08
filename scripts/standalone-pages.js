@@ -67,6 +67,12 @@
 //                        The build fails if a file is missing, sits outside js/,
 //                        is a core script or is listed by two pages, or if its
 //                        path appears in any other document. Default none.
+//   guardedLetterTools   true: the page's own letter tools get the article
+//                        letter-tool checks. Every Cyrillic letter in <main> must
+//                        be guarded, as on a quiz page; BUTTON_LABELS entries
+//                        that name the page (page: slug) are checked on its
+//                        bodyHtml; and no aria-label there may carry Cyrillic.
+//                        Default off.
 
 // The Spanish quiz's runtime strings and answer table. Constants, so the chrome
 // below reuses the theme label instead of keeping a second copy of it.

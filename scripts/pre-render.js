@@ -269,6 +269,11 @@ function assertStandaloneOptions() {
     assertAdBlocklistPages(STANDALONE_PAGES.map(function (sp) { return sp.slug; }));
     assertAdBlocklistSource(fs.readFileSync(path.join(ROOT, 'scripts', 'standalone-pages.js'), 'utf8'));
     assertPageScriptsField(STANDALONE_PAGES);
+    STANDALONE_PAGES.forEach(function (sp) {
+        if (sp.guardedLetterTools !== undefined && sp.guardedLetterTools !== true) {
+            fail(sp.slug + ': guardedLetterTools is true or left out, found ' + JSON.stringify(sp.guardedLetterTools));
+        }
+    });
 }
 
 // ---- display ads: no AdSense ----
@@ -1169,6 +1174,44 @@ function cyrillicTextRuns(html) {
     }
     take(html.slice(last));
     return runs;
+}
+
+// Translation guards on a standalone page's <main> (mainHtml runs from <main>
+// to </main>): every Cyrillic letter sits inside an element with translate="no"
+// and class notranslate, and outside the quiz's own grids and letter that
+// element is also lang="ru", which is what ru() in standalone-pages.js emits.
+// Runs on every page with quizPage and every page with guardedLetterTools, and
+// records its counts on sp for the pass line.
+function assertMainCyrillicGuards(mainHtml, sp) {
+    const runs = cyrillicTextRuns(mainHtml);
+    runs.forEach(function (r) {
+        if (!r.guarded) {
+            fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in <main> is not inside an element with translate="no" and class notranslate');
+        }
+        if (!r.quiz && !r.russian) {
+            fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in the <main> prose is not inside a lang="ru" element; wrap it with ru() in scripts/standalone-pages.js');
+        }
+    });
+    sp.__cyrillicRuns = runs.length;
+    sp.__proseRuns = runs.filter(function (r) { return !r.quiz; }).length;
+    // Spacing under translation: a translator drops a space, or a closing
+    // bracket or comma, that sits just outside a guarded span, and keeps what is
+    // inside it. So every ru()/rom() span in <main> takes the space before it
+    // and the punctuation and space after it.
+    const guardRe = /<span (?:lang="ru" )?translate="no" class="notranslate">[^<]*<\/span>/g;
+    let g;
+    let guardSpans = 0;
+    while ((g = guardRe.exec(mainHtml)) !== null) {
+        guardSpans += 1;
+        const before = mainHtml.charAt(g.index - 1);
+        const after = mainHtml.charAt(g.index + g[0].length);
+        if (/\s/.test(before) || /[\s,.;:!?)\]]/.test(after)) {
+            const ctx = mainHtml.slice(Math.max(0, g.index - 20), g.index + g[0].length + 20).replace(/\s+/g, ' ');
+            fail(sp.slug + ': a guarded span has ' + (/\s/.test(before) ? 'a space just before it' : 'a space or punctuation just after it') +
+                 '; move it inside the span (ru(\' X \') / rom(\' x, \')), or a translator drops it: ...' + ctx + '...');
+        }
+    }
+    sp.__guardSpans = guardSpans;
 }
 
 // Every share handler call in `content`, with the function name and the first
@@ -2992,16 +3035,33 @@ function main() {
     // button's text (the chart cards); the lookalike copy button swaps its own
     // text, so its labels sit beside the buttons in the same card. Each label
     // has whitespace on both sides so its words never run into the next.
+    // An entry names an article, or a standalone page (page: slug) whose entry
+    // in scripts/standalone-pages.js sets guardedLetterTools: true. Such a page
+    // is checked the same way as an article, on its bodyHtml.
     const BUTTON_LABELS = [
         { article: 'russian-alphabet-chart', cls: 'letter-card', instruction: 'Play pronunciation of', count: 33 },
         { article: 'backwards-r-myth', cls: 'lookalike-listen', instruction: 'Listen to', count: 8 },
         { article: 'backwards-r-myth', cls: 'lookalike-copy', instruction: 'Copy', count: 8 },
     ];
+    // The documents these checks read: every article, then every standalone
+    // page that opts in. Article label spans are counted apart from page ones,
+    // because the article-wide guard totals below count article content only.
+    const letterToolPages = STANDALONE_PAGES.filter(function (sp) { return sp.guardedLetterTools; });
+    const labelDocs = articles.map(function (a) { return { id: a.id, article: a.id, content: a.content }; })
+        .concat(letterToolPages.map(function (sp) { return { id: sp.slug + ' (standalone page)', page: sp.slug, content: sp.bodyHtml }; }));
+    BUTTON_LABELS.forEach(function (b) {
+        if ((b.article === undefined) === (b.page === undefined)) fail('BUTTON_LABELS entry for .' + b.cls + ' must name exactly one of article and page');
+        if (b.page !== undefined && !letterToolPages.some(function (sp) { return sp.slug === b.page; })) {
+            fail('BUTTON_LABELS entry for .' + b.cls + ' names page "' + b.page + '", which is not a standalone page with guardedLetterTools: true');
+        }
+    });
     let labelSpans = 0;
+    let pageLabelSpans = 0;
     const buttonLabelCounts = [];
     BUTTON_LABELS.forEach(function (b) {
-        articles.forEach(function (a) {
-            const want = a.id === b.article ? b.count : 0;
+        labelDocs.forEach(function (a) {
+            const mine = b.article !== undefined ? a.article === b.article : a.page === b.page;
+            const want = mine ? b.count : 0;
             const found = [];
             let t;
             tagScan.lastIndex = 0;
@@ -3022,7 +3082,9 @@ function main() {
                 if (!ref) fail(where + ' has no aria-labelledby');
                 const ids = ref[1].trim().split(/\s+/);
                 if (ids.length !== 1) fail(where + ' must point at exactly one label, found aria-labelledby="' + ref[1] + '"');
-                if (countOccurrences(a.content, 'id="' + ids[0] + '"') !== 1) fail(where + ': id "' + ids[0] + '" must exist exactly once in the article');
+                if (countOccurrences(a.content, 'id="' + ids[0] + '"') !== 1) {
+                    fail(where + ': id "' + ids[0] + '" must exist exactly once in the ' + (a.article ? 'article' : 'page'));
+                }
                 const label = '<span id="' + ids[0] + '" class="sr-only" aria-hidden="true">' + b.instruction +
                               '<span lang="ru" translate="no" class="notranslate"> ' + letter + '</span></span>';
                 const at = a.content.indexOf(label);
@@ -3033,14 +3095,15 @@ function main() {
                 if (!/\s/.test(a.content.charAt(at - 1)) || !/\s/.test(a.content.charAt(at + label.length))) {
                     fail(where + ': its label needs whitespace before and after it, or its words run into the neighbouring text');
                 }
-                labelSpans += 1;
+                if (a.article) labelSpans += 1;
+                else pageLabelSpans += 1;
             });
         });
         buttonLabelCounts.push(b.cls + ' ' + b.count);
     });
-    // No aria-label in article content may carry a Cyrillic letter: the
-    // translator would rewrite it.
-    articles.forEach(function (a) {
+    // No aria-label in article content, or on an opted-in standalone page, may
+    // carry a Cyrillic letter: the translator would rewrite it.
+    labelDocs.forEach(function (a) {
         const m = a.content.match(/aria-label="[^"]*[\u0400-\u04FF][^"]*"/);
         if (m) fail(a.id + ': ' + m[0] + ' carries a Cyrillic letter in an aria-label; use aria-labelledby with a guarded label (BUTTON_LABELS in scripts/pre-render.js)');
     });
@@ -4137,35 +4200,12 @@ function main() {
             assertQuizLetterGuards(page, sp.slug);
             assertAnswerInput(page, sp.slug);
             assertQuizA11y(page, sp.slug);
-            const runs = cyrillicTextRuns(quizMain);
-            runs.forEach(function (r) {
-                if (!r.guarded) {
-                    fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in <main> is not inside an element with translate="no" and class notranslate');
-                }
-                if (!r.quiz && !r.russian) {
-                    fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in the <main> prose is not inside a lang="ru" element; wrap it with ru() in scripts/standalone-pages.js');
-                }
-            });
-            sp.__cyrillicRuns = runs.length;
-            sp.__proseRuns = runs.filter(function (r) { return !r.quiz; }).length;
-            // Spacing under translation: a translator drops a space, or a
-            // closing bracket or comma, that sits just outside a guarded span,
-            // and keeps what is inside it. So every ru()/rom() span in <main>
-            // takes the space before it and the punctuation and space after it.
-            const guardRe = /<span (?:lang="ru" )?translate="no" class="notranslate">[^<]*<\/span>/g;
-            let g;
-            let guardSpans = 0;
-            while ((g = guardRe.exec(quizMain)) !== null) {
-                guardSpans += 1;
-                const before = quizMain.charAt(g.index - 1);
-                const after = quizMain.charAt(g.index + g[0].length);
-                if (/\s/.test(before) || /[\s,.;:!?)\]]/.test(after)) {
-                    const ctx = quizMain.slice(Math.max(0, g.index - 20), g.index + g[0].length + 20).replace(/\s+/g, ' ');
-                    fail(sp.slug + ': a guarded span has ' + (/\s/.test(before) ? 'a space just before it' : 'a space or punctuation just after it') +
-                         '; move it inside the span (ru(\' X \') / rom(\' x, \')), or a translator drops it: ...' + ctx + '...');
-                }
-            }
-            sp.__guardSpans = guardSpans;
+            assertMainCyrillicGuards(quizMain, sp);
+        }
+        // A page with letter tools of its own opts into the same translation
+        // guard check. A quiz page already ran it above.
+        if (sp.guardedLetterTools && !sp.quizPage) {
+            assertMainCyrillicGuards(page.slice(page.indexOf('<main>'), page.indexOf('</main>')), sp);
         }
 
         // ---- settings panel: one closed <details> between the two quiz cards ----
@@ -4753,7 +4793,9 @@ function main() {
     });
     console.log(articleGuardSummary);
     console.log('Button names passed: ' + buttonLabelCounts.join(', ') + ' buttons named by aria-labelledby to their own sr-only aria-hidden label, ' +
-                'instruction translatable and the card\'s letter guarded (lang ru, F2 spacing), whitespace on both sides; ' + labelSpans + ' label spans; no aria-label in article content carries Cyrillic.');
+                'instruction translatable and the card\'s letter guarded (lang ru, F2 spacing), whitespace on both sides; ' + labelSpans + ' label spans; no aria-label in article content carries Cyrillic; ' +
+                'standalone pages with guardedLetterTools: ' + (letterToolPages.length ? letterToolPages.map(function (sp) { return '/' + sp.slug; }).join(', ') +
+                ' (' + pageLabelSpans + ' label spans, no Cyrillic aria-label)' : 'none') + '.');
     console.log('Mini quizzes passed: ' + MINI_QUIZZES.map(function (q) { return q.article + ' (' + q.lang + ')'; }).join(', ') +
                 ': ' + miniQuizSpans + ' letter spans guarded with lang, answer inputs carry ' + ANSWER_INPUT_ATTRS.join(' ') +
                 ', feedback answers written by setQuizText; ' + articleTranslateNo + ' translate="no" in article content, all listed.');
@@ -4818,8 +4860,11 @@ function main() {
                 ') checked in the English answers and in ' + STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; }).length +
                 ' localised table(s), no page repeating them, no cross-letter or prefix clash; #answer-input carries ' +
                 ANSWER_INPUT_ATTRS.join(' ') + ' on index.html and every quiz page.');
-    const guardedPages = STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; });
-    console.log('Translation guards passed: index.html' + guardedPages.map(function (sp) { return ' and /' + sp.slug; }).join('') +
+    // Every page whose <main> went through assertMainCyrillicGuards: the quiz
+    // pages, which also carry the quiz's own guarded elements, and the pages
+    // that opt in with guardedLetterTools.
+    const guardedPages = STANDALONE_PAGES.filter(function (sp) { return sp.quizPage || sp.guardedLetterTools; });
+    console.log('Translation guards passed: index.html' + guardedPages.filter(function (sp) { return sp.quizPage; }).map(function (sp) { return ' and /' + sp.slug; }).join('') +
                 ': 6 study grids, #current-char and #current-char-lower carry translate="no" and class notranslate' +
                 guardedPages.map(function (sp) {
                     return '; /' + sp.slug + ' <main>: ' + sp.__cyrillicRuns + ' Cyrillic text runs, all guarded (' +
