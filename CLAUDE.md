@@ -694,8 +694,31 @@ always had, which is why `/teachers` is emitted byte for byte as before: `lang`
 (default `Home`; `/es` uses `Cyrilica`), `chrome` (replaces the English nav
 list, logo link, theme and menu labels and footer; the build fails if any
 English chrome survives), `quizPage`, `groupTitles`, `inbound`, `inboundLabel`,
-`footerLabel`, `alternates` (hreflang, see COUPLING 4), `allowedOnclick` and
-`settingsPanel` (the /es settings panel, below).
+`footerLabel`, `alternates` (hreflang, see COUPLING 4), `allowedOnclick`,
+`settingsPanel` (the /es settings panel, below), `pageScripts` and
+`guardedLetterTools` (both below). No page uses the last two yet.
+
+**Page scripts (`pageScripts`).** A page's own scripts, as root-relative paths
+to files directly in `js/` (`['/js/name.js']`), so the dependency guard and the
+AdSense and free-text scans read them. Each is emitted as a plain classic tag,
+`<script src="/js/name.js"></script>` with no `async`, `defer` or `type`,
+directly after `/js/article-scripts.js` on that page only, so it runs after the
+three core scripts in document order. The script loading contract is unchanged
+and ignores it. "Page scripts passed": every listed file exists, sits directly
+in `js/`, is not a core script and is listed by one page only (checked before
+anything is emitted); on its page the tags follow `article-scripts.js` directly,
+in order, each once; and its path appears in no other document, `index.html` and
+`404.html` included.
+
+**Letter tools on a standalone page (`guardedLetterTools`).** `true` opts a page
+into the checks the articles' letter tools get: every Cyrillic letter in
+`<main>` inside a guarded element, `lang="ru"` outside the quiz's own grids
+and letter (the same function the quiz pages run); `BUTTON_LABELS` entries
+that name the page with `page: slug` instead of `article:` checked on its
+`bodyHtml` exactly as on an article; and no `aria-label` there carrying
+Cyrillic. An entry naming a page that has not opted in fails the build. The
+page's label spans are counted apart from the articles', whose guard totals
+cover article content only. Any other value than `true` fails the build.
 
 **Pages that carry the quiz.** A page that declares `quizPage` may contain
 `id="reference-container"`, which is banned on every other standalone page. It
@@ -779,8 +802,8 @@ stay translatable. On `/es` every Cyrillic letter in the prose is wrapped by
 every romanization or quoted sign by `rom()`; the visible text is unchanged.
 The build asserts the grid tag in the shared study-group check (so on
 `index.html` and `/es`), the guard on both letter elements, and, on a page
-with `quizPage`, that every Cyrillic letter in `<main>` sits inside a
-guarded element, which outside the grids and letter must also be
+with `quizPage` or `guardedLetterTools`, that every Cyrillic letter in `<main>`
+sits inside a guarded element, which outside the grids and letter must also be
 `lang="ru"`. The logo is guarded too: a translator turns CYRIЛICA into
 CYRILICA. The nav logo (template, so every page; `404.html` has its own copy)
 and every `logo-display` carry `notranslate` and `translate="no"` on the whole
@@ -851,7 +874,9 @@ expected instruction and the button's letter (its `data-letter`, or its
 card's), with whitespace on both sides; no `aria-label` in article content
 carries Cyrillic; and the F2 span check and the `translate="no"` total count
 the label spans. A new button that names a letter must follow the same
-pattern and be added to `BUTTON_LABELS`.
+pattern and be added to `BUTTON_LABELS`. On a standalone page that sets
+`guardedLetterTools`, an entry names the page (`page: slug`) instead of an
+article, and the same checks run on its `bodyHtml`.
 
 **Spacing around guarded text (F2).** A translator drops a space, a comma or a
 closing bracket that sits just outside a `translate="no"` span ("ANSWER:TS",
@@ -931,7 +956,9 @@ Script loading contract: `index.html` and every emitted article page must load
 each, in that order, as classic scripts with no `async` and no `defer`. The
 order and the parser-blocking execution are what make the deferred start
 correct. `scripts/pre-render.js` checks all of this on the shell and on each
-emitted page and fails the build otherwise.
+emitted page, standalone pages included, and fails the build otherwise. A
+standalone page's own scripts (`pageScripts`, see "Standalone pages") come
+after the three and are outside this contract.
 
 Not-found state: when `showArticle()` receives a slug not in ARTICLES, it renders a
 friendly error, resets the canonical to `/articles`, hides the prev/next bar and
@@ -1544,9 +1571,11 @@ Its limits, which are why it is not a malware scanner:
   a name or an email address included. The incorrect-answer event used to send
   the typed answer as `user_answer`; ledger row 368 removed it. "Analytics free
   text passed" (`ANALYTICS_FREE_TEXT` in `scripts/pre-render.js`) fails the build
-  if `user_answer` appears in `index.html`, `404.html`, any emitted page or the
-  three scripts in `js/`. A new event parameter that could carry typed text
-  must not be added; add any such name to `ANALYTICS_FREE_TEXT`.
+  if `user_answer` appears in `index.html`, `404.html`, any emitted page or any
+  script in `js/` (every `.js` file there, read from the folder at build time,
+  so a new script is scanned with no list to update). A new event parameter
+  that could carry typed text must not be added; add any such name to
+  `ANALYTICS_FREE_TEXT`.
 
 ## Display ads (Journey by Mediavine)
 
@@ -1576,7 +1605,9 @@ releases.
   never names `scriptwrapper`. "AdSense absent passed": none of the strings in
   `ADSENSE_NEEDLES` (the AdSense script's name and host, the client id prefix,
   the old account id) appears in `index.html`, `404.html`, any emitted page or
-  the three scripts in `js/`, and no `ads.txt` exists at the root (Release 2).
+  any script in `js/` (`ADSENSE_SCRIPTS`, every `.js` file in the folder, read
+  and sorted at build time, so a new script cannot escape the scan), and no
+  `ads.txt` exists at the root (Release 2).
 - **Privacy and terms.** The privacy policy names Journey by Mediavine and refers
   to "Mediavine's advertising privacy notice", which Journey's script injects
   into `/privacy`. Our own text must be accurate before that happens: never say
@@ -1610,7 +1641,7 @@ releases.
   `404.html`, `/teachers` or `/es`; and `journey-sidebar` appears nowhere, because
   the site has no sidebar. Nothing styles or scripts the class.
 
-**Page controls: the /teachers blocklist and keep-together wrappers (ledger row 375).**
+**Page controls: the Journey blocklist and keep-together wrappers (ledger rows 375 and 383).**
 - **/teachers carries no Journey ads** (the owner's decision: the page
   encourages teachers to recommend Cyrilica to their students, ads could
   undermine that experience, and the expected revenue sacrifice is small
@@ -1622,21 +1653,46 @@ releases.
   first line of the teachers entry's `bodyHtml` in `scripts/standalone-pages.js`,
   so it sits inside `<main>`, in that page's own content. The Journey tag itself
   stays in `<head>` on `/teachers`, as on every page built from the template.
+- **The approved list.** Only the pages in `AD_BLOCKLIST_PAGES` in
+  `scripts/pre-render.js` carry the div, each with an exact attribute string:
+  today `/teachers` with `data-blocklist-all="1"`. The attribute names come
+  from a fixed vocabulary, `AD_BLOCKLIST_VOCABULARY`:
+  `data-blocklist-all` (every unit), `data-blocklist-universal-player-desktop`
+  and `data-blocklist-universal-player-mobile` (the video player on desktop and
+  on mobile; other units, the sticky footer included, stay). Source for the
+  names: Journey's blocklist article,
+  https://journeymv.zendesk.com/hc/en-us/articles/25515886400539. Each value is
+  `"1"`, `data-blocklist-all` is only ever used alone, and Journey reads one
+  div per page, so a page that removes several units carries all its
+  attributes on its one div. A new page in the list, or a new attribute in the
+  vocabulary, is a reviewed change to `scripts/pre-render.js`; the build cannot
+  tell an approved entry from an unapproved one.
 - **Never move it into anything shared.** Journey reads only one blocklist div
   per page, and its documentation says never to put it in a site-wide header,
   sidebar or footer. In `index.html` (head, nav, footer), the standalone page
   wrapper in `scripts/pre-render.js` or a module-level string in
   `scripts/standalone-pages.js` it would reach other pages and remove their ads.
-  Another page that should carry no ads gets its own div in its own content, and
-  `AD_BLOCKLIST_PAGE` and its check change with it.
-- **"Ad blocklist passed"** (`assertAdBlocklist`): on `/teachers`,
+  Another page that should carry fewer ads gets its own div in its own content
+  and its own entry in `AD_BLOCKLIST_PAGES`.
+- **"Ad blocklist passed"** (`assertAdBlocklistPages`, `assertAdBlocklistSource`,
+  `assertAdBlocklist`). Before anything is emitted: every entry is exactly
+  `{ slug, attrs }`, slugs are unique and each is a standalone page, `attrs` is
+  one or more `name="1"` pairs separated by single spaces, every name is in the
+  vocabulary and listed once, and `data-blocklist-all` stands alone; and
+  `ad-management-config-settings` appears in `scripts/standalone-pages.js`
+  exactly once per approved entry. On each approved page:
   `id="ad-management-config-settings"` and the loose string each appear exactly
-  once, the element is exactly the div above (so no other attribute, `data-` or
-  otherwise, rides along), it sits between `<main>` and `</main>`, and it is the
-  first child of `#teachers-content` (so it cannot hide in a comment or a
-  `<template>`, which never reach the DOM);
-  `ad-management-config-settings` appears in none of `index.html`, `404.html`,
-  `articles.html`, `/es`, the 28 articles or the scripts in `js/`.
+  once; the opening tag is byte for byte
+  `<div id="ad-management-config-settings" ATTRS>` with the entry's attribute
+  string (so no other attribute, `data-` or otherwise, rides along, and order
+  and values are pinned) and is closed by `</div>`; `data-blocklist-` appears
+  exactly as many times as the entry has attributes; the div sits between
+  `<main>` and `</main>`; and it is the first child of `#<slug>-content` (so it
+  cannot hide in a comment or a `<template>`, which never reach the DOM).
+  Everywhere else (`index.html`, `404.html`, `articles.html`, the 28 articles,
+  every other standalone page, every script in `js/` and `css/styles.css`)
+  neither `ad-management-config-settings` nor `data-blocklist-` appears. The
+  pass line names every approved page and its attributes.
 - **Keep-together wrappers.** Journey places in-content ads between the direct
   children of `#article-content` and will not place one inside a single `<div>`.
   So every interactive tool built from several sibling parts is wrapped in one

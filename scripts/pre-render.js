@@ -189,16 +189,106 @@ function assertScriptContract(html, label) {
     return tags.length;
 }
 
+// ---- standalone pages: their own scripts (pageScripts) ----
+//
+// A standalone page may load scripts of its own, listed in its entry's
+// pageScripts. Each is a file directly in js/, so the dependency guard and the
+// ad and free-text scans read it, and it belongs to one page. It is emitted as
+// a plain classic tag (no async, no defer, no type) directly after
+// article-scripts.js on that page only, so it runs after the three core
+// scripts, in document order. assertScriptContract ignores it.
+const PAGE_SCRIPT_AFTER = '<script src="/js/article-scripts.js"></script>';
+const PAGE_SCRIPT_PATH = /^\/js\/[a-z0-9][a-z0-9-]*\.js$/;
+
+function pageScriptTag(src) {
+    return '<script src="' + src + '"></script>';
+}
+
+// The exact run of tags a page with pageScripts carries, starting at
+// article-scripts.js, with the template's indentation.
+function pageScriptRun(sp) {
+    return PAGE_SCRIPT_AFTER + sp.pageScripts.map(function (src) { return '\n    ' + pageScriptTag(src); }).join('');
+}
+
+// Run before anything is emitted. pages: STANDALONE_PAGES.
+function assertPageScriptsField(pages) {
+    const owner = {};
+    pages.forEach(function (sp) {
+        if (sp.pageScripts === undefined) return;
+        if (!Array.isArray(sp.pageScripts) || sp.pageScripts.length === 0) {
+            fail(sp.slug + ': pageScripts must be a non-empty array of script paths, or left out');
+        }
+        sp.pageScripts.forEach(function (src) {
+            if (typeof src !== 'string' || !PAGE_SCRIPT_PATH.test(src)) {
+                fail(sp.slug + ': pageScripts lists ' + JSON.stringify(src) + '; each entry is a root-relative path to a file ' +
+                     'directly in js/, such as /js/name.js, so every scan of js/ reads it');
+            }
+            if (CORE_SCRIPTS.indexOf(src) !== -1) fail(sp.slug + ': pageScripts lists ' + src + ', a core script every page already loads');
+            if (owner[src]) {
+                fail(sp.slug + ': pageScripts lists ' + src + ', which ' + (owner[src] === sp.slug ? 'this page already lists' :
+                     '/' + owner[src] + ' already lists') + '. A page script is loaded once, by one page.');
+            }
+            owner[src] = sp.slug;
+            if (!fs.existsSync(path.join(ROOT, src.slice(1)))) fail(sp.slug + ': pageScripts lists ' + src + ', which does not exist');
+        });
+    });
+}
+
+// docs: [label, html, slug] for index.html, 404.html and every emitted page,
+// slug null where the document is not a standalone page. Each listed script
+// appears on its own page once, as its own tag in the run after
+// article-scripts.js, and its path appears in no other document. Returns the
+// number of listed scripts.
+function assertPageScripts(pages, docs) {
+    let listed = 0;
+    pages.filter(function (sp) { return sp.pageScripts; }).forEach(function (sp) {
+        const own = docs.filter(function (d) { return d[2] === sp.slug; });
+        if (own.length !== 1) fail(sp.slug + ': expected one emitted page to carry its pageScripts, found ' + own.length);
+        if (countOccurrences(own[0][1], pageScriptRun(sp)) !== 1) {
+            fail(sp.slug + ': its pageScripts must follow /js/article-scripts.js directly, in order, each a plain classic tag: ' +
+                 JSON.stringify(pageScriptRun(sp)));
+        }
+        sp.pageScripts.forEach(function (src) {
+            docs.forEach(function (d) {
+                const want = d[2] === sp.slug ? 1 : 0;
+                const n = countOccurrences(d[1], src);
+                if (n !== want) {
+                    fail(d[0] + ': "' + src + '" appears ' + n + ' time(s), expected ' + want + '. It is a page script of /' + sp.slug +
+                         (want ? ', loaded there exactly once.' : ', and no other document loads or names it.'));
+                }
+            });
+            listed += 1;
+        });
+    });
+    return listed;
+}
+
+// Run before anything is emitted: the optional standalone fields that the
+// emitter and the checks below read, and the blocklist list and its source.
+function assertStandaloneOptions() {
+    assertAdBlocklistPages(STANDALONE_PAGES.map(function (sp) { return sp.slug; }));
+    assertAdBlocklistSource(fs.readFileSync(path.join(ROOT, 'scripts', 'standalone-pages.js'), 'utf8'));
+    assertPageScriptsField(STANDALONE_PAGES);
+    STANDALONE_PAGES.forEach(function (sp) {
+        if (sp.guardedLetterTools !== undefined && sp.guardedLetterTools !== true) {
+            fail(sp.slug + ': guardedLetterTools is true or left out, found ' + JSON.stringify(sp.guardedLetterTools));
+        }
+    });
+}
+
 // ---- display ads: no AdSense ----
 //
 // Journey by Mediavine is exclusive for display ads, and its onboarding searches
 // page source for ad code left over from a previous network. So no document the
-// site serves, and none of the three scripts in js/, may carry any of these
-// strings: the AdSense script's name and host, an AdSense client id, and this
-// site's old AdSense account. ads.txt, which carried the old account's line, is
-// no longer a file at all (see ADS_TXT_URL below), and must stay that way.
+// site serves, and no script in js/, may carry any of these strings: the
+// AdSense script's name and host, an AdSense client id, and this site's old
+// AdSense account. ads.txt, which carried the old account's line, is no longer
+// a file at all (see ADS_TXT_URL below), and must stay that way.
 const ADSENSE_NEEDLES = ['adsbygoogle', 'pagead2', 'googlesyndication.com', 'ca-pub-', 'pub-5821564771189825'];
-const ADSENSE_SCRIPTS = ['js/core.js', 'js/articles.js', 'js/article-scripts.js'];
+// Every .js file in js/, read from the folder and sorted, so a new script
+// cannot escape this scan or the free-text scan below.
+const ADSENSE_SCRIPTS = fs.readdirSync(path.join(ROOT, 'js')).filter(function (n) { return /\.js$/.test(n); }).sort()
+    .map(function (n) { return 'js/' + n; });
 
 // docs: [label, html] pairs for index.html, 404.html and every emitted page.
 // Returns the number of files checked.
@@ -353,56 +443,127 @@ function assertJourneyContent(withView, without, others) {
     return withView.length;
 }
 
-// ---- display ads: the /teachers blocklist ----
+// ---- display ads: the Journey blocklist ----
 //
 // Journey removes its units from any page whose content holds its blocklist
-// div, and reads only one per page; data-blocklist-all="1" removes every unit.
-// /teachers carries it, and nothing else does. The div is the first line of the
-// teachers entry's bodyHtml in scripts/standalone-pages.js, so it sits inside
-// <main>, in that page's own content. In the shared template (the head, nav or
-// footer of index.html) it would remove the ads from every page.
+// div, and reads only one per page. Each attribute on the div removes a unit:
+// data-blocklist-all="1" removes every unit, and the two universal-player
+// attributes remove the video player on desktop and on mobile, leaving the
+// rest. The attribute names are Journey's (CLAUDE.md records the source).
+// Only the pages in AD_BLOCKLIST_PAGES carry the div, each with exactly its
+// listed attributes, in that order. The div is the first line of the page's
+// bodyHtml in scripts/standalone-pages.js, so it sits inside <main>, in that
+// page's own content. In the shared template (the head, nav or footer of
+// index.html) it would remove the ads from every page.
 const AD_BLOCKLIST_ID = 'ad-management-config-settings';
-const AD_BLOCKLIST_TAG = '<div id="' + AD_BLOCKLIST_ID + '" data-blocklist-all="1">';
-const AD_BLOCKLIST_PAGE = 'teachers';
+const AD_BLOCKLIST_VOCABULARY = ['data-blocklist-all', 'data-blocklist-universal-player-desktop', 'data-blocklist-universal-player-mobile'];
+const AD_BLOCKLIST_PAGES = [
+    { slug: 'teachers', attrs: 'data-blocklist-all="1"' },
+];
 
-// page: the [label, html] pair for /teachers. others: [label, text] pairs for
-// every other document and the scripts in js/. Matching the whole opening tag
-// means no other attribute, data- or otherwise, can ride along.
-function assertAdBlocklist(page, others) {
-    const label = page[0], html = page[1];
-    const strict = countOccurrences(html, 'id="' + AD_BLOCKLIST_ID + '"');
-    const loose = countOccurrences(html, AD_BLOCKLIST_ID);
-    if (strict !== 1 || loose !== 1) {
-        fail(label + ': expected the Journey blocklist div exactly once, found id="' + AD_BLOCKLIST_ID + '" ' + strict +
-             ' time(s) and "' + AD_BLOCKLIST_ID + '" ' + loose + ' time(s). Journey reads only one per page.');
-    }
-    const tag = openingTagWithId(html, AD_BLOCKLIST_ID, label);
-    if (tag !== AD_BLOCKLIST_TAG || countOccurrences(html, AD_BLOCKLIST_TAG + '</div>') !== 1) {
-        fail(label + ': the blocklist div must be exactly ' + AD_BLOCKLIST_TAG + '</div>, found ' + tag);
-    }
-    const at = html.indexOf(AD_BLOCKLIST_TAG);
-    if (countOccurrences(html, '<main>') !== 1 || countOccurrences(html, '</main>') !== 1 ||
-        !(html.indexOf('<main>') < at && at < html.indexOf('</main>'))) {
-        fail(label + ': the blocklist div must sit between <main> and </main>, in the page\'s own content. In the ' +
-             'shared head, nav or footer it would remove the ads from every page.');
-    }
-    // The string checks above would also pass a div inside a comment or a
-    // <template>, which never reaches the DOM. Requiring it to be the first
-    // thing in the page's own container rules both out.
-    const container = '<div id="' + AD_BLOCKLIST_PAGE + '-content" class="page-content active">';
-    const afterContainer = html.slice(html.indexOf(container) + container.length).replace(/^\s*/, '');
-    if (countOccurrences(html, container) !== 1 || afterContainer.indexOf(AD_BLOCKLIST_TAG + '</div>') !== 0) {
-        fail(label + ': the blocklist div must be the first child of ' + container + ', as the first line of the ' +
-             'page\'s bodyHtml, not inside a comment, a <template> or another element');
-    }
-    others.forEach(function (d) {
-        const n = countOccurrences(d[1], AD_BLOCKLIST_ID);
-        if (n !== 0) {
-            fail(d[0] + ': carries "' + AD_BLOCKLIST_ID + '" ' + n + ' time(s). Only /' + AD_BLOCKLIST_PAGE +
-                 ' carries the Journey blocklist; anywhere shared it would remove the ads from every page.');
+// The exact opening tag for an approved entry. Matching the whole tag means no
+// other attribute, data- or otherwise, can ride along, and the order and the
+// values are pinned.
+function adBlocklistTag(entry) {
+    return '<div id="' + AD_BLOCKLIST_ID + '" ' + entry.attrs + '>';
+}
+
+// The attribute names in an entry's attrs string, in order.
+function adBlocklistNames(entry) {
+    return entry.attrs.split(' ').map(function (a) { return a.slice(0, a.indexOf('=')); });
+}
+
+// Run before anything is emitted. slugs: every STANDALONE_PAGES slug.
+function assertAdBlocklistPages(slugs) {
+    const seen = [];
+    AD_BLOCKLIST_PAGES.forEach(function (entry) {
+        const where = 'AD_BLOCKLIST_PAGES entry ' + JSON.stringify(entry);
+        if (Object.keys(entry).sort().join() !== 'attrs,slug' || typeof entry.slug !== 'string' || typeof entry.attrs !== 'string') {
+            fail(where + ': an entry is exactly { slug, attrs }, both strings');
+        }
+        if (seen.indexOf(entry.slug) !== -1) fail(where + ': /' + entry.slug + ' is listed twice; Journey reads only one div per page');
+        seen.push(entry.slug);
+        if (slugs.indexOf(entry.slug) === -1) {
+            fail(where + ': "' + entry.slug + '" is not a standalone page in scripts/standalone-pages.js. Only a standalone page ' +
+                 'carries the blocklist; an article or a shared document would take it to other pages.');
+        }
+        if (!/^[a-z-]+="1"(?: [a-z-]+="1")*$/.test(entry.attrs)) {
+            fail(where + ': attrs must be one or more name="1" pairs separated by single spaces, found ' + JSON.stringify(entry.attrs));
+        }
+        const names = adBlocklistNames(entry);
+        names.forEach(function (n, i) {
+            if (AD_BLOCKLIST_VOCABULARY.indexOf(n) === -1) {
+                fail(where + ': "' + n + '" is not a Journey blocklist attribute. Allowed: ' + AD_BLOCKLIST_VOCABULARY.join(', '));
+            }
+            if (names.indexOf(n) !== i) fail(where + ': "' + n + '" is listed twice');
+        });
+        if (names.indexOf('data-blocklist-all') !== -1 && names.length !== 1) {
+            fail(where + ': data-blocklist-all already removes every unit, so it is only ever used alone');
         }
     });
+}
+
+// blocked: [label, html, entry] for each approved page. others: [label, text]
+// pairs for every other document, the scripts in js/ and the CSS. Returns the
+// number of other files checked.
+function assertAdBlocklist(blocked, others) {
+    blocked.forEach(function (b) {
+        const label = b[0], html = b[1], entry = b[2];
+        const tag = adBlocklistTag(entry);
+        const strict = countOccurrences(html, 'id="' + AD_BLOCKLIST_ID + '"');
+        const loose = countOccurrences(html, AD_BLOCKLIST_ID);
+        if (strict !== 1 || loose !== 1) {
+            fail(label + ': expected the Journey blocklist div exactly once, found id="' + AD_BLOCKLIST_ID + '" ' + strict +
+                 ' time(s) and "' + AD_BLOCKLIST_ID + '" ' + loose + ' time(s). Journey reads only one per page.');
+        }
+        const found = openingTagWithId(html, AD_BLOCKLIST_ID, label);
+        if (found !== tag || countOccurrences(html, tag + '</div>') !== 1) {
+            fail(label + ': the blocklist div must be exactly ' + tag + '</div>, found ' + found);
+        }
+        const names = adBlocklistNames(entry);
+        const attrCount = countOccurrences(html, 'data-blocklist-');
+        if (attrCount !== names.length) {
+            fail(label + ': "data-blocklist-" appears ' + attrCount + ' time(s), expected ' + names.length +
+                 ', the attributes on its one blocklist div and nowhere else');
+        }
+        const at = html.indexOf(tag);
+        if (countOccurrences(html, '<main>') !== 1 || countOccurrences(html, '</main>') !== 1 ||
+            !(html.indexOf('<main>') < at && at < html.indexOf('</main>'))) {
+            fail(label + ': the blocklist div must sit between <main> and </main>, in the page\'s own content. In the ' +
+                 'shared head, nav or footer it would remove the ads from every page.');
+        }
+        // The string checks above would also pass a div inside a comment or a
+        // <template>, which never reaches the DOM. Requiring it to be the first
+        // thing in the page's own container rules both out.
+        const container = '<div id="' + entry.slug + '-content" class="page-content active">';
+        const afterContainer = html.slice(html.indexOf(container) + container.length).replace(/^\s*/, '');
+        if (countOccurrences(html, container) !== 1 || afterContainer.indexOf(tag + '</div>') !== 0) {
+            fail(label + ': the blocklist div must be the first child of ' + container + ', as the first line of the ' +
+                 'page\'s bodyHtml, not inside a comment, a <template> or another element');
+        }
+    });
+    const approved = AD_BLOCKLIST_PAGES.map(function (e) { return '/' + e.slug; }).join(', ');
+    others.forEach(function (d) {
+        [AD_BLOCKLIST_ID, 'data-blocklist-'].forEach(function (needle) {
+            const n = countOccurrences(d[1], needle);
+            if (n !== 0) {
+                fail(d[0] + ': carries "' + needle + '" ' + n + ' time(s). Only the pages in AD_BLOCKLIST_PAGES (' + approved +
+                     ') carry the Journey blocklist; anywhere shared it would remove ads from every page.');
+            }
+        });
+    });
     return others.length;
+}
+
+// The div lives in each approved entry's bodyHtml and nowhere else in
+// scripts/standalone-pages.js, so no shared string can carry it into a second
+// page. src: that file's text.
+function assertAdBlocklistSource(src) {
+    const n = countOccurrences(src, AD_BLOCKLIST_ID);
+    if (n !== AD_BLOCKLIST_PAGES.length) {
+        fail('scripts/standalone-pages.js: "' + AD_BLOCKLIST_ID + '" appears ' + n + ' time(s), expected ' +
+             AD_BLOCKLIST_PAGES.length + ', once in the bodyHtml of each page in AD_BLOCKLIST_PAGES');
+    }
 }
 
 // ---- display ads: keep-together wrappers ----
@@ -546,8 +707,8 @@ function assertKeepTogether(pages, others) {
 // visitor typed. The quiz's incorrect-answer event used to send the typed answer
 // as user_answer, so whatever went into the answer box, a name or an email
 // address included, went to Google with it (ledger row 368). No served document
-// or script may name that parameter again. The scripts are the same three
-// ADSENSE_SCRIPTS lists.
+// or script may name that parameter again. The scripts are every one in js/,
+// the same ADSENSE_SCRIPTS list.
 const ANALYTICS_FREE_TEXT = ['user_answer'];
 
 // docs: [label, html] pairs for index.html, 404.html and every emitted page.
@@ -1013,6 +1174,44 @@ function cyrillicTextRuns(html) {
     }
     take(html.slice(last));
     return runs;
+}
+
+// Translation guards on a standalone page's <main> (mainHtml runs from <main>
+// to </main>): every Cyrillic letter sits inside an element with translate="no"
+// and class notranslate, and outside the quiz's own grids and letter that
+// element is also lang="ru", which is what ru() in standalone-pages.js emits.
+// Runs on every page with quizPage and every page with guardedLetterTools, and
+// records its counts on sp for the pass line.
+function assertMainCyrillicGuards(mainHtml, sp) {
+    const runs = cyrillicTextRuns(mainHtml);
+    runs.forEach(function (r) {
+        if (!r.guarded) {
+            fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in <main> is not inside an element with translate="no" and class notranslate');
+        }
+        if (!r.quiz && !r.russian) {
+            fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in the <main> prose is not inside a lang="ru" element; wrap it with ru() in scripts/standalone-pages.js');
+        }
+    });
+    sp.__cyrillicRuns = runs.length;
+    sp.__proseRuns = runs.filter(function (r) { return !r.quiz; }).length;
+    // Spacing under translation: a translator drops a space, or a closing
+    // bracket or comma, that sits just outside a guarded span, and keeps what is
+    // inside it. So every ru()/rom() span in <main> takes the space before it
+    // and the punctuation and space after it.
+    const guardRe = /<span (?:lang="ru" )?translate="no" class="notranslate">[^<]*<\/span>/g;
+    let g;
+    let guardSpans = 0;
+    while ((g = guardRe.exec(mainHtml)) !== null) {
+        guardSpans += 1;
+        const before = mainHtml.charAt(g.index - 1);
+        const after = mainHtml.charAt(g.index + g[0].length);
+        if (/\s/.test(before) || /[\s,.;:!?)\]]/.test(after)) {
+            const ctx = mainHtml.slice(Math.max(0, g.index - 20), g.index + g[0].length + 20).replace(/\s+/g, ' ');
+            fail(sp.slug + ': a guarded span has ' + (/\s/.test(before) ? 'a space just before it' : 'a space or punctuation just after it') +
+                 '; move it inside the span (ru(\' X \') / rom(\' x, \')), or a translator drops it: ...' + ctx + '...');
+        }
+    }
+    sp.__guardSpans = guardSpans;
 }
 
 // Every share handler call in `content`, with the function name and the first
@@ -2268,6 +2467,7 @@ function main() {
     assertNoDependencies();
     assertSecurityHeaders();
     assertReplaceCallbacks();
+    assertStandaloneOptions();
     const template = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     let scriptContractChecked = assertScriptContract(template, 'index.html');
     const articlesSrc = fs.readFileSync(path.join(ROOT, 'js', 'articles.js'), 'utf8');
@@ -2835,16 +3035,33 @@ function main() {
     // button's text (the chart cards); the lookalike copy button swaps its own
     // text, so its labels sit beside the buttons in the same card. Each label
     // has whitespace on both sides so its words never run into the next.
+    // An entry names an article, or a standalone page (page: slug) whose entry
+    // in scripts/standalone-pages.js sets guardedLetterTools: true. Such a page
+    // is checked the same way as an article, on its bodyHtml.
     const BUTTON_LABELS = [
         { article: 'russian-alphabet-chart', cls: 'letter-card', instruction: 'Play pronunciation of', count: 33 },
         { article: 'backwards-r-myth', cls: 'lookalike-listen', instruction: 'Listen to', count: 8 },
         { article: 'backwards-r-myth', cls: 'lookalike-copy', instruction: 'Copy', count: 8 },
     ];
+    // The documents these checks read: every article, then every standalone
+    // page that opts in. Article label spans are counted apart from page ones,
+    // because the article-wide guard totals below count article content only.
+    const letterToolPages = STANDALONE_PAGES.filter(function (sp) { return sp.guardedLetterTools; });
+    const labelDocs = articles.map(function (a) { return { id: a.id, article: a.id, content: a.content }; })
+        .concat(letterToolPages.map(function (sp) { return { id: sp.slug + ' (standalone page)', page: sp.slug, content: sp.bodyHtml }; }));
+    BUTTON_LABELS.forEach(function (b) {
+        if ((b.article === undefined) === (b.page === undefined)) fail('BUTTON_LABELS entry for .' + b.cls + ' must name exactly one of article and page');
+        if (b.page !== undefined && !letterToolPages.some(function (sp) { return sp.slug === b.page; })) {
+            fail('BUTTON_LABELS entry for .' + b.cls + ' names page "' + b.page + '", which is not a standalone page with guardedLetterTools: true');
+        }
+    });
     let labelSpans = 0;
+    let pageLabelSpans = 0;
     const buttonLabelCounts = [];
     BUTTON_LABELS.forEach(function (b) {
-        articles.forEach(function (a) {
-            const want = a.id === b.article ? b.count : 0;
+        labelDocs.forEach(function (a) {
+            const mine = b.article !== undefined ? a.article === b.article : a.page === b.page;
+            const want = mine ? b.count : 0;
             const found = [];
             let t;
             tagScan.lastIndex = 0;
@@ -2865,7 +3082,9 @@ function main() {
                 if (!ref) fail(where + ' has no aria-labelledby');
                 const ids = ref[1].trim().split(/\s+/);
                 if (ids.length !== 1) fail(where + ' must point at exactly one label, found aria-labelledby="' + ref[1] + '"');
-                if (countOccurrences(a.content, 'id="' + ids[0] + '"') !== 1) fail(where + ': id "' + ids[0] + '" must exist exactly once in the article');
+                if (countOccurrences(a.content, 'id="' + ids[0] + '"') !== 1) {
+                    fail(where + ': id "' + ids[0] + '" must exist exactly once in the ' + (a.article ? 'article' : 'page'));
+                }
                 const label = '<span id="' + ids[0] + '" class="sr-only" aria-hidden="true">' + b.instruction +
                               '<span lang="ru" translate="no" class="notranslate"> ' + letter + '</span></span>';
                 const at = a.content.indexOf(label);
@@ -2876,14 +3095,15 @@ function main() {
                 if (!/\s/.test(a.content.charAt(at - 1)) || !/\s/.test(a.content.charAt(at + label.length))) {
                     fail(where + ': its label needs whitespace before and after it, or its words run into the neighbouring text');
                 }
-                labelSpans += 1;
+                if (a.article) labelSpans += 1;
+                else pageLabelSpans += 1;
             });
         });
         buttonLabelCounts.push(b.cls + ' ' + b.count);
     });
-    // No aria-label in article content may carry a Cyrillic letter: the
-    // translator would rewrite it.
-    articles.forEach(function (a) {
+    // No aria-label in article content, or on an opted-in standalone page, may
+    // carry a Cyrillic letter: the translator would rewrite it.
+    labelDocs.forEach(function (a) {
         const m = a.content.match(/aria-label="[^"]*[\u0400-\u04FF][^"]*"/);
         if (m) fail(a.id + ': ' + m[0] + ' carries a Cyrillic letter in an aria-label; use aria-labelledby with a guarded label (BUTTON_LABELS in scripts/pre-render.js)');
     });
@@ -3867,6 +4087,8 @@ function main() {
             '                </div>\n' +
             '                </main>' + FOOTER_TAIL,
             sp.slug + '/main');
+        // The page's own scripts, directly after the three core scripts.
+        if (sp.pageScripts) page = replaceOnce(page, PAGE_SCRIPT_AFTER, pageScriptRun(sp), sp.slug + '/page scripts');
 
         // ---- chrome: a page in another language replaces the English chrome ----
         //
@@ -3978,35 +4200,12 @@ function main() {
             assertQuizLetterGuards(page, sp.slug);
             assertAnswerInput(page, sp.slug);
             assertQuizA11y(page, sp.slug);
-            const runs = cyrillicTextRuns(quizMain);
-            runs.forEach(function (r) {
-                if (!r.guarded) {
-                    fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in <main> is not inside an element with translate="no" and class notranslate');
-                }
-                if (!r.quiz && !r.russian) {
-                    fail(sp.slug + ': Cyrillic text "' + r.text.slice(0, 60) + '" in the <main> prose is not inside a lang="ru" element; wrap it with ru() in scripts/standalone-pages.js');
-                }
-            });
-            sp.__cyrillicRuns = runs.length;
-            sp.__proseRuns = runs.filter(function (r) { return !r.quiz; }).length;
-            // Spacing under translation: a translator drops a space, or a
-            // closing bracket or comma, that sits just outside a guarded span,
-            // and keeps what is inside it. So every ru()/rom() span in <main>
-            // takes the space before it and the punctuation and space after it.
-            const guardRe = /<span (?:lang="ru" )?translate="no" class="notranslate">[^<]*<\/span>/g;
-            let g;
-            let guardSpans = 0;
-            while ((g = guardRe.exec(quizMain)) !== null) {
-                guardSpans += 1;
-                const before = quizMain.charAt(g.index - 1);
-                const after = quizMain.charAt(g.index + g[0].length);
-                if (/\s/.test(before) || /[\s,.;:!?)\]]/.test(after)) {
-                    const ctx = quizMain.slice(Math.max(0, g.index - 20), g.index + g[0].length + 20).replace(/\s+/g, ' ');
-                    fail(sp.slug + ': a guarded span has ' + (/\s/.test(before) ? 'a space just before it' : 'a space or punctuation just after it') +
-                         '; move it inside the span (ru(\' X \') / rom(\' x, \')), or a translator drops it: ...' + ctx + '...');
-                }
-            }
-            sp.__guardSpans = guardSpans;
+            assertMainCyrillicGuards(quizMain, sp);
+        }
+        // A page with letter tools of its own opts into the same translation
+        // guard check. A quiz page already ran it above.
+        if (sp.guardedLetterTools && !sp.quizPage) {
+            assertMainCyrillicGuards(page.slice(page.indexOf('<main>'), page.indexOf('</main>')), sp);
         }
 
         // ---- settings panel: one closed <details> between the two quiz cards ----
@@ -4486,15 +4685,23 @@ function main() {
         ['css/styles.css', 'js/core.js', 'js/articles.js', 'js/article-scripts.js'].map(function (f) {
             return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')];
         }));
-    // ---- the Journey blocklist: once, inside <main> on /teachers, nowhere else ----
-    const blocklistPages = emittedPages.filter(function (r) { return r.slug === AD_BLOCKLIST_PAGE; });
-    if (blocklistPages.length !== 1) fail('expected one emitted /' + AD_BLOCKLIST_PAGE + ' page, found ' + blocklistPages.length);
-    const blocklistScripts = fs.readdirSync(path.join(ROOT, 'js')).filter(function (n) { return /\.js$/.test(n); }).sort()
-        .map(function (n) { return ['js/' + n, fs.readFileSync(path.join(ROOT, 'js', n), 'utf8')]; });
-    const blocklistOthers = assertAdBlocklist([blocklistPages[0].label, blocklistPages[0].html],
+    // ---- the Journey blocklist: on the approved pages only, each with its exact div ----
+    const blocklistSlugs = AD_BLOCKLIST_PAGES.map(function (e) { return e.slug; });
+    const blocklistPages = AD_BLOCKLIST_PAGES.map(function (e) {
+        const found = emittedPages.filter(function (r) { return r.slug === e.slug; });
+        if (found.length !== 1) fail('expected one emitted /' + e.slug + ' page, found ' + found.length);
+        return [found[0].label, found[0].html, e];
+    });
+    const blocklistScripts = ADSENSE_SCRIPTS.concat(['css/styles.css'])
+        .map(function (f) { return [f, fs.readFileSync(path.join(ROOT, f), 'utf8')]; });
+    const blocklistOthers = assertAdBlocklist(blocklistPages,
         [['index.html', template], ['404.html', notFoundSrc]]
-            .concat(emittedPages.filter(function (r) { return r.slug !== AD_BLOCKLIST_PAGE; }).map(function (r) { return [r.label, r.html]; }))
+            .concat(emittedPages.filter(function (r) { return blocklistSlugs.indexOf(r.slug) === -1; }).map(function (r) { return [r.label, r.html]; }))
             .concat(blocklistScripts));
+    // ---- page scripts: each on its own page once, after the core scripts, nowhere else ----
+    const pageScriptsChecked = assertPageScripts(STANDALONE_PAGES,
+        [['index.html', template, null], ['404.html', notFoundSrc, null]]
+            .concat(emittedPages.map(function (r) { return [r.label, r.html, r.slug || null]; })));
     // ---- keep-together: each multi-part article tool is one direct child ----
     const keepTogetherChecked = assertKeepTogether(emittedPages.map(function (r) { return [r.label, r.html]; }),
         [['index.html', template], ['404.html', notFoundSrc]].concat(['css/styles.css', 'js/core.js', 'js/article-scripts.js'].map(function (f) {
@@ -4532,8 +4739,8 @@ function main() {
     console.log('Script contract passed: ' + scriptContractChecked + ' core script tags across index.html and ' +
                 totalEmitted + ' emitted pages, all three present once each, in order, classic, no async or defer.');
     console.log('AdSense absent passed: none of ' + ADSENSE_NEEDLES.length + ' AdSense strings in ' + adsenseChecked +
-                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
-                ' scripts in js/), and no ads.txt at the root.');
+                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and every script in js/, read from the folder: ' +
+                ADSENSE_SCRIPTS.join(', ') + '), and no ads.txt at the root.');
     console.log('ads.txt passed: no ads.txt at the root; one forced rule sends /ads.txt to ' + ADS_TXT_URL +
                 ' (301!, https, off-site), no earlier rule matches /ads.txt, and the edge function still excludes /*.txt.');
     console.log('Display ads passed: the Journey by Mediavine ad script once, byte for byte, as the last element in <head> on ' +
@@ -4542,15 +4749,22 @@ function main() {
     console.log('Content marker passed: journey-content once, on the #article-content element, in ' + contentMarked +
                 ' documents (index.html, articles.html and ' + (contentMarked - 2) + ' articles); absent from 404.html and ' +
                 STANDALONE_PAGES.length + ' standalone pages; journey-sidebar nowhere.');
-    console.log('Ad blocklist passed: ' + AD_BLOCKLIST_TAG + '</div> once, inside <main>, on /' + AD_BLOCKLIST_PAGE +
-                '; "' + AD_BLOCKLIST_ID + '" in none of ' + blocklistOthers + ' other files (index.html, 404.html, ' +
-                (totalEmitted - 1) + ' emitted pages and the ' + blocklistScripts.length + ' scripts in js/).');
+    console.log('Ad blocklist passed: ' + AD_BLOCKLIST_PAGES.map(function (e) { return '/' + e.slug + ' (' + e.attrs + ')'; }).join(', ') +
+                ', each with its exact div once, as the first child of its content inside <main>; "' + AD_BLOCKLIST_ID +
+                '" and "data-blocklist-" in none of ' + blocklistOthers + ' other files (index.html, 404.html, ' +
+                (totalEmitted - AD_BLOCKLIST_PAGES.length) + ' emitted pages, the ' + ADSENSE_SCRIPTS.length +
+                ' scripts in js/ and css/styles.css); the id once per approved page in scripts/standalone-pages.js.');
+    const pageScriptPages = STANDALONE_PAGES.filter(function (sp) { return sp.pageScripts; });
+    console.log('Page scripts passed: ' + (pageScriptPages.length ? pageScriptsChecked + ' script(s) on ' +
+                pageScriptPages.map(function (sp) { return '/' + sp.slug + ' (' + sp.pageScripts.join(', ') + ')'; }).join(', ') +
+                ', each a file in js/, once, classic, directly after /js/article-scripts.js, and named by no other document' :
+                'no standalone page lists pageScripts, so no document loads a script beyond the three core scripts') + '.');
     console.log('Keep-together passed: ' + keepTogetherChecked + ' wrappers in ' + KEEP_TOGETHER.length + ' articles (' +
                 KEEP_TOGETHER.map(function (e) { return e.article; }).join(', ') + '), each a direct child of #article-content ' +
                 'holding exactly its tool\'s parts; "keep-together" in no other emitted page, index.html, 404.html, the CSS or the other scripts.');
     console.log('Analytics free text passed: no "' + ANALYTICS_FREE_TEXT.join('", "') + '" in ' + freeTextChecked +
-                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and the ' + ADSENSE_SCRIPTS.length +
-                ' scripts in js/); events carry results and letters, never typed text.');
+                ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and every script in js/, read from the folder: ' +
+                ADSENSE_SCRIPTS.join(', ') + '); events carry results and letters, never typed text.');
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
@@ -4579,7 +4793,9 @@ function main() {
     });
     console.log(articleGuardSummary);
     console.log('Button names passed: ' + buttonLabelCounts.join(', ') + ' buttons named by aria-labelledby to their own sr-only aria-hidden label, ' +
-                'instruction translatable and the card\'s letter guarded (lang ru, F2 spacing), whitespace on both sides; ' + labelSpans + ' label spans; no aria-label in article content carries Cyrillic.');
+                'instruction translatable and the card\'s letter guarded (lang ru, F2 spacing), whitespace on both sides; ' + labelSpans + ' label spans; no aria-label in article content carries Cyrillic; ' +
+                'standalone pages with guardedLetterTools: ' + (letterToolPages.length ? letterToolPages.map(function (sp) { return '/' + sp.slug; }).join(', ') +
+                ' (' + pageLabelSpans + ' label spans, no Cyrillic aria-label)' : 'none') + '.');
     console.log('Mini quizzes passed: ' + MINI_QUIZZES.map(function (q) { return q.article + ' (' + q.lang + ')'; }).join(', ') +
                 ': ' + miniQuizSpans + ' letter spans guarded with lang, answer inputs carry ' + ANSWER_INPUT_ATTRS.join(' ') +
                 ', feedback answers written by setQuizText; ' + articleTranslateNo + ' translate="no" in article content, all listed.');
@@ -4644,8 +4860,11 @@ function main() {
                 ') checked in the English answers and in ' + STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; }).length +
                 ' localised table(s), no page repeating them, no cross-letter or prefix clash; #answer-input carries ' +
                 ANSWER_INPUT_ATTRS.join(' ') + ' on index.html and every quiz page.');
-    const guardedPages = STANDALONE_PAGES.filter(function (sp) { return sp.quizPage; });
-    console.log('Translation guards passed: index.html' + guardedPages.map(function (sp) { return ' and /' + sp.slug; }).join('') +
+    // Every page whose <main> went through assertMainCyrillicGuards: the quiz
+    // pages, which also carry the quiz's own guarded elements, and the pages
+    // that opt in with guardedLetterTools.
+    const guardedPages = STANDALONE_PAGES.filter(function (sp) { return sp.quizPage || sp.guardedLetterTools; });
+    console.log('Translation guards passed: index.html' + guardedPages.filter(function (sp) { return sp.quizPage; }).map(function (sp) { return ' and /' + sp.slug; }).join('') +
                 ': 6 study grids, #current-char and #current-char-lower carry translate="no" and class notranslate' +
                 guardedPages.map(function (sp) {
                     return '; /' + sp.slug + ' <main>: ' + sp.__cyrillicRuns + ' Cyrillic text runs, all guarded (' +
