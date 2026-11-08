@@ -189,10 +189,86 @@ function assertScriptContract(html, label) {
     return tags.length;
 }
 
-// Run before anything is emitted: the Journey blocklist list and its source.
+// ---- standalone pages: their own scripts (pageScripts) ----
+//
+// A standalone page may load scripts of its own, listed in its entry's
+// pageScripts. Each is a file directly in js/, so the dependency guard and the
+// ad and free-text scans read it, and it belongs to one page. It is emitted as
+// a plain classic tag (no async, no defer, no type) directly after
+// article-scripts.js on that page only, so it runs after the three core
+// scripts, in document order. assertScriptContract ignores it.
+const PAGE_SCRIPT_AFTER = '<script src="/js/article-scripts.js"></script>';
+const PAGE_SCRIPT_PATH = /^\/js\/[a-z0-9][a-z0-9-]*\.js$/;
+
+function pageScriptTag(src) {
+    return '<script src="' + src + '"></script>';
+}
+
+// The exact run of tags a page with pageScripts carries, starting at
+// article-scripts.js, with the template's indentation.
+function pageScriptRun(sp) {
+    return PAGE_SCRIPT_AFTER + sp.pageScripts.map(function (src) { return '\n    ' + pageScriptTag(src); }).join('');
+}
+
+// Run before anything is emitted. pages: STANDALONE_PAGES.
+function assertPageScriptsField(pages) {
+    const owner = {};
+    pages.forEach(function (sp) {
+        if (sp.pageScripts === undefined) return;
+        if (!Array.isArray(sp.pageScripts) || sp.pageScripts.length === 0) {
+            fail(sp.slug + ': pageScripts must be a non-empty array of script paths, or left out');
+        }
+        sp.pageScripts.forEach(function (src) {
+            if (typeof src !== 'string' || !PAGE_SCRIPT_PATH.test(src)) {
+                fail(sp.slug + ': pageScripts lists ' + JSON.stringify(src) + '; each entry is a root-relative path to a file ' +
+                     'directly in js/, such as /js/name.js, so every scan of js/ reads it');
+            }
+            if (CORE_SCRIPTS.indexOf(src) !== -1) fail(sp.slug + ': pageScripts lists ' + src + ', a core script every page already loads');
+            if (owner[src]) {
+                fail(sp.slug + ': pageScripts lists ' + src + ', which ' + (owner[src] === sp.slug ? 'this page already lists' :
+                     '/' + owner[src] + ' already lists') + '. A page script is loaded once, by one page.');
+            }
+            owner[src] = sp.slug;
+            if (!fs.existsSync(path.join(ROOT, src.slice(1)))) fail(sp.slug + ': pageScripts lists ' + src + ', which does not exist');
+        });
+    });
+}
+
+// docs: [label, html, slug] for index.html, 404.html and every emitted page,
+// slug null where the document is not a standalone page. Each listed script
+// appears on its own page once, as its own tag in the run after
+// article-scripts.js, and its path appears in no other document. Returns the
+// number of listed scripts.
+function assertPageScripts(pages, docs) {
+    let listed = 0;
+    pages.filter(function (sp) { return sp.pageScripts; }).forEach(function (sp) {
+        const own = docs.filter(function (d) { return d[2] === sp.slug; });
+        if (own.length !== 1) fail(sp.slug + ': expected one emitted page to carry its pageScripts, found ' + own.length);
+        if (countOccurrences(own[0][1], pageScriptRun(sp)) !== 1) {
+            fail(sp.slug + ': its pageScripts must follow /js/article-scripts.js directly, in order, each a plain classic tag: ' +
+                 JSON.stringify(pageScriptRun(sp)));
+        }
+        sp.pageScripts.forEach(function (src) {
+            docs.forEach(function (d) {
+                const want = d[2] === sp.slug ? 1 : 0;
+                const n = countOccurrences(d[1], src);
+                if (n !== want) {
+                    fail(d[0] + ': "' + src + '" appears ' + n + ' time(s), expected ' + want + '. It is a page script of /' + sp.slug +
+                         (want ? ', loaded there exactly once.' : ', and no other document loads or names it.'));
+                }
+            });
+            listed += 1;
+        });
+    });
+    return listed;
+}
+
+// Run before anything is emitted: the optional standalone fields that the
+// emitter and the checks below read, and the blocklist list and its source.
 function assertStandaloneOptions() {
     assertAdBlocklistPages(STANDALONE_PAGES.map(function (sp) { return sp.slug; }));
     assertAdBlocklistSource(fs.readFileSync(path.join(ROOT, 'scripts', 'standalone-pages.js'), 'utf8'));
+    assertPageScriptsField(STANDALONE_PAGES);
 }
 
 // ---- display ads: no AdSense ----
@@ -3948,6 +4024,8 @@ function main() {
             '                </div>\n' +
             '                </main>' + FOOTER_TAIL,
             sp.slug + '/main');
+        // The page's own scripts, directly after the three core scripts.
+        if (sp.pageScripts) page = replaceOnce(page, PAGE_SCRIPT_AFTER, pageScriptRun(sp), sp.slug + '/page scripts');
 
         // ---- chrome: a page in another language replaces the English chrome ----
         //
@@ -4580,6 +4658,10 @@ function main() {
         [['index.html', template], ['404.html', notFoundSrc]]
             .concat(emittedPages.filter(function (r) { return blocklistSlugs.indexOf(r.slug) === -1; }).map(function (r) { return [r.label, r.html]; }))
             .concat(blocklistScripts));
+    // ---- page scripts: each on its own page once, after the core scripts, nowhere else ----
+    const pageScriptsChecked = assertPageScripts(STANDALONE_PAGES,
+        [['index.html', template, null], ['404.html', notFoundSrc, null]]
+            .concat(emittedPages.map(function (r) { return [r.label, r.html, r.slug || null]; })));
     // ---- keep-together: each multi-part article tool is one direct child ----
     const keepTogetherChecked = assertKeepTogether(emittedPages.map(function (r) { return [r.label, r.html]; }),
         [['index.html', template], ['404.html', notFoundSrc]].concat(['css/styles.css', 'js/core.js', 'js/article-scripts.js'].map(function (f) {
@@ -4632,6 +4714,11 @@ function main() {
                 '" and "data-blocklist-" in none of ' + blocklistOthers + ' other files (index.html, 404.html, ' +
                 (totalEmitted - AD_BLOCKLIST_PAGES.length) + ' emitted pages, the ' + ADSENSE_SCRIPTS.length +
                 ' scripts in js/ and css/styles.css); the id once per approved page in scripts/standalone-pages.js.');
+    const pageScriptPages = STANDALONE_PAGES.filter(function (sp) { return sp.pageScripts; });
+    console.log('Page scripts passed: ' + (pageScriptPages.length ? pageScriptsChecked + ' script(s) on ' +
+                pageScriptPages.map(function (sp) { return '/' + sp.slug + ' (' + sp.pageScripts.join(', ') + ')'; }).join(', ') +
+                ', each a file in js/, once, classic, directly after /js/article-scripts.js, and named by no other document' :
+                'no standalone page lists pageScripts, so no document loads a script beyond the three core scripts') + '.');
     console.log('Keep-together passed: ' + keepTogetherChecked + ' wrappers in ' + KEEP_TOGETHER.length + ' articles (' +
                 KEEP_TOGETHER.map(function (e) { return e.article; }).join(', ') + '), each a direct child of #article-content ' +
                 'holding exactly its tool\'s parts; "keep-together" in no other emitted page, index.html, 404.html, the CSS or the other scripts.');
