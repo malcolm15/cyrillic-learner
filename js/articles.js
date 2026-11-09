@@ -3737,11 +3737,11 @@ const ARTICLES = [
 
             <p><strong>My keys produce Cyrillic when I'm trying to type English.</strong> You're in Russian mode. Press your switching hotkey once to go back to English.</p>
 
-            <p><strong>I can't find the phonetic layout on iOS.</strong> iOS doesn't include one natively. You'll need a third-party keyboard app, or you can use the standard layout and rely on the on-screen keyboard to find letters.</p>
+            <p><strong>I can't find the phonetic layout on iOS.</strong> iOS doesn't include one natively. You'll need a third-party keyboard app, or you can use the standard layout and rely on the on-screen keyboard to find letters. Or open our <a href="/russian-keyboard">Russian keyboard</a> in Safari: its phonetic layout works by tapping, with no app to install.</p>
 
             <p><strong>My Cyrillic shows up as boxes or question marks.</strong> This is a font issue, not a keyboard issue. The app or website you're using doesn't have a font installed that supports Cyrillic. Try a different app. This is rare on modern systems but occasionally happens in older software.</p>
 
-            <p><strong>I need to type Russian on a shared computer where I can't install anything.</strong> Use an online virtual Russian keyboard. Several free websites let you type Russian via an on-screen layout and copy the result. Our <a href="/articles/cyrillic-copy-paste" onclick="navTo(event, null, 'cyrillic-copy-paste')">copy-and-paste tool</a> works in this scenario too, including the text builder for longer phrases.</p>
+            <p><strong>I need to type Russian on a shared computer where I can't install anything.</strong> Use our <a href="/russian-keyboard">Russian keyboard</a>. It runs in the browser, types Russian from your own keys in a phonetic or standard layout, and copies the result in one click. Nothing is installed, and Cyrilica's own code never saves or sends what you type. For a character or two, the <a href="/articles/cyrillic-copy-paste" onclick="navTo(event, null, 'cyrillic-copy-paste')">copy-and-paste tool</a> is quicker.</p>
 
         
             <div class="share-section">
@@ -3908,7 +3908,7 @@ const ARTICLES = [
 
             <h3>Who Needs This?</h3>
 
-            <p><strong>Language Learners:</strong> Copy individual letters while you're still getting comfortable with the Cyrillic keyboard layout. If you type Russian often enough that copy-paste gets tedious, our <a href="/articles/how-to-type-cyrillic" onclick="navTo(event, null, 'how-to-type-cyrillic')">complete Cyrillic keyboard setup guide</a> walks through the process for every major platform.</p>
+            <p><strong>Language Learners:</strong> Copy individual letters while you're still getting comfortable with the Cyrillic keyboard layout. For whole words and sentences, our <a href="/russian-keyboard">Russian keyboard</a> types Russian from your own keys with no system settings changed. If you type Russian often enough to want it in every app, our <a href="/articles/how-to-type-cyrillic" onclick="navTo(event, null, 'how-to-type-cyrillic')">complete Cyrillic keyboard setup guide</a> walks through the process for every major platform.</p>
 
             <p><strong>Teachers and Textbook Authors:</strong> The accented vowels are especially useful for creating learning materials with stress marks, something that's surprisingly tedious to type otherwise.</p>
 
