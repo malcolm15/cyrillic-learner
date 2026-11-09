@@ -3294,6 +3294,10 @@
             border-color: var(--dark-cta-bg);
             color: var(--dark-cta-text);
         }
+        body.dark-mode .kb-action:active {
+            background: var(--dark-cta-bg-hover);
+            border-color: var(--dark-cta-bg-hover);
+        }
 
 /* Font Awesome icon spacing in share buttons */
 .share-btn i {

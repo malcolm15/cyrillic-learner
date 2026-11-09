@@ -556,9 +556,11 @@
             announce(on ? 'Russian input on' : 'Russian input off');
             kbTrack('setting_changed', { setting_name: 'keyboard_russian_input', setting_value: on, setting_source: 'keyboard_page' });
         }
-        // A change counts as pointer-made when a pointer pressed the control within the last 1.5 s and no key
-        // was pressed on it since: Space, Enter and the arrow keys never press a pointer. After a pointer-made
-        // change the box takes focus again, so typing can go on; after a keyboard-made one focus stays put.
+        // A change counts as pointer-made when a pointer event (pointerdown or pointerup) reached the control
+        // within the last 1.5 s and no key was pressed on it since. Release counts, so a long press still counts;
+        // mousedown alone does not, so an activation that arrives as mouse events with no pointer events is treated
+        // as keyboard-made. After a pointer-made change the box takes focus again, so typing can go on; after a
+        // keyboard-made one focus stays put.
         var pointerAt = -1;
         function byPointer() {
             var p = pointerAt >= 0 && performance.now() - pointerAt < 1500;
@@ -568,7 +570,7 @@
         function backToBox() { if (byPointer() && !state.phone) box.focus({ preventScroll: true }); }
         [root.querySelector('.kb-layouts'), inputSwitch.closest('.kb-toggle'), soundSwitch.closest('.kb-toggle')].forEach(function (el) {
             el.addEventListener('pointerdown', function () { pointerAt = performance.now(); });
-            el.addEventListener('mousedown', function () { pointerAt = performance.now(); });
+            el.addEventListener('pointerup', function () { pointerAt = performance.now(); });
             el.addEventListener('keydown', function () { pointerAt = -1; });
         });
         inputSwitch.checked = state.input;

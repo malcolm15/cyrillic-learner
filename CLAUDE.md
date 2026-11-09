@@ -1010,8 +1010,9 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
 - **Focus.** A pointer-made change to the layout radios, the Russian input
   switch or the sound switch returns focus to the box (`preventScroll`); a
   keyboard-made change (Space, Enter, arrows) leaves focus where it is; in phone
-  mode nothing refocuses. A change counts as pointer-made when a pointer pressed
-  the control within the last 1.5 s and no key was pressed on it since. On
+  mode nothing refocuses. A change counts as pointer-made when a pointer event
+  (pointerdown or pointerup, never mousedown alone) reached the control within
+  the last 1.5 s and no key was pressed on it since. On
   landing, with `(hover: hover) and (pointer: fine)`, nothing focused, no
   `#fragment` and the phone switch off, the box takes focus with
   `preventScroll`; touch screens land unchanged. No `autofocus` attribute.
