@@ -44,6 +44,7 @@ https://dapper-axolotl-1f65df.netlify.app/* https://cyrilica.com/:splat 301!
 # the shell, and that no rule serves /<slug>/ with a 200.
 /teachers.html /teachers  301!
 /es.html /es  301!
+/russian-keyboard.html /russian-keyboard  301!
 # The /articles listing is emitted to articles.html at the root as well, so
 # its own path would be a duplicate at 200. A forced 301 on a rewrite target
 # does not affect the rewrite: / and /index.html below already pair the two

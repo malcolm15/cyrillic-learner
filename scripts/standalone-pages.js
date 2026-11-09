@@ -344,6 +344,7 @@ module.exports = [
                 '                <a href="/terms">Términos</a>\n' +
                 '                <a href="/about">Acerca de</a>\n' +
                 '                <a href="/teachers">Para docentes</a>\n' +
+                '                <a href="/russian-keyboard">Teclado ruso</a>\n' +
                 '                <a href="/contact">Contacto</a>\n' +
                 '            </div>\n' +
                 '        </div>',
@@ -560,6 +561,164 @@ module.exports = [
                         <h2>Sobre la transcripción</h2>
                         <div class="content-text">
                             <p>Para practicar usamos una transcripción sencilla, letra por letra, que se puede escribir con cualquier teclado. No sigue al pie de la letra ninguna norma oficial.${ru(' Х ')}se escribe${rom(' j, ')}aunque también se acepta${rom(' kh.')}${ru(' Щ ')}se escribe${rom(' shch, ')}aunque también se acepta${rom(' sch.')}${ru(' Е ')}se escribe${rom(' ye ')}y${ru(' Э ')}se escribe${rom(' e, ')}para distinguirlas. Los signos duro y blando se escriben con comillas:${rom(' " ')}para${ru(' Ъ ')}y${rom(" ' ")}para${ru(' Ь.')}</p>
+                        </div>
+                    </div>`,
+    },
+    {
+        slug: 'russian-keyboard',
+        title: 'Russian Keyboard Online: Type Cyrillic Free | Cyrilica',
+        description: 'Type Russian online with your own keyboard or the on-screen keys. Phonetic or standard ЙЦУКЕН layout, nothing to install. Copy your text in one click.',
+        h1: 'Russian Keyboard Online',
+        keySentence: 'Type Russian with the keyboard you already have.',
+        published: '2026-11-08',
+        modified: '2026-11-08',
+        breadcrumbName: 'Russian Keyboard',
+        schema: { audience: false },
+        // The keyboard's own checks: every Cyrillic letter in <main> guarded, and
+        // the key buttons named through BUTTON_LABELS (scripts/pre-render.js).
+        guardedLetterTools: true,
+        pageScripts: ['/js/keyboard.js'],
+        // The blocklist div removes Journey's video player on desktop and mobile;
+        // the other units stay. AD_BLOCKLIST_PAGES in scripts/pre-render.js pins it.
+        bodyHtml: `                    <div id="ad-management-config-settings" data-blocklist-universal-player-desktop="1" data-blocklist-universal-player-mobile="1"></div>
+                    <div class="card kb-card">
+                        <h1>Russian Keyboard Online</h1>
+                        <p class="kb-intro">Type Russian with the keyboard you already have. On the phonetic layout most keys give the Russian letter that sounds like them (A gives${ru(' А, ')}K gives${ru(' К), ')}or switch to${ru(' ЙЦУКЕН, ')}the standard Russian layout. Nothing to install: when you are done, copy your text and paste it anywhere.</p>
+
+                        <div id="russian-keyboard-app" class="kb-app">
+                            <div class="kb-controls">
+                                <fieldset class="kb-layouts">
+                                    <legend>Layout</legend>
+                                    <label><input type="radio" name="kb-layout" value="phonetic" checked> Phonetic (AATSEEL)</label>
+                                    <label><input type="radio" name="kb-layout" value="jcuken"> Standard Russian${ru(' (ЙЦУКЕН)')}</label>
+                                </fieldset>
+                                <div class="kb-toggle">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="kb-input" checked aria-labelledby="kb-input-label">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="kb-toggle-label" id="kb-input-label">Russian input</span>
+                                </div>
+                                <div class="kb-toggle">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="kb-sound" aria-labelledby="kb-sound-label">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="kb-toggle-label" id="kb-sound-label">Letter sounds</span>
+                                </div>
+                                <div class="kb-toggle kb-phone-toggle">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="kb-phone" aria-labelledby="kb-phone-label">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="kb-toggle-label" id="kb-phone-label">Use my phone keyboard</span>
+                                </div>
+                            </div>
+                            <p id="kb-phone-hint" class="kb-phone-hint" hidden>Tap the text box to type.</p>
+
+                            <label for="kb-text" class="kb-text-label">Your text</label>
+                            <textarea id="kb-text" class="kb-text" lang="ru" inputmode="none" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" rows="3" aria-describedby="kb-help"></textarea>
+                            <span id="kb-help" class="sr-only">Type with your keyboard or the Russian keys below. Esc turns Russian input off. On a phone, turn on Use my phone keyboard to type with your own.</span>
+                            <p class="kb-privacy">Cyrilica's code doesn't save or send anything you type or paste here. This page also loads Google Analytics and Journey by Mediavine, which run their own code. <a href="/privacy">Privacy policy</a></p>
+
+                            <div id="kb-keys" class="kb-keys">
+                                <div class="kb-row">
+                                    <button type="button" class="kb-key" data-code="Backquote" data-letter="ё" aria-labelledby="kb-l-Backquote"> <span class="kb-glyph notranslate" translate="no" lang="ru">ё</span> <span class="kb-hint" aria-hidden="true">&#96;</span> <span id="kb-l-Backquote" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ё</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit1" data-letter="1" aria-labelledby="kb-l-Digit1"> <span class="kb-glyph notranslate" translate="no" lang="ru">1</span> <span class="kb-hint" aria-hidden="true">1</span> <span id="kb-l-Digit1" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 1</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit2" data-letter="2" aria-labelledby="kb-l-Digit2"> <span class="kb-glyph notranslate" translate="no" lang="ru">2</span> <span class="kb-hint" aria-hidden="true">2</span> <span id="kb-l-Digit2" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 2</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit3" data-letter="3" aria-labelledby="kb-l-Digit3"> <span class="kb-glyph notranslate" translate="no" lang="ru">3</span> <span class="kb-hint" aria-hidden="true">3</span> <span id="kb-l-Digit3" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 3</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit4" data-letter="4" aria-labelledby="kb-l-Digit4"> <span class="kb-glyph notranslate" translate="no" lang="ru">4</span> <span class="kb-hint" aria-hidden="true">4</span> <span id="kb-l-Digit4" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 4</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit5" data-letter="5" aria-labelledby="kb-l-Digit5"> <span class="kb-glyph notranslate" translate="no" lang="ru">5</span> <span class="kb-hint" aria-hidden="true">5</span> <span id="kb-l-Digit5" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 5</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit6" data-letter="6" aria-labelledby="kb-l-Digit6"> <span class="kb-glyph notranslate" translate="no" lang="ru">6</span> <span class="kb-hint" aria-hidden="true">6</span> <span id="kb-l-Digit6" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 6</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit7" data-letter="7" aria-labelledby="kb-l-Digit7"> <span class="kb-glyph notranslate" translate="no" lang="ru">7</span> <span class="kb-hint" aria-hidden="true">7</span> <span id="kb-l-Digit7" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 7</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit8" data-letter="8" aria-labelledby="kb-l-Digit8"> <span class="kb-glyph notranslate" translate="no" lang="ru">8</span> <span class="kb-hint" aria-hidden="true">8</span> <span id="kb-l-Digit8" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 8</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit9" data-letter="9" aria-labelledby="kb-l-Digit9"> <span class="kb-glyph notranslate" translate="no" lang="ru">9</span> <span class="kb-hint" aria-hidden="true">9</span> <span id="kb-l-Digit9" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 9</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Digit0" data-letter="0" aria-labelledby="kb-l-Digit0"> <span class="kb-glyph notranslate" translate="no" lang="ru">0</span> <span class="kb-hint" aria-hidden="true">0</span> <span id="kb-l-Digit0" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> 0</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Minus" data-letter="-" aria-labelledby="kb-l-Minus"> <span class="kb-glyph notranslate" translate="no" lang="ru">-</span> <span class="kb-hint" aria-hidden="true">-</span> <span id="kb-l-Minus" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> -</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Equal" data-letter="ъ" aria-labelledby="kb-l-Equal"> <span class="kb-glyph notranslate" translate="no" lang="ru">ъ</span> <span class="kb-hint" aria-hidden="true">=</span> <span id="kb-l-Equal" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ъ</span></span> </button>
+                                </div>
+                                <div class="kb-row">
+                                    <button type="button" class="kb-key" data-code="KeyQ" data-letter="я" aria-labelledby="kb-l-KeyQ"> <span class="kb-glyph notranslate" translate="no" lang="ru">я</span> <span class="kb-hint" aria-hidden="true">Q</span> <span id="kb-l-KeyQ" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> я</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyW" data-letter="ш" aria-labelledby="kb-l-KeyW"> <span class="kb-glyph notranslate" translate="no" lang="ru">ш</span> <span class="kb-hint" aria-hidden="true">W</span> <span id="kb-l-KeyW" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ш</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyE" data-letter="е" aria-labelledby="kb-l-KeyE"> <span class="kb-glyph notranslate" translate="no" lang="ru">е</span> <span class="kb-hint" aria-hidden="true">E</span> <span id="kb-l-KeyE" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> е</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyR" data-letter="р" aria-labelledby="kb-l-KeyR"> <span class="kb-glyph notranslate" translate="no" lang="ru">р</span> <span class="kb-hint" aria-hidden="true">R</span> <span id="kb-l-KeyR" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> р</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyT" data-letter="т" aria-labelledby="kb-l-KeyT"> <span class="kb-glyph notranslate" translate="no" lang="ru">т</span> <span class="kb-hint" aria-hidden="true">T</span> <span id="kb-l-KeyT" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> т</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyY" data-letter="ы" aria-labelledby="kb-l-KeyY"> <span class="kb-glyph notranslate" translate="no" lang="ru">ы</span> <span class="kb-hint" aria-hidden="true">Y</span> <span id="kb-l-KeyY" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ы</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyU" data-letter="у" aria-labelledby="kb-l-KeyU"> <span class="kb-glyph notranslate" translate="no" lang="ru">у</span> <span class="kb-hint" aria-hidden="true">U</span> <span id="kb-l-KeyU" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> у</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyI" data-letter="и" aria-labelledby="kb-l-KeyI"> <span class="kb-glyph notranslate" translate="no" lang="ru">и</span> <span class="kb-hint" aria-hidden="true">I</span> <span id="kb-l-KeyI" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> и</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyO" data-letter="о" aria-labelledby="kb-l-KeyO"> <span class="kb-glyph notranslate" translate="no" lang="ru">о</span> <span class="kb-hint" aria-hidden="true">O</span> <span id="kb-l-KeyO" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> о</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyP" data-letter="п" aria-labelledby="kb-l-KeyP"> <span class="kb-glyph notranslate" translate="no" lang="ru">п</span> <span class="kb-hint" aria-hidden="true">P</span> <span id="kb-l-KeyP" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> п</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="BracketLeft" data-letter="ю" aria-labelledby="kb-l-BracketLeft"> <span class="kb-glyph notranslate" translate="no" lang="ru">ю</span> <span class="kb-hint" aria-hidden="true">[</span> <span id="kb-l-BracketLeft" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ю</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="BracketRight" data-letter="щ" aria-labelledby="kb-l-BracketRight"> <span class="kb-glyph notranslate" translate="no" lang="ru">щ</span> <span class="kb-hint" aria-hidden="true">]</span> <span id="kb-l-BracketRight" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> щ</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Backslash" data-letter="э" aria-labelledby="kb-l-Backslash"> <span class="kb-glyph notranslate" translate="no" lang="ru">э</span> <span class="kb-hint" aria-hidden="true">&#92;</span> <span id="kb-l-Backslash" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> э</span></span> </button>
+                                </div>
+                                <div class="kb-row">
+                                    <button type="button" class="kb-key" data-code="KeyA" data-letter="а" aria-labelledby="kb-l-KeyA"> <span class="kb-glyph notranslate" translate="no" lang="ru">а</span> <span class="kb-hint" aria-hidden="true">A</span> <span id="kb-l-KeyA" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> а</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyS" data-letter="с" aria-labelledby="kb-l-KeyS"> <span class="kb-glyph notranslate" translate="no" lang="ru">с</span> <span class="kb-hint" aria-hidden="true">S</span> <span id="kb-l-KeyS" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> с</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyD" data-letter="д" aria-labelledby="kb-l-KeyD"> <span class="kb-glyph notranslate" translate="no" lang="ru">д</span> <span class="kb-hint" aria-hidden="true">D</span> <span id="kb-l-KeyD" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> д</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyF" data-letter="ф" aria-labelledby="kb-l-KeyF"> <span class="kb-glyph notranslate" translate="no" lang="ru">ф</span> <span class="kb-hint" aria-hidden="true">F</span> <span id="kb-l-KeyF" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ф</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyG" data-letter="г" aria-labelledby="kb-l-KeyG"> <span class="kb-glyph notranslate" translate="no" lang="ru">г</span> <span class="kb-hint" aria-hidden="true">G</span> <span id="kb-l-KeyG" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> г</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyH" data-letter="ч" aria-labelledby="kb-l-KeyH"> <span class="kb-glyph notranslate" translate="no" lang="ru">ч</span> <span class="kb-hint" aria-hidden="true">H</span> <span id="kb-l-KeyH" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ч</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyJ" data-letter="й" aria-labelledby="kb-l-KeyJ"> <span class="kb-glyph notranslate" translate="no" lang="ru">й</span> <span class="kb-hint" aria-hidden="true">J</span> <span id="kb-l-KeyJ" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> й</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyK" data-letter="к" aria-labelledby="kb-l-KeyK"> <span class="kb-glyph notranslate" translate="no" lang="ru">к</span> <span class="kb-hint" aria-hidden="true">K</span> <span id="kb-l-KeyK" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> к</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyL" data-letter="л" aria-labelledby="kb-l-KeyL"> <span class="kb-glyph notranslate" translate="no" lang="ru">л</span> <span class="kb-hint" aria-hidden="true">L</span> <span id="kb-l-KeyL" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> л</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Semicolon" data-letter="ь" aria-labelledby="kb-l-Semicolon"> <span class="kb-glyph notranslate" translate="no" lang="ru">ь</span> <span class="kb-hint" aria-hidden="true">;</span> <span id="kb-l-Semicolon" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ь</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Quote" data-letter="ж" aria-labelledby="kb-l-Quote"> <span class="kb-glyph notranslate" translate="no" lang="ru">ж</span> <span class="kb-hint" aria-hidden="true">'</span> <span id="kb-l-Quote" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ж</span></span> </button>
+                                </div>
+                                <div class="kb-row">
+                                    <button type="button" class="kb-key" data-code="KeyZ" data-letter="з" aria-labelledby="kb-l-KeyZ"> <span class="kb-glyph notranslate" translate="no" lang="ru">з</span> <span class="kb-hint" aria-hidden="true">Z</span> <span id="kb-l-KeyZ" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> з</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyX" data-letter="х" aria-labelledby="kb-l-KeyX"> <span class="kb-glyph notranslate" translate="no" lang="ru">х</span> <span class="kb-hint" aria-hidden="true">X</span> <span id="kb-l-KeyX" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> х</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyC" data-letter="ц" aria-labelledby="kb-l-KeyC"> <span class="kb-glyph notranslate" translate="no" lang="ru">ц</span> <span class="kb-hint" aria-hidden="true">C</span> <span id="kb-l-KeyC" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ц</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyV" data-letter="в" aria-labelledby="kb-l-KeyV"> <span class="kb-glyph notranslate" translate="no" lang="ru">в</span> <span class="kb-hint" aria-hidden="true">V</span> <span id="kb-l-KeyV" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> в</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyB" data-letter="б" aria-labelledby="kb-l-KeyB"> <span class="kb-glyph notranslate" translate="no" lang="ru">б</span> <span class="kb-hint" aria-hidden="true">B</span> <span id="kb-l-KeyB" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> б</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyN" data-letter="н" aria-labelledby="kb-l-KeyN"> <span class="kb-glyph notranslate" translate="no" lang="ru">н</span> <span class="kb-hint" aria-hidden="true">N</span> <span id="kb-l-KeyN" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> н</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="KeyM" data-letter="м" aria-labelledby="kb-l-KeyM"> <span class="kb-glyph notranslate" translate="no" lang="ru">м</span> <span class="kb-hint" aria-hidden="true">M</span> <span id="kb-l-KeyM" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> м</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Comma" data-letter="," aria-labelledby="kb-l-Comma"> <span class="kb-glyph notranslate" translate="no" lang="ru">,</span> <span class="kb-hint" aria-hidden="true">,</span> <span id="kb-l-Comma" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ,</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Period" data-letter="." aria-labelledby="kb-l-Period"> <span class="kb-glyph notranslate" translate="no" lang="ru">.</span> <span class="kb-hint" aria-hidden="true">.</span> <span id="kb-l-Period" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> .</span></span> </button>
+                                    <button type="button" class="kb-key" data-code="Slash" data-letter="/" aria-labelledby="kb-l-Slash"> <span class="kb-glyph notranslate" translate="no" lang="ru">/</span> <span class="kb-hint" aria-hidden="true">/</span> <span id="kb-l-Slash" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> /</span></span> </button>
+                                </div>
+                                <div class="kb-row kb-row-controls">
+                                    <button type="button" class="kb-ctl" data-kb="shift" aria-pressed="false">Shift</button>
+                                    <button type="button" class="kb-ctl" data-kb="caps" aria-pressed="false">Caps Lock</button>
+                                    <button type="button" class="kb-ctl" data-kb="backspace">Backspace</button>
+                                    <button type="button" class="kb-ctl" data-kb="delete">Delete</button>
+                                    <button type="button" class="kb-ctl" data-kb="enter">Enter</button>
+                                </div>
+                                <div class="kb-row kb-row-space">
+                                    <button type="button" class="kb-ctl" data-kb="space">Space</button>
+                                </div>
+                            </div>
+
+                            <div class="kb-actions">
+                                <button type="button" class="kb-action" data-kb="copy">Copy</button>
+                                <button type="button" class="kb-action" data-kb="selectall" data-edit="1">Select All</button>
+                                <button type="button" class="kb-action" data-kb="undo" data-edit="1">Undo</button>
+                                <button type="button" class="kb-action" data-kb="redo" data-edit="1">Redo</button>
+                                <button type="button" class="kb-action" data-kb="clear" data-edit="1">Clear</button>
+                            </div>
+                            <div id="kb-status" class="sr-only" role="status"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>How the two layouts work</h2>
+                        <div class="content-text">
+                            <p>The phonetic layout puts most Russian letters on the Latin key that sounds like them: A types${ru(' а, ')}B types${ru(' б ')}and D types${ru(' д.')}</p>
+                            <p>Letters with no Latin match go on nearby keys:${ru(' я ')}is on Q,${ru(' ш ')}on W,${ru(' ы ')}on Y,${ru(' ч ')}on H,${ru(' ж ')}on the apostrophe key and${ru(' ь ')}on the semicolon key. This is the AATSEEL student layout, named after the American Association of Teachers of Slavic and East European Languages.</p>
+                            <p>${ru('ЙЦУКЕН ')}is the standard Russian layout, named after the first six letters of its top row. Its letters sit where they do on Russian keyboards, so what you learn here carries over to a real one.</p>
+                        </div>
+
+                        <h2>Using the keyboard</h2>
+                        <div class="content-text">
+                            <p>Type with your own keyboard, or click the keys on the screen. Each key shows the letter it types, with the key you would press in small print. Shift and Caps Lock work too.</p>
+                            <p>Press Esc to turn Russian input off and type Latin letters, and turn it back on with the Russian input switch. Undo, Redo and your browser's own shortcuts work on everything you type.</p>
+                            <p>On a phone, tap the keys on the screen, or turn on Use my phone keyboard to type with your phone's own Russian keyboard.</p>
+                        </div>
+
+                        <h2>Other ways to write Russian</h2>
+                        <div class="content-text">
+                            <p>Want Russian on your own computer or phone? Follow our <a href="/articles/how-to-type-cyrillic">Russian keyboard setup guide for Windows, Mac, iPhone and Android</a>.</p>
+                            <p>Need a letter with a stress mark or a pre-reform letter? The <a href="/articles/cyrillic-copy-paste">Cyrillic copy and paste tool</a> has them.</p>
                         </div>
                     </div>`,
     },

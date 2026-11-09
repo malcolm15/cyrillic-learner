@@ -459,6 +459,7 @@ const AD_BLOCKLIST_ID = 'ad-management-config-settings';
 const AD_BLOCKLIST_VOCABULARY = ['data-blocklist-all', 'data-blocklist-universal-player-desktop', 'data-blocklist-universal-player-mobile'];
 const AD_BLOCKLIST_PAGES = [
     { slug: 'teachers', attrs: 'data-blocklist-all="1"' },
+    { slug: 'russian-keyboard', attrs: 'data-blocklist-universal-player-desktop="1" data-blocklist-universal-player-mobile="1"' },
 ];
 
 // The exact opening tag for an approved entry. Matching the whole tag means no
@@ -708,8 +709,10 @@ function assertKeepTogether(pages, others) {
 // as user_answer, so whatever went into the answer box, a name or an email
 // address included, went to Google with it (ledger row 368). No served document
 // or script may name that parameter again. The scripts are every one in js/,
-// the same ADSENSE_SCRIPTS list.
-const ANALYTICS_FREE_TEXT = ['user_answer'];
+// the same ADSENSE_SCRIPTS list. The Russian keyboard's text box takes anything
+// at all, so the names an event would use to carry its text, a selection or the
+// clipboard are banned as well (ledger row 383).
+const ANALYTICS_FREE_TEXT = ['user_answer', 'typed_text', 'selected_text', 'clipboard_text'];
 
 // docs: [label, html] pairs for index.html, 404.html and every emitted page.
 // Returns the number of files checked.
@@ -727,6 +730,266 @@ function assertNoFreeTextAnalytics(docs) {
         });
     });
     return files.length;
+}
+
+// ---- the Russian keyboard script (ledger row 383) ----
+//
+// js/keyboard.js holds the one layout table and the engine for /russian-keyboard.
+// Its two table literals and its analytics allowlist are written as strict JSON
+// so they are parsed here as text, the way the cursive tables are read, never
+// run. The table must carry the 33 letters of RUSSIAN_LETTERS in both cases
+// exactly once per layout, and the script must never be able to write markup,
+// run strings as code, read the clipboard, write the URL, the title, cookies or
+// session storage, log anything, or send an analytics event outside kbTrack and
+// its allowlist.
+const KEYBOARD_SCRIPT = 'js/keyboard.js';
+// The punctuation decisions the table must keep (Phase 1, rows 383): phonetic
+// follows TypeIt, which moves ; and : to Shift+comma and Shift+period because the
+// semicolon key types ь; standard Russian is the Windows KBDRU number row.
+const KEYBOARD_PHONETIC_PUNCT = { Comma: [',', ';'], Period: ['.', ':'], Slash: ['/', '?'], Minus: ['-', '_'] };
+const KEYBOARD_JCUKEN_NUMBER_ROW = ['1234567890-=', '!"№;%:?*()_+'];
+// Every position of both layouts, for the 48 KB_KEYS positions in order, the
+// unshifted then the shifted output. Transcribed from the Phase 1 maps (the agreed
+// phonetic layout, AATSEEL letters with TypeIt punctuation, and Windows KBDRU for
+// jcuken), never copied from js/keyboard.js; a change to a layout is a product
+// decision and is made in both places.
+const KEYBOARD_EXPECTED = { phonetic: 'ёЁ1!2@3#4$5%6^7&8*9(0)-_ъЪяЯшШеЕрРтТыЫуУиИоОпПюЮщЩэЭаАсСдДфФгГчЧйЙкКлЛьЬжЖзЗхХцЦвВбБнНмМ,;.:/?\\|', jcuken: 'ёЁ1!2"3№4;5%6:7?8*9(0)-_=+йЙцЦуУкКеЕнНгГшШщЩзЗхХъЪ\\/фФыЫвВаАпПрРоОлЛдДжЖэЭяЯчЧсСмМиИтТьЬбБюЮ.,\\/' };
+// The only window properties the script may touch: storage for its three
+// settings, the analytics function inside kbTrack, scrolling for the probe, and
+// the audio paths in CYRILLIC_DATA (js/core.js). Nothing else from the core scripts.
+const KEYBOARD_WINDOW_PROPS = ['CYRILLIC_DATA', 'gtag', 'localStorage', 'matchMedia', 'scrollTo', 'scrollX', 'scrollY'];
+// The only attributes the script may write: the probe textarea's five, the mode
+// marker, each key's letter, and the Shift and Caps Lock pressed state.
+const KEYBOARD_ATTRS = ['aria-hidden', 'tabindex', 'inputmode', 'autocomplete', 'spellcheck', 'data-kb-mode', 'data-letter', 'aria-pressed'];
+// Strings the script may never contain: markup writers; the title, cookies,
+// session storage and document.domain; logging; history and location writes and
+// navigation (href, assign, replace, reload, window.open, form submission);
+// clipboard readers; anything that loads or sends (sendBeacon, fetch,
+// XMLHttpRequest, WebSocket, EventSource, workers, importScripts, dynamic import,
+// Image, src); cross-frame messages; and \\u escapes.
+const KEYBOARD_BANNED = ['innerHTML', 'outerHTML', 'insertAdjacentHTML', 'document.write', 'document.title',
+    'document.cookie', 'sessionStorage', 'console.', 'pushState', 'replaceState', 'readText', 'clipboard.read',
+    'clipboardData', 'getData(', 'sendBeacon', 'XMLHttpRequest', 'fetch(', 'WebSocket', 'postMessage', '\\u',
+    '.src', '.href', 'Image(', 'insertBefore(', 'location.assign(', 'location.replace(', 'location.reload(', 'open(',
+    'import(', 'Worker(', 'EventSource', 'importScripts', 'document.domain', '.submit(', 'requestSubmit'];
+// The one hostname the script may name: the Deploy Preview pattern behind the
+// preview-only ?kbmode=fallback test switch. Production never matches it.
+const KEYBOARD_PREVIEW_HOST = '/^deploy-preview-\\d+--dapper-axolotl-1f65df\\.netlify\\.app$/';
+const KEYBOARD_HOSTNAME = /https?:\/\/|[a-z0-9-]+(?:\\?\.[a-z0-9-]+)*\\?\.(?:app|com|net|org|io|dev|co|ru|info|site|xyz)\b/gi;
+
+// One literal block of src, from `open` to the first `close` after it, both on
+// their own lines at four spaces' indent. Exactly one such block must exist.
+function keyboardBlock(src, open, close, what) {
+    if (countOccurrences(src, '\n    ' + open) !== 1) fail(KEYBOARD_SCRIPT + ': expected exactly one "' + open + '" for ' + what);
+    const at = src.indexOf('\n    ' + open) + 5 + open.length - 1;
+    const end = src.indexOf('\n    ' + close + '\n', at);
+    if (end === -1) fail(KEYBOARD_SCRIPT + ': ' + what + ' does not close with "' + close + '" at four spaces\' indent');
+    try {
+        return JSON.parse(src.slice(at, end + 5 + close.length - 1));
+    } catch (e) {
+        fail(KEYBOARD_SCRIPT + ': ' + what + ' is not strict JSON (' + e.message + '); it is parsed as text, never run');
+    }
+}
+
+// Returns a summary for the pass line, and the parsed table for the page check.
+function assertKeyboardScript(russianLetters) {
+    const src = fs.readFileSync(path.join(ROOT, KEYBOARD_SCRIPT), 'utf8');
+    const keys = keyboardBlock(src, 'var KB_KEYS = [', '];', 'KB_KEYS');
+    const layouts = keyboardBlock(src, 'var KB_LAYOUTS = {', '};', 'KB_LAYOUTS');
+    const events = keyboardBlock(src, 'var KB_EVENTS = {', '};', 'KB_EVENTS');
+    // KB_KEYS: [code, US unshifted, US shifted, on-screen row or null].
+    if (!Array.isArray(keys) || keys.length !== 48) fail(KEYBOARD_SCRIPT + ': KB_KEYS must list 48 key positions, found ' + (keys && keys.length));
+    const codes = keys.map(function (k) { return k[0]; });
+    keys.forEach(function (k) {
+        if (k.length !== 4 || typeof k[0] !== 'string' || typeof k[1] !== 'string' || typeof k[2] !== 'string' ||
+            k[1].length !== 1 || k[2].length !== 1 || !(k[3] === null || [0, 1, 2, 3].indexOf(k[3]) !== -1)) {
+            fail(KEYBOARD_SCRIPT + ': KB_KEYS row ' + JSON.stringify(k) + ' is not [code, one character, one character, row 0 to 3 or null]');
+        }
+    });
+    if (new Set(codes).size !== 48) fail(KEYBOARD_SCRIPT + ': KB_KEYS lists a key position twice');
+    const offScreen = keys.filter(function (k) { return k[3] === null; }).map(function (k) { return k[0]; });
+    if (JSON.stringify(offScreen) !== '["IntlBackslash"]') fail(KEYBOARD_SCRIPT + ': only IntlBackslash has no on-screen key, found ' + JSON.stringify(offScreen));
+    if (JSON.stringify(Object.keys(layouts)) !== '["phonetic","jcuken"]') fail(KEYBOARD_SCRIPT + ': KB_LAYOUTS must be exactly phonetic then jcuken');
+    const upper = russianLetters, lower = russianLetters.map(function (c) { return c.toLowerCase(); });
+    const cyr = function (ch) { const c = ch.charCodeAt(0); return ch.length === 1 && c >= 0x0400 && c <= 0x04FF; };
+    Object.keys(layouts).forEach(function (name) {
+        const t = layouts[name];
+        if (JSON.stringify(Object.keys(t)) !== JSON.stringify(codes)) fail(KEYBOARD_SCRIPT + ': KB_LAYOUTS.' + name + ' must list the KB_KEYS positions in the same order');
+        const outs = [];
+        codes.forEach(function (code) {
+            const p = t[code];
+            if (!Array.isArray(p) || p.length !== 2 || typeof p[0] !== 'string' || typeof p[1] !== 'string' || p[0].length !== 1 || p[1].length !== 1) {
+                fail(KEYBOARD_SCRIPT + ': KB_LAYOUTS.' + name + '.' + code + ' must be [one character, one character]');
+            }
+            p.forEach(function (ch) {
+                if (/\p{L}/u.test(ch) && !cyr(ch)) fail(KEYBOARD_SCRIPT + ': KB_LAYOUTS.' + name + '.' + code + ' types ' + JSON.stringify(ch) + ', a letter outside Cyrillic (a Latin look-alike?)');
+            });
+            if (upper.indexOf(p[0]) !== -1) fail(KEYBOARD_SCRIPT + ': KB_LAYOUTS.' + name + '.' + code + ' has the capital ' + p[0] + ' unshifted; the unshifted slot holds the lowercase letter');
+            if (lower.indexOf(p[0]) !== -1 && p[1] !== upper[lower.indexOf(p[0])]) {
+                fail(KEYBOARD_SCRIPT + ': KB_LAYOUTS.' + name + '.' + code + ' pairs ' + p[0] + ' with ' + p[1] + ', not its capital');
+            }
+            outs.push(p[0], p[1]);
+        });
+        upper.concat(lower).forEach(function (ch) {
+            const n = outs.filter(function (o) { return o === ch; }).length;
+            if (n !== 1) fail(KEYBOARD_SCRIPT + ': KB_LAYOUTS.' + name + ' types ' + ch + ' ' + n + ' time(s); each of the 33 letters appears once in each case');
+        });
+        if (KEYBOARD_EXPECTED[name].length !== 96) fail('KEYBOARD_EXPECTED.' + name + ' must be 96 characters, found ' + KEYBOARD_EXPECTED[name].length);
+        const got = codes.map(function (code) { return t[code][0] + t[code][1]; }).join('');
+        if (got !== KEYBOARD_EXPECTED[name]) {
+            const wrong = codes.filter(function (code, i) { return got.slice(i * 2, i * 2 + 2) !== KEYBOARD_EXPECTED[name].slice(i * 2, i * 2 + 2); });
+            fail(KEYBOARD_SCRIPT + ': KB_LAYOUTS.' + name + ' differs from KEYBOARD_EXPECTED at ' + wrong.join(', ') + '; a layout change is made in both places');
+        }
+    });
+    Object.keys(KEYBOARD_PHONETIC_PUNCT).forEach(function (code) {
+        if (JSON.stringify(layouts.phonetic[code]) !== JSON.stringify(KEYBOARD_PHONETIC_PUNCT[code])) {
+            fail(KEYBOARD_SCRIPT + ': phonetic ' + code + ' must be ' + JSON.stringify(KEYBOARD_PHONETIC_PUNCT[code]) + ', found ' + JSON.stringify(layouts.phonetic[code]));
+        }
+    });
+    codes.slice(1, 13).forEach(function (code, i) {
+        const want = [KEYBOARD_JCUKEN_NUMBER_ROW[0][i], KEYBOARD_JCUKEN_NUMBER_ROW[1][i]];
+        if (JSON.stringify(layouts.jcuken[code]) !== JSON.stringify(want)) fail(KEYBOARD_SCRIPT + ': jcuken ' + code + ' must be ' + JSON.stringify(want) + ', found ' + JSON.stringify(layouts.jcuken[code]));
+    });
+    // What the script may never do.
+    KEYBOARD_BANNED.forEach(function (needle) {
+        if (countOccurrences(src, needle) !== 0) fail(KEYBOARD_SCRIPT + ': carries "' + needle + '"; the keyboard never writes markup, runs strings, reads the clipboard, writes the URL, title, cookies or session storage, logs, or sends anything itself');
+    });
+    // The three sinks still in use, pinned.
+    if (countOccurrences(src, 'createElement(') !== 1 || countOccurrences(src, "doc.createElement('textarea')") !== 1 || countOccurrences(src, 'appendChild(') !== 1) {
+        fail(KEYBOARD_SCRIPT + ': the keyboard builds one element, the probe\'s off-screen textarea (one doc.createElement(\'textarea\') and one appendChild(); found ' +
+             countOccurrences(src, 'createElement(') + ' createElement( and ' + countOccurrences(src, 'appendChild(') + ' appendChild()');
+    }
+    const attrNames = [];
+    const attrRe = /setAttribute\(\s*'([^']+)'/g;
+    let attrMatch;
+    while ((attrMatch = attrRe.exec(src)) !== null) attrNames.push(attrMatch[1]);
+    if (attrNames.length !== countOccurrences(src, 'setAttribute(')) {
+        fail(KEYBOARD_SCRIPT + ': the keyboard writes only these attributes, never src, href or an event handler: ' + KEYBOARD_ATTRS.join(', ') +
+             '; a setAttribute( call names its attribute other than as a quoted literal');
+    }
+    attrNames.forEach(function (n) {
+        if (KEYBOARD_ATTRS.indexOf(n) === -1) fail(KEYBOARD_SCRIPT + ': the keyboard writes only these attributes, never src, href or an event handler: ' + KEYBOARD_ATTRS.join(', ') + '; found ' + n);
+    });
+    if (/\beval\s*\(|\bFunction\s*\(/.test(src)) fail(KEYBOARD_SCRIPT + ': runs a string as code (eval or Function)');
+    if (/\bset(?:Timeout|Interval)\s*\(\s*['"`]/.test(src)) fail(KEYBOARD_SCRIPT + ': passes a string to setTimeout or setInterval');
+    if (/(?:\.value|location(?:\.\w+)?)\s*(?:[-+*\/%&|^]|\|\||&&|\?\?|\*\*|<<|>>>?)?=[^=]/.test(src)) fail(KEYBOARD_SCRIPT + ': assigns a value or a location; edits go through execCommand or setRangeText');
+    if (countOccurrences(src, KEYBOARD_PREVIEW_HOST) !== 1) fail(KEYBOARD_SCRIPT + ': the preview host pattern ' + KEYBOARD_PREVIEW_HOST + ' must appear exactly once, found ' + countOccurrences(src, KEYBOARD_PREVIEW_HOST));
+    const otherHosts = src.split(KEYBOARD_PREVIEW_HOST).join('').match(KEYBOARD_HOSTNAME) || [];
+    if (otherHosts.length) fail(KEYBOARD_SCRIPT + ': names a hostname or URL other than the preview host pattern: ' + otherHosts.join(', '));
+    (src.match(/window\.(\w+)/g) || []).forEach(function (w) {
+        if (KEYBOARD_WINDOW_PROPS.indexOf(w.slice(7)) === -1) fail(KEYBOARD_SCRIPT + ': reads ' + w + '; it may touch only ' + KEYBOARD_WINDOW_PROPS.join(', '));
+    });
+    ['localStorage.getItem(', 'localStorage.setItem(', 'clipboard.writeText('].forEach(function (needle) {
+        if (countOccurrences(src, needle) !== 1) fail(KEYBOARD_SCRIPT + ': expected "' + needle + '" exactly once, found ' + countOccurrences(src, needle));
+    });
+    // Analytics: one call, inside kbTrack, against the allowlist.
+    if (countOccurrences(src, 'gtag(') !== 1) fail(KEYBOARD_SCRIPT + ': expected exactly one "gtag(", inside kbTrack, found ' + countOccurrences(src, 'gtag('));
+    const fnAt = src.indexOf('\n    function kbTrack(name, params) {');
+    const fnEnd = src.indexOf('\n    }\n', fnAt);
+    if (fnAt === -1 || fnEnd === -1 || src.indexOf('gtag(') < fnAt || src.indexOf('gtag(') > fnEnd) fail(KEYBOARD_SCRIPT + ': the one "gtag(" must sit inside function kbTrack(name, params)');
+    let eventCount = 0;
+    Object.keys(events).forEach(function (name) {
+        if (!/^[a-z]+(?:_[a-z]+)*$/.test(name)) fail(KEYBOARD_SCRIPT + ': KB_EVENTS name "' + name + '" is not snake_case');
+        Object.keys(events[name]).forEach(function (param) {
+            if (ANALYTICS_FREE_TEXT.indexOf(param) !== -1 || !/^[a-z]+(?:_[a-z]+)*$/.test(param)) fail(KEYBOARD_SCRIPT + ': KB_EVENTS.' + name + ' has the parameter "' + param + '"');
+            const vals = events[name][param];
+            if (!Array.isArray(vals) || !vals.length || vals.some(function (v) { return typeof v !== 'boolean' && !(typeof v === 'string' && /^[A-Za-z_]+$/.test(v)); })) {
+                fail(KEYBOARD_SCRIPT + ': KB_EVENTS.' + name + '.' + param + ' must list fixed values (words or booleans)');
+            }
+        });
+        eventCount += 1;
+    });
+    const calls = src.match(/kbTrack\([^)]*\)/g) || [];
+    calls.filter(function (c) { return c !== 'kbTrack(name, params)'; }).forEach(function (c) {
+        const m = /^kbTrack\('([a-z_]+)', \{([^}]*)\}\)$/.exec(c);
+        if (!m || !events[m[1]]) fail(KEYBOARD_SCRIPT + ': ' + c + ' must name an event in KB_EVENTS with an object literal of its parameters');
+        const names = (m[2].match(/(\w+):/g) || []).map(function (s) { return s.slice(0, -1); });
+        if (names.sort().join() !== Object.keys(events[m[1]]).sort().join()) fail(KEYBOARD_SCRIPT + ': ' + c + ' must pass exactly the parameters KB_EVENTS lists for ' + m[1]);
+    });
+    // Letter sounds: every path comes from CYRILLIC_DATA, and the soft sign plays at the rate js/core.js uses.
+    if (/mp3|audio\//.test(src)) fail(KEYBOARD_SCRIPT + ': names an audio file; the clips come only from CYRILLIC_DATA in js/core.js');
+    const coreRates = fs.readFileSync(path.join(ROOT, 'js', 'core.js'), 'utf8').match(/playbackRate = (\d+(?:\.\d+)?);/g) || [];
+    const kbRate = /\n    var KB_SOFT_SIGN_RATE = (\d+(?:\.\d+)?);\n/.exec(src);
+    if (coreRates.length !== 1 || !kbRate || coreRates[0] !== 'playbackRate = ' + kbRate[1] + ';') {
+        fail(KEYBOARD_SCRIPT + ': KB_SOFT_SIGN_RATE must equal the one playbackRate in js/core.js (' + coreRates.join(', ') + ')');
+    }
+    return {
+        table: { keys: keys, layouts: layouts },
+        summary: 'soft sign at ' + kbRate[1] + ' as in js/core.js, no audio path of its own; 48 key positions, 47 on screen, 2 layouts each with the 33 letters in both cases exactly once and no ' +
+            'letter outside Cyrillic, the agreed punctuation and number row, every position matching the reference strings; ' + KEYBOARD_BANNED.length + ' banned strings, eval, ' +
+            'Function and string timers absent; one created element, attributes only from the fixed list; one hostname, the preview-only test pattern; window touched only for ' + KEYBOARD_WINDOW_PROPS.join(', ') + '; one gtag( inside ' +
+            'kbTrack, ' + eventCount + ' events in KB_EVENTS, ' + (calls.length - 1) + ' kbTrack call(s), each on the allowlist',
+    };
+}
+
+// A page that loads js/keyboard.js (through pageScripts) carries the keyboard's
+// markup, and only such a page does. Every key button is exactly the markup the
+// table gives for the phonetic layout, unshifted, in on-screen order, so the
+// static page and the script can never disagree; the text box carries its
+// attributes and sits in no form; the controls the script reads are each there
+// once. Returns the number of key buttons checked.
+const KEYBOARD_PAGE_SCRIPT = '/' + KEYBOARD_SCRIPT;
+const KEYBOARD_CONTROLS = ['backspace', 'delete', 'caps', 'enter', 'shift', 'space', 'copy', 'selectall', 'undo', 'redo', 'clear'];
+function keyboardEscape(s) {
+    return s.replace(/[&<>"\\`]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\\': '&#92;', '`': '&#96;' }[c];
+    });
+}
+function assertKeyboardPage(page, sp, table, answerInputAttrs) {
+    const label = sp.slug + ' (standalone page)';
+    const main = page.slice(page.indexOf('<main>'), page.indexOf('</main>'));
+    if (sp.guardedLetterTools !== true) fail(label + ': a page that loads ' + KEYBOARD_PAGE_SCRIPT + ' must set guardedLetterTools: true');
+    if (countOccurrences(main, '<div id="russian-keyboard-app" class="kb-app">') !== 1) fail(label + ': expected one <div id="russian-keyboard-app" class="kb-app"> in <main>');
+    // Key buttons, in table order.
+    let at = -1, checked = 0;
+    table.keys.filter(function (k) { return k[3] !== null; }).forEach(function (k) {
+        const code = k[0], ch = keyboardEscape(table.layouts.phonetic[code][0]);
+        const hint = keyboardEscape(code.indexOf('Key') === 0 ? k[2] : k[1]);
+        const want = '<button type="button" class="kb-key" data-code="' + code + '" data-letter="' + ch + '" aria-labelledby="kb-l-' + code + '"> ' +
+            '<span class="kb-glyph notranslate" translate="no" lang="ru">' + ch + '</span> ' +
+            '<span class="kb-hint" aria-hidden="true">' + hint + '</span> ' +
+            '<span id="kb-l-' + code + '" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ' + ch + '</span></span> </button>';
+        if (countOccurrences(main, want) !== 1) fail(label + ': the ' + code + ' key must be exactly ' + want);
+        const here = main.indexOf(want);
+        if (here < at) fail(label + ': the ' + code + ' key is out of on-screen order');
+        at = here;
+        checked += 1;
+    });
+    if (countOccurrences(main, 'class="kb-key"') !== checked) fail(label + ': expected ' + checked + ' key buttons, found ' + countOccurrences(main, 'class="kb-key"'));
+    // The text box.
+    if (countOccurrences(main, '<textarea') !== 1) fail(label + ': expected exactly one <textarea> in <main>');
+    const box = openingTagWithId(page, 'kb-text', label);
+    ['lang="ru"', 'inputmode="none"'].concat(answerInputAttrs).forEach(function (a) {
+        if (countOccurrences(box, ' ' + a) !== 1) fail(label + ': the text box must carry ' + a + ', found ' + box);
+    });
+    if (countOccurrences(main, '<label for="kb-text"') !== 1) fail(label + ': the text box needs one <label for="kb-text">');
+    if (countOccurrences(page, '<form') !== 0) fail(label + ': carries a <form>; the text box sits in no form, so nothing typed can be submitted');
+    // The controls the script reads, each once.
+    KEYBOARD_CONTROLS.forEach(function (c) {
+        if (countOccurrences(main, 'data-kb="' + c + '"') !== 1) fail(label + ': expected one data-kb="' + c + '" control');
+    });
+    ['shift', 'caps'].forEach(function (c) {
+        if (countOccurrences(main, 'data-kb="' + c + '" aria-pressed="false"') !== 1) fail(label + ': the ' + c + ' button starts with aria-pressed="false"');
+    });
+    ['kb-input', 'kb-sound', 'kb-phone'].forEach(function (id) {
+        const tag = openingTagWithId(page, id, label);
+        const named = /\saria-labelledby="([^"]+)"/.exec(tag);
+        if (!/\stype="checkbox"/.test(tag) || !named || countOccurrences(main, 'id="' + named[1] + '"') !== 1) {
+            fail(label + ': #' + id + ' must be a checkbox named by aria-labelledby, found ' + tag);
+        }
+    });
+    if (countOccurrences(main, 'name="kb-layout"') !== 2 || countOccurrences(main, 'name="kb-layout" value="phonetic" checked>') !== 1 ||
+        countOccurrences(main, 'name="kb-layout" value="jcuken">') !== 1) {
+        fail(label + ': expected two layout radios, phonetic (checked) and jcuken');
+    }
+    if (countOccurrences(main, '<p id="kb-phone-hint" class="kb-phone-hint" hidden>Tap the text box to type.</p>') !== 1 ||
+        countOccurrences(main, 'kb-phone-hint') !== 2) {
+        fail(label + ': expected the phone-keyboard hint exactly once, hidden: <p id="kb-phone-hint" class="kb-phone-hint" hidden>Tap the text box to type.</p>');
+    }
+    if (countOccurrences(main, 'role="status"') !== 1 || countOccurrences(main, '<div id="kb-status" class="sr-only" role="status"></div>') !== 1) {
+        fail(label + ': expected exactly one status region, <div id="kb-status" class="sr-only" role="status"></div>');
+    }
+    return checked;
 }
 
 // Every onclick="..." attribute in `html`, as raw attribute text plus its offset.
@@ -2573,6 +2836,8 @@ function main() {
     // CYRILLIC_DATA still describe the same alphabet, so assert it here and fail
     // the build loudly rather than shipping a chart with a letter missing.
     const RUSSIAN_LETTERS = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('');
+    // ---- the Russian keyboard script: its table, its analytics and what it may never do ----
+    const keyboardScript = assertKeyboardScript(RUSSIAN_LETTERS);
     const dataMatch = coreSrc.match(/const CYRILLIC_DATA = \{[\s\S]*?\n\};/);
     if (!dataMatch) fail('could not extract CYRILLIC_DATA from core.js');
     const CYRILLIC_DATA = eval('(' + dataMatch[0].replace('const CYRILLIC_DATA = ', '').replace(/;$/, '') + ')');
@@ -3042,6 +3307,10 @@ function main() {
         { article: 'russian-alphabet-chart', cls: 'letter-card', instruction: 'Play pronunciation of', count: 33 },
         { article: 'backwards-r-myth', cls: 'lookalike-listen', instruction: 'Listen to', count: 8 },
         { article: 'backwards-r-myth', cls: 'lookalike-copy', instruction: 'Copy', count: 8 },
+        // The 47 on-screen keys of /russian-keyboard. js/keyboard.js rewrites each
+        // key's data-letter, letter and label together when the layout, Shift or
+        // Caps Lock changes; the static markup is the phonetic layout, unshifted.
+        { page: 'russian-keyboard', cls: 'kb-key', instruction: 'Type', count: 47 },
     ];
     // The documents these checks read: every article, then every standalone
     // page that opts in. Article label spans are counted apart from page ones,
@@ -4207,6 +4476,12 @@ function main() {
         if (sp.guardedLetterTools && !sp.quizPage) {
             assertMainCyrillicGuards(page.slice(page.indexOf('<main>'), page.indexOf('</main>')), sp);
         }
+        // The Russian keyboard: its markup on the page that loads its script, and nowhere else.
+        if ((sp.pageScripts || []).indexOf(KEYBOARD_PAGE_SCRIPT) !== -1) {
+            sp.__keyboardKeys = assertKeyboardPage(page, sp, keyboardScript.table, ANSWER_INPUT_ATTRS);
+        } else if (countOccurrences(page, 'russian-keyboard-app') !== 0) {
+            fail(sp.slug + ': carries the keyboard markup without loading ' + KEYBOARD_PAGE_SCRIPT);
+        }
 
         // ---- settings panel: one closed <details> between the two quiz cards ----
         const PANEL_OPEN = '<details class="quiz-settings" id="quiz-settings">';
@@ -4765,6 +5040,12 @@ function main() {
     console.log('Analytics free text passed: no "' + ANALYTICS_FREE_TEXT.join('", "') + '" in ' + freeTextChecked +
                 ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and every script in js/, read from the folder: ' +
                 ADSENSE_SCRIPTS.join(', ') + '); events carry results and letters, never typed text.');
+    console.log('Keyboard script passed: ' + KEYBOARD_SCRIPT + ', ' + keyboardScript.summary + '.');
+    STANDALONE_PAGES.filter(function (sp) { return sp.__keyboardKeys; }).forEach(function (sp) {
+        console.log('Keyboard page passed: /' + sp.slug + ', ' + sp.__keyboardKeys + ' key buttons exactly as the phonetic table gives them, in on-screen order; ' +
+                    'the text box lang ru, inputmode none, ' + ANSWER_INPUT_ATTRS.join(' ') + ', with its label and in no form; ' +
+                    KEYBOARD_CONTROLS.length + ' controls, 3 switches and 2 layout radios once each; the phone-keyboard hint once, hidden; one status region.');
+    });
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');
