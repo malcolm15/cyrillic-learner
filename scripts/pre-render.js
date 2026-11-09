@@ -759,8 +759,11 @@ const KEYBOARD_EXPECTED = { phonetic: 'ёЁ1!2@3#4$5%6^7&8*9(0)-_ъЪяЯшШе�
 // the audio paths in CYRILLIC_DATA (js/core.js). Nothing else from the core scripts.
 const KEYBOARD_WINDOW_PROPS = ['CYRILLIC_DATA', 'gtag', 'localStorage', 'matchMedia', 'scrollTo', 'scrollX', 'scrollY'];
 // The only attributes the script may write: the probe textarea's five, the mode
-// marker, each key's letter, and the Shift and Caps Lock pressed state.
-const KEYBOARD_ATTRS = ['aria-hidden', 'tabindex', 'inputmode', 'autocomplete', 'spellcheck', 'data-kb-mode', 'data-letter', 'aria-pressed'];
+// marker, each key's letter, the Shift and Caps Lock pressed state, and the lang,
+// translate and class of each key's name span (lang ru and the translation guard
+// for a letter, kb-name for a digit or symbol).
+const KEYBOARD_ATTRS = ['aria-hidden', 'tabindex', 'inputmode', 'autocomplete', 'spellcheck', 'data-kb-mode', 'data-letter', 'aria-pressed',
+    'lang', 'translate', 'class'];
 // Strings the script may never contain: markup writers; the title, cookies,
 // session storage and document.domain; logging; history and location writes and
 // navigation (href, assign, replace, reload, window.open, form submission);
@@ -797,6 +800,7 @@ function assertKeyboardScript(russianLetters) {
     const keys = keyboardBlock(src, 'var KB_KEYS = [', '];', 'KB_KEYS');
     const layouts = keyboardBlock(src, 'var KB_LAYOUTS = {', '};', 'KB_LAYOUTS');
     const events = keyboardBlock(src, 'var KB_EVENTS = {', '};', 'KB_EVENTS');
+    const names = keyboardBlock(src, 'var KB_KEY_NAMES = {', '};', 'KB_KEY_NAMES');
     // KB_KEYS: [code, US unshifted, US shifted, on-screen row or null].
     if (!Array.isArray(keys) || keys.length !== 48) fail(KEYBOARD_SCRIPT + ': KB_KEYS must list 48 key positions, found ' + (keys && keys.length));
     const codes = keys.map(function (k) { return k[0]; });
@@ -849,6 +853,24 @@ function assertKeyboardScript(russianLetters) {
     codes.slice(1, 13).forEach(function (code, i) {
         const want = [KEYBOARD_JCUKEN_NUMBER_ROW[0][i], KEYBOARD_JCUKEN_NUMBER_ROW[1][i]];
         if (JSON.stringify(layouts.jcuken[code]) !== JSON.stringify(want)) fail(KEYBOARD_SCRIPT + ': jcuken ' + code + ' must be ' + JSON.stringify(want) + ', found ' + JSON.stringify(layouts.jcuken[code]));
+    });
+    // Spoken names: exactly the symbols (not letters, not digits) the table puts on
+    // an on-screen key in either layout, unshifted or shifted, each a plain English name.
+    const symbols = [];
+    keys.filter(function (k) { return k[3] !== null; }).forEach(function (k) {
+        Object.keys(layouts).forEach(function (name) {
+            layouts[name][k[0]].forEach(function (ch) {
+                if (!cyr(ch) && !/^[0-9]$/.test(ch) && symbols.indexOf(ch) === -1) symbols.push(ch);
+            });
+        });
+    });
+    if (names === null || typeof names !== 'object' || Array.isArray(names) ||
+        JSON.stringify(Object.keys(names).slice().sort()) !== JSON.stringify(symbols.slice().sort())) {
+        fail(KEYBOARD_SCRIPT + ': KB_KEY_NAMES must name exactly the ' + symbols.length + ' symbols on the on-screen keys (' + symbols.slice().sort().join(' ') +
+             '), found ' + JSON.stringify(Object.keys(names || {})));
+    }
+    Object.keys(names).forEach(function (ch) {
+        if (typeof names[ch] !== 'string' || !/^[a-z]+( [a-z]+)*$/.test(names[ch])) fail(KEYBOARD_SCRIPT + ': KB_KEY_NAMES[' + JSON.stringify(ch) + '] must be lowercase words, found ' + JSON.stringify(names[ch]));
     });
     // What the script may never do.
     KEYBOARD_BANNED.forEach(function (needle) {
@@ -914,9 +936,10 @@ function assertKeyboardScript(russianLetters) {
         fail(KEYBOARD_SCRIPT + ': KB_SOFT_SIGN_RATE must equal the one playbackRate in js/core.js (' + coreRates.join(', ') + ')');
     }
     return {
-        table: { keys: keys, layouts: layouts },
+        table: { keys: keys, layouts: layouts, names: names },
         summary: 'soft sign at ' + kbRate[1] + ' as in js/core.js, no audio path of its own; 48 key positions, 47 on screen, 2 layouts each with the 33 letters in both cases exactly once and no ' +
-            'letter outside Cyrillic, the agreed punctuation and number row, every position matching the reference strings; ' + KEYBOARD_BANNED.length + ' banned strings, eval, ' +
+            'letter outside Cyrillic, the agreed punctuation and number row, every position matching the reference strings; ' + symbols.length + ' symbols on the on-screen keys, each with a spoken name in ' +
+            'KB_KEY_NAMES and none other named; ' + KEYBOARD_BANNED.length + ' banned strings, eval, ' +
             'Function and string timers absent; one created element, attributes only from the fixed list; one hostname, the preview-only test pattern; window touched only for ' + KEYBOARD_WINDOW_PROPS.join(', ') + '; one gtag( inside ' +
             'kbTrack, ' + eventCount + ' events in KB_EVENTS, ' + (calls.length - 1) + ' kbTrack call(s), each on the allowlist',
     };
@@ -935,20 +958,32 @@ function keyboardEscape(s) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\\': '&#92;', '`': '&#96;' }[c];
     });
 }
+// The inner span of an on-screen key's sr-only name, for the character ch (raw,
+// not escaped) the key types: a Cyrillic letter in a lang ru span guarded from
+// translation, with the space before it inside (F2); a digit or symbol by its
+// spoken name from KB_KEY_NAMES (a digit as itself) in a kb-name span, which a
+// translator may translate. The one rule for the static markup and the label check.
+function keyboardNameSpan(ch, names) {
+    const c = ch.charCodeAt(0);
+    if (ch.length === 1 && c >= 0x0400 && c <= 0x04FF) return '<span lang="ru" translate="no" class="notranslate"> ' + keyboardEscape(ch) + '</span>';
+    return '<span class="kb-name"> ' + keyboardEscape(Object.prototype.hasOwnProperty.call(names, ch) ? names[ch] : ch) + '</span>';
+}
 function assertKeyboardPage(page, sp, table, answerInputAttrs) {
     const label = sp.slug + ' (standalone page)';
     const main = page.slice(page.indexOf('<main>'), page.indexOf('</main>'));
     if (sp.guardedLetterTools !== true) fail(label + ': a page that loads ' + KEYBOARD_PAGE_SCRIPT + ' must set guardedLetterTools: true');
     if (countOccurrences(main, '<div id="russian-keyboard-app" class="kb-app">') !== 1) fail(label + ': expected one <div id="russian-keyboard-app" class="kb-app"> in <main>');
     // Key buttons, in table order.
-    let at = -1, checked = 0;
+    let at = -1, checked = 0, named = 0;
     table.keys.filter(function (k) { return k[3] !== null; }).forEach(function (k) {
-        const code = k[0], ch = keyboardEscape(table.layouts.phonetic[code][0]);
+        const code = k[0], raw = table.layouts.phonetic[code][0], ch = keyboardEscape(raw);
         const hint = keyboardEscape(code.indexOf('Key') === 0 ? k[2] : k[1]);
+        const nameSpan = keyboardNameSpan(raw, table.names);
+        if (nameSpan.indexOf('kb-name') !== -1) named += 1;
         const want = '<button type="button" class="kb-key" data-code="' + code + '" data-letter="' + ch + '" aria-labelledby="kb-l-' + code + '"> ' +
             '<span class="kb-glyph notranslate" translate="no" lang="ru">' + ch + '</span> ' +
             '<span class="kb-hint" aria-hidden="true">' + hint + '</span> ' +
-            '<span id="kb-l-' + code + '" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ' + ch + '</span></span> </button>';
+            '<span id="kb-l-' + code + '" class="sr-only" aria-hidden="true">Type' + nameSpan + '</span> </button>';
         if (countOccurrences(main, want) !== 1) fail(label + ': the ' + code + ' key must be exactly ' + want);
         const here = main.indexOf(want);
         if (here < at) fail(label + ': the ' + code + ' key is out of on-screen order');
@@ -956,6 +991,8 @@ function assertKeyboardPage(page, sp, table, answerInputAttrs) {
         checked += 1;
     });
     if (countOccurrences(main, 'class="kb-key"') !== checked) fail(label + ': expected ' + checked + ' key buttons, found ' + countOccurrences(main, 'class="kb-key"'));
+    if (countOccurrences(main, 'class="kb-name"') !== named) fail(label + ': expected ' + named + ' kb-name spans (the digit and symbol keys), found ' + countOccurrences(main, 'class="kb-name"'));
+    sp.__keyboardNamed = named;
     // The text box.
     if (countOccurrences(main, '<textarea') !== 1) fail(label + ': expected exactly one <textarea> in <main>');
     const box = openingTagWithId(page, 'kb-text', label);
@@ -3310,7 +3347,9 @@ function main() {
         // The 47 on-screen keys of /russian-keyboard. js/keyboard.js rewrites each
         // key's data-letter, letter and label together when the layout, Shift or
         // Caps Lock changes; the static markup is the phonetic layout, unshifted.
-        { page: 'russian-keyboard', cls: 'kb-key', instruction: 'Type', count: 47 },
+        // spokenNames: a key showing a digit or symbol is named by its spoken name
+        // in a kb-name span (keyboardNameSpan), a letter as on every other entry.
+        { page: 'russian-keyboard', cls: 'kb-key', instruction: 'Type', count: 47, spokenNames: true },
     ];
     // The documents these checks read: every article, then every standalone
     // page that opts in. Article label spans are counted apart from page ones,
@@ -3323,9 +3362,13 @@ function main() {
         if (b.page !== undefined && !letterToolPages.some(function (sp) { return sp.slug === b.page; })) {
             fail('BUTTON_LABELS entry for .' + b.cls + ' names page "' + b.page + '", which is not a standalone page with guardedLetterTools: true');
         }
+        if (b.spokenNames !== undefined && (b.spokenNames !== true || b.page !== 'russian-keyboard')) {
+            fail('BUTTON_LABELS entry for .' + b.cls + ': spokenNames is only for the keyboard page\'s keys, and only true');
+        }
     });
     let labelSpans = 0;
     let pageLabelSpans = 0;
+    let spokenLabelSpans = 0;
     const buttonLabelCounts = [];
     BUTTON_LABELS.forEach(function (b) {
         labelDocs.forEach(function (a) {
@@ -3354,8 +3397,11 @@ function main() {
                 if (countOccurrences(a.content, 'id="' + ids[0] + '"') !== 1) {
                     fail(where + ': id "' + ids[0] + '" must exist exactly once in the ' + (a.article ? 'article' : 'page'));
                 }
-                const label = '<span id="' + ids[0] + '" class="sr-only" aria-hidden="true">' + b.instruction +
-                              '<span lang="ru" translate="no" class="notranslate"> ' + letter + '</span></span>';
+                const inner = b.spokenNames
+                    ? keyboardNameSpan(letter.replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#92;/g, '\\').replace(/&#96;/g, '`').replace(/&amp;/g, '&'), keyboardScript.table.names)
+                    : '<span lang="ru" translate="no" class="notranslate"> ' + letter + '</span>';
+                const label = '<span id="' + ids[0] + '" class="sr-only" aria-hidden="true">' + b.instruction + inner + '</span>';
+                if (inner.indexOf('class="kb-name"') !== -1) spokenLabelSpans += 1;
                 const at = a.content.indexOf(label);
                 if (at === -1) {
                     const actual = a.content.slice(a.content.indexOf('id="' + ids[0] + '"') - 6).split('</span></span>')[0];
@@ -5042,7 +5088,8 @@ function main() {
                 ADSENSE_SCRIPTS.join(', ') + '); events carry results and letters, never typed text.');
     console.log('Keyboard script passed: ' + KEYBOARD_SCRIPT + ', ' + keyboardScript.summary + '.');
     STANDALONE_PAGES.filter(function (sp) { return sp.__keyboardKeys; }).forEach(function (sp) {
-        console.log('Keyboard page passed: /' + sp.slug + ', ' + sp.__keyboardKeys + ' key buttons exactly as the phonetic table gives them, in on-screen order; ' +
+        console.log('Keyboard page passed: /' + sp.slug + ', ' + sp.__keyboardKeys + ' key buttons exactly as the phonetic table gives them, in on-screen order, ' +
+                    (sp.__keyboardKeys - sp.__keyboardNamed) + ' letters named in lang ru and ' + sp.__keyboardNamed + ' digit and symbol keys by their spoken names; ' +
                     'the text box lang ru, inputmode none, ' + ANSWER_INPUT_ATTRS.join(' ') + ', with its label and in no form; ' +
                     KEYBOARD_CONTROLS.length + ' controls, 3 switches and 2 layout radios once each; the phone-keyboard hint once, hidden; one status region.');
     });
@@ -5076,7 +5123,7 @@ function main() {
     console.log('Button names passed: ' + buttonLabelCounts.join(', ') + ' buttons named by aria-labelledby to their own sr-only aria-hidden label, ' +
                 'instruction translatable and the card\'s letter guarded (lang ru, F2 spacing), whitespace on both sides; ' + labelSpans + ' label spans; no aria-label in article content carries Cyrillic; ' +
                 'standalone pages with guardedLetterTools: ' + (letterToolPages.length ? letterToolPages.map(function (sp) { return '/' + sp.slug; }).join(', ') +
-                ' (' + pageLabelSpans + ' label spans, no Cyrillic aria-label)' : 'none') + '.');
+                ' (' + pageLabelSpans + ' label spans, ' + spokenLabelSpans + ' of them a digit or symbol by its spoken name, no Cyrillic aria-label)' : 'none') + '.');
     console.log('Mini quizzes passed: ' + MINI_QUIZZES.map(function (q) { return q.article + ' (' + q.lang + ')'; }).join(', ') +
                 ': ' + miniQuizSpans + ' letter spans guarded with lang, answer inputs carry ' + ANSWER_INPUT_ATTRS.join(' ') +
                 ', feedback answers written by setQuizText; ' + articleTranslateNo + ' translate="no" in article content, all listed.');

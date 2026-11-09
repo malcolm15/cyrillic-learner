@@ -172,6 +172,37 @@
         }
     };
 
+    // ---- spoken key names ----
+    // The name each on-screen key gives a screen reader when it shows a symbol, in either layout, unshifted or
+    // shifted: "Type comma", never "Type ,". A letter is named by itself, guarded with lang ru; a digit is
+    // named by itself as well. scripts/pre-render.js parses this literal and requires its keys to be exactly the
+    // symbols KB_LAYOUTS puts on on-screen keys.
+    var KB_KEY_NAMES = {
+        "!": "exclamation mark",
+        "\"": "quotation mark",
+        "#": "number sign",
+        "$": "dollar sign",
+        "%": "percent",
+        "&": "ampersand",
+        "(": "left parenthesis",
+        ")": "right parenthesis",
+        "*": "asterisk",
+        "+": "plus",
+        ",": "comma",
+        "-": "hyphen",
+        ".": "period",
+        "/": "slash",
+        ":": "colon",
+        ";": "semicolon",
+        "=": "equals",
+        "?": "question mark",
+        "@": "at sign",
+        "\\": "backslash",
+        "^": "caret",
+        "_": "underscore",
+        "№": "numero sign"
+    };
+
     // ---- analytics: one function, one allowlist ----
     // Every event the page may send, its parameter names, and every value each may take. scripts/pre-render.js
     // parses this literal and requires the one analytics call to sit inside kbTrack. No value is built from the
@@ -481,13 +512,23 @@
                 var ch = outputFor(state.layout, el.getAttribute('data-code'), state.shiftOnce, state.caps);
                 el.setAttribute('data-letter', ch);
                 el.querySelector('.kb-glyph').textContent = ch;
-                document.getElementById(el.getAttribute('aria-labelledby')).lastChild.textContent = ' ' + ch;
+                // The key's name: a letter guarded with its language, a digit or symbol by its spoken name.
+                var name = document.getElementById(el.getAttribute('aria-labelledby')).lastChild;
+                name.textContent = ' ' + (KB_KEY_NAMES[ch] || ch);
+                if (isCyrillic(ch)) {
+                    name.setAttribute('lang', 'ru');
+                    name.setAttribute('translate', 'no');
+                    name.setAttribute('class', 'notranslate');
+                } else {
+                    name.removeAttribute('lang');
+                    name.removeAttribute('translate');
+                    name.setAttribute('class', 'kb-name');
+                }
             });
             shiftBtn.setAttribute('aria-pressed', state.shiftOnce ? 'true' : 'false');
             capsBtn.setAttribute('aria-pressed', state.caps ? 'true' : 'false');
         }
-        function flash(code) {
-            var el = keyByCode[code];
+        function flash(el) {
             if (!el) return;
             el.classList.add('kb-pressed');
             setTimeout(function () { el.classList.remove('kb-pressed'); }, 140);
@@ -624,11 +665,16 @@
         });
 
         // ---- physical keys ----
+        // A key is the browser's alone, with no remapping and no flash, while Russian input is off, in phone mode,
+        // during an IME composition or a dead key, and while Ctrl, Cmd or Alt is held (AltGr included).
+        function leftAlone(e) {
+            return !state.input || state.phone ||
+                e.isComposing || state.composing || e.keyCode === 229 || e.key === 'Dead' || e.key === 'Unidentified' || e.key === 'Process' ||
+                e.ctrlKey || e.metaKey || e.altKey;
+        }
         // Returns the character a key types, or null to leave the key to the browser.
         function mappedKey(e) {
-            if (!state.input || state.phone) return null;
-            if (e.isComposing || state.composing || e.keyCode === 229 || e.key === 'Dead' || e.key === 'Unidentified' || e.key === 'Process') return null;
-            if (e.ctrlKey || e.metaKey || e.altKey) return null;
+            if (leftAlone(e)) return null;
             // A Russian system layout already types Cyrillic: leave it alone.
             if (isCyrillic(e.key)) return null;
             // The on-screen Caps Lock is the visitor's choice and changes only when they click it. For a key
@@ -651,6 +697,28 @@
             }
             if (!code) return null;
             return { code: code, ch: outputFor(state.layout, code, e.shiftKey, caps) };
+        }
+        // A key left to the browser still lights an on-screen key or control, but only one showing exactly what the
+        // browser types; this never prevents the key and never types. Space, Backspace, Delete and Enter light their
+        // controls. A letter the OS already types in Cyrillic lights the key showing that letter, in either case. Any
+        // other key lights the key at its position only if that key's current character equals event.key, so a digit
+        // or symbol lights only when the on-screen Shift matches the physical one: with the on-screen Shift on, a
+        // physical unshifted 1 types "1" while the key shows "!", and with it off, a physical Shift+1 types "!" while
+        // the key shows "1", and neither lights. A UK Shift+2 (") or a German Minus (ß) never lights a key. Shift,
+        // Caps Lock and every other key light nothing.
+        var ctlByCode = { Space: 'space', Backspace: 'backspace', Delete: 'delete', Enter: 'enter', NumpadEnter: 'enter' };
+        function flashThrough(e) {
+            if (leftAlone(e)) return;
+            var el = null;
+            if (ctlByCode[e.code]) {
+                el = root.querySelector('[data-kb="' + ctlByCode[e.code] + '"]');
+            } else if (isCyrillic(e.key)) {
+                var letter = e.key.toLowerCase();
+                el = keyEls.filter(function (k) { return k.getAttribute('data-letter').toLowerCase() === letter; })[0] || null;
+            } else if (keyByCode[e.code] && keyByCode[e.code].getAttribute('data-letter') === e.key) {
+                el = keyByCode[e.code];
+            }
+            flash(el);
         }
         box.addEventListener('keydown', function (e) {
             if (mode === 'fallback' && (e.metaKey || e.ctrlKey) && !e.altKey) {
@@ -677,9 +745,9 @@
                 return;
             }
             var m = mappedKey(e);
-            if (!m) return;
+            if (!m) { flashThrough(e); return; }
             e.preventDefault();
-            flash(m.code);
+            flash(keyByCode[m.code]);
             if (insert(m.ch, 'type')) { used('physical'); playLetter(m.ch); }
         });
         box.addEventListener('compositionstart', function () {
