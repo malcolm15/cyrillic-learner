@@ -556,8 +556,23 @@
             announce(on ? 'Russian input on' : 'Russian input off');
             kbTrack('setting_changed', { setting_name: 'keyboard_russian_input', setting_value: on, setting_source: 'keyboard_page' });
         }
+        // A change counts as pointer-made when a pointer pressed the control within the last 1.5 s and no key
+        // was pressed on it since: Space, Enter and the arrow keys never press a pointer. After a pointer-made
+        // change the box takes focus again, so typing can go on; after a keyboard-made one focus stays put.
+        var pointerAt = -1;
+        function byPointer() {
+            var p = pointerAt >= 0 && performance.now() - pointerAt < 1500;
+            pointerAt = -1;
+            return p;
+        }
+        function backToBox() { if (byPointer() && !state.phone) box.focus({ preventScroll: true }); }
+        [root.querySelector('.kb-layouts'), inputSwitch.closest('.kb-toggle'), soundSwitch.closest('.kb-toggle')].forEach(function (el) {
+            el.addEventListener('pointerdown', function () { pointerAt = performance.now(); });
+            el.addEventListener('mousedown', function () { pointerAt = performance.now(); });
+            el.addEventListener('keydown', function () { pointerAt = -1; });
+        });
         inputSwitch.checked = state.input;
-        inputSwitch.addEventListener('change', function () { setInput(inputSwitch.checked); });
+        inputSwitch.addEventListener('change', function () { setInput(inputSwitch.checked); backToBox(); });
         Array.prototype.forEach.call(root.querySelectorAll('input[name="kb-layout"]'), function (r) {
             r.checked = r.value === state.layout;
             r.addEventListener('change', function () {
@@ -567,6 +582,7 @@
                 renderKeys();
                 announce(r.value === 'phonetic' ? 'Phonetic layout' : 'Standard Russian layout');
                 kbTrack('setting_changed', { setting_name: 'keyboard_layout', setting_value: r.value, setting_source: 'keyboard_page' });
+                backToBox();
             });
         });
         soundSwitch.checked = state.sound;
@@ -577,6 +593,7 @@
             if (state.sound) loadClips();
             announce(state.sound ? 'Letter sounds on' : 'Letter sounds off');
             kbTrack('setting_changed', { setting_name: 'keyboard_sound', setting_value: state.sound, setting_source: 'keyboard_page' });
+            backToBox();
         });
         // "Use my phone keyboard": the system keyboard types as itself, no remapping, keys hidden. No attempt to
         // open it from here: a focus() from a change handler does not open it on iOS, so the box is left blurred
@@ -703,6 +720,12 @@
         });
 
         renderKeys();
+        // Desktop landing: the caret waits in the box. Only with a mouse and a physical keyboard, only when nothing
+        // has focus yet, no #fragment was asked for, and the phone keyboard is off. A touch screen lands as it is.
+        if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+            (document.activeElement === null || document.activeElement === document.body) && !location.hash && !state.phone) {
+            box.focus({ preventScroll: true });
+        }
     }
 
     var root = document.getElementById('russian-keyboard-app');

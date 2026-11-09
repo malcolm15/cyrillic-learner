@@ -757,7 +757,7 @@ const KEYBOARD_EXPECTED = { phonetic: 'ёЁ1!2@3#4$5%6^7&8*9(0)-_ъЪяЯшШе�
 // The only window properties the script may touch: storage for its three
 // settings, the analytics function inside kbTrack, scrolling for the probe, and
 // the audio paths in CYRILLIC_DATA (js/core.js). Nothing else from the core scripts.
-const KEYBOARD_WINDOW_PROPS = ['CYRILLIC_DATA', 'gtag', 'localStorage', 'scrollTo', 'scrollX', 'scrollY'];
+const KEYBOARD_WINDOW_PROPS = ['CYRILLIC_DATA', 'gtag', 'localStorage', 'matchMedia', 'scrollTo', 'scrollX', 'scrollY'];
 // The only attributes the script may write: the probe textarea's five, the mode
 // marker, each key's letter, and the Shift and Caps Lock pressed state.
 const KEYBOARD_ATTRS = ['aria-hidden', 'tabindex', 'inputmode', 'autocomplete', 'spellcheck', 'data-kb-mode', 'data-letter', 'aria-pressed'];

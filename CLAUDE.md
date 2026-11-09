@@ -958,10 +958,15 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   Russian system layout). Phonetic letters follow the letter printed on the key
   (`event.key`), and a punctuation position is remapped only where the phonetic
   output differs from the US key, so digits and symbols stay the visitor's own;
-  ЙЦУКЕН follows key position (`event.code`). A letter key follows Shift and
-  Caps Lock, and Caps+Shift gives lowercase on every system. Esc turns Russian
-  input off and only off; with input off Esc is the browser's, and the switch
-  turns input on.
+  ЙЦУКЕН follows key position (`event.code`). Caps Lock: the on-screen Caps
+  Lock is the visitor's choice and changes only when they click it; no physical
+  keypress sets it. For a key Cyrilica remaps, the effective Caps Lock is the
+  on-screen one or the hardware one (`getModifierState('CapsLock')`), and Shift
+  inverts it, so Caps+Shift gives lowercase. A key an OS Russian layout already
+  types in Cyrillic is left to the browser and untouched by either Caps Lock.
+  On-screen keys follow the on-screen Shift and Caps Lock only. Esc turns
+  Russian input off and only off; with input off Esc is the browser's, and the
+  switch turns input on.
 - **The engine and its modes.** Every edit goes through one insertion function
   per mode, chosen once at load by a probe and never changed. The probe types
   two letters into an off-screen textarea with `execCommand('insertText')` and
@@ -985,14 +990,31 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   and never for punctuation, so QWERTZ Ctrl+Y redoes and Dvorak's Ctrl+; is left
   alone. Never assign the box's `value`: it leaves the browser's history
   pointing at text that is no longer there (the build rejects any `.value =`).
+  Testing status: Firefox untested as of Batch B (above). VoiceOver on iPhone:
+  waived by the owner, unverified; accessibility semantics checked in
+  Chromium's tree.
 - **On-screen keys.** A pointer press keeps focus in the box (`pointerdown` and
   `mousedown` are prevented, because iOS honours only the second); a key
   activated from the keyboard moves focus into the box, restores the selection,
   types, and gives focus back. "Use my phone keyboard" (shown on touch screens)
-  removes `inputmode="none"`, turns remapping off, hides the keys and disables
-  the Russian input switch. It lives in memory only: it never writes the stored
-  Russian input setting, which applies again unchanged when it goes off, and Esc
-  does nothing while it is on.
+  turns remapping off. Turning it on removes `inputmode`, hides the keys,
+  disables the Russian input switch, blurs the box and shows the hint "Tap the
+  text box to type."; nothing tries to open the system keyboard from script,
+  because a focus from the switch's change handler does not open it on iOS. One
+  tap on the box opens it. Off restores `inputmode="none"`, the keys and the
+  switch, hides the hint, and focuses the box with `preventScroll`. The system
+  keyboard opening on the tap: unverified on an iPhone after this change, risk
+  accepted by the owner. The switch lives in memory only: it never writes the
+  stored Russian input setting, which applies again unchanged when it goes off,
+  and Esc does nothing while it is on.
+- **Focus.** A pointer-made change to the layout radios, the Russian input
+  switch or the sound switch returns focus to the box (`preventScroll`); a
+  keyboard-made change (Space, Enter, arrows) leaves focus where it is; in phone
+  mode nothing refocuses. A change counts as pointer-made when a pointer pressed
+  the control within the last 1.5 s and no key was pressed on it since. On
+  landing, with `(hover: hover) and (pointer: fine)`, nothing focused, no
+  `#fragment` and the phone switch off, the box takes focus with
+  `preventScroll`; touch screens land unchanged. No `autofocus` attribute.
 - **What the visitor types.** It lives only in the box, in a Copy they ask for,
   and, in fallback mode, in the engine's in-memory history. `js/keyboard.js` may
   not contain any string in `KEYBOARD_BANNED` (markup writers; the title,
@@ -1004,9 +1026,10 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   one off-screen textarea, write any attribute outside `KEYBOARD_ATTRS`, name
   any hostname or URL but the one Deploy Preview pattern behind
   `?kbmode=fallback` (exactly once), or touch any `window` property beyond its
-  storage, `gtag`, scrolling and `CYRILLIC_DATA`. Copy writes to the clipboard
-  only inside its click handler; the page never reads the clipboard; with the
-  box empty it announces "Nothing to copy" and writes nothing. Three settings
+  storage, `gtag`, scrolling, `matchMedia` and `CYRILLIC_DATA`. Copy writes to
+  the clipboard only inside its click handler; the page never reads the
+  clipboard; with the box empty it announces "Nothing to copy" and writes
+  nothing. Three settings
   are stored (`kbLayout`, `kbRussianInput`, `kbSound`), each read against its
   allowed values with a default otherwise. The box sits in no form and has
   `spellcheck="false"`. The honest claim, on the page and in the privacy policy
@@ -1031,7 +1054,13 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   so keyboard focus moves row by row as the keys appear at every width (not CSS
   `order`, which would leave focus following the markup). On phones the keys sit
   1px apart so each is at least 24px wide on a 360px screen. Keys are at least
-  44px tall at every width and the box's text is at least 16px. There is no ad
+  44px tall at every width and the box's text is at least 16px. Every `.kb-*`
+  hover rule sits inside `@media (hover: hover)`: a tap on a touch screen
+  leaves `:hover` stuck, and a stuck hover must never look like a switched-on
+  Shift or Caps Lock. Hover is a light tint, a switched-on key is a solid fill
+  with a white label, and `:active` (gold) is the press feedback on touch.
+  The phone-keyboard hint sits under the controls row, hidden unless the
+  switch is on ("Keyboard page passed" pins its markup). There is no ad
   sidebar, by the owner's decision (Journey's sidebar documentation could not be
   read; it answered 403), so `journey-sidebar` still appears nowhere.
 
