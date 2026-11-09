@@ -612,8 +612,10 @@
             if (e.ctrlKey || e.metaKey || e.altKey) return null;
             // A Russian system layout already types Cyrillic: leave it alone.
             if (isCyrillic(e.key)) return null;
-            var caps = !!(e.getModifierState && e.getModifierState('CapsLock'));
-            if (caps !== state.caps) { state.caps = caps; renderKeys(); }
+            // The on-screen Caps Lock is the visitor's choice and changes only when they click it. For a key
+            // Cyrilica remaps, the hardware Caps Lock adds to it; Shift inverts either, so Caps+Shift gives
+            // lowercase. A key the OS already types in Cyrillic returned above, untouched by either.
+            var caps = state.caps || !!(e.getModifierState && e.getModifierState('CapsLock'));
             var code = null;
             if (state.layout === 'phonetic') {
                 // Letters follow the letter printed on the key; a punctuation position is remapped only where
