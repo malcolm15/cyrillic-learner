@@ -459,6 +459,7 @@ const AD_BLOCKLIST_ID = 'ad-management-config-settings';
 const AD_BLOCKLIST_VOCABULARY = ['data-blocklist-all', 'data-blocklist-universal-player-desktop', 'data-blocklist-universal-player-mobile'];
 const AD_BLOCKLIST_PAGES = [
     { slug: 'teachers', attrs: 'data-blocklist-all="1"' },
+    { slug: 'russian-keyboard', attrs: 'data-blocklist-universal-player-desktop="1" data-blocklist-universal-player-mobile="1"' },
 ];
 
 // The exact opening tag for an approved entry. Matching the whole tag means no
@@ -912,6 +913,72 @@ function assertKeyboardScript(russianLetters) {
             'Function and string timers absent; one created element, attributes only from the fixed list; one hostname, the preview-only test pattern; window touched only for ' + KEYBOARD_WINDOW_PROPS.join(', ') + '; one gtag( inside ' +
             'kbTrack, ' + eventCount + ' events in KB_EVENTS, ' + (calls.length - 1) + ' kbTrack call(s), each on the allowlist',
     };
+}
+
+// A page that loads js/keyboard.js (through pageScripts) carries the keyboard's
+// markup, and only such a page does. Every key button is exactly the markup the
+// table gives for the phonetic layout, unshifted, in on-screen order, so the
+// static page and the script can never disagree; the text box carries its
+// attributes and sits in no form; the controls the script reads are each there
+// once. Returns the number of key buttons checked.
+const KEYBOARD_PAGE_SCRIPT = '/' + KEYBOARD_SCRIPT;
+const KEYBOARD_CONTROLS = ['backspace', 'delete', 'caps', 'enter', 'shift', 'space', 'copy', 'selectall', 'undo', 'redo', 'clear'];
+function keyboardEscape(s) {
+    return s.replace(/[&<>"\\`]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\\': '&#92;', '`': '&#96;' }[c];
+    });
+}
+function assertKeyboardPage(page, sp, table, answerInputAttrs) {
+    const label = sp.slug + ' (standalone page)';
+    const main = page.slice(page.indexOf('<main>'), page.indexOf('</main>'));
+    if (sp.guardedLetterTools !== true) fail(label + ': a page that loads ' + KEYBOARD_PAGE_SCRIPT + ' must set guardedLetterTools: true');
+    if (countOccurrences(main, '<div id="russian-keyboard-app" class="kb-app">') !== 1) fail(label + ': expected one <div id="russian-keyboard-app" class="kb-app"> in <main>');
+    // Key buttons, in table order.
+    let at = -1, checked = 0;
+    table.keys.filter(function (k) { return k[3] !== null; }).forEach(function (k) {
+        const code = k[0], ch = keyboardEscape(table.layouts.phonetic[code][0]);
+        const hint = keyboardEscape(code.indexOf('Key') === 0 ? k[2] : k[1]);
+        const want = '<button type="button" class="kb-key" data-code="' + code + '" data-letter="' + ch + '" aria-labelledby="kb-l-' + code + '"> ' +
+            '<span class="kb-glyph notranslate" translate="no" lang="ru">' + ch + '</span> ' +
+            '<span class="kb-hint" aria-hidden="true">' + hint + '</span> ' +
+            '<span id="kb-l-' + code + '" class="sr-only" aria-hidden="true">Type<span lang="ru" translate="no" class="notranslate"> ' + ch + '</span></span> </button>';
+        if (countOccurrences(main, want) !== 1) fail(label + ': the ' + code + ' key must be exactly ' + want);
+        const here = main.indexOf(want);
+        if (here < at) fail(label + ': the ' + code + ' key is out of on-screen order');
+        at = here;
+        checked += 1;
+    });
+    if (countOccurrences(main, 'class="kb-key"') !== checked) fail(label + ': expected ' + checked + ' key buttons, found ' + countOccurrences(main, 'class="kb-key"'));
+    // The text box.
+    if (countOccurrences(main, '<textarea') !== 1) fail(label + ': expected exactly one <textarea> in <main>');
+    const box = openingTagWithId(page, 'kb-text', label);
+    ['lang="ru"', 'inputmode="none"'].concat(answerInputAttrs).forEach(function (a) {
+        if (countOccurrences(box, ' ' + a) !== 1) fail(label + ': the text box must carry ' + a + ', found ' + box);
+    });
+    if (countOccurrences(main, '<label for="kb-text"') !== 1) fail(label + ': the text box needs one <label for="kb-text">');
+    if (countOccurrences(page, '<form') !== 0) fail(label + ': carries a <form>; the text box sits in no form, so nothing typed can be submitted');
+    // The controls the script reads, each once.
+    KEYBOARD_CONTROLS.forEach(function (c) {
+        if (countOccurrences(main, 'data-kb="' + c + '"') !== 1) fail(label + ': expected one data-kb="' + c + '" control');
+    });
+    ['shift', 'caps'].forEach(function (c) {
+        if (countOccurrences(main, 'data-kb="' + c + '" aria-pressed="false"') !== 1) fail(label + ': the ' + c + ' button starts with aria-pressed="false"');
+    });
+    ['kb-input', 'kb-sound', 'kb-phone'].forEach(function (id) {
+        const tag = openingTagWithId(page, id, label);
+        const named = /\saria-labelledby="([^"]+)"/.exec(tag);
+        if (!/\stype="checkbox"/.test(tag) || !named || countOccurrences(main, 'id="' + named[1] + '"') !== 1) {
+            fail(label + ': #' + id + ' must be a checkbox named by aria-labelledby, found ' + tag);
+        }
+    });
+    if (countOccurrences(main, 'name="kb-layout"') !== 2 || countOccurrences(main, 'name="kb-layout" value="phonetic" checked>') !== 1 ||
+        countOccurrences(main, 'name="kb-layout" value="jcuken">') !== 1) {
+        fail(label + ': expected two layout radios, phonetic (checked) and jcuken');
+    }
+    if (countOccurrences(main, 'role="status"') !== 1 || countOccurrences(main, '<div id="kb-status" class="sr-only" role="status"></div>') !== 1) {
+        fail(label + ': expected exactly one status region, <div id="kb-status" class="sr-only" role="status"></div>');
+    }
+    return checked;
 }
 
 // Every onclick="..." attribute in `html`, as raw attribute text plus its offset.
@@ -3229,6 +3296,10 @@ function main() {
         { article: 'russian-alphabet-chart', cls: 'letter-card', instruction: 'Play pronunciation of', count: 33 },
         { article: 'backwards-r-myth', cls: 'lookalike-listen', instruction: 'Listen to', count: 8 },
         { article: 'backwards-r-myth', cls: 'lookalike-copy', instruction: 'Copy', count: 8 },
+        // The 47 on-screen keys of /russian-keyboard. js/keyboard.js rewrites each
+        // key's data-letter, letter and label together when the layout, Shift or
+        // Caps Lock changes; the static markup is the phonetic layout, unshifted.
+        { page: 'russian-keyboard', cls: 'kb-key', instruction: 'Type', count: 47 },
     ];
     // The documents these checks read: every article, then every standalone
     // page that opts in. Article label spans are counted apart from page ones,
@@ -4394,6 +4465,12 @@ function main() {
         if (sp.guardedLetterTools && !sp.quizPage) {
             assertMainCyrillicGuards(page.slice(page.indexOf('<main>'), page.indexOf('</main>')), sp);
         }
+        // The Russian keyboard: its markup on the page that loads its script, and nowhere else.
+        if ((sp.pageScripts || []).indexOf(KEYBOARD_PAGE_SCRIPT) !== -1) {
+            sp.__keyboardKeys = assertKeyboardPage(page, sp, keyboardScript.table, ANSWER_INPUT_ATTRS);
+        } else if (countOccurrences(page, 'russian-keyboard-app') !== 0) {
+            fail(sp.slug + ': carries the keyboard markup without loading ' + KEYBOARD_PAGE_SCRIPT);
+        }
 
         // ---- settings panel: one closed <details> between the two quiz cards ----
         const PANEL_OPEN = '<details class="quiz-settings" id="quiz-settings">';
@@ -4953,6 +5030,11 @@ function main() {
                 ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and every script in js/, read from the folder: ' +
                 ADSENSE_SCRIPTS.join(', ') + '); events carry results and letters, never typed text.');
     console.log('Keyboard script passed: ' + KEYBOARD_SCRIPT + ', ' + keyboardScript.summary + '.');
+    STANDALONE_PAGES.filter(function (sp) { return sp.__keyboardKeys; }).forEach(function (sp) {
+        console.log('Keyboard page passed: /' + sp.slug + ', ' + sp.__keyboardKeys + ' key buttons exactly as the phonetic table gives them, in on-screen order; ' +
+                    'the text box lang ru, inputmode none, ' + ANSWER_INPUT_ATTRS.join(' ') + ', with its label and in no form; ' +
+                    KEYBOARD_CONTROLS.length + ' controls, 3 switches and 2 layout radios once each; one status region.');
+    });
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +
                 fragmentsChecked + ' cross-page fragment' + (fragmentsChecked === 1 ? ' resolves' : 's resolve') + ' to a real id.');

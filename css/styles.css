@@ -3005,6 +3005,267 @@
             color: var(--dark-cta-text);
         }
 
+        /* ==================== RUSSIAN KEYBOARD (/russian-keyboard) ====================
+           The editor, its switches and the on-screen keys. Sized so the heading, the
+           controls, the text box, the keys and the action row fit a 1280x800 window;
+           the prose sits below. Every key is at least 44px tall, and the text box is
+           at least 16px so a phone does not zoom on focus. */
+        .kb-card h1 {
+            margin-bottom: 6px;
+        }
+        .kb-intro {
+            font-size: 0.85rem;
+            line-height: 1.45;
+            margin: 0 0 10px;
+        }
+        .kb-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 22px;
+            margin-bottom: 8px;
+        }
+        .kb-layouts {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px 14px;
+            font-size: 0.85rem;
+        }
+        .kb-layouts legend {
+            float: left;
+            margin-right: 4px;
+            padding: 0;
+            font-weight: bold;
+        }
+        .kb-layouts label {
+            cursor: pointer;
+        }
+        .kb-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+        /* The phone-keyboard switch is for touch screens; a mouse and keyboard never need it. */
+        @media (hover: hover) and (pointer: fine) {
+            .kb-phone-toggle {
+                display: none;
+            }
+        }
+        .kb-text-label {
+            display: block;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .kb-text {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 76px;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 1.25rem;
+            line-height: 1.4;
+            border: 2px solid var(--dark-blue);
+            border-radius: 6px;
+            background: white;
+            color: var(--charcoal);
+            resize: vertical;
+        }
+        .kb-text:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.25);
+        }
+        .kb-privacy {
+            font-size: 0.7rem;
+            line-height: 1.4;
+            color: #555;
+            margin: 4px 0 8px;
+        }
+        /* --kb-gap is the space between keys in a row. Every letter key is one
+           thirteenth of the row less the gaps, so the 13-key rows fill it and the
+           shorter rows sit centred with keys of the same width. The controls have
+           rows of their own, in the markup, so focus moves row by row as the keys
+           appear at every width. */
+        .kb-keys {
+            --kb-gap: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .kb-keys[hidden] {
+            display: none;
+        }
+        .kb-row {
+            display: flex;
+            justify-content: center;
+            gap: var(--kb-gap);
+        }
+        .kb-key,
+        .kb-ctl {
+            min-width: 0;
+            min-height: 44px;
+            padding: 2px;
+            position: relative;
+            background: var(--paper);
+            border: 2px solid var(--dark-blue);
+            border-radius: 6px;
+            color: var(--dark-blue);
+            font-family: inherit;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        .kb-key {
+            flex: 0 1 calc((100% - 12 * var(--kb-gap)) / 13);
+        }
+        .kb-glyph {
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+        .kb-hint {
+            position: absolute;
+            right: 3px;
+            bottom: 1px;
+            font-size: 0.6rem;
+            line-height: 1;
+            color: #666;
+        }
+        .kb-ctl {
+            flex: 1 1 0;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .kb-ctl[data-kb="space"] {
+            flex: 0 1 60%;
+            margin: 0 auto;
+        }
+        .kb-key:hover,
+        .kb-ctl:hover,
+        .kb-ctl[aria-pressed="true"] {
+            background: var(--dark-blue);
+            color: white;
+        }
+        .kb-key:hover .kb-hint {
+            color: inherit;
+        }
+        .kb-key.kb-pressed {
+            background: var(--gold);
+            color: var(--charcoal);
+        }
+        .kb-key:focus-visible,
+        .kb-ctl:focus-visible,
+        .kb-action:focus-visible {
+            outline: 3px solid var(--dark-blue);
+            outline-offset: 2px;
+        }
+        .kb-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .kb-action {
+            min-height: 44px;
+            padding: 6px 16px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 2px solid var(--dark-blue);
+            border-radius: 6px;
+            background: var(--dark-blue);
+            color: white;
+            cursor: pointer;
+        }
+        .kb-action:hover {
+            background: var(--red);
+            border-color: var(--red);
+        }
+        @media (max-width: 600px) {
+            /* A full row is 13 letter keys: the card gives up most of its side
+               padding and the keys sit 1px apart, so each is at least 24px wide on a
+               360px screen. */
+            .kb-card {
+                padding-left: 4px;
+                padding-right: 4px;
+            }
+            .kb-keys {
+                --kb-gap: 1px;
+                gap: 3px;
+            }
+            .kb-key,
+            .kb-ctl {
+                padding: 1px;
+                border-width: 1px;
+                border-radius: 4px;
+            }
+            .kb-glyph {
+                font-size: 1.05rem;
+            }
+            .kb-hint {
+                right: 2px;
+                font-size: 0.5rem;
+            }
+            .kb-ctl {
+                font-size: 0.6rem;
+            }
+            .kb-action {
+                flex: 1 1 auto;
+                padding: 6px 8px;
+            }
+        }
+        body.dark-mode .kb-text {
+            background: var(--dark-raised);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+        body.dark-mode .kb-text:focus {
+            border-color: var(--dark-focus);
+            box-shadow: 0 0 0 2px var(--dark-focus);
+        }
+        body.dark-mode .kb-privacy {
+            color: var(--dark-text-dim);
+        }
+        body.dark-mode .kb-key,
+        body.dark-mode .kb-ctl {
+            background: var(--dark-raised);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+        body.dark-mode .kb-hint {
+            color: var(--dark-text-muted);
+        }
+        body.dark-mode .kb-key:hover,
+        body.dark-mode .kb-ctl:hover,
+        body.dark-mode .kb-ctl[aria-pressed="true"] {
+            background: var(--dark-cta-bg);
+            border-color: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
+        }
+        body.dark-mode .kb-key.kb-pressed {
+            background: var(--dark-accent-2);
+            color: var(--dark-bg);
+        }
+        body.dark-mode .kb-key:focus-visible,
+        body.dark-mode .kb-ctl:focus-visible,
+        body.dark-mode .kb-action:focus-visible {
+            outline-color: var(--dark-focus);
+        }
+        body.dark-mode .kb-action {
+            background: var(--dark-cta-bg);
+            border-color: var(--dark-cta-bg);
+            color: var(--dark-cta-text);
+        }
+        body.dark-mode .kb-action:hover {
+            background: var(--dark-cta-bg-hover);
+            border-color: var(--dark-cta-bg-hover);
+        }
+
 /* Font Awesome icon spacing in share buttons */
 .share-btn i {
     margin-right: 6px;

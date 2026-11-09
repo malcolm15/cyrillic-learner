@@ -95,13 +95,16 @@ export const config: Config = {
     // keeps VALID_PAGES an exact mirror of js/core.js, per COUPLING 3, which a
     // standalone page must stay out of. The .html form is answered by a forced
     // 301 in _redirects, which this function would only pass through anyway.
-    // One pair per standalone page: /teachers, and /es (the Spanish quiz).
+    // One pair per standalone page: /teachers, /es (the Spanish quiz) and
+    // /russian-keyboard.
     // scripts/pre-render.js parses this array and requires both entries for
     // every page in scripts/standalone-pages.js.
     "/teachers",
     "/teachers.html",
     "/es",
     "/es.html",
+    "/russian-keyboard",
+    "/russian-keyboard.html",
   ],
 };
 
