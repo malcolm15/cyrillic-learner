@@ -153,10 +153,13 @@ Vanilla JavaScript SPA. No frameworks, no build step, no bundler. Core files:
 - `downloads/`: the printable worksheets (PDF). SITE. See "Downloads
   (/downloads/)".
 - `audio/`: the 33 letter pronunciation files (MP3), referenced from
-  `CYRILLIC_DATA` in `js/core.js`. They are human recordings by a professional
-  voice actor the owner commissioned through Upwork; `a.mp3` was re-recorded by
-  the same voice actor on 2026-07-17 (a299be5), as confirmed by the owner. This
-  is the source for the site's "real recorded audio" wording.
+  `CYRILLIC_DATA` in `js/core.js`. They are human recordings of the letters'
+  sounds by a professional voice actor the owner commissioned through Upwork,
+  under a work-for-hire contract that transferred all rights to the owner;
+  `a.mp3` was re-recorded by the same voice actor on 2026-07-17 (a299be5), as
+  confirmed by the owner. This is the source for the site's "real recorded
+  audio" wording, and the Russian keyboard's "Letter sounds" plays the same
+  clips.
 - `images/`, `sitemap.xml` (static, hand-maintained, uses an `xmlns:image`
   namespace).
 
@@ -560,7 +563,8 @@ title), and every blurb and category description is non-empty plain text.
 ## Standalone pages
 
 A standalone page is an indexable URL that is not an article and not an SPA
-route. There are two: `/teachers` and `/es`, the Spanish quiz.
+route. There are three: `/teachers`, `/es` (the Spanish quiz) and
+`/russian-keyboard` (the Russian keyboard, below).
 
 **Where they live.** `scripts/standalone-pages.js`, build time only. Each entry
 carries `slug`, `title`, `description`, `h1`, `keySentence`, `published`,
@@ -922,6 +926,114 @@ it, `type="checkbox"`, with exactly `index.html`'s `onchange` and an
 `darkmode-toggle` or `settings-btn`. It does not check the summary's
 classes, the row markup, which label a toggle points at, or the label text.
 Never duplicate the panel: the toggle ids must stay unique.
+
+**The Russian keyboard (/russian-keyboard, ledger row 383).** A text box that
+types Russian from the visitor's own keyboard or 47 on-screen keys, in two
+layouts: phonetic (the AATSEEL student layout, with TypeIt's punctuation:
+Shift+comma `;`, Shift+period `:`; the default) and standard Russian ЙЦУКЕН
+(Windows KBDRU). Its entry sets `guardedLetterTools: true`,
+`pageScripts: ['/js/keyboard.js']`, `schema: { audience: false }` and, as the
+first line of `bodyHtml`, the blocklist div that removes Journey's video player
+on desktop and mobile (other units stay; see "Page controls" under Display ads).
+- **One table.** `KB_KEYS` (48 key positions: code, the US character unshifted
+  and shifted, the on-screen row; `IntlBackslash`, on ISO keyboards only, has no
+  on-screen key) and `KB_LAYOUTS` (per layout, code to unshifted and shifted) in
+  `js/keyboard.js` are the one source for both layouts, the physical keys and
+  the on-screen keys. They are strict JSON, parsed as text by
+  `scripts/pre-render.js` ("Keyboard script passed"): each layout carries the 33
+  letters of `RUSSIAN_LETTERS` in both cases exactly once, Ё is U+0401, no
+  output is a letter outside Cyrillic, no capital sits in an unshifted slot, the
+  agreed phonetic punctuation and the ЙЦУКЕН number row hold, and every position
+  matches `KEYBOARD_EXPECTED` in `scripts/pre-render.js`: two 96-character
+  reference strings transcribed from the Phase 1 maps, never copied from the
+  script, so a layout change is a product decision made in both places. The
+  page's 47 key buttons are static HTML for the phonetic layout, unshifted, and
+  "Keyboard page passed" requires each to be exactly the markup the table gives,
+  in order. The script rewrites a key's `data-letter`, letter and label together
+  when the layout, Shift or Caps Lock changes. Each key is named "Type ф"
+  through `aria-labelledby` (`BUTTON_LABELS`, `page: 'russian-keyboard'`).
+- **Physical keys.** In order: Russian input off, an IME composition (keyCode
+  229, `isComposing`), a dead key, or Ctrl, Cmd or Alt held (AltGr included)
+  leave the key to the browser; so does a key that already types Cyrillic (a
+  Russian system layout). Phonetic letters follow the letter printed on the key
+  (`event.key`), and a punctuation position is remapped only where the phonetic
+  output differs from the US key, so digits and symbols stay the visitor's own;
+  ЙЦУКЕН follows key position (`event.code`). A letter key follows Shift and
+  Caps Lock, and Caps+Shift gives lowercase on every system. Esc turns Russian
+  input off and only off; with input off Esc is the browser's, and the switch
+  turns input on.
+- **The engine and its modes.** Every edit goes through one insertion function
+  per mode, chosen once at load by a probe and never changed. The probe types
+  two letters into an off-screen textarea with `execCommand('insertText')` and
+  undoes them, checks both, and gives focus, selection and scroll back in the
+  same task. *Native mode* (the prototype engine in Chrome and Safari on macOS
+  by the owner, the built page in headless Chrome; Firefox untested as of Batch
+  B): all edits use `execCommand`, so everything is in the browser's own undo
+  history and every undo path is the browser's. *Fallback mode* (if the probe
+  fails): native edits still happen natively and are recorded from `input`
+  events, the engine's own edits use `setRangeText`, and every undo and redo
+  (keys, buttons, a cancelable `beforeinput`) is the engine's; if the browser's
+  own undo acts anyway, the engine puts the text back as it knows it and then
+  does its own undo. The rule that governs both: no undo path the visitor can
+  reach may duplicate, corrupt or lose text. A native insertion that fails later
+  is reported in the status line and the mode is kept; nothing else writes to
+  the box. On a Deploy Preview host only, `?kbmode=fallback` forces fallback
+  mode for testing; production ignores it. In fallback mode the engine handles
+  Cmd or Ctrl+Z, Shift+Cmd or Ctrl+Z and Ctrl+Y itself, deciding by the letter
+  as the browser does: `event.key` when it is a Latin letter, the key's place
+  only when `event.key` is a letter of another script (an OS Russian layout),
+  and never for punctuation, so QWERTZ Ctrl+Y redoes and Dvorak's Ctrl+; is left
+  alone. Never assign the box's `value`: it leaves the browser's history
+  pointing at text that is no longer there (the build rejects any `.value =`).
+- **On-screen keys.** A pointer press keeps focus in the box (`pointerdown` and
+  `mousedown` are prevented, because iOS honours only the second); a key
+  activated from the keyboard moves focus into the box, restores the selection,
+  types, and gives focus back. "Use my phone keyboard" (shown on touch screens)
+  removes `inputmode="none"`, turns remapping off, hides the keys and disables
+  the Russian input switch. It lives in memory only: it never writes the stored
+  Russian input setting, which applies again unchanged when it goes off, and Esc
+  does nothing while it is on.
+- **What the visitor types.** It lives only in the box, in a Copy they ask for,
+  and, in fallback mode, in the engine's in-memory history. `js/keyboard.js` may
+  not contain any string in `KEYBOARD_BANNED` (markup writers; the title,
+  cookies, session storage and `document.domain`; logging; history and location
+  writes and navigation; the clipboard readers; anything that loads or sends,
+  `fetch(`, `sendBeacon`, `XMLHttpRequest`, `WebSocket`, `EventSource`, workers,
+  dynamic import, `Image(`, `.src`; `postMessage`), run strings as code, assign
+  or compound-assign a value or a location, build any element but the probe's
+  one off-screen textarea, write any attribute outside `KEYBOARD_ATTRS`, name
+  any hostname or URL but the one Deploy Preview pattern behind
+  `?kbmode=fallback` (exactly once), or touch any `window` property beyond its
+  storage, `gtag`, scrolling and `CYRILLIC_DATA`. Copy writes to the clipboard
+  only inside its click handler; the page never reads the clipboard; with the
+  box empty it announces "Nothing to copy" and writes nothing. Three settings
+  are stored (`kbLayout`, `kbRussianInput`, `kbSound`), each read against its
+  allowed values with a default otherwise. The box sits in no form and has
+  `spellcheck="false"`. The honest claim, on the page and in the privacy policy
+  ("Text You Type"), is that Cyrilica's code never saves or sends the text. It
+  does not cover Google Analytics or Journey, which run on the page like every
+  other: no page claims the text is private.
+- **Letter sounds.** Off by default. Turning them on loads all 33 clips at once,
+  from the paths in `CYRILLIC_DATA`, so no request depends on what is typed; Ь
+  plays at `KB_SOFT_SIGN_RATE`, which the build holds equal to the rate in
+  `js/core.js`. `playAudio` is never used here: it logs and reports the letter.
+- **Analytics.** Through `kbTrack(name, params)` only, against the `KB_EVENTS`
+  allowlist the build parses: `setting_changed` (`keyboard_layout`,
+  `keyboard_russian_input`, `keyboard_sound`, with `setting_source:
+  'keyboard_page'`), `keyboard_copied` (method: button or browser),
+  `keyboard_used` (input_source: physical or onscreen, once per page load) and
+  `keyboard_audio_failed` (the error's name, once per page load). No event names
+  a letter: a timestamped event per key would let the text be read back.
+- **Layout.** The heading, controls, text box, keys and action row fit a
+  1280x800 window; the prose sits below. The four letter rows hold only their
+  13, 13, 11 and 10 keys, each one thirteenth of the row, and Shift, Caps Lock,
+  Backspace, Delete and Enter, then Space, have rows of their own in the markup,
+  so keyboard focus moves row by row as the keys appear at every width (not CSS
+  `order`, which would leave focus following the markup). On phones the keys sit
+  1px apart so each is at least 24px wide on a 360px screen. Keys are at least
+  44px tall at every width and the box's text is at least 16px. There is no ad
+  sidebar, by the owner's decision (Journey's sidebar documentation could not be
+  read; it answered 403), so `journey-sidebar` still appears nowhere.
 
 **Landing scroll (both quizzes).** `startQuiz` scrolls the top of the quiz
 screen to 12px below the fixed nav, instantly (the root's smooth
@@ -1566,6 +1678,11 @@ Its limits, which are why it is not a malware scanner:
   cursive_animation_played, worksheet_downloaded, letter_audio_played (letter,
   audio_source: chart or lookalike), letter_audio_failed (letter, audio_source,
   error: the error's name) and lookalike_used (letter, action: listen or copy).
+  The Russian keyboard sends setting_changed (keyboard_layout,
+  keyboard_russian_input, keyboard_sound; setting_source keyboard_page),
+  keyboard_copied (method), keyboard_used (input_source, once per page load) and
+  keyboard_audio_failed (error, once per page load), all through its allowlist
+  (see "The Russian keyboard").
 - **No free text to analytics.** Events carry what happened (a result, a
   letter, a setting), never what a visitor typed: the answer box takes anything,
   a name or an email address included. The incorrect-answer event used to send
@@ -1573,8 +1690,9 @@ Its limits, which are why it is not a malware scanner:
   text passed" (`ANALYTICS_FREE_TEXT` in `scripts/pre-render.js`) fails the build
   if `user_answer` appears in `index.html`, `404.html`, any emitted page or any
   script in `js/` (every `.js` file there, read from the folder at build time,
-  so a new script is scanned with no list to update). A new event parameter
-  that could carry typed text must not be added; add any such name to
+  so a new script is scanned with no list to update). `typed_text`,
+  `selected_text` and `clipboard_text` are banned the same way. A new event
+  parameter that could carry typed text must not be added; add any such name to
   `ANALYTICS_FREE_TEXT`.
 
 ## Display ads (Journey by Mediavine)
@@ -1589,17 +1707,17 @@ releases.
 - **The tag.** `index.html` carries the Journey script byte for byte as the
   Journey dashboard gives it (Settings > Ad Setup), as the last element in
   `<head>`, after a one-line comment. Every document built from the template
-  inherits it: the six shell routes, the 28 articles, `/articles`, `/teachers`
-  and `/es`. `404.html` never carries it: error and dead-end screens carry no
-  ads. Do not move it, defer it, load it from another script, or add anything
-  after it in `<head>`.
+  inherits it: the six shell routes, the 28 articles, `/articles`, `/teachers`,
+  `/es` and `/russian-keyboard`. `404.html` never carries it: error and dead-end
+  screens carry no ads. Do not move it, defer it, load it from another script,
+  or add anything after it in `<head>`.
 - **Emitted pages.** `scripts/pre-render.js` holds the tag as `JOURNEY_TAG` and
   the comment, tag and `</head>` as `JOURNEY_BLOCK`. Its template needle
   `T.adTail` is that block, and the article schema blocks and `/es`'s
   `QUIZ_PAGE` script are inserted before it, so the tag stays last in `<head>`
   on every emitted document. A new tag from the dashboard (a new site id) means
   changing `index.html` and `JOURNEY_TAG` together, or the build fails.
-- **The checks.** "Display ads passed": on `index.html` and the 31 emitted pages
+- **The checks.** "Display ads passed": on `index.html` and the 32 emitted pages
   the tag appears exactly once, byte for byte, `scriptwrapper` appears exactly
   once, there is one `</head>`, and the tag sits directly before it; `404.html`
   never names `scriptwrapper`. "AdSense absent passed": none of the strings in
@@ -1638,8 +1756,8 @@ releases.
   and `articles.html` (whose hidden, empty article view is still emitted).
   "Content marker passed": the class appears exactly once, on that
   element, in `index.html`, `articles.html` and each of the 28 articles; never in
-  `404.html`, `/teachers` or `/es`; and `journey-sidebar` appears nowhere, because
-  the site has no sidebar. Nothing styles or scripts the class.
+  `404.html` or any standalone page; and `journey-sidebar` appears nowhere,
+  because the site has no sidebar. Nothing styles or scripts the class.
 
 **Page controls: the Journey blocklist and keep-together wrappers (ledger rows 375 and 383).**
 - **/teachers carries no Journey ads** (the owner's decision: the page
@@ -1655,18 +1773,21 @@ releases.
   stays in `<head>` on `/teachers`, as on every page built from the template.
 - **The approved list.** Only the pages in `AD_BLOCKLIST_PAGES` in
   `scripts/pre-render.js` carry the div, each with an exact attribute string:
-  today `/teachers` with `data-blocklist-all="1"`. The attribute names come
-  from a fixed vocabulary, `AD_BLOCKLIST_VOCABULARY`:
+  `/teachers` with `data-blocklist-all="1"`, and `/russian-keyboard` with
+  `data-blocklist-universal-player-desktop="1"
+  data-blocklist-universal-player-mobile="1"` (the owner's decision: the video
+  player goes; the other units, the sticky footer included, stay). The attribute
+  names come from a fixed vocabulary, `AD_BLOCKLIST_VOCABULARY`:
   `data-blocklist-all` (every unit), `data-blocklist-universal-player-desktop`
   and `data-blocklist-universal-player-mobile` (the video player on desktop and
   on mobile; other units, the sticky footer included, stay). Source for the
   names: Journey's blocklist article,
   https://journeymv.zendesk.com/hc/en-us/articles/25515886400539. Each value is
-  `"1"`, `data-blocklist-all` is only ever used alone, and Journey reads one
-  div per page, so a page that removes several units carries all its
-  attributes on its one div. A new page in the list, or a new attribute in the
-  vocabulary, is a reviewed change to `scripts/pre-render.js`; the build cannot
-  tell an approved entry from an unapproved one.
+  `"1"`, `data-blocklist-all` is only ever used alone, and Journey reads one div
+  per page, so a page that removes several units carries all its attributes on
+  its one div. A new page in the list, or a new attribute in the vocabulary, is
+  a reviewed change to `scripts/pre-render.js`; the build cannot tell an
+  approved entry from an unapproved one.
 - **Never move it into anything shared.** Journey reads only one blocklist div
   per page, and its documentation says never to put it in a site-wide header,
   sidebar or footer. In `index.html` (head, nav, footer), the standalone page

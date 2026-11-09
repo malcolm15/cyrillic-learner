@@ -906,9 +906,16 @@ function assertKeyboardScript(russianLetters) {
         const names = (m[2].match(/(\w+):/g) || []).map(function (s) { return s.slice(0, -1); });
         if (names.sort().join() !== Object.keys(events[m[1]]).sort().join()) fail(KEYBOARD_SCRIPT + ': ' + c + ' must pass exactly the parameters KB_EVENTS lists for ' + m[1]);
     });
+    // Letter sounds: every path comes from CYRILLIC_DATA, and the soft sign plays at the rate js/core.js uses.
+    if (/mp3|audio\//.test(src)) fail(KEYBOARD_SCRIPT + ': names an audio file; the clips come only from CYRILLIC_DATA in js/core.js');
+    const coreRates = fs.readFileSync(path.join(ROOT, 'js', 'core.js'), 'utf8').match(/playbackRate = (\d+(?:\.\d+)?);/g) || [];
+    const kbRate = /\n    var KB_SOFT_SIGN_RATE = (\d+(?:\.\d+)?);\n/.exec(src);
+    if (coreRates.length !== 1 || !kbRate || coreRates[0] !== 'playbackRate = ' + kbRate[1] + ';') {
+        fail(KEYBOARD_SCRIPT + ': KB_SOFT_SIGN_RATE must equal the one playbackRate in js/core.js (' + coreRates.join(', ') + ')');
+    }
     return {
         table: { keys: keys, layouts: layouts },
-        summary: '48 key positions, 47 on screen, 2 layouts each with the 33 letters in both cases exactly once and no ' +
+        summary: 'soft sign at ' + kbRate[1] + ' as in js/core.js, no audio path of its own; 48 key positions, 47 on screen, 2 layouts each with the 33 letters in both cases exactly once and no ' +
             'letter outside Cyrillic, the agreed punctuation and number row, every position matching the reference strings; ' + KEYBOARD_BANNED.length + ' banned strings, eval, ' +
             'Function and string timers absent; one created element, attributes only from the fixed list; one hostname, the preview-only test pattern; window touched only for ' + KEYBOARD_WINDOW_PROPS.join(', ') + '; one gtag( inside ' +
             'kbTrack, ' + eventCount + ' events in KB_EVENTS, ' + (calls.length - 1) + ' kbTrack call(s), each on the allowlist',

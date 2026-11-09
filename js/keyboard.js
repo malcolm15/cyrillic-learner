@@ -217,6 +217,9 @@
         try { window.localStorage.setItem(key, v); } catch (e) { /* storage unavailable: the choice lasts this visit */ }
     }
 
+    // Ь plays slower, at the rate js/core.js uses for it; scripts/pre-render.js checks the two agree.
+    var KB_SOFT_SIGN_RATE = 0.79;
+
     function isCyrillic(ch) {
         if (typeof ch !== 'string' || ch.length !== 1) return false;
         var c = ch.charCodeAt(0);
@@ -268,6 +271,7 @@
         var box = root.querySelector('#kb-text');
         var statusEl = root.querySelector('#kb-status');
         var inputSwitch = root.querySelector('#kb-input');
+        var soundSwitch = root.querySelector('#kb-sound');
         var phoneSwitch = root.querySelector('#kb-phone');
         var keysBox = root.querySelector('#kb-keys');
         var shiftBtn = root.querySelector('[data-kb="shift"]');
@@ -293,6 +297,7 @@
         var state = {
             layout: readPref('kbLayout'),
             input: readPref('kbRussianInput') === 'on',
+            sound: readPref('kbSound') === 'on',
             shiftOnce: false,
             caps: false,
             composing: false,
@@ -308,6 +313,59 @@
 
         function announce(msg) { statusEl.textContent = msg; }
         function exec(cmd, arg) { try { return document.execCommand(cmd, false, arg); } catch (e) { return false; } }
+
+        // keyboard_used goes once per page load, on the first character typed, and says only where it came from.
+        var usedSent = false;
+        function used(source) {
+            if (usedSent) return;
+            usedSent = true;
+            kbTrack('keyboard_used', { input_source: source });
+        }
+
+        // ---- letter sounds ----
+        // The clips are human recordings of the letters' sounds. Their paths come from window.CYRILLIC_DATA, the
+        // one list of them. Turning sounds on loads every clip at once, so no request ever depends on what is
+        // typed; a key then plays its letter's clip (the soft sign at KB_SOFT_SIGN_RATE), and a failure is silent
+        // apart from one keyboard_audio_failed per page load.
+        var clips = null;
+        var audioFailed = false;
+        function audioFailure(e) {
+            if (audioFailed) return;
+            audioFailed = true;
+            var name = e && typeof e.name === 'string' && KB_EVENTS.keyboard_audio_failed.error.indexOf(e.name) !== -1 ? e.name : 'Error';
+            kbTrack('keyboard_audio_failed', { error: name });
+        }
+        function loadClips() {
+            if (clips) return;
+            clips = {};
+            var data = window.CYRILLIC_DATA || {};
+            Object.keys(data).forEach(function (group) {
+                var chars = (data[group] && data[group].chars) || {};
+                Object.keys(chars).forEach(function (k) {
+                    var c = chars[k];
+                    if (!c || typeof c.audio !== 'string' || !isCyrillic(c.upper) || !isCyrillic(c.lower)) return;
+                    var a = new Audio(c.audio);
+                    a.preload = 'auto';
+                    a.addEventListener('error', function () { audioFailure({ name: 'NotSupportedError' }); });
+                    a.load();
+                    clips[c.upper] = a;
+                    clips[c.lower] = a;
+                });
+            });
+        }
+        function playLetter(ch) {
+            if (!state.sound || !clips || !Object.prototype.hasOwnProperty.call(clips, ch)) return;
+            var a = clips[ch];
+            try {
+                a.pause();
+                a.currentTime = 0;
+                a.playbackRate = ch === 'Ь' || ch === 'ь' ? KB_SOFT_SIGN_RATE : 1;
+                var played = a.play();
+                if (played && typeof played.catch === 'function') played.catch(audioFailure);
+            } catch (e) {
+                audioFailure(e);
+            }
+        }
 
         // ---- fallback mode: the engine keeps the only history the visitor can reach ----
         // Native edits (typing with Russian input off, unmapped keys, paste, cut, the Backspace key, an IME) still
@@ -436,30 +494,42 @@
         keyEls.forEach(function (el) {
             el.addEventListener('click', function () {
                 var ch = outputFor(state.layout, el.getAttribute('data-code'), state.shiftOnce, state.caps);
-                inBox(function () { insert(ch, 'type'); });
+                if (inBox(function () { return insert(ch, 'type'); })) { used('onscreen'); playLetter(ch); }
                 if (state.shiftOnce) { state.shiftOnce = false; renderKeys(); }
             });
         });
 
         // Copy writes to the clipboard here, inside the Copy click, and nowhere else. The page never reads it.
+        var copyingFromButton = false;
         function copyAll() {
             // An empty box: nothing is written to the clipboard and nothing is counted.
             if (box.value === '') { announce('Nothing to copy'); return; }
+            var copied = function () {
+                announce('Copied');
+                kbTrack('keyboard_copied', { method: 'button' });
+            };
             var viaSelection = function () {
                 inBox(function () {
                     var s = box.selectionStart, e = box.selectionEnd, d = box.selectionDirection;
                     box.select();
+                    copyingFromButton = true;
                     var ok = exec('copy');
+                    copyingFromButton = false;
                     box.setSelectionRange(s, e, d);
-                    announce(ok ? 'Copied' : 'Copy did not work here. Select the text and use your browser\'s copy.');
+                    if (ok) copied();
+                    else announce('Copy did not work here. Select the text and use your browser\'s copy.');
                 });
             };
             if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-                navigator.clipboard.writeText(box.value).then(function () { announce('Copied'); }, viaSelection);
+                navigator.clipboard.writeText(box.value).then(copied, viaSelection);
             } else {
                 viaSelection();
             }
         }
+        // A copy made with the browser's own controls is counted, never read.
+        box.addEventListener('copy', function () {
+            if (!copyingFromButton) kbTrack('keyboard_copied', { method: 'browser' });
+        });
         var actions = {
             space: function () { inBox(function () { insert(' ', 'type'); }); },
             enter: function () { inBox(function () { insert('\n', 'other'); }); },
@@ -483,6 +553,7 @@
             inputSwitch.checked = on;
             writePref('kbRussianInput', on ? 'on' : 'off');
             announce(on ? 'Russian input on' : 'Russian input off');
+            kbTrack('setting_changed', { setting_name: 'keyboard_russian_input', setting_value: on, setting_source: 'keyboard_page' });
         }
         inputSwitch.checked = state.input;
         inputSwitch.addEventListener('change', function () { setInput(inputSwitch.checked); });
@@ -494,7 +565,17 @@
                 writePref('kbLayout', r.value);
                 renderKeys();
                 announce(r.value === 'phonetic' ? 'Phonetic layout' : 'Standard Russian layout');
+                kbTrack('setting_changed', { setting_name: 'keyboard_layout', setting_value: r.value, setting_source: 'keyboard_page' });
             });
+        });
+        soundSwitch.checked = state.sound;
+        if (state.sound) loadClips();
+        soundSwitch.addEventListener('change', function () {
+            state.sound = soundSwitch.checked;
+            writePref('kbSound', state.sound ? 'on' : 'off');
+            if (state.sound) loadClips();
+            announce(state.sound ? 'Letter sounds on' : 'Letter sounds off');
+            kbTrack('setting_changed', { setting_name: 'keyboard_sound', setting_value: state.sound, setting_source: 'keyboard_page' });
         });
         // "Use my phone keyboard": the system keyboard opens and types as itself, no remapping, keys hidden.
         // The switch lives in memory only and never touches the stored Russian input setting: while it is on,
@@ -572,7 +653,7 @@
             if (!m) return;
             e.preventDefault();
             flash(m.code);
-            insert(m.ch, 'type');
+            if (insert(m.ch, 'type')) { used('physical'); playLetter(m.ch); }
         });
         box.addEventListener('compositionstart', function () {
             state.composing = true;
