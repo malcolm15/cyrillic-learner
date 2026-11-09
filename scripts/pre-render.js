@@ -982,6 +982,10 @@ function assertKeyboardPage(page, sp, table, answerInputAttrs) {
         countOccurrences(main, 'name="kb-layout" value="jcuken">') !== 1) {
         fail(label + ': expected two layout radios, phonetic (checked) and jcuken');
     }
+    if (countOccurrences(main, '<p id="kb-phone-hint" class="kb-phone-hint" hidden>Tap the text box to type.</p>') !== 1 ||
+        countOccurrences(main, 'kb-phone-hint') !== 2) {
+        fail(label + ': expected the phone-keyboard hint exactly once, hidden: <p id="kb-phone-hint" class="kb-phone-hint" hidden>Tap the text box to type.</p>');
+    }
     if (countOccurrences(main, 'role="status"') !== 1 || countOccurrences(main, '<div id="kb-status" class="sr-only" role="status"></div>') !== 1) {
         fail(label + ': expected exactly one status region, <div id="kb-status" class="sr-only" role="status"></div>');
     }
@@ -5040,7 +5044,7 @@ function main() {
     STANDALONE_PAGES.filter(function (sp) { return sp.__keyboardKeys; }).forEach(function (sp) {
         console.log('Keyboard page passed: /' + sp.slug + ', ' + sp.__keyboardKeys + ' key buttons exactly as the phonetic table gives them, in on-screen order; ' +
                     'the text box lang ru, inputmode none, ' + ANSWER_INPUT_ATTRS.join(' ') + ', with its label and in no form; ' +
-                    KEYBOARD_CONTROLS.length + ' controls, 3 switches and 2 layout radios once each; one status region.');
+                    KEYBOARD_CONTROLS.length + ' controls, 3 switches and 2 layout radios once each; the phone-keyboard hint once, hidden; one status region.');
     });
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +

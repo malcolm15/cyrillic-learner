@@ -273,6 +273,7 @@
         var inputSwitch = root.querySelector('#kb-input');
         var soundSwitch = root.querySelector('#kb-sound');
         var phoneSwitch = root.querySelector('#kb-phone');
+        var phoneHint = root.querySelector('#kb-phone-hint');
         var keysBox = root.querySelector('#kb-keys');
         var shiftBtn = root.querySelector('[data-kb="shift"]');
         var capsBtn = root.querySelector('[data-kb="caps"]');
@@ -577,25 +578,30 @@
             announce(state.sound ? 'Letter sounds on' : 'Letter sounds off');
             kbTrack('setting_changed', { setting_name: 'keyboard_sound', setting_value: state.sound, setting_source: 'keyboard_page' });
         });
-        // "Use my phone keyboard": the system keyboard opens and types as itself, no remapping, keys hidden.
-        // The switch lives in memory only and never touches the stored Russian input setting: while it is on,
-        // mappedKey leaves every key to the system keyboard and the Russian input switch is disabled, keeping
-        // the visitor's own value, which applies again unchanged when the switch goes off.
+        // "Use my phone keyboard": the system keyboard types as itself, no remapping, keys hidden. No attempt to
+        // open it from here: a focus() from a change handler does not open it on iOS, so the box is left blurred
+        // and the hint asks for one tap on it, which opens the system keyboard the ordinary way. The switch lives
+        // in memory only and never touches the stored Russian input setting: while it is on, mappedKey leaves
+        // every key to the system keyboard and the Russian input switch is disabled, keeping the visitor's own
+        // value, which applies again unchanged when the switch goes off.
         phoneSwitch.addEventListener('change', function () {
             state.phone = phoneSwitch.checked;
             if (state.phone) {
                 box.removeAttribute('inputmode');
-                inputSwitch.disabled = true;
                 keysBox.hidden = true;
-                announce('Phone keyboard on. On-screen keys hidden.');
+                inputSwitch.disabled = true;
+                phoneHint.hidden = false;
+                box.blur();
+                announce('Phone keyboard on. Tap the text box to type.');
             } else {
                 box.setAttribute('inputmode', 'none');
-                inputSwitch.disabled = false;
                 keysBox.hidden = false;
+                inputSwitch.disabled = false;
+                phoneHint.hidden = true;
+                // With inputmode="none" back, focusing the box opens no keyboard.
+                box.focus({ preventScroll: true });
                 announce('Phone keyboard off. On-screen keys shown.');
             }
-            box.blur();
-            box.focus({ preventScroll: true });
         });
 
         // ---- physical keys ----

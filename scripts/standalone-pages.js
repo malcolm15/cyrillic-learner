@@ -614,6 +614,7 @@ module.exports = [
                                     <span class="kb-toggle-label" id="kb-phone-label">Use my phone keyboard</span>
                                 </div>
                             </div>
+                            <p id="kb-phone-hint" class="kb-phone-hint" hidden>Tap the text box to type.</p>
 
                             <label for="kb-text" class="kb-text-label">Your text</label>
                             <textarea id="kb-text" class="kb-text" lang="ru" inputmode="none" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" rows="3" aria-describedby="kb-help"></textarea>

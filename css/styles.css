@@ -3056,6 +3056,11 @@
                 display: none;
             }
         }
+        .kb-phone-hint {
+            margin: 0 0 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
         .kb-text-label {
             display: block;
             font-weight: bold;
