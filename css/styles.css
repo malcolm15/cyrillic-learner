@@ -3145,14 +3145,33 @@
             flex: 0 1 60%;
             margin: 0 auto;
         }
-        .kb-key:hover,
-        .kb-ctl:hover,
+        /* Hover is a light tint, and only where a pointer can hover: a tap on a touch
+           screen leaves :hover stuck on the key, and that must never look like a key
+           that is switched on. A switched-on Shift or Caps Lock is a solid fill with a
+           white label; a press in progress (:active, the touch feedback) is gold. */
+        @media (hover: hover) {
+            .kb-key:hover,
+            .kb-ctl:hover {
+                background: rgba(26, 35, 126, 0.08);
+            }
+            .kb-action:hover {
+                background: var(--red);
+                border-color: var(--red);
+            }
+        }
         .kb-ctl[aria-pressed="true"] {
             background: var(--dark-blue);
+            border-color: var(--dark-blue);
             color: white;
         }
-        .kb-key:hover .kb-hint {
-            color: inherit;
+        .kb-key:active,
+        .kb-ctl:active {
+            background: var(--gold);
+            color: var(--charcoal);
+        }
+        .kb-action:active {
+            background: var(--red);
+            border-color: var(--red);
         }
         .kb-key.kb-pressed {
             background: var(--gold);
@@ -3181,10 +3200,6 @@
             background: var(--dark-blue);
             color: white;
             cursor: pointer;
-        }
-        .kb-action:hover {
-            background: var(--red);
-            border-color: var(--red);
         }
         @media (max-width: 600px) {
             /* A full row is 13 letter keys: the card gives up most of its side
@@ -3240,12 +3255,25 @@
         body.dark-mode .kb-hint {
             color: var(--dark-text-muted);
         }
-        body.dark-mode .kb-key:hover,
-        body.dark-mode .kb-ctl:hover,
+        @media (hover: hover) {
+            body.dark-mode .kb-key:hover,
+            body.dark-mode .kb-ctl:hover {
+                background: var(--dark-border);
+            }
+            body.dark-mode .kb-action:hover {
+                background: var(--dark-cta-bg-hover);
+                border-color: var(--dark-cta-bg-hover);
+            }
+        }
         body.dark-mode .kb-ctl[aria-pressed="true"] {
             background: var(--dark-cta-bg);
             border-color: var(--dark-cta-bg);
             color: var(--dark-cta-text);
+        }
+        body.dark-mode .kb-key:active,
+        body.dark-mode .kb-ctl:active {
+            background: var(--dark-accent-2);
+            color: var(--dark-bg);
         }
         body.dark-mode .kb-key.kb-pressed {
             background: var(--dark-accent-2);
@@ -3260,10 +3288,6 @@
             background: var(--dark-cta-bg);
             border-color: var(--dark-cta-bg);
             color: var(--dark-cta-text);
-        }
-        body.dark-mode .kb-action:hover {
-            background: var(--dark-cta-bg-hover);
-            border-color: var(--dark-cta-bg-hover);
         }
 
 /* Font Awesome icon spacing in share buttons */
