@@ -172,6 +172,37 @@
         }
     };
 
+    // ---- spoken key names ----
+    // The name each on-screen key gives a screen reader when it shows a symbol, in either layout, unshifted or
+    // shifted: "Type comma", never "Type ,". A letter is named by itself, guarded with lang ru; a digit is
+    // named by itself as well. scripts/pre-render.js parses this literal and requires its keys to be exactly the
+    // symbols KB_LAYOUTS puts on on-screen keys.
+    var KB_KEY_NAMES = {
+        "!": "exclamation mark",
+        "\"": "quotation mark",
+        "#": "number sign",
+        "$": "dollar sign",
+        "%": "percent",
+        "&": "ampersand",
+        "(": "left parenthesis",
+        ")": "right parenthesis",
+        "*": "asterisk",
+        "+": "plus",
+        ",": "comma",
+        "-": "hyphen",
+        ".": "period",
+        "/": "slash",
+        ":": "colon",
+        ";": "semicolon",
+        "=": "equals",
+        "?": "question mark",
+        "@": "at sign",
+        "\\": "backslash",
+        "^": "caret",
+        "_": "underscore",
+        "№": "numero sign"
+    };
+
     // ---- analytics: one function, one allowlist ----
     // Every event the page may send, its parameter names, and every value each may take. scripts/pre-render.js
     // parses this literal and requires the one analytics call to sit inside kbTrack. No value is built from the
@@ -481,7 +512,18 @@
                 var ch = outputFor(state.layout, el.getAttribute('data-code'), state.shiftOnce, state.caps);
                 el.setAttribute('data-letter', ch);
                 el.querySelector('.kb-glyph').textContent = ch;
-                document.getElementById(el.getAttribute('aria-labelledby')).lastChild.textContent = ' ' + ch;
+                // The key's name: a letter guarded with its language, a digit or symbol by its spoken name.
+                var name = document.getElementById(el.getAttribute('aria-labelledby')).lastChild;
+                name.textContent = ' ' + (KB_KEY_NAMES[ch] || ch);
+                if (isCyrillic(ch)) {
+                    name.setAttribute('lang', 'ru');
+                    name.setAttribute('translate', 'no');
+                    name.setAttribute('class', 'notranslate');
+                } else {
+                    name.removeAttribute('lang');
+                    name.removeAttribute('translate');
+                    name.setAttribute('class', 'kb-name');
+                }
             });
             shiftBtn.setAttribute('aria-pressed', state.shiftOnce ? 'true' : 'false');
             capsBtn.setAttribute('aria-pressed', state.caps ? 'true' : 'false');

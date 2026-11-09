@@ -880,7 +880,10 @@ carries Cyrillic; and the F2 span check and the `translate="no"` total count
 the label spans. A new button that names a letter must follow the same
 pattern and be added to `BUTTON_LABELS`. On a standalone page that sets
 `guardedLetterTools`, an entry names the page (`page: slug`) instead of an
-article, and the same checks run on its `bodyHtml`.
+article, and the same checks run on its `bodyHtml`. The keyboard's entry also
+sets `spokenNames: true`: a key showing a digit or symbol is named by its
+spoken name in a translatable `kb-name` span instead of a guarded letter (see
+"The Russian keyboard"); every other entry keeps the guarded-letter rule.
 
 **Spacing around guarded text (F2).** A translator drops a space, a comma or a
 closing bracket that sits just outside a `translate="no"` span ("ANSWER:TS",
@@ -950,8 +953,16 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   page's 47 key buttons are static HTML for the phonetic layout, unshifted, and
   "Keyboard page passed" requires each to be exactly the markup the table gives,
   in order. The script rewrites a key's `data-letter`, letter and label together
-  when the layout, Shift or Caps Lock changes. Each key is named "Type ф"
-  through `aria-labelledby` (`BUTTON_LABELS`, `page: 'russian-keyboard'`).
+  when the layout, Shift or Caps Lock changes. Each key is named through
+  `aria-labelledby` (`BUTTON_LABELS`, `page: 'russian-keyboard'`): a letter key
+  "Type ф", with the letter in a `lang="ru"` guarded span; a digit or symbol key
+  by its spoken name in a translatable `kb-name` span, "Type 1", "Type comma",
+  "Type exclamation mark". The names are `KB_KEY_NAMES` in `js/keyboard.js`,
+  strict JSON that "Keyboard script passed" holds to exactly the 23 symbols
+  the table puts on on-screen keys (digits are spoken as themselves); the
+  script switches a key's span between the two forms as its character changes,
+  and one rule (`keyboardNameSpan` in `scripts/pre-render.js`) builds the
+  static markup's expected labels.
 - **Physical keys.** In order: Russian input off, an IME composition (keyCode
   229, `isComposing`), a dead key, or Ctrl, Cmd or Alt held (AltGr included)
   leave the key to the browser; so does a key that already types Cyrillic (a
@@ -966,7 +977,16 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   types in Cyrillic is left to the browser and untouched by either Caps Lock.
   On-screen keys follow the on-screen Shift and Caps Lock only. Esc turns
   Russian input off and only off; with input off Esc is the browser's, and the
-  switch turns input on.
+  switch turns input on. The flash: a key the engine types lights its on-screen
+  key. A key left to the browser lights an on-screen key or control only when it
+  shows exactly what the browser types, and never prevents the key or types:
+  Space, Backspace, Delete and Enter (NumpadEnter too) light their controls; a
+  letter the OS types in Cyrillic lights the key showing it, in either case; any
+  other key lights the key at its position only if that key's current character
+  equals `event.key`, so a digit or symbol lights only when the on-screen Shift
+  matches the physical one, and a UK or German layout's differing symbols never
+  light. Nothing lights with input off, in phone mode, during a composition or a
+  dead key, or with Ctrl, Cmd or Alt held.
 - **The engine and its modes.** Every edit goes through one insertion function
   per mode, chosen once at load by a probe and never changed. The probe types
   two letters into an off-screen textarea with `execCommand('insertText')` and
@@ -1024,7 +1044,10 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   `fetch(`, `sendBeacon`, `XMLHttpRequest`, `WebSocket`, `EventSource`, workers,
   dynamic import, `Image(`, `.src`; `postMessage`), run strings as code, assign
   or compound-assign a value or a location, build any element but the probe's
-  one off-screen textarea, write any attribute outside `KEYBOARD_ATTRS`, name
+  one off-screen textarea, write any attribute outside `KEYBOARD_ATTRS` (the
+  probe textarea's five, the mode marker, each key's `data-letter`, the Shift
+  and Caps Lock `aria-pressed`, and `lang`, `translate` and `class` on each
+  key's name span), name
   any hostname or URL but the one Deploy Preview pattern behind
   `?kbmode=fallback` (exactly once), or touch any `window` property beyond its
   storage, `gtag`, scrolling, `matchMedia` and `CYRILLIC_DATA`. Copy writes to
