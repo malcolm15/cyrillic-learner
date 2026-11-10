@@ -1057,7 +1057,7 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   the clipboard only inside its click handler; the page never reads the
   clipboard; with the box empty it announces "Nothing to copy" and writes
   nothing. What Copy reports is announced once by the sr-only status region
-  and shown for a moment in the aria-hidden note under the action row (1.5 s,
+  and shown for a moment in the aria-hidden note over the Copy button (1.5 s,
   6 s for the failure wording), each message replacing the last, restarting
   the timer and ignoring a stale result; "Keyboard page passed" pins the
   note's markup. Three settings
@@ -1805,10 +1805,11 @@ Its limits, which are why it is not a malware scanner:
     setting is a prerequisite (Journey Settings, Consent Management; enabled
     by the owner on 2026-11-10; with it off, an EU accept produced only a
     TCF-derived ad update and no analytics_storage update, confirmed in Tag
-    Assistant that day). How Journey sends those updates is
-    undocumented (no Journey page says its script calls
-    `gtag('consent', 'update', ...)`) and unverified until the owner's Tag
-    Assistant run.
+    Assistant that day). How Journey sends those updates is undocumented (no
+    Journey page says so); the owner's Tag Assistant run on 2026-11-10
+    observed Consent Update events after Journey's accept and reject actions
+    and again on later page loads, without identifying which script issued
+    them.
   - "Consent defaults passed" (`assertConsentDefaults` in
     `scripts/pre-render.js`) fails the build unless `CONSENT_REGIONS` holds 32
     sorted codes, each once; GA4's inline script in `index.html` holds exactly
