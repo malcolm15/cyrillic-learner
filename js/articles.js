@@ -4391,6 +4391,8 @@ const ARTICLES = [
 
             <p>Then move on to simple Russian words. "мама" (mama), "да" (yes), "нет" (no). Build up your vocabulary while practicing your letter recognition.</p>
 
+            <p>Ready to type what you can read? Our <a href="/russian-keyboard">online Russian keyboard</a> puts most letters on the English key that sounds like them, or switches to the standard Russian layout, with nothing to install.</p>
+
             <p>The alphabet is your foundation. Everything else in Russian builds on this. So take your time, use this chart as much as you need, and don't rush. Getting the alphabet solid now will save you countless hours of confusion later.</p>
 
             <div class="share-section">
