@@ -1110,6 +1110,21 @@ anchoring could undo it when the selection card collapsed, and an answer box
 only partly under the nav got no scroll at all, so the quiz could land
 off-screen.
 
+**Homepage hero on short desktop windows (ledger row 389).** Journey's sticky
+unit covers the bottom of the homepage's selection card on laptop screens, so
+`@media (min-width: 769px) and (max-height: 974px)` in `css/styles.css` tightens
+the hero above it: no margin under the logo, line-height 1 on the heading, the
+tagline's margins 2px above and 4px below, and 4px under the header. That
+reclaims 23px: at 1728x910 the card's bottom moves from 825 to 802 (the
+Begin Learning button's from 807 to 784). The rules are scoped to
+`#home-page.active:not(:has(> #quiz-container.active))`, the landing state
+only, so the quiz screen (where the header stays in the document), the other
+shell routes and `/es`, which shares the hero's classes, are unaffected, and
+the learning state measures exactly as before. Taller windows keep today's
+spacing (975px is where the untrimmed card clears a 150px band), and browsers
+without `:has()` drop the rules and keep it too. Spacing only: no font size,
+copy or markup changed.
+
 ## SPA routing and canonicals
 
 Direct-load routing: `handleInitialURL()` in core.js, for article paths, no longer
