@@ -3207,6 +3207,25 @@
             color: white;
             cursor: pointer;
         }
+        /* The prose below the tool (the kb-prose card, pinned once by "Keyboard
+           page passed"): space between paragraphs, lists and list items at every
+           width, and a measure of about 72 characters on desktop only. Nothing
+           styles the card box, so the tool card and the one-screen fit are
+           untouched; lists keep the standalone 30px indent. */
+        .kb-prose .content-text p + p,
+        .kb-prose .content-text ul + p,
+        .kb-prose .content-text p + ul {
+            margin-top: 12px;
+        }
+        .kb-prose .content-text li + li {
+            margin-top: 8px;
+        }
+        @media (min-width: 769px) {
+            .kb-prose h2,
+            .kb-prose .content-text {
+                max-width: 700px;
+            }
+        }
         @media (max-width: 600px) {
             /* A full row is 13 letter keys: the card gives up most of its side
                padding and the keys sit 1px apart, so each is at least 24px wide on a

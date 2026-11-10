@@ -1012,7 +1012,8 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   pointing at text that is no longer there (the build rejects any `.value =`).
   Testing status: Firefox untested as of Batch B (above). VoiceOver on iPhone:
   waived by the owner, unverified; accessibility semantics checked in
-  Chromium's tree.
+  Chromium's tree. Tapping the on-screen keys on an iPhone in Safari: verified
+  by the owner on Deploy Preview 38.
 - **On-screen keys.** A pointer press keeps focus in the box (`pointerdown` and
   `mousedown` are prevented, because iOS honours only the second); a key
   activated from the keyboard moves focus into the box, restores the selection,
@@ -1023,10 +1024,11 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   because a focus from the switch's change handler does not open it on iOS. One
   tap on the box opens it. Off restores `inputmode="none"`, the keys and the
   switch, hides the hint, and focuses the box with `preventScroll`. The system
-  keyboard opening on the tap: unverified on an iPhone after this change, risk
-  accepted by the owner. The switch lives in memory only: it never writes the
-  stored Russian input setting, which applies again unchanged when it goes off,
-  and Esc does nothing while it is on.
+  keyboard opening on the tap: verified by the owner on production on
+  2026-11-09 (iPhone, Safari): with the switch on, one tap on the text box
+  opens the system keyboard, which types as itself. The switch lives in memory
+  only: it never writes the stored Russian input setting, which applies again
+  unchanged when it goes off, and Esc does nothing while it is on.
 - **Focus.** A pointer-made change to the layout radios, the Russian input
   switch or the sound switch returns focus to the box (`preventScroll`); a
   keyboard-made change (Space, Enter, arrows) leaves focus where it is; in phone
@@ -1084,7 +1086,12 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   Shift or Caps Lock. Hover is a light tint, a switched-on key is a solid fill
   with a white label, and `:active` (gold) is the press feedback on touch.
   The phone-keyboard hint sits under the controls row, hidden unless the
-  switch is on ("Keyboard page passed" pins its markup). There is no ad
+  switch is on ("Keyboard page passed" pins its markup). The prose below the
+  tool is one card, `<div class="card kb-prose">`, which "Keyboard page
+  passed" requires exactly once: on desktop only (`@media (min-width: 769px)`)
+  its headings and text are capped at 700px, about 72 characters, and at
+  every width paragraphs and lists sit 12px apart and list items 8px; no rule
+  styles the card box. There is no ad
   sidebar, by the owner's decision (Journey's sidebar documentation could not be
   read; it answered 403), so `journey-sidebar` still appears nowhere.
 
