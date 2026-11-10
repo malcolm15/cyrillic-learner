@@ -732,6 +732,89 @@ function assertNoFreeTextAnalytics(docs) {
     return files.length;
 }
 
+// ---- analytics: Consent Mode defaults (ledger row 386) ----
+//
+// Google applies a consent default only if it is set before any command that
+// sends measurement data (config or event), and gtag.js reads the dataLayer in
+// the order commands are pushed. Journey by Mediavine's script stays last in
+// <head>, so its consent update always comes after GA4's commands; the defaults
+// therefore sit in GA4's own inline block, before gtag('js') and gtag('config'):
+// every consent type denied for CONSENT_REGIONS (the EEA, the UK and
+// Switzerland, the regions of Google's EU user consent policy), every type
+// granted for everyone else, each with wait_for_update 500, then Journey's
+// default_consent event. index.html holds the block, every emitted page
+// inherits it through the template, and 404.html, written by hand, carries the
+// same block byte for byte. The region list is a compliance decision, written
+// here and in index.html so that changing it is a deliberate edit in both.
+const CONSENT_REGIONS = ['AT', 'BE', 'BG', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU',
+    'IE', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'];
+const CONSENT_TYPES = ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'];
+const CONSENT_DEFAULT = "gtag('consent', 'default', {";
+const CONSENT_EVENT = "dataLayer.push({\n            'event': 'default_consent'\n        });";
+const GA4_JS = "gtag('js', new Date());";
+const GA4_CONFIG = "gtag('config', 'G-WZ9MYG6HGE');";
+
+// One consent default command in the GA4 block, from its opening to its "});".
+function consentCommand(block, from) {
+    const start = block.indexOf(CONSENT_DEFAULT, from);
+    const end = start === -1 ? -1 : block.indexOf('});', start);
+    if (end === -1) fail('index.html: could not read a consent default in the GA4 inline block');
+    return { at: start, end: end + 3, text: block.slice(start, end + 3) };
+}
+
+// docs: [label, html] pairs for 404.html and every emitted page. Returns the
+// number of documents checked, index.html included.
+function assertConsentDefaults(template, docs) {
+    if (CONSENT_REGIONS.length !== 32 || CONSENT_REGIONS.slice().sort().join() !== CONSENT_REGIONS.join() ||
+        new Set(CONSENT_REGIONS).size !== CONSENT_REGIONS.length) {
+        fail('CONSENT_REGIONS must be the 32 codes of the EU 27, IS, LI, NO, GB and CH, sorted, each once');
+    }
+    const configAt = template.indexOf(GA4_CONFIG);
+    const start = configAt === -1 ? -1 : template.lastIndexOf('<script>', configAt);
+    const end = configAt === -1 ? -1 : template.indexOf('</script>', configAt);
+    if (start === -1 || end === -1) fail('index.html: could not find the GA4 inline block around ' + GA4_CONFIG);
+    const block = template.slice(start, end + '</script>'.length);
+    if (countOccurrences(block, CONSENT_DEFAULT) !== 2) {
+        fail('index.html: the GA4 inline block must hold exactly two consent defaults, found ' + countOccurrences(block, CONSENT_DEFAULT));
+    }
+    const regional = consentCommand(block, 0);
+    const global = consentCommand(block, regional.end);
+    const region = /'region': \[([^\]]*)\]/.exec(regional.text);
+    const listed = region ? region[1].split(',').map(function (s) { return s.trim().replace(/^'|'$/g, ''); }) : [];
+    if (listed.join() !== CONSENT_REGIONS.join()) {
+        fail('index.html: the first consent default must name exactly CONSENT_REGIONS, in order (' + CONSENT_REGIONS.join(', ') +
+             '), found ' + (listed.join(', ') || 'none'));
+    }
+    if (countOccurrences(global.text, 'region') !== 0) fail('index.html: the second consent default must apply to every region, with no region list');
+    [[regional, 'denied', 'first (regional)'], [global, 'granted', 'second (global)']].forEach(function (c) {
+        CONSENT_TYPES.forEach(function (t) {
+            if (countOccurrences(c[0].text, "'" + t + "'") !== 1 || countOccurrences(c[0].text, "'" + t + "': '" + c[1] + "'") !== 1) {
+                fail('index.html: the ' + c[2] + ' consent default must set ' + t + " to '" + c[1] + "', once");
+            }
+        });
+        if (countOccurrences(c[0].text, "'wait_for_update': 500") !== 1 || countOccurrences(c[0].text, "': '") !== CONSENT_TYPES.length) {
+            fail('index.html: the ' + c[2] + ' consent default must hold the four consent types and wait_for_update 500, nothing else');
+        }
+    });
+    const order = [regional.at, global.at, block.indexOf(CONSENT_EVENT), block.indexOf(GA4_JS), block.indexOf(GA4_CONFIG)];
+    if (order.some(function (n, i) { return n === -1 || (i > 0 && n <= order[i - 1]); })) {
+        fail("index.html: the GA4 inline block must run the regional default, the global default, the default_consent event, " +
+             "gtag('js') and gtag('config'), in that order");
+    }
+    [['index.html', template]].concat(docs).forEach(function (d) {
+        const at = d[1].indexOf(block);
+        if (countOccurrences(d[1], block) !== 1 || at > d[1].indexOf('</head>')) {
+            fail(d[0] + ": expected GA4's inline block, with its consent defaults, exactly once in <head>, byte for byte as in index.html");
+        }
+        ["gtag('consent'", "'consent'", 'default_consent', 'wait_for_update', "gtag('js'", "gtag('config'"].forEach(function (s) {
+            if (countOccurrences(d[1], s) !== countOccurrences(block, s)) {
+                fail(d[0] + ': "' + s + "\" appears outside GA4's inline block; consent and GA4 commands live only there");
+            }
+        });
+    });
+    return docs.length + 1;
+}
+
 // ---- the Russian keyboard script (ledger row 383) ----
 //
 // js/keyboard.js holds the one layout table and the engine for /russian-keyboard.
@@ -5036,6 +5119,9 @@ function main() {
     // ---- analytics: no typed answer in any served document or script ----
     const freeTextChecked = assertNoFreeTextAnalytics([['index.html', template], ['404.html', notFoundSrc]]
         .concat(emittedPages.map(function (r) { return [r.label, r.html]; })));
+    // ---- analytics: Consent Mode defaults, before GA4's commands, in every document ----
+    const consentChecked = assertConsentDefaults(template, [['404.html', notFoundSrc]]
+        .concat(emittedPages.map(function (r) { return [r.label, r.html]; })));
 
     // ---- the 404 page ----
     const notFound = notFoundSrc;
@@ -5091,6 +5177,9 @@ function main() {
     console.log('Analytics free text passed: no "' + ANALYTICS_FREE_TEXT.join('", "') + '" in ' + freeTextChecked +
                 ' files (index.html, 404.html, ' + totalEmitted + ' emitted pages and every script in js/, read from the folder: ' +
                 ADSENSE_SCRIPTS.join(', ') + '); events carry results and letters, never typed text.');
+    console.log('Consent defaults passed: GA4\'s inline block once in <head>, byte for byte, on ' + consentChecked +
+                ' documents (index.html, 404.html and every emitted page): every consent type denied for ' + CONSENT_REGIONS.length +
+                ' regions, granted elsewhere, wait_for_update 500, then default_consent, gtag(\'js\') and gtag(\'config\'); no consent or GA4 command outside it.');
     console.log('Keyboard script passed: ' + KEYBOARD_SCRIPT + ', ' + keyboardScript.summary + '.');
     STANDALONE_PAGES.filter(function (sp) { return sp.__keyboardKeys; }).forEach(function (sp) {
         console.log('Keyboard page passed: /' + sp.slug + ', ' + sp.__keyboardKeys + ' key buttons exactly as the phonetic table gives them, in on-screen order, ' +

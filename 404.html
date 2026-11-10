@@ -16,6 +16,28 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
+        // Consent Mode defaults, before gtag('js') and gtag('config') so the
+        // first page_view carries them: denied in the EEA, the UK and
+        // Switzerland, granted everywhere else (ledger row 386, CLAUDE.md).
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'region': ['AT', 'BE', 'BG', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU',
+                       'IE', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'],
+            'wait_for_update': 500
+        });
+        gtag('consent', 'default', {
+            'ad_storage': 'granted',
+            'ad_user_data': 'granted',
+            'ad_personalization': 'granted',
+            'analytics_storage': 'granted',
+            'wait_for_update': 500
+        });
+        dataLayer.push({
+            'event': 'default_consent'
+        });
         gtag('js', new Date());
         gtag('config', 'G-WZ9MYG6HGE');
     </script>
