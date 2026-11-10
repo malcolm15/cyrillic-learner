@@ -737,15 +737,16 @@ function assertNoFreeTextAnalytics(docs) {
 // Google applies a consent default only if it is set before any command that
 // sends measurement data (config or event), and gtag.js reads the dataLayer in
 // the order commands are pushed. Journey by Mediavine's script stays last in
-// <head>, so its consent update always comes after GA4's commands; the defaults
-// therefore sit in GA4's own inline block, before gtag('js') and gtag('config'):
-// every consent type denied for CONSENT_REGIONS (the EEA, the UK and
-// Switzerland, the regions of Google's EU user consent policy), every type
-// granted for everyone else, each with wait_for_update 500, then Journey's
-// default_consent event. index.html holds the block, every emitted page
-// inherits it through the template, and 404.html, written by hand, carries the
-// same block byte for byte. The region list is a compliance decision, written
-// here and in index.html so that changing it is a deliberate edit in both.
+// <head>, so anything it pushes, a consent update included, comes after GA4's
+// commands; the defaults therefore sit in GA4's own inline block, before
+// gtag('js') and gtag('config'): every consent type denied for CONSENT_REGIONS
+// (the EEA, the UK and Switzerland, the regions of Google's EU user consent
+// policy), every type granted for everyone else, each with wait_for_update
+// 500, then Journey's default_consent event. index.html holds the block, every
+// emitted page inherits it through the template, and 404.html, written by
+// hand, carries the same block byte for byte. The region list is a compliance
+// decision, written here and in index.html so that changing it is a deliberate
+// edit in both.
 const CONSENT_REGIONS = ['AT', 'BE', 'BG', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU',
     'IE', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'];
 const CONSENT_TYPES = ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'];

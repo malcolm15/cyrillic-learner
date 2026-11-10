@@ -1770,8 +1770,10 @@ Its limits, which are why it is not a malware scanner:
   required order between a regional and a global default; the regional one
   comes first, as in Google's own samples. Every emitted page inherits the
   script through the template. `404.html` is written by hand and carries the
-  same script byte for byte; no consent platform runs there, so visits to it
-  from the 32 regions stay denied.
+  same script byte for byte. No consent platform runs on `404.html`, so a
+  visitor's earlier Journey choice (an EU accept, a US opt-out) cannot be
+  re-applied there; the page carries the defaults only, and visits to it from
+  the 32 regions stay denied.
   - The region list is a compliance decision, not a measurement one. It is
     pinned in two places, the script in `index.html` (with its copy in
     `404.html`) and `CONSENT_REGIONS` in `scripts/pre-render.js`, so a change
@@ -1788,10 +1790,11 @@ Its limits, which are why it is not a malware scanner:
     consent signals is undocumented.
   - `wait_for_update` is a bounded wait, not a guarantee. Google describes it
     as how long to wait before data is sent and documents nothing about the
-    end of the wait, so an update that arrives later applies only to the
-    events after it. Denied consent does not stop all sending: gtag.js still
-    loads for every visitor, and while consent is denied it sends cookieless
-    pings (Google's advanced consent mode).
+    end of the wait, so an update that arrives later reaches the events after
+    it; Google does not say whether earlier hits are re-sent. Denied consent
+    does not stop all sending: gtag.js still loads for every visitor, and
+    while consent is denied it sends cookieless pings (Google's advanced
+    consent mode).
   - The defaults supply the initial state only. The updates (an EU visitor's
     choice, and any change Journey makes for other regions) come from
     Journey's consent platform, so the Journey dashboard's Consent Mode
@@ -1812,8 +1815,8 @@ Its limits, which are why it is not a malware scanner:
     command anywhere outside it.
   - Testing status: Consent Mode effective states: verified only by the owner
     in Tag Assistant; see row 386 for the checklist; the EU scenarios need a
-    real EU connection, not Journey's ?test=gdpr, which forces the banner but
-    not Google's region.
+    real EU connection, not Journey's ?test=gdpr, which forces the banner;
+    nothing documents it changing the region Google uses.
 
 ## Display ads (Journey by Mediavine)
 
