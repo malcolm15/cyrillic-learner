@@ -2798,6 +2798,31 @@
             .setting-item { padding: 12px 0; }
         }
 
+        /* Row 389: on desktop windows shorter than 975px, tighten the homepage hero
+           above the selection card by 22px, so the card ends a little higher above
+           Journey's sticky unit (its band is 150px tall). 975px is where the card's
+           bottom (825px today) clears a 150px band, so taller windows keep today's
+           spacing. Landing state only: #home-page while it is the active page and
+           the quiz is not running (#quiz-container.active marks the quiz; core.js
+           startQuiz adds it and newSession removes it), so the quiz screen, the
+           other shell routes and /es, which shares the hero's classes, are
+           unaffected. Spacing only: no font size, copy or structure changes.
+           Browsers without :has() keep today's spacing. */
+        @media (min-width: 769px) and (max-height: 974px) {
+            #home-page.active:not(:has(> #quiz-container.active)) > header {
+                margin-bottom: 4px;
+            }
+            #home-page.active:not(:has(> #quiz-container.active)) .logo-display {
+                margin-bottom: 0;
+            }
+            #home-page.active:not(:has(> #quiz-container.active)) .subtitle {
+                line-height: 1;
+            }
+            #home-page.active:not(:has(> #quiz-container.active)) .site-description {
+                margin: 2px auto 4px auto;
+            }
+        }
+
         /* ==================== CYRILLIC COPY-PASTE BUTTONS ==================== */
         .copy-char-btn {
             background: var(--paper);
