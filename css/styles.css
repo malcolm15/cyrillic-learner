@@ -3194,6 +3194,29 @@
             flex-wrap: wrap;
             gap: 6px;
             margin-top: 8px;
+            position: relative;
+        }
+        /* What Copy reports ("Copied", "Nothing to copy" or the copy failure),
+           shown for a moment by the script through the hidden attribute. It sits
+           just under the action row, in the gap above the prose card, so showing
+           it never moves the row or the page, and it takes no pointer events, so
+           it never blocks a control. aria-hidden in the markup: #kb-status stays
+           the one announcement. */
+        .kb-copy-note {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            margin-top: 4px;
+            max-width: 100%;
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 2px solid var(--dark-blue);
+            border-radius: 6px;
+            background: white;
+            color: var(--dark-blue);
+            pointer-events: none;
+            z-index: 1;
         }
         .kb-action {
             min-height: 44px;
@@ -3318,6 +3341,11 @@
         body.dark-mode .kb-action:active {
             background: var(--dark-cta-bg-hover);
             border-color: var(--dark-cta-bg-hover);
+        }
+        body.dark-mode .kb-copy-note {
+            border-color: var(--dark-cta-bg);
+            background: var(--dark-surface);
+            color: var(--dark-text);
         }
 
 /* Font Awesome icon spacing in share buttons */

@@ -985,7 +985,7 @@ function assertKeyboardScript(russianLetters) {
     (src.match(/window\.(\w+)/g) || []).forEach(function (w) {
         if (KEYBOARD_WINDOW_PROPS.indexOf(w.slice(7)) === -1) fail(KEYBOARD_SCRIPT + ': reads ' + w + '; it may touch only ' + KEYBOARD_WINDOW_PROPS.join(', '));
     });
-    ['localStorage.getItem(', 'localStorage.setItem(', 'clipboard.writeText('].forEach(function (needle) {
+    ['localStorage.getItem(', 'localStorage.setItem(', 'clipboard.writeText(', "querySelector('#kb-copy-note')"].forEach(function (needle) {
         if (countOccurrences(src, needle) !== 1) fail(KEYBOARD_SCRIPT + ': expected "' + needle + '" exactly once, found ' + countOccurrences(src, needle));
     });
     // Analytics: one call, inside kbTrack, against the allowlist.
@@ -1109,6 +1109,13 @@ function assertKeyboardPage(page, sp, table, answerInputAttrs) {
     }
     if (countOccurrences(main, 'role="status"') !== 1 || countOccurrences(main, '<div id="kb-status" class="sr-only" role="status"></div>') !== 1) {
         fail(label + ': expected exactly one status region, <div id="kb-status" class="sr-only" role="status"></div>');
+    }
+    // The note under the action row: static, empty, hidden and aria-hidden, once, directly after the Copy
+    // button. The script fills it and shows it for a moment; #kb-status stays the one announcement.
+    const COPY_NOTE = '<span id="kb-copy-note" class="kb-copy-note" aria-hidden="true" hidden></span>';
+    if (countOccurrences(main, COPY_NOTE) !== 1 || countOccurrences(page, 'kb-copy-note') !== 2 ||
+        (main.match(/<button type="button" class="kb-action" data-kb="copy">Copy<\/button>\s*<span id="kb-copy-note" class="kb-copy-note" aria-hidden="true" hidden><\/span>/g) || []).length !== 1) {
+        fail(label + ': expected the copy note exactly once, empty and hidden, directly after the Copy button: ' + COPY_NOTE);
     }
     // The prose card below the tool: kb-prose is the only hook for its measure and
     // spacing in css/styles.css, so it is there once and on nothing else.
@@ -5186,7 +5193,7 @@ function main() {
         console.log('Keyboard page passed: /' + sp.slug + ', ' + sp.__keyboardKeys + ' key buttons exactly as the phonetic table gives them, in on-screen order, ' +
                     (sp.__keyboardKeys - sp.__keyboardNamed) + ' letters named in lang ru and ' + sp.__keyboardNamed + ' digit and symbol keys by their spoken names; ' +
                     'the text box lang ru, inputmode none, ' + ANSWER_INPUT_ATTRS.join(' ') + ', with its label and in no form; ' +
-                    KEYBOARD_CONTROLS.length + ' controls, 3 switches and 2 layout radios once each; the phone-keyboard hint once, hidden; one status region; the prose card (kb-prose) once.');
+                    KEYBOARD_CONTROLS.length + ' controls, 3 switches and 2 layout radios once each; the phone-keyboard hint once, hidden; one status region; the copy note (kb-copy-note) once, hidden, after Copy; the prose card (kb-prose) once.');
     });
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +

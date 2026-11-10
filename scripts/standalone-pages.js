@@ -691,6 +691,7 @@ module.exports = [
 
                             <div class="kb-actions">
                                 <button type="button" class="kb-action" data-kb="copy">Copy</button>
+                                <span id="kb-copy-note" class="kb-copy-note" aria-hidden="true" hidden></span>
                                 <button type="button" class="kb-action" data-kb="selectall" data-edit="1">Select All</button>
                                 <button type="button" class="kb-action" data-kb="undo" data-edit="1">Undo</button>
                                 <button type="button" class="kb-action" data-kb="redo" data-edit="1">Redo</button>

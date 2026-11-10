@@ -1056,7 +1056,11 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   storage, `gtag`, scrolling, `matchMedia` and `CYRILLIC_DATA`. Copy writes to
   the clipboard only inside its click handler; the page never reads the
   clipboard; with the box empty it announces "Nothing to copy" and writes
-  nothing. Three settings
+  nothing. What Copy reports is announced once by the sr-only status region
+  and shown for a moment in the aria-hidden note under the action row (1.5 s,
+  6 s for the failure wording), each message replacing the last, restarting
+  the timer and ignoring a stale result; "Keyboard page passed" pins the
+  note's markup. Three settings
   are stored (`kbLayout`, `kbRussianInput`, `kbSound`), each read against its
   allowed values with a default otherwise. The box sits in no form and has
   `spellcheck="false"`. The honest claim, on the page and in the privacy policy

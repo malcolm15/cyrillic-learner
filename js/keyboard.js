@@ -250,6 +250,9 @@
 
     // Ь plays slower, at the rate js/core.js uses for it; scripts/pre-render.js checks the two agree.
     var KB_SOFT_SIGN_RATE = 0.79;
+    // How long the note under the action row stays up: a short confirmation, and the copy failure long enough to read.
+    var KB_NOTE_MS = 1500;
+    var KB_NOTE_FAIL_MS = 6000;
 
     function isCyrillic(ch) {
         if (typeof ch !== 'string' || ch.length !== 1) return false;
@@ -543,14 +546,33 @@
 
         // Copy writes to the clipboard here, inside the Copy click, and nowhere else. The page never reads it.
         var copyingFromButton = false;
+        // What Copy reports is announced once by the status region and shown in the note under the action row,
+        // which is aria-hidden so a screen reader hears it once. Each message replaces the last and restarts the
+        // timer, so an earlier timeout never hides a newer message.
+        var copyNote = root.querySelector('#kb-copy-note');
+        var copyNoteTimer = null;
+        function copyMessage(msg, ms) {
+            announce(msg);
+            copyNote.textContent = msg;
+            copyNote.hidden = false;
+            clearTimeout(copyNoteTimer);
+            copyNoteTimer = setTimeout(function () { copyNote.hidden = true; }, ms);
+        }
+        // Clipboard promises can settle out of order. Every click, an empty-box click included, takes the next
+        // generation, and a result reports only while its generation is still the latest. A stale success is
+        // still counted (it did copy) but reports nothing; a stale failure does not try the selection copy at all.
+        var copyGeneration = 0;
         function copyAll() {
+            var gen = ++copyGeneration;
+            var current = function () { return gen === copyGeneration; };
             // An empty box: nothing is written to the clipboard and nothing is counted.
-            if (box.value === '') { announce('Nothing to copy'); return; }
+            if (box.value === '') { copyMessage('Nothing to copy', KB_NOTE_MS); return; }
             var copied = function () {
-                announce('Copied');
                 kbTrack('keyboard_copied', { method: 'button' });
+                if (current()) copyMessage('Copied', KB_NOTE_MS);
             };
             var viaSelection = function () {
+                if (!current()) return;
                 inBox(function () {
                     var s = box.selectionStart, e = box.selectionEnd, d = box.selectionDirection;
                     box.select();
@@ -559,7 +581,7 @@
                     copyingFromButton = false;
                     box.setSelectionRange(s, e, d);
                     if (ok) copied();
-                    else announce('Copy did not work here. Select the text and use your browser\'s copy.');
+                    else copyMessage('Copy did not work here. Select the text and use your browser\'s copy.', KB_NOTE_FAIL_MS);
                 });
             };
             if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
