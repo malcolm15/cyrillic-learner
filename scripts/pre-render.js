@@ -1026,6 +1026,11 @@ function assertKeyboardPage(page, sp, table, answerInputAttrs) {
     if (countOccurrences(main, 'role="status"') !== 1 || countOccurrences(main, '<div id="kb-status" class="sr-only" role="status"></div>') !== 1) {
         fail(label + ': expected exactly one status region, <div id="kb-status" class="sr-only" role="status"></div>');
     }
+    // The prose card below the tool: kb-prose is the only hook for its measure and
+    // spacing in css/styles.css, so it is there once and on nothing else.
+    if (countOccurrences(main, '<div class="card kb-prose">') !== 1 || countOccurrences(page, 'kb-prose') !== 1) {
+        fail(label + ': expected the prose card <div class="card kb-prose"> exactly once in <main>, and kb-prose nowhere else on the page');
+    }
     return checked;
 }
 
@@ -5091,7 +5096,7 @@ function main() {
         console.log('Keyboard page passed: /' + sp.slug + ', ' + sp.__keyboardKeys + ' key buttons exactly as the phonetic table gives them, in on-screen order, ' +
                     (sp.__keyboardKeys - sp.__keyboardNamed) + ' letters named in lang ru and ' + sp.__keyboardNamed + ' digit and symbol keys by their spoken names; ' +
                     'the text box lang ru, inputmode none, ' + ANSWER_INPUT_ATTRS.join(' ') + ', with its label and in no form; ' +
-                    KEYBOARD_CONTROLS.length + ' controls, 3 switches and 2 layout radios once each; the phone-keyboard hint once, hidden; one status region.');
+                    KEYBOARD_CONTROLS.length + ' controls, 3 switches and 2 layout radios once each; the phone-keyboard hint once, hidden; one status region; the prose card (kb-prose) once.');
     });
     console.log('Internal links passed: ' + internalLinksChecked + ' anchors across index.html and ' +
                 totalEmitted + ' emitted pages, every target resolves, every navTo slug matches its href, and ' +

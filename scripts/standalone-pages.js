@@ -571,7 +571,7 @@ module.exports = [
         h1: 'Russian Keyboard Online',
         keySentence: 'Type Russian with the keyboard you already have.',
         published: '2026-11-08',
-        modified: '2026-11-08',
+        modified: '2026-11-10',
         breadcrumbName: 'Russian Keyboard',
         schema: { audience: false },
         // The keyboard's own checks: every Cyrillic letter in <main> guarded, and
@@ -700,19 +700,40 @@ module.exports = [
                         </div>
                     </div>
 
-                    <div class="card">
-                        <h2>How the two layouts work</h2>
+                    <div class="card kb-prose">
+                        <h2>Type Russian online with an English keyboard</h2>
                         <div class="content-text">
-                            <p>The phonetic layout puts most Russian letters on the Latin key that sounds like them: A types${ru(' а, ')}B types${ru(' б ')}and D types${ru(' д.')}</p>
-                            <p>Letters with no Latin match go on nearby keys:${ru(' я ')}is on Q,${ru(' ш ')}on W,${ru(' ы ')}on Y,${ru(' ч ')}on H,${ru(' ж ')}on the apostrophe key and${ru(' ь ')}on the semicolon key. This is the AATSEEL student layout, named after the American Association of Teachers of Slavic and East European Languages.</p>
-                            <p>${ru('ЙЦУКЕН ')}is the standard Russian layout, named after the first six letters of its top row. Its letters sit where they do on Russian keyboards, so what you learn here carries over to a real one.</p>
+                            <p>You do not need a Russian keyboard or any new settings. Pick a layout, type in the box, and copy the result wherever you need it.</p>
+                            <ul>
+                                <li><strong>Phonetic (AATSEEL).</strong> Most Russian letters sit on the Latin key that sounds like them: A types${ru(' а, ')}B types${ru(' б ')}and D types${ru(' д. ')}Letters with no single Latin match take a nearby key:${ru(' я ')}on Q,${ru(' ш ')}on W,${ru(' ч ')}on H,${ru(' ж ')}on the apostrophe key and${ru(' ь ')}on the semicolon key. This is the AATSEEL student layout (the American Association of Teachers of Slavic and East European Languages), and the right start if you already type on an English keyboard.</li>
+                                <li><strong>Standard Russian${ru(' (ЙЦУКЕН).')}</strong> The standard Russian layout as Windows PCs use it, named after the first six letters of its top letter row. Its letters sit where they do on a Russian PC keyboard, so what you learn here carries over to a real one, but most positions differ from English, so expect some practice. Choose it when you want the standard key positions.</li>
+                            </ul>
                         </div>
 
                         <h2>Using the keyboard</h2>
                         <div class="content-text">
-                            <p>Type with your own keyboard, or click the keys on the screen. Each key shows the letter it types, with the key you would press in small print. Shift and Caps Lock work too.</p>
-                            <p>Press Esc to turn Russian input off and type Latin letters, and turn it back on with the Russian input switch. Undo, Redo and your browser's own shortcuts work on everything you type.</p>
-                            <p>On a phone, tap the keys on the screen, or turn on Use my phone keyboard to type with your phone's own Russian keyboard.</p>
+                            <ul>
+                                <li><strong>Layout.</strong> Phonetic or Standard Russian. The keys on the screen redraw to match, and the small print on each key shows the matching key on a US English keyboard.</li>
+                                <li><strong>Russian input.</strong> On by default, and it controls your own keyboard: on, your keys type Russian; off, they type as they normally do. Press Esc to turn it off in a hurry; the switch turns it back on. The keys on the screen type Russian either way.</li>
+                                <li><strong>Shift and Caps Lock.</strong> On the screen, Shift changes the next letter, digit or symbol you click and then turns off; Space and the editing buttons do not release it. Caps Lock on the screen stays on until you click it again, and it also capitalises the letters the page types from your own keyboard. Your own Shift and Caps Lock keys work too. With either Caps Lock on, Shift reverses the case of the letters the page types.</li>
+                                <li><strong>Letter sounds.</strong> Off by default. Turn it on to hear a letter each time the page types one for you, from the keys on the screen or from your own keys with Russian input on. The clips are real recordings, not a synthesized voice.</li>
+                                <li><strong>Use my phone keyboard.</strong> Shown on touch screens. Turn it on, then tap the text box, to type with your phone's own keyboard. It types whatever that keyboard types: for Russian, add a Russian keyboard in your phone's settings and switch to it (the globe key on an iPhone; on Android, the globe key or a long press on the space bar). Turn it off to bring the keys on the screen back.</li>
+                                <li><strong>Copy, Select All, Undo, Redo and Clear.</strong> Copy puts everything in the box on your clipboard. Undo and Redo work on everything you type, and so do your browser's own shortcuts. Clear empties the box; Undo brings the text back.</li>
+                            </ul>
+                            <p>Cyrilica remembers your layout, Russian input and letter sound choices in your browser, so they are ready next time.</p>
+                        </div>
+
+                        <h2>Common questions</h2>
+                        <div class="content-text">
+                            <p><strong>How do I type${ru(' ё, ъ, ь, э, ю ')}and${ru(' щ ')}on the phonetic layout?</strong> They sit on the symbol keys:${ru(' ё ')}on the backquote key (left of the 1 key),${ru(' ъ ')}on the equals key,${ru(' э ')}on the backslash key (the one marked # on a UK keyboard),${ru(' ю ')}on the left bracket,${ru(' щ ')}on the right bracket and${ru(' ь ')}on the semicolon key. Every key on the screen shows its US key in small print, so you can always look.</p>
+                            <p><strong>How do I type a semicolon or a colon on the phonetic layout?</strong> The semicolon and apostrophe keys hold${ru(' ь ')}and${ru(' ж, ')}so Shift+comma gives a semicolon and Shift+period gives a colon.</p>
+                            <p><strong>Where are the period and comma on the standard layout?</strong> On the key to the right of the letters, where an English keyboard has the slash: period on its own, comma with Shift. The number row follows Russian keyboards too, so Shift+2 gives a quotation mark and Shift+3 gives${ru(' №.')}</p>
+                            <p><strong>Can I use it on an iPhone?</strong> Yes, in Safari with nothing to install: tap the keys on the screen, in either layout. If you have a Russian keyboard installed on your phone, turn on Use my phone keyboard and tap the text box to type with it.</p>
+                            <p><strong>Does it work with a German, French or other non-US keyboard?</strong> Mostly. The phonetic layout follows the letter your keyboard actually types, so Z gives${ru(' з ')}wherever Z sits. The standard layout follows key position. Either way, a key your system treats as a dead key (one that waits for an accent) is left alone; use the key on the screen for that letter. On the phonetic layout, digits type as they do on your own keyboard.</p>
+                            <p><strong>What if my computer is already set to a Russian keyboard?</strong> Press Esc, or turn Russian input off, and the page leaves every key to your system. With Russian input on, letters your system types in Cyrillic go through unchanged, but the page still remaps a few symbol keys to its own letters (and, on the standard layout, some punctuation), so turning it off is simpler.</p>
+                            <p><strong>Is my text saved or sent anywhere?</strong> Cyrilica's own code never saves or sends what you type. The page also loads Google Analytics and Journey by Mediavine, which run their own code; see our <a href="/privacy">privacy policy</a>.</p>
+                            <p><strong>My phone's keyboard will not open, or the keys on the screen disappeared.</strong> Both come from the Use my phone keyboard switch. With it off, the page keeps your phone's keyboard closed so the keys on the screen can do the typing. Turn it on and tap the text box to use your phone's keyboard instead; it then types whatever that keyboard types, so for Russian switch your phone to a Russian keyboard (the globe key on an iPhone; on Android, the globe key or a long press on the space bar). Turn the switch off to bring the keys on the screen back.</p>
+                            <p><strong>I turned Letter sounds on and hear nothing.</strong> Sounds play only for the 33 letters, and only when the page itself types them: digits and punctuation are silent, and so is a Russian keyboard your computer or phone already provides. Check your volume.</p>
                         </div>
 
                         <h2>Other ways to write Russian</h2>
