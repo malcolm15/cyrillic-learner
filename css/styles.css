@@ -3194,6 +3194,37 @@
             flex-wrap: wrap;
             gap: 6px;
             margin-top: 8px;
+            position: relative;
+        }
+        /* What Copy reports ("Copied", "Nothing to copy" or the copy failure),
+           shown for a moment by the script through the hidden attribute. It sits
+           over the Copy button, so it is visible whenever the button is, and for
+           the short messages it covers the control just used and nothing else.
+           Showing it never moves the row or the page, and it takes no pointer
+           events, so a tap reaches the control under it. aria-hidden in the
+           markup: #kb-status stays the one announcement. display: flex would
+           override the hidden attribute, so [hidden] is restated below. */
+        .kb-copy-note {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin-top: 0;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            max-width: 100%;
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 2px solid var(--dark-blue);
+            border-radius: 6px;
+            background: white;
+            color: var(--dark-blue);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .kb-copy-note[hidden] {
+            display: none;
         }
         .kb-action {
             min-height: 44px;
@@ -3318,6 +3349,11 @@
         body.dark-mode .kb-action:active {
             background: var(--dark-cta-bg-hover);
             border-color: var(--dark-cta-bg-hover);
+        }
+        body.dark-mode .kb-copy-note {
+            border-color: var(--dark-cta-bg);
+            background: var(--dark-surface);
+            color: var(--dark-text);
         }
 
 /* Font Awesome icon spacing in share buttons */

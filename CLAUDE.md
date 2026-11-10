@@ -1056,7 +1056,11 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   storage, `gtag`, scrolling, `matchMedia` and `CYRILLIC_DATA`. Copy writes to
   the clipboard only inside its click handler; the page never reads the
   clipboard; with the box empty it announces "Nothing to copy" and writes
-  nothing. Three settings
+  nothing. What Copy reports is announced once by the sr-only status region
+  and shown for a moment in the aria-hidden note over the Copy button (1.5 s,
+  6 s for the failure wording), each message replacing the last, restarting
+  the timer and ignoring a stale result; "Keyboard page passed" pins the
+  note's markup. Three settings
   are stored (`kbLayout`, `kbRussianInput`, `kbSound`), each read against its
   allowed values with a default otherwise. The box sits in no form and has
   `spellcheck="false"`. The honest claim, on the page and in the privacy policy
@@ -1798,11 +1802,14 @@ Its limits, which are why it is not a malware scanner:
   - The defaults supply the initial state only. The updates (an EU visitor's
     choice, and any change Journey makes for other regions) come from
     Journey's consent platform, so the Journey dashboard's Consent Mode
-    setting is a prerequisite (Journey Settings, Consent Management; on since
-    2026-11-09, by the owner's account). How Journey sends those updates is
-    undocumented (no Journey page says its script calls
-    `gtag('consent', 'update', ...)`) and unverified until the owner's Tag
-    Assistant run.
+    setting is a prerequisite (Journey Settings, Consent Management; enabled
+    by the owner on 2026-11-10; with it off, an EU accept produced only a
+    TCF-derived ad update and no analytics_storage update, confirmed in Tag
+    Assistant that day). How Journey sends those updates is undocumented (no
+    Journey page says so); the owner's Tag Assistant run on 2026-11-10
+    observed Consent Update events after Journey's accept and reject actions
+    and again on later page loads, without identifying which script issued
+    them.
   - "Consent defaults passed" (`assertConsentDefaults` in
     `scripts/pre-render.js`) fails the build unless `CONSENT_REGIONS` holds 32
     sorted codes, each once; GA4's inline script in `index.html` holds exactly
@@ -1813,10 +1820,13 @@ Its limits, which are why it is not a malware scanner:
     order; and `index.html`, `404.html` and every emitted page carry that
     script exactly once in `<head>`, byte for byte, with no consent or GA4
     command anywhere outside it.
-  - Testing status: Consent Mode effective states: verified only by the owner
-    in Tag Assistant; see row 386 for the checklist; the EU scenarios need a
-    real EU connection, not Journey's ?test=gdpr, which forces the banner;
-    nothing documents it changing the region Google uses.
+  - Testing status: Consent Mode effective states: verified by the owner in
+    Tag Assistant on 2026-11-10 (US fresh default Granted; EU default Denied,
+    accept Granted with update re-sent per page, decline Denied, no GA4
+    cookie before consent); Journey's script also pushes its own all-denied
+    default after Config and then a grant for non-consent regions, so a US
+    visitor is briefly Denied between them; 1b and the 404 rows untested by
+    hand.
 
 ## Display ads (Journey by Mediavine)
 
@@ -1963,6 +1973,18 @@ releases.
   the in-content video inside a tool, but does not affect the page-level
   adhesion (sticky footer) ad. Removing that from a page needs the blocklist,
   which is a separate decision.
+- **The sticky (adhesion) unit and the footer.** Observed on production on
+  2026-11-10 in the owner's Safari Web Inspector, not documented by Journey:
+  when the sticky (adhesion) unit is present, Journey's script adds the body
+  classes `mv-loaded`, `mv-device-desktop`, `adhesion` and
+  `highImpact_adhesion` and injects
+  `body.adhesion.highImpact_adhesion { padding-bottom: 150px !important }`
+  (90px for plain adhesion), so the footer stays above the unit and the site
+  reserves no space of its own. A harness with Journey blocked will always
+  show the footer under a simulated band; that is not a defect. Journey also
+  documents per-device adhesion blocklist attributes
+  (`data-blocklist-adhesion-desktop`, `-tablet` and `-mobile`) that are not in
+  `AD_BLOCKLIST_VOCABULARY`; they are unused.
 - The class has no CSS and no script reads it. A wrapper changes what a
   structural selector (`:first-of-type`, `:first-child`, `>`) matches inside it:
   `.copy-section-label:first-of-type`, which matched no label before the row 375
