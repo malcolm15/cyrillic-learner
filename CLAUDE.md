@@ -1755,6 +1755,68 @@ Its limits, which are why it is not a malware scanner:
   `selected_text` and `clipboard_text` are banned the same way. A new event
   parameter that could carry typed text must not be added; add any such name to
   `ANALYTICS_FREE_TEXT`.
+- **Consent Mode defaults (ledger row 386).** GA4's inline script in
+  `index.html`, after `function gtag` and before `gtag('js')` and
+  `gtag('config')`, sets two Consent Mode defaults and then pushes Journey's
+  `default_consent` event. First, all four consent types (`ad_storage`,
+  `ad_user_data`, `ad_personalization`, `analytics_storage`) are denied for
+  the 32 regions in `CONSENT_REGIONS`: the EU 27, IS, LI, NO, GB and CH, the
+  EEA, the UK and Switzerland that Google's EU user consent policy covers.
+  Second, all four are granted with no region, which applies to every visitor
+  outside that list. Each sets `wait_for_update: 500`. The order matters:
+  Google applies a default only if it is set before any command that sends
+  measurement data (`config` sends the first page_view), and gtag.js reads the
+  dataLayer in the order commands are pushed. Google's documentation gives no
+  required order between a regional and a global default; the regional one
+  comes first, as in Google's own samples. Every emitted page inherits the
+  script through the template. `404.html` is written by hand and carries the
+  same script byte for byte. No consent platform runs on `404.html`, so a
+  visitor's earlier Journey choice (an EU accept, a US opt-out) cannot be
+  re-applied there; the page carries the defaults only, and visits to it from
+  the 32 regions stay denied.
+  - The region list is a compliance decision, not a measurement one. It is
+    pinned in two places, the script in `index.html` (with its copy in
+    `404.html`) and `CONSENT_REGIONS` in `scripts/pre-render.js`, so a change
+    to it is a deliberate edit in both. It follows the scope of Google's EU
+    user consent policy; Journey's documentation does not publish a full list
+    of the regions where its consent banner shows.
+  - The global granted default is a deliberate policy choice, not a
+    reproduction of the state before row 386, when no consent value was set
+    at all. Google distinguishes the two: its documentation describes the
+    unset state as behaving as if consent were granted, with possible
+    regional differences for the EEA, the UK and Switzerland that it does not
+    explain, and one Google page groups unset with not granted. How Journey
+    maps a US opt-out (Do Not Sell or Share, Global Privacy Control) to
+    consent signals is undocumented.
+  - `wait_for_update` is a bounded wait, not a guarantee. Google describes it
+    as how long to wait before data is sent and documents nothing about the
+    end of the wait, so an update that arrives later reaches the events after
+    it; Google does not say whether earlier hits are re-sent. Denied consent
+    does not stop all sending: gtag.js still loads for every visitor, and
+    while consent is denied it sends cookieless pings (Google's advanced
+    consent mode).
+  - The defaults supply the initial state only. The updates (an EU visitor's
+    choice, and any change Journey makes for other regions) come from
+    Journey's consent platform, so the Journey dashboard's Consent Mode
+    setting is a prerequisite (Journey Settings, Consent Management; on since
+    2026-11-09, by the owner's account). How Journey sends those updates is
+    undocumented (no Journey page says its script calls
+    `gtag('consent', 'update', ...)`) and unverified until the owner's Tag
+    Assistant run.
+  - "Consent defaults passed" (`assertConsentDefaults` in
+    `scripts/pre-render.js`) fails the build unless `CONSENT_REGIONS` holds 32
+    sorted codes, each once; GA4's inline script in `index.html` holds exactly
+    two consent defaults, the first denying all four types for exactly
+    `CONSENT_REGIONS`, in that order, and the second granting all four with no
+    region, each with `wait_for_update: 500` and nothing else; the two
+    defaults, `default_consent`, `gtag('js')` and `gtag('config')` run in that
+    order; and `index.html`, `404.html` and every emitted page carry that
+    script exactly once in `<head>`, byte for byte, with no consent or GA4
+    command anywhere outside it.
+  - Testing status: Consent Mode effective states: verified only by the owner
+    in Tag Assistant; see row 386 for the checklist; the EU scenarios need a
+    real EU connection, not Journey's ?test=gdpr, which forces the banner;
+    nothing documents it changing the region Google uses.
 
 ## Display ads (Journey by Mediavine)
 
@@ -1771,7 +1833,10 @@ releases.
   inherits it: the six shell routes, the 28 articles, `/articles`, `/teachers`,
   `/es` and `/russian-keyboard`. `404.html` never carries it: error and dead-end
   screens carry no ads. Do not move it, defer it, load it from another script,
-  or add anything after it in `<head>`.
+  or add anything after it in `<head>`. It stays last with Consent Mode in
+  place: the defaults (see "Consent Mode defaults" under "Security and
+  analytics") sit in GA4's inline script, earlier in `<head>`, which runs
+  before the parser reaches this tag, so they do not depend on its position.
 - **Emitted pages.** `scripts/pre-render.js` holds the tag as `JOURNEY_TAG` and
   the comment, tag and `</head>` as `JOURNEY_BLOCK`. Its template needle
   `T.adTail` is that block, and the article schema blocks and `/es`'s
