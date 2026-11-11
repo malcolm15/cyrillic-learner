@@ -987,11 +987,17 @@ on desktop and mobile (other units stay; see "Page controls" under Display ads).
   equals `event.key`, so a digit or symbol lights only when the on-screen Shift
   matches the physical one, and a UK or German layout's differing symbols never
   light. Nothing lights with input off, in phone mode, during a composition or a
-  dead key, or with Ctrl, Cmd or Alt held. A held physical Shift lights the
-  on-screen Shift (`kb-held`, read from each key event's `shiftKey` and never
-  stored; cleared on the box's focusout, with input off and in phone mode; it
-  never touches `shiftOnce` or `aria-pressed`). There is no window listener,
-  because the light exists only while the box has focus.
+  dead key, or with Ctrl, Cmd or Alt held. A held physical Shift and the
+  computer's Caps Lock light their on-screen buttons (`kb-held`, set by
+  `heldKeys` from each key event and from a pointerdown on the box, through
+  `shiftKey` and `getModifierState('CapsLock')`, never stored), with the same
+  eligibility: Russian input on, not in phone mode, no Ctrl, Cmd or Alt down.
+  `dropHeld` clears both on the box's focusout, with input off and in phone
+  mode. Neither light touches `shiftOnce`, `state.caps`, `aria-pressed` or the
+  glyphs: the on-screen keys still follow the on-screen Shift and Caps Lock
+  only. A Caps Lock changed while the box lacked focus shows on the next click
+  in the box or keystroke. There is no window listener, because the lights
+  exist only while the box has focus.
 - **The engine and its modes.** Every edit goes through one insertion function
   per mode, chosen once at load by a probe and never changed. The probe types
   two letters into an off-screen textarea with `execCommand('insertText')` and
