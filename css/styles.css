@@ -3204,7 +3204,8 @@
             border-color: var(--red);
         }
         .kb-key.kb-pressed,
-        .kb-ctl.kb-pressed {
+        .kb-ctl.kb-pressed,
+        .kb-ctl.kb-held {
             background: var(--gold);
             color: var(--charcoal);
         }
@@ -3357,7 +3358,8 @@
             color: var(--dark-bg);
         }
         body.dark-mode .kb-key.kb-pressed,
-        body.dark-mode .kb-ctl.kb-pressed {
+        body.dark-mode .kb-ctl.kb-pressed,
+        body.dark-mode .kb-ctl.kb-held {
             background: var(--dark-accent-2);
             color: var(--dark-bg);
         }
