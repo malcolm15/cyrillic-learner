@@ -614,6 +614,7 @@
         // ---- the switches and the layout choice ----
         function setInput(on) {
             state.input = on;
+            if (!on) dropHeldShift();
             inputSwitch.checked = on;
             writePref('kbRussianInput', on ? 'on' : 'off');
             announce(on ? 'Russian input on' : 'Russian input off');
@@ -669,6 +670,7 @@
         phoneSwitch.addEventListener('change', function () {
             state.phone = phoneSwitch.checked;
             if (state.phone) {
+                dropHeldShift();
                 box.removeAttribute('inputmode');
                 keysBox.hidden = true;
                 inputSwitch.disabled = true;
@@ -726,8 +728,8 @@
         // other key lights the key at its position only if that key's current character equals event.key, so a digit
         // or symbol lights only when the on-screen Shift matches the physical one: with the on-screen Shift on, a
         // physical unshifted 1 types "1" while the key shows "!", and with it off, a physical Shift+1 types "!" while
-        // the key shows "1", and neither lights. A UK Shift+2 (") or a German Minus (ß) never lights a key. Shift,
-        // Caps Lock and every other key light nothing.
+        // the key shows "1", and neither lights. A UK Shift+2 (") or a German Minus (ß) never lights a key. Caps
+        // Lock and every other key light nothing; a held physical Shift lights the on-screen Shift (heldShift).
         var ctlByCode = { Space: 'space', Backspace: 'backspace', Delete: 'delete', Enter: 'enter', NumpadEnter: 'enter' };
         function flashThrough(e) {
             if (leftAlone(e)) return;
@@ -742,7 +744,18 @@
             }
             flash(el);
         }
+        // A held physical Shift lights the on-screen Shift (the kb-held class) while it can change what the page
+        // types: Russian input on, not in phone mode, no Ctrl, Cmd or Alt down. It is read from each key event's
+        // own shiftKey and never stored, so either Shift lights it, it stays until the last Shift goes up, a Ctrl,
+        // Cmd or Alt press clears it and its release with Shift still down brings it back. A composition keystroke
+        // says nothing reliable about Shift and changes nothing. It never touches state.shiftOnce or aria-pressed.
+        function heldShift(e) {
+            if (e.isComposing || state.composing || e.keyCode === 229) return;
+            shiftBtn.classList.toggle('kb-held', e.shiftKey && state.input && !state.phone && !e.ctrlKey && !e.metaKey && !e.altKey);
+        }
+        function dropHeldShift() { shiftBtn.classList.remove('kb-held'); }
         box.addEventListener('keydown', function (e) {
+            heldShift(e);
             if (mode === 'fallback' && (e.metaKey || e.ctrlKey) && !e.altKey) {
                 // The letter decides, as the browser's own shortcut does: event.key when it is a Latin letter; the
                 // key's place only when event.key is a letter of another script (an OS Russian layout types я on
@@ -772,6 +785,9 @@
             flash(keyByCode[m.code]);
             if (insert(m.ch, 'type')) { used('physical'); playLetter(m.ch); }
         });
+        box.addEventListener('keyup', heldShift);
+        // Focus leaving the box ends any held light, including when the whole window loses focus with the box in it.
+        box.addEventListener('focusout', dropHeldShift);
         box.addEventListener('compositionstart', function () {
             state.composing = true;
             if (mode === 'fallback') hist.compBefore = hist.pending || snap();
